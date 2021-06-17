@@ -43,5 +43,9 @@ export default {
 		babel: {
 			compact: true
 		}
+	},
+
+	serverMiddleware: {
+		'/api': '~/server-middleware/api.js'
 	}
 };
