@@ -46,6 +46,6 @@ export default {
 	},
 
 	serverMiddleware: {
-		'/api': '~/server-middleware/api.js'
+		'/api': '~/server/api.js'
 	}
 };
