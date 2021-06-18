@@ -22,7 +22,21 @@ async function query(statement, args) {
 	return rows;
 }
 
+function sqlize(obj) {
+	const entries = Object.entries(obj);
+	const fields = entries.map(e => e[0]);
+	const values = entries.map(e => e[1]);
+	return {
+		fields,
+		values,
+		cols: fields.join(', '),
+		sets: fields.map(f => f + ' = ?').join(', '),
+		qmarks: values.map(_ => '?').join(', ')
+	};
+}
+
 module.exports = {
 	init,
-	query
+	query,
+	sqlize
 };
