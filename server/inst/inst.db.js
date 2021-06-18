@@ -40,6 +40,13 @@ async function findByName(name) {
 }
 
 /**
+ * @param {Number} id
+ */
+function remove(id) {
+	return db.query('DELETE FROM inst WHERE id = ?', [id]);
+}
+
+/**
  * @param {Inst} inst
  */
 function update(inst) {
@@ -55,5 +62,6 @@ module.exports = {
 	findAll,
 	findById,
 	findByName,
+	remove,
 	update
 };
