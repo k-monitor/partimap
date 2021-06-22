@@ -8,7 +8,7 @@ db.init(); // async but no need to wait here
 
 app.use(bodyParser.json());
 
-app.use('/inst', inst);
-app.use('/user', user);
+app.use('/', inst);
+app.use('/', user);
 
 module.exports = app;
