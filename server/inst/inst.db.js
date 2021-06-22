@@ -5,38 +5,31 @@ const Inst = require('../../model/inst');
  * @param {Inst} inst
  * @returns {Number|Boolean}
  */
-async function create(inst) {
-	inst = { ...inst };
-	delete inst.id;
-	const i = db.sqlize(inst);
-	const { insertId } = await db.query(`INSERT IGNORE INTO inst (${i.cols}) VALUES (${i.qmarks})`, i.values);
-	return insertId > 0 ? insertId : false;
+function create(inst) {
+	return db.create('inst', inst, Inst);
 }
 
 /**
  * @returns {Inst[]}
  */
-async function findAll() {
-	const rows = await db.query('SELECT * FROM inst');
-	return rows.map(r => new Inst(r));
+function findAll() {
+	return db.findAll('inst', Inst);
 }
 
 /**
  * @param {Number} id
  * @returns {Inst}
  */
-async function findById(id) {
-	const rows = await db.query('SELECT * FROM inst WHERE id = ?', [id]);
-	return rows.map(r => new Inst(r))[0];
+function findById(id) {
+	return db.findBy('inst', 'id', id, Inst);
 }
 
 /**
  * @param {String} name
  * @returns {Inst}
  */
-async function findByName(name) {
-	const rows = await db.query('SELECT * FROM inst WHERE name = ?', [name]);
-	return rows.map(r => new Inst(r))[0];
+function findByName(name) {
+	return db.findBy('inst', 'name', name, Inst);
 }
 
 /**
@@ -50,11 +43,7 @@ function remove(id) {
  * @param {Inst} inst
  */
 function update(inst) {
-	const { id } = inst;
-	inst = { ...inst };
-	delete inst.id;
-	const i = db.sqlize(inst);
-	return db.query(`UPDATE inst SET ${i.sets} WHERE id = ?`, [...i.values, id]);
+	return db.update('inst', inst, Inst);
 }
 
 module.exports = {

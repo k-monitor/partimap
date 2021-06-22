@@ -2,11 +2,13 @@ const bodyParser = require('body-parser');
 const app = require('express')();
 const db = require('./db');
 const inst = require('./inst/inst.api');
+const user = require('./user/user.api');
 
 db.init(); // async but no need to wait here
 
 app.use(bodyParser.json());
 
 app.use('/inst', inst);
+app.use('/user', user);
 
 module.exports = app;

@@ -54,6 +54,7 @@ export default {
 	},
 	data() {
 		return {
+			// TODO should select with instId instead
 			inst: null, // TODO load inst if logged in as member
 			insts: [],
 			title: 'Intézmények',

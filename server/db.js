@@ -35,8 +35,53 @@ function sqlize(obj) {
 	};
 }
 
+async function create(table, record, Model) {
+	const model = new Model(record);
+	delete model.id;
+	const i = sqlize(model);
+	const { insertId } = await query(`INSERT IGNORE INTO ${table} (${i.cols}) VALUES (${i.qmarks})`, i.values);
+	return insertId > 0 ? insertId : false;
+}
+
+/**
+ * @param {String} table
+ * @param {Function} Model
+ */
+async function findAll(table, Model) {
+	const rows = await query(`SELECT * FROM ${table}`);
+	return rows.map(r => new Model(r));
+}
+
+/**
+ * @param {String} table
+ * @param {String} field
+ * @param {any} value
+ * @param {Function} Model
+ */
+async function findBy(table, field, value, Model) {
+	const rows = await query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value]);
+	return rows.map(r => new Model(r))[0];
+}
+
+/**
+ * @param {String} table
+ * @param {Object} record
+ * @param {Function} Model
+ */
+function update(table, record, Model) {
+	const model = new Model(record);
+	const { id } = model;
+	delete model.id;
+	const m = sqlize(model);
+	return query(`UPDATE ${table} SET ${m.sets} WHERE id = ?`, [...m.values, id]);
+}
+
 module.exports = {
 	init,
 	query,
-	sqlize
+	sqlize,
+	create,
+	findAll,
+	findBy,
+	update
 };
