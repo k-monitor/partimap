@@ -20,7 +20,7 @@ router.patch('/my/profile',
 
 		const user = null; // TODO get user from auth
 
-		if (changes.password) {
+		if (changes.newPassword) {
 			if (!changes.oldPassword) {
 				return res.sendStatus(StatusCodes.BAD_REQUEST);
 			}
@@ -41,17 +41,33 @@ router.get('/admin/users',
 		res.json(users);
 	});
 
+router.get('/admin/user/:id',
+	async (req, res) => {
+		const user = await db.findById(req.params.id);
+		if (!user) {
+			return res.sendStatus(StatusCodes.NOT_FOUND);
+		}
+		res.json(user);
+	});
+
 router.put('/admin/user',
 	async (req, res) => {
 		const user = new User(req.body);
-		if (!user.email || !user.password || !user.name) {
+		if (!user.email) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
 
-		user.password = bcrypt.hashSync(user.password, 10);
+		if (user.password) {
+			user.password = bcrypt.hashSync(user.password, 10);
+		}
 
-		const id = await db.create(user);
-		res.sendStatus(id ? StatusCodes.CREATED : StatusCodes.CONFLICT);
+		let id = await db.create(user);
+		if (!id) {
+			const u = await db.findByEmail(user.email);
+			id = u.id;
+		}
+
+		res.status(id ? StatusCodes.CREATED : StatusCodes.OK).json({ id });
 	});
 
 router.patch('/admin/user',
@@ -71,10 +87,11 @@ router.patch('/admin/user',
 
 async function changeUser(user, changes, res) {
 	delete changes.id;
+	delete changes.password;
 	delete changes.registered;
 
-	if (changes.password) {
-		changes.password = bcrypt.hashSync(changes.password, 10);
+	if (changes.newPassword) {
+		changes.password = bcrypt.hashSync(changes.newPassword, 10);
 	}
 	user = new User(Object.assign(user, changes));
 	await db.update(user);

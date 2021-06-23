@@ -23,7 +23,7 @@ async function query(statement, args) {
 }
 
 function sqlize(obj) {
-	const entries = Object.entries(obj);
+	const entries = Object.entries(obj).filter(e => e[1] !== undefined);
 	const fields = entries.map(e => e[0]);
 	const values = entries.map(e => e[1]);
 	return {
