@@ -45,12 +45,12 @@
 <script>
 export default {
 	async asyncData({ $axios, params, redirect }) {
-		const insts = await $axios.$get('/api/insts');
-		const i = insts.filter(i => i.id === Number(params.id))[0];
-		if (!i) {
+		try {
+			const i = await $axios.$get('/api/inst/' + params.id);
+			return { i, m: { ...i } };
+		} catch (err) {
 			redirect('/admin/insts');
 		}
-		return { i, m: { ...i } };
 	},
 	head() {
 		return {
@@ -60,9 +60,9 @@ export default {
 	methods: {
 		async update() {
 			await this.$axios.$patch('/api/admin/inst', this.m);
-			const insts = await this.$axios.$get('/api/insts');
-			this.i = insts.filter(i => i.id === Number(i.id))[0];
+			this.i = await this.$axios.$get('/api/inst/' + this.i.id);
 			this.m = { ...this.i };
+			// TODO display success/error
 		},
 		async remove() {
 			if (confirm('Biztos?')) {

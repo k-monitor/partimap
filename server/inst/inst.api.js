@@ -9,6 +9,15 @@ router.get('/insts',
 		res.json(insts);
 	});
 
+router.get('/inst/:id',
+	async (req, res) => {
+		const inst = await db.findById(req.params.id);
+		if (!inst) {
+			return res.sendStatus(StatusCodes.NOT_FOUND);
+		}
+		res.json(inst);
+	});
+
 // TODO ensure logged in + check IDs below
 
 router.get('/my/inst',
