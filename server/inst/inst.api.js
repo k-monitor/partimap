@@ -14,7 +14,7 @@ router.get('/inst/:id',
 	(req, res) => res.json(req.inst));
 
 router.get('/my/inst',
-	resolveInst(req => req.user.instId),
+	resolveInst(req => req.user.instId, true),
 	(req, res) => res.json(req.inst));
 
 router.patch('/my/inst',
@@ -58,15 +58,15 @@ async function changeInst(inst, changes, res) {
 	res.json(inst);
 }
 
-function resolveInst(getIdFromReq) {
+function resolveInst(getIdFromReq, optional) {
 	return async (req, res, next) => {
 		const id = getIdFromReq(req);
-		if (!id) {
+		if (!id && !optional) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
 
 		req.inst = await db.findById(id);
-		if (!req.inst) {
+		if (!req.inst && !optional) {
 			return res.sendStatus(StatusCodes.NOT_FOUND);
 		}
 		next();

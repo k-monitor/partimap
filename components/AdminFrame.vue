@@ -14,14 +14,15 @@
 				is-nav
 			>
 				<b-navbar-nav>
-					<b-nav-item to="/admin/insts">Intézmények</b-nav-item>
-					<b-nav-item to="/admin/users">Felhasználók</b-nav-item>
+					<b-nav-item v-if="$auth.user.isAdmin" to="/admin/insts">Intézmények</b-nav-item>
+					<b-nav-item v-if="$auth.user.isAdmin" to="/admin/users">Felhasználók</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
 					<b-nav-item-dropdown
 						:text="$auth.user.name"
 						right
 					>
+						<b-dropdown-item to="/my/profile">Adataim</b-dropdown-item>
 						<b-dropdown-item @click="$auth.logout('cookie')">Kijelentkezés</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>

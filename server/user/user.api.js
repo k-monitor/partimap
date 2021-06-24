@@ -15,7 +15,7 @@ router.patch('/my/profile',
 
 		const { user } = req;
 
-		if (changes.newPassword) {
+		if (changes.newPassword || changes.email !== user.email) {
 			if (!changes.oldPassword) {
 				return res.sendStatus(StatusCodes.BAD_REQUEST);
 			}

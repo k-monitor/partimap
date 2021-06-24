@@ -1,9 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			<NuxtLink to="/admin/users">Felhasználók</NuxtLink>
-			<span class="text-muted">&raquo;</span>
-			{{ u.email }}
+			Adataim
 		</template>
 
 		<form
@@ -31,18 +29,10 @@
 			<div class="form-group">
 				<label for="inst">Intézmény</label>
 				<select
-					id="inst"
-					v-model="m.instId"
 					class="form-control"
+					disabled
 				>
-					<option :value="null">(Nincs)</option>
-					<option
-						v-for="i in insts"
-						:key="i.id"
-						:value="i.id"
-					>
-						{{ i. name }}
-					</option>
+					<option>{{ i.name || '(Nincs)' }}</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -54,19 +44,14 @@
 					type="password"
 				>
 			</div>
-			<div class="form-check mt-5">
+			<div class="form-group">
+				<label for="oldPassword">Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)</label>
 				<input
-					id="isAdmin"
-					v-model="m.isAdmin"
-					class="form-check-input"
-					type="checkbox"
+					id="oldPassword"
+					v-model="m.oldPassword"
+					class="form-control"
+					type="password"
 				>
-				<label
-					class="form-check-label text-danger"
-					for="isAdmin"
-				>
-					Adminisztrátor
-				</label>
 			</div>
 		</form>
 
@@ -86,26 +71,22 @@
 
 <script>
 export default {
-	middleware: ['auth', 'admin'],
-	async asyncData({ $axios, params, redirect }) {
-		try {
-			const insts = await $axios.$get('/api/insts');
-			const u = await $axios.$get('/api/admin/user/' + params.id);
-			return { insts, u, m: { ...u, newPassword: null } };
-		} catch (err) {
-			redirect('/admin/users');
-		}
+	middleware: ['auth'],
+	async asyncData({ $axios }) {
+		const u = await $axios.$get('/api/my/profile');
+		const i = await $axios.$get('/api/my/inst');
+		return { i, u, m: { ...u, newPassword: null, oldPassword: null } };
 	},
 	head() {
 		return {
-			title: 'Admin: ' + this.u.email,
+			title: 'Adataim',
 		};
 	},
 	methods: {
 		async update() {
-			await this.$axios.$patch('/api/admin/user', this.m);
-			this.u = await this.$axios.$get('/api/admin/user/' + this.u.id);
-			this.m = { ...this.u, newPassword: null };
+			await this.$axios.$patch('/api/my/profile', this.m);
+			this.u = await this.$axios.$get('/api/my/profile');
+			this.m = { ...this.u, newPassword: null, oldPassword: null };
 			this.$auth.fetchUser();
 			// TODO display success/error
 		},
