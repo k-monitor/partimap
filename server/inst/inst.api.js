@@ -10,42 +10,16 @@ router.get('/insts',
 	});
 
 router.get('/inst/:id',
-	async (req, res) => {
-		const inst = await db.findById(req.params.id);
-		if (!inst) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-		res.json(inst);
-	});
-
-// TODO ensure logged in + check IDs below
+	resolveInst(req => req.params.id),
+	(req, res) => res.json(req.inst));
 
 router.get('/my/inst',
-	async (_, res) => {
-		const user = null; // TODO get user from auth
-
-		const inst = await db.findById(user.instId);
-		if (!inst) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-
-		res.json(inst);
-	});
+	resolveInst(req => req.user.instId),
+	(req, res) => res.json(req.inst));
 
 router.patch('/my/inst',
-	async (req, res) => {
-		const user = null; // TODO get user from auth
-		const changes = req.body;
-
-		const inst = await db.findById(user.instId);
-		if (!inst) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-
-		return changeInst(inst, changes, res);
-	});
-
-// TODO ensure admin role below
+	resolveInst(req => req.user.instId),
+	(req, res) => changeInst(req.inst, req.body, res));
 
 router.put('/admin/inst',
 	async (req, res) => {
@@ -62,30 +36,16 @@ router.put('/admin/inst',
 	});
 
 router.patch('/admin/inst',
-	async (req, res) => {
-		const changes = new Inst(req.body);
-		if (!changes.id) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
-		}
-
-		const inst = await db.findById(changes.id);
-		if (!inst) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-
-		return changeInst(inst, changes, res);
-	});
+	resolveInst(req => req.body.id),
+	(req, res) => changeInst(req.inst, req.body, res));
 
 router.delete('/admin/inst/:id',
 	async (req, res) => {
 		if (!req.params.id) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
-
 		await db.remove(req.params.id);
-
-		const insts = await db.findAll();
-		res.json(insts);
+		res.end();
 	});
 
 async function changeInst(inst, changes, res) {
@@ -96,6 +56,21 @@ async function changeInst(inst, changes, res) {
 
 	inst = await db.findById(inst.id);
 	res.json(inst);
+}
+
+function resolveInst(getIdFromReq) {
+	return async (req, res, next) => {
+		const id = getIdFromReq(req);
+		if (!id) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
+
+		req.inst = await db.findById(id);
+		if (!req.inst) {
+			return res.sendStatus(StatusCodes.NOT_FOUND);
+		}
+		next();
+	};
 }
 
 module.exports = router;

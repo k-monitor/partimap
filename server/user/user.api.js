@@ -5,10 +5,7 @@ const User = require('../../model/user');
 const db = require('./user.db');
 
 router.get('/my/profile',
-	(req, res) => {
-		const { user } = req;
-		res.json(user);
-	});
+	(req, res) => res.json(req.user));
 
 router.patch('/my/profile',
 	(req, res) => {
@@ -38,13 +35,8 @@ router.get('/admin/users',
 	});
 
 router.get('/admin/user/:id',
-	async (req, res) => {
-		const user = await db.findById(req.params.id);
-		if (!user) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-		res.json(user);
-	});
+	resolveUser(req => req.params.id),
+	async (req, res) => res.json(req._user));
 
 router.put('/admin/user',
 	async (req, res) => {
@@ -67,19 +59,8 @@ router.put('/admin/user',
 	});
 
 router.patch('/admin/user',
-	async (req, res) => {
-		const changes = req.body;
-		if (!changes.id) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
-		}
-
-		const user = await db.findById(req.body.id);
-		if (!user) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-
-		return changeUser(user, changes, res);
-	});
+	resolveUser(req => req.body.id),
+	(req, res) => changeUser(req._user, req.body, res));
 
 async function changeUser(user, changes, res) {
 	delete changes.id;
@@ -94,6 +75,21 @@ async function changeUser(user, changes, res) {
 
 	user = await db.findById(user.id);
 	res.json(user);
+}
+
+function resolveUser(getIdFromReq) {
+	return async (req, res, next) => {
+		const id = getIdFromReq(req);
+		if (!id) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
+
+		req._user = await db.findById(id);
+		if (!req._user) {
+			return res.sendStatus(StatusCodes.NOT_FOUND);
+		}
+		next();
+	};
 }
 
 module.exports = router;
