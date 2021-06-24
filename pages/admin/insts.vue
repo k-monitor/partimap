@@ -56,6 +56,7 @@
 
 <script>
 export default {
+	middleware: ['auth', 'admin'],
 	async asyncData({ $axios }) {
 		const insts = await $axios.$get('/api/insts');
 		return { insts };

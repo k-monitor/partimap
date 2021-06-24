@@ -4,21 +4,19 @@ const { StatusCodes } = require('http-status-codes');
 const User = require('../../model/user');
 const db = require('./user.db');
 
-// TODO ensure logged in + check IDs below
-
 router.get('/my/profile',
-	(_, res) => {
-		const user = null; // TODO get user from auth
+	(req, res) => {
+		const { user } = req;
 		res.json(user);
 	});
 
 router.patch('/my/profile',
 	(req, res) => {
-		const changes = req.body; // expecting modified fields and ID
+		const changes = req.body;
 		delete changes.instId;
 		delete changes.isAdmin;
 
-		const user = null; // TODO get user from auth
+		const { user } = req;
 
 		if (changes.newPassword) {
 			if (!changes.oldPassword) {
@@ -32,8 +30,6 @@ router.patch('/my/profile',
 
 		return changeUser(user, changes, res);
 	});
-
-// TODO ensure admin role below
 
 router.get('/admin/users',
 	async (_, res) => {

@@ -15,6 +15,7 @@ module.exports = {
 	],
 	// add your custom rules here
 	rules: {
+		'arrow-parens': ['error', 'as-needed'],
 		'comma-dangle': 0,
 		indent: ['error', 'tab'],
 		'no-tabs': ['error', { allowIndentationTabs: true }],

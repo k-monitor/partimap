@@ -60,6 +60,7 @@
 
 <script>
 export default {
+	middleware: ['auth', 'admin'],
 	async asyncData({ $axios }) {
 		const users = await $axios.$get('/api/admin/users');
 		return { users };

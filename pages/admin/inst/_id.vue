@@ -44,6 +44,7 @@
 
 <script>
 export default {
+	middleware: ['auth', 'admin'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const i = await $axios.$get('/api/inst/' + params.id);

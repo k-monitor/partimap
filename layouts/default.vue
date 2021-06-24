@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-light">
+	<div class="bg-light d-flex flex-column">
 		<Nuxt />
 	</div>
 </template>
