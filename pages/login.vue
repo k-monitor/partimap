@@ -61,7 +61,9 @@ export default {
 				await this.$auth.loginWith('cookie', {
 					data: this.login,
 				});
-			} catch (err) {}
+			} catch (err) {
+				this.error('Bejelentkezés sikertelen');
+			}
 		},
 	},
 };

@@ -67,6 +67,10 @@ async function changeUser(user, changes, res) {
 	delete changes.password;
 	delete changes.registered;
 
+	if (!changes.email) {
+		return res.sendStatus(StatusCodes.BAD_REQUEST);
+	}
+
 	if (changes.newPassword) {
 		changes.password = bcrypt.hashSync(changes.newPassword, 10);
 	}

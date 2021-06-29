@@ -12,6 +12,7 @@
 							v-model="newInstName"
 							class="form-control"
 							placeholder="Új intézmény neve"
+							required
 							type="text"
 						>
 						<div class="input-group-append">
@@ -80,9 +81,14 @@ export default {
 	},
 	methods: {
 		async add() {
-			await this.$axios.$put('/api/admin/inst', { name: this.newInstName });
-			this.insts = await this.$axios.$get('/api/insts');
-			this.newInstName = null;
+			try {
+				await this.$axios.$put('/api/admin/inst', { name: this.newInstName });
+				this.insts = await this.$axios.$get('/api/insts');
+				this.newInstName = null;
+				this.error('Létrehozás sikeres');
+			} catch (error) {
+				this.error('Létrehozás sikertelen');
+			}
 		},
 	},
 };

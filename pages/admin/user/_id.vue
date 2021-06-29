@@ -16,6 +16,7 @@
 					id="email"
 					v-model="m.email"
 					class="form-control"
+					required
 					type="email"
 				>
 			</div>
@@ -25,6 +26,7 @@
 					id="name"
 					v-model="m.name"
 					class="form-control"
+					required
 					type="text"
 				>
 			</div>
@@ -103,11 +105,14 @@ export default {
 	},
 	methods: {
 		async update() {
-			await this.$axios.$patch('/api/admin/user', this.m);
-			this.u = await this.$axios.$get('/api/admin/user/' + this.u.id);
-			this.m = { ...this.u, newPassword: null };
-			this.$auth.fetchUser();
-			// TODO display success/error
+			try {
+				this.u = await this.$axios.$patch('/api/admin/user', this.m);
+				this.m = { ...this.u, newPassword: null };
+				this.$auth.fetchUser();
+				this.success('Módosítás sikeres');
+			} catch (error) {
+				this.error('Módosítás sikertelen');
+			}
 		},
 	},
 };

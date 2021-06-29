@@ -5,6 +5,11 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import toasts from '~/mixins/toasts';
+
+Vue.mixin(toasts);
+
 export default {
 	head: {
 		titleTemplate: '%s | Partimap',

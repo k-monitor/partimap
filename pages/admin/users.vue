@@ -12,6 +12,7 @@
 							v-model="newUserEmail"
 							class="form-control"
 							placeholder="Új felh. email címe"
+							required
 							type="email"
 						>
 						<div class="input-group-append">
@@ -86,10 +87,14 @@ export default {
 	},
 	methods: {
 		async add() {
-			const { id } = await this.$axios.$put('/api/admin/user', {
-				email: this.newUserEmail,
-			});
-			this.$router.push({ path: '/admin/user/' + id });
+			try {
+				const { id } = await this.$axios.$put('/api/admin/user', {
+					email: this.newUserEmail,
+				});
+				this.$router.push({ path: '/admin/user/' + id });
+			} catch (error) {
+				this.error('Létrehozás sikertelen');
+			}
 		},
 	},
 };

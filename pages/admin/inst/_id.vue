@@ -16,6 +16,7 @@
 					id="name"
 					v-model="m.name"
 					class="form-control"
+					required
 					type="text"
 				>
 			</div>
@@ -60,17 +61,24 @@ export default {
 	},
 	methods: {
 		async update() {
-			await this.$axios.$patch('/api/admin/inst', this.m);
-			this.i = await this.$axios.$get('/api/inst/' + this.i.id);
-			this.m = { ...this.i };
-			// TODO display success/error
+			try {
+				this.i = await this.$axios.$patch('/api/admin/inst', this.m);
+				this.m = { ...this.i };
+				this.success('Módosítás sikeres');
+			} catch (error) {
+				this.success('Módosítás sikertelen');
+			}
 		},
 		async remove() {
 			if (confirm('Biztos?')) {
-				await this.$axios.$delete('/api/admin/inst/' + this.i.id);
-				this.$router.push({
-					path: '/admin/insts',
-				});
+				try {
+					await this.$axios.$delete('/api/admin/inst/' + this.i.id);
+					this.$router.push({
+						path: '/admin/insts',
+					});
+				} catch (error) {
+					this.error('Törlés sikertelen');
+				}
 			}
 		},
 	},

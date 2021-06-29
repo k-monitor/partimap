@@ -13,6 +13,7 @@
 				<input
 					id="email"
 					v-model="m.email"
+					required
 					class="form-control"
 					type="email"
 				>
@@ -22,6 +23,7 @@
 				<input
 					id="name"
 					v-model="m.name"
+					required
 					class="form-control"
 					type="text"
 				>
@@ -49,6 +51,7 @@
 				<input
 					id="oldPassword"
 					v-model="m.oldPassword"
+					:required="m.newPassword || m.email !== u.email"
 					class="form-control"
 					type="password"
 				>
@@ -84,11 +87,14 @@ export default {
 	},
 	methods: {
 		async update() {
-			await this.$axios.$patch('/api/my/profile', this.m);
-			this.u = await this.$axios.$get('/api/my/profile');
-			this.m = { ...this.u, newPassword: null, oldPassword: null };
-			this.$auth.fetchUser();
-			// TODO display success/error
+			try {
+				this.u = await this.$axios.$patch('/api/my/profile', this.m);
+				this.m = { ...this.u, newPassword: null, oldPassword: null };
+				this.$auth.fetchUser();
+				this.success('Módosítás sikeres');
+			} catch (error) {
+				this.error('Módosítás sikertelen');
+			}
 		},
 	},
 };
