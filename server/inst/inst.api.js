@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const Inst = require('../../model/inst');
+const { resolveRecord } = require('../common/middlewares');
 const db = require('./inst.db');
 
 router.get('/insts',
@@ -10,15 +11,15 @@ router.get('/insts',
 	});
 
 router.get('/inst/:id',
-	resolveInst(req => req.params.id),
+	resolveRecord(req => req.params.id, db.findById, 'inst'),
 	(req, res) => res.json(req.inst));
 
 router.get('/my/inst',
-	resolveInst(req => req.user.instId, true),
+	resolveRecord(req => req.user.instId, db.findById, 'inst', true),
 	(req, res) => res.json(req.inst));
 
 router.patch('/my/inst',
-	resolveInst(req => req.user.instId),
+	resolveRecord(req => req.user.instId, db.findById, 'inst'),
 	(req, res) => changeInst(req.inst, req.body, res));
 
 router.put('/admin/inst',
@@ -36,7 +37,7 @@ router.put('/admin/inst',
 	});
 
 router.patch('/admin/inst',
-	resolveInst(req => req.body.id),
+	resolveRecord(req => req.body.id, db.findById, 'inst'),
 	(req, res) => changeInst(req.inst, req.body, res));
 
 router.delete('/admin/inst/:id',
@@ -56,21 +57,6 @@ async function changeInst(inst, changes, res) {
 
 	inst = await db.findById(inst.id);
 	res.json(inst);
-}
-
-function resolveInst(getIdFromReq, optional) {
-	return async (req, res, next) => {
-		const id = getIdFromReq(req);
-		if (!id && !optional) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
-		}
-
-		req.inst = await db.findById(id);
-		if (!req.inst && !optional) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-		next();
-	};
 }
 
 module.exports = router;

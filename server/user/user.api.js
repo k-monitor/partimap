@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const User = require('../../model/user');
+const { resolveRecord } = require('../common/middlewares');
 const db = require('./user.db');
 
 router.get('/my/profile',
@@ -35,8 +36,8 @@ router.get('/admin/users',
 	});
 
 router.get('/admin/user/:id',
-	resolveUser(req => req.params.id),
-	async (req, res) => res.json(req._user));
+	resolveRecord(req => req.params.id, db.findById, '_user'),
+	(req, res) => res.json(req._user));
 
 router.put('/admin/user',
 	async (req, res) => {
@@ -59,7 +60,7 @@ router.put('/admin/user',
 	});
 
 router.patch('/admin/user',
-	resolveUser(req => req.body.id),
+	resolveRecord(req => req.body.id, db.findById, '_user'),
 	(req, res) => changeUser(req._user, req.body, res));
 
 async function changeUser(user, changes, res) {
@@ -79,21 +80,6 @@ async function changeUser(user, changes, res) {
 
 	user = await db.findById(user.id);
 	res.json(user);
-}
-
-function resolveUser(getIdFromReq) {
-	return async (req, res, next) => {
-		const id = getIdFromReq(req);
-		if (!id) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
-		}
-
-		req._user = await db.findById(id);
-		if (!req._user) {
-			return res.sendStatus(StatusCodes.NOT_FOUND);
-		}
-		next();
-	};
 }
 
 module.exports = router;
