@@ -14,8 +14,16 @@
 				is-nav
 			>
 				<b-navbar-nav>
-					<b-nav-item v-if="$auth.user.isAdmin" to="/admin/insts">Intézmények</b-nav-item>
-					<b-nav-item v-if="$auth.user.isAdmin" to="/admin/users">Felhasználók</b-nav-item>
+					<b-nav-item to="/my/projects">Projektjeim</b-nav-item>
+					<b-nav-item-dropdown
+						v-if="$auth.user.isAdmin"
+						text="Admin"
+						right
+					>
+						<b-dropdown-item to="/admin/projects">Projektek</b-dropdown-item>
+						<b-dropdown-item to="/admin/insts">Intézmények</b-dropdown-item>
+						<b-dropdown-item to="/admin/users">Felhasználók</b-dropdown-item>
+					</b-nav-item-dropdown>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
 					<b-nav-item-dropdown

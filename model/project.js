@@ -9,7 +9,7 @@ class Project {
 	constructor(data) {
 		this.id = data.id;
 		this.instId = data.instId;
-		this.name = data.title;
+		this.title = data.title;
 		this.description = data.description;
 	}
 };

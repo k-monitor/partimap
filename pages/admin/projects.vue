@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			Felhasználók
+			Projektek
 		</template>
 
 		<div class="row">
@@ -9,11 +9,11 @@
 				<form @submit.prevent="add">
 					<div class="input-group mb-3">
 						<input
-							v-model="newUserEmail"
+							v-model="newProjectTitle"
 							class="form-control"
-							placeholder="Új felh. email címe"
+							placeholder="Új projekt neve"
 							required
-							type="email"
+							type="text"
 						>
 						<div class="input-group-append">
 							<button
@@ -39,19 +39,15 @@
 		</div>
 		<div class="list-group">
 			<NuxtLink
-				v-for="u in filteredUsers"
-				:key="u.id"
-				:to="'/admin/user/' + u.id"
+				v-for="p in filteredProjects"
+				:key="p.id"
+				:to="'/admin/project/' + p.id"
 				class="
 							align-items-center
 							list-group-item list-group-item-action
 						"
 			>
-				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
-				<span
-					v-if="u.isAdmin"
-					class="badge badge-danger"
-				>ADMIN</span>
+				<strong>{{ p.title }}</strong>
 				<br>
 				TODO: intézmény neve
 			</NuxtLink>
@@ -63,35 +59,37 @@
 export default {
 	middleware: ['auth', 'admin'],
 	async asyncData({ $axios }) {
-		const users = await $axios.$get('/api/admin/users');
-		return { users };
+		const projects = await $axios.$get('/api/admin/projects');
+		return { projects };
 	},
 	data() {
 		return {
 			filter: '',
-			newUserEmail: null,
-			users: [],
+			newProjectTitle: null,
+			projects: [],
 		};
 	},
 	head: {
-		title: 'Admin: Felhasználók',
+		title: 'Admin: Projektek',
 	},
 	computed: {
-		filteredUsers() {
-			return this.users.filter(
-				u =>
-					(u.name || '').toLowerCase().includes(this.filter.toLowerCase()) ||
-					u.email.toLowerCase().includes(this.filter.toLowerCase())
+		filteredProjects() {
+			return this.projects.filter(
+				p =>
+					p.title.toLowerCase().includes(this.filter.toLowerCase()) ||
+					(p.description || '')
+						.toLowerCase()
+						.includes(this.filter.toLowerCase())
 			);
 		},
 	},
 	methods: {
 		async add() {
 			try {
-				const { id } = await this.$axios.$put('/api/admin/user', {
-					email: this.newUserEmail,
+				const { id } = await this.$axios.$put('/api/admin/project', {
+					title: this.newProjectTitle,
 				});
-				this.$router.push({ path: '/admin/user/' + id });
+				this.$router.push({ path: '/admin/project/' + id });
 			} catch (error) {
 				this.error('Létrehozás sikertelen');
 			}

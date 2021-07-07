@@ -49,7 +49,7 @@ function ensureOwnProject(req, res, next) {
 
 async function createProject(req, res) {
 	let project = new Project(req.body);
-	if (!project.title || !project.instId) {
+	if (!project.title) {
 		return res.sendStatus(StatusCodes.BAD_REQUEST);
 	}
 
