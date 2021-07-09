@@ -1,72 +1,56 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const Project = require('../../model/project');
+const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
 const db = require('./project.db');
+
+router.get('/projects',
+	ensureLoggedIn,
+	async (req, res) => {
+		const projects = req.user.isAdmin
+			? await db.findAll()
+			: await db.findByInstId(req.user.instId);
+		res.json(projects);
+	});
 
 router.get('/project/:id',
 	resolveRecord(req => req.params.id, db.findById, 'project'),
 	(req, res) => res.json(req.project));
 
-router.get('/my/projects',
+router.patch('/project',
+	ensureLoggedIn,
+	resolveRecord(req => req.body.id, db.findById, 'project'),
+	ensureAdminOr(req => req.project.instId === req.user.instId),
 	async (req, res) => {
-		const projects = await db.findByInstId(req.user.instId);
-		res.json(projects);
+		const changes = req.body;
+		if (!req.user.isAdmin) {
+			delete changes.instId;
+		}
+
+		let project = new Project(Object.assign(req.project, changes));
+		if (!project.title) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
+		await db.update(project);
+
+		project = await db.findById(project.id);
+		res.json(project);
 	});
 
-router.put('/my/project',
-	(req, _, next) => {
-		req.body.instId = req.user.instId;
-		next();
-	},
-	createProject);
+router.put('/project',
+	ensureLoggedIn,
+	ensureAdminOr(req => req.body.instId === req.user.instId),
+	async (req, res) => {
+		let project = new Project(req.body);
+		if (!project.title) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
 
-router.patch('/my/project',
-	resolveRecord(req => req.body.id, db.findById, 'project'),
-	ensureOwnProject,
-	(req, res) => changeProject(req.project, req.body, res));
+		const id = await db.create(project);
+		project = await db.findById(id);
 
-router.get('/admin/projects',
-	async (_, res) => {
-		const projects = await db.findAll();
-		res.json(projects);
+		res.json(project);
 	});
-
-router.put('/admin/project',
-	createProject);
-
-router.patch('/admin/project',
-	resolveRecord(req => req.body.id, db.findById, 'project'),
-	(req, res) => changeProject(req.project, req.body, res));
-
-function ensureOwnProject(req, res, next) {
-	if (req.user.instId === req.project.instId) {
-		next();
-	} else {
-		res.sendStatus(StatusCodes.UNAUTHORIZED);
-	}
-}
-
-async function createProject(req, res) {
-	let project = new Project(req.body);
-	if (!project.title) {
-		return res.sendStatus(StatusCodes.BAD_REQUEST);
-	}
-
-	const id = await db.create(project);
-	project = await db.findById(id);
-
-	res.json(project);
-}
-
-async function changeProject(project, changes, res) {
-	delete changes.id;
-
-	project = new Project(Object.assign(project, changes));
-	await db.update(project);
-
-	project = await db.findById(project.id);
-	res.json(project);
-}
 
 module.exports = router;
