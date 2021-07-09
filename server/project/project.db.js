@@ -28,8 +28,8 @@ function findById(id) {
  * @param {Number} instId
  * @returns {Project[]}
  */
-function findByInstId(instId) {
-	const rows = db.query('SELECT * FROM project WHERE instId = ?', [instId]);
+async function findByInstId(instId) {
+	const rows = await db.query('SELECT * FROM project WHERE instId = ?', [instId]);
 	return rows.map(r => new Project(r));
 }
 
