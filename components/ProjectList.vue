@@ -7,7 +7,7 @@
 						<input
 							v-model="newProjectTitle"
 							class="form-control"
-							placeholder="Új projekt neve"
+							placeholder="Új projekt elnevezése"
 							required
 							type="text"
 						>
