@@ -1,8 +1,10 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			<NuxtLink to="/admin/users">Felhasználók</NuxtLink>
-			<span class="text-muted">&raquo;</span>
+			<span v-if="$auth.user.isAdmin">
+				<NuxtLink to="/admin/users">Felhasználók</NuxtLink>
+				<span class="text-muted">&raquo;</span>
+			</span>
 			{{ u.email }}
 		</template>
 
@@ -36,6 +38,7 @@
 					id="inst"
 					v-model="m.instId"
 					class="form-control"
+					:disabled="!$auth.user.isAdmin"
 				>
 					<option :value="null">(Nincs)</option>
 					<option
@@ -56,7 +59,23 @@
 					type="password"
 				>
 			</div>
-			<div class="form-check mt-5">
+			<div
+				v-if="!$auth.user.isAdmin"
+				class="form-group"
+			>
+				<label for="oldPassword">Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)</label>
+				<input
+					id="oldPassword"
+					v-model="m.oldPassword"
+					:required="m.newPassword || m.email !== u.email"
+					class="form-control"
+					type="password"
+				>
+			</div>
+			<div
+				v-if="$auth.user.isAdmin"
+				class="form-check mt-5"
+			>
 				<input
 					id="isAdmin"
 					v-model="m.isAdmin"
@@ -88,12 +107,12 @@
 
 <script>
 export default {
-	middleware: ['auth', 'admin'],
+	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const insts = await $axios.$get('/api/insts');
-			const u = await $axios.$get('/api/admin/user/' + params.id);
-			return { insts, u, m: { ...u, newPassword: null } };
+			const u = await $axios.$get('/api/user/' + params.id);
+			return { insts, u, m: { ...u, newPassword: null, oldPassword: null } };
 		} catch (err) {
 			redirect('/admin/users');
 		}
@@ -106,8 +125,8 @@ export default {
 	methods: {
 		async update() {
 			try {
-				this.u = await this.$axios.$patch('/api/admin/user', this.m);
-				this.m = { ...this.u, newPassword: null };
+				this.u = await this.$axios.$patch('/api/user', this.m);
+				this.m = { ...this.u, newPassword: null, oldPassword: null };
 				this.$auth.fetchUser();
 				this.success('Módosítás sikeres');
 			} catch (error) {

@@ -1,8 +1,10 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			<NuxtLink to="/admin/insts">Intézmények</NuxtLink>
-			<span class="text-muted">&raquo;</span>
+			<span v-if="$auth.user.isAdmin">
+				<NuxtLink to="/admin/insts">Intézmények</NuxtLink>
+				<span class="text-muted">&raquo;</span>
+			</span>
 			{{ i.name }}
 		</template>
 
@@ -23,8 +25,9 @@
 		</form>
 
 		<template #footer>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex">
 				<button
+					v-if="$auth.user.isAdmin"
 					class="btn btn-outline-danger"
 					type="button"
 					@click="remove"
@@ -32,7 +35,7 @@
 					Törlés
 				</button>
 				<button
-					class="btn btn-outline-primary"
+					class="btn btn-outline-primary ml-auto"
 					form="instForm"
 					type="submit"
 				>
@@ -45,7 +48,7 @@
 
 <script>
 export default {
-	middleware: ['auth', 'admin'],
+	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const i = await $axios.$get('/api/inst/' + params.id);
@@ -62,11 +65,11 @@ export default {
 	methods: {
 		async update() {
 			try {
-				this.i = await this.$axios.$patch('/api/admin/inst', this.m);
+				this.i = await this.$axios.$patch('/api/inst', this.m);
 				this.m = { ...this.i };
 				this.success('Módosítás sikeres');
 			} catch (error) {
-				this.success('Módosítás sikertelen');
+				this.error('Módosítás sikertelen');
 			}
 		},
 		async remove() {

@@ -63,7 +63,7 @@
 export default {
 	middleware: ['auth', 'admin'],
 	async asyncData({ $axios }) {
-		const users = await $axios.$get('/api/admin/users');
+		const users = await $axios.$get('/api/users');
 		return { users };
 	},
 	data() {
@@ -88,7 +88,7 @@ export default {
 	methods: {
 		async add() {
 			try {
-				const { id } = await this.$axios.$put('/api/admin/user', {
+				const { id } = await this.$axios.$put('/api/user', {
 					email: this.newUserEmail,
 				});
 				this.$router.push({ path: '/admin/user/' + id });

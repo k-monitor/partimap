@@ -35,6 +35,7 @@
 					id="inst"
 					v-model="m.instId"
 					class="form-control"
+					:disabled="!$auth.user.isAdmin"
 				>
 					<option :value="null">(Nincs)</option>
 					<option
@@ -64,7 +65,7 @@
 
 <script>
 export default {
-	middleware: ['auth', 'admin'],
+	middleware: ['auth'], // TODO admin or own inst ID
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const insts = await $axios.$get('/api/insts');
@@ -82,11 +83,11 @@ export default {
 	methods: {
 		async update() {
 			try {
-				this.p = await this.$axios.$patch('/api/admin/project', this.m);
+				this.p = await this.$axios.$patch('/api/project', this.m);
 				this.m = { ...this.p };
 				this.success('Módosítás sikeres');
 			} catch (error) {
-				this.success('Módosítás sikertelen');
+				this.error('Módosítás sikertelen');
 			}
 		},
 	},

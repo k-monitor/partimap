@@ -82,7 +82,7 @@ export default {
 	methods: {
 		async add() {
 			try {
-				await this.$axios.$put('/api/admin/inst', { name: this.newInstName });
+				await this.$axios.$put('/api/inst', { name: this.newInstName });
 				this.insts = await this.$axios.$get('/api/insts');
 				this.newInstName = null;
 				this.error('Létrehozás sikeres');

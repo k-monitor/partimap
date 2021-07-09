@@ -16,7 +16,7 @@ router.get('/users',
 
 router.get('/user/:id',
 	ensureLoggedIn,
-	ensureAdminOr(req => req.params.id === req.user.id), // TODO === ?
+	ensureAdminOr(req => Number(req.params.id) === req.user.id),
 	resolveRecord(req => req.params.id, db.findById, '_user'),
 	(req, res) => res.json(req._user));
 

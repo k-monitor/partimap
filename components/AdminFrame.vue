@@ -14,13 +14,12 @@
 				is-nav
 			>
 				<b-navbar-nav>
-					<b-nav-item to="/my/projects">Projektjeim</b-nav-item>
+					<b-nav-item to="/admin/projects">Projektek</b-nav-item>
 					<b-nav-item-dropdown
 						v-if="$auth.user.isAdmin"
 						text="Admin"
 						right
 					>
-						<b-dropdown-item to="/admin/projects">Projektek</b-dropdown-item>
 						<b-dropdown-item to="/admin/insts">Intézmények</b-dropdown-item>
 						<b-dropdown-item to="/admin/users">Felhasználók</b-dropdown-item>
 					</b-nav-item-dropdown>
@@ -30,7 +29,7 @@
 						:text="$auth.user.name"
 						right
 					>
-						<b-dropdown-item to="/my/profile">Adataim</b-dropdown-item>
+						<b-dropdown-item :to="'/admin/user/' + $auth.user.id">Adataim</b-dropdown-item>
 						<b-dropdown-item @click="$auth.logout('cookie')">Kijelentkezés</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>

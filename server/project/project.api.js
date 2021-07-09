@@ -40,11 +40,13 @@ router.patch('/project',
 
 router.put('/project',
 	ensureLoggedIn,
-	ensureAdminOr(req => req.body.instId === req.user.instId),
 	async (req, res) => {
 		let project = new Project(req.body);
 		if (!project.title) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
+		if (!project.instId || !req.user.isAdmin) {
+			project.instId = req.user.instId;
 		}
 
 		const id = await db.create(project);
