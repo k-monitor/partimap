@@ -26,6 +26,7 @@
     "http-status-codes": "^2.1.4",
     "mysql2": "^2.2.5",
     "nuxt": "^2.15.3",
+    "ol": "^6.6.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   },
