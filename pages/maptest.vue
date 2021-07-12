@@ -4,6 +4,14 @@
 			v-model="zoom"
 			type="number"
 		>
+		<input
+			v-model="center[0]"
+			type="number"
+		>
+		<input
+			v-model="center[1]"
+			type="number"
+		>
 		<div
 			ref="map-root"
 			class="bg-primary"
@@ -23,11 +31,18 @@ import OSM from 'ol/source/OSM';
 export default {
 	data() {
 		return {
+			center: [0, 0],
 			map: null,
 			zoom: 0,
 		};
 	},
 	watch: {
+		center(center) {
+			this.map.getView().animate({
+				center,
+				duration: 250,
+			});
+		},
 		zoom(zoom) {
 			this.map.getView().animate({
 				zoom,
@@ -51,6 +66,7 @@ export default {
 		});
 
 		this.map.on('moveend', () => {
+			this.center = this.map.getView().getCenter();
 			this.zoom = this.map.getView().getZoom();
 		});
 	},
