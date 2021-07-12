@@ -1,9 +1,15 @@
 <template>
-	<div
-		class="bg-primary"
-		ref="map-root"
-		style="width: 100%; height: 100vh"
-	/>
+	<div>
+		<input
+			v-model="zoom"
+			type="number"
+		>
+		<div
+			ref="map-root"
+			class="bg-primary"
+			style="width: 100%; height: 100vh"
+		/>
+	</div>
 </template>
 
 <script>
@@ -15,9 +21,22 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 
 export default {
+	data() {
+		return {
+			map: null,
+			zoom: 0,
+		};
+	},
+	watch: {
+		zoom(zoom) {
+			this.map.getView().animate({
+				zoom,
+				duration: 250,
+			});
+		},
+	},
 	mounted() {
-		// eslint-disable-next-line no-new
-		new Map({
+		this.map = new Map({
 			target: this.$refs['map-root'],
 			layers: [
 				new TileLayer({
@@ -29,6 +48,10 @@ export default {
 				center: [0, 0],
 				constrainResolution: true,
 			}),
+		});
+
+		this.map.on('moveend', () => {
+			this.zoom = this.map.getView().getZoom();
 		});
 	},
 };
