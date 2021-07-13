@@ -2,7 +2,8 @@
 	<div class="flex-grow-1">
 		<client-only placeholder="Loading...">
 			<Map
-				initial-zoom="3"
+				:initial-center="[2129152.791287463,6017729.508627875]"
+				:initial-zoom="10"
 				@change="log"
 			/>
 		</client-only>
@@ -13,7 +14,7 @@
 export default {
 	methods: {
 		log(payload) {
-			console.log('map changed', payload);
+			console.log('map changed', JSON.stringify(payload));
 		},
 	},
 };
