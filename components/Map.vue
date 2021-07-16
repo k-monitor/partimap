@@ -15,7 +15,7 @@ import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import { Draw, Modify, Snap } from 'ol/interaction';
+import { Draw, Snap } from 'ol/interaction';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -44,8 +44,19 @@ const vector = new VectorLayer({
 	}),
 });
 
+let draw, snap;
+
 export default {
 	props: {
+		drawType: {
+			type: String,
+			default: null,
+			validator(value) {
+				return [null, false, '', 'Point', 'LineString', 'Polygon'].includes(
+					value
+				);
+			},
+		},
 		initialCenter: {
 			type: Array,
 			default: () => [0, 0],
@@ -61,6 +72,11 @@ export default {
 			center: this.initialCenter,
 			zoom: this.initialZoom,
 		};
+	},
+	watch: {
+		drawType(type) {
+			this.setDrawType(type);
+		},
 	},
 	mounted() {
 		const { center, zoom } = this;
@@ -85,34 +101,24 @@ export default {
 			});
 		});
 
-		const modify = new Modify({ source });
-		this.map.addInteraction(modify);
+		source.on('addfeature', e => {
+			const f = new GeoJSON().writeFeature(e.feature);
+			this.$emit('addfeature', f);
+		});
 
-		let draw, snap; // global so we can remove them later
-		// const typeSelect = document.getElementById('type');
-
-		function addInteractions() {
-			draw = new Draw({
-				source,
-				type: 'Point', // typeSelect.value,
-			});
-			map.addInteraction(draw);
-			snap = new Snap({ source });
-			map.addInteraction(snap);
-		}
-
-		/* typeSelect.onchange = function () {
+		this.setDrawType(this.drawType);
+	},
+	methods: {
+		setDrawType(type) {
 			this.map.removeInteraction(draw);
 			this.map.removeInteraction(snap);
-			addInteractions();
-		}; */
-
-		addInteractions();
-
-		source.on('change', () => {
-			const f = new GeoJSON().writeFeatures(source.getFeatures());
-			console.log('features as geojson', f);
-		});
+			if (type) {
+				draw = new Draw({ source, type });
+				this.map.addInteraction(draw);
+				snap = new Snap({ source });
+				this.map.addInteraction(snap);
+			}
+		},
 	},
 };
 </script>

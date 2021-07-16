@@ -2,6 +2,7 @@
 	<div class="flex-grow-1">
 		<client-only placeholder="Loading...">
 			<Map
+				draw-type=""
 				:initial-center="[2129152.791287463,6017729.508627875]"
 				:initial-zoom="10"
 				@change="log"
