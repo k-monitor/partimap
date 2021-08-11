@@ -1,22 +1,29 @@
 
 <template>
-	<b-row align-h="end">
-		<b-col cols="4">
-			<div>
-				<b-card title="Card title" sub-title="Card subtitle">
-					<b-card-text>
-						<b-list-group>
-							<FeatureListElement
-								v-for="featureWrap in activeFeatures"
-								:key="featureWrap.feature.ol_uid"
-								:feature="featureWrap.feature"
-							/>
-						</b-list-group>
-					</b-card-text>
-				</b-card>
-			</div>
-		</b-col>
-	</b-row>
+	<div>
+		<div>
+			<b-row align-h="end">
+				<b-col cols="4">
+					<b-card title="Card title" sub-title="Card subtitle">
+						<div class="overflow-auto">
+							<b-card-text>
+								<b-list-group>
+									<FeatureListElement
+										v-for="featureWrap in activeFeatures"
+										:key="featureWrap.feature.ol_uid"
+										:feature="featureWrap.feature"
+									/>
+								</b-list-group>
+							</b-card-text>
+						</div>
+						<template #footer>
+							<em>Footer Slot</em>
+						</template>
+					</b-card>
+				</b-col>
+			</b-row>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -30,6 +37,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.card-body {
+    overflow: auto;
+}
 
+.card {
+    overflow: hidden;
+    position: relative;
+    max-height: 60vh;
+}
 </style>
