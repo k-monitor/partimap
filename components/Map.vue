@@ -50,7 +50,7 @@ export default {
 		drawType: {
 			type: String,
 			default: null,
-			validatoßr(value) {
+			validator(value) {
 				return [null, false, '', 'Point', 'LineString', 'Polygon'].includes(
 					value
 				);
@@ -70,7 +70,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-
+			selectedFeatures: {}
 		};
 	},
 	watch: {
@@ -121,6 +121,17 @@ export default {
 			});
 		});
 
+		const selectedFeatures = this;
+		const featuresCollection = this.select.getFeatures();
+		featuresCollection.on('add', f => {
+			selectedFeatures[f.element.ol_uid] = f.element;
+			this.$nuxt.$emit('selectionChanged', selectedFeatures);
+		});
+		featuresCollection.on('remove', f => {
+			delete selectedFeatures[f.element.ol_uid];
+			this.$nuxt.$emit('selectionChanged', selectedFeatures);
+		});
+
 		source.on('addfeature', e => {
 			this.$emit('addfeature', e);
 		});
@@ -129,8 +140,9 @@ export default {
 	},
 	created() {
 		this.$nuxt.$on('featureClickedOnList', f => {
-			if (!this.select.getFeatures().remove(f)) {
-				this.select.getFeatures().push(f);
+			const features = this.select.getFeatures();
+			if (!features.remove(f)) {
+				features.push(f);
 			}
 		});
 	},

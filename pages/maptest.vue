@@ -17,9 +17,13 @@
 					<div>
 						<b-card title="Card title" sub-title="Card subtitle">
 							<b-card-text>
-								<div v-for="f in activeFeatures" :key="f.feature.ol_uid">
-									<p @click="selectFeature(f.feature)">{{ f.feature.getGeometry().getType() }}</p>
-								</div>
+								<b-list-group>
+									<FeatureListElement
+										v-for="wrap in activeFeatureWrap"
+										:key="wrap.feature.ol_uid"
+										:feature="wrap.feature"
+									/>
+								</b-list-group>
 							</b-card-text>
 						</b-card>
 					</div>
@@ -35,8 +39,7 @@
 export default {
 	data() {
 		return {
-			activeFeatures: [],
-			selectedFeature: ''
+			activeFeatureWrap: [],
 		};
 	},
 	methods: {
@@ -44,16 +47,10 @@ export default {
 			console.log('map changed', JSON.stringify(payload));
 		},
 		logFeature(payload) {
-			this.activeFeatures.push(payload);
+			this.activeFeatureWrap.push(payload);
 			// const f = new GeoJSON().writeFeature(payload.feature);
 			// console.log(f);
 		},
-		selectFeature(f) {
-			this.$nuxt.$emit('featureClickedOnList', f);
-		}
 	}
 };
 </script>
-
-<style scoped>
-</style>
