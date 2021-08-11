@@ -12,23 +12,7 @@
 			</client-only>
 		</div>
 		<b-container class="mt-4 mr-2">
-			<b-row align-h="end">
-				<b-col cols="4">
-					<div>
-						<b-card title="Card title" sub-title="Card subtitle">
-							<b-card-text>
-								<b-list-group>
-									<FeatureListElement
-										v-for="wrap in activeFeatureWrap"
-										:key="wrap.feature.ol_uid"
-										:feature="wrap.feature"
-									/>
-								</b-list-group>
-							</b-card-text>
-						</b-card>
-					</div>
-				</b-col>
-			</b-row>
+			<FeatureListContainer :active-features="activeFeatures" />
 		</b-container>
 	</div>
 </template>
@@ -39,15 +23,15 @@
 export default {
 	data() {
 		return {
-			activeFeatureWrap: [],
+			activeFeatures: [],
 		};
 	},
 	methods: {
 		log(payload) {
 			console.log('map changed', JSON.stringify(payload));
 		},
-		logFeature(payload) {
-			this.activeFeatureWrap.push(payload);
+		logFeature(feature) {
+			this.activeFeatures.push(feature);
 			// const f = new GeoJSON().writeFeature(payload.feature);
 			// console.log(f);
 		},
