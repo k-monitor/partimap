@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const app = require('express')();
 const auth = require('./auth/setup');
 const db = require('./db');
+const map = require('./map/map.api');
 const project = require('./project/project.api');
 const user = require('./user/user.api');
 
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 
 auth.setup(app);
 
+app.use('/', map);
 app.use('/', project);
 app.use('/', user);
 
