@@ -7,12 +7,12 @@
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
 					@change="log"
-					@addfeature="logFeature"
+					@featuresChanged="updateFeatures"
 				/>
 			</client-only>
 		</div>
 		<b-container class="mt-4 mr-2">
-			<FeatureListContainer :active-features="activeFeatures" />
+			<FeatureListContainer :all-features="allFeatures" />
 		</b-container>
 	</div>
 </template>
@@ -23,18 +23,21 @@
 export default {
 	data() {
 		return {
-			activeFeatures: [],
+			allFeatures: [],
 		};
 	},
 	methods: {
 		log(payload) {
 			console.log('map changed', JSON.stringify(payload));
 		},
-		logFeature(feature) {
-			this.activeFeatures.push(feature);
-			// const f = new GeoJSON().writeFeature(payload.feature);
-			// console.log(f);
-		},
+		updateFeatures(feature) {
+			const idx = this.allFeatures.indexOf(feature);
+			if (idx === -1) {
+				this.allFeatures.push(feature);
+			} else {
+				this.allFeatures.splice(idx, 1);
+			}
+		}
 	}
 };
 </script>

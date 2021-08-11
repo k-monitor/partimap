@@ -4,7 +4,7 @@
 		:class="{ active: isActive }"
 		@click="selectFeature(feature)"
 	>
-		{{ feature.getGeometry().getType() }}
+		{{ `${feature.getGeometry().getType()} UUID: ${feature.ol_uid}` }}
 	</b-list-group-item>
 </template>
 
@@ -30,9 +30,6 @@ export default {
 				this.isActive = false;
 			}
 		});
-	},
-	beforeDestroy() {
-		this.$nuxt.$off('selectionChanged');
 	},
 	methods: {
 		selectFeature(feature) {

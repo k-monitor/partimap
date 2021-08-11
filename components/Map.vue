@@ -70,7 +70,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-			selectedFeatures: {}
+			selectedFeatures: {},
 		};
 	},
 	watch: {
@@ -99,7 +99,7 @@ export default {
 			}),
 		});
 		const { center, zoom } = this;
-		const map = new Map({
+		this.map = new Map({
 			interactions: defaultInteractions().extend([this.select]),
 			target: this.$refs['map-root'],
 			layers: [raster, vector],
@@ -109,7 +109,6 @@ export default {
 				zoom,
 			}),
 		});
-		this.map = map;
 
 		this.map.on('moveend', () => {
 			this.center = this.map.getView().getCenter();
@@ -121,7 +120,7 @@ export default {
 			});
 		});
 
-		const selectedFeatures = this;
+		const { selectedFeatures } = this;
 		const featuresCollection = this.select.getFeatures();
 		featuresCollection.on('add', f => {
 			selectedFeatures[f.element.ol_uid] = f.element;
@@ -131,11 +130,13 @@ export default {
 			delete selectedFeatures[f.element.ol_uid];
 			this.$nuxt.$emit('selectionChanged', selectedFeatures);
 		});
-
-		source.on('addfeature', e => {
-			this.$emit('addfeature', e);
+		source.on('addfeature', f => {
+			this.$emit('featuresChanged', f.feature);
 		});
-
+		source.on('removefeature', f => {
+			delete selectedFeatures[f.feature.ol_uid];
+			this.$emit('featuresChanged', f.feature);
+		});
 		this.setDrawType(this.drawType);
 	},
 	created() {
@@ -145,9 +146,20 @@ export default {
 				features.push(f);
 			}
 		});
+		this.$nuxt.$on('clearSelFeatures', () => {
+			this.$nuxt.$emit('clearFeaturesFromList', this.selectedFeatures);
+			for (const f of Object.values(this.selectedFeatures)) {
+				try {
+					vector.getSource().removeFeature(f);
+				} catch (error) { // néha bugolódik az openlayers és bent marad egy key ami már törlődött
+					delete this.selectedFeatures[f.ol_uid];
+				}
+			}
+		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('featureClickedOnList');
+		this.$nuxt.$off('clearSelFeatures');
 	},
 	methods: {
 		setDrawType(type) {

@@ -9,15 +9,21 @@
 							<b-card-text>
 								<b-list-group>
 									<FeatureListElement
-										v-for="featureWrap in activeFeatures"
-										:key="featureWrap.feature.ol_uid"
-										:feature="featureWrap.feature"
+										v-for="feature in allFeatures"
+										:key="feature.ol_uid"
+										:feature="feature"
 									/>
 								</b-list-group>
 							</b-card-text>
 						</div>
 						<template #footer>
-							<em>Footer Slot</em>
+							<b-button
+								variant="danger"
+								class="float-right"
+								@click="$nuxt.$emit('clearSelFeatures')"
+							>
+								Törlés
+							</b-button>
 						</template>
 					</b-card>
 				</b-col>
@@ -29,12 +35,13 @@
 <script>
 export default {
 	props: {
-		activeFeatures: {
+		allFeatures: {
 			type: Array,
 			default: () => [],
 		}
 	}
 };
+
 </script>
 
 <style scoped>
@@ -45,6 +52,6 @@ export default {
 .card {
     overflow: hidden;
     position: relative;
-    max-height: 60vh;
+    max-height: 80vh;
 }
 </style>
