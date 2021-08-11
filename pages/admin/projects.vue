@@ -48,8 +48,6 @@
 							"
 			>
 				<strong>{{ p.title }}</strong>
-				<br>
-				TODO: intézmény neve
 			</NuxtLink>
 		</div>
 	</AdminFrame>

@@ -10,7 +10,7 @@ router.get('/projects',
 	async (req, res) => {
 		const projects = req.user.isAdmin
 			? await db.findAll()
-			: await db.findByInstId(req.user.instId);
+			: await db.findByUserId(req.user.id);
 		res.json(projects);
 	});
 
@@ -21,11 +21,11 @@ router.get('/project/:id',
 router.patch('/project',
 	ensureLoggedIn,
 	resolveRecord(req => req.body.id, db.findById, 'project'),
-	ensureAdminOr(req => req.project.instId === req.user.instId),
+	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		const changes = req.body;
 		if (!req.user.isAdmin) {
-			delete changes.instId;
+			delete changes.userId;
 		}
 
 		let project = new Project(Object.assign(req.project, changes));
@@ -45,8 +45,8 @@ router.put('/project',
 		if (!project.title) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
-		if (!project.instId || !req.user.isAdmin) {
-			project.instId = req.user.instId;
+		if (!project.userId || !req.user.isAdmin) {
+			project.userId = req.user.id;
 		}
 
 		const id = await db.create(project);

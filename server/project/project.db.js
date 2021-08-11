@@ -25,11 +25,11 @@ function findById(id) {
 }
 
 /**
- * @param {Number} instId
+ * @param {Number} userId
  * @returns {Project[]}
  */
-async function findByInstId(instId) {
-	const rows = await db.query('SELECT * FROM project WHERE instId = ?', [instId]);
+async function findByUserId(userId) {
+	const rows = await db.query('SELECT * FROM project WHERE userId = ?', [userId]);
 	return rows.map(r => new Project(r));
 }
 
@@ -44,6 +44,6 @@ module.exports = {
 	create,
 	findAll,
 	findById,
-	findByInstId,
+	findByUserId,
 	update
 };

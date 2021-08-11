@@ -33,24 +33,6 @@
 				>
 			</div>
 			<div class="form-group">
-				<label for="inst">Intézmény</label>
-				<select
-					id="inst"
-					v-model="m.instId"
-					class="form-control"
-					:disabled="!$auth.user.isAdmin"
-				>
-					<option :value="null">(Nincs)</option>
-					<option
-						v-for="i in insts"
-						:key="i.id"
-						:value="i.id"
-					>
-						{{ i. name }}
-					</option>
-				</select>
-			</div>
-			<div class="form-group">
 				<label for="newPassword">Új jelszó</label>
 				<input
 					id="newPassword"
@@ -110,9 +92,8 @@ export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
-			const insts = await $axios.$get('/api/insts');
 			const u = await $axios.$get('/api/user/' + params.id);
-			return { insts, u, m: { ...u, newPassword: null, oldPassword: null } };
+			return { u, m: { ...u, newPassword: null, oldPassword: null } };
 		} catch (err) {
 			redirect('/admin/users');
 		}

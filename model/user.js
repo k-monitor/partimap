@@ -1,4 +1,4 @@
-class Inst {
+class User {
 	/**
 	 * @param {Object} data
 	 * @param {Number} data.id
@@ -6,7 +6,6 @@ class Inst {
 	 * @param {String} data.password
 	 * @param {String} data.name
 	 * @param {Number} data.registered
-	 * @param {Number} data.instId
 	 * @param {Boolean} data.isAdmin
 	 */
 	constructor(data) {
@@ -15,9 +14,8 @@ class Inst {
 		this.password = data.password;
 		this.name = data.name;
 		this.registered = data.registered || new Date().getTime();
-		this.instId = data.instId;
 		this.isAdmin = data.isAdmin || false;
 	}
 };
 
-module.exports = Inst;
+module.exports = User;

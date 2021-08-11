@@ -1,0 +1,1 @@
+ALTER TABLE `project` CHANGE COLUMN `userId` `instId` INT(11) UNSIGNED NOT NULL AFTER `id`;
