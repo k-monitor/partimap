@@ -2,16 +2,19 @@
 	<div>
 		<b-list-group-item
 			button
-			:class="{ selected: isActive }"
+			:class="[{ selected: isActive }, editVisible ? null : 'collapsed']"
 			class="mt-1 rounded"
 			@click="selectFeature(feature)"
 		>
 			{{ `${feature.getGeometry().getType()} UUID: ${feature.ol_uid}` }}
 			<div class="icons">
-				<span class="material-icons" @click.stop="doSomething"> edit </span>
+				<span class="material-icons" @click.stop="editVisible = !editVisible"> edit </span>
 				<span class="material-icons" @click.stop="$nuxt.$emit('clearFeatures',{feature})"> delete </span>
 			</div>
 		</b-list-group-item>
+		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="editVisible">
+			<b-card class="collapse-content">I am collapsible content!</b-card>
+		</b-collapse>
 	</div>
 </template>
 
@@ -26,7 +29,8 @@ export default {
 	},
 	data() {
 		return {
-			isActive: false
+			isActive: false,
+			editVisible: false
 		};
 	},
 	created() {
@@ -68,5 +72,10 @@ export default {
 
 .material-icons:hover {
   color: #777;
+}
+
+.collapse-content {
+	border-top: none;
+	border-radius: 0 0 0.25rem 0.25rem;
 }
 </style>
