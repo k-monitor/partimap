@@ -146,20 +146,26 @@ export default {
 				features.push(f);
 			}
 		});
-		this.$nuxt.$on('clearSelFeatures', () => {
-			this.$nuxt.$emit('clearFeaturesFromList', this.selectedFeatures);
-			for (const f of Object.values(this.selectedFeatures)) {
+		this.$nuxt.$on('clearFeatures', feature => {
+			let featuresToClear = {};
+			if (!feature) { // if no features are specified, clear all selected
+				featuresToClear = this.selectedFeatures;
+			} else {
+				featuresToClear = feature;
+			}
+			this.$nuxt.$emit('clearFeaturesFromList', featuresToClear);
+			for (const f of Object.values(featuresToClear)) {
 				try {
 					vector.getSource().removeFeature(f);
-				} catch (error) { // néha bugolódik az openlayers és bent marad egy key ami már törlődött
-					delete this.selectedFeatures[f.ol_uid];
+				} catch (error) {
+					delete featuresToClear[f.ol_uid];
 				}
 			}
 		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('featureClickedOnList');
-		this.$nuxt.$off('clearSelFeatures');
+		this.$nuxt.$off('clearFeatures');
 	},
 	methods: {
 		setDrawType(type) {

@@ -20,7 +20,7 @@
 							<b-button
 								variant="danger"
 								class="float-right"
-								@click="$nuxt.$emit('clearSelFeatures')"
+								@click="$nuxt.$emit('clearFeatures')"
 							>
 								Törlés
 							</b-button>
