@@ -40,7 +40,8 @@ export default {
 	modules: [
 		'@nuxtjs/axios',
 		'@nuxtjs/auth-next',
-		'bootstrap-vue/nuxt'
+		'bootstrap-vue/nuxt',
+		'vue-swatches/nuxt'
 	],
 
 	axios: {

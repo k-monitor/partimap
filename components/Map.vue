@@ -26,21 +26,23 @@ const raster = new TileLayer({
 const source = new VectorSource();
 const vector = new VectorLayer({
 	source,
-	style: new Style({
-		fill: new Fill({
-			color: 'rgba(255, 255, 255, 0.2)',
-		}),
-		stroke: new Stroke({
-			color: '#ffcc33',
-			width: 2,
-		}),
-		image: new CircleStyle({
-			radius: 7,
+	style(feature) {
+		return new Style({
 			fill: new Fill({
-				color: '#ffcc33',
+				color: 'rgba(255, 255, 255, 0.2)',
 			}),
-		}),
-	}),
+			stroke: new Stroke({
+				color: '#ffcc33',
+				width: 2,
+			}),
+			image: new CircleStyle({
+				radius: 7,
+				fill: new Fill({
+					color: '#ffcc33',
+				}),
+			}),
+		});
+	}
 });
 
 let draw, snap;
@@ -93,7 +95,7 @@ export default {
 				image: new CircleStyle({
 					radius: 7,
 					fill: new Fill({
-						color: '#afcc33',
+						color: '#ebbb',
 					}),
 				}),
 			}),
@@ -132,6 +134,7 @@ export default {
 		});
 		source.on('addfeature', f => {
 			this.$emit('featuresChanged', f.feature);
+			console.log(vector);
 		});
 		source.on('removefeature', f => {
 			delete selectedFeatures[f.feature.ol_uid];
@@ -162,6 +165,9 @@ export default {
 				}
 			}
 		});
+		this.$nuxt.$on('changeStyle', (feature, color) => {
+			this.changeFeatureStyle(feature, color);
+		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('featureClickedOnList');
@@ -180,6 +186,16 @@ export default {
 				this.map.addInteraction(snap);
 			}
 		},
+		changeFeatureStyle(feature, color) {
+			console.log(feature);
+			const newStyle = new Style({
+				image: new CircleStyle({
+					radius: 7,
+					fill: new Fill({ color }),
+				})
+			});
+			feature.setStyle(newStyle);
+		}
 	}
 };
 </script>

@@ -12,8 +12,26 @@
 				<span class="material-icons" @click.stop="$nuxt.$emit('clearFeatures',{feature})"> delete </span>
 			</div>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="editVisible">
-			<b-card class="collapse-content">I am collapsible content!</b-card>
+		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="editVisible" accordion="my-accordion">
+			<b-card class="collapse-content">
+				<!-- <b-button variant="info" @click="$nuxt.$emit('changeStyle',feature)">Szín Módosítása</b-button> -->
+				<div class="d-flex justify-content-between">
+					<div>
+						<strong>Válasszon színt:</strong>
+					</div>
+					<div>
+						<v-swatches
+							v-model="color"
+							:swatches="swatches"
+							swatch-size="20"
+							inline
+						/>
+					</div>
+					<div>
+						<b-button variant="info" @click="$nuxt.$emit('changeStyle',feature,color)">Alkalmaz</b-button>
+					</div>
+				</div>
+			</b-card>
 		</b-collapse>
 	</div>
 </template>
@@ -30,7 +48,15 @@ export default {
 	data() {
 		return {
 			isActive: false,
-			editVisible: false
+			editVisible: false,
+			color: '#27AF60',
+			swatches: [
+				'#27AF60',
+				'#2980B9',
+				'#8E43AD',
+				'#3D556E',
+				'#F2C511'
+			]
 		};
 	},
 	created() {
