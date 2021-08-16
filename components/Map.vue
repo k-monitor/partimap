@@ -58,7 +58,7 @@ export default {
 			} = {}) {
 				return new Style({
 					fill: polygonColor
-						? new Fill({ color: polygonColor + '80' })
+						? new Fill({ color: polygonColor + '33' })
 						: null,
 					stroke: new Stroke({
 						color: lineColor,
@@ -131,13 +131,21 @@ export default {
 
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
+			console.log(f);
+			console.log(this.source.getFeatures());
 			if (selectedFeatures.getLength() === 2) {
 				selectedFeatures.removeAt(0);
 			}
+			this.source.getFeatures().forEach(feature => {
+				if (feature !== f.element) {
+					this.blurFeature(feature);
+				}
+			});
 			this.$nuxt.$emit('selectionChanged', selectedFeatures);
 		});
 		selectedFeatures.on('remove', f => {
 			this.$nuxt.$emit('selectionChanged', selectedFeatures);
+			this.removeBlur();
 		});
 		this.source.on('addfeature', f => {
 			this.$emit('featuresChanged', f.feature);
@@ -194,8 +202,18 @@ export default {
 				feature,
 				pointFillColor: feature.get('color') + '80',
 				lineColor: feature.get('color') + '80',
-				polygonColor: feature.get('color') + '80'
+				polygonColor: feature.get('color')
 			}));
+		},
+		removeBlur() {
+			this.source.getFeatures().forEach(feature => {
+				feature.setStyle(this.styleFunction({
+					feature,
+					pointFillColor: feature.get('color'),
+					lineColor: feature.get('color'),
+					polygonColor: feature.get('color')
+				}));
+			});
 		}
 	}
 };
