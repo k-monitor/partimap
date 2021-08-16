@@ -2,7 +2,7 @@
 	<div>
 		<b-list-group-item
 			button
-			:class="[{ selected: isActive }, editVisible ? null : 'collapsed']"
+			:class="[{ selected: isActive }, isActive ? null : 'collapsed']"
 			class="mt-1 rounded"
 			@click="selectFeature(feature)"
 		>
@@ -12,31 +12,36 @@
 				</b-col>
 				<b-col align-self="center" cols="4" sm>
 					<div class="icons">
-						<span class="material-icons m-0" @click.stop="editVisible = !editVisible"> edit </span>
-						<span class="material-icons m-0" @click.stop="$nuxt.$emit('clearFeatures',{feature})"> delete </span>
+						<span class="material-icons m-0"> edit </span>
+						<span class="material-icons m-0" @click.stop="$nuxt.$emit('clearFeature',feature)"> delete </span>
 					</div>
 				</b-col>
 			</b-row>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="editVisible" accordion="my-accordion">
+		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="isActive" accordion="my-accordion">
 			<b-card class="collapse-content">
-				<!-- <b-button variant="info" @click="$nuxt.$emit('changeStyle',feature)">Szín Módosítása</b-button> -->
-				<div class="d-flex justify-content-between">
-					<div>
-						<strong>Válasszon színt:</strong>
-					</div>
-					<div>
-						<v-swatches
-							v-model="color"
-							:swatches="swatches"
-							swatch-size="20"
-							inline
-						/>
-					</div>
-					<div>
-						<b-button variant="info">Alkalmaz</b-button>
-					</div>
-				</div>
+				<b-container>
+					<b-row>
+						<b-col cols="12">
+							Válasszon színt:
+						</b-col>
+					</b-row>
+					<b-row>
+						<b-col cols="12">
+							<v-swatches
+								v-model="color"
+								:swatches="swatches"
+								swatch-size="20"
+								inline
+							/>
+						</b-col>
+					</b-row>
+					<b-row>
+						<b-col cols="12">
+							<b-button variant="info" @click="selectFeature(feature)">Alkalmaz</b-button>
+						</b-col>
+					</b-row>
+				</b-container>
 			</b-card>
 		</b-collapse>
 	</div>
@@ -54,7 +59,6 @@ export default {
 	data() {
 		return {
 			isActive: false,
-			editVisible: false,
 			color: '#27AF60',
 			swatches: [
 				'#27AF60',
@@ -62,7 +66,7 @@ export default {
 				'#8E43AD',
 				'#3D556E',
 				'#F2C511'
-			]
+			],
 		};
 	},
 	watch: {
@@ -71,8 +75,8 @@ export default {
 		}
 	},
 	created() {
-		this.$nuxt.$on('selectionChanged', selectedFeatures => {
-			if (this.feature.ol_uid in selectedFeatures) {
+		this.$nuxt.$on('selectionChanged', featureContainer => {
+			if (featureContainer.array_.includes(this.feature)) {
 				this.isActive = true;
 			} else {
 				this.isActive = false;

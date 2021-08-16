@@ -13,15 +13,6 @@
 					</b-list-group>
 				</b-card-text>
 			</div>
-			<template #footer>
-				<b-button
-					variant="danger"
-					class="float-right"
-					@click="$nuxt.$emit('clearFeatures')"
-				>
-					Törlés
-				</b-button>
-			</template>
 		</b-card>
 	</div>
 </template>
