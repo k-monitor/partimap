@@ -41,6 +41,10 @@ export default {
 			type: Number,
 			default: 3,
 		},
+		editMode: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data() {
 		return {
@@ -94,6 +98,9 @@ export default {
 		drawType(type) {
 			this.setDrawType(type);
 		},
+		editMode(editMode) {
+			editMode ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
+		}
 	},
 	mounted() {
 		const raster = new TileLayer({
