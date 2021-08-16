@@ -1,33 +1,29 @@
 
 <template>
-	<b-row align-h="end">
-		<b-col cols="4">
-			<div class="accordion" role="tablist">
-				<b-card title="Card title" sub-title="Card subtitle">
-					<div class="overflow-auto">
-						<b-card-text>
-							<b-list-group>
-								<FeatureListElement
-									v-for="feature in allFeatures"
-									:key="feature.ol_uid"
-									:feature="feature"
-								/>
-							</b-list-group>
-						</b-card-text>
-					</div>
-					<template #footer>
-						<b-button
-							variant="danger"
-							class="float-right"
-							@click="$nuxt.$emit('clearFeatures')"
-						>
-							Törlés
-						</b-button>
-					</template>
-				</b-card>
+	<div class="accordion" role="tablist">
+		<b-card title="Card title">
+			<div class="overflow-auto">
+				<b-card-text>
+					<b-list-group>
+						<FeatureListElement
+							v-for="feature in allFeatures"
+							:key="feature.ol_uid"
+							:feature="feature"
+						/>
+					</b-list-group>
+				</b-card-text>
 			</div>
-		</b-col>
-	</b-row>
+			<template #footer>
+				<b-button
+					variant="danger"
+					class="float-right"
+					@click="$nuxt.$emit('clearFeatures')"
+				>
+					Törlés
+				</b-button>
+			</template>
+		</b-card>
+	</div>
 </template>
 
 <script>

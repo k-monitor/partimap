@@ -6,11 +6,17 @@
 			class="mt-1 rounded"
 			@click="selectFeature(feature)"
 		>
-			{{ `${feature.getGeometry().getType()} UUID: ${feature.ol_uid}` }}
-			<div class="icons">
-				<span class="material-icons" @click.stop="editVisible = !editVisible"> edit </span>
-				<span class="material-icons" @click.stop="$nuxt.$emit('clearFeatures',{feature})"> delete </span>
-			</div>
+			<b-row class="text-center" align-h="between">
+				<b-col cols="8" sm>
+					<span>{{ `${feature.getGeometry().getType()} UUID: ${feature.ol_uid}` }}</span>
+				</b-col>
+				<b-col align-self="center" cols="4" sm>
+					<div class="icons">
+						<span class="material-icons m-0" @click.stop="editVisible = !editVisible"> edit </span>
+						<span class="material-icons m-0" @click.stop="$nuxt.$emit('clearFeatures',{feature})"> delete </span>
+					</div>
+				</b-col>
+			</b-row>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="editVisible" accordion="my-accordion">
 			<b-card class="collapse-content">
@@ -28,7 +34,7 @@
 						/>
 					</div>
 					<div>
-						<b-button variant="info" @click="$nuxt.$emit('changeStyle',feature,color)">Alkalmaz</b-button>
+						<b-button variant="info">Alkalmaz</b-button>
 					</div>
 				</div>
 			</b-card>
@@ -59,6 +65,11 @@ export default {
 			]
 		};
 	},
+	watch: {
+		color(val) {
+			this.$nuxt.$emit('changeStyle', this.feature, val);
+		}
+	},
 	created() {
 		this.$nuxt.$on('selectionChanged', selectedFeatures => {
 			if (this.feature.ol_uid in selectedFeatures) {
@@ -72,7 +83,7 @@ export default {
 		selectFeature(feature) {
 			this.$nuxt.$emit('featureClickedOnList', feature);
 		},
-	},
+	}
 
 };
 </script>
@@ -82,9 +93,6 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-.icons {
-	display: flex;
 }
 .selected {
 	border-left: 4px solid #00ce89;

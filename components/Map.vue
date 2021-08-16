@@ -17,33 +17,8 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interaction';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
+import { click } from 'ol/events/condition';
 import Collection from 'ol/Collection';
-
-const raster = new TileLayer({
-	source: new OSM(),
-});
-
-const source = new VectorSource();
-const vector = new VectorLayer({
-	source,
-	style(feature) {
-		return new Style({
-			fill: new Fill({
-				color: 'rgba(255, 255, 255, 0.2)',
-			}),
-			stroke: new Stroke({
-				color: '#ffcc33',
-				width: 2,
-			}),
-			image: new CircleStyle({
-				radius: 7,
-				fill: new Fill({
-					color: '#ffcc33',
-				}),
-			}),
-		});
-	}
-});
 
 let draw, snap;
 
@@ -73,6 +48,46 @@ export default {
 			center: this.initialCenter,
 			zoom: this.initialZoom,
 			selectedFeatures: {},
+			styleFunction({
+				feature = null,
+				resolution = null,
+				pointFillColor = null,
+				selected = false,
+				lineColor = null,
+				polygonColor = null
+			} = {}) {
+				switch (feature.getGeometry().getType()) {
+				case 'Polygon':
+					feature.set('color', polygonColor);
+					break;
+				case 'LineString':
+					feature.set('color', lineColor);
+					break;
+				case 'Point':
+					feature.set('color', pointFillColor);
+					break;
+				}
+				return new Style({
+					fill: polygonColor
+						? new Fill({ color: polygonColor + '80' })
+						: null,
+					stroke: new Stroke({
+						color: selected ? '#ff0000' : lineColor,
+						width: 2,
+						lineDash: (selected && feature.getGeometry().getType() === 'LineString') ? [4, 8] : null
+					}),
+					image: new CircleStyle({
+						radius: 7,
+						fill: pointFillColor
+							? new Fill({ color: pointFillColor })
+							: null,
+						stroke: selected
+							? new Stroke({ color: 'black' })
+							: null
+					}),
+				});
+			}
+
 		};
 	},
 	watch: {
@@ -81,30 +96,44 @@ export default {
 		},
 	},
 	mounted() {
+		const raster = new TileLayer({
+			source: new OSM(),
+		});
+
+		this.source = new VectorSource();
+		this.vector = new VectorLayer({
+			source: this.source,
+			style: (feature, resolution) => {
+				return this.styleFunction({
+					feature,
+					resolution,
+					pointFillColor: 'yellow',
+					lineColor: '#64C8FF',
+					polygonColor: '#64C8FF'
+				});
+			}
+		});
+
 		const collection = new Collection();
 		this.select = new Select({
 			features: collection,
-			style: new Style({
-				fill: new Fill({
-					color: 'rgba(100, 255, 255, 0.2)',
-				}),
-				stroke: new Stroke({
-					color: '#afcc33',
-					width: 2,
-				}),
-				image: new CircleStyle({
-					radius: 7,
-					fill: new Fill({
-						color: '#ebbb',
-					}),
-				}),
-			}),
+			style: (feature, resolution) => {
+				return this.styleFunction({
+					feature,
+					resolution,
+					pointFillColor: feature.get('color'),
+					polygonColor: feature.get('color'),
+					lineColor: 'red',
+					selected: true,
+				});
+			},
+			condition: click
 		});
 		const { center, zoom } = this;
 		this.map = new Map({
 			interactions: defaultInteractions().extend([this.select]),
 			target: this.$refs['map-root'],
-			layers: [raster, vector],
+			layers: [raster, this.vector],
 			view: new View({
 				center,
 				constrainResolution: true,
@@ -125,18 +154,20 @@ export default {
 		const { selectedFeatures } = this;
 		const featuresCollection = this.select.getFeatures();
 		featuresCollection.on('add', f => {
+			f.element.set('selected', true);
 			selectedFeatures[f.element.ol_uid] = f.element;
 			this.$nuxt.$emit('selectionChanged', selectedFeatures);
 		});
 		featuresCollection.on('remove', f => {
+			f.element.set('selected', false);
+			this.changeFeatureStyle(f.element);
 			delete selectedFeatures[f.element.ol_uid];
 			this.$nuxt.$emit('selectionChanged', selectedFeatures);
 		});
-		source.on('addfeature', f => {
+		this.source.on('addfeature', f => {
 			this.$emit('featuresChanged', f.feature);
-			console.log(vector);
 		});
-		source.on('removefeature', f => {
+		this.source.on('removefeature', f => {
 			delete selectedFeatures[f.feature.ol_uid];
 			this.$emit('featuresChanged', f.feature);
 		});
@@ -159,7 +190,7 @@ export default {
 			this.$nuxt.$emit('clearFeaturesFromList', featuresToClear);
 			for (const f of Object.values(featuresToClear)) {
 				try {
-					vector.getSource().removeFeature(f);
+					this.vector.getSource().removeFeature(f);
 				} catch (error) {
 					delete featuresToClear[f.ol_uid];
 				}
@@ -179,23 +210,27 @@ export default {
 			this.map.removeInteraction(snap);
 			if (type) {
 				draw = new Draw({
-					source, type
+					source: this.source, type
 				});
 				this.map.addInteraction(draw);
-				snap = new Snap({ source });
+				snap = new Snap({ source: this.source });
 				this.map.addInteraction(snap);
 			}
 		},
-		changeFeatureStyle(feature, color) {
-			console.log(feature);
-			const newStyle = new Style({
-				image: new CircleStyle({
-					radius: 7,
-					fill: new Fill({ color }),
-				})
-			});
-			feature.setStyle(newStyle);
-		}
+		changeFeatureStyle(feature, color = null) {
+			// if there is a specified color, set the color to that,
+			// if there isn't, use the feature's default color
+			if (!color) {
+				console.log('selection removed, changing style to ' + feature.get('color'));
+			}
+			feature.setStyle(this.styleFunction({
+				feature,
+				pointFillColor: color || feature.get('color'),
+				selected: feature.get('selected'),
+				lineColor: color || feature.get('color'),
+				polygonColor: color || feature.get('color')
+			}));
+		},
 	}
 };
 </script>

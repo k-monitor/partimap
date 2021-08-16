@@ -3,7 +3,7 @@
 		<div class="flex-grow-1 map">
 			<client-only placeholder="Loading...">
 				<Map
-					draw-type="Point"
+					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
 					@change="log"
@@ -12,7 +12,45 @@
 			</client-only>
 		</div>
 		<b-container class="mt-4 mr-2">
-			<FeatureListContainer :all-features="allFeatures" />
+			<b-row align-h="end">
+				<b-col cols="4">
+					<FeatureListContainer :all-features="allFeatures" />
+				</b-col>
+			</b-row>
+		</b-container>
+		<b-container class="fixed-bottom mb-5 mr-2">
+			<b-row align-h="end">
+				<b-col cols="auto">
+					<b-card>
+						<b-container class="text-center">
+							<b-button-group>
+								<b-button
+									:class="{'btn-success': pointBtnClicked}"
+									@click="buttonClicked('Point')"
+								>
+									Point
+								</b-button>
+								<b-button
+									:class="{'btn-success': lineBtnClicked}"
+									@click="buttonClicked('Line')"
+								>
+									Line
+								</b-button>
+								<b-button
+									:class="{'btn-success': polyBtnClicked}"
+									@click="buttonClicked('Poly')"
+								>
+									Polygon
+								</b-button>
+							</b-button-group>
+						</b-container>
+					</b-card>
+				</b-col>
+			</b-row>
+		</b-container>
+		</b-card>
+		</b-col>
+		</b-row>
 		</b-container>
 	</div>
 </template>
@@ -24,6 +62,10 @@ export default {
 	data() {
 		return {
 			allFeatures: [],
+			drawType: '',
+			pointBtnClicked: '',
+			lineBtnClicked: '',
+			polyBtnClicked: ''
 		};
 	},
 	methods: {
@@ -37,8 +79,24 @@ export default {
 			} else {
 				this.allFeatures.splice(idx, 1);
 			}
+		},
+		buttonClicked (type) {
+			switch (type) {
+			case 'Point':
+				this.drawType === 'Point' ? this.drawType = '' : this.drawType = 'Point';
+				this.pointBtnClicked = !this.pointBtnClicked;
+				break;
+			case 'Line':
+				this.drawType === 'LineString' ? this.drawType = '' : this.drawType = 'LineString';
+				this.lineBtnClicked = !this.lineBtnClicked;
+				break;
+			case 'Poly':
+				this.drawType === 'Polygon' ? this.drawType = '' : this.drawType = 'Polygon';
+				this.polyBtnClicked = !this.polyBtnClicked;
+				break;
+			}
 		}
-	}
+	},
 };
 </script>
 
