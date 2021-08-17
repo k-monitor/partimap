@@ -8,6 +8,7 @@
 						<FeatureListElement
 							v-for="feature in allFeatures"
 							:key="feature.ol_uid"
+							:selected="feature.get('selected')"
 							:feature="feature"
 						/>
 					</b-list-group>

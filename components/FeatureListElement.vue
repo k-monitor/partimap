@@ -2,9 +2,9 @@
 	<div>
 		<b-list-group-item
 			button
-			:class="[{ selected: isActive }, isActive ? null : 'collapsed']"
+			:class="[{ selected: isActive }, selected ? null : 'collapsed']"
 			class="mt-1 rounded"
-			@click="selectFeature(feature)"
+			@click="selected = !selected"
 		>
 			<b-row class="text-center" align-h="between">
 				<b-col cols="8" sm>
@@ -18,7 +18,7 @@
 				</b-col>
 			</b-row>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="isActive" accordion="my-accordion">
+		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="selected" accordion="my-accordion">
 			<b-card class="collapse-content">
 				<b-container>
 					<b-row>
@@ -54,11 +54,14 @@ export default {
 		feature: {
 			type: Feature,
 			default: new Feature()
+		},
+		selected: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
 		return {
-			isActive: false,
 			color: '#64C8FF', // ezt lehetne talán store-ból
 			swatches: [
 				'#27AF60',
@@ -73,15 +76,6 @@ export default {
 		color(val) {
 			this.$nuxt.$emit('changeStyle', this.feature, val);
 		}
-	},
-	created() {
-		this.$nuxt.$on('selectionChanged', featureContainer => {
-			if (featureContainer.array_.includes(this.feature)) {
-				this.isActive = true;
-			} else {
-				this.isActive = false;
-			}
-		});
 	},
 	methods: {
 		selectFeature(feature) {

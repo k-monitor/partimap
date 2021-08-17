@@ -6,7 +6,6 @@
 					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
-					:edit-mode="editMode"
 					@change="log"
 					@featuresChanged="updateFeatures"
 				/>
@@ -62,12 +61,23 @@ export default {
 			drawType: '',
 			pointBtnClicked: false,
 			lineBtnClicked: false,
-			polyBtnClicked: false
+			polyBtnClicked: false,
 		};
 	},
 	computed: {
-		editMode() {
-			return this.pointBtnClicked || this.polyBtnClicked || this.lineBtnClicked;
+		editState() {
+			return this.$store.getters.getEditState;
+		}
+	},
+	watch: {
+		drawType() {
+			this.$store.commit('toggleEditState', !!this.drawType);
+		},
+		editState(state) {
+			if (!state) {
+				this.pointBtnClicked = this.lineBtnClicked = this.polyBtnClicked = false;
+				this.drawType = '';
+			}
 		}
 	},
 	methods: {

@@ -38,10 +38,6 @@ export default {
 		initialZoom: {
 			type: Number,
 			default: 3,
-		},
-		editMode: {
-			type: Boolean,
-			default: false
 		}
 	},
 	data() {
@@ -73,12 +69,17 @@ export default {
 
 		};
 	},
+	computed: {
+		editState() {
+			return this.$store.getters.getEditState;
+		}
+	},
 	watch: {
 		drawType(type) {
 			this.setDrawType(type);
 		},
-		editMode(editMode) {
-			editMode ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
+		editState(state) {
+			state ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
 		}
 	},
 	mounted() {
@@ -102,7 +103,7 @@ export default {
 		});
 
 		this.select = new Select({
-			style: null
+			style: null,
 		});
 
 		const { center, zoom } = this;
@@ -137,27 +138,26 @@ export default {
 					this.blurFeature(feature);
 				}
 			}); // Blur the others to indicate the selected
-			this.$nuxt.$emit('selectionChanged', selectedFeatures);
+			f.element.set('selected', true);
 		});
 		selectedFeatures.on('remove', f => {
-			this.$nuxt.$emit('selectionChanged', selectedFeatures);
+			// this.$nuxt.$emit('selectionChanged', selectedFeatures);
+			f.element.set('selected', false);
 			this.removeBlur();
 		});
 		this.source.on('addfeature', f => {
+			this.$store.commit('toggleEditState', false);
 			this.$emit('featuresChanged', f.feature);
 		});
 		this.source.on('removefeature', f => {
 			this.$emit('featuresChanged', f.feature);
+			if (selectedFeatures.array_.includes(f.feature)) {
+				selectedFeatures.pop();
+			}
 		});
 		this.setDrawType(this.drawType);
 	},
 	created() {
-		this.$nuxt.$on('featureClickedOnList', f => {
-			const features = this.select.getFeatures();
-			if (!features.remove(f)) { // If it's in, then remove
-				features.push(f);
-			}
-		});
 		this.$nuxt.$on('clearFeature', feature => {
 			this.vector.getSource().removeFeature(feature);
 		});
@@ -181,6 +181,9 @@ export default {
 				this.map.addInteraction(draw);
 				snap = new Snap({ source: this.source });
 				this.map.addInteraction(snap);
+				draw.on('drawend', evt => {
+					this.select.getFeatures().push(evt.feature);
+				});
 			}
 		},
 		changeFeatureStyle(feature, color) {
