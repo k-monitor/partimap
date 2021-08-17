@@ -17,7 +17,6 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interaction';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import Collection from 'ol/Collection';
 
 let draw, snap;
 
@@ -51,7 +50,6 @@ export default {
 			center: this.initialCenter,
 			zoom: this.initialZoom,
 			styleFunction({
-				feature = null,
 				pointFillColor = null,
 				lineColor = null,
 				polygonColor = null
@@ -92,21 +90,21 @@ export default {
 		this.vector = new VectorLayer({
 			source: this.source,
 			style: (feature, resolution) => {
-				feature.set('color', '#64C8FF');
+				const defaultColor = '#64C8FF';
+				feature.set('color', defaultColor);
 				return this.styleFunction({
 					feature,
-					pointFillColor: '#64C8FF',
-					lineColor: '#64C8FF',
-					polygonColor: '#64C8FF'
+					pointFillColor: defaultColor,
+					lineColor: defaultColor,
+					polygonColor: defaultColor
 				});
 			}
 		});
 
-		const collection = new Collection();
 		this.select = new Select({
-			features: collection,
 			style: null
 		});
+
 		const { center, zoom } = this;
 		this.map = new Map({
 			interactions: defaultInteractions().extend([this.select]),
@@ -131,16 +129,14 @@ export default {
 
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
-			console.log(f);
-			console.log(this.source.getFeatures());
 			if (selectedFeatures.getLength() === 2) {
 				selectedFeatures.removeAt(0);
-			}
+			} // Only one selected feature is allowed
 			this.source.getFeatures().forEach(feature => {
 				if (feature !== f.element) {
 					this.blurFeature(feature);
 				}
-			});
+			}); // Blur the others to indicate the selected
 			this.$nuxt.$emit('selectionChanged', selectedFeatures);
 		});
 		selectedFeatures.on('remove', f => {
@@ -158,7 +154,7 @@ export default {
 	created() {
 		this.$nuxt.$on('featureClickedOnList', f => {
 			const features = this.select.getFeatures();
-			if (!features.remove(f)) {
+			if (!features.remove(f)) { // If it's in, then remove
 				features.push(f);
 			}
 		});
@@ -172,6 +168,7 @@ export default {
 	beforeDestroy() {
 		this.$nuxt.$off('featureClickedOnList');
 		this.$nuxt.$off('clearFeature');
+		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
 		setDrawType(type) {
@@ -187,8 +184,6 @@ export default {
 			}
 		},
 		changeFeatureStyle(feature, color) {
-			// if there is a specified color, set the color to that,
-			// if there isn't, use the feature's default color
 			feature.setStyle(this.styleFunction({
 				feature,
 				pointFillColor: color,
@@ -207,12 +202,7 @@ export default {
 		},
 		removeBlur() {
 			this.source.getFeatures().forEach(feature => {
-				feature.setStyle(this.styleFunction({
-					feature,
-					pointFillColor: feature.get('color'),
-					lineColor: feature.get('color'),
-					polygonColor: feature.get('color')
-				}));
+				this.changeFeatureStyle(feature, feature.get('color'));
 			});
 		}
 	}

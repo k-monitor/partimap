@@ -59,10 +59,10 @@ export default {
 	data() {
 		return {
 			isActive: false,
-			color: '#27AF60',
+			color: '#64C8FF', // ezt lehetne talán store-ból
 			swatches: [
 				'#27AF60',
-				'#2980B9',
+				'#64C8FF',
 				'#8E43AD',
 				'#3D556E',
 				'#F2C511'
