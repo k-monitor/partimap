@@ -18,6 +18,8 @@ import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interact
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { mapGetters } from 'vuex';
+// import GeoJSON from 'ol/format/GeoJSON';
+
 let draw, snap;
 
 export default {
@@ -84,7 +86,6 @@ export default {
 			state ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
 		},
 		getSelectedFeature(selFeature, prevFeature) {
-			console.log(prevFeature, selFeature);
 			if (!selFeature) {
 				this.removeBlur();
 			} else {
@@ -146,7 +147,7 @@ export default {
 
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
-			console.log('feature added' + f.element.ol_uid);
+			console.log(f.element.ol_uid + 'selected');
 			this.$store.commit('selected/change', f.element);
 			this.source.getFeatures().forEach(feature => {
 				if (feature !== f.element) {
@@ -155,6 +156,8 @@ export default {
 			});
 		});
 		selectedFeatures.on('remove', f => {
+			console.log(f.element.ol_uid + 'removed');
+
 			this.$store.commit('selected/remove', f.element);
 		});
 
@@ -195,7 +198,10 @@ export default {
 				snap = new Snap({ source: this.source });
 				this.map.addInteraction(snap);
 				draw.on('drawend', evt => {
-					this.select.getFeatures().push(evt.feature);
+					if (!this.select.getFeatures().array_.includes(evt.feature)) {
+						this.select.getFeatures().push(evt.feature);
+					}
+					// console.log('poly drawed');
 				});
 			}
 		},
