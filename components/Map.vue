@@ -17,7 +17,7 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interaction';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-
+import { mapGetters } from 'vuex';
 let draw, snap;
 
 export default {
@@ -72,7 +72,9 @@ export default {
 	computed: {
 		editState() {
 			return this.$store.getters.getEditState;
-		}
+		},
+		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' })
+
 	},
 	watch: {
 		drawType(type) {
@@ -80,6 +82,20 @@ export default {
 		},
 		editState(state) {
 			state ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
+		},
+		getSelectedFeature(selFeature, prevFeature) {
+			console.log(prevFeature, selFeature);
+			if (!selFeature) {
+				this.removeBlur();
+			} else {
+				this.source.getFeatures().forEach(feature => {
+					if (feature !== selFeature) {
+						this.blurFeature(feature);
+					} if ((feature === selFeature) && prevFeature) {
+						this.removeBlur(selFeature);
+					}
+				});
+			}
 		}
 	},
 	mounted() {
@@ -130,30 +146,28 @@ export default {
 
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
-			if (selectedFeatures.getLength() === 2) {
-				selectedFeatures.removeAt(0);
-			} // Only one selected feature is allowed
+			console.log('feature added' + f.element.ol_uid);
+			this.$store.commit('selected/change', f.element);
 			this.source.getFeatures().forEach(feature => {
 				if (feature !== f.element) {
 					this.blurFeature(feature);
 				}
-			}); // Blur the others to indicate the selected
-			f.element.set('selected', true);
+			});
 		});
 		selectedFeatures.on('remove', f => {
-			// this.$nuxt.$emit('selectionChanged', selectedFeatures);
-			f.element.set('selected', false);
-			this.removeBlur();
+			this.$store.commit('selected/remove', f.element);
 		});
+
 		this.source.on('addfeature', f => {
 			this.$store.commit('toggleEditState', false);
 			this.$emit('featuresChanged', f.feature);
 		});
 		this.source.on('removefeature', f => {
 			this.$emit('featuresChanged', f.feature);
-			if (selectedFeatures.array_.includes(f.feature)) {
-				selectedFeatures.pop();
+			if (f.feature === this.getSelectedFeature) {
+				this.removeBlur();
 			}
+			this.$store.commit('selected/remove', f.feature);
 		});
 		this.setDrawType(this.drawType);
 	},
@@ -166,7 +180,6 @@ export default {
 		});
 	},
 	beforeDestroy() {
-		this.$nuxt.$off('featureClickedOnList');
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('changeStyle');
 	},
@@ -203,10 +216,14 @@ export default {
 				polygonColor: feature.get('color')
 			}));
 		},
-		removeBlur() {
-			this.source.getFeatures().forEach(feature => {
+		removeBlur(feature = null) {
+			if (feature) {
 				this.changeFeatureStyle(feature, feature.get('color'));
-			});
+			} else {
+				this.source.getFeatures().forEach(feature => {
+					this.changeFeatureStyle(feature, feature.get('color'));
+				});
+			}
 		}
 	}
 };

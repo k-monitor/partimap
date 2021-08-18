@@ -72,6 +72,7 @@ export default {
 	watch: {
 		drawType() {
 			this.$store.commit('toggleEditState', !!this.drawType);
+			!!this.drawType && this.$store.commit('selected/change', null);
 		},
 		editState(state) {
 			if (!state) {

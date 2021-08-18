@@ -1,5 +1,7 @@
+export const strict = false; // feature referenciát tárolok, ami változik
+
 export const state = () => ({
-	editState: false
+	editState: false,
 });
 
 export const mutations = {

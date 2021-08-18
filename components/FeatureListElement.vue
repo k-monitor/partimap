@@ -2,9 +2,9 @@
 	<div>
 		<b-list-group-item
 			button
-			:class="[{ selected: isActive }, selected ? null : 'collapsed']"
+			:class="[{ selected: selectedFeature, disabled: onEditMode }, selectedFeature ? null : 'collapsed']"
 			class="mt-1 rounded"
-			@click="selected = !selected"
+			@click="featureClicked()"
 		>
 			<b-row class="text-center" align-h="between">
 				<b-col cols="8" sm>
@@ -12,13 +12,12 @@
 				</b-col>
 				<b-col align-self="center" cols="4" sm>
 					<div class="icons">
-						<span class="material-icons m-0"> edit </span>
 						<span class="material-icons m-0" @click.stop="$nuxt.$emit('clearFeature',feature)"> delete </span>
 					</div>
 				</b-col>
 			</b-row>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="selected" accordion="my-accordion">
+		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="selectedFeature" accordion="my-accordion">
 			<b-card class="collapse-content">
 				<b-container>
 					<b-row>
@@ -38,7 +37,7 @@
 					</b-row>
 					<b-row>
 						<b-col cols="12">
-							<b-button variant="info" @click="selectFeature(feature)">Alkalmaz</b-button>
+							<b-button variant="info" @click="applyChanges()">Alkalmaz</b-button>
 						</b-col>
 					</b-row>
 				</b-container>
@@ -49,16 +48,13 @@
 
 <script>
 import Feature from 'ol/Feature';
+import { mapGetters } from 'vuex';
 export default {
 	props: {
 		feature: {
 			type: Feature,
 			default: new Feature()
 		},
-		selected: {
-			type: Boolean,
-			default: false
-		}
 	},
 	data() {
 		return {
@@ -72,15 +68,32 @@ export default {
 			],
 		};
 	},
-	watch: {
-		color(val) {
-			this.$nuxt.$emit('changeStyle', this.feature, val);
+	computed: {
+		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
+		selectedFeature: {
+			get() {
+				return (this.getSelectedFeature === this.feature);
+			},
+			set(val) {
+				val
+					? this.$store.commit('selected/change', this.feature)
+					: this.$store.commit('selected/remove', this.feature);
+			}
+		},
+		onEditMode() {
+			return this.$store.getters.getEditState;
 		}
 	},
 	methods: {
-		selectFeature(feature) {
-			this.$nuxt.$emit('featureClickedOnList', feature);
+		featureClicked() {
+			this.getSelectedFeature === this.feature
+				? this.$store.commit('selected/remove', this.feature)
+				: this.$store.commit('selected/change', this.feature);
 		},
+		applyChanges() {
+			this.selectedFeature = false;
+			this.$nuxt.$emit('changeStyle', this.feature, this.color);
+		}
 	}
 
 };
