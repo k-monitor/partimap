@@ -3,11 +3,11 @@
 		<div class="flex-grow-1 map">
 			<client-only placeholder="Loading...">
 				<Map
-					v-if="featuresFromServer.length"
+					v-if="featuresLoaded"
 					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
-					:features="featuresFromServer[0]"
+					:features="featuresFromServer"
 					@change="log"
 					@featuresChanged="updateFeatures"
 				/>
@@ -96,6 +96,7 @@ export default {
 					throw new Error('error when loading data');
 				}
 				this.featuresFromServer = await data.json();
+				this.featuresLoaded = true;
 			} catch (error) {
 				console.log(error.message);
 			}

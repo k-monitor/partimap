@@ -106,7 +106,7 @@ export default {
 		});
 
 		this.source = new VectorSource({
-			features: new GeoJSON().readFeatures(this.features)
+			features: this.loadFeaturesFromJSON()
 		});
 		this.vector = new VectorLayer({
 			source: this.source,
@@ -192,6 +192,14 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		loadFeaturesFromJSON() {
+			const loadedFeatures = this.features[0];
+			if (this.features[0]) {
+				return new GeoJSON().readFeatures(loadedFeatures);
+			} else {
+				return null;
+			}
+		},
 		setDrawType(type) {
 			this.map.removeInteraction(draw);
 			this.map.removeInteraction(snap);
