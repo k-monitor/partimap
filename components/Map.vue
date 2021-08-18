@@ -193,9 +193,13 @@ export default {
 	},
 	methods: {
 		loadFeaturesFromJSON() {
-			const loadedFeatures = this.features[0];
+			const loadedFeatureData = this.features[0];
 			if (this.features[0]) {
-				return new GeoJSON().readFeatures(loadedFeatures);
+				const loadedFeatures = new GeoJSON().readFeatures(loadedFeatureData);
+				for (const f of loadedFeatures) {
+					this.$store.commit('features/add', f);
+				}
+				return loadedFeatures;
 			} else {
 				return null;
 			}
