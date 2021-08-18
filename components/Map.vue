@@ -163,15 +163,15 @@ export default {
 		this.source.on('addfeature', f => {
 			f.feature.setId(f.feature.ol_uid);
 			this.$store.commit('toggleEditState', false);
-			this.$emit('featuresChanged', f.feature);
+			this.$store.commit('features/add', f.feature);
 		});
 
 		this.source.on('removefeature', f => {
-			this.$emit('featuresChanged', f.feature);
 			if (f.feature === this.getSelectedFeature) {
 				this.removeBlur();
 			}
 			this.$store.commit('selected/remove', f.feature);
+			this.$store.commit('features/remove', f.feature);
 		});
 
 		this.source.on('change', () => {

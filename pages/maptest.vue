@@ -9,14 +9,13 @@
 					:initial-zoom="10"
 					:features="featuresFromServer"
 					@change="log"
-					@featuresChanged="updateFeatures"
 				/>
 			</client-only>
 		</div>
 		<b-container class="mt-4 mr-2">
 			<b-row align-h="end">
 				<b-col cols="4" class="p-0">
-					<FeatureListContainer :all-features="allFeatures" />
+					<FeatureListContainer />
 				</b-col>
 			</b-row>
 		</b-container>
@@ -59,7 +58,6 @@
 export default {
 	data() {
 		return {
-			allFeatures: [],
 			drawType: '',
 			pointBtnClicked: false,
 			lineBtnClicked: false,
@@ -104,14 +102,6 @@ export default {
 		},
 		log(payload) {
 			// console.log('map changed', JSON.stringify(payload));
-		},
-		updateFeatures(feature) {
-			const idx = this.allFeatures.indexOf(feature);
-			if (idx === -1) {
-				this.allFeatures.push(feature);
-			} else {
-				this.allFeatures.splice(idx, 1);
-			}
 		},
 		buttonClicked (type) {
 			switch (type) {

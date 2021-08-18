@@ -18,11 +18,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
-	props: {
-		allFeatures: {
-			type: Array,
-			default: () => [],
+	computed: {
+		...mapGetters({ getAllFeatures: 'features/getAllFeature' }),
+		allFeatures() {
+			return this.getAllFeatures;
 		}
 	}
 };
