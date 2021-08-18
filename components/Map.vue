@@ -18,7 +18,7 @@ import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interact
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { mapGetters } from 'vuex';
-// import GeoJSON from 'ol/format/GeoJSON';
+import GeoJSON from 'ol/format/GeoJSON';
 
 let draw, snap;
 
@@ -40,7 +40,8 @@ export default {
 		initialZoom: {
 			type: Number,
 			default: 3,
-		}
+		},
+		features: {}
 	},
 	data() {
 		return {
@@ -104,7 +105,9 @@ export default {
 			source: new OSM(),
 		});
 
-		this.source = new VectorSource();
+		this.source = new VectorSource({
+			features: new GeoJSON().readFeatures(this.features)
+		});
 		this.vector = new VectorLayer({
 			source: this.source,
 			style: (feature, resolution) => {
@@ -118,7 +121,6 @@ export default {
 				});
 			}
 		});
-
 		this.select = new Select({
 			style: null,
 		});
@@ -147,7 +149,6 @@ export default {
 
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
-			console.log(f.element.ol_uid + 'selected');
 			this.$store.commit('selected/change', f.element);
 			this.source.getFeatures().forEach(feature => {
 				if (feature !== f.element) {
@@ -156,21 +157,25 @@ export default {
 			});
 		});
 		selectedFeatures.on('remove', f => {
-			console.log(f.element.ol_uid + 'removed');
-
 			this.$store.commit('selected/remove', f.element);
 		});
 
 		this.source.on('addfeature', f => {
+			f.feature.setId(f.feature.ol_uid);
 			this.$store.commit('toggleEditState', false);
 			this.$emit('featuresChanged', f.feature);
 		});
+
 		this.source.on('removefeature', f => {
 			this.$emit('featuresChanged', f.feature);
 			if (f.feature === this.getSelectedFeature) {
 				this.removeBlur();
 			}
 			this.$store.commit('selected/remove', f.feature);
+		});
+
+		this.source.on('change', () => {
+			console.log(new GeoJSON().writeFeatures(this.source.getFeatures()));
 		});
 		this.setDrawType(this.drawType);
 	},

@@ -3,9 +3,11 @@
 		<div class="flex-grow-1 map">
 			<client-only placeholder="Loading...">
 				<Map
+					v-if="featuresFromServer.length"
 					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
+					:features="featuresFromServer[0]"
 					@change="log"
 					@featuresChanged="updateFeatures"
 				/>
@@ -62,6 +64,8 @@ export default {
 			pointBtnClicked: false,
 			lineBtnClicked: false,
 			polyBtnClicked: false,
+			featuresLoaded: false,
+			featuresFromServer: []
 		};
 	},
 	computed: {
@@ -81,9 +85,23 @@ export default {
 			}
 		}
 	},
+	mounted() {
+		this.loadFeatures();
+	},
 	methods: {
+		async loadFeatures() {
+			try {
+				const data = await fetch('http://localhost:8080/features');
+				if (!data.ok) {
+					throw new Error('error when loading data');
+				}
+				this.featuresFromServer = await data.json();
+			} catch (error) {
+				console.log(error.message);
+			}
+		},
 		log(payload) {
-			console.log('map changed', JSON.stringify(payload));
+			// console.log('map changed', JSON.stringify(payload));
 		},
 		updateFeatures(feature) {
 			const idx = this.allFeatures.indexOf(feature);
