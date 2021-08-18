@@ -93,13 +93,14 @@ export default {
 			try {
 				const data = await fetch('http://localhost:8080/features');
 				if (!data.ok) {
-					throw new Error('error when loading data');
+					throw new Error('Error when loading data from features DB');
 				}
 				this.featuresFromServer = await data.json();
-				this.featuresLoaded = true;
 			} catch (error) {
 				console.log(error.message);
+				this.featuresFromServer = [];
 			}
+			this.featuresLoaded = true;
 		},
 		log(payload) {
 			// console.log('map changed', JSON.stringify(payload));
