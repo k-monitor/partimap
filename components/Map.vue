@@ -41,35 +41,13 @@ export default {
 			type: Number,
 			default: 3,
 		},
-		features: {}
+		features: {} // TBA
 	},
 	data() {
 		return {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-			styleFunction({
-				pointFillColor = null,
-				lineColor = null,
-				polygonColor = null
-			} = {}) {
-				return new Style({
-					fill: polygonColor
-						? new Fill({ color: polygonColor + '33' })
-						: null,
-					stroke: new Stroke({
-						color: lineColor,
-						width: 2,
-					}),
-					image: new CircleStyle({
-						radius: 7,
-						fill: pointFillColor
-							? new Fill({ color: pointFillColor })
-							: null,
-					}),
-				});
-			}
-
 		};
 	},
 	computed: {
@@ -101,6 +79,7 @@ export default {
 		}
 	},
 	mounted() {
+		const { center, zoom } = this;
 		const raster = new TileLayer({
 			source: new OSM(),
 		});
@@ -125,7 +104,6 @@ export default {
 			style: null,
 		});
 
-		const { center, zoom } = this;
 		this.map = new Map({
 			interactions: defaultInteractions().extend([this.select]),
 			target: this.$refs['map-root'],
@@ -150,11 +128,6 @@ export default {
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
 			this.$store.commit('selected/change', f.element);
-			this.source.getFeatures().forEach(feature => {
-				if (feature !== f.element) {
-					this.blurFeature(feature);
-				}
-			});
 		});
 		selectedFeatures.on('remove', f => {
 			this.$store.commit('selected/remove', f.element);
@@ -175,7 +148,7 @@ export default {
 		});
 
 		this.source.on('change', () => {
-			console.log(new GeoJSON().writeFeatures(this.source.getFeatures()));
+			// console.log(new GeoJSON().writeFeatures(this.source.getFeatures()));
 		});
 		this.setDrawType(this.drawType);
 	},
@@ -192,6 +165,27 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		styleFunction({
+			pointFillColor = null,
+			lineColor = null,
+			polygonColor = null
+		} = {}) {
+			return new Style({
+				fill: polygonColor
+					? new Fill({ color: polygonColor + '33' })
+					: null,
+				stroke: new Stroke({
+					color: lineColor,
+					width: 2,
+				}),
+				image: new CircleStyle({
+					radius: 7,
+					fill: pointFillColor
+						? new Fill({ color: pointFillColor })
+						: null,
+				}),
+			});
+		},
 		loadFeaturesFromJSON() {
 			const loadedFeatureData = this.features[0];
 			if (this.features[0]) {
@@ -215,16 +209,15 @@ export default {
 				snap = new Snap({ source: this.source });
 				this.map.addInteraction(snap);
 				draw.on('drawend', evt => {
-					if (!this.select.getFeatures().array_.includes(evt.feature)) {
-						this.select.getFeatures().push(evt.feature);
+					const selectedFeatures = this.select.getFeatures();
+					if (!selectedFeatures.array_.includes(evt.feature)) {
+						selectedFeatures.push(evt.feature);
 					}
-					// console.log('poly drawed');
 				});
 			}
 		},
 		changeFeatureStyle(feature, color) {
 			feature.setStyle(this.styleFunction({
-				feature,
 				pointFillColor: color,
 				lineColor: color,
 				polygonColor: color

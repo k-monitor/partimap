@@ -87,7 +87,7 @@ export default {
 		this.loadFeatures();
 	},
 	methods: {
-		async loadFeatures() {
+		async loadFeatures() { // TODO axios
 			try {
 				const data = await fetch('http://localhost:8080/features');
 				if (!data.ok) {
