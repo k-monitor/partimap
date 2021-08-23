@@ -8,7 +8,7 @@
 		>
 			<b-row class="text-center" align-h="between">
 				<b-col cols="8" sm>
-					<span>{{ `${feature.getGeometry().getType()} UUID: ...${featureIdPart}` }}</span>
+					<span>{{ `${featureName}` }}</span>
 				</b-col>
 				<b-col align-self="center" cols="4" sm>
 					<div class="icons">
@@ -19,28 +19,42 @@
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion">
 			<b-card class="collapse-content">
-				<b-container>
-					<b-row>
-						<b-col cols="12">
-							Válasszon színt:
+				<b-form v-if="selectedFeature" @submit="modifyFeature">
+					<b-row align-h="between" align-v="center">
+						<b-col md="6">
+							<label class="mb-md-0" for="type-color">Szín: </label>
 						</b-col>
-					</b-row>
-					<b-row>
-						<b-col cols="12">
-							<v-swatches
-								v-model="color"
-								:swatches="swatches"
-								swatch-size="20"
-								inline
+						<b-col md="6">
+							<b-form-input
+								id="type-color"
+								v-model="form.color"
+								size="sm"
+								type="color"
 							/>
 						</b-col>
 					</b-row>
-					<b-row>
-						<b-col cols="12">
-							<b-button variant="info" @click="applyChanges()">Alkalmaz</b-button>
+					<b-row align-h="between" align-v="start" class="mt-1">
+						<b-col>
+							<label class="mb-md-0" for="type-text">Név: </label>
 						</b-col>
 					</b-row>
-				</b-container>
+					<b-row align-h="between" align-v="center" class="text-center">
+						<b-col>
+							<b-form-input
+								id="type-text"
+								v-model="form.name"
+								size="sm"
+								type="text"
+								:placeholder="featureName"
+							/>
+						</b-col>
+					</b-row>
+					<b-row class="mt-2">
+						<b-col>
+							<b-button type="submit" size="sm" variant="success" class="float-right"> Alkalmaz </b-button>
+						</b-col>
+					</b-row>
+				</b-form>
 			</b-card>
 		</b-collapse>
 	</div>
@@ -58,22 +72,15 @@ export default {
 	},
 	data() {
 		return {
-			color: '#64C8FF', // ezt lehetne talán store-ból
-			swatches: [
-				'#27AF60',
-				'#64C8FF',
-				'#8E43AD',
-				'#3D556E',
-				'#F2C511'
-			],
-			delConfirmModalOn: false
+			featureName: `UUID: ...${this.getFeatureName()}`,
+			form: {
+				name: this.featureName,
+				color: this.test()
+			},
+			delConfirmModalOn: false,
 		};
 	},
 	computed: {
-		featureIdPart() {
-			const idStr = this.feature.getId().toString();
-			return idStr.substring(idStr.length - 5);
-		},
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		selectedFeature: {
 			get() {
@@ -87,9 +94,20 @@ export default {
 		},
 		onEditMode() {
 			return this.$store.getters.getEditState;
-		}
+		},
 	},
 	methods: {
+		modifyFeature(event) {
+			event.preventDefault();
+			this.selectedFeature = false;
+			this.featureName = this.form.name || this.featureName;
+			this.form.name = '';
+			this.$nuxt.$emit('changeStyle', this.feature, this.form.color);
+		},
+		getFeatureName() {
+			const idStr = this.feature.getId().toString();
+			return idStr.substring(idStr.length - 5);
+		},
 		featureClicked() {
 			this.getSelectedFeature === this.feature
 				? this.$store.commit('selected/remove', this.feature)
@@ -119,6 +137,10 @@ export default {
 				.catch(err => {
 					console.log(err);
 				});
+		},
+		test() {
+			console.log('def color accessed');
+			return this.feature.get('color');
 		}
 	}
 

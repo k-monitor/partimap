@@ -48,6 +48,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
+			defaultColor: '#64C8FF'
 		};
 	},
 	computed: {
@@ -90,13 +91,11 @@ export default {
 		this.vector = new VectorLayer({
 			source: this.source,
 			style: (feature, resolution) => {
-				const defaultColor = '#64C8FF';
-				feature.set('color', defaultColor);
 				return this.styleFunction({
 					feature,
-					pointFillColor: defaultColor,
-					lineColor: defaultColor,
-					polygonColor: defaultColor
+					pointFillColor: this.defaultColor,
+					lineColor: this.defaultColor,
+					polygonColor: this.defaultColor
 				});
 			}
 		});
@@ -135,6 +134,7 @@ export default {
 
 		this.source.on('addfeature', f => {
 			f.feature.setId(new Date().getTime());
+			f.feature.set('color', this.defaultColor);
 			this.$store.commit('toggleEditState', false);
 			this.$store.commit('features/add', f.feature);
 		});
