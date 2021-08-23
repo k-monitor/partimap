@@ -12,7 +12,7 @@
 				</b-col>
 				<b-col align-self="center" cols="4" sm>
 					<div class="icons">
-						<span class="material-icons m-0" @click.stop="$nuxt.$emit('clearFeature',feature)"> delete </span>
+						<span class="material-icons m-0" @click.stop="showConfirmModal"> delete </span>
 					</div>
 				</b-col>
 			</b-row>
@@ -66,6 +66,7 @@ export default {
 				'#3D556E',
 				'#F2C511'
 			],
+			delConfirmModalOn: false
 		};
 	},
 	computed: {
@@ -97,6 +98,27 @@ export default {
 		applyChanges() {
 			this.selectedFeature = false;
 			this.$nuxt.$emit('changeStyle', this.feature, this.color);
+		},
+		showConfirmModal() {
+			this.$bvModal.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
+				title: 'Megerősítés',
+				size: 'sm',
+				buttonSize: 'sm',
+				okVariant: 'danger',
+				okTitle: 'IGEN',
+				cancelTitle: 'MÉGSEM',
+				footerClass: 'p-2',
+				hideHeaderClose: false,
+				centered: true
+			})
+				.then(value => {
+					if (value) {
+						this.$nuxt.$emit('clearFeature', this.feature);
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
 		}
 	}
 
@@ -128,3 +150,5 @@ export default {
 	border-radius: 0 0 0.25rem 0.25rem;
 }
 </style>
+
+// "$nuxt.$emit('clearFeature',feature)"
