@@ -8,7 +8,7 @@
 		>
 			<b-row class="text-center" align-h="between">
 				<b-col cols="8" sm>
-					<span>{{ `${feature.getGeometry().getType()} UUID: ${feature.ol_uid}` }}</span>
+					<span>{{ `${feature.getGeometry().getType()} UUID: ...${featureIdPart}` }}</span>
 				</b-col>
 				<b-col align-self="center" cols="4" sm>
 					<div class="icons">
@@ -17,7 +17,7 @@
 				</b-col>
 			</b-row>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.ol_uid}`" v-model="selectedFeature" accordion="my-accordion">
+		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion">
 			<b-card class="collapse-content">
 				<b-container>
 					<b-row>
@@ -69,6 +69,10 @@ export default {
 		};
 	},
 	computed: {
+		featureIdPart() {
+			const idStr = this.feature.getId().toString();
+			return idStr.substring(idStr.length - 5);
+		},
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		selectedFeature: {
 			get() {

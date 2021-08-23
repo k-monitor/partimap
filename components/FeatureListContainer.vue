@@ -7,7 +7,7 @@
 					<b-list-group>
 						<FeatureListElement
 							v-for="feature in allFeatures"
-							:key="feature.ol_uid"
+							:key="feature.getId()"
 							:feature="feature"
 						/>
 					</b-list-group>

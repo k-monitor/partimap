@@ -134,7 +134,7 @@ export default {
 		});
 
 		this.source.on('addfeature', f => {
-			f.feature.setId(f.feature.ol_uid);
+			f.feature.setId(new Date().getTime());
 			this.$store.commit('toggleEditState', false);
 			this.$store.commit('features/add', f.feature);
 		});
