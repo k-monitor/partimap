@@ -139,7 +139,6 @@ export default {
 				});
 		},
 		test() {
-			console.log('def color accessed');
 			return this.feature.get('color');
 		}
 	}

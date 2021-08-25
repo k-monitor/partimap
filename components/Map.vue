@@ -68,6 +68,7 @@ export default {
 		getSelectedFeature(selFeature, prevFeature) {
 			if (!selFeature) {
 				this.removeBlur();
+				this.select.getFeatures().pop(); // if a feature is unselected, also clear it from here
 			} else {
 				this.source.getFeatures().forEach(feature => {
 					if (feature !== selFeature) {
