@@ -30,7 +30,6 @@ router.patch('/user',
 		delete changes.registered;
 
 		if (!req.user.isAdmin) {
-			delete changes.instId;
 			delete changes.isAdmin;
 
 			if (changes.newPassword || changes.email !== req._user.email) {

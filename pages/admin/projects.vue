@@ -48,8 +48,14 @@
 							"
 			>
 				<strong>{{ p.title }}</strong>
-				<br>
-				TODO: intézmény neve
+				<span
+					v-if="p.userId != $auth.user.id"
+					class="badge badge-warning"
+				>Tulajdonos: #{{ p.userId }}</span>
+				<span
+					v-else-if="$auth.user.isAdmin"
+					class="badge badge-success"
+				>Saját</span>
 			</NuxtLink>
 		</div>
 	</AdminFrame>

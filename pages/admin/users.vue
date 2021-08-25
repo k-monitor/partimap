@@ -52,8 +52,6 @@
 					v-if="u.isAdmin"
 					class="badge badge-danger"
 				>ADMIN</span>
-				<br>
-				TODO: intézmény neve
 			</NuxtLink>
 		</div>
 	</AdminFrame>

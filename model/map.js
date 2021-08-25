@@ -1,17 +1,17 @@
-class Project {
+class Map {
 	/**
 	 * @param {Object} data
 	 * @param {Number} data.id
 	 * @param {Number} data.userId
 	 * @param {String} data.title
-	 * @param {String} data.description
+	 * @param {String} data.features
 	 */
 	constructor(data) {
 		this.id = data.id;
 		this.userId = data.userId;
 		this.title = data.title;
-		this.description = data.description;
+		this.features = data.features;
 	}
 };
 
-module.exports = Project;
+module.exports = Map;

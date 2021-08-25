@@ -45,6 +45,16 @@ async function create(table, record, Model) {
 
 /**
  * @param {String} table
+ * @param {Number} id
+ * @return {Boolean}
+ */
+async function del(table, id) {
+	const { affectedRows } = await query(`DELETE FROM ${table} WHERE id = ?`, [id]);
+	return affectedRows === 1;
+}
+
+/**
+ * @param {String} table
  * @param {Function} Model
  */
 async function findAll(table, Model) {
@@ -83,5 +93,6 @@ module.exports = {
 	create,
 	findAll,
 	findBy,
-	update
+	update,
+	del
 };

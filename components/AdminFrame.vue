@@ -20,7 +20,6 @@
 						text="Admin"
 						right
 					>
-						<b-dropdown-item to="/admin/insts">Intézmények</b-dropdown-item>
 						<b-dropdown-item to="/admin/users">Felhasználók</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>

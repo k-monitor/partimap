@@ -29,24 +29,6 @@
 					rows="5"
 				/>
 			</div>
-			<div class="form-group">
-				<label for="inst">Intézmény</label>
-				<select
-					id="inst"
-					v-model="m.instId"
-					class="form-control"
-					:disabled="!$auth.user.isAdmin"
-				>
-					<option :value="null">(Nincs)</option>
-					<option
-						v-for="i in insts"
-						:key="i.id"
-						:value="i.id"
-					>
-						{{ i. name }}
-					</option>
-				</select>
-			</div>
 		</form>
 
 		<template #footer>
@@ -65,12 +47,11 @@
 
 <script>
 export default {
-	middleware: ['auth'], // TODO admin or own inst ID
+	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
-			const insts = await $axios.$get('/api/insts');
 			const p = await $axios.$get('/api/project/' + params.id);
-			return { insts, p, m: { ...p } };
+			return { p, m: { ...p } };
 		} catch (err) {
 			redirect('/admin/projects');
 		}
