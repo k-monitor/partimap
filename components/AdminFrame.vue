@@ -15,6 +15,7 @@
 			>
 				<b-navbar-nav>
 					<b-nav-item to="/admin/projects">Projektek</b-nav-item>
+					<b-nav-item to="/admin/maps">Térképek</b-nav-item>
 					<b-nav-item-dropdown
 						v-if="$auth.user.isAdmin"
 						text="Admin"
