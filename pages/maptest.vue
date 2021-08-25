@@ -23,28 +23,38 @@
 			<b-row align-h="end">
 				<b-col cols="auto">
 					<b-card>
-						<b-container class="text-center">
-							<b-button-group>
-								<b-button
-									:class="{'btn-success': pointBtnClicked}"
-									@click="buttonClicked('Point')"
-								>
-									Point
-								</b-button>
-								<b-button
-									:class="{'btn-success': lineBtnClicked}"
-									@click="buttonClicked('Line')"
-								>
-									Line
-								</b-button>
-								<b-button
-									:class="{'btn-success': polyBtnClicked}"
-									@click="buttonClicked('Poly')"
-								>
-									Polygon
-								</b-button>
-							</b-button-group>
-						</b-container>
+						<b-row>
+							<b-col>
+								<b-button-group>
+									<b-button
+										:class="{'btn-success': pointBtnClicked}"
+										@click="buttonClicked('Point')"
+									>
+										Point
+									</b-button>
+									<b-button
+										:class="{'btn-success': lineBtnClicked}"
+										@click="buttonClicked('Line')"
+									>
+										Line
+									</b-button>
+									<b-button
+										:class="{'btn-success': polyBtnClicked}"
+										@click="buttonClicked('Poly')"
+									>
+										Polygon
+									</b-button>
+								</b-button-group>
+							</b-col>
+						</b-row>
+						<b-row class="mt-1" align-h="between">
+							<b-col cols="6">
+								<b-button variant="success" @click="saveFeatures"> Mentés </b-button>
+							</b-col>
+							<b-col cols="6" class="text-right">
+								<b-button variant="info"> Vissza </b-button>
+							</b-col>
+						</b-row>
 					</b-card>
 				</b-col>
 			</b-row>
@@ -66,6 +76,7 @@ export default {
 			featuresFromServer: []
 		};
 	},
+
 	computed: {
 		editState() {
 			return this.$store.getters.getEditState;
@@ -100,8 +111,12 @@ export default {
 			}
 			this.featuresLoaded = true;
 		},
-		log(payload) {
-			// console.log('map changed', JSON.stringify(payload));
+		async saveFeatures() {
+			try {
+				await this.$axios.$patch('');
+			} catch (error) {
+				this.error('Failed to save features');
+			}
 		},
 		buttonClicked (type) {
 			switch (type) {
