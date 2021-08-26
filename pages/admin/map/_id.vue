@@ -6,7 +6,7 @@
 					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
-					:features="featuresFromRaw(mapDataLocal)"
+					:features="featuresFromRaw(mapDataServer)"
 				/>
 			</client-only>
 		</div>
@@ -62,6 +62,7 @@
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
+import { mapGetters } from 'vuex';
 
 export default {
 	async asyncData({ $axios, params, redirect }) {
@@ -83,7 +84,9 @@ export default {
 	computed: {
 		editState() {
 			return this.$store.getters.getEditState;
-		}
+		},
+		...mapGetters({ getAllFeature: 'features/getAllFeature' })
+
 	},
 	watch: {
 		drawType() {
@@ -99,15 +102,25 @@ export default {
 	},
 	methods: {
 		async saveFeatures() {
+			const loadFeaturesFromStore = () => {
+				const features = [];
+				for (const f of this.getAllFeature) {
+					const featureStr = new GeoJSON().writeFeature(f);
+					features.push(JSON.parse(featureStr));
+				}
+				this.mapDataLocal.features = features.length ? features : null;
+			};
+			loadFeaturesFromStore();
 			try {
 				this.mapDataServer = await this.$axios.$patch('/api/map', this.mapDataLocal);
 				this.mapDataLocal = { ...this.mapDataServer };
-				this.success('Modification successful');
+				this.success('A módosítások mentése sikeres.');
 			} catch (error) {
-				this.error('Modification failed');
+				this.error('A módosítások mentése sikertelen.');
 			}
 		},
 		featuresFromRaw(featuresRaw) {
+			console.log(featuresRaw);
 			const featuresJSON = JSON.parse(featuresRaw.features);
 			const geoJSONify = featuresJSON => {
 				return { type: 'FeatureCollection', features: featuresJSON };
@@ -117,7 +130,6 @@ export default {
 				return null;
 			}
 			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
-			console.log(features);
 			return features;
 		},
 		buttonClicked (type) {

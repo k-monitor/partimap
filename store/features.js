@@ -13,6 +13,9 @@ export const mutations = {
 		if (idx !== -1) {
 			state.features.splice(idx, 1);
 		}
+	},
+	clear(state) {
+		state.features = [];
 	}
 };
 
