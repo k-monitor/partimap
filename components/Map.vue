@@ -143,6 +143,7 @@ export default {
 			f.feature.set('color', this.defaultColor);
 			this.$store.commit('toggleEditState', false);
 			this.$store.commit('features/add', f.feature);
+			this.$emit('modified');
 		});
 
 		this.source.on('removefeature', f => {
@@ -151,11 +152,9 @@ export default {
 			}
 			this.$store.commit('selected/remove', f.feature);
 			this.$store.commit('features/remove', f.feature);
-		});
-
-		this.source.on('change', () => {
 			this.$emit('modified');
 		});
+
 		this.setDrawType(this.drawType);
 	},
 	created() {
