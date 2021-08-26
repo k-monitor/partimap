@@ -3,12 +3,10 @@
 		<div class="flex-grow-1 map">
 			<client-only placeholder="Loading...">
 				<Map
-					v-if="featuresLoaded"
 					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
-					:features="featuresFromServer"
-					@change="log"
+					:features="featuresFromRaw(mapDataLocal)"
 				/>
 			</client-only>
 		</div>
@@ -23,28 +21,38 @@
 			<b-row align-h="end">
 				<b-col cols="auto">
 					<b-card>
-						<b-container class="text-center">
-							<b-button-group>
-								<b-button
-									:class="{'btn-success': pointBtnClicked}"
-									@click="buttonClicked('Point')"
-								>
-									Point
-								</b-button>
-								<b-button
-									:class="{'btn-success': lineBtnClicked}"
-									@click="buttonClicked('Line')"
-								>
-									Line
-								</b-button>
-								<b-button
-									:class="{'btn-success': polyBtnClicked}"
-									@click="buttonClicked('Poly')"
-								>
-									Polygon
-								</b-button>
-							</b-button-group>
-						</b-container>
+						<b-row>
+							<b-col>
+								<b-button-group>
+									<b-button
+										:class="{'btn-success': pointBtnClicked}"
+										@click="buttonClicked('Point')"
+									>
+										Point
+									</b-button>
+									<b-button
+										:class="{'btn-success': lineBtnClicked}"
+										@click="buttonClicked('Line')"
+									>
+										Line
+									</b-button>
+									<b-button
+										:class="{'btn-success': polyBtnClicked}"
+										@click="buttonClicked('Poly')"
+									>
+										Polygon
+									</b-button>
+								</b-button-group>
+							</b-col>
+						</b-row>
+						<b-row class="mt-1" align-h="between">
+							<b-col cols="6">
+								<b-button variant="success" @click="saveFeatures"> Mentés </b-button>
+							</b-col>
+							<b-col cols="6" class="text-right">
+								<b-button variant="info"> Vissza </b-button>
+							</b-col>
+						</b-row>
 					</b-card>
 				</b-col>
 			</b-row>
@@ -53,17 +61,23 @@
 </template>
 
 <script>
-// import GeoJSON from 'ol/format/GeoJSON';
+import GeoJSON from 'ol/format/GeoJSON';
 
 export default {
+	async asyncData({ $axios, params, redirect }) {
+		try {
+			const mapDataServer = await $axios.$get('/api/map/' + params.id);
+			return { mapDataServer, mapDataLocal: { ...mapDataServer } };
+		} catch (error) {
+			redirect('/admin/maps');
+		}
+	},
 	data() {
 		return {
 			drawType: '',
 			pointBtnClicked: false,
 			lineBtnClicked: false,
 			polyBtnClicked: false,
-			featuresLoaded: false,
-			featuresFromServer: [],
 		};
 	},
 	computed: {
@@ -83,25 +97,28 @@ export default {
 			}
 		}
 	},
-	mounted() {
-		this.loadFeatures();
-	},
 	methods: {
-		async loadFeatures() { // TODO axios
+		async saveFeatures() {
 			try {
-				const data = await fetch('http://localhost:8080/features');
-				if (!data.ok) {
-					throw new Error('Error when loading data from features DB');
-				}
-				this.featuresFromServer = await data.json();
+				this.mapDataServer = await this.$axios.$patch('/api/map', this.mapDataLocal);
+				this.mapDataLocal = { ...this.mapDataServer };
+				this.success('Modification successful');
 			} catch (error) {
-				console.log(error.message);
-				this.featuresFromServer = [];
+				this.error('Modification failed');
 			}
-			this.featuresLoaded = true;
 		},
-		log(payload) {
-			// console.log('map changed', JSON.stringify(payload));
+		featuresFromRaw(featuresRaw) {
+			const featuresJSON = JSON.parse(featuresRaw.features);
+			const geoJSONify = featuresJSON => {
+				return { type: 'FeatureCollection', features: featuresJSON };
+			};
+
+			if (!featuresJSON) {
+				return null;
+			}
+			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
+			console.log(features);
+			return features;
 		},
 		buttonClicked (type) {
 			switch (type) {

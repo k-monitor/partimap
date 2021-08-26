@@ -18,7 +18,8 @@ import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interact
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { mapGetters } from 'vuex';
-import GeoJSON from 'ol/format/GeoJSON';
+import Collection from 'ol/Collection';
+import Feature from 'ol/Feature';
 
 let draw, snap;
 
@@ -41,7 +42,11 @@ export default {
 			type: Number,
 			default: 3,
 		},
-		features: {} // TBA
+		features: {
+			type: Array,
+			default: null,
+			validator: container => container.every(f => f instanceof Feature)
+		}
 	},
 	data() {
 		return {
@@ -87,7 +92,7 @@ export default {
 		});
 
 		this.source = new VectorSource({
-			features: this.loadFeaturesFromJSON()
+			features: this.loadInitFeatures(this.features)
 		});
 		this.vector = new VectorLayer({
 			source: this.source,
@@ -166,6 +171,12 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		loadInitFeatures(features) {
+			for (const f of features) {
+				this.$store.commit('features/add', f);
+			}
+			return new Collection(features);
+		},
 		styleFunction({
 			pointFillColor = null,
 			lineColor = null,
@@ -186,18 +197,6 @@ export default {
 						: null,
 				}),
 			});
-		},
-		loadFeaturesFromJSON() {
-			const loadedFeatureData = this.features[0];
-			if (this.features[0]) {
-				const loadedFeatures = new GeoJSON().readFeatures(loadedFeatureData);
-				for (const f of loadedFeatures) {
-					this.$store.commit('features/add', f);
-				}
-				return loadedFeatures;
-			} else {
-				return null;
-			}
 		},
 		setDrawType(type) {
 			this.map.removeInteraction(draw);
