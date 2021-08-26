@@ -7,6 +7,7 @@
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
 					:features="featuresFromRaw(mapDataServer)"
+					@modified="mapModified = true"
 				/>
 			</client-only>
 		</div>
@@ -47,10 +48,10 @@
 						</b-row>
 						<b-row class="mt-1" align-h="between">
 							<b-col cols="6">
-								<b-button variant="success" @click="saveFeatures"> Mentés </b-button>
+								<b-button variant="outline-success" :disabled="!mapModified" @click="saveFeatures"> Mentés </b-button>
 							</b-col>
 							<b-col cols="6" class="text-right">
-								<b-button variant="info"> Vissza </b-button>
+								<b-button variant="outline-info"> Vissza </b-button>
 							</b-col>
 						</b-row>
 					</b-card>
@@ -65,7 +66,8 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
 export default {
-	async asyncData({ $axios, params, redirect }) {
+	async asyncData({ $axios, store, params, redirect }) {
+		store.commit('features/clear');
 		try {
 			const mapDataServer = await $axios.$get('/api/map/' + params.id);
 			return { mapDataServer, mapDataLocal: { ...mapDataServer } };
@@ -79,13 +81,14 @@ export default {
 			pointBtnClicked: false,
 			lineBtnClicked: false,
 			polyBtnClicked: false,
+			mapModified: false
 		};
 	},
 	computed: {
 		editState() {
 			return this.$store.getters.getEditState;
 		},
-		...mapGetters({ getAllFeature: 'features/getAllFeature' })
+		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
 
 	},
 	watch: {
@@ -98,6 +101,8 @@ export default {
 				this.pointBtnClicked = this.lineBtnClicked = this.polyBtnClicked = false;
 				this.drawType = '';
 			}
+		},
+		getAllFeature(prevVal, currVal) {
 		}
 	},
 	methods: {
@@ -118,9 +123,9 @@ export default {
 			} catch (error) {
 				this.error('A módosítások mentése sikertelen.');
 			}
+			this.mapModified = false;
 		},
 		featuresFromRaw(featuresRaw) {
-			console.log(featuresRaw);
 			const featuresJSON = JSON.parse(featuresRaw.features);
 			const geoJSONify = featuresJSON => {
 				return { type: 'FeatureCollection', features: featuresJSON };

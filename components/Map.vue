@@ -154,7 +154,7 @@ export default {
 		});
 
 		this.source.on('change', () => {
-			// console.log(new GeoJSON().writeFeatures(this.source.getFeatures()));
+			this.$emit('modified');
 		});
 		this.setDrawType(this.drawType);
 	},
