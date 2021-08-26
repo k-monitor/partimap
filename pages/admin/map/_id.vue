@@ -51,7 +51,7 @@
 								<b-button variant="outline-success" :disabled="!mapModified" @click="saveFeatures"> Mentés </b-button>
 							</b-col>
 							<b-col cols="6" class="text-right">
-								<b-button variant="outline-info"> Vissza </b-button>
+								<b-button variant="outline-info" @click="goToMaps"> Vissza </b-button>
 							</b-col>
 						</b-row>
 					</b-card>
@@ -158,6 +158,38 @@ export default {
 				this.pointBtnClicked = false;
 				break;
 			}
+		},
+		goToMaps() {
+			if (this.mapModified) {
+				this.showConfirmModal();
+			} else {
+				this.$router.push('/admin/maps');
+			}
+		},
+		showConfirmModal() {
+			this.$bvModal.msgBoxConfirm('Önnek nem mentett módosításai vannak. Kívánja őket menteni?', {
+				title: 'Visszalépés',
+				size: 'sm',
+				buttonSize: 'sm',
+				okVariant: 'danger',
+				okTitle: 'IGEN',
+				cancelTitle: 'NEM',
+				footerClass: 'p-2',
+				hideHeaderClose: false,
+				centered: true
+			})
+				.then(value => {
+					if (value) {
+						this.saveFeatures();
+					}
+					this.$router.push('/admin/maps');
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		test() {
+			return this.feature.get('color');
 		}
 	}
 };
