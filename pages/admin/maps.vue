@@ -42,12 +42,9 @@
 				v-for="m in filteredMaps"
 				:key="m.id"
 				:to="'/admin/map/' + m.id"
-				class="
-								align-items-center
-								list-group-item list-group-item-action
-							"
+				class="align-items-center list-group-item list-group-item-action"
 			>
-				<strong>{{ m.title }}</strong>
+				<span><strong>{{ m.title }}</strong></span>
 				<span
 					v-if="m.userId != $auth.user.id"
 					class="badge badge-warning"
@@ -56,6 +53,7 @@
 					v-else-if="$auth.user.isAdmin"
 					class="badge badge-success"
 				>Saját</span>
+				<span class="material-icons m-0 float-right text-danger" @click.prevent="showConfirmModal(m.id)"> delete </span>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
@@ -100,6 +98,46 @@ export default {
 				this.error('Létrehozás sikertelen');
 			}
 		},
+		async removeMapFromDB(id) {
+			try {
+				await this.$axios.$delete('/api/map/' + id);
+			} catch (error) {
+				this.error('Sikertelen törlés.');
+			}
+		},
+		showConfirmModal(id) {
+			this.$bvModal.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
+				title: 'Megerősítés',
+				size: 'sm',
+				buttonSize: 'sm',
+				okVariant: 'danger',
+				okTitle: 'IGEN',
+				cancelTitle: 'MÉGSEM',
+				footerClass: 'p-2',
+				hideHeaderClose: false,
+				centered: true
+			})
+				.then(value => {
+					if (value) {
+						this.removeMapFromDB(id);
+						this.maps = this.maps.filter(function(map) { return map.id !== id; });
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
 	},
 };
 </script>
+<style scoped>
+.material-icons {
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.material-icons:hover {
+  opacity: 1;
+}
+</style>

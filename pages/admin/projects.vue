@@ -42,10 +42,7 @@
 				v-for="p in filteredProjects"
 				:key="p.id"
 				:to="'/admin/project/' + p.id"
-				class="
-								align-items-center
-								list-group-item list-group-item-action
-							"
+				class="align-items-center list-group-item list-group-item-action"
 			>
 				<strong>{{ p.title }}</strong>
 				<span

@@ -145,8 +145,7 @@ export default {
 
 };
 </script>
-
-<style>
+<style scoped>
 .list-group-item {
 	display: flex;
 	justify-content: space-between;
