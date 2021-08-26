@@ -172,6 +172,9 @@ export default {
 	},
 	methods: {
 		loadInitFeatures(features) {
+			if (!features) {
+				return null;
+			}
 			for (const f of features) {
 				this.$store.commit('features/add', f);
 			}
