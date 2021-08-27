@@ -115,7 +115,8 @@ export default {
 				cancelTitle: 'MÉGSEM',
 				footerClass: 'p-2',
 				hideHeaderClose: false,
-				centered: true
+				centered: true,
+				autoFocusButton: 'ok'
 			})
 				.then(value => {
 					if (value) {

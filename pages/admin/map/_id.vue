@@ -176,16 +176,20 @@ export default {
 				cancelTitle: 'NEM',
 				footerClass: 'p-2',
 				hideHeaderClose: false,
-				centered: true
+				centered: true,
+				autoFocusButton: 'ok'
 			})
 				.then(value => {
-					if (value) {
+					if (value === true) {
 						this.saveFeatures();
-					}
-					this.$router.push('/admin/maps');
+						this.$router.push('/admin/maps');
+					} else if (value === false) {
+						this.$router.push('/admin/maps');
+					} // Do nothing on window close or backdrop click
 				})
 				.catch(err => {
-					console.log(err);
+					console.warn(err.message);
+					this.error('Sikertelen mentés');
 				});
 		},
 		test() {
