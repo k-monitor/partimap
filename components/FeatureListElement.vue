@@ -6,16 +6,8 @@
 			class="mt-1 rounded"
 			@click="featureClicked()"
 		>
-			<b-row class="text-center" align-h="between">
-				<b-col cols="8" sm>
-					<span>{{ `${featureName}` }}</span>
-				</b-col>
-				<b-col align-self="center" cols="4" sm>
-					<div class="icons">
-						<span class="material-icons m-0" @click.stop="showConfirmModal"> delete </span>
-					</div>
-				</b-col>
-			</b-row>
+			<span>{{ `${featureName}` }}</span>
+			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion">
 			<b-card class="collapse-content">
@@ -157,12 +149,11 @@ export default {
 .material-icons {
   font-size: 24px;
   margin-left: 10px;
-  color: #bbb;
   cursor: pointer;
+  opacity: 0.5;
 }
-
 .material-icons:hover {
-  color: #777;
+  opacity: 1;
 }
 
 .collapse-content {
