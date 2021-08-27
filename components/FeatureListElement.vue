@@ -6,7 +6,7 @@
 			class="mt-1 rounded"
 			@click="featureClicked()"
 		>
-			<span>{{ `${featureName}` }}</span>
+			<span>{{ getFeatureName() }}</span>
 			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion">
@@ -30,14 +30,27 @@
 							<label class="mb-md-0" for="type-text">Név: </label>
 						</b-col>
 					</b-row>
-					<b-row align-h="between" align-v="center" class="text-center">
+					<b-row>
 						<b-col>
 							<b-form-input
 								id="type-text"
 								v-model="form.name"
 								size="sm"
 								type="text"
-								:placeholder="featureName"
+							/>
+						</b-col>
+					</b-row>
+					<b-row class="mt-1">
+						<b-col>
+							<b-textarea
+								id=""
+								v-model="form.description"
+								name="form-description"
+								cols="30"
+								rows="5"
+								class="w-100"
+								size="sm"
+								placeholder="Leírás"
 							/>
 						</b-col>
 					</b-row>
@@ -64,12 +77,11 @@ export default {
 	},
 	data() {
 		return {
-			featureName: `UUID: ...${this.getFeatureName()}`,
 			form: {
-				name: this.featureName,
-				color: this.test()
+				name: this.getFeatureName(),
+				color: this.feature.get('color'),
+				description: this.feature.get('description')
 			},
-			delConfirmModalOn: false,
 		};
 	},
 	computed: {
@@ -92,22 +104,25 @@ export default {
 		modifyFeature(event) {
 			event.preventDefault();
 			this.selectedFeature = false;
-			this.featureName = this.form.name || this.featureName;
-			this.form.name = '';
+			if (
+				this.form.name !== this.feature.get('name') ||
+				this.form.description !== this.feature.get('description') ||
+				this.form.color !== this.feature.get('color')
+			) {
+				this.$nuxt.$emit('mapModified');
+			}
+			this.feature.set('name', this.form.name);
+			this.feature.set('description', this.form.description);
 			this.$nuxt.$emit('changeStyle', this.feature, this.form.color);
 		},
 		getFeatureName() {
 			const idStr = this.feature.getId().toString();
-			return idStr.substring(idStr.length - 5);
+			return this.feature.get('name') || idStr.substring(idStr.length - 5);
 		},
 		featureClicked() {
 			this.getSelectedFeature === this.feature
 				? this.$store.commit('selected/remove', this.feature)
 				: this.$store.commit('selected/change', this.feature);
-		},
-		applyChanges() {
-			this.selectedFeature = false;
-			this.$nuxt.$emit('changeStyle', this.feature, this.color);
 		},
 		showConfirmModal() {
 			this.$bvModal.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
@@ -128,7 +143,8 @@ export default {
 					}
 				})
 				.catch(err => {
-					console.log(err);
+					console.warn(err.message);
+					this.error('Sikertelen törlés.');
 				});
 		},
 		test() {

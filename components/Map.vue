@@ -143,7 +143,7 @@ export default {
 			f.feature.set('color', this.defaultColor);
 			this.$store.commit('toggleEditState', false);
 			this.$store.commit('features/add', f.feature);
-			this.$emit('modified');
+			this.$nuxt.$emit('mapModified');
 		});
 
 		this.source.on('removefeature', f => {
@@ -152,7 +152,7 @@ export default {
 			}
 			this.$store.commit('selected/remove', f.feature);
 			this.$store.commit('features/remove', f.feature);
-			this.$emit('modified');
+			this.$nuxt.$emit('mapModified');
 		});
 
 		this.setDrawType(this.drawType);
@@ -176,6 +176,7 @@ export default {
 			}
 			for (const f of features) {
 				this.$store.commit('features/add', f);
+				this.changeFeatureStyle(f, f.get('color')); // apply stored color
 			}
 			return new Collection(features);
 		},

@@ -7,7 +7,6 @@
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
 					:features="featuresFromRaw(mapDataServer)"
-					@modified="mapModified = true"
 				/>
 			</client-only>
 		</div>
@@ -105,11 +104,17 @@ export default {
 				this.drawType = '';
 			}
 		},
-		getAllFeature(prevVal, currVal) {
-		}
+	},
+	created() {
+		this.$nuxt.$on('mapModified', () => {
+			this.mapModified = true;
+		});
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('mapModified');
 	},
 	methods: {
-		async saveFeatures() {
+		async saveFeatures() { // to DB
 			const loadFeaturesFromStore = () => {
 				const features = [];
 				for (const f of this.getAllFeature) {
