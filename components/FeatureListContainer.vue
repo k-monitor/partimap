@@ -59,8 +59,12 @@ export default {
 	methods: {
 		saveTitleChanges() {
 			this.titleEdit = false;
-			this.$emit('updateTitle', this.changedTitle.trim());
-			this.changedTitle = this.changedTitle.trim();
+			if (this.changedTitle.trim()) { // if name is not empty
+				this.$emit('updateTitle', this.changedTitle.trim());
+				this.changedTitle = this.changedTitle.trim();
+			} else {
+				this.changedTitle = this.mapTitle; // if empty, use the previous
+			}
 		}
 	}
 

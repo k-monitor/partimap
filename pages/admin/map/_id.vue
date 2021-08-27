@@ -199,8 +199,10 @@ export default {
 			return this.feature.get('color');
 		},
 		changeMapTitle(title) {
-			if (this.mapDataLocal.title !== title) {
+			if (this.mapDataServer.title !== title) {
 				this.mapModified = true;
+			} else {
+				this.mapModified = false;
 			}
 			this.mapDataLocal.title = title;
 		}
