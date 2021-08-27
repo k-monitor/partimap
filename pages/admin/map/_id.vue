@@ -14,7 +14,10 @@
 		<b-container class="mt-4 mr-2">
 			<b-row align-h="end">
 				<b-col cols="4" class="p-0">
-					<FeatureListContainer />
+					<FeatureListContainer
+						:map-title="mapDataLocal.title"
+						@updateTitle="changeMapTitle"
+					/>
 				</b-col>
 			</b-row>
 		</b-container>
@@ -194,6 +197,12 @@ export default {
 		},
 		test() {
 			return this.feature.get('color');
+		},
+		changeMapTitle(title) {
+			if (this.mapDataLocal.title !== title.trim()) {
+				this.mapModified = true;
+			}
+			this.mapDataLocal.title = title.trim();
 		}
 	}
 };
