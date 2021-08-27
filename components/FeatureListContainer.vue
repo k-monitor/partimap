@@ -16,8 +16,8 @@
 					v-model="changedTitle"
 					autofocus
 					class="w-100"
-					@focusout="titleEdit=false; $emit('updateTitle',changedTitle)"
-					@keyup.enter="titleEdit = false; $emit('updateTitle',changedTitle)"
+					@focusout="saveTitleChanges()"
+					@keyup.enter="saveTitleChanges()"
 				>
 			</div>
 			<div class="overflow-auto">
@@ -56,6 +56,13 @@ export default {
 			return this.getAllFeatures;
 		}
 	},
+	methods: {
+		saveTitleChanges() {
+			this.titleEdit = false;
+			this.$emit('updateTitle', this.changedTitle.trim());
+			this.changedTitle = this.changedTitle.trim();
+		}
+	}
 
 };
 
