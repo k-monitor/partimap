@@ -12,19 +12,19 @@
 							arrow_back_ios_new
 						</div>
 						<div class="text d-inline p-1">
-							Saját térképek
+							Térképek
 						</div>
 					</div>
 				</b-button>
 			</b-navbar-nav>
-			<div class="map-name">
+			<div class="map-name text-center">
 				<b-navbar-nav v-if="!titleEdit" @click="titleEdit = true">
 					<b-nav-text> <h3 class="my-0 text-info">{{ mapTitle }}</h3></b-nav-text>
 				</b-navbar-nav>
 				<b-navbar v-if="titleEdit">
 					<b-nav-form @submit="modifyMapName">
 						<b-form-input v-model="localMapTitle" size="sm" class="mr-sm-2" />
-						<b-button size="sm" variant="outline-success" type="submit">Módosít</b-button>
+						<b-button size="sm" class="mt-1 mt-sm-0 ml-auto" variant="outline-success" type="submit">Módosít</b-button>
 					</b-nav-form>
 				</b-navbar>
 			</div>
