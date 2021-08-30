@@ -2,24 +2,6 @@
 <template>
 	<div class="accordion" role="tablist">
 		<b-card>
-			<div class="map-title">
-				<h4
-					v-show="!titleEdit"
-					@dblclick="titleEdit = true;
-						$nextTick(() => $refs.titleEditor.focus())"
-				>
-					{{ mapTitle }}
-				</h4>
-				<input
-					v-show="titleEdit"
-					ref="titleEditor"
-					v-model="changedTitle"
-					autofocus
-					class="w-100"
-					@focusout="saveTitleChanges()"
-					@keyup.enter="saveTitleChanges()"
-				>
-			</div>
 			<div class="overflow-auto">
 				<b-card-text>
 					<b-list-group>
@@ -38,36 +20,12 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-	props: {
-		mapTitle: {
-			type: String,
-			default: null // ezen még lehet gondolkozni
-		}
-	},
-	data() {
-		return {
-			changedTitle: this.mapTitle,
-			titleEdit: false
-		};
-	},
 	computed: {
 		...mapGetters({ getAllFeatures: 'features/getAllFeature' }),
 		allFeatures() {
 			return this.getAllFeatures;
 		}
-	},
-	methods: {
-		saveTitleChanges() {
-			this.titleEdit = false;
-			if (this.changedTitle.trim()) { // if name is not empty
-				this.$emit('updateTitle', this.changedTitle.trim());
-				this.changedTitle = this.changedTitle.trim();
-			} else {
-				this.changedTitle = this.mapTitle; // if empty, use the previous
-			}
-		}
 	}
-
 };
 
 </script>

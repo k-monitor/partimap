@@ -1,5 +1,12 @@
 <template>
 	<div>
+		<MapNavbar
+			:map-title="mapDataLocal.title"
+			:map-modified="mapModified"
+			@updateTitle="changeMapTitle"
+			@back="goToMaps"
+			@save="saveFeatures"
+		/>
 		<div class="flex-grow-1 map">
 			<client-only placeholder="Loading...">
 				<Map
@@ -31,35 +38,28 @@
 										:class="{'btn-success': pointBtnClicked}"
 										@click="buttonClicked('Point')"
 									>
-										Point
+										Pont
 									</b-button>
 									<b-button
 										:class="{'btn-success': lineBtnClicked}"
 										@click="buttonClicked('Line')"
 									>
-										Line
+										Útvonal
 									</b-button>
 									<b-button
 										:class="{'btn-success': polyBtnClicked}"
 										@click="buttonClicked('Poly')"
 									>
-										Polygon
+										Terület
 									</b-button>
 								</b-button-group>
-							</b-col>
-						</b-row>
-						<b-row class="mt-1" align-h="between">
-							<b-col cols="6">
-								<b-button variant="outline-success" :disabled="!mapModified" @click="saveFeatures"> Mentés </b-button>
-							</b-col>
-							<b-col cols="6" class="text-right">
-								<b-button variant="outline-info" @click="goToMaps"> Vissza </b-button>
 							</b-col>
 						</b-row>
 					</b-card>
 				</b-col>
 			</b-row>
 		</b-container>
+		</mapnavbar>
 	</div>
 </template>
 
@@ -225,4 +225,5 @@ nem lehet rajta átkattintani. */
 .fixed-bottom .card-body {
 	pointer-events: all;
 }
+
 </style>

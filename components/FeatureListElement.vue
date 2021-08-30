@@ -147,9 +147,6 @@ export default {
 					this.error('Sikertelen törlés.');
 				});
 		},
-		test() {
-			return this.feature.get('color');
-		}
 	}
 
 };
