@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { StatusCodes } = require('http-status-codes');
 const Map = require('../../model/map');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
@@ -39,6 +40,9 @@ router.patch('/map',
 		}
 
 		let map = new Map(Object.assign(req.map, changes));
+		if (!map.title) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
 		await db.update(map);
 
 		map = await db.findById(map.id);
@@ -49,6 +53,9 @@ router.put('/map',
 	ensureLoggedIn,
 	async (req, res) => {
 		let map = new Map(req.body);
+		if (!map.title) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
 		if (!map.userId || !req.user.isAdmin) {
 			map.userId = req.user.id;
 		}
