@@ -7,8 +7,8 @@ const db = require('./map.db');
 
 router.delete('/map/:id',
 	ensureLoggedIn,
-	ensureAdminOr(req => Number(req.params.id) === req.user.id),
 	resolveRecord(req => req.params.id, db.findById, 'map'),
+	ensureAdminOr(req => req.map.userId === req.user.id),
 	async (req, res) => {
 		await db.del(req.params.id);
 		res.end();
@@ -25,8 +25,8 @@ router.get('/maps',
 
 router.get('/map/:id',
 	ensureLoggedIn,
-	ensureAdminOr(req => Number(req.params.id) === req.user.id),
 	resolveRecord(req => req.params.id, db.findById, 'map'),
+	ensureAdminOr(req => req.map.userId === req.user.id),
 	(req, res) => res.json(req.map));
 
 router.patch('/map',
