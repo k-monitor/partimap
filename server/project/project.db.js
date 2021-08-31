@@ -10,6 +10,15 @@ function create(project) {
 }
 
 /**
+ * @param {Number} id
+ */
+async function del(id) {
+	await db.query('DELETE FROM project WHERE id = ?', [id]);
+	await db.query('DELETE FROM sheet WHERE projectId = ?', [id]);
+	// TODO delete results, ratings too
+}
+
+/**
  * @returns {Project[]}
  */
 function findAll() {
@@ -22,6 +31,14 @@ function findAll() {
  */
 function findById(id) {
 	return db.findBy('project', 'id', id, Project);
+}
+
+/**
+ * @param {String} slug
+ * @returns {Project}
+ */
+function findBySlug(slug) {
+	return db.findBy('project', 'slug', slug, Project);
 }
 
 /**
@@ -42,8 +59,10 @@ function update(project) {
 
 module.exports = {
 	create,
+	del,
 	findAll,
 	findById,
+	findBySlug,
 	findByUserId,
 	update
 };

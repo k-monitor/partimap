@@ -5,6 +5,15 @@ const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
 const db = require('./project.db');
 
+router.delete('/project/:id',
+	ensureLoggedIn,
+	resolveRecord(req => req.params.id, db.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	async (req, res) => {
+		await db.del(req.params.id);
+		res.end();
+	});
+
 router.get('/projects',
 	ensureLoggedIn,
 	async (req, res) => {
@@ -32,6 +41,7 @@ router.patch('/project',
 		if (!project.title) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
+		project.slug = '' + new Date().getTime(); // TODO slugify logic
 		await db.update(project);
 
 		project = await db.findById(project.id);
@@ -48,6 +58,7 @@ router.put('/project',
 		if (!project.userId || !req.user.isAdmin) {
 			project.userId = req.user.id;
 		}
+		project.slug = '' + new Date().getTime(); // TODO slugify logic
 
 		const id = await db.create(project);
 		project = await db.findById(id);
