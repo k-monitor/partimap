@@ -11,7 +11,7 @@ router.delete('/project/:id',
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		await db.del(req.params.id);
-		res.end();
+		res.json({});
 	});
 
 router.get('/projects',

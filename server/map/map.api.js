@@ -11,7 +11,7 @@ router.delete('/map/:id',
 	ensureAdminOr(req => req.map.userId === req.user.id),
 	async (req, res) => {
 		await db.del(req.params.id);
-		res.end();
+		res.json({});
 	});
 
 router.get('/maps',
