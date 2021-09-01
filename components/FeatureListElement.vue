@@ -6,7 +6,7 @@
 			class="mt-1 rounded"
 			@click="featureClicked()"
 		>
-			<span>{{ getFeatureName() }}</span>
+			<span class="text-break">{{ getFeatureName() }}</span>
 			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion">

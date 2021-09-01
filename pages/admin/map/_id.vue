@@ -14,15 +14,11 @@
 				:features="featuresFromRaw(mapDataServer)"
 			/>
 		</client-only>
-		<b-container class="mt-11 mr-2">
-			<b-row align-h="end">
-				<b-col cols="4" class="p-0">
-					<FeatureListContainer
-						:map-title="mapDataLocal.title"
-						@updateTitle="changeMapTitle"
-					/>
-				</b-col>
-			</b-row>
+		<b-container class="mt-11 mx-0 ml-auto px-0 px-sm-3 feature-container">
+			<FeatureListContainer
+				:map-title="mapDataLocal.title"
+				@updateTitle="changeMapTitle"
+			/>
 		</b-container>
 	</div>
 </template>
@@ -150,4 +146,10 @@ nem lehet rajta átkattintani. */
     margin-top: 6.5rem !important;
 }
 
+.feature-container {
+	width: 35%;
+	box-sizing: content-box;
+	min-width: 180px;
+	max-width: 300px;
+}
 </style>
