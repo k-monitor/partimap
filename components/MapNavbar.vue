@@ -17,9 +17,9 @@
 					</div>
 				</b-button>
 			</b-navbar-nav>
-			<div class="map-name text-center">
+			<div class="map-title text-center">
 				<b-navbar-nav v-if="!titleEdit" @click="titleEdit = true">
-					<b-nav-text> <h3 class="my-0 text-dark">{{ mapTitle }}</h3></b-nav-text>
+					<b-nav-text> <h3 class="my-0 text-dark map-title">{{ mapTitle }}</h3></b-nav-text>
 				</b-navbar-nav>
 				<b-navbar v-if="titleEdit">
 					<b-nav-form @submit="modifyMapName">
@@ -80,3 +80,9 @@ export default {
 	}
 };
 </script>
+
+<style scoped>
+.map-title {
+	cursor: pointer;
+}
+</style>
