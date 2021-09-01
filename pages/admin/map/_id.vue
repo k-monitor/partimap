@@ -7,15 +7,13 @@
 			@back="goToMaps"
 			@save="saveFeatures"
 		/>
-		<div class="flex-grow-1 map">
-			<client-only placeholder="Loading...">
-				<Map
-					:initial-center="[2129152.791287463,6017729.508627875]"
-					:initial-zoom="10"
-					:features="featuresFromRaw(mapDataServer)"
-				/>
-			</client-only>
-		</div>
+		<client-only placeholder="Loading...">
+			<Map
+				:initial-center="[2129152.791287463,6017729.508627875]"
+				:initial-zoom="10"
+				:features="featuresFromRaw(mapDataServer)"
+			/>
+		</client-only>
 		<b-container class="mt-11 mr-2">
 			<b-row align-h="end">
 				<b-col cols="4" class="p-0">

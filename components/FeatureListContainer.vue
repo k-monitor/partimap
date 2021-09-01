@@ -3,9 +3,15 @@
 	<b-card>
 		<div class="add-feature">
 			<b-button-group class="w-100 ">
-				<b-button variant="success" @click="changeDrawType()">
-					<span class="material-icons d-flex justify-content-center">
+				<b-button
+					:class="{ 'btn-success': !editState, 'btn-danger': editState}"
+					@click="changeDrawType()"
+				>
+					<span v-if="!editState" class="material-icons d-flex justify-content-center">
 						add
+					</span>
+					<span v-if="editState" class="material-icons d-flex justify-content-center">
+						close
 					</span>
 				</b-button>
 				<b-dropdown
@@ -75,9 +81,8 @@ export default {
 	},
 	methods: {
 		changeDrawType() {
-			this.$nuxt.$emit('drawType', this.selectedDrawType);
-
-			this.$store.commit('toggleEditState', true);
+			this.$nuxt.$emit('drawType', this.editState ? '' : this.selectedDrawType);
+			this.$store.commit('toggleEditState', !this.editState);
 			this.$store.commit('selected/change', null);
 		}
 	}
