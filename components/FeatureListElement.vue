@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<b-list-group-item
+			ref="feature"
 			button
 			:class="[{ selected: selectedFeature, disabled: onEditMode }, selectedFeature ? null : 'collapsed']"
 			class="mt-1 rounded"
@@ -90,6 +91,9 @@ export default {
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		selectedFeature: {
 			get() {
+				if (this.getSelectedFeature === this.feature) {
+					this.$nextTick(() => this.$refs.feature.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' }));
+				}
 				return (this.getSelectedFeature === this.feature);
 			},
 			set(val) {
