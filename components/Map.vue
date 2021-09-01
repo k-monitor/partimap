@@ -44,7 +44,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-			defaultColor: '#64C8FF',
+			defaultColor: '#000080',
 			drawType: ''
 		};
 	},
