@@ -1,32 +1,33 @@
 
 <template>
 	<b-card>
-		<div class="add-feature">
-			<b-button-group class="w-100 ">
-				<b-button
-					:class="{ 'btn-success': !editState, 'btn-danger': editState}"
-					@click="changeDrawType()"
-				>
-					<span v-if="!editState" class="material-icons d-flex justify-content-center">
-						add
-					</span>
-					<span v-if="editState" class="material-icons d-flex justify-content-center">
-						close
-					</span>
-				</b-button>
-				<b-dropdown
-					right
-					:text="translateDrawType"
-					class="w-75 add-feature-selector"
-					variant="white"
-				>
-					<b-dropdown-item @click="selectedDrawType = 'Point'">Pont</b-dropdown-item>
-					<b-dropdown-item @click="selectedDrawType = 'LineString'">Útvonal</b-dropdown-item>
-					<b-dropdown-item @click="selectedDrawType = 'Polygon'">Terület</b-dropdown-item>
-				</b-dropdown>
-			</b-button-group>
-		</div>
-		<hr>
+		<template #header>
+			<div class="add-feature">
+				<b-button-group class="w-100 ">
+					<b-button
+						:class="{ 'btn-success': !editState, 'btn-danger': editState}"
+						@click="changeDrawType()"
+					>
+						<span v-if="!editState" class="material-icons d-flex justify-content-center">
+							add
+						</span>
+						<span v-if="editState" class="material-icons d-flex justify-content-center">
+							close
+						</span>
+					</b-button>
+					<b-dropdown
+						right
+						:text="translateDrawType"
+						class="w-75 add-feature-selector"
+						variant="white"
+					>
+						<b-dropdown-item @click="selectedDrawType = 'Point'">Pont</b-dropdown-item>
+						<b-dropdown-item @click="selectedDrawType = 'LineString'">Útvonal</b-dropdown-item>
+						<b-dropdown-item @click="selectedDrawType = 'Polygon'">Terület</b-dropdown-item>
+					</b-dropdown>
+				</b-button-group>
+			</div>
+		</template>
 		<div class="accordion" role="tablist">
 			<div class="overflow-auto">
 				<b-card-text>
@@ -40,6 +41,28 @@
 				</b-card-text>
 			</div>
 		</div>
+		<template #footer>
+			<b-button variant="warning p-0 mb-1">
+				<div class="content d-flex">
+					<div class="material-icons d-inline  border-info py-1 pl-1">
+						file_download
+					</div>
+					<div class="text d-inline p-1 pr-2">
+						Import
+					</div>
+				</div>
+			</b-button>
+			<b-button variant="warning p-0 mb-1">
+				<div class="content d-flex">
+					<div class="material-icons d-inline  border-info py-1 pl-1">
+						file_upload
+					</div>
+					<div class="text d-inline p-1 pr-2">
+						Export
+					</div>
+				</div>
+			</b-button>
+		</template>
 	</b-card>
 </template>
 
@@ -95,10 +118,12 @@ export default {
     overflow: auto;
 	padding: 1rem;
 }
-
+.card-footer {
+	padding: 1rem;
+}
 .card {
     position: relative;
-    max-height: 75vh;
+    height: 85vh;
 }
 
 .add-feature-selector {
