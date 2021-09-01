@@ -2,16 +2,16 @@
 	<div>
 		<b-navbar
 			type="light"
-			class="justify-content-between border-bottom border-info"
-			style="background-color: #e3f2fd;"
+			variant="white"
+			class="justify-content-between border-bottom shadow-sm"
 		>
 			<b-navbar-nav>
-				<b-button class="back" variant="outline-info p-0" @click="$emit('back')">
+				<b-button class="back" variant="outline-secondary p-0" @click="$emit('back')">
 					<div class="content d-flex">
-						<div class="material-icons d-inline border-right border-info p-1">
+						<div class="material-icons d-inline  border-info py-1 pl-1">
 							arrow_back_ios_new
 						</div>
-						<div class="text d-inline p-1">
+						<div class="text d-inline p-1 pr-2">
 							Térképek
 						</div>
 					</div>
@@ -19,7 +19,7 @@
 			</b-navbar-nav>
 			<div class="map-name text-center">
 				<b-navbar-nav v-if="!titleEdit" @click="titleEdit = true">
-					<b-nav-text> <h3 class="my-0 text-info">{{ mapTitle }}</h3></b-nav-text>
+					<b-nav-text> <h3 class="my-0 text-dark">{{ mapTitle }}</h3></b-nav-text>
 				</b-navbar-nav>
 				<b-navbar v-if="titleEdit">
 					<b-nav-form @submit="modifyMapName">
@@ -32,10 +32,10 @@
 			<b-navbar-nav>
 				<b-button class="save" variant="outline-success p-0" :disabled="!mapModified" @click="$emit('save')">
 					<div class="content d-flex">
-						<div class="material-icons d-inline border-right border-success p-1">
+						<div class="material-icons d-inline  border-success py-1 pl-1">
 							save
 						</div>
-						<div class="text d-inline p-1">
+						<div class="text d-inline p-1 pr-2">
 							Mentés
 						</div>
 					</div>
