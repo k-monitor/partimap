@@ -42,6 +42,11 @@ export default {
 			mapModified: false
 		};
 	},
+	metaInfo() {
+		return {
+			title: this.mapDataServer.title,
+		};
+	},
 	computed: {
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
 
