@@ -25,15 +25,6 @@ let draw, snap;
 
 export default {
 	props: {
-		drawType: {
-			type: String,
-			default: null,
-			validator(value) {
-				return [null, false, '', 'Point', 'LineString', 'Polygon'].includes(
-					value
-				);
-			},
-		},
 		initialCenter: {
 			type: Array,
 			default: () => [0, 0],
@@ -53,7 +44,8 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-			defaultColor: '#64C8FF'
+			defaultColor: '#64C8FF',
+			drawType: ''
 		};
 	},
 	computed: {
@@ -164,10 +156,14 @@ export default {
 		this.$nuxt.$on('changeStyle', (feature, color) => {
 			this.changeFeatureStyle(feature, color);
 		});
+		this.$nuxt.$on('drawType', type => {
+			this.drawType = type;
+		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('changeStyle');
+		this.$nuxt.$off('drawType');
 	},
 	methods: {
 		loadInitFeatures(features) {
@@ -247,3 +243,10 @@ export default {
 	}
 };
 </script>
+
+<style>
+
+.ol-zoom {
+	top: 6.5em;
+}
+</style>

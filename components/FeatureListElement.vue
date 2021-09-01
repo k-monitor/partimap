@@ -156,6 +156,7 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0.5rem 1rem;
 }
 .selected {
 	border-left: 4px solid #00ce89;
@@ -173,6 +174,9 @@ export default {
 .collapse-content {
 	border-top: none;
 	border-radius: 0 0 0.25rem 0.25rem;
+}
+.card-body {
+	padding: 1rem;
 }
 </style>
 

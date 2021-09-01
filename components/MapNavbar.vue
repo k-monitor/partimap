@@ -3,7 +3,7 @@
 		<b-navbar
 			type="light"
 			variant="white"
-			class="justify-content-between border-bottom shadow-sm"
+			class="justify-content-between fixed-top border-bottom shadow-sm"
 		>
 			<b-navbar-nav>
 				<b-button class="back" variant="outline-secondary p-0" @click="$emit('back')">

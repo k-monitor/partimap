@@ -10,14 +10,13 @@
 		<div class="flex-grow-1 map">
 			<client-only placeholder="Loading...">
 				<Map
-					:draw-type="drawType"
 					:initial-center="[2129152.791287463,6017729.508627875]"
 					:initial-zoom="10"
 					:features="featuresFromRaw(mapDataServer)"
 				/>
 			</client-only>
 		</div>
-		<b-container class="mt-4 mr-2">
+		<b-container class="mt-11 mr-2">
 			<b-row align-h="end">
 				<b-col cols="4" class="p-0">
 					<FeatureListContainer
@@ -27,39 +26,6 @@
 				</b-col>
 			</b-row>
 		</b-container>
-		<b-container class="fixed-bottom mb-5 mr-2">
-			<b-row align-h="end">
-				<b-col cols="auto">
-					<b-card>
-						<b-row>
-							<b-col>
-								<b-button-group>
-									<b-button
-										:class="{'btn-success': pointBtnClicked}"
-										@click="buttonClicked('Point')"
-									>
-										Pont
-									</b-button>
-									<b-button
-										:class="{'btn-success': lineBtnClicked}"
-										@click="buttonClicked('Line')"
-									>
-										Útvonal
-									</b-button>
-									<b-button
-										:class="{'btn-success': polyBtnClicked}"
-										@click="buttonClicked('Poly')"
-									>
-										Terület
-									</b-button>
-								</b-button-group>
-							</b-col>
-						</b-row>
-					</b-card>
-				</b-col>
-			</b-row>
-		</b-container>
-		</mapnavbar>
 	</div>
 </template>
 
@@ -79,31 +45,12 @@ export default {
 	},
 	data() {
 		return {
-			drawType: '',
-			pointBtnClicked: false,
-			lineBtnClicked: false,
-			polyBtnClicked: false,
 			mapModified: false
 		};
 	},
 	computed: {
-		editState() {
-			return this.$store.getters.getEditState;
-		},
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
 
-	},
-	watch: {
-		drawType() {
-			this.$store.commit('toggleEditState', !!this.drawType);
-			!!this.drawType && this.$store.commit('selected/change', null);
-		},
-		editState(state) {
-			if (!state) {
-				this.pointBtnClicked = this.lineBtnClicked = this.polyBtnClicked = false;
-				this.drawType = '';
-			}
-		},
 	},
 	created() {
 		this.$nuxt.$on('mapModified', () => {
@@ -145,28 +92,6 @@ export default {
 			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
 			return features;
 		},
-		buttonClicked (type) {
-			switch (type) {
-			case 'Point':
-				this.drawType === 'Point' ? this.drawType = '' : this.drawType = 'Point';
-				this.pointBtnClicked = !this.pointBtnClicked;
-				this.lineBtnClicked = false;
-				this.polyBtnClicked = false;
-				break;
-			case 'Line':
-				this.drawType === 'LineString' ? this.drawType = '' : this.drawType = 'LineString';
-				this.lineBtnClicked = !this.lineBtnClicked;
-				this.pointBtnClicked = false;
-				this.polyBtnClicked = false;
-				break;
-			case 'Poly':
-				this.drawType === 'Polygon' ? this.drawType = '' : this.drawType = 'Polygon';
-				this.polyBtnClicked = !this.polyBtnClicked;
-				this.lineBtnClicked = false;
-				this.pointBtnClicked = false;
-				break;
-			}
-		},
 		goToMaps() {
 			if (this.mapModified) {
 				this.showConfirmModal();
@@ -200,9 +125,6 @@ export default {
 					this.error('Sikertelen mentés');
 				});
 		},
-		test() {
-			return this.feature.get('color');
-		},
 		changeMapTitle(title) {
 			if (this.mapDataServer.title !== title) {
 				this.mapModified = true;
@@ -224,6 +146,10 @@ nem lehet rajta átkattintani. */
 }
 .fixed-bottom .card-body {
 	pointer-events: all;
+}
+
+.mt-11, .my-11 {
+    margin-top: 6.5rem !important;
 }
 
 </style>
