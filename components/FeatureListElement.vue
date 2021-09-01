@@ -51,7 +51,9 @@
 								class="w-100"
 								size="sm"
 								placeholder="Leírás"
+								maxlength="1000"
 							/>
+							<span class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 						</b-col>
 					</b-row>
 					<b-row class="mt-2">
@@ -99,6 +101,9 @@ export default {
 		onEditMode() {
 			return this.$store.getters.getEditState;
 		},
+		descriptionLength() {
+			return this.form.description ? this.form.description.length : 0;
+		}
 	},
 	methods: {
 		modifyFeature(event) {
@@ -178,6 +183,11 @@ export default {
 .card-body {
 	padding: 1rem;
 }
-</style>
 
-// "$nuxt.$emit('clearFeature',feature)"
+.char-count {
+	position: absolute;
+	margin-top: 2px;
+	font-size: 60%;
+}
+
+</style>
