@@ -42,7 +42,7 @@ export default {
 			mapModified: false
 		};
 	},
-	metaInfo() {
+	head() {
 		return {
 			title: this.mapDataServer.title,
 		};
