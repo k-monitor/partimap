@@ -86,6 +86,7 @@ export default {
 		this.source = new VectorSource({
 			features: this.loadInitFeatures(this.features)
 		});
+
 		this.vector = new VectorLayer({
 			source: this.source,
 			style: (feature, resolution) => {
@@ -111,6 +112,7 @@ export default {
 				zoom,
 			}),
 		});
+		this.fitViewToFeatures();
 
 		this.map.on('moveend', () => {
 			this.center = this.map.getView().getCenter();
@@ -238,6 +240,13 @@ export default {
 				this.source.getFeatures().forEach(feature => {
 					this.changeFeatureStyle(feature, feature.get('color'));
 				});
+			}
+		},
+		fitViewToFeatures() {
+			// no need to fit view if 0 or 1 feature is present
+			if (this.source.getFeatures().length > 1) {
+				// padding, so the feature list doesn't block the view from features
+				this.map.getView().fit(this.source.getExtent(), { padding: [0, 300, 0, 0] });
 			}
 		}
 	}
