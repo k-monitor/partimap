@@ -10,7 +10,7 @@
 			<span class="text-break">{{ getFeatureName() }}</span>
 			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion">
+		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
 			<b-card class="collapse-content">
 				<b-form v-if="selectedFeature" @submit="modifyFeature">
 					<b-row align-h="between" align-v="center">
@@ -91,9 +91,6 @@ export default {
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		selectedFeature: {
 			get() {
-				if (this.getSelectedFeature === this.feature) {
-					this.$nextTick(() => this.$refs.feature.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' }));
-				}
 				return (this.getSelectedFeature === this.feature);
 			},
 			set(val) {
@@ -108,6 +105,10 @@ export default {
 		descriptionLength() {
 			return this.form.description ? this.form.description.length : 0;
 		}
+	},
+	mounted() {
+		// When an element is created, scroll to it
+		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 	},
 	methods: {
 		modifyFeature(event) {
@@ -156,6 +157,9 @@ export default {
 					this.error('Sikertelen törlés.');
 				});
 		},
+		expandFinished() {
+			this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
+		}
 	}
 
 };
