@@ -20,6 +20,7 @@
 						:text="translateDrawType"
 						class="w-75 add-feature-selector"
 						variant="white"
+						:disabled="editState"
 					>
 						<b-dropdown-item @click="selectedDrawType = 'Point'">Pont</b-dropdown-item>
 						<b-dropdown-item @click="selectedDrawType = 'LineString'">Útvonal</b-dropdown-item>
@@ -45,7 +46,7 @@
 			<b-button variant="warning p-0 mb-1">
 				<div class="content d-flex">
 					<div class="material-icons d-inline  border-info py-1 pl-1">
-						file_download
+						file_upload
 					</div>
 					<div class="text d-inline p-1 pr-2">
 						Import
@@ -55,7 +56,7 @@
 			<b-button variant="warning p-0 mb-1">
 				<div class="content d-flex">
 					<div class="material-icons d-inline  border-info py-1 pl-1">
-						file_upload
+						file_download
 					</div>
 					<div class="text d-inline p-1 pr-2">
 						Export
