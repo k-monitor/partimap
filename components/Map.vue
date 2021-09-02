@@ -14,12 +14,13 @@ import 'ol/ol.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import { Draw, Select, Snap, defaults as defaultInteractions } from 'ol/interaction';
+import { Draw, Select, Snap } from 'ol/interaction';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { mapGetters } from 'vuex';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
+import { click } from 'ol/events/condition';
 
 let draw, snap;
 
@@ -63,6 +64,14 @@ export default {
 			state ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
 		},
 		getSelectedFeature(selFeature, prevFeature) {
+			// sync the local selectedFeatures collection with the store
+			const selectedFeatures = this.select.getFeatures();
+			if (selFeature && !selectedFeatures.array_.includes(selFeature)) {
+				selectedFeatures.push(selFeature);
+			}
+			if (selectedFeatures.array_.includes(prevFeature)) {
+				selectedFeatures.remove(prevFeature);
+			}
 			if (!selFeature) {
 				this.removeBlur();
 				this.select.getFeatures().pop(); // if a feature is unselected, also clear it from here
@@ -100,10 +109,10 @@ export default {
 		});
 		this.select = new Select({
 			style: null,
+			condition: click
 		});
 
 		this.map = new Map({
-			interactions: defaultInteractions().extend([this.select]),
 			target: this.$refs['map-root'],
 			layers: [raster, this.vector],
 			view: new View({
@@ -126,7 +135,9 @@ export default {
 
 		const selectedFeatures = this.select.getFeatures();
 		selectedFeatures.on('add', f => {
-			this.$store.commit('selected/change', f.element);
+			if (f !== this.getSelectedFeature) {
+				this.$store.commit('selected/change', f.element);
+			}
 		});
 		selectedFeatures.on('remove', f => {
 			this.$store.commit('selected/remove', f.element);
@@ -137,6 +148,8 @@ export default {
 			f.feature.set('color', this.defaultColor);
 			this.$store.commit('toggleEditState', false);
 			this.$store.commit('features/add', f.feature);
+
+			selectedFeatures.push(f.feature);
 			this.$nuxt.$emit('mapModified');
 		});
 
@@ -209,12 +222,6 @@ export default {
 				this.map.addInteraction(draw);
 				snap = new Snap({ source: this.source });
 				this.map.addInteraction(snap);
-				draw.on('drawend', evt => {
-					const selectedFeatures = this.select.getFeatures();
-					if (!selectedFeatures.array_.includes(evt.feature)) {
-						selectedFeatures.push(evt.feature);
-					}
-				});
 			}
 		},
 		changeFeatureStyle(feature, color) {

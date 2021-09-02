@@ -3,14 +3,14 @@
 		<b-list-group-item
 			ref="feature"
 			button
-			:class="[{ selected: selectedFeature, disabled: onEditMode }, selectedFeature ? null : 'collapsed']"
+			:class="[{ selected: selectedFeature, disabled: onEditMode }]"
 			class="mt-1 rounded"
 			@click="featureClicked()"
 		>
 			<span class="text-break">{{ getFeatureName() }}</span>
 			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
-		<b-collapse :id="`collapse-${feature.getId()}`" v-model="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
+		<b-collapse :id="`collapse-${feature.getId()}`" :visible="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
 			<b-card class="collapse-content">
 				<b-form v-if="selectedFeature" @submit="modifyFeature">
 					<b-row align-h="between" align-v="center">
@@ -89,15 +89,8 @@ export default {
 	},
 	computed: {
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
-		selectedFeature: {
-			get() {
-				return (this.getSelectedFeature === this.feature);
-			},
-			set(val) {
-				val
-					? this.$store.commit('selected/change', this.feature)
-					: this.$store.commit('selected/remove', this.feature);
-			}
+		selectedFeature() {
+			return (this.getSelectedFeature === this.feature);
 		},
 		onEditMode() {
 			return this.$store.getters.getEditState;
@@ -130,7 +123,7 @@ export default {
 			return this.feature.get('name') || idStr.substring(idStr.length - 5);
 		},
 		featureClicked() {
-			this.getSelectedFeature === this.feature
+			this.selectedFeature
 				? this.$store.commit('selected/remove', this.feature)
 				: this.$store.commit('selected/change', this.feature);
 		},
