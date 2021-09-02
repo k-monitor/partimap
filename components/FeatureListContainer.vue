@@ -108,7 +108,7 @@ export default {
 			this.$store.commit('toggleEditState', !this.editState);
 			this.$store.commit('selected/change', null);
 		}
-	}
+	},
 };
 
 </script>
