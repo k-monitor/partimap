@@ -53,6 +53,7 @@
 					v-else-if="$auth.user.isAdmin"
 					class="badge badge-success"
 				>Saját</span>
+				<span class="material-icons m-0 float-right text-danger" @click.prevent="showConfirmModal(p.id)"> delete </span>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
@@ -97,6 +98,49 @@ export default {
 				this.error('Létrehozás sikertelen');
 			}
 		},
+		async removeProjFromDB(id) {
+			try {
+				await this.$axios.$delete('/api/project/' + id);
+			} catch (error) {
+				this.error('Sikertelen törlés.');
+			}
+		},
+		showConfirmModal(id) {
+			this.$bvModal.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
+				title: 'Megerősítés',
+				size: 'sm',
+				buttonSize: 'sm',
+				okVariant: 'danger',
+				okTitle: 'IGEN',
+				cancelTitle: 'MÉGSEM',
+				footerClass: 'p-2',
+				hideHeaderClose: false,
+				centered: true,
+				autoFocusButton: 'ok'
+			})
+				.then(value => {
+					if (value) {
+						this.removeProjFromDB(id);
+						this.projects = this.projects.filter(
+							function(proj) { return proj.id !== id; }
+						);
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
 	},
 };
 </script>
+<style scoped>
+.material-icons {
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.material-icons:hover {
+  opacity: 1;
+}
+</style>
