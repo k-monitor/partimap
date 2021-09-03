@@ -48,12 +48,21 @@
 				<span
 					v-if="m.userId != $auth.user.id"
 					class="badge badge-warning"
-				>Tulajdonos: #{{ m.userId }}</span>
+				>
+					Tulajdonos: #{{ m.userId }}
+				</span>
 				<span
 					v-else-if="$auth.user.isAdmin"
 					class="badge badge-success"
-				>Saját</span>
-				<span class="material-icons m-0 float-right text-danger" @click.prevent="showConfirmModal(m.id)"> delete </span>
+				>
+					Saját
+				</span>
+				<span
+					class="material-icons m-0 float-right text-danger"
+					@click.prevent="showConfirmModal(m.id)"
+				>
+					delete
+				</span>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
