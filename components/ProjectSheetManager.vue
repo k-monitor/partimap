@@ -35,21 +35,21 @@
 					</b-badge>
 					<span
 						class="material-icons delete m-0 float-right text-danger"
-						@click.prevent="showConfirmModal(sheet)"
+						@mousedown.prevent="showConfirmModal(sheet)"
 					>
 						delete
 					</span>
 					<span
 						:class="{'down-arrow-disabled' : sheet.ord == (sheets.length-1)}"
 						class="material-icons m-0 float-right"
-						@click.prevent="$emit('moveSheet','down',sheet)"
+						@mousedown="$emit('moveSheet','down',sheet)"
 					>
 						arrow_downward
 					</span>
 					<span
 						v-if="sheet.ord"
 						class="material-icons m-0 float-right "
-						@click.prevent="$emit('moveSheet','up',sheet)"
+						@mousedown="$emit('moveSheet','up',sheet)"
 					>
 						arrow_upward
 					</span>
@@ -85,7 +85,7 @@ export default {
 				footerClass: 'p-2',
 				hideHeaderClose: false,
 				centered: true,
-				autoFocusButton: 'ok'
+				autoFocusButton: 'ok',
 			})
 				.then(value => {
 					if (value) {
