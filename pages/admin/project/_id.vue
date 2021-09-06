@@ -4,7 +4,7 @@
 			<template #header>
 				<NuxtLink to="/admin/projects">Projektek</NuxtLink>
 				<span class="text-muted">&raquo;</span>
-				{{ p.title }}
+				{{ project.title }}
 			</template>
 			<form
 				id="projectForm"
@@ -14,7 +14,7 @@
 					<label for="title">Projekt elnevezése</label>
 					<input
 						id="title"
-						v-model="m.title"
+						v-model="project.title"
 						class="form-control"
 						required
 						type="text"
@@ -24,7 +24,7 @@
 					<label for="descriptoin">Leírás</label>
 					<textarea
 						id="description"
-						v-model="m.description"
+						v-model="project.description"
 						class="form-control"
 						rows="5"
 					/>
@@ -43,8 +43,8 @@
 			</template>
 		</AdminFrame>
 		<ProjectSheetManager
-			:project-id="p.id"
-			:sheets="localSheets"
+			:project-id="project.id"
+			:sheets="project.sheets"
 			@addSheet="addSheet"
 			@delSheet="delSheet"
 			@moveSheet="moveSheet"
@@ -59,34 +59,32 @@ export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
-			const p = await $axios.$get('/api/project/' + params.id);
-			const sheets = await $axios.$get('/api/project/' + params.id + '/sheets');
-			return { p, m: { ...p }, sheets, localSheets: [...sheets] };
+			const project = await $axios.$get('/api/project/' + params.id);
+			return { project };
 		} catch (err) {
 			redirect('/admin/projects');
 		}
 	},
 	head() {
 		return {
-			title: 'Admin: ' + this.p.title,
+			title: 'Admin: ' + this.project.title,
 		};
 	},
 	methods: {
 		async update() {
 			try {
-				this.p = await this.$axios.$patch('/api/project', this.m);
-				this.m = { ...this.p };
-				this.success('Módosítás sikeres');
+				await this.$axios.$patch('/api/project', this.project);
+				this.success('Módosítás sikeres.');
 			} catch (error) {
-				this.error('Módosítás sikertelen');
+				this.error('Módosítás sikertelen.');
 			}
 		},
 		async addSheet(title) {
 			try {
-				const newSheet = await this.$axios.$put('/api/project/' + this.p.id + '/sheet', {
+				const newSheet = await this.$axios.$put('/api/project/' + this.project.id + '/sheet', {
 					title
 				});
-				this.localSheets.push(newSheet);
+				this.project.sheets.push(newSheet);
 			} catch (error) {
 				this.error('Munkalap hozzáadása sikertelen.');
 			}
@@ -97,7 +95,7 @@ export default {
 			} catch (error) {
 				this.error('Munkalap törlése sikertelen.');
 			}
-			this.localSheets = this.localSheets.filter(function(s) {
+			this.project.sheets = this.project.sheets.filter(function(s) {
 				if (s.id !== sheet.id) {
 					if (s.ord > sheet.ord) {
 						s.ord--;
@@ -111,23 +109,23 @@ export default {
 		async moveSheet(dir, sheet) {
 			let otherSheet; // with which the current element is switched
 			if (dir === 'down') {
-				this.localSheets.forEach(element => {
+				this.project.sheets.forEach(element => {
 					if (element.ord === (sheet.ord + 1)) {
 						otherSheet = element;
 					}
 				});
 				otherSheet.ord--;
 				sheet.ord++;
-				this.localSheets = orderBy(this.localSheets, 'ord', 'asc');
+				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
 			} else if (dir === 'up') {
-				this.localSheets.forEach(element => {
+				this.project.sheets.forEach(element => {
 					if (element.ord === (sheet.ord - 1)) {
 						otherSheet = element;
 					}
 				});
 				otherSheet.ord++;
 				sheet.ord--;
-				this.localSheets = orderBy(this.localSheets, 'ord', 'asc');
+				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
 			}
 			try {
 				await this.$axios.$patch('/api/sheet/', { id: sheet.id, ord: sheet.ord });
