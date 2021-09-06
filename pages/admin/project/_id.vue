@@ -49,7 +49,6 @@
 			@delSheet="delSheet"
 			@moveSheet="moveSheet"
 		/>
-		<b-button @click="test()" />
 	</div>
 </template>
 
@@ -89,14 +88,14 @@ export default {
 				});
 				this.localSheets.push(newSheet);
 			} catch (error) {
-				this.error('Munkalap hozzáadás sikertelen');
+				this.error('Munkalap hozzáadása sikertelen.');
 			}
 		},
 		async delSheet(sheet) {
 			try {
 				await this.$axios.$delete('/api/sheet/' + sheet.id);
 			} catch (error) {
-				this.error('Munkalap törlése sikertelen');
+				this.error('Munkalap törlése sikertelen.');
 			}
 			this.localSheets = this.localSheets.filter(function(s) {
 				if (s.id !== sheet.id) {
@@ -109,9 +108,9 @@ export default {
 				}
 			});
 		},
-		moveSheet(dir, sheet) {
+		async moveSheet(dir, sheet) {
+			let otherSheet; // with which the current element is switched
 			if (dir === 'down') {
-				let otherSheet;
 				this.localSheets.forEach(element => {
 					if (element.ord === (sheet.ord + 1)) {
 						otherSheet = element;
@@ -121,7 +120,6 @@ export default {
 				sheet.ord++;
 				this.localSheets = orderBy(this.localSheets, 'ord', 'asc');
 			} else if (dir === 'up') {
-				let otherSheet;
 				this.localSheets.forEach(element => {
 					if (element.ord === (sheet.ord - 1)) {
 						otherSheet = element;
@@ -130,6 +128,11 @@ export default {
 				otherSheet.ord++;
 				sheet.ord--;
 				this.localSheets = orderBy(this.localSheets, 'ord', 'asc');
+			}
+			try {
+				await this.$axios.$patch('/api/sheet/', { id: sheet.id, ord: sheet.ord });
+			} catch (error) {
+				this.error('Munkalap mozgatása sikertelen.');
 			}
 		}
 	}

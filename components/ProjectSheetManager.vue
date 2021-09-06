@@ -1,5 +1,5 @@
 <template>
-	<b-container>
+	<b-container class="mb-5">
 		<b-card class="shadow-sm ">
 			<template #header>
 				<form @submit.prevent="$emit('addSheet',newSheetTitle); newSheetTitle=''">
@@ -30,6 +30,9 @@
 					class="align-items-center list-group-item list-group-item-action"
 				>
 					<strong>{{ sheet.title }}</strong>
+					<b-badge class="float-left mr-3 my-1 order-number">
+						#{{ sheet.ord + 1 }}
+					</b-badge>
 					<span
 						class="material-icons delete m-0 float-right text-danger"
 						@click.prevent="showConfirmModal(sheet)"
@@ -37,8 +40,8 @@
 						delete
 					</span>
 					<span
-						v-if="sheet.ord !== (sheets.length-1)"
-						class="material-icons m-0 float-right "
+						:class="{'down-arrow-disabled' : sheet.ord == (sheets.length-1)}"
+						class="material-icons m-0 float-right"
 						@click.prevent="$emit('moveSheet','down',sheet)"
 					>
 						arrow_downward
@@ -50,9 +53,6 @@
 					>
 						arrow_upward
 					</span>
-					<b-badge class="float-left mr-3 my-1 order-number">
-						#{{ sheet.ord + 1 }}
-					</b-badge>
 				</NuxtLink>
 			</div>
 		</b-card>
@@ -72,11 +72,6 @@ export default {
 		return {
 			newSheetTitle: ''
 		};
-	},
-	watch: {
-		sheets(data) {
-			console.log(data);
-		}
 	},
 	methods: {
 		showConfirmModal(sheet) {
@@ -118,5 +113,10 @@ export default {
 
 .order-number {
     letter-spacing: 0.1rem;
+}
+
+.down-arrow-disabled {
+	pointer-events: none;
+	opacity: 0;
 }
 </style>
