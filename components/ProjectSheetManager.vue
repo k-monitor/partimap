@@ -43,6 +43,7 @@
 						:class="{'down-arrow-disabled' : sheet.ord == (sheets.length-1)}"
 						class="material-icons m-0 float-right"
 						@mousedown="$emit('moveSheet','down',sheet)"
+						@click.prevent
 					>
 						arrow_downward
 					</span>
@@ -50,6 +51,7 @@
 						v-if="sheet.ord"
 						class="material-icons m-0 float-right "
 						@mousedown="$emit('moveSheet','up',sheet)"
+						@click.prevent
 					>
 						arrow_upward
 					</span>
