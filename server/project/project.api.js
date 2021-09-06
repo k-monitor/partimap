@@ -3,14 +3,15 @@ const { StatusCodes } = require('http-status-codes');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
-const db = require('./project.db');
+const pdb = require('./project.db');
+const sdb = require('../sheet/sheet.db');
 
 router.delete('/project/:id',
 	ensureLoggedIn,
-	resolveRecord(req => req.params.id, db.findById, 'project'),
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
-		await db.del(req.params.id);
+		await pdb.del(req.params.id);
 		res.json({});
 	});
 
@@ -18,18 +19,21 @@ router.get('/projects',
 	ensureLoggedIn,
 	async (req, res) => {
 		const projects = req.user.isAdmin
-			? await db.findAll()
-			: await db.findByUserId(req.user.id);
+			? await pdb.findAll()
+			: await pdb.findByUserId(req.user.id);
 		res.json(projects);
 	});
 
 router.get('/project/:id',
-	resolveRecord(req => req.params.id, db.findById, 'project'),
-	(req, res) => res.json(req.project));
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+	async (req, res) => {
+		req.project.sheets = await sdb.findByProjectId(req.project.id);
+		res.json(req.project);
+	});
 
 router.patch('/project',
 	ensureLoggedIn,
-	resolveRecord(req => req.body.id, db.findById, 'project'),
+	resolveRecord(req => req.body.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		const changes = req.body;
@@ -42,9 +46,9 @@ router.patch('/project',
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
 		project.slug = '' + new Date().getTime(); // TODO slugify logic
-		await db.update(project);
+		await pdb.update(project);
 
-		project = await db.findById(project.id);
+		project = await pdb.findById(project.id);
 		res.json(project);
 	});
 
@@ -60,8 +64,8 @@ router.put('/project',
 		}
 		project.slug = '' + new Date().getTime(); // TODO slugify logic
 
-		const id = await db.create(project);
-		project = await db.findById(id);
+		const id = await pdb.create(project);
+		project = await pdb.findById(id);
 
 		res.json(project);
 	});
