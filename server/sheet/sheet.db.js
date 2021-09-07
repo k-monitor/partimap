@@ -54,7 +54,14 @@ async function findByProjectIdAndOrder(projectId, ord) {
  * @param {Sheet} sheet
  */
 async function update(sheet) {
-	await db.query('UPDATE sheet SET ord = ord + 1 WHERE projectId = ? AND ord >= ?', [sheet.projectId, sheet.ord]);
+	const oldSheet = await findById(sheet.id);
+	if (oldSheet.ord < sheet.ord) { // so we increase ord
+		await db.query('UPDATE sheet SET ord = ord - 1 WHERE projectId = ? AND ord BETWEEN ? AND ?',
+			[sheet.projectId, oldSheet.ord + 1, sheet.ord]);
+	} else if (oldSheet.ord > sheet.ord) {
+		await db.query('UPDATE sheet SET ord = ord + 1 WHERE projectId = ? AND ord BETWEEN ? AND ?',
+			[sheet.projectId, sheet.ord, oldSheet.ord - 1]);
+	}
 	await db.update('sheet', sheet, Sheet);
 	await reorderSheets(sheet.projectId);
 }
