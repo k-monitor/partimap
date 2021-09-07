@@ -3,8 +3,8 @@ const { StatusCodes } = require('http-status-codes');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
-const pdb = require('./project.db');
 const sdb = require('../sheet/sheet.db');
+const pdb = require('./project.db');
 
 router.delete('/project/:id',
 	ensureLoggedIn,
