@@ -27,41 +27,48 @@
 					v-for="sheet in sheets"
 					:key="sheet.ord"
 					:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
-					class="align-items-center list-group-item list-group-item-action"
+					class="align-items-center list-group-item list-group-item-action py-0"
 				>
-					<span class="float-left mr-3">{{ sheet.ord + 1 }}.</span>
-					<strong>{{ sheet.title }}</strong>
-
-					<!-- <b-badge class="float-left mr-3 my-1 order-number">
-						#{{ sheet.ord + 1 }}
-					</b-badge> -->
-					<span
-						class="material-icons m-0 mr-1 float-left"
-						@mousedown.prevent="showConfirmModal(sheet)"
-					>
-						{{ getSheetType(sheet) }}
-					</span>
-					<span
-						class="material-icons clickable delete m-0 float-right text-danger"
-						@mousedown.prevent="showConfirmModal(sheet)"
-					>
-						delete
-					</span>
-					<span
-						:class="{'down-arrow-disabled' : sheet.ord == (sheets.length-1)}"
-						class="material-icons clickable m-0 float-right"
-						@click.prevent="$emit('moveSheet','down',sheet)"
-					>
-						arrow_downward
-					</span>
-					<span
-						v-if="sheet.ord"
-						class="material-icons clickable m-0 float-right "
-						@click.prevent="$emit('moveSheet','up',sheet)"
-					>
-						arrow_upward
-					</span>
-				</NuxtLink>
+					<b-row align-v="center" class="px-2 py-3">
+						<div style="width: 70px;">
+							<span
+								class="material-icons  float-left mr-3"
+								@mousedown.prevent="showConfirmModal(sheet)"
+							>
+								{{ getSheetType(sheet) }}
+							</span>
+							<span>{{ sheet.ord + 1 }}.</span>
+						</div>
+						<b-col>
+							<strong>{{ sheet.title }}</strong>
+						</b-col>
+						<div style="width: 90px">
+							<span
+								class="material-icons clickable delete text-danger float-right"
+								@mousedown.prevent="showConfirmModal(sheet)"
+							>
+								delete
+							</span>
+							<span
+								:class="{'down-arrow-disabled' : sheet.ord == (sheets.length-1)}"
+								class="material-icons clickable float-right mr-3"
+								@click.prevent="$emit('moveSheet','down',sheet)"
+							>
+								arrow_downward
+							</span>
+							<span
+								v-if="sheet.ord"
+								class="material-icons clickable float-right"
+								@click.prevent="$emit('moveSheet','up',sheet)"
+							>
+								arrow_upward
+							</span>
+						</div>
+					</b-row>
+				</nuxtlink>
+			</div>
+			</b-row>
+			</NuxtLink>
 			</div>
 		</b-card>
 	</b-container>
@@ -122,7 +129,6 @@ export default {
 <style scoped>
 .material-icons {
   font-size: 24px;
-  margin-left: 10px;
 }
 
 .material-icons.clickable {
@@ -131,10 +137,6 @@ export default {
 }
 .material-icons.clickable:hover {
   opacity: 1;
-}
-
-.order-number {
-    letter-spacing: 0.1rem;
 }
 
 .material-icons.down-arrow-disabled {
