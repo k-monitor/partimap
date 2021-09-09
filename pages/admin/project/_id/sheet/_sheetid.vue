@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<MapNavbar
-			:map-title="null"
-			:map-modified="mapModified"
-			@updateTitle="changeMapTitle"
-			@back="goToMaps"
-			@save="saveFeatures"
-		/>
+		<EditorNavbar
+			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
+			:dynamic-title="false"
+			@back="goBackToProject"
+		>
+			<template #back-button-name>Vissza</template>
+		</EditorNavbar>
 		<div class="feature-sidebar">
 			<b-sidebar id="map-sidebar" visible right no-header>
 				<FeatureListContainer
@@ -43,9 +43,11 @@ export default {
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const sheet = await $axios.$get('/api/sheet/' + params.sheetid); // ID helyett ord
-			return { sheet };
+			const project = await $axios.$get('/api/project/' + params.id);
+			return { sheet, project };
 		} catch (err) {
-			console.log(err.message);
+			redirect('/admin/project/' + params.id);
+			// TODO error üzenet
 		}
 	},
 	methods: {
@@ -57,6 +59,9 @@ export default {
 			} catch (error) {
 				this.error('Módosítás sikertelen.');
 			}
+		},
+		goBackToProject() {
+			this.$router.go(-1);
 		}
 	}
 };

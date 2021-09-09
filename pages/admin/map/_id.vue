@@ -1,12 +1,15 @@
 <template>
 	<div>
-		<MapNavbar
-			:map-title="mapDataLocal.title"
-			:map-modified="mapModified"
+		<EditorNavbar
+			:title="mapDataLocal.title"
+			:content-modified="mapModified"
+			:dynamic-title="true"
 			@updateTitle="changeMapTitle"
 			@back="goToMaps"
 			@save="saveFeatures"
-		/>
+		>
+			<template #back-button-name>Térképek</template>
+		</EditorNavbar>
 		<client-only placeholder="Loading...">
 			<Map
 				:initial-center="[2129152.791287463,6017729.508627875]"
@@ -22,7 +25,6 @@
 				/>
 			</b-sidebar>
 			<div class="sidebar-button sidebar-expand">
-				// TODO maybe v-if the expand button
 				<a v-b-toggle.map-sidebar href="#">
 					<svg width="13" height="150">
 						<path

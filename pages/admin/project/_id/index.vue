@@ -63,6 +63,7 @@ export default {
 			return { project };
 		} catch (err) {
 			redirect('/admin/projects');
+			// TODO error üzenet
 		}
 	},
 	head() {
