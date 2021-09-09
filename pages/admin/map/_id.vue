@@ -22,6 +22,7 @@
 				/>
 			</b-sidebar>
 			<div class="sidebar-button sidebar-expand">
+				// TODO maybe v-if the expand button
 				<a v-b-toggle.map-sidebar href="#">
 					<svg width="13" height="150">
 						<path
@@ -155,29 +156,6 @@ export default {
 };
 </script>
 
-<style scoped>
-
-/* Erre lehet létezik jobb megoldás.. Mivel fixed a position-je a divnek, így
-nem lehet rajta átkattintani. */
-.fixed-bottom {
-	pointer-events: none;
-}
-.fixed-bottom .card-body {
-	pointer-events: all;
-}
-
-.mt-11, .my-11 {
-    margin-top: 6.5rem !important;
-}
-
-.feature-container {
-	width: 35%;
-	box-sizing: content-box;
-	min-width: 180px;
-	max-width: 300px;
-}
-
-</style>
 <style>
 
 #map-sidebar {

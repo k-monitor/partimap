@@ -21,7 +21,7 @@
 					>
 				</div>
 				<div class="form-group">
-					<label for="descriptoin">Leírás</label>
+					<label for="description">Leírás</label>
 					<textarea
 						id="description"
 						v-model="project.description"
@@ -56,7 +56,7 @@
 import { orderBy } from 'lodash';
 
 export default {
-	middleware: ['auth'],
+	middleware: ['auth'], // Ez micsoda?
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
