@@ -8,10 +8,10 @@ const pdb = require('../project/project.db');
 const sdb = require('./sheet.db');
 
 router.put('/sheet/:id/image',
-	// TODO ensureLoggedIn,
+	ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
-	// TODO ensureAdminOr(req => req.project.userId === req.user.id),
+	ensureAdminOr(req => req.project.userId === req.user.id),
 	acceptImage(req => req.project.id, 1920, 1200, 'image'),
 	async (req, res) => {
 		// removing previous image
