@@ -1,8 +1,9 @@
 const fs = require('fs');
 const router = require('express').Router();
+const { StatusCodes } = require('http-status-codes');
 const fileType = require('file-type');
 const multer = require('multer');
-const { StatusCodes } = require('http-status-codes');
+const sharp = require('sharp');
 const Sheet = require('../../model/sheet');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
@@ -41,13 +42,19 @@ router.put('/sheet/:id/image',
 	// TODO ensureAdminOr(req => req.project.userId === req.user.id),
 	acceptImage(),
 	validateImage,
-	(req, res) => {
-		const { buffer, mimetype } = req.file;
-		fs.mkdirSync(`./uploads/${req.project.id}`);
-		const fn = `./uploads/${req.project.id}/${new Date().getTime()}.${mimetype.split('/')[1]}`;
-		fs.writeFileSync(fn, buffer);
+	async (req, res) => {
+		const dir = `./uploads/${req.project.id}`;
+		const fn = `${dir}/${new Date().getTime()}.jpg`;
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir);
+		}
+		await sharp(req.file.buffer)
+			.jpeg({ mozjpeg: true })
+			.toFile(fn);
+
 		// TODO sharp resize
 		// TODO sharp optimize and save
+		// TODO remove previous image file if defined in sheet record
 		// TODO save filename into sheet record
 		// TODO return sheet record
 		res.end();
