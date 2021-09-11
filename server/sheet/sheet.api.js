@@ -1,64 +1,33 @@
 const fs = require('fs');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
-const fileType = require('file-type');
-const multer = require('multer');
-const sharp = require('sharp');
 const Sheet = require('../../model/sheet');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
-const { resolveRecord } = require('../common/middlewares');
+const { acceptImage, resolveRecord, storeOptimizedImage, validateImage } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('./sheet.db');
-
-function acceptImage() {
-	return multer({
-		storage: multer.memoryStorage(),
-		// TODO filter by file format (magic number)
-		limits: {
-			fileSize: 5 * 1024 * 1024
-		}
-	}).single('image');
-}
-
-async function validateImage(req, res, next) {
-	const whitelist = [
-		'image/jpeg',
-		'image/jpg',
-		'image/png',
-		'image/webp'
-	];
-	const meta = await fileType.fromBuffer(req.file.buffer);
-	if (!whitelist.includes(meta.mime)) {
-		res.sendStatus(StatusCodes.BAD_REQUEST);
-	} else {
-		next();
-	}
-}
 
 router.put('/sheet/:id/image',
 	// TODO ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	// TODO ensureAdminOr(req => req.project.userId === req.user.id),
-	acceptImage(),
+	acceptImage,
 	validateImage,
+	storeOptimizedImage(req => req.project.id, 1920, 1200, 'image'),
 	async (req, res) => {
-		const dir = `./uploads/${req.project.id}`;
-		const fn = `${dir}/${new Date().getTime()}.jpg`;
-		if (!fs.existsSync(dir)) {
-			fs.mkdirSync(dir);
+		// adding period prefix, needed by server:
+		const previousImage = req.sheet.image ? `.${req.sheet.image}` : false;
+		if (previousImage && fs.existsSync(previousImage)) {
+			fs.unlinkSync(previousImage);
 		}
-		let image = sharp(req.file.buffer);
-		const metadata = await image.metadata();
-		if (metadata.width > 1920 || metadata.height > 1200) {
-			image = image.resize(1920, 1200, { fit: 'inside' });
-		}
-		await image.jpeg({ mozjpeg: true }).toFile(fn);
 
-		// TODO remove previous image file if defined in sheet record
-		// TODO save filename into sheet record
-		// TODO return sheet record
-		res.end();
+		// removing period prefix, confuses client:
+		const fn = req.image;
+		req.sheet.image = fn.replace(/^\./, '');
+		await sdb.update(req.sheet);
+		const sheet = await sdb.findById(req.sheet.id);
+		res.json(sheet);
 	});
 
 router.delete('/sheet/:id',
