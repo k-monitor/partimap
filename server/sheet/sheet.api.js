@@ -48,12 +48,13 @@ router.put('/sheet/:id/image',
 		if (!fs.existsSync(dir)) {
 			fs.mkdirSync(dir);
 		}
-		await sharp(req.file.buffer)
-			.jpeg({ mozjpeg: true })
-			.toFile(fn);
+		let image = sharp(req.file.buffer);
+		const metadata = await image.metadata();
+		if (metadata.width > 1920 || metadata.height > 1200) {
+			image = image.resize(1920, 1200, { fit: 'inside' });
+		}
+		await image.jpeg({ mozjpeg: true }).toFile(fn);
 
-		// TODO sharp resize
-		// TODO sharp optimize and save
 		// TODO remove previous image file if defined in sheet record
 		// TODO save filename into sheet record
 		// TODO return sheet record
