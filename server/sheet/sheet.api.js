@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const Sheet = require('../../model/sheet');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
-const { acceptImage, resolveRecord, storeOptimizedImage, validateImage } = require('../common/middlewares');
+const { acceptImage, resolveRecord } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('./sheet.db');
 
@@ -12,19 +12,18 @@ router.put('/sheet/:id/image',
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	// TODO ensureAdminOr(req => req.project.userId === req.user.id),
-	acceptImage,
-	validateImage,
-	storeOptimizedImage(req => req.project.id, 1920, 1200, 'image'),
+	acceptImage(req => req.project.id, 1920, 1200, 'image'),
 	async (req, res) => {
-		// adding period prefix, needed by server:
-		const previousImage = req.sheet.image ? `.${req.sheet.image}` : false;
-		if (previousImage && fs.existsSync(previousImage)) {
-			fs.unlinkSync(previousImage);
+		// removing previous image
+		if (req.sheet.image) {
+			const fn = `.${req.sheet.image}`; // make it relative for server
+			if (fs.existsSync(fn)) {
+				fs.unlinkSync(fn);
+			}
 		}
 
-		// removing period prefix, confuses client:
-		const fn = req.image;
-		req.sheet.image = fn.replace(/^\./, '');
+		// updating sheet with new image URL
+		req.sheet.image = req.image.replace(/^\./, ''); // make it absolute for client
 		await sdb.update(req.sheet);
 		const sheet = await sdb.findById(req.sheet.id);
 		res.json(sheet);
