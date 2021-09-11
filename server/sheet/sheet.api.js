@@ -1,10 +1,40 @@
+const fs = require('fs');
 const router = require('express').Router();
+const multer = require("multer");
 const { StatusCodes } = require('http-status-codes');
 const Sheet = require('../../model/sheet');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('./sheet.db');
+
+function acceptImage() {
+	return multer({
+		storage: multer.memoryStorage(),
+		// TODO filter by file format (magic number)
+		limits: {
+			fileSize: 5 * 1024 * 1024
+		}
+	}).single('image');
+}
+
+router.put('/sheet/:id/image',
+	// TODO ensureLoggedIn,
+	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
+	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
+	// TODO ensureAdminOr(req => req.project.userId === req.user.id),
+	acceptImage(),
+	(req, res) => {
+		const { buffer, mimetype } = req.file;
+		fs.mkdirSync(`./uploads/${req.project.id}`);
+		const fn = `./uploads/${req.project.id}/${new Date().getTime()}.${mimetype.split('/')[1]}`;
+		fs.writeFileSync(fn, buffer);
+		// TODO sharp resize
+		// TODO sharp optimize and save
+		// TODO save filename into sheet record
+		// TODO return sheet record
+		res.end();
+	});
 
 router.delete('/sheet/:id',
 	ensureLoggedIn,
