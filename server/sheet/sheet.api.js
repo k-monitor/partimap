@@ -1,6 +1,7 @@
 const fs = require('fs');
 const router = require('express').Router();
-const multer = require("multer");
+const fileType = require('file-type');
+const multer = require('multer');
 const { StatusCodes } = require('http-status-codes');
 const Sheet = require('../../model/sheet');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
@@ -18,12 +19,28 @@ function acceptImage() {
 	}).single('image');
 }
 
+async function validateImage(req, res, next) {
+	const whitelist = [
+		'image/jpeg',
+		'image/jpg',
+		'image/png',
+		'image/webp'
+	];
+	const meta = await fileType.fromBuffer(req.file.buffer);
+	if (!whitelist.includes(meta.mime)) {
+		res.sendStatus(StatusCodes.BAD_REQUEST);
+	} else {
+		next();
+	}
+}
+
 router.put('/sheet/:id/image',
 	// TODO ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	// TODO ensureAdminOr(req => req.project.userId === req.user.id),
 	acceptImage(),
+	validateImage,
 	(req, res) => {
 		const { buffer, mimetype } = req.file;
 		fs.mkdirSync(`./uploads/${req.project.id}`);
