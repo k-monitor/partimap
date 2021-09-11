@@ -12,29 +12,27 @@ const sharp = require('sharp');
  * @returns {Array} List of middlewares
  */
 function acceptImage(dirFromReq, width, height, field) {
+	const FILE_SIZE_LIMIT_MB = 5;
+	const ACCEPTED_FORMATS = [
+		'image/jpeg',
+		'image/jpg',
+		'image/png',
+		'image/webp'
+	];
 	return [
 		// accept uploaded image
-		multer({
-			storage: multer.memoryStorage(),
-			limits: {
-				fileSize: 5 * 1024 * 1024
-			}
-		}).single('image'),
+		multer({ storage: multer.memoryStorage() }).single('image'),
 
-		// validate uploaded image's file format
+		// validate uploaded image's file size and format
 		async (req, res, next) => {
-			const whitelist = [
-				'image/jpeg',
-				'image/jpg',
-				'image/png',
-				'image/webp'
-			];
-			const meta = await fileType.fromBuffer(req.file.buffer);
-			if (!whitelist.includes(meta.mime)) {
-				res.sendStatus(StatusCodes.BAD_REQUEST);
-			} else {
-				next();
+			if (req.file.size > FILE_SIZE_LIMIT_MB * 1024 * 1024) {
+				return res.sendStatus(StatusCodes.BAD_REQUEST);
 			}
+			const meta = await fileType.fromBuffer(req.file.buffer);
+			if (!ACCEPTED_FORMATS.includes(meta.mime)) {
+				return res.sendStatus(StatusCodes.BAD_REQUEST);
+			}
+			next();
 		},
 
 		// optimize and store uploaded image
