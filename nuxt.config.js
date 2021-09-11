@@ -68,6 +68,7 @@ export default {
 	},
 
 	serverMiddleware: {
-		'/api': '~/server/api.js'
+		'/api': '~/server/api.js',
+		'/uploads': '~/server/uploads.js',
 	}
 };
