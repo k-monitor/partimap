@@ -5,7 +5,7 @@
 			:dynamic-title="false"
 			@back="goBackToProject"
 		>
-			<template #back-button-name>Vissza</template>
+			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
 		<div class="feature-sidebar">
 			<b-sidebar id="map-sidebar" visible right no-header>
