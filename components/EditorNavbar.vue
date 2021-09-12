@@ -35,7 +35,6 @@
 					</b-navbar-nav>
 				</div>
 			</div>
-			<!-- Right aligned nav items -->
 			<b-navbar-nav>
 				<b-button class="save" variant="outline-success p-0" :disabled="!contentModified" @click="$emit('save')">
 					<div class="content d-flex">

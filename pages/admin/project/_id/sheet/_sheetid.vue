@@ -35,6 +35,52 @@
 			:sheet="sheet"
 			@sheetChanged="update"
 		/>
+		<b-navbar
+			type="light"
+			variant="white"
+			class="justify-content-between fixed-bottom border-top shadow-sm"
+		>
+			<b-navbar-nav>
+				<div v-if="getByOrd(sheet.ord - 1)">
+					<NuxtLink
+						:to="'/admin/project/' + project.id + '/sheet/' + getByOrd(sheet.ord - 1).id"
+					>
+						<b-button
+							size="sm"
+						>
+							<div class="content d-flex">
+								<div class="material-icons d-inline border-info  pr-1">
+									arrow_back_ios
+								</div>
+								<div class="text d-inline">
+									{{ getByOrd(sheet.ord - 1).title }}
+								</div>
+							</div>
+						</b-button>
+					</NuxtLink>
+				</div>
+			</b-navbar-nav>
+			<b-navbar-nav>
+				<div v-if="getByOrd(sheet.ord + 1)">
+					<NuxtLink
+						:to="'/admin/project/' + project.id + '/sheet/' + getByOrd(sheet.ord + 1).id"
+					>
+						<b-button
+							size="sm"
+						>
+							<div class="content d-flex">
+								<div class="text d-inline">
+									{{ getByOrd(sheet.ord + 1).title }}
+								</div>
+								<div class="material-icons d-inline border-info pl-1">
+									arrow_forward_ios
+								</div>
+							</div>
+						</b-button>
+					</NuxtLink>
+				</div>
+			</b-navbar-nav>
+		</b-navbar>
 	</div>
 </template>
 
@@ -62,6 +108,10 @@ export default {
 		},
 		goBackToProject() {
 			this.$router.go(-1);
+		},
+		getByOrd(ord) { // TODO server-side?
+			const sheet = this.project.sheets.filter(sheet => { return sheet.ord === ord; });
+			return sheet[0];
 		}
 	}
 };
@@ -105,5 +155,13 @@ export default {
 	transform: translate(-15px, -50%) rotate(90deg);
 	pointer-events: none;
 
+}
+.side-footer {
+	height: 100px;
+}
+</style>
+<style scoped>
+.material-icons {
+	font-size: 21px;
 }
 </style>
