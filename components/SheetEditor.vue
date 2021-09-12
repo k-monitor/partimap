@@ -34,14 +34,43 @@
 					</b-button>
 				</div>
 			</form>
+			<div class="sidebar-button sidebar-collapse">
+				<a v-b-toggle.sheet-sidebar href="#">
+					<svg width="13" height="150">
+						<path
+							d=" M 13 150 L 0 135 L 0 15 L 13 0"
+							fill="rgb(247,247,247)"
+							stroke="rgb(223,223,223)"
+						/>
+						<path
+							d="M 13 0 L 13 150"
+						/>
+					</svg>
+				</a>
+				<span class="material-icons collapse-icon">
+					expand_more
+				</span>
+			</div>
 		</b-card-body>
+		<template #footer>
+			<b-button v-if="prevBtnEnabled" size="sm" class="float-left" @click="$emit('prevSheet')">Vissza</b-button>
+			<b-button v-if="nextBtnEnabled" size="sm" class="float-right" @click="$emit('nextSheet')">Tovább</b-button>
+		</template>
 	</b-card>
 </template>
 
 <script>
 export default {
 	props: {
-		sheet: {} // TODO
+		sheet: {}, // TODO
+		nextBtnEnabled: {
+			type: Boolean,
+			default: false
+		},
+		prevBtnEnabled: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data() {
 		return {
@@ -57,11 +86,14 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .sheet-editor-container {
-	top: 120px;
 	height: 400px;
 	width: 250px;
+}
+
+.card-footer {
+	padding: 0.5rem;
 }
 </style>

@@ -3,7 +3,7 @@
 		<EditorNavbar
 			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
 			:dynamic-title="false"
-			@back="goBackToProject"
+			@back="goBackToProject()"
 		>
 			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
@@ -31,53 +31,73 @@
 				</span>
 			</div>
 		</div>
-		<SheetEditor
-			:sheet="sheet"
-			@sheetChanged="update"
-		/>
+		<div class="sheet-sidebar">
+			<b-sidebar id="sheet-sidebar" visible left no-header @change="showBottomNav = !showBottomNav">
+				<SheetEditor
+					:sheet="sheet"
+					:next-btn-enabled="nextSheetExists()"
+					:prev-btn-enabled="prevSheetExists()"
+					@sheetChanged="update"
+					@prevSheet="goPrevSheet()"
+					@nextSheet="goNextSheet()"
+				/>
+			</b-sidebar>
+			<div class="sidebar-button sidebar-expand">
+				<a v-b-toggle.sheet-sidebar href="#">
+					<svg width="14" height="150">
+						<path
+							d=" M 0 150 L 13 135 L 13 15 L 0 0"
+							fill="rgb(247,247,247)"
+							stroke="rgb(223,223,223)"
+						/>
+						<path
+							d="M 0 0 L 0 150"
+						/>
+					</svg>
+				</a>
+				<span class="material-icons collapse-icon">
+					expand_less
+				</span>
+			</div>
+		</div>
 		<b-navbar
+			v-if="showBottomNav"
 			type="light"
 			variant="white"
-			class="justify-content-between fixed-bottom border-top shadow-sm"
+			class="bottom-nav justify-content-between fixed-bottom border-top shadow-sm"
 		>
 			<b-navbar-nav>
-				<div v-if="getByOrd(sheet.ord - 1)">
-					<NuxtLink
-						:to="'/admin/project/' + project.id + '/sheet/' + getByOrd(sheet.ord - 1).id"
+				<div v-if="prevSheetExists()">
+					<b-button
+						size="sm"
+						@click="goPrevSheet()"
 					>
-						<b-button
-							size="sm"
-						>
-							<div class="content d-flex">
-								<div class="material-icons d-inline border-info  pr-1">
-									arrow_back_ios
-								</div>
-								<div class="text d-inline">
-									{{ getByOrd(sheet.ord - 1).title }}
-								</div>
+						<div class="content d-flex">
+							<div class="material-icons d-inline border-info  pr-1">
+								arrow_back_ios
 							</div>
-						</b-button>
-					</NuxtLink>
+							<div class="text d-inline">
+								{{ getByOrd(sheet.ord - 1).title }}
+							</div>
+						</div>
+					</b-button>
 				</div>
 			</b-navbar-nav>
 			<b-navbar-nav>
-				<div v-if="getByOrd(sheet.ord + 1)">
-					<NuxtLink
-						:to="'/admin/project/' + project.id + '/sheet/' + getByOrd(sheet.ord + 1).id"
+				<div v-if="nextSheetExists()">
+					<b-button
+						size="sm"
+						@click="goNextSheet()"
 					>
-						<b-button
-							size="sm"
-						>
-							<div class="content d-flex">
-								<div class="text d-inline">
-									{{ getByOrd(sheet.ord + 1).title }}
-								</div>
-								<div class="material-icons d-inline border-info pl-1">
-									arrow_forward_ios
-								</div>
+						<div class="content d-flex">
+							<div class="text d-inline">
+								{{ getByOrd(sheet.ord + 1).title }}
 							</div>
-						</b-button>
-					</NuxtLink>
+							<div class="material-icons d-inline border-info pl-1">
+								arrow_forward_ios
+							</div>
+						</div>
+					</b-button>
 				</div>
 			</b-navbar-nav>
 		</b-navbar>
@@ -96,6 +116,11 @@ export default {
 			// TODO error üzenet
 		}
 	},
+	data() {
+		return {
+			showBottomNav: false
+		};
+	},
 	methods: {
 		async update(localSheet) {
 			try {
@@ -107,11 +132,26 @@ export default {
 			}
 		},
 		goBackToProject() {
-			this.$router.go(-1);
+			this.$router.push('/admin/project/' + this.project.id);
 		},
 		getByOrd(ord) { // TODO server-side?
 			const sheet = this.project.sheets.filter(sheet => { return sheet.ord === ord; });
 			return sheet[0];
+		},
+		goPrevSheet() {
+			this.$router.push('/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord - 1).id);
+		},
+		goNextSheet() {
+			this.$router.push('/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord + 1).id);
+		},
+		prevSheetExists() {
+			return !!this.getByOrd(this.sheet.ord - 1);
+		},
+		nextSheetExists() {
+			return !!this.getByOrd(this.sheet.ord + 1);
+		},
+		test() {
+			console.log('shown');
 		}
 	}
 };
@@ -125,6 +165,11 @@ export default {
 	height: auto;
 	width: 270px;
 }
+#sheet-sidebar {
+	width: auto;
+	height: auto;
+	top: 120px;
+}
 
 @media screen and (max-width: 600px) {
 	#map-sidebar {
@@ -136,13 +181,24 @@ export default {
 	position: absolute;
 	top: 50%;
 }
-.sidebar-button.sidebar-expand {
+.feature-sidebar .sidebar-button.sidebar-expand {
 	right: 0;
 	transform: translate(0, -50%) translateY(35px);
 }
-.sidebar-button.sidebar-collapse {
+.sheet-sidebar .sidebar-button.sidebar-expand {
 	left: 0;
+	top: 0;
+	transform: translate(0, -50%) translateY(320px);
+}
+.sidebar-button.sidebar-collapse {
 	transform: translate(0, -50%);
+
+}
+.feature-sidebar .sidebar-button.sidebar-collapse {
+	left: 0;
+}
+.sheet-sidebar .sidebar-button.sidebar-collapse {
+	right: 0;
 }
 .sidebar-button:hover path{
 	fill: rgb(223, 223, 223);
@@ -161,7 +217,7 @@ export default {
 }
 </style>
 <style scoped>
-.material-icons {
+.bottom-nav .material-icons {
 	font-size: 21px;
 }
 </style>

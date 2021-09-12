@@ -7,7 +7,7 @@
 		>
 			<b-navbar-nav>
 				<b-button class="back" variant="outline-secondary p-0" @click="$emit('back')">
-					<div class="content d-flex">
+					<div class="content d-flex align-items-center">
 						<div class="material-icons d-inline  border-info py-1 pl-1">
 							arrow_back_ios_new
 						</div>

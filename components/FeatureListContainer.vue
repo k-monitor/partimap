@@ -1,6 +1,6 @@
 
 <template>
-	<b-card>
+	<b-card class="feature-list-container">
 		<template #header>
 			<div class="add-feature">
 				<b-button-group class="w-100 ">
