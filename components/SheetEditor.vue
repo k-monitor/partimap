@@ -19,19 +19,21 @@
 				</b-form>
 			</div>
 		</template>
-		<b-card-body>
+		<b-card-body class="p-0">
 			<b-form
 				id="sheetForm"
 				@submit.prevent="update"
 			>
 				<div class="form-group">
-					<label for="description">Leírás</label>
-					<textarea
+					<label for="description">Leírás:</label>
+					<b-textarea
 						id="description"
 						v-model="localSheet.description"
 						class="form-control"
-						rows="5"
+						rows="6"
+						maxlength="1000"
 					/>
+					<span class="badge badge-secondary char-count">{{ localSheet.description.length }} / 1000</span>
 				</div>
 				<div class="d-flex justify-content-end">
 					<b-button
@@ -111,5 +113,15 @@ export default {
 
 .editable-title {
 	cursor: pointer;
+}
+
+.char-count {
+	position: absolute;
+	margin-top: 2px;
+	font-size: 60%;
+}
+
+#description {
+	resize: none;
 }
 </style>
