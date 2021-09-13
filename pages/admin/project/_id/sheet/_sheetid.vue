@@ -7,11 +7,9 @@
 		>
 			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
-		<div class="feature-sidebar">
+		<div v-if="sheet.features" class="feature-sidebar">
 			<b-sidebar id="map-sidebar" visible right no-header>
-				<FeatureListContainer
-					:map-title="null"
-				/>
+				<FeatureListContainer />
 			</b-sidebar>
 			<div class="sidebar-button sidebar-expand">
 				<a v-b-toggle.map-sidebar href="#">
