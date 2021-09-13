@@ -150,9 +150,6 @@ export default {
 		nextSheetExists() {
 			return !!this.getByOrd(this.sheet.ord + 1);
 		},
-		test() {
-			console.log('shown');
-		}
 	}
 };
 </script>

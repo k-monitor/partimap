@@ -1,19 +1,29 @@
 <template>
 	<b-card class="sheet-editor-container">
+		<template #header>
+			<div v-if="!titleEdit" @click="titleEdit = true">
+				<h5 class="my-0 editable-title text-center">{{ localSheet.title }}</h5>
+			</div>
+			<div v-else>
+				<b-form id="sheetNameForm" @submit.prevent="update">
+					<b-form-input v-model="localSheet.title" size="sm" class="mr-sm-2" />
+					<b-button
+						size="sm"
+						class="mt-1 mt-sm-0 ml-auto"
+						variant="outline-success"
+						type="submit"
+						form="sheetNameForm"
+					>
+						Módosít
+					</b-button>
+				</b-form>
+			</div>
+		</template>
 		<b-card-body>
-			<form
+			<b-form
 				id="sheetForm"
 				@submit.prevent="update"
 			>
-				<div class="form-group">
-					<label for="title">Munkalap elnevezése</label>
-					<input
-						id="title"
-						v-model="localSheet.title"
-						class="form-control"
-						type="text"
-					>
-				</div>
 				<div class="form-group">
 					<label for="description">Leírás</label>
 					<textarea
@@ -33,7 +43,7 @@
 						Mentés
 					</b-button>
 				</div>
-			</form>
+			</b-form>
 			<div class="sidebar-button sidebar-collapse">
 				<a v-b-toggle.sheet-sidebar href="#">
 					<svg width="13" height="150">
@@ -74,12 +84,14 @@ export default {
 	},
 	data() {
 		return {
-			localSheet: this.sheet
+			localSheet: this.sheet,
+			titleEdit: false
 		};
 	},
 	methods: {
 		update() {
 			this.$emit('sheetChanged', this.localSheet);
+			this.titleEdit = false;
 		}
 	}
 };
@@ -95,5 +107,9 @@ export default {
 
 .card-footer {
 	padding: 0.5rem;
+}
+
+.editable-title {
+	cursor: pointer;
 }
 </style>
