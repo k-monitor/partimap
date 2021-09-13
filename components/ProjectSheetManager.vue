@@ -2,25 +2,98 @@
 	<b-container class="mb-5">
 		<b-card class="shadow-sm ">
 			<template #header>
-				<form @submit.prevent="$emit('addSheet',newSheetTitle); newSheetTitle=''">
-					<div class="input-group">
-						<input
-							v-model="newSheetTitle"
-							class="form-control"
-							placeholder="Új munkalap elnevezése"
-							required
-							type="text"
+				<b-button
+					v-b-modal.create-sheet-modal
+					class="float-right"
+					variant="outline-success"
+					type="button"
+				>
+					Munkalap hozzáadása
+				</b-button>
+				<b-modal
+					id="create-sheet-modal"
+					ref="modal"
+					title="Új munkalap"
+					cancel-title="Mégsem"
+					ok-variant="success"
+					@show="resetModal"
+					@hidden="resetModal"
+					@ok="handleOk"
+				>
+					<form ref="form" @submit.stop.prevent="handleSubmit">
+						<b-form-group
+							label="Munkalap elnevezése:"
+							label-for="name-input"
+							invalid-feedback="Név megadása kötelező"
+							:state="nameState"
 						>
-						<div class="input-group-append">
-							<button
-								class="btn btn-outline-success"
-								type="submit"
+							<b-form-input
+								id="name-input"
+								v-model="newSheetTitle"
+								:state="nameState"
+								required
+							/>
+						</b-form-group>
+					</form>
+					<label for="type-selector" class="pb-3">Munkalap típusa:</label>
+					<b-row id="type-selector" align-h="around" class="sheet-types">
+						<b-col cols="auto">
+							<span
+								v-b-tooltip.hover
+								title="Szöveges munkalap"
+								:class="[newSheetType['text'] ? ['text-success','selected'] : '' ]"
+								class="material-icons clickable"
+								@click="newSheetType['text'] = !newSheetType['text']"
 							>
-								Hozzáadás
-							</button>
-						</div>
-					</div>
-				</form>
+								description
+							</span>
+						</b-col>
+						<b-col cols="auto">
+							<span
+								v-b-tooltip.hover
+								title="Kérdőíves munkalap"
+								:class="[newSheetType['poll'] ? ['text-success','selected'] : '' ]"
+								class="material-icons clickable"
+								@click="newSheetType['poll'] = !newSheetType['poll']"
+							>
+								poll
+							</span>
+						</b-col>
+						<b-col cols="auto">
+							<span
+								v-b-tooltip.hover
+								title="Térképes munkalap (statikus)"
+								:class="[newSheetType['staticMap'] ? ['text-success','selected'] : '' ]"
+								class="material-icons clickable"
+								@click="newSheetType['staticMap'] = !newSheetType['staticMap']"
+							>
+								map
+							</span>
+						</b-col>
+						<b-col cols="auto">
+							<span
+								v-b-tooltip.hover
+								title="Térképes munkalap (interaktív)"
+								:class="[newSheetType['interactiveMap'] ? ['text-success','selected'] : '' ]"
+								class="material-icons clickable"
+								@click="newSheetType['interactiveMap'] = !newSheetType['interactiveMap']"
+							>
+								location_on
+							</span>
+						</b-col>
+						<b-col cols="auto">
+							<span
+								v-b-tooltip.hover
+								title="Demográfiai kérdőíves munkalap"
+								:class="[newSheetType['demographicsPoll'] ? ['text-success','selected'] : '' ]"
+								class="material-icons clickable"
+								@click="newSheetType['demographicsPoll'] = !newSheetType['demographicsPoll']"
+							>
+								groups
+							</span>
+						</b-col>
+					</b-row>
+				</b-modal>
 			</template>
 			<div class="list-group">
 				<NuxtLink
@@ -65,10 +138,7 @@
 							</span>
 						</div>
 					</b-row>
-				</nuxtlink>
-			</div>
-			</b-row>
-			</NuxtLink>
+				</NuxtLink>
 			</div>
 		</b-card>
 	</b-container>
@@ -85,7 +155,15 @@ export default {
 	},
 	data() {
 		return {
-			newSheetTitle: ''
+			newSheetTitle: '',
+			newSheetType: {
+				text: false,
+				poll: false,
+				staticMap: false,
+				interactiveMap: false,
+				demographicsPoll: false
+			},
+			nameState: null
 		};
 	},
 	methods: {
@@ -122,6 +200,35 @@ export default {
 					console.log(err);
 				});
 		},
+		checkFormValidity() {
+			const valid = this.$refs.form.checkValidity();
+			this.nameState = valid;
+			return valid;
+		},
+		resetModal() {
+			this.newSheetTitle = '';
+			this.nameState = null;
+		},
+		handleOk(bvModalEvt) {
+			// Prevent modal from closing
+			bvModalEvt.preventDefault();
+			// Trigger submit handler
+			this.handleSubmit();
+		},
+		handleSubmit() {
+			// Exit when the form isn't valid
+			if (!this.checkFormValidity()) {
+				return;
+			}
+			// Create sheet
+			this.$emit('addSheet', this.newSheetTitle, this.newSheetType);
+			this.newSheetTitle = '';
+			Object.keys(this.newSheetType).forEach(key => { this.newSheetType[key] = false; });
+			// Hide the modal manually
+			this.$nextTick(() => {
+				this.$bvModal.hide('create-sheet-modal');
+			});
+		}
 	}
 };
 </script>
@@ -142,5 +249,13 @@ export default {
 .material-icons.down-arrow-disabled {
 	pointer-events: none;
 	opacity: 0;
+}
+
+.material-icons.selected {
+	opacity: 1;
+}
+
+.sheet-types .material-icons {
+	font-size: 30px;
 }
 </style>

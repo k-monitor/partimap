@@ -80,11 +80,20 @@ export default {
 				this.error('Módosítás sikertelen.');
 			}
 		},
-		async addSheet(title) {
+		async addSheet(title, type) {
+			const sheetData = {};
+			sheetData.title = title;
+			if (type.poll) {
+				sheetData.survey = {};
+			} else if (type.staticMap) {
+				sheetData.features = [];
+			} else if (type.interactiveMap) {
+				sheetData.features = [];
+			} else if (type.demographicsPoll) {
+				sheetData.survey = {};
+			}
 			try {
-				const newSheet = await this.$axios.$put('/api/project/' + this.project.id + '/sheet', {
-					title
-				});
+				const newSheet = await this.$axios.$put('/api/project/' + this.project.id + '/sheet', sheetData);
 				this.project.sheets.push(newSheet);
 			} catch (error) {
 				this.error('Munkalap hozzáadása sikertelen.');
