@@ -160,6 +160,7 @@ export default {
 			// place the expand button the same position as the collapse button
 			const topPos = collapseBtn.getBoundingClientRect().top;
 			this.$refs['sidebar-expand'].style.transform = `translateY(${topPos}px)`;
+			this.$refs['sidebar-expand'].style.visibility = 'visible';
 		}
 	}
 };
@@ -196,6 +197,7 @@ export default {
 .sheet-sidebar .sidebar-button.sidebar-expand {
 	left: 0;
 	top: 0;
+	visibility: hidden;
 	transform: translate(0, -50%);
 }
 .sidebar-button.sidebar-collapse {
