@@ -39,8 +39,8 @@
 			>
 				<SheetEditor
 					:sheet="sheet"
-					:next-btn-enabled="nextSheetExists"
-					:prev-btn-enabled="prevSheetExists"
+					:next-btn-enabled="nextSheetExists()"
+					:prev-btn-enabled="prevSheetExists()"
 					@sheetChanged="update"
 					@prevSheet="goPrevSheet"
 					@nextSheet="goNextSheet"
