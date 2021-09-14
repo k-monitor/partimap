@@ -40,10 +40,10 @@
 						<b-col cols="auto">
 							<span
 								v-b-tooltip.hover
-								title="Szöveges munkalap"
-								:class="[newSheetType['text'] ? ['text-success','selected'] : '' ]"
+								title="Szöveges munkalap (alapértelmezett)"
+								:class="[newSheetType === 'text' ? ['text-success','selected'] : '' ]"
 								class="material-icons clickable"
-								@click="newSheetType['text'] = !newSheetType['text']"
+								@click="toggleSheetType('text')"
 							>
 								description
 							</span>
@@ -52,9 +52,9 @@
 							<span
 								v-b-tooltip.hover
 								title="Kérdőíves munkalap"
-								:class="[newSheetType['poll'] ? ['text-success','selected'] : '' ]"
+								:class="[newSheetType === 'poll' ? ['text-success','selected'] : '' ]"
 								class="material-icons clickable"
-								@click="newSheetType['poll'] = !newSheetType['poll']"
+								@click="toggleSheetType('poll')"
 							>
 								poll
 							</span>
@@ -63,9 +63,9 @@
 							<span
 								v-b-tooltip.hover
 								title="Térképes munkalap (statikus)"
-								:class="[newSheetType['staticMap'] ? ['text-success','selected'] : '' ]"
+								:class="[newSheetType === 'staticMap' ? ['text-success','selected'] : '' ]"
 								class="material-icons clickable"
-								@click="newSheetType['staticMap'] = !newSheetType['staticMap']"
+								@click="toggleSheetType('staticMap')"
 							>
 								map
 							</span>
@@ -74,9 +74,9 @@
 							<span
 								v-b-tooltip.hover
 								title="Térképes munkalap (interaktív)"
-								:class="[newSheetType['interactiveMap'] ? ['text-success','selected'] : '' ]"
+								:class="[newSheetType === 'interactiveMap' ? ['text-success','selected'] : '' ]"
 								class="material-icons clickable"
-								@click="newSheetType['interactiveMap'] = !newSheetType['interactiveMap']"
+								@click="toggleSheetType('interactiveMap')"
 							>
 								location_on
 							</span>
@@ -85,9 +85,9 @@
 							<span
 								v-b-tooltip.hover
 								title="Demográfiai kérdőíves munkalap"
-								:class="[newSheetType['demographicsPoll'] ? ['text-success','selected'] : '' ]"
+								:class="[newSheetType === 'demographicsPoll' ? ['text-success','selected'] : '' ]"
 								class="material-icons clickable"
-								@click="newSheetType['demographicsPoll'] = !newSheetType['demographicsPoll']"
+								@click="toggleSheetType('demographicsPoll')"
 							>
 								groups
 							</span>
@@ -156,13 +156,7 @@ export default {
 	data() {
 		return {
 			newSheetTitle: '',
-			newSheetType: {
-				text: false,
-				poll: false,
-				staticMap: false,
-				interactiveMap: false,
-				demographicsPoll: false
-			},
+			newSheetType: 'text',
 			nameState: null
 		};
 	},
@@ -175,7 +169,7 @@ export default {
 			} else if (sheet.features) {
 				return 'map';
 			} else {
-				return 'border_clear';
+				return 'description';
 			}
 		},
 		showConfirmModal(sheet) {
@@ -223,11 +217,18 @@ export default {
 			// Create sheet
 			this.$emit('addSheet', this.newSheetTitle, this.newSheetType);
 			this.newSheetTitle = '';
-			Object.keys(this.newSheetType).forEach(key => { this.newSheetType[key] = false; });
+			this.newSheetType = '';
 			// Hide the modal manually
 			this.$nextTick(() => {
 				this.$bvModal.hide('create-sheet-modal');
 			});
+		},
+		toggleSheetType(type) {
+			if (type === this.newSheetType) {
+				this.newSheetType = 'text';
+			} else {
+				this.newSheetType = type;
+			}
 		}
 	}
 };

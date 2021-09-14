@@ -83,14 +83,21 @@ export default {
 		async addSheet(title, type) {
 			const sheetData = {};
 			sheetData.title = title;
-			if (type.poll) {
+			switch (type) {
+			case 'poll':
 				sheetData.survey = {};
-			} else if (type.staticMap) {
+				break;
+			case 'staticMap':
 				sheetData.features = [];
-			} else if (type.interactiveMap) {
+				break;
+			case 'interactiveMap':
 				sheetData.features = [];
-			} else if (type.demographicsPoll) {
+				break;
+			case 'demographicsPoll':
 				sheetData.survey = {};
+				break;
+			default:
+				break;
 			}
 			try {
 				const newSheet = await this.$axios.$put('/api/project/' + this.project.id + '/sheet', sheetData);
