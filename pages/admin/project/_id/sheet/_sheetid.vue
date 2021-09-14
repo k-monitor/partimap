@@ -72,7 +72,7 @@
 			class="bottom-nav justify-content-between fixed-bottom border-top shadow-sm"
 		>
 			<b-navbar-nav>
-				<div v-if="prevSheetExists">
+				<div v-if="prevSheetExists()">
 					<b-button
 						size="sm"
 						@click="goPrevSheet"
@@ -89,7 +89,7 @@
 				</div>
 			</b-navbar-nav>
 			<b-navbar-nav>
-				<div v-if="nextSheetExists">
+				<div v-if="nextSheetExists()">
 					<b-button
 						size="sm"
 						@click="goNextSheet"
