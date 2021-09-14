@@ -33,7 +33,7 @@
 						rows="6"
 						maxlength="1000"
 					/>
-					<span class="badge badge-secondary char-count">{{ localSheet.description.length }} / 1000</span>
+					<span class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 				</div>
 				<div class="d-flex justify-content-end">
 					<b-button
@@ -46,8 +46,8 @@
 					</b-button>
 				</div>
 			</b-form>
-			<div class="sidebar-button sidebar-collapse">
-				<a v-b-toggle.sheet-sidebar href="#">
+			<div ref="sidebar-collapse" class="sidebar-button sidebar-collapse">
+				<a href="#" @click="$emit('collapse',$refs['sidebar-collapse'])">
 					<svg width="13" height="150">
 						<path
 							d=" M 13 150 L 0 135 L 0 15 L 13 0"
@@ -63,6 +63,37 @@
 					expand_more
 				</span>
 			</div>
+			<hr>
+			<b-button
+				v-if="!localSheet.features"
+				size="sm"
+				class="w-100"
+				variant="success"
+			>
+				<div class="content d-flex">
+					<div class="material-icons d-inline pr-1">
+						image
+					</div>
+					<div class="text d-inline">
+						Háttérkép hozzáadása
+					</div>
+				</div>
+			</b-button>
+			<b-button
+				v-if="localSheet.survey"
+				size="sm"
+				class="w-100 mt-1"
+				variant="success"
+			>
+				<div class="content d-flex">
+					<div class="material-icons d-inline pr-1">
+						poll
+					</div>
+					<div class="text d-inline">
+						Kérdőív szerkesztése
+					</div>
+				</div>
+			</b-button>
 		</b-card-body>
 		<template #footer>
 			<b-button v-if="prevBtnEnabled" size="sm" class="float-left" @click="$emit('prevSheet')">Vissza</b-button>
@@ -90,6 +121,11 @@ export default {
 			titleEdit: false
 		};
 	},
+	computed: {
+		descriptionLength() {
+			return this.localSheet.description ? this.localSheet.description.length : 0;
+		}
+	},
 	methods: {
 		update() {
 			this.$emit('sheetChanged', this.localSheet);
@@ -103,7 +139,6 @@ export default {
 <style scoped>
 
 .sheet-editor-container {
-	height: 400px;
 	width: 250px;
 }
 

@@ -3,7 +3,7 @@
 		<EditorNavbar
 			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
 			:dynamic-title="false"
-			@back="goBackToProject()"
+			@back="goBackToProject"
 		>
 			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
@@ -30,17 +30,24 @@
 			</div>
 		</div>
 		<div class="sheet-sidebar">
-			<b-sidebar id="sheet-sidebar" visible left no-header @change="showBottomNav = !showBottomNav">
+			<b-sidebar
+				id="sheet-sidebar"
+				visible
+				left
+				no-header
+				@change="showBottomNav = !showBottomNav"
+			>
 				<SheetEditor
 					:sheet="sheet"
-					:next-btn-enabled="nextSheetExists()"
-					:prev-btn-enabled="prevSheetExists()"
+					:next-btn-enabled="nextSheetExists"
+					:prev-btn-enabled="prevSheetExists"
 					@sheetChanged="update"
-					@prevSheet="goPrevSheet()"
-					@nextSheet="goNextSheet()"
+					@prevSheet="goPrevSheet"
+					@nextSheet="goNextSheet"
+					@collapse="handleCollapse"
 				/>
 			</b-sidebar>
-			<div class="sidebar-button sidebar-expand">
+			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">
 				<a v-b-toggle.sheet-sidebar href="#">
 					<svg width="14" height="150">
 						<path
@@ -65,10 +72,10 @@
 			class="bottom-nav justify-content-between fixed-bottom border-top shadow-sm"
 		>
 			<b-navbar-nav>
-				<div v-if="prevSheetExists()">
+				<div v-if="prevSheetExists">
 					<b-button
 						size="sm"
-						@click="goPrevSheet()"
+						@click="goPrevSheet"
 					>
 						<div class="content d-flex">
 							<div class="material-icons d-inline border-info  pr-1">
@@ -82,10 +89,10 @@
 				</div>
 			</b-navbar-nav>
 			<b-navbar-nav>
-				<div v-if="nextSheetExists()">
+				<div v-if="nextSheetExists">
 					<b-button
 						size="sm"
-						@click="goNextSheet()"
+						@click="goNextSheet"
 					>
 						<div class="content d-flex">
 							<div class="text d-inline">
@@ -106,7 +113,7 @@
 export default {
 	async asyncData({ $axios, params, redirect }) {
 		try {
-			const sheet = await $axios.$get('/api/sheet/' + params.sheetid); // ID helyett ord
+			const sheet = await $axios.$get('/api/sheet/' + params.sheetid); // TODO ID helyett ord?
 			const project = await $axios.$get('/api/project/' + params.id);
 			return { sheet, project };
 		} catch (err) {
@@ -116,7 +123,7 @@ export default {
 	},
 	data() {
 		return {
-			showBottomNav: false
+			showBottomNav: false,
 		};
 	},
 	methods: {
@@ -148,6 +155,12 @@ export default {
 		nextSheetExists() {
 			return !!this.getByOrd(this.sheet.ord + 1);
 		},
+		handleCollapse(collapseBtn) {
+			this.$root.$emit('bv::toggle::collapse', 'sheet-sidebar');
+			// place the expand button the same position as the collapse button
+			const topPos = collapseBtn.getBoundingClientRect().top;
+			this.$refs['sidebar-expand'].style.transform = `translateY(${topPos}px)`;
+		}
 	}
 };
 </script>
@@ -183,7 +196,7 @@ export default {
 .sheet-sidebar .sidebar-button.sidebar-expand {
 	left: 0;
 	top: 0;
-	transform: translate(0, -50%) translateY(320px);
+	transform: translate(0, -50%);
 }
 .sidebar-button.sidebar-collapse {
 	transform: translate(0, -50%);
