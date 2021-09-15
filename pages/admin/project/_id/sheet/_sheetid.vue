@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<b-container id="background" ref="background" fluid class="flex-grow-1 p-0">
 		<EditorNavbar
 			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
 			:dynamic-title="false"
@@ -45,6 +45,7 @@
 					@prevSheet="goPrevSheet"
 					@nextSheet="goNextSheet"
 					@collapse="handleCollapse"
+					@uploadImage="uploadImage"
 				/>
 			</b-sidebar>
 			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">
@@ -106,7 +107,8 @@
 				</div>
 			</b-navbar-nav>
 		</b-navbar>
-	</div>
+		</div>
+	</b-container>
 </template>
 
 <script>
@@ -114,7 +116,7 @@ export default {
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const sheet = await $axios.$get('/api/sheet/' + params.sheetid); // TODO ID helyett ord?
-			const project = await $axios.$get('/api/project/' + params.id);
+			const project = await $axios.$get('/api/project/' + params.id); // TODO sheet/projects
 			return { sheet, project };
 		} catch (err) {
 			redirect('/admin/project/' + params.id);
@@ -126,15 +128,41 @@ export default {
 			showBottomNav: false,
 		};
 	},
+	watch: {
+		'sheet.image' (val) {
+			this.setBackgroundImage(val);
+		},
+	},
+	updated() {
+		this.setBackgroundImage(this.sheet.image);
+	},
 	methods: {
 		async update(localSheet) {
 			try {
-				await this.$axios.$patch('/api/sheet', localSheet);
-				this.sheet = localSheet;
+				const sheet = await this.$axios.$patch('/api/sheet', localSheet);
+				this.sheet = sheet;
 				this.success('Módosítás sikeres.');
 			} catch (error) {
 				this.error('Módosítás sikertelen.');
 			}
+		},
+		async uploadImage(image) {
+			const formData = new FormData();
+			formData.append('image', image);
+			try {
+				this.sheet = await this.$axios.$put('/api/sheet/' + this.sheet.id + '/image', formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				});
+			} catch (error) {
+				console.log(error.message);
+				this.error('Kép feltöltése sikertelen.');
+			}
+		},
+		setBackgroundImage(imageSource) {
+			this.$refs.background.style.background = `url(${imageSource}) no-repeat center`;
+			this.$refs.background.style.backgroundSize = 'cover';
 		},
 		goBackToProject() {
 			this.$router.push('/admin/project/' + this.project.id);
@@ -161,7 +189,7 @@ export default {
 			const topPos = collapseBtn.getBoundingClientRect().top;
 			this.$refs['sidebar-expand'].style.transform = `translateY(${topPos}px)`;
 			this.$refs['sidebar-expand'].style.visibility = 'visible';
-		}
+		},
 	}
 };
 </script>
@@ -175,8 +203,8 @@ export default {
 	width: 270px;
 }
 #sheet-sidebar {
-	width: auto;
 	height: auto;
+	width: auto;
 	top: 120px;
 }
 

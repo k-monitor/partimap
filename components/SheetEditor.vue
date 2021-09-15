@@ -64,21 +64,41 @@
 				</span>
 			</div>
 			<hr>
-			<b-button
-				v-if="!localSheet.features"
-				size="sm"
-				class="w-100"
-				variant="success"
-			>
-				<div class="content d-flex">
-					<div class="material-icons d-inline pr-1">
-						image
-					</div>
-					<div class="text d-inline">
-						Háttérkép hozzáadása
-					</div>
-				</div>
-			</b-button>
+			<div class="image-selector">
+				<b-form @submit.prevent="submitFile">
+					<b-row>
+						<b-col class="pr-1">
+							<b-form-group
+								invalid-feedback="Maximális fájlméret: 5MB"
+								:state="imageState"
+							>
+								<b-form-file
+									ref="file-selector"
+									v-model="backgroundImage"
+									:state="imageState"
+									accept="image/jpeg, image/png, image/webp"
+									placeholder="Kép kiválasztása..."
+									drop-placeholder="Húzza ide a fájlt..."
+									size="sm"
+								/>
+							</b-form-group>
+						</b-col>
+						<b-col cols="auto" class="pl-0 ">
+							<b-button
+								variant="outline-success"
+								size="sm"
+								:disabled="!backgroundImage"
+								class="pb-0 px-1"
+								type="submit"
+							>
+								<span class="material-icons">
+									check
+								</span>
+							</b-button>
+						</b-col>
+					</b-row>
+				</b-form>
+			</div>
 			<b-button
 				v-if="localSheet.survey"
 				size="sm"
@@ -118,7 +138,9 @@ export default {
 	data() {
 		return {
 			localSheet: this.sheet,
-			titleEdit: false
+			titleEdit: false,
+			backgroundImage: null,
+			imageState: null
 		};
 	},
 	computed: {
@@ -126,10 +148,33 @@ export default {
 			return this.localSheet.description ? this.localSheet.description.length : 0;
 		}
 	},
+	watch: {
+		backgroundImage(val) {
+			// clear validation error message on file removal
+			if (!val) {
+				this.imageState = null;
+			}
+		},
+		sheet(val) {
+			this.localSheet = val;
+		}
+	},
 	methods: {
 		update() {
 			this.$emit('sheetChanged', this.localSheet);
 			this.titleEdit = false;
+		},
+		checkFileValidity() {
+			// Filesize: max 5MB
+			const valid = (this.backgroundImage.size < 5 * 1024 * 1024);
+			this.imageState = valid;
+			return valid;
+		},
+		submitFile() {
+			if (!this.checkFileValidity()) {
+				return;
+			}
+			this.$emit('uploadImage', this.backgroundImage);
 		}
 	}
 };
@@ -155,8 +200,17 @@ export default {
 	margin-top: 2px;
 	font-size: 60%;
 }
+.image-selector .material-icons {
+	font-size: 20px;
+}
 
 #description {
 	resize: none;
+}
+</style>
+
+<style>
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+  display: none;
 }
 </style>
