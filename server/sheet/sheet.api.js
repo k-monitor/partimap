@@ -1,10 +1,33 @@
+const fs = require('fs');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const Sheet = require('../../model/sheet');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
-const { resolveRecord } = require('../common/middlewares');
+const { acceptImage, resolveRecord } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('./sheet.db');
+
+router.put('/sheet/:id/image',
+	ensureLoggedIn,
+	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
+	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	acceptImage(req => req.project.id, 1920, 1200, 'image'),
+	async (req, res) => {
+		// removing previous image
+		if (req.sheet.image) {
+			const fn = `.${req.sheet.image}`; // make it relative for server
+			if (fs.existsSync(fn)) {
+				fs.unlinkSync(fn);
+			}
+		}
+
+		// updating sheet with new image URL
+		req.sheet.image = req.image.replace(/^\./, ''); // make it absolute for client
+		await sdb.update(req.sheet);
+		const sheet = await sdb.findById(req.sheet.id);
+		res.json(sheet);
+	});
 
 router.delete('/sheet/:id',
 	ensureLoggedIn,
