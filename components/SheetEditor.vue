@@ -71,6 +71,7 @@
 							<b-form-group
 								invalid-feedback="Maximális fájlméret: 5MB"
 								:state="imageState"
+								class="m-0"
 							>
 								<b-form-file
 									ref="file-selector"
