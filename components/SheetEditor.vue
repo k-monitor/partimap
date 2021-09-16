@@ -101,7 +101,7 @@
 				</b-form>
 			</div>
 			<div v-else class="delete-image">
-				<b-button class="w-100" size="sm" variant="danger" @click="deleteBackgroundImage">Háttérkép eltávolítása</b-button>
+				<b-button class="w-100" size="sm" variant="danger" @click="showConfirmModal">Háttérkép eltávolítása</b-button>
 			</div>
 			<b-button
 				v-if="localSheet.survey"
@@ -179,6 +179,29 @@ export default {
 				return;
 			}
 			this.$emit('uploadImage', this.backgroundImage);
+		},
+		showConfirmModal() {
+			this.$bvModal.msgBoxConfirm('Biztosan törli a háttérképet?', {
+				title: 'Megerősítés',
+				size: 'sm',
+				buttonSize: 'sm',
+				okVariant: 'danger',
+				okTitle: 'IGEN',
+				cancelTitle: 'MÉGSEM',
+				footerClass: 'p-2',
+				hideHeaderClose: false,
+				centered: true,
+				autoFocusButton: 'ok'
+			})
+				.then(value => {
+					if (value) {
+						this.deleteBackgroundImage();
+					}
+				})
+				.catch(err => {
+					console.warn(err.message);
+					this.error('Sikertelen törlés.');
+				});
 		},
 		deleteBackgroundImage() {
 			this.localSheet.image = '';
