@@ -1,5 +1,11 @@
 <template>
-	<b-container id="background" ref="background" fluid class="flex-grow-1 p-0" :style="'background: center / cover no-repeat url('+sheet.image+');'">
+	<b-container
+		id="background"
+		ref="background"
+		fluid
+		class="flex-grow-1 p-0"
+		:style="'background: center / cover no-repeat url('+sheet.image+');'"
+	>
 		<EditorNavbar
 			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
 			:dynamic-title="false"
@@ -46,6 +52,7 @@
 					@nextSheet="goNextSheet"
 					@collapse="handleCollapse"
 					@uploadImage="uploadImage"
+					@deleteBackgroundImage="uploadImage(null)"
 				/>
 			</b-sidebar>
 			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">

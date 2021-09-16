@@ -64,7 +64,7 @@
 				</span>
 			</div>
 			<hr>
-			<div class="image-selector">
+			<div v-if="!sheet.image" class="image-selector">
 				<b-form @submit.prevent="submitFile">
 					<b-row>
 						<b-col class="pr-1">
@@ -98,6 +98,9 @@
 						</b-col>
 					</b-row>
 				</b-form>
+			</div>
+			<div v-else class="delete-image">
+				<b-button class="w-100" size="sm" variant="danger" @click="deleteBackgroundImage">Háttérkép eltávolítása</b-button>
 			</div>
 			<b-button
 				v-if="localSheet.survey"
@@ -175,6 +178,12 @@ export default {
 				return;
 			}
 			this.$emit('uploadImage', this.backgroundImage);
+		},
+		deleteBackgroundImage() {
+			this.localSheet.image = '';
+			this.backgroundImage = null;
+			this.update();
+			this.imageState = null;
 		}
 	}
 };
