@@ -1,5 +1,5 @@
 <template>
-	<b-container id="background" ref="background" fluid class="flex-grow-1 p-0">
+	<b-container id="background" ref="background" fluid class="flex-grow-1 p-0" :style="'background: center / cover no-repeat url('+sheet.image+');'">
 		<EditorNavbar
 			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
 			:dynamic-title="false"
@@ -126,15 +126,8 @@ export default {
 	data() {
 		return {
 			showBottomNav: false,
+			imageSource: null
 		};
-	},
-	watch: {
-		'sheet.image' (val) {
-			this.setBackgroundImage(val);
-		},
-	},
-	updated() {
-		this.setBackgroundImage(this.sheet.image);
 	},
 	methods: {
 		async update(localSheet) {
@@ -156,13 +149,8 @@ export default {
 					}
 				});
 			} catch (error) {
-				console.log(error.message);
 				this.error('Kép feltöltése sikertelen.');
 			}
-		},
-		setBackgroundImage(imageSource) {
-			this.$refs.background.style.background = `url(${imageSource}) no-repeat center`;
-			this.$refs.background.style.backgroundSize = 'cover';
 		},
 		goBackToProject() {
 			this.$router.push('/admin/project/' + this.project.id);
