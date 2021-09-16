@@ -114,7 +114,6 @@
 				</div>
 			</b-navbar-nav>
 		</b-navbar>
-		</div>
 	</b-container>
 </template>
 
@@ -198,6 +197,7 @@ export default {
 	width: 270px;
 }
 #sheet-sidebar {
+	border-radius: calc(0.25rem - 1px);
 	height: auto;
 	width: auto;
 	top: 120px;
