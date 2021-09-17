@@ -36,6 +36,9 @@
 import GeoJSON from 'ol/format/GeoJSON';
 
 export default {
+	components: {
+		Map: () => process.client ? import('@/components/Map') : null,
+	},
 	props: {
 		featuresRaw: {}
 	},
