@@ -64,7 +64,7 @@
 				</span>
 			</div>
 			<hr>
-			<div v-if="!sheet.image" class="image-selector">
+			<div v-if="!sheet.image && !sheet.features" class="image-selector">
 				<b-form @submit.prevent="submitFile">
 					<b-row>
 						<b-col class="pr-1">
@@ -100,7 +100,7 @@
 					</b-row>
 				</b-form>
 			</div>
-			<div v-else class="delete-image">
+			<div v-if="sheet.image" class="delete-image">
 				<b-button class="w-100" size="sm" variant="danger" @click="showConfirmModal">Háttérkép eltávolítása</b-button>
 			</div>
 			<b-button

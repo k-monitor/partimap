@@ -14,26 +14,9 @@
 			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
 		<div v-if="sheet.features" class="feature-sidebar">
-			<b-sidebar id="map-sidebar" visible right no-header>
-				<FeatureListContainer />
-			</b-sidebar>
-			<div class="sidebar-button sidebar-expand">
-				<a v-b-toggle.map-sidebar href="#">
-					<svg width="13" height="150">
-						<path
-							d=" M 13 150 L 0 135 L 0 15 L 13 0"
-							fill="rgb(247,247,247)"
-							stroke="rgb(223,223,223)"
-						/>
-						<path
-							d="M 13 0 L 13 150"
-						/>
-					</svg>
-				</a>
-				<span class="material-icons collapse-icon">
-					expand_more
-				</span>
-			</div>
+			<MapEditor
+				:features-raw="sheet.features"
+			/>
 		</div>
 		<div class="sheet-sidebar">
 			<b-sidebar
@@ -161,7 +144,7 @@ export default {
 		goBackToProject() {
 			this.$router.push('/admin/project/' + this.project.id);
 		},
-		getByOrd(ord) { // TODO server-side?
+		getByOrd(ord) {
 			const sheet = this.project.sheets.filter(sheet => { return sheet.ord === ord; });
 			return sheet[0];
 		},
@@ -190,12 +173,6 @@ export default {
 
 <style>
 
-#map-sidebar {
-	top: 120px;
-	bottom: 50px;
-	height: auto;
-	width: 270px;
-}
 #sheet-sidebar {
 	border-radius: calc(0.25rem - 1px);
 	height: auto;
@@ -203,19 +180,9 @@ export default {
 	top: 120px;
 }
 
-@media screen and (max-width: 600px) {
-	#map-sidebar {
-		width: 220px;
-	}
-}
-
 .sidebar-button {
 	position: absolute;
 	top: 50%;
-}
-.feature-sidebar .sidebar-button.sidebar-expand {
-	right: 0;
-	transform: translate(0, -50%) translateY(35px);
 }
 .sheet-sidebar .sidebar-button.sidebar-expand {
 	left: 0;
@@ -226,9 +193,6 @@ export default {
 .sidebar-button.sidebar-collapse {
 	transform: translate(0, -50%);
 
-}
-.feature-sidebar .sidebar-button.sidebar-collapse {
-	left: 0;
 }
 .sheet-sidebar .sidebar-button.sidebar-collapse {
 	right: 0;
