@@ -30,19 +30,13 @@
 			</div>
 		</template>
 		<b-card-body class="p-0 m-0">
-			<div class="accordion" role="tablist">
-				<div class="overflow-auto">
-					<b-card-text>
-						<b-list-group>
-							<FeatureListElement
-								v-for="feature in allFeatures"
-								:key="feature.getId()"
-								:feature="feature"
-							/>
-						</b-list-group>
-					</b-card-text>
-				</div>
-			</div>
+			<b-list-group>
+				<FeatureListElement
+					v-for="feature in allFeatures"
+					:key="feature.getId()"
+					:feature="feature"
+				/>
+			</b-list-group>
 			<div class="sidebar-button sidebar-collapse">
 				<a v-b-toggle.map-sidebar href="#">
 					<svg width="14" height="150">
