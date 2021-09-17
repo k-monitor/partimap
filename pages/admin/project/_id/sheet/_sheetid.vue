@@ -180,38 +180,6 @@ export default {
 	top: 120px;
 }
 
-.sidebar-button {
-	position: absolute;
-	top: 50%;
-}
-.sheet-sidebar .sidebar-button.sidebar-expand {
-	left: 0;
-	top: 0;
-	visibility: hidden;
-	transform: translate(0, -50%);
-}
-.sidebar-button.sidebar-collapse {
-	transform: translate(0, -50%);
-
-}
-.sheet-sidebar .sidebar-button.sidebar-collapse {
-	right: 0;
-}
-.sidebar-button:hover path{
-	fill: rgb(223, 223, 223);
-}
-.sidebar-button .collapse-icon {
-	position: absolute;
-	font-size: 15px;
-	font-weight: 700;
-	top: 50%;
-	transform: translate(-15px, -50%) rotate(90deg);
-	pointer-events: none;
-
-}
-.side-footer {
-	height: 100px;
-}
 </style>
 <style scoped>
 .bottom-nav .material-icons {
