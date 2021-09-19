@@ -141,6 +141,10 @@ export default {
 					});
 				}
 			});
+			this.select = new Select({
+				style: null,
+				condition: click
+			});
 
 			this.map = new Map({
 				target: this.$refs['map-root'],
@@ -152,10 +156,7 @@ export default {
 				}),
 			});
 
-			this.select = new Select({
-				style: null,
-				condition: click
-			});
+			this.map.addInteraction(this.select);
 		},
 		fitViewToFeatures() {
 			// no need to fit view if 0 or 1 feature is present
