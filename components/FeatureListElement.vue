@@ -7,7 +7,7 @@
 			class="mt-1 rounded"
 			@click="featureClicked()"
 		>
-			<span class="text-break">{{ getFeatureName() }}</span>
+			<span class="text-break">{{ form.name }}</span>
 			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" :visible="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
@@ -99,6 +99,20 @@ export default {
 			return this.form.description ? this.form.description.length : 0;
 		}
 	},
+	watch: {
+		selectedFeature(val) {
+			// if feature gets deselected, reset form
+			if (!val) {
+				this.form.name = this.getFeatureName();
+				this.form.color = this.feature.get('color');
+				this.form.description = this.feature.get('description');
+			}
+		},
+		'form.color' (val) {
+			this.$nuxt.$emit('changeStyle', this.feature, this.form.color, true);
+			// debounce maybe..
+		}
+	},
 	mounted() {
 		// When an element is created, scroll to it
 		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
@@ -106,7 +120,6 @@ export default {
 	methods: {
 		modifyFeature(event) {
 			event.preventDefault();
-			this.selectedFeature = false;
 			if (
 				this.form.name !== this.feature.get('name') ||
 				this.form.description !== this.feature.get('description') ||
@@ -117,6 +130,7 @@ export default {
 			this.feature.set('name', this.form.name);
 			this.feature.set('description', this.form.description);
 			this.$nuxt.$emit('changeStyle', this.feature, this.form.color);
+			this.$store.commit('selected/remove', this.feature);
 		},
 		getFeatureName() {
 			const idStr = this.feature.getId().toString();
