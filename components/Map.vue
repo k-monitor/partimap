@@ -196,6 +196,8 @@ export default {
 			});
 		},
 		loadInitFeatures(features) {
+			// flush the store befor initialization
+			this.$store.commit('features/clear');
 			if (!features) {
 				return null;
 			}
