@@ -9,13 +9,15 @@
 		<EditorNavbar
 			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
 			:dynamic-title="false"
+			:content-modified="contentModified"
 			@back="goBackToProject"
+			@save="saveMap"
 		>
 			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
 		<div v-if="sheet.features" class="feature-sidebar">
 			<MapEditor
-				:features-raw="sheet.features"
+				:features-raw="initSheetData.features"
 			/>
 		</div>
 		<div class="sheet-sidebar">
@@ -30,7 +32,8 @@
 					:sheet="sheet"
 					:next-btn-enabled="nextSheetExists()"
 					:prev-btn-enabled="prevSheetExists()"
-					@sheetChanged="update"
+					@sheetDescriptionChanged="changeSheetDescription"
+					@sheetTitleChanged="changeSheetTitle"
 					@prevSheet="goPrevSheet"
 					@nextSheet="goNextSheet"
 					@collapse="handleCollapse"
@@ -101,22 +104,38 @@
 </template>
 
 <script>
+import GeoJSON from 'ol/format/GeoJSON';
+import { mapGetters } from 'vuex';
+
 export default {
-	async asyncData({ $axios, params, redirect }) {
+	async asyncData({ $axios, store, params, redirect }) {
+		store.commit('features/clear');
 		try {
 			const sheet = await $axios.$get('/api/sheet/' + params.sheetid); // TODO ID helyett ord?
 			const project = await $axios.$get('/api/project/' + params.id); // TODO sheet/projects
-			return { sheet, project };
-		} catch (err) {
+			return { sheet, initSheetData: { ...sheet }, project };
+		} catch {
 			redirect('/admin/project/' + params.id);
-			// TODO error üzenet
 		}
 	},
 	data() {
 		return {
 			showBottomNav: false,
-			imageSource: null
+			imageSource: null,
+			contentModified: false
 		};
+	},
+	computed: {
+		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+
+	},
+	created() {
+		this.$nuxt.$on('contentModified', () => {
+			this.contentModified = true;
+		});
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('contentModified');
 	},
 	methods: {
 		async update(localSheet) {
@@ -141,8 +160,18 @@ export default {
 				this.error('Kép feltöltése sikertelen.');
 			}
 		},
+		changeSheetDescription(val) {
+			this.sheet.description = val;
+		},
+		changeSheetTitle(val) {
+			this.sheet.title = val;
+		},
 		goBackToProject() {
-			this.$router.push('/admin/project/' + this.project.id);
+			if (this.contentModified) {
+				this.showConfirmModal();
+			} else {
+				this.$router.push('/admin/project/' + this.project.id);
+			}
 		},
 		getByOrd(ord) {
 			const sheet = this.project.sheets.filter(sheet => { return sheet.ord === ord; });
@@ -166,6 +195,46 @@ export default {
 			const topPos = collapseBtn.getBoundingClientRect().top;
 			this.$refs['sidebar-expand'].style.transform = `translateY(${topPos}px)`;
 			this.$refs['sidebar-expand'].style.visibility = 'visible';
+		},
+		loadFeaturesFromStore() {
+			const features = [];
+			for (const f of this.getAllFeature) {
+				const featureStr = new GeoJSON().writeFeature(f);
+				features.push(JSON.parse(featureStr));
+			}
+			this.sheet.features = features.length ? features : [];
+		},
+		saveMap() {
+			if (this.sheet.features) {
+				this.loadFeaturesFromStore();
+			}
+			this.update(this.sheet);
+			this.contentModified = false;
+		},
+		showConfirmModal() {
+			this.$bvModal.msgBoxConfirm('Önnek nem mentett módosításai vannak. Kívánja őket menteni?', {
+				title: 'Visszalépés',
+				size: 'sm',
+				buttonSize: 'sm',
+				okVariant: 'danger',
+				okTitle: 'IGEN',
+				cancelTitle: 'NEM',
+				footerClass: 'p-2',
+				hideHeaderClose: false,
+				centered: true,
+				autoFocusButton: 'ok'
+			})
+				.then(value => {
+					if (value === true) {
+						this.saveMap();
+						this.$router.push('/admin/project/' + this.project.id);
+					} else if (value === false) {
+						this.$router.push('/admin/project/' + this.project.id);
+					} // Do nothing on window close or backdrop click
+				})
+				.catch(() => {
+					this.error('Sikertelen mentés');
+				});
 		},
 	}
 };

@@ -22,7 +22,8 @@
 		<b-card-body class="p-0">
 			<b-form
 				id="sheetForm"
-				@submit.prevent="update"
+				class="pb-1"
+				@submit.prevent=""
 			>
 				<div class="form-group">
 					<label for="description">Leírás:</label>
@@ -34,16 +35,6 @@
 						maxlength="1000"
 					/>
 					<span class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
-				</div>
-				<div class="d-flex justify-content-end">
-					<b-button
-						variant="outline-primary"
-						form="sheetForm"
-						type="submit"
-						size="sm"
-					>
-						Mentés
-					</b-button>
 				</div>
 			</b-form>
 			<div ref="sidebar-collapse" class="sidebar-button sidebar-collapse">
@@ -161,11 +152,18 @@ export default {
 		},
 		sheet(val) {
 			this.localSheet = val;
-		}
+		},
+		'localSheet.description' (val) {
+			this.$emit('sheetDescriptionChanged', val);
+			this.$nuxt.$emit('contentModified');
+		},
+		'localSheet.title' (val) {
+			this.$emit('sheetTitleChanged', val);
+			this.$nuxt.$emit('contentModified');
+		},
 	},
 	methods: {
 		update() {
-			this.$emit('sheetChanged', this.localSheet);
 			this.titleEdit = false;
 		},
 		checkFileValidity() {

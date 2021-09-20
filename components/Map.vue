@@ -183,7 +183,7 @@ export default {
 				this.$store.commit('features/add', f.feature);
 
 				selectedFeatures.push(f.feature);
-				this.$nuxt.$emit('mapModified');
+				this.$nuxt.$emit('contentModified');
 			});
 
 			this.source.on('removefeature', f => {
@@ -192,7 +192,7 @@ export default {
 				}
 				this.$store.commit('selected/remove', f.feature);
 				this.$store.commit('features/remove', f.feature);
-				this.$nuxt.$emit('mapModified');
+				this.$nuxt.$emit('contentModified');
 			});
 		},
 		loadInitFeatures(features) {

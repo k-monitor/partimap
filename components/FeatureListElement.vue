@@ -107,7 +107,7 @@ export default {
 		},
 		form: {
 			handler(val) {
-				this.$nuxt.$emit('mapModified');
+				this.$nuxt.$emit('contentModified');
 			},
 			deep: true
 		}

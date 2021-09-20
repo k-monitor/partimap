@@ -3,9 +3,9 @@
 		<EditorNavbar
 			:title="mapData.title"
 			:dynamic-title="true"
+			:content-modified="contentModified"
 			@updateTitle="changeMapTitle"
-			@back="$router.push('/admin/maps')"
-			@unsavedChanges="showConfirmModal"
+			@back="goBackRoute"
 			@save="saveMap"
 		>
 			<template #back-button-name>Térképek</template>
@@ -30,6 +30,11 @@ export default {
 			redirect('/admin/maps');
 		}
 	},
+	data() {
+		return {
+			contentModified: false
+		};
+	},
 	head() {
 		return {
 			title: this.mapData.title,
@@ -38,6 +43,14 @@ export default {
 	computed: {
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
 
+	},
+	created() {
+		this.$nuxt.$on('contentModified', () => {
+			this.contentModified = true;
+		});
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('contentModified');
 	},
 	methods: {
 		async saveMap() { // to DB
@@ -48,7 +61,7 @@ export default {
 			} catch (error) {
 				this.error('A módosítások mentése sikertelen.');
 			}
-			this.$nuxt.$emit('mapSaved');
+			this.contentModified = false;
 		},
 		loadFeaturesFromStore() {
 			const features = [];
@@ -82,6 +95,13 @@ export default {
 				.catch(() => {
 					this.error('Sikertelen mentés');
 				});
+		},
+		goBackRoute() {
+			if (this.contentModified) {
+				this.showConfirmModal();
+			} else {
+				this.$router.push('/admin/maps');
+			}
 		},
 		changeMapTitle(title) {
 			if (this.mapData.title !== title) {
