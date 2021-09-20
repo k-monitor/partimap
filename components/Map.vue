@@ -107,8 +107,8 @@ export default {
 			this.vector.getSource().removeFeature(feature);
 		});
 		// handles feature style change, performed in the feature-sidebar
-		this.$nuxt.$on('changeStyle', (feature, color, preview) => {
-			this.changeFeatureStyle(feature, color, preview);
+		this.$nuxt.$on('changeStyle', (feature, color) => {
+			this.changeFeatureStyle(feature, color);
 		});
 		// handles draw type change, performed in the feature-sidebar
 		this.$nuxt.$on('drawType', type => {
@@ -242,15 +242,13 @@ export default {
 				this.map.addInteraction(this.snap);
 			}
 		},
-		changeFeatureStyle(feature, color, preview = false) {
+		changeFeatureStyle(feature, color) {
 			feature.setStyle(this.styleFunction({
 				pointFillColor: color,
 				lineColor: color,
 				polygonColor: color
 			}));
-			if (!preview) {
-				feature.set('color', color);
-			}
+			feature.set('color', color);
 		},
 		blurFeature(feature) {
 			feature.setStyle(this.styleFunction({

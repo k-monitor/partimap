@@ -12,7 +12,7 @@
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" :visible="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
 			<b-card class="collapse-content">
-				<b-form v-if="selectedFeature" @submit="modifyFeature">
+				<b-form v-if="selectedFeature" @submit.prevent="">
 					<b-row align-h="between" align-v="center">
 						<b-col md="6">
 							<label class="mb-md-0" for="type-color">Szín: </label>
@@ -41,7 +41,7 @@
 							/>
 						</b-col>
 					</b-row>
-					<b-row class="mt-1">
+					<b-row class="mt-1 pb-3">
 						<b-col>
 							<b-textarea
 								id=""
@@ -55,11 +55,6 @@
 								maxlength="1000"
 							/>
 							<span class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
-						</b-col>
-					</b-row>
-					<b-row class="mt-2">
-						<b-col>
-							<b-button type="submit" size="sm" variant="success" class="float-right"> Alkalmaz </b-button>
 						</b-col>
 					</b-row>
 				</b-form>
@@ -100,17 +95,21 @@ export default {
 		}
 	},
 	watch: {
-		selectedFeature(val) {
-			// if feature gets deselected, reset form
-			if (!val) {
-				this.form.name = this.getFeatureName();
-				this.form.color = this.feature.get('color');
-				this.form.description = this.feature.get('description');
-			}
-		},
-		'form.color' (val) {
-			this.$nuxt.$emit('changeStyle', this.feature, this.form.color, true);
+		'form.color' () {
+			this.$nuxt.$emit('changeStyle', this.feature, this.form.color);
 			// debounce maybe..
+		},
+		'form.name' () {
+			this.feature.set('name', this.form.name);
+		},
+		'form.description' () {
+			this.feature.set('description', this.form.description);
+		},
+		form: {
+			handler(val) {
+				this.$nuxt.$emit('mapModified');
+			},
+			deep: true
 		}
 	},
 	mounted() {
@@ -118,20 +117,6 @@ export default {
 		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 	},
 	methods: {
-		modifyFeature(event) {
-			event.preventDefault();
-			if (
-				this.form.name !== this.feature.get('name') ||
-				this.form.description !== this.feature.get('description') ||
-				this.form.color !== this.feature.get('color')
-			) {
-				this.$nuxt.$emit('mapModified');
-			}
-			this.feature.set('name', this.form.name);
-			this.feature.set('description', this.form.description);
-			this.$nuxt.$emit('changeStyle', this.feature, this.form.color);
-			this.$store.commit('selected/remove', this.feature);
-		},
 		getFeatureName() {
 			const idStr = this.feature.getId().toString();
 			return this.feature.get('name') || idStr.substring(idStr.length - 5);
