@@ -2,10 +2,10 @@
 	<div>
 		<EditorNavbar
 			:title="mapData.title"
-			:content-modified="mapModified"
 			:dynamic-title="true"
 			@updateTitle="changeMapTitle"
-			@back="goToMaps"
+			@back="$router.push('/admin/maps')"
+			@unsavedChanges="showConfirmModal"
 			@save="saveMap"
 		>
 			<template #back-button-name>Térképek</template>
@@ -30,11 +30,6 @@ export default {
 			redirect('/admin/maps');
 		}
 	},
-	data() {
-		return {
-			mapModified: false,
-		};
-	},
 	head() {
 		return {
 			title: this.mapData.title,
@@ -43,14 +38,6 @@ export default {
 	computed: {
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
 
-	},
-	created() {
-		this.$nuxt.$on('mapModified', () => {
-			this.mapModified = true;
-		});
-	},
-	beforeDestroy() {
-		this.$nuxt.$off('mapModified');
 	},
 	methods: {
 		async saveMap() { // to DB
@@ -61,7 +48,7 @@ export default {
 			} catch (error) {
 				this.error('A módosítások mentése sikertelen.');
 			}
-			this.mapModified = false;
+			this.$nuxt.$emit('mapSaved');
 		},
 		loadFeaturesFromStore() {
 			const features = [];
@@ -70,13 +57,6 @@ export default {
 				features.push(JSON.parse(featureStr));
 			}
 			this.mapData.features = features.length ? features : null;
-		},
-		goToMaps() {
-			if (this.mapModified) {
-				this.showConfirmModal();
-			} else {
-				this.$router.push('/admin/maps');
-			}
 		},
 		showConfirmModal() {
 			this.$bvModal.msgBoxConfirm('Önnek nem mentett módosításai vannak. Kívánja őket menteni?', {
@@ -105,11 +85,8 @@ export default {
 		},
 		changeMapTitle(title) {
 			if (this.mapData.title !== title) {
-				this.mapModified = true;
-			} else {
-				this.mapModified = false;
+				this.mapData.title = title;
 			}
-			this.mapData.title = title;
 		}
 	}
 };

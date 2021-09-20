@@ -6,7 +6,7 @@
 			class="justify-content-between fixed-top border-bottom shadow-sm"
 		>
 			<b-navbar-nav>
-				<b-button class="back" variant="outline-secondary p-0" @click="$emit('back')">
+				<b-button class="back" variant="outline-secondary p-0" @click="goBackRoute()">
 					<div class="content d-flex align-items-center">
 						<div class="material-icons d-inline  border-info py-1 pl-1">
 							arrow_back_ios_new
@@ -58,10 +58,6 @@ export default {
 			type: String,
 			default: null
 		},
-		contentModified: {
-			type: Boolean,
-			default: false
-		},
 		dynamicTitle: {
 			type: Boolean,
 			default: false
@@ -70,8 +66,20 @@ export default {
 	data() {
 		return {
 			titleEdit: false,
-			localTitle: this.title
+			localTitle: this.title,
+			contentModified: false
 		};
+	},
+	created() {
+		this.$nuxt.$on('mapModified', () => {
+			this.contentModified = true;
+		});
+		this.$nuxt.$on('mapSaved', () => {
+			this.contentModified = false;
+		});
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('mapModified');
 	},
 	methods: {
 		modifyTitle(event) {
@@ -81,10 +89,18 @@ export default {
 				this.localTitle = this.localTitle.trim();
 				this.$emit('updateTitle', this.localTitle);
 				if (this.localTitle !== this.title) {
-					this.$nuxt.$emit('mapChanged');
+					this.$nuxt.$emit('mapModified');
 				}
 			} else {
 				this.localTitle = this.title; // if empty, use the previous
+			}
+		},
+		goBackRoute() {
+			// if content is saved, go back as requested
+			if (!this.contentModified) {
+				this.$emit('back');
+			} else {
+				this.$emit('unsavedChanges');
 			}
 		}
 	}
