@@ -167,10 +167,11 @@ export default {
 			this.sheet.title = val;
 		},
 		goBackToProject() {
+			const route = '/admin/project/' + this.project.id;
 			if (this.contentModified) {
-				this.showConfirmModal();
+				this.showConfirmModal(route);
 			} else {
-				this.$router.push('/admin/project/' + this.project.id);
+				this.$router.push(route);
 			}
 		},
 		getByOrd(ord) {
@@ -178,10 +179,20 @@ export default {
 			return sheet[0];
 		},
 		goPrevSheet() {
-			this.$router.push('/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord - 1).id);
+			const route = '/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord - 1).id;
+			if (this.contentModified) {
+				this.showConfirmModal(route);
+			} else {
+				this.$router.push(route);
+			}
 		},
 		goNextSheet() {
-			this.$router.push('/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord + 1).id);
+			const route = '/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord + 1).id;
+			if (this.contentModified) {
+				this.showConfirmModal(route);
+			} else {
+				this.$router.push(route);
+			}
 		},
 		prevSheetExists() {
 			return !!this.getByOrd(this.sheet.ord - 1);
@@ -211,7 +222,10 @@ export default {
 			this.update(this.sheet);
 			this.contentModified = false;
 		},
-		showConfirmModal() {
+		/**
+		 * @param {string} route - redirect route upon modal close
+		 */
+		showConfirmModal(route) {
 			this.$bvModal.msgBoxConfirm('Önnek nem mentett módosításai vannak. Kívánja őket menteni?', {
 				title: 'Visszalépés',
 				size: 'sm',
@@ -227,9 +241,9 @@ export default {
 				.then(value => {
 					if (value === true) {
 						this.saveMap();
-						this.$router.push('/admin/project/' + this.project.id);
+						this.$router.push(route);
 					} else if (value === false) {
-						this.$router.push('/admin/project/' + this.project.id);
+						this.$router.push(route);
 					} // Do nothing on window close or backdrop click
 				})
 				.catch(() => {
