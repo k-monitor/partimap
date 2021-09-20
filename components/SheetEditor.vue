@@ -165,6 +165,7 @@ export default {
 	methods: {
 		update() {
 			this.titleEdit = false;
+			this.$emit('backgroundImageDeleted', this.localSheet);
 		},
 		checkFileValidity() {
 			// Filesize: max 5MB
@@ -202,7 +203,7 @@ export default {
 				});
 		},
 		deleteBackgroundImage() {
-			this.localSheet.image = '';
+			this.localSheet.image = null;
 			this.backgroundImage = null;
 			this.update();
 			this.imageState = null;

@@ -38,7 +38,7 @@
 					@nextSheet="goNextSheet"
 					@collapse="handleCollapse"
 					@uploadImage="uploadImage"
-					@deleteBackgroundImage="uploadImage(null)"
+					@backgroundImageDeleted="update"
 				/>
 			</b-sidebar>
 			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">
@@ -111,9 +111,10 @@ export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
-			const sheet = await $axios.$get('/api/sheet/' + params.sheetid); // TODO ID helyett ord?
 			const project = await $axios.$get('/api/project/' + params.id); // TODO sheet/projects
-			return { sheet, initSheetData: { ...sheet }, project };
+			console.log(project);
+			const sheet = project.sheets.filter(sheet => sheet.id === parseInt(params.sheetid))[0];
+			return { project, sheet, initSheetData: { ...sheet } };
 		} catch {
 			redirect('/admin/project/' + params.id);
 		}
@@ -133,6 +134,9 @@ export default {
 		this.$nuxt.$on('contentModified', () => {
 			this.contentModified = true;
 		});
+	},
+	mounted() {
+
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
