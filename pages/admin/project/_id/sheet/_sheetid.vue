@@ -1,7 +1,6 @@
 <template>
 	<b-container
 		v-if="sheet"
-		id="background"
 		ref="background"
 		fluid
 		class="flex-grow-1 p-0"
