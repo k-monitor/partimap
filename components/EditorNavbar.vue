@@ -20,7 +20,7 @@
 						</b-button>
 					</b-navbar-nav>
 				</div>
-				<div class="d-flex justify-content-center nav-title w-25 text-center ">
+				<div class="d-flex justify-content-center nav-title text-center w-50">
 					<div v-if="dynamicTitle">
 						<b-navbar-nav v-if="!titleEdit" @click="titleEdit = true">
 							<b-nav-text> <h3 class="my-0 text-dark editable-title">{{ title }}</h3></b-nav-text>
@@ -39,8 +39,8 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-end w-50">
-					<b-navbar-nav class="nav-save">
-						<b-button v-show="!hideSaveButton" class="save" variant="outline-success p-0" :disabled="!contentModified" @click="$emit('save')">
+					<b-navbar-nav v-if="!hideSaveButton" class="nav-save">
+						<b-button class="save" variant="outline-success p-0" :disabled="!contentModified" @click="$emit('save')">
 							<div class="content d-flex">
 								<div class="material-icons d-inline  border-success py-1 pl-1">
 									save
@@ -105,5 +105,4 @@ export default {
 .editable-title {
 	cursor: pointer;
 }
-
 </style>
