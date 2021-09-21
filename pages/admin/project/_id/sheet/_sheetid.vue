@@ -1,5 +1,6 @@
 <template>
 	<b-container
+		v-if="sheet"
 		id="background"
 		ref="background"
 		fluid
@@ -111,8 +112,7 @@ export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
-			const project = await $axios.$get('/api/project/' + params.id); // TODO sheet/projects
-			console.log(project);
+			const project = await $axios.$get('/api/project/' + params.id);
 			const sheet = project.sheets.filter(sheet => sheet.id === parseInt(params.sheetid))[0];
 			return { project, sheet, initSheetData: { ...sheet } };
 		} catch {
