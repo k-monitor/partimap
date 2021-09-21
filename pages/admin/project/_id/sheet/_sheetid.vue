@@ -15,11 +15,10 @@
 		>
 			<template #back-button-name> {{ project.title }}</template>
 		</EditorNavbar>
-		<div v-if="sheet.features" class="feature-sidebar">
-			<MapEditor
-				:features-raw="initSheetData.features"
-			/>
-		</div>
+		<MapEditor
+			v-if="sheet.features"
+			:features-raw="initSheetData.features"
+		/>
 		<div class="sheet-sidebar">
 			<b-sidebar
 				id="sheet-sidebar"
