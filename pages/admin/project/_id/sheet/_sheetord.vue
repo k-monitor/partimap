@@ -1,7 +1,7 @@
 <template>
 	<Sheet
 		:project-id="$route.params.id"
-		:sheet-id="$route.params.sheetid"
+		:sheet-ord="$route.params.sheetord"
 	/>
 </template>
 

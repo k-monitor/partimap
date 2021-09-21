@@ -35,8 +35,8 @@
 					:prev-btn-enabled="prevSheetExists()"
 					@sheetDescriptionChanged="changeSheetDescription"
 					@sheetTitleChanged="changeSheetTitle"
-					@prevSheet="goPrevSheet"
-					@nextSheet="goNextSheet"
+					@prevSheet="goToOtherSheet(-1)"
+					@nextSheet="goToOtherSheet(1)"
 					@collapse="handleCollapse"
 					@uploadImage="uploadImage"
 					@backgroundImageDeleted="update"
@@ -70,7 +70,7 @@
 				<div v-if="prevSheetExists()">
 					<b-button
 						size="sm"
-						@click="goPrevSheet"
+						@click="goToOtherSheet(-1)"
 					>
 						<div class="content d-flex">
 							<div class="material-icons d-inline border-info  pr-1">
@@ -87,7 +87,7 @@
 				<div v-if="nextSheetExists()">
 					<b-button
 						size="sm"
-						@click="goNextSheet"
+						@click="goToOtherSheet(1)"
 					>
 						<div class="content d-flex">
 							<div class="text d-inline">
@@ -114,7 +114,7 @@ export default {
 			type: String,
 			required: true
 		},
-		sheetId: {
+		sheetOrd: {
 			type: String,
 			required: true
 		}
@@ -131,7 +131,7 @@ export default {
 	},
 	async fetch() {
 		this.project = await this.$axios.$get('/api/project/' + this.projectId);
-		this.sheet = this.project.sheets.filter(sheet => sheet.id === parseInt(this.sheetId))[0];
+		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
 		this.initSheetData = { ...this.sheet };
 	},
 	computed: {
@@ -186,20 +186,21 @@ export default {
 				this.$router.push(route);
 			}
 		},
+		/**
+         * Gets sheet from DB by its order instead of is
+         * @returns {Object} sheet
+         */
 		getByOrd(ord) {
 			const sheet = this.project.sheets.filter(sheet => { return sheet.ord === ord; });
 			return sheet[0];
 		},
-		goPrevSheet() {
-			const route = '/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord - 1).id;
-			if (this.contentModified) {
-				this.showConfirmModal(route);
-			} else {
-				this.$router.push(route);
-			}
-		},
-		goNextSheet() {
-			const route = '/admin/project/' + this.project.id + '/sheet/' + this.getByOrd(this.sheet.ord + 1).id;
+		/**
+         * @param {int} orderDiff - new sheet order = order + orderDiff
+         */
+		goToOtherSheet(orderDiff) {
+			// change only the last part of the route which indicates the sheet order
+			const fullPath = this.$route.fullPath;
+			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
 			if (this.contentModified) {
 				this.showConfirmModal(route);
 			} else {

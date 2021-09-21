@@ -99,7 +99,7 @@
 				<NuxtLink
 					v-for="sheet in sheets"
 					:key="sheet.ord"
-					:to="'/admin/project/' + projectId + '/sheet/' + sheet.id"
+					:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
 					class="align-items-center list-group-item list-group-item-action py-0"
 				>
 					<b-row align-v="center" class="px-2 py-3">
