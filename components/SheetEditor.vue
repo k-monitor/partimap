@@ -33,7 +33,7 @@
 						class="form-control"
 						rows="6"
 						maxlength="1000"
-						readonly
+						:readonly="visitor"
 					/>
 					<span v-if="!visitor" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 				</div>
