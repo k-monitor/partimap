@@ -1,7 +1,3 @@
 <template>
-	<ul>
-		<li>
-			<NuxtLink to="/admin/users">admin/users</NuxtLink>
-		</li>
-	</ul>
+	<h1>Soon... :)</h1>
 </template>
