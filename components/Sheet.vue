@@ -1,8 +1,6 @@
 <template>
-	<p v-if="$fetchState.pending">Betöltés...</p>
-	<p v-else-if="$fetchState.error">Hiba a munkalap betöltése során.</p>
 	<b-container
-		v-else-if="sheet"
+		v-if="sheet"
 		ref="background"
 		fluid
 		class="flex-grow-1 p-0"
@@ -111,12 +109,12 @@ import { mapGetters } from 'vuex';
 
 export default {
 	props: {
-		projectId: {
+		sheetOrd: {
 			type: String,
 			required: true
 		},
-		sheetOrd: {
-			type: String,
+		parentProjectData: {
+			type: Object,
 			required: true
 		}
 	},
@@ -126,14 +124,9 @@ export default {
 			imageSource: null,
 			contentModified: false,
 			sheet: null,
-			project: null,
+			project: this.parentProjectData,
 			initSheetData: null
 		};
-	},
-	async fetch() {
-		this.project = await this.$axios.$get('/api/project/' + this.projectId);
-		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
-		this.initSheetData = { ...this.sheet };
 	},
 	computed: {
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
@@ -143,9 +136,8 @@ export default {
 		this.$nuxt.$on('contentModified', () => {
 			this.contentModified = true;
 		});
-	},
-	mounted() {
-
+		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
+		this.initSheetData = { ...this.sheet };
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
