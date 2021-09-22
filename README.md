@@ -12,8 +12,8 @@ This is a Nuxt project with Express backend and MySQL database.
 	```
 3. Add an admin user (password = "123"):
 	```sql
-	INSERT INTO user (email, password, name, registered, instId, isAdmin)
-	VALUES ("admin@partimap.hu", "$2a$12$TwohCgZc1t7.pwX84CXZ..R9a3vIM5qWb5RaqcJZokUCNEjmLxXBq", "Admin", 0, 0, 1);
+	INSERT INTO user (email, password, name, registered, isAdmin)
+	VALUES ("admin@partimap.hu", "$2a$12$TwohCgZc1t7.pwX84CXZ..R9a3vIM5qWb5RaqcJZokUCNEjmLxXBq", "Admin", 0, 1);
 	```
 4. Copy `.env.example` to `.env` and edit it to point to your database.
 5. Install dependencies with `npm i`.
