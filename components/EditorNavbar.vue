@@ -39,7 +39,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-end w-50">
-					<b-navbar-nav v-if="!hideSaveButton" class="nav-save">
+					<b-navbar-nav class="nav-save">
 						<b-button class="save" variant="outline-success p-0" :disabled="!contentModified" @click="$emit('save')">
 							<div class="content d-flex">
 								<div class="material-icons d-inline  border-success py-1 pl-1">
@@ -73,10 +73,6 @@ export default {
 			default: false
 		},
 		contentModified: {
-			type: Boolean,
-			default: false
-		},
-		hideSaveButton: {
 			type: Boolean,
 			default: false
 		}

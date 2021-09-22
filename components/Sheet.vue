@@ -7,6 +7,7 @@
 		:style="'background: center / cover no-repeat url('+sheet.image+');'"
 	>
 		<EditorNavbar
+			v-if="!visitor"
 			:title-name="project.title"
 			:title-extra-html-content="` - <nobr>${sheet.ord + 1} / ${project.sheets.length}</nobr>`"
 			:dynamic-title="false"
@@ -32,6 +33,7 @@
 					:sheet="sheet"
 					:next-btn-enabled="nextSheetExists()"
 					:prev-btn-enabled="prevSheetExists()"
+					:visitor="visitor"
 					@sheetDescriptionChanged="changeSheetDescription"
 					@sheetTitleChanged="changeSheetTitle"
 					@prevSheet="goToOtherSheet(-1)"
@@ -116,6 +118,10 @@ export default {
 		parentProjectData: {
 			type: Object,
 			required: true
+		},
+		visitor: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {

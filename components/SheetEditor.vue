@@ -1,8 +1,8 @@
 <template>
 	<b-card class="sheet-editor-container">
 		<template #header>
-			<div v-if="!titleEdit" @click="titleEdit = true">
-				<h5 class="my-0 editable-title text-center">{{ localSheet.title }}</h5>
+			<div v-if="!titleEdit" @click="editTitle">
+				<h5 class="my-0 text-center" :class="{visitor: 'editable-title'}">{{ localSheet.title }}</h5>
 			</div>
 			<div v-else>
 				<b-form id="sheetNameForm" @submit.prevent="update">
@@ -33,8 +33,9 @@
 						class="form-control"
 						rows="6"
 						maxlength="1000"
+						readonly
 					/>
-					<span class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
+					<span v-if="!visitor" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 				</div>
 			</b-form>
 			<div ref="sidebar-collapse" class="sidebar-button sidebar-collapse">
@@ -55,7 +56,7 @@
 				</span>
 			</div>
 			<hr>
-			<div v-if="!sheet.image && !sheet.features" class="image-selector">
+			<div v-if="!sheet.image && !sheet.features && !visitor" class="image-selector">
 				<b-form @submit.prevent="submitFile">
 					<b-row>
 						<b-col class="pr-1">
@@ -91,7 +92,7 @@
 					</b-row>
 				</b-form>
 			</div>
-			<div v-if="sheet.image" class="delete-image">
+			<div v-if="sheet.image && !visitor" class="delete-image">
 				<b-button class="w-100" size="sm" variant="danger" @click="showConfirmModal">Háttérkép eltávolítása</b-button>
 			</div>
 			<b-button
@@ -129,6 +130,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		visitor: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data() {
 		return {
@@ -207,6 +212,11 @@ export default {
 			this.backgroundImage = null;
 			this.update();
 			this.imageState = null;
+		},
+		editTitle() {
+			if (!this.visitor) {
+				this.titleEdit = true;
+			}
 		}
 	}
 };

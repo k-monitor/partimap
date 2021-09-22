@@ -2,6 +2,7 @@
 	<Sheet
 		:parent-project-data="project"
 		:sheet-ord="$route.params.sheetord"
+		:visitor="true"
 	/>
 </template>
 
