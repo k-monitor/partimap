@@ -7,6 +7,15 @@ const { acceptImage, resolveRecord } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('./sheet.db');
 
+function removeSheetImageFile(sheet) {
+	if (sheet.image) {
+		const fn = `.${sheet.image}`; // make it relative for server
+		if (fs.existsSync(fn)) {
+			fs.unlinkSync(fn);
+		}
+	}
+}
+
 router.put('/sheet/:id/image',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
@@ -14,15 +23,7 @@ router.put('/sheet/:id/image',
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	acceptImage(req => req.project.id, 1920, 1200, 'image'),
 	async (req, res) => {
-		// removing previous image
-		if (req.sheet.image) {
-			const fn = `.${req.sheet.image}`; // make it relative for server
-			if (fs.existsSync(fn)) {
-				fs.unlinkSync(fn);
-			}
-		}
-
-		// updating sheet with new image URL
+		removeSheetImageFile(req.sheet);
 		req.sheet.image = req.image.replace(/^\./, ''); // make it absolute for client
 		await sdb.update(req.sheet);
 		const sheet = await sdb.findById(req.sheet.id);
@@ -35,8 +36,8 @@ router.delete('/sheet/:id',
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
+		removeSheetImageFile(req.sheet);
 		await sdb.del(req.params.id);
-		// TODO delete image file if exists
 		res.json({});
 	});
 
@@ -70,6 +71,12 @@ router.patch('/sheet',
 		const changes = req.body;
 		delete changes.projectId;
 
+		if (changes.image === null || changes.image === '') {
+			removeSheetImageFile(req.sheet);
+		} else {
+			delete changes.image;
+		}
+
 		let sheet = new Sheet(Object.assign(req.sheet, changes));
 		if (!sheet.title) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
@@ -85,6 +92,7 @@ router.put('/project/:id/sheet',
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
+		delete req.body.image;
 		let sheet = new Sheet(req.body);
 		sheet.projectId = req.params.id;
 		if (!sheet.title) {
