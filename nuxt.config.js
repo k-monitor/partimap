@@ -53,6 +53,12 @@ export default {
 		}
 	},
 
+	publicRuntimeConfig: {
+		axios: {
+			browserBaseURL: '/'
+		}
+	},
+
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
 		babel: {

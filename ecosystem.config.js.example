@@ -3,7 +3,7 @@ module.exports = {
 		{
 			name: 'partimap',
 			script: './node_modules/nuxt/bin/nuxt.js',
-			args: 'start --port=9439',
+			args: 'start',
 			exec_mode: 'cluster',
 			instances: 'max',
 		}
