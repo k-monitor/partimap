@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
+const rmrf = require('rimraf').sync;
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
@@ -12,6 +13,7 @@ router.delete('/project/:id',
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		await pdb.del(req.params.id);
+		rmrf(`./uploads/${req.project.id}`);
 		res.json({});
 	});
 

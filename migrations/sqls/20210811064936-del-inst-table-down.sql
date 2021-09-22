@@ -1,6 +1,6 @@
 CREATE TABLE `inst` (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
+	`name` VARCHAR(191) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `name` (`name`)
 )
