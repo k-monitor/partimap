@@ -9,7 +9,8 @@
 		:style="'background: center / cover no-repeat url('+sheet.image+');'"
 	>
 		<EditorNavbar
-			:title="`${project.title} - ${sheet.ord + 1} / ${project.sheets.length}`"
+			:title-name="project.title"
+			:title-extra-html-content="` - <nobr>${sheet.ord + 1} / ${project.sheets.length}</nobr>`"
 			:dynamic-title="false"
 			:content-modified="contentModified"
 			@back="goBackToProject"

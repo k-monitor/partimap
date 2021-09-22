@@ -23,7 +23,7 @@
 				<div class="d-flex justify-content-center nav-title text-center w-50">
 					<div v-if="dynamicTitle">
 						<b-navbar-nav v-if="!titleEdit" @click="titleEdit = true">
-							<b-nav-text> <h3 class="my-0 text-dark editable-title">{{ title }}</h3></b-nav-text>
+							<b-nav-text> <h3 class="my-0 text-dark editable-title">{{ titleName }}<span v-html="titleExtraHtmlContent" /></h3></b-nav-text>
 						</b-navbar-nav>
 						<b-navbar v-if="titleEdit">
 							<b-nav-form @submit="modifyTitle">
@@ -34,7 +34,7 @@
 					</div>
 					<div v-else>
 						<b-navbar-nav>
-							<b-nav-text> <h3 class="my-0 text-dark">{{ title }}</h3></b-nav-text>
+							<b-nav-text> <h3 class="my-0 text-dark">{{ titleName }}<span v-html="titleExtraHtmlContent" /></h3></b-nav-text>
 						</b-navbar-nav>
 					</div>
 				</div>
@@ -60,7 +60,11 @@
 <script>
 export default {
 	props: {
-		title: {
+		titleName: {
+			type: String,
+			default: null
+		},
+		titleExtraHtmlContent: {
 			type: String,
 			default: null
 		},
@@ -80,7 +84,7 @@ export default {
 	data() {
 		return {
 			titleEdit: false,
-			localTitle: this.title,
+			localTitle: this.titleName,
 		};
 	},
 	methods: {
@@ -90,11 +94,11 @@ export default {
 			if (this.localTitle) {
 				this.localTitle = this.localTitle.trim();
 				this.$emit('updateTitle', this.localTitle);
-				if (this.localTitle !== this.title) {
+				if (this.localTitle !== this.titleName) {
 					this.$nuxt.$emit('contentModified');
 				}
 			} else {
-				this.localTitle = this.title; // if empty, use the previous
+				this.localTitle = this.titleName; // if empty, use the previous
 			}
 		},
 	}

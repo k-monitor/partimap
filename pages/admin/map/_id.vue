@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<EditorNavbar
-			:title="mapData.title"
+			:title-name="mapData.title"
 			:dynamic-title="true"
 			:content-modified="contentModified"
 			@updateTitle="changeMapTitle"
