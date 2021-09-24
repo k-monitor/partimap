@@ -21,6 +21,29 @@
 					>
 				</div>
 				<div class="form-group">
+					<label for="slug">Projekt elérési útvonala</label>
+					<b-input-group class="mt-3">
+						<template #prepend>
+							<b-input-group-text>/p/</b-input-group-text>
+						</template>
+						<template #append>
+							<b-button
+								variant="outline-success py-0"
+								@click="project.slug = generateSlug()"
+							>
+								<span class="material-icons">
+									auto_fix_high
+								</span>
+							</b-button>
+						</template>
+						<b-form-input
+							id="slug"
+							v-model="project.slug"
+							:placeholder="generateSlug()"
+						/>
+					</b-input-group>
+				</div>
+				<div class="form-group">
 					<label for="description">Leírás</label>
 					<textarea
 						id="description"
@@ -54,9 +77,10 @@
 
 <script>
 import { orderBy } from 'lodash';
+import slugify from 'slugify';
 
 export default {
-	middleware: ['auth'], // Ez micsoda?
+	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
@@ -72,9 +96,12 @@ export default {
 		};
 	},
 	methods: {
+		generateSlug() {
+			return slugify(this.project.title);
+		},
 		async update() {
 			try {
-				await this.$axios.$patch('/api/project', this.project);
+				this.project = await this.$axios.$patch('/api/project', this.project);
 				this.success('Módosítás sikeres.');
 			} catch (error) {
 				this.error('Módosítás sikertelen.');
@@ -101,7 +128,10 @@ export default {
 				break;
 			}
 			try {
-				const newSheet = await this.$axios.$put('/api/project/' + this.project.id + '/sheet', sheetData);
+				const newSheet = await this.$axios.$put(
+					'/api/project/' + this.project.id + '/sheet',
+					sheetData
+				);
 				this.project.sheets.push(newSheet);
 			} catch (error) {
 				this.error('Munkalap hozzáadása sikertelen.');
@@ -113,7 +143,7 @@ export default {
 			} catch (error) {
 				this.error('Munkalap törlése sikertelen.');
 			}
-			this.project.sheets = this.project.sheets.filter(function(s) {
+			this.project.sheets = this.project.sheets.filter(function (s) {
 				if (s.id !== sheet.id) {
 					if (s.ord > sheet.ord) {
 						s.ord--;
@@ -128,7 +158,7 @@ export default {
 			let otherSheet; // with which the current element is switched
 			if (dir === 'down') {
 				this.project.sheets.forEach(element => {
-					if (element.ord === (sheet.ord + 1)) {
+					if (element.ord === sheet.ord + 1) {
 						otherSheet = element;
 					}
 				});
@@ -137,7 +167,7 @@ export default {
 				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
 			} else if (dir === 'up') {
 				this.project.sheets.forEach(element => {
-					if (element.ord === (sheet.ord - 1)) {
+					if (element.ord === sheet.ord - 1) {
 						otherSheet = element;
 					}
 				});
@@ -146,11 +176,14 @@ export default {
 				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
 			}
 			try {
-				await this.$axios.$patch('/api/sheet/', { id: sheet.id, ord: sheet.ord });
+				await this.$axios.$patch('/api/sheet/', {
+					id: sheet.id,
+					ord: sheet.ord,
+				});
 			} catch (error) {
 				this.error('Munkalap mozgatása sikertelen.');
 			}
-		}
-	}
+		},
+	},
 };
 </script>
