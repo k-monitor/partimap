@@ -21,6 +21,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
 export default {
+	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {

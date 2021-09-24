@@ -7,6 +7,7 @@
 
 <script>
 export default {
+	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
