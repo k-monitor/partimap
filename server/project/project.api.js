@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const rmrf = require('rimraf').sync;
+const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
@@ -42,12 +43,18 @@ router.patch('/project',
 		if (!req.user.isAdmin) {
 			delete changes.userId;
 		}
+		if (changes.slug === null || changes.slug === '') {
+			// request removes custom slug, generate based on title
+			changes.slug = await generateValidSlug(changes.title || req.project.title, req.project.id);
+		} else if (changes.slug) {
+			// request modifies slug, just validate
+			changes.slug = await generateValidSlug(changes.slug, req.project.id);
+		}
 
 		let project = new Project(Object.assign(req.project, changes));
 		if (!project.title) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
-		project.slug = '' + new Date().getTime(); // TODO slugify logic
 		await pdb.update(project);
 
 		project = await pdb.findById(project.id);
@@ -64,12 +71,19 @@ router.put('/project',
 		if (!project.userId || !req.user.isAdmin) {
 			project.userId = req.user.id;
 		}
-		project.slug = '' + new Date().getTime(); // TODO slugify logic
+		project.slug = await generateValidSlug(project.slug || project.title);
 
 		const id = await pdb.create(project);
 		project = await pdb.findById(id);
 
 		res.json(project);
 	});
+
+async function generateValidSlug(seed, currentId) {
+	const slug = slugify(seed);
+	const ep = await pdb.findBySlug(slug);
+	if (!ep || ep.id === currentId) { return slug; }
+	return generateValidSlug(slug + '-1', currentId);
+}
 
 module.exports = router;
