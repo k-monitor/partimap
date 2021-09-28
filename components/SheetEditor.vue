@@ -143,7 +143,7 @@
 			<span
 				id="disabled-wrapper"
 				v-b-tooltip="{
-					title: 'Az Adavédelmi Nyilatkozatot el kell fogadni.',
+					title: 'Az Adatvédelmi Nyilatkozatot el kell fogadni.',
 					disabled: !nextButtonDisabled
 				}"
 				class="d-inline-block float-right"
