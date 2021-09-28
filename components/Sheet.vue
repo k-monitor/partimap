@@ -31,9 +31,10 @@
 			>
 				<SheetEditor
 					:sheet="sheet"
-					:next-btn-enabled="nextSheetExists()"
-					:prev-btn-enabled="prevSheetExists()"
+					:next-btn-shown="nextSheetExists()"
+					:prev-btn-shown="prevSheetExists()"
 					:visitor="visitor"
+					:terms-and-use-accepted="termsAndUseAccepted"
 					@sheetDescriptionChanged="changeSheetDescription"
 					@sheetTitleChanged="changeSheetTitle"
 					@prevSheet="goToOtherSheet(-1)"
@@ -41,6 +42,7 @@
 					@collapse="handleCollapse"
 					@uploadImage="uploadImage"
 					@backgroundImageDeleted="update"
+					@toggleTermsAndUseAccepted="toggleTermsAndUseAccepted"
 				/>
 			</b-sidebar>
 			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">
@@ -88,6 +90,7 @@
 				<div v-if="nextSheetExists()">
 					<b-button
 						size="sm"
+						:disabled="nextButtonDisabled"
 						@click="goToOtherSheet(1)"
 					>
 						<div class="content d-flex">
@@ -131,11 +134,19 @@ export default {
 			contentModified: false,
 			sheet: null,
 			project: this.parentProjectData,
-			initSheetData: null
+			initSheetData: null,
+			termsAndUseAccepted: this.visitor ? 'not_accepted' : null
 		};
 	},
 	computed: {
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+		nextButtonDisabled() {
+			if (this.visitor && this.firstSheet()) {
+				return this.termsAndUseAccepted === 'not_accepted';
+			} else {
+				return false;
+			}
+		},
 
 	},
 	created() {
@@ -212,6 +223,9 @@ export default {
 		nextSheetExists() {
 			return !!this.getByOrd(this.sheet.ord + 1);
 		},
+		firstSheet() {
+			return this.sheetOrd === '0';
+		},
 		handleCollapse(collapseBtn) {
 			this.$root.$emit('bv::toggle::collapse', 'sheet-sidebar');
 			// place the expand button the same position as the collapse button
@@ -262,6 +276,9 @@ export default {
 					this.error('Sikertelen mentés');
 				});
 		},
+		toggleTermsAndUseAccepted(val) {
+			this.termsAndUseAccepted = val;
+		}
 	}
 };
 </script>

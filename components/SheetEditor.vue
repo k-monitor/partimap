@@ -37,6 +37,26 @@
 					/>
 					<span v-if="!visitor" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 				</div>
+				<div>
+					<b-form-checkbox
+						v-if="visitor && firstSheet()"
+						id="checkbox-1"
+						v-model="termsAndUseAcceptedLocal"
+						name="checkbox-1"
+						value="accepted"
+						unchecked-value="not_accepted"
+					>
+						<small>
+							Elfogadom az
+							<a
+								href="#"
+								@click="$bvModal.show('terms-and-use-modal')"
+							>
+								Adatvédelmi Nyilatkozatot.
+							</a>
+						</small>
+					</b-form-checkbox>
+				</div>
 			</b-form>
 			<div ref="sidebar-collapse" class="sidebar-button sidebar-collapse">
 				<a href="#" @click="$emit('collapse',$refs['sidebar-collapse'])">
@@ -112,9 +132,48 @@
 			</b-button>
 		</b-card-body>
 		<template #footer>
-			<b-button v-if="prevBtnEnabled" size="sm" class="float-left" @click="$emit('prevSheet')">Vissza</b-button>
-			<b-button v-if="nextBtnEnabled" size="sm" class="float-right" @click="$emit('nextSheet')">Tovább</b-button>
+			<b-button
+				v-if="prevBtnShown"
+				size="sm"
+				class="float-left"
+				@click="$emit('prevSheet')"
+			>
+				Vissza
+			</b-button>
+			<span
+				id="disabled-wrapper"
+				v-b-tooltip="{
+					title: 'Az Adavédelmi Nyilatkozatot el kell fogadni.',
+					disabled: !nextButtonDisabled
+				}"
+				class="d-inline-block float-right"
+				tabindex="0"
+			>
+				<b-button
+					v-if="nextBtnShown"
+					:disabled="nextButtonDisabled"
+					size="sm"
+					@click="$emit('nextSheet')"
+				>
+					Tovább
+				</b-button>
+			</span>
 		</template>
+
+		<b-modal
+			id="terms-and-use-modal"
+			scrollable
+			title="Adatvédelmi Nyilatkozat"
+			ok-title="Elfogadom"
+			cancel-title="Vissza"
+			ok-variant="success"
+			@ok="$emit('toggleTermsAndUseAccepted','accepted')"
+		>
+			<p v-for="i in 20" :key="i" class="my-4">
+				Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+				in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+			</p>
+		</b-modal>
 	</b-card>
 </template>
 
@@ -122,17 +181,21 @@
 export default {
 	props: {
 		sheet: {}, // TODO
-		nextBtnEnabled: {
+		nextBtnShown: {
 			type: Boolean,
 			default: false
 		},
-		prevBtnEnabled: {
+		prevBtnShown: {
 			type: Boolean,
 			default: false
 		},
 		visitor: {
 			type: Boolean,
 			default: false
+		},
+		termsAndUseAccepted: {
+			type: String,
+			default: 'not_accepted'
 		}
 	},
 	data() {
@@ -140,12 +203,27 @@ export default {
 			localSheet: this.sheet,
 			titleEdit: false,
 			backgroundImage: null,
-			imageState: null
+			imageState: null,
 		};
 	},
 	computed: {
 		descriptionLength() {
 			return this.localSheet.description ? this.localSheet.description.length : 0;
+		},
+		nextButtonDisabled() {
+			if (this.visitor && this.firstSheet()) {
+				return this.termsAndUseAccepted === 'not_accepted';
+			} else {
+				return false;
+			}
+		},
+		termsAndUseAcceptedLocal: {
+			get() {
+				return this.termsAndUseAccepted;
+			},
+			set(val) {
+				this.$emit('toggleTermsAndUseAccepted', val);
+			}
 		}
 	},
 	watch: {
@@ -217,6 +295,9 @@ export default {
 			if (!this.visitor) {
 				this.titleEdit = true;
 			}
+		},
+		firstSheet() {
+			return !this.sheet.ord;
 		}
 	}
 };

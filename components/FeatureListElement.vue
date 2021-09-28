@@ -78,7 +78,7 @@ export default {
 			form: {
 				name: this.getFeatureName(),
 				color: this.feature.get('color'),
-				description: this.feature.get('description')
+				description: this.feature.get('description'),
 			},
 		};
 	},
