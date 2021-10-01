@@ -5,7 +5,10 @@
 				<h5 class="my-0 text-center" :class="{visitor: 'editable-title'}">{{ localSheet.title }}</h5>
 			</div>
 			<div v-else>
-				<b-form id="sheetNameForm" @submit.prevent="update">
+				<b-form
+					id="sheetNameForm"
+					@submit.prevent="titleEdit = false;"
+				>
 					<b-form-input v-model="localSheet.title" size="sm" class="mr-sm-2" />
 					<b-button
 						size="sm"
@@ -246,10 +249,6 @@ export default {
 		},
 	},
 	methods: {
-		update() {
-			this.titleEdit = false;
-			this.$emit('backgroundImageDeleted', this.localSheet);
-		},
 		checkFileValidity() {
 			// Filesize: max 5MB
 			const valid = (this.backgroundImage.size < 5 * 1024 * 1024);
@@ -288,7 +287,8 @@ export default {
 		deleteBackgroundImage() {
 			this.localSheet.image = null;
 			this.backgroundImage = null;
-			this.update();
+			this.$emit('backgroundImageDeleted', this.localSheet);
+
 			this.imageState = null;
 		},
 		editTitle() {
