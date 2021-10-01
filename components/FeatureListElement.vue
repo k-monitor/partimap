@@ -8,22 +8,25 @@
 			@click="featureClicked()"
 		>
 			<span class="text-break">{{ form.name }}</span>
-			<span class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
+			<span v-if="!visitor" class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" :visible="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
 			<b-card class="collapse-content">
 				<b-form v-if="selectedFeature" @submit.prevent="">
 					<b-row align-h="between" align-v="center">
 						<b-col md="6">
-							<label class="mb-md-0" for="type-color">Szín: </label>
+							<label v-if="!visitor" class="mb-md-0" for="type-color">Szín: </label>
+							<label v-else class="mb-md-0" for="type-color">Értékelés: </label>
 						</b-col>
 						<b-col md="6">
 							<b-form-input
+								v-if="!visitor"
 								id="type-color"
 								v-model="form.color"
 								size="sm"
 								type="color"
 							/>
+							<b-form-rating v-else v-model="form.rating" variant="warning" />
 						</b-col>
 					</b-row>
 					<b-row align-h="between" align-v="start" class="mt-1">
@@ -38,6 +41,7 @@
 								v-model="form.name"
 								size="sm"
 								type="text"
+								:readonly="visitor"
 							/>
 						</b-col>
 					</b-row>
@@ -53,8 +57,9 @@
 								size="sm"
 								placeholder="Leírás"
 								maxlength="1000"
+								:readonly="visitor"
 							/>
-							<span class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
+							<span v-if="!visitor" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 						</b-col>
 					</b-row>
 				</b-form>
@@ -72,6 +77,10 @@ export default {
 			type: Feature,
 			default: new Feature()
 		},
+		visitor: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data() {
 		return {
@@ -79,6 +88,7 @@ export default {
 				name: this.getFeatureName(),
 				color: this.feature.get('color'),
 				description: this.feature.get('description'),
+				rating: null
 			},
 		};
 	},

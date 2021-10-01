@@ -8,8 +8,10 @@
 			/>
 		</client-only>
 		<div class="feature-sidebar">
-			<b-sidebar id="map-sidebar" visible right no-header>
-				<FeatureListContainer />
+			<b-sidebar id="map-sidebar" v-model="mapSidebarShown" right no-header>
+				<FeatureListContainer
+					:visitor="visitor"
+				/>
 			</b-sidebar>
 			<div class="sidebar-button sidebar-expand">
 				<a v-b-toggle.map-sidebar href="#">
@@ -34,13 +36,34 @@
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
+import { mapGetters } from 'vuex';
 
 export default {
 	components: {
 		Map: () => process.client ? import('@/components/Map') : null,
 	},
 	props: {
-		featuresRaw: {}
+		featuresRaw: {},
+		visitor: {
+			type: Boolean,
+			default: false
+		}
+	},
+	data() {
+		return {
+			mapSidebarShown: !this.visitor
+		};
+	},
+	computed: {
+		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
+	},
+	watch: {
+		// newFeature is null, if no feature is selected
+		getSelectedFeature(selectedFeature) {
+			if (this.visitor) {
+				selectedFeature ? this.mapSidebarShown = true : this.mapSidebarShown = false;
+			}
+		}
 	},
 	methods: {
 		featuresFromRaw(featuresRaw) {

@@ -1,7 +1,7 @@
 
 <template>
 	<b-card class="feature-list-container">
-		<template #header>
+		<template v-if="!visitor" #header>
 			<div class="add-feature">
 				<b-button-group class="w-100 ">
 					<b-button
@@ -35,6 +35,7 @@
 					v-for="feature in allFeatures"
 					:key="feature.getId()"
 					:feature="feature"
+					:visitor="visitor"
 				/>
 			</b-list-group>
 			<div class="sidebar-button sidebar-collapse">
@@ -55,7 +56,7 @@
 				</span>
 			</div>
 		</b-card-body>
-		<template #footer>
+		<template v-if="!visitor" #footer>
 			<div class="buttons">
 				<b-button variant="warning p-0 mb-1">
 					<div class="content d-flex">
@@ -85,6 +86,12 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
+	props: {
+		visitor: {
+			type: Boolean,
+			default: false
+		}
+	},
 	data() {
 		return {
 			selectedDrawType: 'Point',

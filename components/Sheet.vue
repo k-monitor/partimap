@@ -20,6 +20,7 @@
 		<MapEditor
 			v-if="sheet.features"
 			:features-raw="initSheetData.features"
+			:visitor="visitor"
 		/>
 		<div class="sheet-sidebar">
 			<b-sidebar
