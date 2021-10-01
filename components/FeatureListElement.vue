@@ -13,22 +13,33 @@
 		<b-collapse :id="`collapse-${feature.getId()}`" :visible="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
 			<b-card class="collapse-content">
 				<b-form v-if="selectedFeature" @submit.prevent="">
-					<b-row align-h="between" align-v="center">
-						<b-col md="6">
-							<label v-if="!visitor" class="mb-md-0" for="type-color">Szín: </label>
-							<label v-else class="mb-md-0" for="type-color">Értékelés: </label>
-						</b-col>
-						<b-col md="6">
-							<b-form-input
-								v-if="!visitor"
-								id="type-color"
-								v-model="form.color"
-								size="sm"
-								type="color"
-							/>
-							<b-form-rating v-else v-model="form.rating" variant="warning" />
-						</b-col>
-					</b-row>
+					<div v-if="!visitor">
+						<b-row align-h="between" align-v="center">
+							<b-col md="6">
+								<label class="mb-md-0" for="type-color">Szín: </label>
+							</b-col>
+							<b-col md="6">
+								<b-form-input
+									id="type-color"
+									v-model="form.color"
+									size="sm"
+									type="color"
+								/>
+							</b-col>
+						</b-row>
+					</div>
+					<div v-else>
+						<b-row align-h="between" align-v="start" class="mt-1">
+							<b-col>
+								<label class="mb-md-0" for="type-text">Értékelés: </label>
+							</b-col>
+						</b-row>
+						<b-row>
+							<b-col>
+								<b-form-rating v-model="form.rating" variant="warning" />
+							</b-col>
+						</b-row>
+					</div>
 					<b-row align-h="between" align-v="start" class="mt-1">
 						<b-col>
 							<label class="mb-md-0" for="type-text">Név: </label>
