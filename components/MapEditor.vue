@@ -65,6 +65,7 @@ export default {
 	bottom: 50px;
 	height: auto;
 	width: 270px;
+	border-radius: 0.25rem;
 }
 
 @media screen and (max-width: 600px) {

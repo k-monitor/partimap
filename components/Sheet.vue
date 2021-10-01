@@ -286,7 +286,7 @@ export default {
 <style>
 
 #sheet-sidebar {
-	border-radius: calc(0.25rem - 1px);
+	border-radius: 0.25rem;
 	height: auto;
 	width: auto;
 	top: 120px;
