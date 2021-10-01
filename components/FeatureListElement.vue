@@ -36,7 +36,7 @@
 						</b-row>
 						<b-row>
 							<b-col>
-								<b-form-rating v-model="form.rating" variant="warning" />
+								<b-form-rating v-model="rating" variant="warning" />
 							</b-col>
 						</b-row>
 					</div>
@@ -99,8 +99,8 @@ export default {
 				name: this.getFeatureName(),
 				color: this.feature.get('color'),
 				description: this.feature.get('description'),
-				rating: null
 			},
+			rating: null
 		};
 	},
 	computed: {
@@ -129,6 +129,7 @@ export default {
 		form: {
 			handler(val) {
 				this.$nuxt.$emit('contentModified');
+				console.log(val);
 			},
 			deep: true
 		}
