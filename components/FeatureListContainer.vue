@@ -1,11 +1,12 @@
 
 <template>
 	<b-card class="feature-list-container">
-		<template v-if="!visitor" #header>
+		<template v-if="!visitor || availableVisitorDrawingInteractions" #header>
 			<div class="add-feature">
 				<b-button-group class="w-100 ">
 					<b-button
 						:class="{ 'btn-success': !editState, 'btn-danger': editState}"
+						:disabled="!selectedDrawType"
 						@click="changeDrawType()"
 					>
 						<span v-if="!editState" class="material-icons d-flex justify-content-center">
@@ -17,27 +18,31 @@
 					</b-button>
 					<b-dropdown
 						right
-						:text="translateDrawType"
+						:text="selectedDrawType ? translateDrawType(selectedDrawType) : 'Válasszon'"
 						class="w-75 add-feature-selector"
 						variant="white"
 						:disabled="editState"
 					>
-						<b-dropdown-item @click="selectedDrawType = 'Point'">Pont</b-dropdown-item>
-						<b-dropdown-item @click="selectedDrawType = 'LineString'">Útvonal</b-dropdown-item>
-						<b-dropdown-item @click="selectedDrawType = 'Polygon'">Terület</b-dropdown-item>
+						<b-dropdown-item
+							v-for="interaction in drawingInteractions"
+							:key="interaction"
+							@click="selectedDrawType = interaction"
+						>
+							{{ translateDrawType(interaction) }}
+						</b-dropdown-item>
 					</b-dropdown>
 				</b-button-group>
 			</div>
-			<div v-if="!visitor && isInteractiveForVisitors" class="visitor-interactions pt-2">
+			<div v-if="!visitor && availableVisitorDrawingInteractions" class="visitor-interactions pt-2">
 				<b-card>
 					<template #header>
 						Látogatói interakciók:
 					</template>
 					<b-form-group v-slot="{ ariaDescribedby }" class="m-0">
 						<b-form-checkbox-group
-							v-model="visitorInteractions"
+							v-model="visitorDrawingInteractions"
 							class="w-100"
-							:options="visitorInteractionOptions"
+							:options="visitorDrawingInteractionOptions"
 							:aria-describedby="ariaDescribedby"
 							button-variant="outline-success"
 							size="sm"
@@ -109,22 +114,19 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		isInteractiveForVisitors: {
-			type: Boolean,
-			default: false
-		}
+		availableVisitorDrawingInteractions: {}
 
 	},
 	data() {
 		return {
-			selectedDrawType: 'Point',
+			selectedDrawType: null,
 			containerVisible: true,
-			visitorInteractionOptions: [
-				{ text: 'Pont', value: 'point' },
-				{ text: 'Útvonal', value: 'line' },
-				{ text: 'Terület', value: 'poly' }
+			visitorDrawingInteractionOptions: [
+				{ text: 'Pont', value: 'Point' },
+				{ text: 'Útvonal', value: 'LineString' },
+				{ text: 'Terület', value: 'Polygon' }
 			],
-			visitorInteractions: []
+			visitorDrawingInteractions: [],
 		};
 	},
 	computed: {
@@ -135,8 +137,33 @@ export default {
 		editState() {
 			return this.$store.getters.getEditState;
 		},
-		translateDrawType() {
-			switch (this.selectedDrawType) {
+		drawingInteractions() {
+			if (!this.visitor) {
+				const interactions = ['Point', 'LineString', 'Polygon'];
+				return interactions;
+			} else {
+				return JSON.parse(this.availableVisitorDrawingInteractions);
+			}
+		}
+	},
+	watch: {
+		editState(state) {
+			if (!state) {
+				this.$nuxt.$emit('drawType', '');
+			}
+		},
+		visitorDrawingInteractions(interactions) {
+			this.$emit('addVisitorDrawingInteractions', interactions);
+		}
+	},
+	methods: {
+		changeDrawType() {
+			this.$nuxt.$emit('drawType', this.editState ? '' : this.selectedDrawType);
+			this.$store.commit('toggleEditState', !this.editState);
+			this.$store.commit('selected/change', null);
+		},
+		translateDrawType(drawType) {
+			switch (drawType) {
 			case 'Point':
 				return ('Pont');
 			case 'LineString':
@@ -147,20 +174,6 @@ export default {
 				return (null);
 			}
 		},
-	},
-	watch: {
-		editState(state) {
-			if (!state) {
-				this.$nuxt.$emit('drawType', '');
-			}
-		},
-	},
-	methods: {
-		changeDrawType() {
-			this.$nuxt.$emit('drawType', this.editState ? '' : this.selectedDrawType);
-			this.$store.commit('toggleEditState', !this.editState);
-			this.$store.commit('selected/change', null);
-		}
 	},
 };
 

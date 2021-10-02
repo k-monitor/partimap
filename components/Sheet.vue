@@ -25,7 +25,8 @@
 			<template #feature-editor>
 				<FeatureListContainer
 					:visitor="visitor"
-					:is-interactive-for-visitors="!!sheet.interactions"
+					:available-visitor-drawing-interactions="sheet.interactions"
+					@addVisitorDrawingInteractions="addVisitorDrawingInteractions"
 				/>
 			</template>
 		</MapEditor>
@@ -255,6 +256,10 @@ export default {
 			}
 			this.update(this.sheet);
 			this.contentModified = false;
+		},
+		addVisitorDrawingInteractions(interactions) {
+			this.sheet.interactions = interactions;
+			this.contentModified = true;
 		},
 		/**
 		 * @param {string} route - redirect route upon modal close
