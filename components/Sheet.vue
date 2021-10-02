@@ -21,7 +21,14 @@
 			v-if="sheet.features"
 			:features-raw="initSheetData.features"
 			:visitor="visitor"
-		/>
+		>
+			<template #feature-editor>
+				<FeatureListContainer
+					:visitor="visitor"
+					:is-interactive-for-visitors="!!sheet.interactions"
+				/>
+			</template>
+		</MapEditor>
 		<div class="sheet-sidebar">
 			<b-sidebar
 				id="sheet-sidebar"

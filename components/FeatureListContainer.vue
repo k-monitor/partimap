@@ -28,6 +28,24 @@
 					</b-dropdown>
 				</b-button-group>
 			</div>
+			<div v-if="!visitor && isInteractiveForVisitors" class="visitor-interactions pt-2">
+				<b-card>
+					<template #header>
+						Látogatói interakciók:
+					</template>
+					<b-form-group v-slot="{ ariaDescribedby }" class="m-0">
+						<b-form-checkbox-group
+							v-model="visitorInteractions"
+							class="w-100"
+							:options="visitorInteractionOptions"
+							:aria-describedby="ariaDescribedby"
+							button-variant="outline-success"
+							size="sm"
+							buttons
+						/>
+					</b-form-group>
+				</b-card>
+			</div>
 		</template>
 		<b-card-body class="p-0 m-0">
 			<b-list-group>
@@ -90,12 +108,23 @@ export default {
 		visitor: {
 			type: Boolean,
 			default: false
+		},
+		isInteractiveForVisitors: {
+			type: Boolean,
+			default: false
 		}
+
 	},
 	data() {
 		return {
 			selectedDrawType: 'Point',
-			containerVisible: true
+			containerVisible: true,
+			visitorInteractionOptions: [
+				{ text: 'Pont', value: 'point' },
+				{ text: 'Útvonal', value: 'line' },
+				{ text: 'Terület', value: 'poly' }
+			],
+			visitorInteractions: []
 		};
 	},
 	computed: {
@@ -155,5 +184,13 @@ export default {
 	border-radius: 0.25rem;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+}
+
+.visitor-interactions .card-header {
+	padding: 0.2em 1em;
+}
+
+.visitor-interactions .card-body {
+	padding: 0.5em 1em;
 }
 </style>

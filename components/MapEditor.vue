@@ -9,9 +9,7 @@
 		</client-only>
 		<div class="feature-sidebar">
 			<b-sidebar id="map-sidebar" v-model="mapSidebarShown" right no-header>
-				<FeatureListContainer
-					:visitor="visitor"
-				/>
+				<slot name="feature-editor" />
 			</b-sidebar>
 			<div class="sidebar-button sidebar-expand">
 				<a v-b-toggle.map-sidebar href="#">
