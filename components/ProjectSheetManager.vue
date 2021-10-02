@@ -166,8 +166,10 @@ export default {
 				return 'image';
 			} else if (sheet.survey) {
 				return 'poll';
-			} else if (sheet.features) {
+			} else if (sheet.features && !sheet.interactions) {
 				return 'map';
+			} else if (sheet.interactions) {
+				return 'location_on';
 			} else {
 				return 'description';
 			}

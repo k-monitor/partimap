@@ -92,6 +92,7 @@ export default {
 				break;
 			case 'interactiveMap':
 				sheetData.features = [];
+				sheetData.interactions = [];
 				break;
 			case 'demographicsPoll':
 				sheetData.survey = {};
