@@ -126,7 +126,10 @@ export default {
 				{ text: 'Útvonal', value: 'LineString' },
 				{ text: 'Terület', value: 'Polygon' }
 			],
-			visitorDrawingInteractions: [],
+			visitorDrawingInteractions:
+				this.availableVisitorDrawingInteractions
+					? JSON.parse(this.availableVisitorDrawingInteractions)
+					: null
 		};
 	},
 	computed: {
@@ -205,5 +208,10 @@ export default {
 
 .visitor-interactions .card-body {
 	padding: 0.5em 1em;
+}
+@media screen and (max-width: 600px) {
+	.visitor-interactions .card-body {
+	padding: 0.5em 0em;
+	}
 }
 </style>

@@ -5,6 +5,7 @@
 				:initial-center="[2129152.791287463,6017729.508627875]"
 				:initial-zoom="10"
 				:features="featuresFromRaw(featuresRaw)"
+				:visitor="visitor"
 			/>
 		</client-only>
 		<div class="feature-sidebar">

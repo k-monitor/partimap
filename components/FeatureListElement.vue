@@ -8,12 +8,13 @@
 			@click="featureClicked()"
 		>
 			<span class="text-break">{{ form.name }}</span>
-			<span v-if="!visitor" class="material-icons m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
+			<span v-if="editable" class="material-icons clickable m-0 float-right text-danger" @click.stop="showConfirmModal"> delete </span>
+			<span v-else class="material-icons m-0 float-right"> lock </span>
 		</b-list-group-item>
 		<b-collapse :id="`collapse-${feature.getId()}`" :visible="selectedFeature" accordion="my-accordion" @shown="expandFinished()">
 			<b-card class="collapse-content">
 				<b-form v-if="selectedFeature" @submit.prevent="">
-					<div v-if="!visitor">
+					<div v-if="editable">
 						<b-row align-h="between" align-v="center">
 							<b-col md="6">
 								<label class="mb-md-0" for="type-color">Szín: </label>
@@ -52,7 +53,7 @@
 								v-model="form.name"
 								size="sm"
 								type="text"
-								:readonly="visitor"
+								:readonly="!editable"
 							/>
 						</b-col>
 					</b-row>
@@ -68,9 +69,9 @@
 								size="sm"
 								placeholder="Leírás"
 								maxlength="1000"
-								:readonly="visitor"
+								:readonly="!editable"
 							/>
-							<span v-if="!visitor" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
+							<span v-if="editable" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
 						</b-col>
 					</b-row>
 				</b-form>
@@ -100,7 +101,8 @@ export default {
 				color: this.feature.get('color'),
 				description: this.feature.get('description'),
 			},
-			rating: null
+			rating: null,
+			editable: !this.visitor || this.feature.get('visitorFeature')
 		};
 	},
 	computed: {
@@ -191,13 +193,15 @@ export default {
 .material-icons {
   font-size: 24px;
   margin-left: 10px;
-  cursor: pointer;
-  opacity: 0.5;
 }
-.material-icons:hover {
+.material-icons.clickable:hover {
   opacity: 1;
 }
 
+.material-icons.clickable {
+  cursor: pointer;
+  opacity: 0.5;
+}
 .collapse-content {
 	border-top: none;
 	border-radius: 0 0 0.25rem 0.25rem;

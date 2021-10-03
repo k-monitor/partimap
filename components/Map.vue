@@ -36,6 +36,10 @@ export default {
 			type: Array,
 			default: null,
 			validator: container => container.every(f => f instanceof Feature)
+		},
+		visitor: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
@@ -141,6 +145,7 @@ export default {
 					});
 				}
 			});
+
 			this.select = new Select({
 				style: null,
 				condition: click
@@ -179,6 +184,7 @@ export default {
 			this.source.on('addfeature', f => {
 				f.feature.setId(new Date().getTime());
 				f.feature.set('color', this.defaultColor);
+				f.feature.set('visitorFeature', this.visitor);
 				this.$store.commit('toggleEditState', false);
 				this.$store.commit('features/add', f.feature);
 
