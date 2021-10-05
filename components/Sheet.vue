@@ -220,7 +220,7 @@ export default {
 			// change only the last part of the route which indicates the sheet order
 			const fullPath = this.$route.fullPath;
 			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
-			if (this.contentModified) {
+			if (this.contentModified && !this.visitor) {
 				this.showConfirmModal(route);
 			} else {
 				this.$router.push(route);
