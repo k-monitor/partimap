@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.5",
     "core-js": "^3.9.1",
     "dotenv": "^10.0.0",
+    "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.6",
     "express-session": "^1.17.2",

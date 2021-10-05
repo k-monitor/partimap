@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const emailValidator = require('email-validator');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const User = require('../../model/user');
@@ -47,7 +48,7 @@ router.patch('/user',
 		}
 
 		let user = new User(Object.assign(req._user, changes));
-		if (!user.email) { // TODO email address validation
+		if (!emailValidator.validate(user.email)) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
 		await db.update(user);
@@ -61,7 +62,7 @@ router.put('/user',
 	ensureAdmin,
 	async (req, res) => {
 		const user = new User(req.body);
-		if (!user.email) { // TODO email address validation
+		if (!emailValidator.validate(user.email)) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
 
