@@ -12,6 +12,9 @@ export default {
 		store.commit('features/clear');
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
+			if (params.id !== project.slug) {
+				return redirect(`/p/${project.slug}/${params.sheetord}`);
+			}
 			return { project };
 		} catch (error) {
 			redirect('/');

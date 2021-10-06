@@ -34,6 +34,21 @@ function findById(id) {
 }
 
 /**
+ * @param {Number|String} idOrSlug
+ * @returns {Project}
+ */
+async function findByIdOrSlug(idOrSlug) {
+	let project;
+	if (Number(idOrSlug) > 0) {
+		project = await findById(idOrSlug);
+	}
+	if (!project) { // we got slug OR no match for ID
+		project = await findBySlug(idOrSlug);
+	}
+	return project;
+}
+
+/**
  * @param {String} slug
  * @returns {Project}
  */
@@ -62,6 +77,7 @@ module.exports = {
 	del,
 	findAll,
 	findById,
+	findByIdOrSlug,
 	findBySlug,
 	findByUserId,
 	update

@@ -27,8 +27,8 @@ router.get('/projects',
 		res.json(projects);
 	});
 
-router.get('/project/:id',
-	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+router.get('/project/:idOrSlug',
+	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(req.project);
