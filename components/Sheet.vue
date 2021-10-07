@@ -279,12 +279,12 @@ export default {
 			return features;
 		},
 		loadInitFeatures() {
-			// const adminFeatures = this.featuresFromRaw(this.initSheet.features);
+			const adminFeatures = this.featuresFromRaw(this.initSheet.features);
 			const visitorFeatures = this.getVisitorFeatures(this.sheet.id)
 				? this.getVisitorFeatures(this.sheet.id)
 				: [];
 			this.localVisitorFeatures = [...visitorFeatures];
-			return [...visitorFeatures];
+			return [...visitorFeatures, ...adminFeatures];
 		},
 		saveMap() {
 			if (this.sheet.features) {
