@@ -180,7 +180,7 @@ export default {
 			}
 		},
 		getFeatureRating(featureId) {
-			return this.initFeatureRatings[featureId.toString()];
+			return this.visitor ? this.initFeatureRatings[featureId.toString()] : null;
 		}
 	},
 };
