@@ -1,6 +1,6 @@
 export const state = () => ({
 	visitorFeatures: {},
-	ratings: {}
+	visitorRatings: {},
 });
 
 export const mutations = {
@@ -15,11 +15,11 @@ export const mutations = {
 	addRatings(state, payload) {
 		const sheetIdKey = payload.sheetId.toString();
 		const ratings = payload.ratings;
-		state.ratings[sheetIdKey] = ratings;
+		state.visitorRatings[sheetIdKey] = ratings;
 	}
 };
 
 export const getters = {
 	getVisitorFeatures: state => sheetId => state.visitorFeatures[sheetId.toString()],
-	getFeatureRatings: state => sheetId => state.ratings[sheetId.toString()]
+	getVisitorRatings: state => sheetId => state.visitorRatings[sheetId.toString()]
 };

@@ -156,7 +156,7 @@ export default {
 			{
 				getAllFeature: 'features/getAllFeature',
 				getVisitorFeatures: 'visitordata/getVisitorFeatures',
-				getFeatureRatings: 'visitordata/getFeatureRatings'
+				getVisitorRatings: 'visitordata/getVisitorRatings'
 			}),
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
@@ -313,8 +313,8 @@ export default {
 		},
 		loadInitFeatureRatings() {
 			// called every time when the feature sidebar is closed or opened
-			const visitorRatings = this.getFeatureRatings(this.sheet.id)
-				? this.getFeatureRatings(this.sheet.id)
+			const visitorRatings = this.getVisitorRatings(this.sheet.id)
+				? this.getVisitorRatings(this.sheet.id)
 				: {};
 			this.localVisitorFeatureRatings = { ...visitorRatings };
 			return { ...visitorRatings };
