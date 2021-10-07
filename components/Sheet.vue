@@ -19,7 +19,7 @@
 		</EditorNavbar>
 		<MapEditor
 			v-if="sheet.features"
-			:features-raw="initSheetData.features"
+			:features="loadInitFeatures()"
 			:visitor="visitor"
 		>
 			<template #feature-editor>
@@ -134,7 +134,7 @@ export default {
 		visitor: {
 			type: Boolean,
 			default: false
-		}
+		},
 	},
 	data() {
 		return {
@@ -142,13 +142,14 @@ export default {
 			imageSource: null,
 			contentModified: false,
 			sheet: null,
+			initSheet: null,
 			project: this.parentProjectData,
-			initSheetData: null,
-			termsAndUseAccepted: this.visitor ? 'not_accepted' : null
+			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
+			localVisitorFeatures: []
 		};
 	},
 	computed: {
-		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+		...mapGetters({ getAllFeature: 'features/getAllFeature', getVisitorFeatures: 'visitordata/getVisitorFeatures' }),
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
 				return this.termsAndUseAccepted === 'not_accepted';
@@ -162,11 +163,22 @@ export default {
 		this.$nuxt.$on('contentModified', () => {
 			this.contentModified = true;
 		});
+		this.$nuxt.$on('visitorFeatureAdded', feature => {
+			this.localVisitorFeatures.push(feature);
+		});
+		this.$nuxt.$on('visitorFeatureRemoved', feature => {
+			const idx = this.localVisitorFeatures.indexOf(feature);
+			if (idx !== -1) {
+				this.localVisitorFeatures.splice(idx, 1);
+			}
+		});
 		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
-		this.initSheetData = { ...this.sheet };
+		this.initSheet = { ...this.sheet };
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
+		this.$nuxt.$off('visitorFeatureAdded');
+		this.$nuxt.$off('visitorFeatureRemoved');
 	},
 	methods: {
 		async update(localSheet) {
@@ -220,6 +232,10 @@ export default {
 			// change only the last part of the route which indicates the sheet order
 			const fullPath = this.$route.fullPath;
 			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
+			if (this.localVisitorFeatures.length) {
+				const payload = { features: this.localVisitorFeatures, sheetId: this.sheet.id };
+				this.$store.commit('visitordata/addFeatures', payload);
+			}
 			if (this.contentModified && !this.visitor) {
 				this.showConfirmModal(route);
 			} else {
@@ -249,6 +265,26 @@ export default {
 				features.push(JSON.parse(featureStr));
 			}
 			this.sheet.features = features.length ? features : [];
+		},
+		featuresFromRaw(featuresRaw) {
+			const featuresJSON = JSON.parse(featuresRaw);
+			const geoJSONify = featuresJSON => {
+				return { type: 'FeatureCollection', features: featuresJSON };
+			};
+
+			if (!featuresJSON) {
+				return null;
+			}
+			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
+			return features;
+		},
+		loadInitFeatures() {
+			// const adminFeatures = this.featuresFromRaw(this.initSheet.features);
+			const visitorFeatures = this.getVisitorFeatures(this.sheet.id)
+				? this.getVisitorFeatures(this.sheet.id)
+				: [];
+			this.localVisitorFeatures = [...visitorFeatures];
+			return [...visitorFeatures];
 		},
 		saveMap() {
 			if (this.sheet.features) {

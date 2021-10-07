@@ -184,11 +184,17 @@ export default {
 			this.source.on('addfeature', f => {
 				f.feature.setId(new Date().getTime());
 				f.feature.set('color', this.defaultColor);
-				f.feature.set('visitorFeature', this.visitor);
 				this.$store.commit('toggleEditState', false);
 				this.$store.commit('features/add', f.feature);
-
 				selectedFeatures.push(f.feature);
+
+				if (this.visitor) {
+					f.feature.set('visitorFeature', true);
+					this.$nuxt.$emit('visitorFeatureAdded', f.feature);
+				} else {
+					f.feature.set('visitorFeature', false);
+				}
+
 				this.$nuxt.$emit('contentModified');
 			});
 
@@ -198,11 +204,15 @@ export default {
 				}
 				this.$store.commit('selected/remove', f.feature);
 				this.$store.commit('features/remove', f.feature);
+
+				if (this.visitor) {
+					this.$nuxt.$emit('visitorFeatureRemoved', f.feature);
+				}
 				this.$nuxt.$emit('contentModified');
 			});
 		},
 		loadInitFeatures(features) {
-			// flush the store befor initialization
+			// flush the store before initialization
 			this.$store.commit('features/clear');
 			if (!features) {
 				return null;

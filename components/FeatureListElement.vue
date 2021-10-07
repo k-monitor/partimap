@@ -131,7 +131,6 @@ export default {
 		form: {
 			handler(val) {
 				this.$nuxt.$emit('contentModified');
-				console.log(val);
 			},
 			deep: true
 		}
