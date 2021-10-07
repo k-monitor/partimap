@@ -92,6 +92,10 @@ export default {
 		visitor: {
 			type: Boolean,
 			default: false
+		},
+		initFeatureRating: {
+			type: Number,
+			default: null
 		}
 	},
 	data() {
@@ -101,7 +105,7 @@ export default {
 				color: this.feature.get('color'),
 				description: this.feature.get('description'),
 			},
-			rating: null,
+			rating: this.initFeatureRating,
 			editable: !this.visitor || this.feature.get('visitorFeature')
 		};
 	},
@@ -127,6 +131,9 @@ export default {
 		},
 		'form.description' () {
 			this.feature.set('description', this.form.description);
+		},
+		rating(rating) {
+			this.$nuxt.$emit('featureRatedByVisitor', this.feature.getId(), rating);
 		},
 		form: {
 			handler(val) {

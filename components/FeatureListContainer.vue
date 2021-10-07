@@ -59,6 +59,7 @@
 					:key="feature.getId()"
 					:feature="feature"
 					:visitor="visitor"
+					:init-feature-rating="getFeatureRating(feature.getId())"
 				/>
 			</b-list-group>
 			<div class="sidebar-button sidebar-collapse">
@@ -114,7 +115,8 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		availableVisitorDrawingInteractions: {}
+		availableVisitorDrawingInteractions: {},
+		initFeatureRatings: {}
 
 	},
 	data() {
@@ -157,7 +159,7 @@ export default {
 		},
 		visitorDrawingInteractions(interactions) {
 			this.$emit('addVisitorDrawingInteractions', interactions);
-		}
+		},
 	},
 	methods: {
 		changeDrawType() {
@@ -177,6 +179,9 @@ export default {
 				return (null);
 			}
 		},
+		getFeatureRating(featureId) {
+			return this.initFeatureRatings[featureId.toString()];
+		}
 	},
 };
 

@@ -26,6 +26,7 @@
 				<FeatureListContainer
 					:visitor="visitor"
 					:available-visitor-drawing-interactions="sheet.interactions"
+					:init-feature-ratings="initFeatureRatings"
 					@addVisitorDrawingInteractions="addVisitorDrawingInteractions"
 				/>
 			</template>
@@ -145,11 +146,18 @@ export default {
 			initSheet: null,
 			project: this.parentProjectData,
 			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
-			localVisitorFeatures: []
+			localVisitorFeatures: [],
+			localVisitorFeatureRatings: {},
+			initFeatureRatings: null
 		};
 	},
 	computed: {
-		...mapGetters({ getAllFeature: 'features/getAllFeature', getVisitorFeatures: 'visitordata/getVisitorFeatures' }),
+		...mapGetters(
+			{
+				getAllFeature: 'features/getAllFeature',
+				getVisitorFeatures: 'visitordata/getVisitorFeatures',
+				getFeatureRatings: 'visitordata/getFeatureRatings'
+			}),
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
 				return this.termsAndUseAccepted === 'not_accepted';
@@ -172,13 +180,20 @@ export default {
 				this.localVisitorFeatures.splice(idx, 1);
 			}
 		});
+		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
+			this.localVisitorFeatureRatings[featureId.toString()] = rating;
+		});
+	},
+	mounted() {
 		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
 		this.initSheet = { ...this.sheet };
+		this.initFeatureRatings = this.loadInitFeatureRatings();
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
 		this.$nuxt.$off('visitorFeatureAdded');
 		this.$nuxt.$off('visitorFeatureRemoved');
+		this.$nuxt.$off('featureRatedByVisitor');
 	},
 	methods: {
 		async update(localSheet) {
@@ -232,15 +247,25 @@ export default {
 			// change only the last part of the route which indicates the sheet order
 			const fullPath = this.$route.fullPath;
 			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
-			if (this.localVisitorFeatures.length) {
-				const payload = { features: this.localVisitorFeatures, sheetId: this.sheet.id };
-				this.$store.commit('visitordata/addFeatures', payload);
+			if (this.visitor && this.sheet.interactions) {
+				this.storeLocalVisitorFeatures();
+			}
+			if (Object.keys(this.localVisitorFeatureRatings).length) {
+				this.storeLocalVisitorFeatureRatings();
 			}
 			if (this.contentModified && !this.visitor) {
 				this.showConfirmModal(route);
 			} else {
 				this.$router.push(route);
 			}
+		},
+		storeLocalVisitorFeatures() {
+			const payload = { features: this.localVisitorFeatures, sheetId: this.sheet.id };
+			this.$store.commit('visitordata/addFeatures', payload);
+		},
+		storeLocalVisitorFeatureRatings() {
+			const payload = { ratings: this.localVisitorFeatureRatings, sheetId: this.sheet.id };
+			this.$store.commit('visitordata/addRatings', payload);
 		},
 		prevSheetExists() {
 			return !!this.getByOrd(this.sheet.ord - 1);
@@ -285,6 +310,14 @@ export default {
 				: [];
 			this.localVisitorFeatures = [...visitorFeatures];
 			return [...visitorFeatures, ...adminFeatures];
+		},
+		loadInitFeatureRatings() {
+			// called every time when the feature sidebar is closed or opened
+			const visitorRatings = this.getFeatureRatings(this.sheet.id)
+				? this.getFeatureRatings(this.sheet.id)
+				: {};
+			this.localVisitorFeatureRatings = { ...visitorRatings };
+			return { ...visitorRatings };
 		},
 		saveMap() {
 			if (this.sheet.features) {
