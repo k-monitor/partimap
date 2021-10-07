@@ -244,15 +244,15 @@ export default {
          * @param {int} orderDiff - new sheet order = order + orderDiff
          */
 		goToOtherSheet(orderDiff) {
-			// change only the last part of the route which indicates the sheet order
-			const fullPath = this.$route.fullPath;
-			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
 			if (this.visitor && this.sheet.interactions) {
 				this.storeLocalVisitorFeatures();
 			}
 			if (Object.keys(this.localVisitorFeatureRatings).length) {
 				this.storeLocalVisitorFeatureRatings();
 			}
+			// change only the last part of the route which indicates the sheet order
+			const fullPath = this.$route.fullPath;
+			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
 			if (this.contentModified && !this.visitor) {
 				this.showConfirmModal(route);
 			} else {

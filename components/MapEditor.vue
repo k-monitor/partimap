@@ -62,6 +62,9 @@ export default {
 				selectedFeature ? this.mapSidebarShown = true : this.mapSidebarShown = false;
 			}
 		}
+	},
+	created() {
+		this.$store.commit('selected/clear');
 	}
 };
 </script>
