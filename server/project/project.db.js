@@ -15,7 +15,10 @@ function create(project) {
 async function del(id) {
 	await db.query('DELETE FROM project WHERE id = ?', [id]);
 	await db.query('DELETE FROM sheet WHERE projectId = ?', [id]);
-	// TODO delete results, ratings too
+	await db.query('DELETE a FROM submitted_features a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?', [id]);
+	await db.query('DELETE a FROM survey_answer a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?', [id]);
+	await db.query('DELETE a FROM rating a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?', [id]);
+	await db.query('DELETE FROM submission WHERE projectId = ?', [id]);
 }
 
 /**
