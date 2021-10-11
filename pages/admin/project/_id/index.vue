@@ -2,9 +2,18 @@
 	<div>
 		<AdminFrame>
 			<template #header>
-				<NuxtLink to="/admin/projects">Projektek</NuxtLink>
-				<span class="text-muted">&raquo;</span>
-				{{ project.title }}
+				<div class="d-flex">
+					<div>
+						<NuxtLink to="/admin/projects">Projektek</NuxtLink>
+						<span class="text-muted">&raquo;</span>
+						{{ project.title }}
+					</div>
+					<NuxtLink
+						:to="'/p/' + (project.slug || project.id) + '/0'"
+						class="btn btn-success ml-auto"
+						target="_blank"
+					>Megtekintés</NuxtLink>
+				</div>
 			</template>
 			<form
 				id="projectForm"
@@ -22,7 +31,7 @@
 				</div>
 				<div class="form-group">
 					<label for="slug">Projekt elérési útvonala</label>
-					<b-input-group class="mt-3">
+					<b-input-group>
 						<template #prepend>
 							<b-input-group-text>/p/</b-input-group-text>
 						</template>
@@ -56,7 +65,7 @@
 			<template #footer>
 				<div class="d-flex justify-content-end">
 					<button
-						class="btn btn-outline-primary"
+						class="btn btn-primary"
 						form="projectForm"
 						type="submit"
 					>

@@ -5,7 +5,7 @@
 				<b-button
 					v-b-modal.create-sheet-modal
 					class="float-right"
-					variant="outline-success"
+					variant="success"
 					type="button"
 				>
 					Munkalap hozzáadása
