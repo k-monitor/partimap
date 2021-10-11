@@ -24,8 +24,13 @@ async function del(id) {
 /**
  * @returns {Project[]}
  */
-function findAll() {
-	return db.findAll('project', Project);
+async function findAll() {
+	const rows = await db.query(`
+		SELECT p.*, COUNT(s.id) submissions
+		FROM project p
+		LEFT JOIN submission s ON s.projectId = p.id
+		GROUP BY p.id`)
+	return rows.map(r => new Project(r));
 }
 
 /**
@@ -64,7 +69,12 @@ function findBySlug(slug) {
  * @returns {Project[]}
  */
 async function findByUserId(userId) {
-	const rows = await db.query('SELECT * FROM project WHERE userId = ?', [userId]);
+	const rows = await db.query(`
+		SELECT p.*, COUNT(s.id) submissions
+		FROM project p
+		LEFT JOIN submission s ON s.projectId = p.id
+		WHERE p.userId = ?
+		GROUP BY p.id`, [userId]);
 	return rows.map(r => new Project(r));
 }
 

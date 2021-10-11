@@ -54,6 +54,8 @@
 					class="badge badge-success"
 				>Saját</span>
 				<span class="material-icons m-0 float-right text-danger" @click.prevent="showConfirmModal(p.id)"> delete </span>
+				<br>
+				{{ p.views }} megtekintés, {{ p.submissions }} kitöltés
 			</NuxtLink>
 		</div>
 	</AdminFrame>
