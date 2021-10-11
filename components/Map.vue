@@ -4,7 +4,10 @@
 
 <template>
 	<div>
-		<div ref="map-root" class="h-100 position-absolute w-100 map" />
+		<div
+			ref="map-root"
+			class="h-100 position-absolute w-100 map"
+		/>
 	</div>
 </template>
 
@@ -35,8 +38,8 @@ export default {
 		features: {
 			type: Array,
 			default: null,
-			validator: container => container.every(f => f instanceof Feature)
-		}
+			validator: container => container.every(f => f instanceof Feature),
+		},
 	},
 	data() {
 		return {
@@ -45,9 +48,14 @@ export default {
 			center: this.initialCenter,
 			zoom: this.initialZoom,
 			// default color for drawn features
-			defaultColor: '#000080',
+			defaultColor: {
+				drawing: '#607D8B',
+				Point: '#F44336',
+				LineString: '#3F51B5',
+				Polygon: '#4CAF50',
+			},
 			// either be 'Point','LineString', or 'Polygon'
-			drawType: ''
+			drawType: '',
 		};
 	},
 	computed: {
@@ -55,8 +63,7 @@ export default {
 		editState() {
 			return this.$store.getters.getEditState;
 		},
-		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' })
-
+		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 	},
 	watch: {
 		drawType(type) {
@@ -64,12 +71,14 @@ export default {
 		},
 		// when edit state is true, feature selection is disabled
 		editState(state) {
-			state ? this.map.removeInteraction(this.select) : this.map.addInteraction(this.select);
+			state
+				? this.map.removeInteraction(this.select)
+				: this.map.addInteraction(this.select);
 		},
 		/**
 		 * @param selFeature Is null if the map is clicked
 		 * without clicking on a feature.
-		*/
+		 */
 		getSelectedFeature(selFeature, prevFeature) {
 			// sync the local selectedFeatures collection with the store
 			const selectedFeatures = this.select.getFeatures();
@@ -89,12 +98,13 @@ export default {
 				this.source.getFeatures().forEach(feature => {
 					if (feature !== selFeature) {
 						this.blurFeature(feature);
-					} if ((feature === selFeature) && prevFeature) {
+					}
+					if (feature === selFeature && prevFeature) {
 						this.removeBlur(selFeature);
 					}
 				});
 			}
-		}
+		},
 	},
 	mounted() {
 		this.initMapComponents();
@@ -127,7 +137,7 @@ export default {
 			});
 
 			this.source = new VectorSource({
-				features: this.loadInitFeatures(this.features)
+				features: this.loadInitFeatures(this.features),
 			});
 
 			this.vector = new VectorLayer({
@@ -135,15 +145,15 @@ export default {
 				style: (feature, resolution) => {
 					return this.styleFunction({
 						feature,
-						pointFillColor: this.defaultColor,
-						lineColor: this.defaultColor,
-						polygonColor: this.defaultColor
+						pointFillColor: this.defaultColor.drawing,
+						lineColor: this.defaultColor.drawing,
+						polygonColor: this.defaultColor.drawing,
 					});
-				}
+				},
 			});
 			this.select = new Select({
 				style: null,
-				condition: click
+				condition: click,
 			});
 
 			this.map = new Map({
@@ -162,7 +172,9 @@ export default {
 			// no need to fit view if 0 or 1 feature is present
 			if (this.source.getFeatures().length > 1) {
 				// padding, so the feature list and navbar doesn't block the view from features
-				this.map.getView().fit(this.source.getExtent(), { padding: [80, 300, 0, 0] });
+				this.map
+					.getView()
+					.fit(this.source.getExtent(), { padding: [80, 300, 0, 0] });
 			}
 		},
 		addEventListeners() {
@@ -178,7 +190,10 @@ export default {
 
 			this.source.on('addfeature', f => {
 				f.feature.setId(new Date().getTime());
-				f.feature.set('color', this.defaultColor);
+				this.changeFeatureStyle(
+					f.feature,
+					this.defaultColor[this.drawType] || this.defaultColor.drawing
+				);
 				this.$store.commit('toggleEditState', false);
 				this.$store.commit('features/add', f.feature);
 
@@ -210,7 +225,7 @@ export default {
 		styleFunction({
 			pointFillColor = null,
 			lineColor = null,
-			polygonColor = null
+			polygonColor = null,
 		} = {}) {
 			return new Style({
 				fill: polygonColor
@@ -222,9 +237,7 @@ export default {
 				}),
 				image: new CircleStyle({
 					radius: 7,
-					fill: pointFillColor
-						? new Fill({ color: pointFillColor })
-						: null,
+					fill: pointFillColor ? new Fill({ color: pointFillColor }) : null,
 				}),
 			});
 		},
@@ -233,30 +246,35 @@ export default {
 			this.map.removeInteraction(this.snap);
 			if (type) {
 				this.draw = new Draw({
-					source: this.source, type
+					source: this.source,
+					type,
 				});
 				this.map.addInteraction(this.draw);
 				this.snap = new Snap({
-					source: this.source
+					source: this.source,
 				});
 				this.map.addInteraction(this.snap);
 			}
 		},
 		changeFeatureStyle(feature, color) {
-			feature.setStyle(this.styleFunction({
-				pointFillColor: color,
-				lineColor: color,
-				polygonColor: color
-			}));
+			feature.setStyle(
+				this.styleFunction({
+					pointFillColor: color,
+					lineColor: color,
+					polygonColor: color,
+				})
+			);
 			feature.set('color', color);
 		},
 		blurFeature(feature) {
-			feature.setStyle(this.styleFunction({
-				feature,
-				pointFillColor: feature.get('color') + '80', // opacity level
-				lineColor: feature.get('color') + '80',
-				polygonColor: feature.get('color')
-			}));
+			feature.setStyle(
+				this.styleFunction({
+					feature,
+					pointFillColor: feature.get('color') + '80', // opacity level
+					lineColor: feature.get('color') + '80',
+					polygonColor: feature.get('color'),
+				})
+			);
 		},
 		removeBlur(feature = null) {
 			if (feature) {
@@ -266,13 +284,12 @@ export default {
 					this.changeFeatureStyle(feature, feature.get('color'));
 				});
 			}
-		}
-	}
+		},
+	},
 };
 </script>
 
 <style>
-
 .ol-zoom {
 	top: 6.5em;
 }
