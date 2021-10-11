@@ -20,5 +20,11 @@ export default {
 			redirect('/');
 		}
 	},
+	mounted() {
+		if (!this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
+			this.$store.commit('hit');
+			this.$axios.$post('/api/view/' + this.$route.params.id);
+		}
+	}
 };
 </script>

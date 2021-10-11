@@ -79,6 +79,20 @@ router.put('/project',
 		res.json(project);
 	});
 
+router.post('/view/:idOrSlug',
+	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
+	async (req, res) => {
+		const exp = `/p/${req.params.idOrSlug}/0`;
+		if (!req.headers.referer.endsWith(exp)) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
+		if (req.user && (req.user.isAdmin || req.user.id === req.project.id)) {
+			return res.end();
+		}
+		await pdb.incrementViewsById(req.project.id);
+		res.end();
+	});
+
 async function generateValidSlug(seed, currentId) {
 	const slug = slugify(seed);
 	const ep = await pdb.findBySlug(slug);

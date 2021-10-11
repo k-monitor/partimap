@@ -78,6 +78,10 @@ async function findByUserId(userId) {
 	return rows.map(r => new Project(r));
 }
 
+function incrementViewsById(id) {
+	return db.query('UPDATE project SET views = views + 1 WHERE id = ?', [id]);
+}
+
 /**
  * @param {Project} project
  */
@@ -93,5 +97,6 @@ module.exports = {
 	findByIdOrSlug,
 	findBySlug,
 	findByUserId,
+	incrementViewsById,
 	update
 };
