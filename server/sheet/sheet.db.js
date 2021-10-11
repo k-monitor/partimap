@@ -21,6 +21,9 @@ async function del(id) {
 	const sheet = await findById(id);
 	await db.del('sheet', id);
 	await reorderSheets(sheet.projectId);
+	await db.query('DELETE FROM submitted_features WHERE sheetId = ?', [id]);
+	await db.query('DELETE FROM survey_answer WHERE sheetId = ?', [id]);
+	await db.query('DELETE FROM rating WHERE sheetId = ?', [id]);
 }
 
 /**
