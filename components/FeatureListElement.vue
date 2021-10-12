@@ -6,6 +6,7 @@
 			:class="[{ selected: selectedFeature, disabled: onEditMode }]"
 			class="mt-1 rounded"
 			@click="featureClicked()"
+			:style="{ borderLeftColor: form.color }"
 		>
 			<span class="text-break">{{ form.name }}</span>
 			<span
@@ -269,9 +270,10 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	padding: 0.5rem 1rem;
+	border-left: 5px solid transparent;
 }
-.selected {
-	border-left: 4px solid #00ce89;
+.selected > span:first-child {
+	font-weight: bold;
 }
 .material-icons {
 	font-size: 24px;
