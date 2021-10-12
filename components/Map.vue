@@ -54,6 +54,9 @@ export default {
 				LineString: '#3F51B5',
 				Polygon: '#4CAF50',
 			},
+			defaultStroke: {
+				width: 2,
+			},
 			// either be 'Point','LineString', or 'Polygon'
 			drawType: '',
 		};
@@ -143,12 +146,9 @@ export default {
 			this.vector = new VectorLayer({
 				source: this.source,
 				style: (feature, resolution) => {
-					return this.styleFunction({
-						feature,
-						pointFillColor: this.defaultColor.drawing,
-						lineColor: this.defaultColor.drawing,
-						polygonColor: this.defaultColor.drawing,
-					});
+					// using defaults here, real styling happens in
+					// changeFeatureStyle called by loadInitFeatures
+					return this.styleFunction();
 				},
 			});
 			this.select = new Select({
@@ -211,7 +211,7 @@ export default {
 			});
 		},
 		loadInitFeatures(features) {
-			// flush the store befor initialization
+			// flush the store before initialization
 			this.$store.commit('features/clear');
 			if (!features) {
 				return null;
@@ -223,9 +223,10 @@ export default {
 			return new Collection(features);
 		},
 		styleFunction({
-			pointFillColor = null,
-			lineColor = null,
-			polygonColor = null,
+			pointFillColor = this.defaultColor.drawing,
+			lineColor = this.defaultColor.drawing,
+			polygonColor = this.defaultColor.drawing,
+			strokeWidth = this.defaultStroke.width,
 		} = {}) {
 			return new Style({
 				fill: polygonColor
@@ -233,10 +234,10 @@ export default {
 					: null,
 				stroke: new Stroke({
 					color: lineColor,
-					width: 2,
+					width: strokeWidth,
 				}),
 				image: new CircleStyle({
-					radius: 7,
+					radius: strokeWidth * 3,
 					fill: pointFillColor ? new Fill({ color: pointFillColor }) : null,
 				}),
 			});
