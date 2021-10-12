@@ -30,15 +30,13 @@
 						<b-row
 							align-h="between"
 							align-v="center"
-							class="mb-2"
+							class="mb-3"
 						>
-							<b-col md="6">
+							<b-col>
 								<label
 									class="mb-md-0"
 									for="type-color"
 								>Szín: </label>
-							</b-col>
-							<b-col md="6">
 								<b-form-input
 									id="type-color"
 									v-model="form.color"
@@ -69,19 +67,11 @@
 									<option>#607D8B</option>
 								</datalist>
 							</b-col>
-						</b-row>
-						<b-row
-							align-h="between"
-							align-v="center"
-							class="mb-2"
-						>
-							<b-col md="6">
+							<b-col>
 								<label
 									class="mb-md-0"
 									for="type-color"
-								>Vastagság: </label>
-							</b-col>
-							<b-col md="6">
+								>Méret: </label>
 								<b-form-input
 									v-model="form.width"
 									size="sm"
@@ -93,15 +83,15 @@
 							v-if="feature.getGeometry().getType() !== 'Point'"
 							align-h="between"
 							align-v="center"
-							class="mb-2"
+							class="mb-3"
 						>
-							<b-col md="6">
+							<b-col md="3">
 								<label
 									class="mb-md-0"
 									for="type-color"
-								>Vonalstílus: </label>
+								>Vonal: </label>
 							</b-col>
-							<b-col md="6">
+							<b-col>
 								<b-form-select
 									v-model="form.dash"
 									size="sm"

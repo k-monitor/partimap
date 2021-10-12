@@ -175,8 +175,6 @@ export default {
 			if (f) {
 				const id = f.getId();
 				const ids = this.allFeatures.map(f => f.getId());
-				console.log('Selected feature: ', id);
-				console.log('Result IDs: ', ids);
 				if (!ids.includes(id)) {
 					// selected feature doesn't match current search filter
 					// it means that click was on the map, we must show the
