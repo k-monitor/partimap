@@ -29,6 +29,7 @@
 						<b-row
 							align-h="between"
 							align-v="center"
+							class="mb-2"
 						>
 							<b-col md="6">
 								<label
@@ -66,6 +67,25 @@
 									<option>#000000</option>
 									<option>#607D8B</option>
 								</datalist>
+							</b-col>
+						</b-row>
+						<b-row
+							align-h="between"
+							align-v="center"
+							class="mb-2"
+						>
+							<b-col md="6">
+								<label
+									class="mb-md-0"
+									for="type-color"
+								>Vastagság: </label>
+							</b-col>
+							<b-col md="6">
+								<b-form-input
+									v-model="form.width"
+									size="sm"
+									type="number"
+								/>
 							</b-col>
 						</b-row>
 					</div>
@@ -160,6 +180,7 @@ export default {
 				name: this.getFeatureName(),
 				color: this.feature.get('color'),
 				description: this.feature.get('description'),
+				width: this.feature.get('width'),
 			},
 			rating: null,
 		};
@@ -178,7 +199,7 @@ export default {
 	},
 	watch: {
 		'form.color'() {
-			this.$nuxt.$emit('changeStyle', this.feature, this.form.color);
+			this.$nuxt.$emit('changeStyle', this.feature, this.form.color, this.form.width);
 			// debounce maybe..
 		},
 		'form.name'() {
@@ -186,6 +207,9 @@ export default {
 		},
 		'form.description'() {
 			this.feature.set('description', this.form.description);
+		},
+		'form.width'() {
+			this.$nuxt.$emit('changeStyle', this.feature, this.form.color, this.form.width);
 		},
 		form: {
 			handler(val) {

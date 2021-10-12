@@ -120,8 +120,8 @@ export default {
 			this.vector.getSource().removeFeature(feature);
 		});
 		// handles feature style change, performed in the feature-sidebar
-		this.$nuxt.$on('changeStyle', (feature, color) => {
-			this.changeFeatureStyle(feature, color);
+		this.$nuxt.$on('changeStyle', (feature, color, width) => {
+			this.changeFeatureStyle(feature, color, width);
 		});
 		// handles draw type change, performed in the feature-sidebar
 		this.$nuxt.$on('drawType', type => {
@@ -192,7 +192,8 @@ export default {
 				f.feature.setId(new Date().getTime());
 				this.changeFeatureStyle(
 					f.feature,
-					this.defaultColor[this.drawType] || this.defaultColor.drawing
+					this.defaultColor[this.drawType] || this.defaultColor.drawing,
+					this.defaultStroke.width
 				);
 				this.$store.commit('toggleEditState', false);
 				this.$store.commit('features/add', f.feature);
@@ -218,7 +219,7 @@ export default {
 			}
 			for (const f of features) {
 				this.$store.commit('features/add', f);
-				this.changeFeatureStyle(f, f.get('color')); // apply stored color
+				this.changeFeatureStyle(f, f.get('color'), f.get('width')); // apply stored style
 			}
 			return new Collection(features);
 		},
@@ -257,15 +258,17 @@ export default {
 				this.map.addInteraction(this.snap);
 			}
 		},
-		changeFeatureStyle(feature, color) {
+		changeFeatureStyle(feature, color, width) {
 			feature.setStyle(
 				this.styleFunction({
 					pointFillColor: color,
 					lineColor: color,
 					polygonColor: color,
+					strokeWidth: width,
 				})
 			);
 			feature.set('color', color);
+			feature.set('width', width);
 		},
 		blurFeature(feature) {
 			feature.setStyle(
@@ -274,15 +277,16 @@ export default {
 					pointFillColor: feature.get('color') + '80', // opacity level
 					lineColor: feature.get('color') + '80',
 					polygonColor: feature.get('color'),
+					strokeWidth: feature.get('width'),
 				})
 			);
 		},
 		removeBlur(feature = null) {
 			if (feature) {
-				this.changeFeatureStyle(feature, feature.get('color'));
+				this.changeFeatureStyle(feature, feature.get('color'), feature.get('width'));
 			} else {
 				this.source.getFeatures().forEach(feature => {
-					this.changeFeatureStyle(feature, feature.get('color'));
+					this.changeFeatureStyle(feature, feature.get('color'), feature.get('width'));
 				});
 			}
 		},
