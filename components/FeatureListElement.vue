@@ -104,7 +104,6 @@
 						<b-row
 							align-h="between"
 							align-v="start"
-							class="mt-1"
 						>
 							<b-col>
 								<label
@@ -113,7 +112,7 @@
 								>Értékelés: </label>
 							</b-col>
 						</b-row>
-						<b-row>
+						<b-row class="mb-3">
 							<b-col>
 								<b-form-rating
 									v-model="rating"
@@ -125,7 +124,6 @@
 					<b-row
 						align-h="between"
 						align-v="start"
-						class="mt-1"
 					>
 						<b-col>
 							<label
@@ -134,7 +132,7 @@
 							>Név: </label>
 						</b-col>
 					</b-row>
-					<b-row>
+					<b-row class="mb-3">
 						<b-col>
 							<b-form-input
 								id="type-text"
@@ -145,7 +143,29 @@
 							/>
 						</b-col>
 					</b-row>
-					<b-row class="mt-1 pb-3">
+					<b-row
+						align-h="between"
+						align-v="start"
+					>
+						<b-col>
+							<label
+								class="mb-md-0"
+								for="type-text"
+							>Kategória: </label>
+						</b-col>
+					</b-row>
+					<b-row class="mb-3">
+						<b-col>
+							<b-form-input
+								id="type-text"
+								v-model="form.category"
+								size="sm"
+								type="text"
+								:readonly="visitor"
+							/>
+						</b-col>
+					</b-row>
+					<b-row class="mb-3">
 						<b-col>
 							<b-textarea
 								id=""
@@ -189,6 +209,7 @@ export default {
 		return {
 			form: {
 				name: this.getFeatureName(),
+				category: this.feature.get('category'),
 				color: this.feature.get('color'),
 				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
@@ -217,6 +238,9 @@ export default {
 		},
 	},
 	watch: {
+		'form.category'() {
+			this.feature.set('category', this.form.category);
+		},
 		'form.color'() {
 			this.emitChangeStyle();
 			// debounce maybe..
