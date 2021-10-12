@@ -1,17 +1,26 @@
 
 <template>
 	<b-card class="feature-list-container">
-		<template v-if="!visitor" #header>
+		<template
+			v-if="!visitor"
+			#header
+		>
 			<div class="add-feature">
-				<b-button-group class="w-100 ">
+				<b-button-group class="w-100">
 					<b-button
 						:class="{ 'btn-success': !editState, 'btn-danger': editState}"
 						@click="changeDrawType()"
 					>
-						<span v-if="!editState" class="material-icons d-flex justify-content-center">
+						<span
+							v-if="!editState"
+							class="material-icons d-flex justify-content-center"
+						>
 							add
 						</span>
-						<span v-if="editState" class="material-icons d-flex justify-content-center">
+						<span
+							v-if="editState"
+							class="material-icons d-flex justify-content-center"
+						>
 							close
 						</span>
 					</b-button>
@@ -30,6 +39,24 @@
 			</div>
 		</template>
 		<b-card-body class="p-0 m-0">
+			<div class="mb-3 mx-auto pt-1 w-75">
+				<b-input-group>
+					<b-input
+						v-model="search"
+						placeholder="Keresés..."
+						size="sm"
+					/>
+					<b-input-group-append>
+						<b-button
+							size="sm"
+							variant="outline-secondary"
+							@click="search=''"
+						>
+							<i class="fas fa-backspace" />
+						</b-button>
+					</b-input-group-append>
+				</b-input-group>
+			</div>
 			<b-list-group>
 				<FeatureListElement
 					v-for="feature in allFeatures"
@@ -39,16 +66,20 @@
 				/>
 			</b-list-group>
 			<div class="sidebar-button sidebar-collapse">
-				<a v-b-toggle.map-sidebar href="#">
-					<svg width="14" height="150">
+				<a
+					v-b-toggle.map-sidebar
+					href="#"
+				>
+					<svg
+						width="14"
+						height="150"
+					>
 						<path
 							d=" M 0 150 L 13 135 L 13 15 L 0 0"
 							fill="rgb(247,247,247)"
 							stroke="rgb(223,223,223)"
 						/>
-						<path
-							d="M 0 0 L 0 150"
-						/>
+						<path d="M 0 0 L 0 150" />
 					</svg>
 				</a>
 				<span class="material-icons collapse-icon">
@@ -56,7 +87,10 @@
 				</span>
 			</div>
 		</b-card-body>
-		<template v-if="!visitor" #footer>
+		<template
+			v-if="!visitor"
+			#footer
+		>
 			<div class="buttons">
 				<b-button variant="warning p-0 mb-1">
 					<div class="content d-flex">
@@ -89,19 +123,31 @@ export default {
 	props: {
 		visitor: {
 			type: Boolean,
-			default: false
-		}
+			default: false,
+		},
 	},
 	data() {
 		return {
 			selectedDrawType: 'Point',
-			containerVisible: true
+			containerVisible: true,
+			search: '',
 		};
 	},
 	computed: {
-		...mapGetters({ getAllFeatures: 'features/getAllFeature' }),
+		...mapGetters({
+			getAllFeatures: 'features/getAllFeature',
+			getSelectedFeature: 'selected/getSelectedFeature',
+		}),
 		allFeatures() {
-			return this.getAllFeatures;
+			return this.getAllFeatures.filter(
+				f =>
+					String(f.getId() || '')
+						.toLowerCase()
+						.includes(this.search.toLowerCase()) ||
+					(f.get('name') || '')
+						.toLowerCase()
+						.includes(this.search.toLowerCase())
+			);
 		},
 		editState() {
 			return this.$store.getters.getEditState;
@@ -109,13 +155,13 @@ export default {
 		translateDrawType() {
 			switch (this.selectedDrawType) {
 			case 'Point':
-				return ('Pont');
+				return 'Pont';
 			case 'LineString':
-				return ('Útvonal');
+				return 'Útvonal';
 			case 'Polygon':
-				return ('Terület');
+				return 'Terület';
 			default:
-				return (null);
+				return null;
 			}
 		},
 	},
@@ -125,21 +171,34 @@ export default {
 				this.$nuxt.$emit('drawType', '');
 			}
 		},
+		getSelectedFeature(f) {
+			if (f) {
+				const id = f.getId();
+				const ids = this.allFeatures.map(f => f.getId());
+				console.log('Selected feature: ', id);
+				console.log('Result IDs: ', ids);
+				if (!ids.includes(id)) {
+					// selected feature doesn't match current search filter
+					// it means that click was on the map, we must show the
+					// feature to the user -> we should reset search filter
+					this.search = '';
+				}
+			}
+		},
 	},
 	methods: {
 		changeDrawType() {
 			this.$nuxt.$emit('drawType', this.editState ? '' : this.selectedDrawType);
 			this.$store.commit('toggleEditState', !this.editState);
 			this.$store.commit('selected/change', null);
-		}
+		},
 	},
 };
-
 </script>
 
 <style scoped>
 .card-body {
-    overflow: auto;
+	overflow: auto;
 	padding: 1rem;
 }
 .card-footer {
@@ -151,7 +210,7 @@ export default {
 
 .add-feature-selector {
 	background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+	border: 1px solid rgba(0, 0, 0, 0.125);
 	border-radius: 0.25rem;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;

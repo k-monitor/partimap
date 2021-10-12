@@ -15,6 +15,14 @@ export default {
 			{
 				rel: 'stylesheet',
 				href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+			},
+			{
+				rel: 'stylesheet',
+				href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'
+			},
+			{
+				rel: 'stylesheet',
+				href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/fontawesome.min.css'
 			}
 		]
 	},

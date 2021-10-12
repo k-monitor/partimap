@@ -4,7 +4,7 @@
 			ref="feature"
 			button
 			:class="[{ selected: selectedFeature, disabled: onEditMode }]"
-			class="mt-1 rounded"
+			class="mt-1 px-2 rounded"
 			:style="{ borderLeftColor: form.color }"
 			@click="featureClicked()"
 		>
@@ -13,7 +13,7 @@
 				v-if="!visitor"
 				class="material-icons m-0 float-right text-danger"
 				@click.stop="showConfirmModal"
-			> delete </span>
+			>delete</span>
 		</b-list-group-item>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
