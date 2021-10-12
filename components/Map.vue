@@ -55,6 +55,7 @@ export default {
 				Polygon: '#4CAF50',
 			},
 			defaultStroke: {
+				lineDash: '0',
 				width: 2,
 			},
 			// either be 'Point','LineString', or 'Polygon'
@@ -120,8 +121,8 @@ export default {
 			this.vector.getSource().removeFeature(feature);
 		});
 		// handles feature style change, performed in the feature-sidebar
-		this.$nuxt.$on('changeStyle', (feature, color, width) => {
-			this.changeFeatureStyle(feature, color, width);
+		this.$nuxt.$on('changeStyle', (feature, color, dash, width) => {
+			this.changeFeatureStyle(feature, color, dash, width);
 		});
 		// handles draw type change, performed in the feature-sidebar
 		this.$nuxt.$on('drawType', type => {
@@ -193,6 +194,7 @@ export default {
 				this.changeFeatureStyle(
 					f.feature,
 					this.defaultColor[this.drawType] || this.defaultColor.drawing,
+					this.defaultStroke.lineDash,
 					this.defaultStroke.width
 				);
 				this.$store.commit('toggleEditState', false);
@@ -219,7 +221,7 @@ export default {
 			}
 			for (const f of features) {
 				this.$store.commit('features/add', f);
-				this.changeFeatureStyle(f, f.get('color'), f.get('width')); // apply stored style
+				this.changeFeatureStyle(f, f.get('color'), f.get('dash'), f.get('width')); // apply stored style
 			}
 			return new Collection(features);
 		},
@@ -227,6 +229,7 @@ export default {
 			pointFillColor = this.defaultColor.drawing,
 			lineColor = this.defaultColor.drawing,
 			polygonColor = this.defaultColor.drawing,
+			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
 			return new Style({
@@ -235,6 +238,8 @@ export default {
 					: null,
 				stroke: new Stroke({
 					color: lineColor,
+					lineCap: 'butt',
+					lineDash: lineDash.split(',').map(w => Number(w) * strokeWidth),
 					width: strokeWidth,
 				}),
 				image: new CircleStyle({
@@ -258,17 +263,20 @@ export default {
 				this.map.addInteraction(this.snap);
 			}
 		},
-		changeFeatureStyle(feature, color, width) {
+		changeFeatureStyle(feature, color, lineDash, strokeWidth) {
+			// console.log('changeFeatureStyle', color, lineDash, strokeWidth);
 			feature.setStyle(
 				this.styleFunction({
 					pointFillColor: color,
 					lineColor: color,
 					polygonColor: color,
-					strokeWidth: width,
+					lineDash,
+					strokeWidth,
 				})
 			);
 			feature.set('color', color);
-			feature.set('width', width);
+			feature.set('dash', lineDash);
+			feature.set('width', strokeWidth);
 		},
 		blurFeature(feature) {
 			feature.setStyle(
@@ -277,16 +285,27 @@ export default {
 					pointFillColor: feature.get('color') + '80', // opacity level
 					lineColor: feature.get('color') + '80',
 					polygonColor: feature.get('color'),
+					lineDash: feature.get('dash'),
 					strokeWidth: feature.get('width'),
 				})
 			);
 		},
 		removeBlur(feature = null) {
 			if (feature) {
-				this.changeFeatureStyle(feature, feature.get('color'), feature.get('width'));
+				this.changeFeatureStyle(
+					feature,
+					feature.get('color'),
+					feature.get('dash'),
+					feature.get('width')
+				);
 			} else {
 				this.source.getFeatures().forEach(feature => {
-					this.changeFeatureStyle(feature, feature.get('color'), feature.get('width'));
+					this.changeFeatureStyle(
+						feature,
+						feature.get('color'),
+						feature.get('dash'),
+						feature.get('width')
+					);
 				});
 			}
 		},

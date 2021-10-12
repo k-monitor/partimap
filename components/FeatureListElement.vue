@@ -5,8 +5,8 @@
 			button
 			:class="[{ selected: selectedFeature, disabled: onEditMode }]"
 			class="mt-1 rounded"
-			@click="featureClicked()"
 			:style="{ borderLeftColor: form.color }"
+			@click="featureClicked()"
 		>
 			<span class="text-break">{{ form.name }}</span>
 			<span
@@ -86,6 +86,26 @@
 									v-model="form.width"
 									size="sm"
 									type="number"
+								/>
+							</b-col>
+						</b-row>
+						<b-row
+							v-if="feature.getGeometry().getType() !== 'Point'"
+							align-h="between"
+							align-v="center"
+							class="mb-2"
+						>
+							<b-col md="6">
+								<label
+									class="mb-md-0"
+									for="type-color"
+								>Vonalstílus: </label>
+							</b-col>
+							<b-col md="6">
+								<b-form-select
+									v-model="form.dash"
+									size="sm"
+									:options="dashOptions"
 								/>
 							</b-col>
 						</b-row>
@@ -180,10 +200,18 @@ export default {
 			form: {
 				name: this.getFeatureName(),
 				color: this.feature.get('color'),
+				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
 				width: this.feature.get('width'),
 			},
 			rating: null,
+			dashOptions: [
+				{ text: 'Folytonos', value: '0' },
+				{ text: 'Pontozott', value: '1,1' },
+				{ text: 'Szaggatott', value: '2,1' },
+				{ text: 'Hosszan szagg.', value: '4,1' },
+				{ text: 'Pont-vonal', value: '1,1,3,1' },
+			],
 		};
 	},
 	computed: {
@@ -200,8 +228,11 @@ export default {
 	},
 	watch: {
 		'form.color'() {
-			this.$nuxt.$emit('changeStyle', this.feature, this.form.color, this.form.width);
+			this.emitChangeStyle();
 			// debounce maybe..
+		},
+		'form.dash'() {
+			this.emitChangeStyle();
 		},
 		'form.name'() {
 			this.feature.set('name', this.form.name);
@@ -210,12 +241,12 @@ export default {
 			this.feature.set('description', this.form.description);
 		},
 		'form.width'() {
-			this.$nuxt.$emit('changeStyle', this.feature, this.form.color, this.form.width);
+			this.emitChangeStyle();
 		},
 		form: {
 			handler(val) {
 				this.$nuxt.$emit('contentModified');
-				console.log(val);
+				// console.log(val);
 			},
 			deep: true,
 		},
@@ -225,6 +256,15 @@ export default {
 		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 	},
 	methods: {
+		emitChangeStyle() {
+			this.$nuxt.$emit(
+				'changeStyle',
+				this.feature,
+				this.form.color,
+				this.form.dash,
+				this.form.width
+			);
+		},
 		getFeatureName() {
 			const idStr = this.feature.getId().toString();
 			return this.feature.get('name') || idStr.substring(idStr.length - 5);
