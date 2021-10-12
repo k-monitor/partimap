@@ -169,8 +169,8 @@ export default {
 			this.map.addInteraction(this.select);
 		},
 		fitViewToFeatures() {
-			// no need to fit view if 0 or 1 feature is present
-			if (this.source.getFeatures().length > 1) {
+			// no need to fit view if no feature is present
+			if (this.source.getFeatures().length) {
 				// padding, so the feature list and navbar doesn't block the view from features
 				this.map
 					.getView()
