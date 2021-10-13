@@ -40,13 +40,16 @@
 		</template>
 		<b-card-body class="p-0 m-0">
 			<div class="mb-3 mx-auto pt-1 w-75">
-				<b-input-group>
-					<b-input
-						v-model="search"
-						placeholder="Keresés..."
-						size="sm"
-					/>
-					<b-input-group-append>
+				<vue-typeahead-bootstrap
+					v-model="search"
+					placeholder="Keresés..."
+					size="sm"
+					:data="categories"
+					:min-matching-chars="0"
+					:show-all-results="true"
+					:show-on-focus="true"
+				>
+					<template #append>
 						<b-button
 							size="sm"
 							variant="outline-secondary"
@@ -54,8 +57,8 @@
 						>
 							<i class="fas fa-backspace" />
 						</b-button>
-					</b-input-group-append>
-				</b-input-group>
+					</template>
+				</vue-typeahead-bootstrap>
 			</div>
 			<b-list-group>
 				<FeatureListElement
@@ -121,7 +124,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
+
 export default {
+	components: {
+		VueTypeaheadBootstrap,
+	},
 	props: {
 		visitor: {
 			type: Boolean,
@@ -148,6 +156,9 @@ export default {
 						.toLowerCase()
 						.includes(this.search.toLowerCase()) ||
 					(f.get('name') || '')
+						.toLowerCase()
+						.includes(this.search.toLowerCase()) ||
+					(f.get('category') || '')
 						.toLowerCase()
 						.includes(this.search.toLowerCase())
 			);
@@ -187,6 +198,9 @@ export default {
 			}
 		},
 	},
+	mounted() {
+		this.updateCategories();
+	},
 	methods: {
 		changeDrawType() {
 			this.$nuxt.$emit('drawType', this.editState ? '' : this.selectedDrawType);
@@ -194,10 +208,14 @@ export default {
 			this.$store.commit('selected/change', null);
 		},
 		updateCategories() {
-			const cats = new Set(this.getAllFeatures.map(f => (f.get('category') || '').trim()).filter(f => f.length));
+			const cats = new Set(
+				this.getAllFeatures
+					.map(f => (f.get('category') || '').trim())
+					.filter(f => f.length)
+			);
 			this.categories = Array.from(cats);
-		}
-	},
+		},
+	}
 };
 </script>
 

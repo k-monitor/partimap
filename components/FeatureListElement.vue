@@ -128,7 +128,7 @@
 								<label
 									class="mb-md-0"
 									for="type-text"
-								>Kategória: {{ form.category }}</label>
+								>Kategória:</label>
 							</b-col>
 						</b-row>
 						<b-row class="mb-3">
