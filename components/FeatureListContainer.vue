@@ -194,7 +194,8 @@ export default {
 			this.$store.commit('selected/change', null);
 		},
 		updateCategories() {
-			this.categories = this.getAllFeatures.map(f => (f.get('category') || '').trim()).filter(f => f.length);
+			const cats = new Set(this.getAllFeatures.map(f => (f.get('category') || '').trim()).filter(f => f.length));
+			this.categories = Array.from(cats);
 		}
 	},
 };
