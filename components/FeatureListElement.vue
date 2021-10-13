@@ -99,8 +99,6 @@
 								/>
 							</b-col>
 						</b-row>
-					</div>
-					<div v-else>
 						<b-row
 							align-h="between"
 							align-v="start"
@@ -109,10 +107,67 @@
 								<label
 									class="mb-md-0"
 									for="type-text"
-								>Értékelés: </label>
+								>Név: </label>
 							</b-col>
 						</b-row>
 						<b-row class="mb-3">
+							<b-col>
+								<b-form-input
+									id="type-text"
+									v-model="form.name"
+									size="sm"
+									type="text"
+								/>
+							</b-col>
+						</b-row>
+						<b-row
+							align-h="between"
+							align-v="start"
+						>
+							<b-col>
+								<label
+									class="mb-md-0"
+									for="type-text"
+								>Kategória: {{ form.category }}</label>
+							</b-col>
+						</b-row>
+						<b-row class="mb-3">
+							<b-col>
+								<vue-typeahead-bootstrap
+									v-model="form.category"
+									placeholder="Kategória"
+									size="sm"
+									:data="categories"
+									:min-matching-chars="0"
+									:show-all-results="true"
+									:show-on-focus="true"
+								/>
+							</b-col>
+						</b-row>
+						<b-row class="mb-3">
+							<b-col>
+								<b-textarea
+									id=""
+									v-model="form.description"
+									name="form-description"
+									cols="30"
+									rows="5"
+									class="w-100"
+									size="sm"
+									placeholder="Leírás"
+									maxlength="1000"
+								/>
+								<span
+									v-if="!visitor"
+									class="badge badge-secondary char-count"
+								>{{ descriptionLength }} / 1000</span>
+							</b-col>
+						</b-row>
+					</div>
+					<div v-else>
+						<p v-if="form.category">{{ form.category }}</p>
+						<p v-if="form.description">{{ form.description }}</p>
+						<b-row>
 							<b-col>
 								<b-form-rating
 									v-model="rating"
@@ -121,70 +176,6 @@
 							</b-col>
 						</b-row>
 					</div>
-					<b-row
-						align-h="between"
-						align-v="start"
-					>
-						<b-col>
-							<label
-								class="mb-md-0"
-								for="type-text"
-							>Név: </label>
-						</b-col>
-					</b-row>
-					<b-row class="mb-3">
-						<b-col>
-							<b-form-input
-								id="type-text"
-								v-model="form.name"
-								size="sm"
-								type="text"
-								:readonly="visitor"
-							/>
-						</b-col>
-					</b-row>
-					<b-row
-						align-h="between"
-						align-v="start"
-					>
-						<b-col>
-							<label
-								class="mb-md-0"
-								for="type-text"
-							>Kategória: </label>
-						</b-col>
-					</b-row>
-					<b-row class="mb-3">
-						<b-col>
-							<b-form-input
-								id="type-text"
-								v-model="form.category"
-								size="sm"
-								type="text"
-								:readonly="visitor"
-							/>
-						</b-col>
-					</b-row>
-					<b-row class="mb-3">
-						<b-col>
-							<b-textarea
-								id=""
-								v-model="form.description"
-								name="form-description"
-								cols="30"
-								rows="5"
-								class="w-100"
-								size="sm"
-								placeholder="Leírás"
-								maxlength="1000"
-								:readonly="visitor"
-							/>
-							<span
-								v-if="!visitor"
-								class="badge badge-secondary char-count"
-							>{{ descriptionLength }} / 1000</span>
-						</b-col>
-					</b-row>
 				</b-form>
 			</b-card>
 		</b-collapse>
@@ -194,8 +185,17 @@
 <script>
 import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
+import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
+
 export default {
+	components: {
+		VueTypeaheadBootstrap,
+	},
 	props: {
+		categories: {
+			type: Array,
+			default: () => []
+		},
 		feature: {
 			type: Feature,
 			default: new Feature(),
@@ -209,7 +209,7 @@ export default {
 		return {
 			form: {
 				name: this.getFeatureName(),
-				category: this.feature.get('category'),
+				category: this.feature.get('category') || '', // empty string is important for typeahead comp
 				color: this.feature.get('color'),
 				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
@@ -240,6 +240,7 @@ export default {
 	watch: {
 		'form.category'() {
 			this.feature.set('category', this.form.category);
+			this.$emit('categoryEdited');
 		},
 		'form.color'() {
 			this.emitChangeStyle();
@@ -318,6 +319,7 @@ export default {
 	},
 };
 </script>
+
 <style scoped>
 .list-group-item {
 	display: flex;

@@ -61,8 +61,10 @@
 				<FeatureListElement
 					v-for="feature in allFeatures"
 					:key="feature.getId()"
+					:categories="categories"
 					:feature="feature"
 					:visitor="visitor"
+					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
 			<div class="sidebar-button sidebar-collapse">
@@ -129,6 +131,7 @@ export default {
 	data() {
 		return {
 			selectedDrawType: 'Point',
+			categories: [],
 			containerVisible: true,
 			search: '',
 		};
@@ -190,6 +193,9 @@ export default {
 			this.$store.commit('toggleEditState', !this.editState);
 			this.$store.commit('selected/change', null);
 		},
+		updateCategories() {
+			this.categories = this.getAllFeatures.map(f => (f.get('category') || '').trim()).filter(f => f.length);
+		}
 	},
 };
 </script>

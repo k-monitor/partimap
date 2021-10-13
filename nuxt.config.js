@@ -78,6 +78,7 @@ export default {
 		},
 		transpile: [
 			'ol',
+			({ isServer }) => 'vue-typeahead-bootstrap'
 		],
 	},
 
