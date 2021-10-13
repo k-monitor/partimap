@@ -40,6 +40,10 @@ export default {
 			default: null,
 			validator: container => container.every(f => f instanceof Feature),
 		},
+		visitor: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {
@@ -152,6 +156,7 @@ export default {
 					return this.styleFunction();
 				},
 			});
+
 			this.select = new Select({
 				style: null,
 				condition: click,
@@ -199,8 +204,15 @@ export default {
 				);
 				this.$store.commit('toggleEditState', false);
 				this.$store.commit('features/add', f.feature);
-
 				selectedFeatures.push(f.feature);
+
+				if (this.visitor) {
+					f.feature.set('visitorFeature', true);
+					this.$nuxt.$emit('visitorFeatureAdded', f.feature);
+				} else {
+					f.feature.set('visitorFeature', false);
+				}
+
 				this.$nuxt.$emit('contentModified');
 			});
 
@@ -210,6 +222,10 @@ export default {
 				}
 				this.$store.commit('selected/remove', f.feature);
 				this.$store.commit('features/remove', f.feature);
+
+				if (this.visitor) {
+					this.$nuxt.$emit('visitorFeatureRemoved', f.feature);
+				}
 				this.$nuxt.$emit('contentModified');
 			});
 		},
@@ -221,7 +237,12 @@ export default {
 			}
 			for (const f of features) {
 				this.$store.commit('features/add', f);
-				this.changeFeatureStyle(f, f.get('color'), f.get('dash'), f.get('width')); // apply stored style
+				this.changeFeatureStyle(
+					f,
+					f.get('color'),
+					f.get('dash'),
+					f.get('width')
+				); // apply stored style
 			}
 			return new Collection(features);
 		},

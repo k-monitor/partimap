@@ -12,7 +12,11 @@
 		</EditorNavbar>
 		<MapEditor
 			:features-raw="initMapData.features"
-		/>
+		>
+			<template #feature-editor>
+				<FeatureListContainer />
+			</template>
+		</MapEditor>
 	</div>
 </template>
 

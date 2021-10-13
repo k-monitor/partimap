@@ -2,13 +2,14 @@
 <template>
 	<b-card class="feature-list-container">
 		<template
-			v-if="!visitor"
+			v-if="!visitor || availableVisitorDrawingInteractions"
 			#header
 		>
 			<div class="add-feature">
 				<b-button-group class="w-100">
 					<b-button
 						:class="{ 'btn-success': !editState, 'btn-danger': editState}"
+						:disabled="!selectedDrawType"
 						@click="changeDrawType()"
 					>
 						<span
@@ -26,16 +27,44 @@
 					</b-button>
 					<b-dropdown
 						right
-						:text="translateDrawType"
+						:text="selectedDrawType ? translateDrawType(selectedDrawType) : 'Válasszon'"
 						class="w-75 add-feature-selector"
 						variant="white"
 						:disabled="editState"
 					>
-						<b-dropdown-item @click="selectedDrawType = 'Point'">Pont</b-dropdown-item>
-						<b-dropdown-item @click="selectedDrawType = 'LineString'">Útvonal</b-dropdown-item>
-						<b-dropdown-item @click="selectedDrawType = 'Polygon'">Terület</b-dropdown-item>
+						<b-dropdown-item
+							v-for="interaction in drawingInteractions"
+							:key="interaction"
+							@click="selectedDrawType = interaction"
+						>
+							{{ translateDrawType(interaction) }}
+						</b-dropdown-item>
 					</b-dropdown>
 				</b-button-group>
+			</div>
+			<div
+				v-if="!visitor && availableVisitorDrawingInteractions"
+				class="visitor-interactions pt-2"
+			>
+				<b-card>
+					<template #header>
+						Látogatói interakciók:
+					</template>
+					<b-form-group
+						v-slot="{ ariaDescribedby }"
+						class="m-0"
+					>
+						<b-form-checkbox-group
+							v-model="visitorDrawingInteractions"
+							class="w-100"
+							:options="visitorDrawingInteractionOptions"
+							:aria-describedby="ariaDescribedby"
+							button-variant="outline-success"
+							size="sm"
+							buttons
+						/>
+					</b-form-group>
+				</b-card>
 			</div>
 		</template>
 		<b-card-body class="p-0 m-0">
@@ -66,6 +95,7 @@
 					:key="feature.getId()"
 					:categories="categories"
 					:feature="feature"
+					:init-feature-rating="getFeatureRating(feature.getId())"
 					:visitor="visitor"
 					@categoryEdited="updateCategories"
 				/>
@@ -135,13 +165,23 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		availableVisitorDrawingInteractions: {},
+		initFeatureRatings: {},
 	},
 	data() {
 		return {
-			selectedDrawType: 'Point',
+			selectedDrawType: null,
 			categories: [],
 			containerVisible: true,
 			search: '',
+			visitorDrawingInteractionOptions: [
+				{ text: 'Pont', value: 'Point' },
+				{ text: 'Útvonal', value: 'LineString' },
+				{ text: 'Terület', value: 'Polygon' },
+			],
+			visitorDrawingInteractions: this.availableVisitorDrawingInteractions
+				? JSON.parse(this.availableVisitorDrawingInteractions)
+				: null,
 		};
 	},
 	computed: {
@@ -166,16 +206,12 @@ export default {
 		editState() {
 			return this.$store.getters.getEditState;
 		},
-		translateDrawType() {
-			switch (this.selectedDrawType) {
-			case 'Point':
-				return 'Pont';
-			case 'LineString':
-				return 'Útvonal';
-			case 'Polygon':
-				return 'Terület';
-			default:
-				return null;
+		drawingInteractions() {
+			if (!this.visitor) {
+				const interactions = ['Point', 'LineString', 'Polygon'];
+				return interactions;
+			} else {
+				return JSON.parse(this.availableVisitorDrawingInteractions);
 			}
 		},
 	},
@@ -197,6 +233,9 @@ export default {
 				}
 			}
 		},
+		visitorDrawingInteractions(interactions) {
+			this.$emit('addVisitorDrawingInteractions', interactions);
+		},
 	},
 	mounted() {
 		this.updateCategories();
@@ -207,6 +246,23 @@ export default {
 			this.$store.commit('toggleEditState', !this.editState);
 			this.$store.commit('selected/change', null);
 		},
+		translateDrawType(drawType) {
+			switch (drawType) {
+				case 'Point':
+					return 'Pont';
+				case 'LineString':
+					return 'Útvonal';
+				case 'Polygon':
+					return 'Terület';
+				default:
+					return null;
+			}
+		},
+		getFeatureRating(featureId) {
+			return this.visitor
+				? this.initFeatureRatings[featureId.toString()]
+				: null;
+		},
 		updateCategories() {
 			const cats = new Set(
 				this.getAllFeatures
@@ -215,7 +271,7 @@ export default {
 			);
 			this.categories = Array.from(cats);
 		},
-	}
+	},
 };
 </script>
 
@@ -237,5 +293,18 @@ export default {
 	border-radius: 0.25rem;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+}
+
+.visitor-interactions .card-header {
+	padding: 0.2em 1em;
+}
+
+.visitor-interactions .card-body {
+	padding: 0.5em 1em;
+}
+@media screen and (max-width: 600px) {
+	.visitor-interactions .card-body {
+		padding: 0.5em 0em;
+	}
 }
 </style>

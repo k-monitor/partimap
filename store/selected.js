@@ -13,6 +13,10 @@ export const mutations = {
 		if (feature === state.selectedFeature) {
 			state.selectedFeature = null;
 		}
+	},
+	// less secure than remove
+	clear(state) {
+		state.selectedFeature = null;
 	}
 };
 

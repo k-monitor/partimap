@@ -4,14 +4,13 @@
 			<Map
 				:initial-center="[2129152.791287463,6017729.508627875]"
 				:initial-zoom="10"
-				:features="featuresFromRaw(featuresRaw)"
+				:features="features"
+				:visitor="visitor"
 			/>
 		</client-only>
 		<div class="feature-sidebar">
 			<b-sidebar id="map-sidebar" v-model="mapSidebarShown" right no-header>
-				<FeatureListContainer
-					:visitor="visitor"
-				/>
+				<slot name="feature-editor" />
 			</b-sidebar>
 			<div class="sidebar-button sidebar-expand">
 				<a v-b-toggle.map-sidebar href="#">
@@ -35,7 +34,6 @@
 </template>
 
 <script>
-import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -43,7 +41,7 @@ export default {
 		Map: () => process.client ? import('@/components/Map') : null,
 	},
 	props: {
-		featuresRaw: {},
+		features: {},
 		visitor: {
 			type: Boolean,
 			default: false
@@ -65,19 +63,8 @@ export default {
 			}
 		}
 	},
-	methods: {
-		featuresFromRaw(featuresRaw) {
-			const featuresJSON = JSON.parse(featuresRaw);
-			const geoJSONify = featuresJSON => {
-				return { type: 'FeatureCollection', features: featuresJSON };
-			};
-
-			if (!featuresJSON) {
-				return null;
-			}
-			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
-			return features;
-		},
+	created() {
+		this.$store.commit('selected/clear');
 	}
 };
 </script>

@@ -10,10 +10,14 @@
 		>
 			<span class="text-break">{{ form.name }}</span>
 			<span
-				v-if="!visitor"
-				class="material-icons m-0 float-right text-danger"
+				v-if="editable"
+				class="material-icons clickable m-0 float-right text-danger"
 				@click.stop="showConfirmModal"
-			>delete</span>
+			> delete </span>
+			<span
+				v-else
+				class="material-icons m-0 float-right"
+			> lock </span>
 		</b-list-group-item>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
@@ -26,7 +30,7 @@
 					v-if="selectedFeature"
 					@submit.prevent=""
 				>
-					<div v-if="!visitor">
+					<div v-if="editable">
 						<b-row
 							align-h="between"
 							align-v="center"
@@ -158,7 +162,7 @@
 									maxlength="1000"
 								/>
 								<span
-									v-if="!visitor"
+									v-if="editable"
 									class="badge badge-secondary char-count"
 								>{{ descriptionLength }} / 1000</span>
 							</b-col>
@@ -194,7 +198,7 @@ export default {
 	props: {
 		categories: {
 			type: Array,
-			default: () => []
+			default: () => [],
 		},
 		feature: {
 			type: Feature,
@@ -203,6 +207,10 @@ export default {
 		visitor: {
 			type: Boolean,
 			default: false,
+		},
+		initFeatureRating: {
+			type: Number,
+			default: null,
 		},
 	},
 	data() {
@@ -215,7 +223,7 @@ export default {
 				description: this.feature.get('description'),
 				width: this.feature.get('width'),
 			},
-			rating: null,
+			rating: this.initFeatureRating,
 			dashOptions: [
 				{ text: 'Folytonos', value: '0' },
 				{ text: 'Pontozott', value: '1,1' },
@@ -223,6 +231,7 @@ export default {
 				{ text: 'Hosszan szagg.', value: '4,1' },
 				{ text: 'Pont-vonal', value: '1,1,3,1' },
 			],
+			editable: !this.visitor || this.feature.get('visitorFeature'),
 		};
 	},
 	computed: {
@@ -258,10 +267,12 @@ export default {
 		'form.width'() {
 			this.emitChangeStyle();
 		},
+		rating(rating) {
+			this.$nuxt.$emit('featureRatedByVisitor', this.feature.getId(), rating);
+		},
 		form: {
 			handler(val) {
 				this.$nuxt.$emit('contentModified');
-				// console.log(val);
 			},
 			deep: true,
 		},
@@ -334,13 +345,15 @@ export default {
 .material-icons {
 	font-size: 24px;
 	margin-left: 10px;
-	cursor: pointer;
-	opacity: 0.5;
 }
-.material-icons:hover {
+.material-icons.clickable:hover {
 	opacity: 1;
 }
 
+.material-icons.clickable {
+	cursor: pointer;
+	opacity: 0.5;
+}
 .collapse-content {
 	border-top: none;
 	border-radius: 0 0 0.25rem 0.25rem;

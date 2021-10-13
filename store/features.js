@@ -1,5 +1,5 @@
 export const state = () => ({
-	features: []
+	features: [],
 });
 
 export const mutations = {
@@ -20,5 +20,5 @@ export const mutations = {
 };
 
 export const getters = {
-	getAllFeature: state => state.features
+	getAllFeature: state => state.features,
 };

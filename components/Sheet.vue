@@ -19,9 +19,18 @@
 		</EditorNavbar>
 		<MapEditor
 			v-if="sheet.features"
-			:features-raw="initSheetData.features"
+			:features="loadInitFeatures()"
 			:visitor="visitor"
-		/>
+		>
+			<template #feature-editor>
+				<FeatureListContainer
+					:visitor="visitor"
+					:available-visitor-drawing-interactions="sheet.interactions"
+					:init-feature-ratings="initFeatureRatings"
+					@addVisitorDrawingInteractions="addVisitorDrawingInteractions"
+				/>
+			</template>
+		</MapEditor>
 		<div class="sheet-sidebar">
 			<b-sidebar
 				id="sheet-sidebar"
@@ -126,7 +135,7 @@ export default {
 		visitor: {
 			type: Boolean,
 			default: false
-		}
+		},
 	},
 	data() {
 		return {
@@ -134,13 +143,21 @@ export default {
 			imageSource: null,
 			contentModified: false,
 			sheet: null,
+			initSheet: null,
 			project: this.parentProjectData,
-			initSheetData: null,
-			termsAndUseAccepted: this.visitor ? 'not_accepted' : null
+			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
+			localVisitorFeatures: [],
+			localVisitorFeatureRatings: {},
+			initFeatureRatings: null
 		};
 	},
 	computed: {
-		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+		...mapGetters(
+			{
+				getAllFeature: 'features/getAllFeature',
+				getVisitorFeatures: 'visitordata/getVisitorFeatures',
+				getVisitorRatings: 'visitordata/getVisitorRatings'
+			}),
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
 				return this.termsAndUseAccepted === 'not_accepted';
@@ -154,11 +171,29 @@ export default {
 		this.$nuxt.$on('contentModified', () => {
 			this.contentModified = true;
 		});
+		this.$nuxt.$on('visitorFeatureAdded', feature => {
+			this.localVisitorFeatures.push(feature);
+		});
+		this.$nuxt.$on('visitorFeatureRemoved', feature => {
+			const idx = this.localVisitorFeatures.indexOf(feature);
+			if (idx !== -1) {
+				this.localVisitorFeatures.splice(idx, 1);
+			}
+		});
+		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
+			this.localVisitorFeatureRatings[featureId.toString()] = rating;
+		});
+	},
+	mounted() {
 		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
-		this.initSheetData = { ...this.sheet };
+		this.initSheet = { ...this.sheet };
+		this.initFeatureRatings = this.loadInitFeatureRatings();
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
+		this.$nuxt.$off('visitorFeatureAdded');
+		this.$nuxt.$off('visitorFeatureRemoved');
+		this.$nuxt.$off('featureRatedByVisitor');
 	},
 	methods: {
 		async update(localSheet) {
@@ -209,14 +244,28 @@ export default {
          * @param {int} orderDiff - new sheet order = order + orderDiff
          */
 		goToOtherSheet(orderDiff) {
+			if (this.visitor && this.sheet.interactions) {
+				this.storeLocalVisitorFeatures();
+			}
+			if (Object.keys(this.localVisitorFeatureRatings).length) {
+				this.storeLocalVisitorFeatureRatings();
+			}
 			// change only the last part of the route which indicates the sheet order
 			const fullPath = this.$route.fullPath;
 			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
-			if (this.contentModified) {
+			if (this.contentModified && !this.visitor) {
 				this.showConfirmModal(route);
 			} else {
 				this.$router.push(route);
 			}
+		},
+		storeLocalVisitorFeatures() {
+			const payload = { features: this.localVisitorFeatures, sheetId: this.sheet.id };
+			this.$store.commit('visitordata/addFeatures', payload);
+		},
+		storeLocalVisitorFeatureRatings() {
+			const payload = { ratings: this.localVisitorFeatureRatings, sheetId: this.sheet.id };
+			this.$store.commit('visitordata/addRatings', payload);
 		},
 		prevSheetExists() {
 			return !!this.getByOrd(this.sheet.ord - 1);
@@ -242,12 +291,44 @@ export default {
 			}
 			this.sheet.features = features.length ? features : [];
 		},
+		featuresFromRaw(featuresRaw) {
+			const featuresJSON = JSON.parse(featuresRaw);
+			const geoJSONify = featuresJSON => {
+				return { type: 'FeatureCollection', features: featuresJSON };
+			};
+
+			if (!featuresJSON) {
+				return null;
+			}
+			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
+			return features;
+		},
+		loadInitFeatures() {
+			const adminFeatures = this.featuresFromRaw(this.initSheet.features);
+			const visitorFeatures = this.getVisitorFeatures(this.sheet.id)
+				? this.getVisitorFeatures(this.sheet.id)
+				: [];
+			this.localVisitorFeatures = [...visitorFeatures];
+			return [...visitorFeatures, ...adminFeatures];
+		},
+		loadInitFeatureRatings() {
+			// called every time when the feature sidebar is closed or opened
+			const visitorRatings = this.getVisitorRatings(this.sheet.id)
+				? this.getVisitorRatings(this.sheet.id)
+				: {};
+			this.localVisitorFeatureRatings = { ...visitorRatings };
+			return { ...visitorRatings };
+		},
 		saveMap() {
 			if (this.sheet.features) {
 				this.loadFeaturesFromStore();
 			}
 			this.update(this.sheet);
 			this.contentModified = false;
+		},
+		addVisitorDrawingInteractions(interactions) {
+			this.sheet.interactions = interactions;
+			this.contentModified = true;
 		},
 		/**
 		 * @param {string} route - redirect route upon modal close
