@@ -247,16 +247,11 @@ export default {
 			this.$store.commit('selected/change', null);
 		},
 		translateDrawType(drawType) {
-			switch (drawType) {
-				case 'Point':
-					return 'Pont';
-				case 'LineString':
-					return 'Útvonal';
-				case 'Polygon':
-					return 'Terület';
-				default:
-					return null;
-			}
+			return {
+				Point: 'Pont',
+				LineString: 'Útvonal',
+				Polygon: 'Terület',
+			}[drawType];
 		},
 		getFeatureRating(featureId) {
 			return this.visitor
