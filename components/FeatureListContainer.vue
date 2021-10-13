@@ -165,8 +165,15 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		availableVisitorDrawingInteractions: {},
-		initFeatureRatings: {},
+		availableVisitorDrawingInteractions: {
+			// sheet.interactions
+			type: String,
+			default: null,
+		},
+		initFeatureRatings: {
+			type: Object,
+			default: null,
+		},
 	},
 	data() {
 		return {
