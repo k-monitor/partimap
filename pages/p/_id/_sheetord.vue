@@ -11,7 +11,9 @@ export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
-			const project = await $axios.$get('/api/project/' + params.id);
+			const project = await $axios.$post('/api/project/access', {
+				projectId: params.id
+			});
 			if (params.id !== project.slug) {
 				return redirect(`/p/${project.slug}/${params.sheetord}`);
 			}
@@ -25,6 +27,6 @@ export default {
 			this.$store.commit('hit');
 			this.$axios.$post('/api/view/' + this.$route.params.id);
 		}
-	}
+	},
 };
 </script>

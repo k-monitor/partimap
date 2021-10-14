@@ -27,8 +27,10 @@ router.get('/projects',
 		res.json(projects);
 	});
 
-router.get('/project/:idOrSlug',
+router.get('/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
+	ensureLoggedIn,
 	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(req.project);
@@ -78,6 +80,15 @@ router.put('/project',
 
 		res.json(project);
 	});
+
+router.post('/project/access',
+	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
+	async (req, res) => {
+		// console.log(req.body);
+		req.project.sheets = await sdb.findByProjectId(req.project.id);
+		res.json(req.project);
+	}
+);
 
 router.post('/view/:idOrSlug',
 	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
