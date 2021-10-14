@@ -9,7 +9,7 @@ function ensureLoggedIn(req, res, next) {
 }
 
 function ensureAdmin(req, res, next) {
-	if (req.user && req.user.isAdmin) {
+	if (isAdminAuthenticated(req)) {
 		next();
 	} else {
 		res.sendStatus(StatusCodes.UNAUTHORIZED);
@@ -18,12 +18,17 @@ function ensureAdmin(req, res, next) {
 
 function ensureAdminOr(cond) {
 	return (req, res, next) => {
-		if ((req.user && req.user.isAdmin) || cond(req)) {
+		if (isAdminAuthenticated(req) || cond(req)) {
 			next();
 		} else {
 			res.sendStatus(StatusCodes.UNAUTHORIZED);
 		}
 	};
+}
+
+function isAdminAuthenticated(req) {
+	return req.isAuthenticated && req.isAuthenticated() &&
+		req.user && req.user.isAdmin;
 }
 
 module.exports = {
