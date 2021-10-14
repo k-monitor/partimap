@@ -84,7 +84,6 @@ router.put('/project',
 router.post('/project/access',
 	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
 	async (req, res) => {
-		// console.log(req.body);
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(req.project);
 	}

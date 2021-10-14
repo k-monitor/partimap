@@ -10,9 +10,12 @@
 export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
+		store.commit('generateVisitId');
 		try {
+			// TODO BUG: called twice, first from server with always regenerating visitId
 			const project = await $axios.$post('/api/project/access', {
-				projectId: params.id
+				projectId: params.id,
+				visitId: store.state.visitId,
 			});
 			if (params.id !== project.slug) {
 				return redirect(`/p/${project.slug}/${params.sheetord}`);
