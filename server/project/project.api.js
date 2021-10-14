@@ -83,6 +83,23 @@ router.put('/project',
 
 router.post('/project/access',
 	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
+	(req, res, next) => {
+		// projects without password can be accessed freely:
+		/* if (!req.project.password) {
+			return next();
+		} */
+
+		// users can access their own projects without password:
+		/* if (req.isAuthenticated && req.isAuthenticated() &&
+			req.user && (req.user.isAdmin || req.project.userId === req.user.id)) {
+			return next();
+		} */
+
+		console.log('partimap.pat =', req.cookies['partimap.pat']);
+		// TODO validate JWT signature
+		// TODO validate JWT content (visitId, projectId, ip)
+		next();
+	},
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(req.project);

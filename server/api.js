@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = require('express')();
 const auth = require('./auth/setup');
 const db = require('./db');
@@ -11,6 +12,7 @@ const user = require('./user/user.api');
 db.init(); // async but no need to wait here
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 auth.setup(app);
 
