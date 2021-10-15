@@ -1,14 +1,47 @@
 <template>
 	<Sheet
+		v-if="project"
 		:parent-project-data="project"
 		:sheet-ord="$route.params.sheetord"
 		:visitor="true"
 	/>
+	<div
+		v-else
+		class="align-items-center d-flex flex-column flex-grow-1 justify-content-center"
+	>
+		<div class="card m-3 shadow">
+			<form @submit.prevent="sendPassword">
+				<h5 class="card-header">Partimap</h5>
+				<div class="card-body">
+					<p>Ez a projekt jelszóval védett.</p>
+					<p>Kérlek írd be a jelszót a megtekintéshez:</p>
+					<b-input-group class="mt-3">
+						<template #prepend>
+							<b-input-group-text>
+								<i class="fas fa-key" />
+							</b-input-group-text>
+						</template>
+						<b-form-input
+							v-model="password"
+							type="password"
+							placeholder="Jelszó"
+						/>
+					</b-input-group>
+				</div>
+				<div class="card-footer text-right">
+					<button class="btn btn-primary">
+						Megtekintés
+						<i class="fas fa-sign-in-alt ml-1" />
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
-	async asyncData({ $axios, store, params, redirect }) {
+	/* async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		store.commit('generateVisitId');
 		try {
@@ -22,14 +55,41 @@ export default {
 			}
 			return { project };
 		} catch (error) {
-			redirect('/');
+			if (error.message && error.message.endsWith('status code 401')) {
+				// TOOD display password field
+			} else {
+				redirect('/');
+			}
 		}
+	}, */
+	data() {
+		return {
+			project: null,
+			password: null,
+		};
 	},
 	mounted() {
 		if (!this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
 			this.$store.commit('hit');
 			this.$axios.$post('/api/view/' + this.$route.params.id);
 		}
+	},
+	methods: {
+		async sendPassword() {
+			const { password } = this;
+			const projectId = this.$route.params.id;
+			const visitId = this.$store.state.visitId;
+			try {
+				this.project = await this.$axios.$post('/api/project/access', {
+					password,
+					projectId,
+					visitId,
+				});
+			} catch (error) {
+			} finally {
+				this.password = null;
+			}
+		},
 	},
 };
 </script>
