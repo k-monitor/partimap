@@ -4,6 +4,7 @@ const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const User = require('../../model/user');
 const { ensureLoggedIn, ensureAdmin, ensureAdminOr } = require('../auth/middlewares');
+const { hidePasswordField } = require('../common/functions');
 const { resolveRecord } = require('../common/middlewares');
 const db = require('./user.db');
 
@@ -12,14 +13,14 @@ router.get('/users',
 	ensureAdmin,
 	async (_, res) => {
 		const users = await db.findAll();
-		res.json(users);
+		res.json(hidePasswordField(users));
 	});
 
 router.get('/user/:id',
 	ensureLoggedIn,
 	ensureAdminOr(req => Number(req.params.id) === req.user.id),
 	resolveRecord(req => req.params.id, db.findById, '_user'),
-	(req, res) => res.json(req._user));
+	(req, res) => res.json(hidePasswordField(req._user)));
 
 router.patch('/user',
 	ensureLoggedIn,
@@ -54,7 +55,7 @@ router.patch('/user',
 		await db.update(user);
 
 		user = await db.findById(user.id);
-		res.json(user);
+		res.json(hidePasswordField(user));
 	});
 
 router.put('/user',

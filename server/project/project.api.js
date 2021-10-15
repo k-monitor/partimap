@@ -5,6 +5,7 @@ const rmrf = require('rimraf').sync;
 const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
+const { hidePasswordField } = require('../common/functions');
 const { resolveRecord } = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
 const sdb = require('../sheet/sheet.db');
@@ -26,7 +27,7 @@ router.get('/projects',
 		const projects = req.user.isAdmin
 			? await pdb.findAll()
 			: await pdb.findByUserId(req.user.id);
-		res.json(projects);
+		res.json(hidePasswordField(projects));
 	});
 
 router.get('/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
@@ -35,7 +36,7 @@ router.get('/project/:idOrSlug', // only used in admin, public endpoint is POST 
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
-		res.json(req.project);
+		res.json(hidePasswordField(req.project));
 	});
 
 router.patch('/project',
@@ -62,7 +63,7 @@ router.patch('/project',
 		await pdb.update(project);
 
 		project = await pdb.findById(project.id);
-		res.json(project);
+		res.json(hidePasswordField(project));
 	});
 
 router.put('/project',
@@ -80,7 +81,7 @@ router.put('/project',
 		const id = await pdb.create(project);
 		project = await pdb.findById(id);
 
-		res.json(project);
+		res.json(hidePasswordField(project));
 	});
 
 router.post('/project/access',
@@ -137,7 +138,7 @@ router.post('/project/access',
 	},
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
-		res.json(req.project);
+		res.json(hidePasswordField(req.project));
 	}
 );
 
