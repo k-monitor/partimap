@@ -147,7 +147,7 @@ export default {
 				if (!this.passwordModified) {
 					delete p.password;
 				} else {
-					p.password = this.newPassword;
+					p.newPassword = this.newPassword;
 				}
 				this.project = await this.$axios.$patch('/api/project', p);
 				this.newPassword = '';

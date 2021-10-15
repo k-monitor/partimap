@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
@@ -55,6 +56,9 @@ router.patch('/project',
 			// request modifies slug, just validate
 			changes.slug = await generateValidSlug(changes.slug, req.project.id);
 		}
+		if (changes.newPassword) {
+			changes.password = bcrypt.hashSync(changes.newPassword, 10);
+		}
 
 		let project = new Project(Object.assign(req.project, changes));
 		if (!project.title) {
@@ -106,7 +110,7 @@ router.post('/project/access',
 		}
 
 		// check received password if any
-		if (req.body.password && req.project.password === req.body.password) { // TODO BCrypt check
+		if (req.body.password && bcrypt.compareSync(req.body.password, req.project.password)) {
 			const data = {
 				projectId: req.project.id,
 				visitId: req.body.visitId,
