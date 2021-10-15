@@ -202,7 +202,7 @@ export default {
 				this.sheet = sheet;
 				this.success('Módosítás sikeres.');
 			} catch (error) {
-				this.error('Módosítás sikertelen.');
+				this.errorToast('Módosítás sikertelen.');
 			}
 		},
 		async uploadImage(image) {
@@ -215,7 +215,7 @@ export default {
 					}
 				});
 			} catch (error) {
-				this.error('Kép feltöltése sikertelen.');
+				this.errorToast('Kép feltöltése sikertelen.');
 			}
 		},
 		changeSheetDescription(val) {
@@ -355,7 +355,7 @@ export default {
 					} // Do nothing on window close or backdrop click
 				})
 				.catch(() => {
-					this.error('Sikertelen mentés');
+					this.errorToast('Sikertelen mentés');
 				});
 		},
 		toggleTermsAndUseAccepted(val) {

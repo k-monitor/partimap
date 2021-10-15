@@ -104,14 +104,14 @@ export default {
 				});
 				this.$router.push({ path: `/admin/map/${id}` });
 			} catch (error) {
-				this.error('Létrehozás sikertelen');
+				this.errorToast('Létrehozás sikertelen');
 			}
 		},
 		async removeMapFromDB(id) {
 			try {
 				await this.$axios.$delete('/api/map/' + id);
 			} catch (error) {
-				this.error('Sikertelen törlés.');
+				this.errorToast('Sikertelen törlés.');
 			}
 		},
 		showConfirmModal(id) {

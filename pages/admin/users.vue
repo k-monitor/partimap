@@ -91,7 +91,7 @@ export default {
 				});
 				this.$router.push({ path: '/admin/user/' + id });
 			} catch (error) {
-				this.error('Létrehozás sikertelen');
+				this.errorToast('Létrehozás sikertelen');
 			}
 		},
 	},

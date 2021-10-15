@@ -62,7 +62,7 @@ export default {
 					data: this.login,
 				});
 			} catch (err) {
-				this.error('Bejelentkezés sikertelen');
+				this.errorToast('Bejelentkezés sikertelen');
 			}
 		},
 	},

@@ -97,14 +97,14 @@ export default {
 				});
 				this.$router.push({ path: `/admin/project/${id}` });
 			} catch (error) {
-				this.error('Létrehozás sikertelen');
+				this.errorToast('Létrehozás sikertelen');
 			}
 		},
 		async removeProjFromDB(id) {
 			try {
 				await this.$axios.$delete('/api/project/' + id);
 			} catch (error) {
-				this.error('Sikertelen törlés.');
+				this.errorToast('Sikertelen törlés.');
 			}
 		},
 		showConfirmModal(id) {

@@ -8,7 +8,7 @@ export default {
 				noCloseButton: true
 			});
 		},
-		error(message) {
+		errorToast(message) {
 			this.toast(message, 'danger');
 		},
 		success(message) {

@@ -113,7 +113,7 @@ export default {
 				this.project = await this.$axios.$patch('/api/project', this.project);
 				this.success('Módosítás sikeres.');
 			} catch (error) {
-				this.error('Módosítás sikertelen.');
+				this.errorToast('Módosítás sikertelen.');
 			}
 		},
 		async addSheet(title, type) {
@@ -143,14 +143,14 @@ export default {
 				);
 				this.project.sheets.push(newSheet);
 			} catch (error) {
-				this.error('Munkalap hozzáadása sikertelen.');
+				this.errorToast('Munkalap hozzáadása sikertelen.');
 			}
 		},
 		async delSheet(sheet) {
 			try {
 				await this.$axios.$delete('/api/sheet/' + sheet.id);
 			} catch (error) {
-				this.error('Munkalap törlése sikertelen.');
+				this.errorToast('Munkalap törlése sikertelen.');
 			}
 			this.project.sheets = this.project.sheets.filter(function (s) {
 				if (s.id !== sheet.id) {
@@ -190,7 +190,7 @@ export default {
 					ord: sheet.ord,
 				});
 			} catch (error) {
-				this.error('Munkalap mozgatása sikertelen.');
+				this.errorToast('Munkalap mozgatása sikertelen.');
 			}
 		},
 	},

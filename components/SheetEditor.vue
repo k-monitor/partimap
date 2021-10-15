@@ -281,7 +281,7 @@ export default {
 				})
 				.catch(err => {
 					console.warn(err.message);
-					this.error('Sikertelen törlés.');
+					this.errorToast('Sikertelen törlés.');
 				});
 		},
 		deleteBackgroundImage() {

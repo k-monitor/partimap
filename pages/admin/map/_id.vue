@@ -64,7 +64,7 @@ export default {
 				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
 				this.success('A módosítások mentése sikeres.');
 			} catch (error) {
-				this.error('A módosítások mentése sikertelen.');
+				this.errorToast('A módosítások mentése sikertelen.');
 			}
 			this.contentModified = false;
 		},
@@ -98,7 +98,7 @@ export default {
 					} // Do nothing on window close or backdrop click
 				})
 				.catch(() => {
-					this.error('Sikertelen mentés');
+					this.errorToast('Sikertelen mentés');
 				});
 		},
 		goBackRoute() {

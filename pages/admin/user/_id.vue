@@ -111,7 +111,7 @@ export default {
 				this.$auth.fetchUser();
 				this.success('Módosítás sikeres');
 			} catch (error) {
-				this.error('Módosítás sikertelen');
+				this.errorToast('Módosítás sikertelen');
 			}
 		},
 	},
