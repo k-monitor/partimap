@@ -87,9 +87,7 @@ router.post('/project/access',
 	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
 	(req, res, next) => {
 		const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
-
-		console.log(COOKIE_NAME, req.cookies[COOKIE_NAME]);
-		console.log('BODY', JSON.stringify(req.body));
+		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
 		if (!req.body.visitId) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
@@ -111,7 +109,7 @@ router.post('/project/access',
 			const data = {
 				projectId: req.project.id,
 				visitId: req.body.visitId,
-				ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+				ip,
 			};
 			const expSeconds = 60 * 60; // 1 hour
 			const token = jwt.sign(data, JWT_SECRET, { expiresIn: `${expSeconds}s` });
@@ -119,15 +117,23 @@ router.post('/project/access',
 			return next();
 		}
 
-		const pat = req.cookies[COOKIE_NAME];
-		if (!pat) { // no cookie => no access
+		// if no password received, verify token
+		const token = req.cookies[COOKIE_NAME];
+		if (!token) { // no token => no access
 			return res.sendStatus(StatusCodes.UNAUTHORIZED);
 		}
-
-		// TODO validate JWT signature
-		// TODO validate JWT content (visitId, projectId, ip)
-
-		res.sendStatus(StatusCodes.NOT_IMPLEMENTED);
+		try {
+			const decoded = jwt.verify(token, JWT_SECRET);
+			if (decoded.projectId === req.project.id &&
+				decoded.visitId === req.body.visitId &&
+				decoded.ip === ip) {
+				next();
+			} else {
+				res.sendStatus(StatusCodes.UNAUTHORIZED);
+			}
+		} catch (error) { // token is invalid/expired
+			res.sendStatus(StatusCodes.UNAUTHORIZED);
+		}
 	},
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
