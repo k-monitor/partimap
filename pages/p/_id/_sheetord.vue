@@ -22,9 +22,10 @@
 							</b-input-group-text>
 						</template>
 						<b-form-input
+							ref="password"
 							v-model="password"
-							type="password"
 							placeholder="Jelszó"
+							type="password"
 						/>
 					</b-input-group>
 				</div>
@@ -35,13 +36,24 @@
 					</button>
 				</div>
 			</form>
+			<div
+				v-if="loading"
+				class="bg-white d-flex h-100 position-absolute w-100"
+			>
+				<div
+					class="m-auto spinner-border"
+					role="status"
+				>
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	/* async asyncData({ $axios, store, params, redirect }) {
+	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		store.commit('generateVisitId');
 		try {
@@ -61,21 +73,25 @@ export default {
 				redirect('/');
 			}
 		}
-	}, */
+	},
 	data() {
 		return {
+			loading: true,
 			project: null,
 			password: null,
 		};
 	},
 	mounted() {
+		this.$refs.password.focus();
 		if (!this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
 			this.$store.commit('hit');
 			this.$axios.$post('/api/view/' + this.$route.params.id);
 		}
+		this.loading = false;
 	},
 	methods: {
 		async sendPassword() {
+			this.loading = true;
 			const { password } = this;
 			const projectId = this.$route.params.id;
 			const visitId = this.$store.state.visitId;
@@ -86,8 +102,15 @@ export default {
 					visitId,
 				});
 			} catch (error) {
+				if (error.message && error.message.endsWith('status code 401')) {
+					this.errorToast('Érvénytelen jelszó!');
+				} else {
+					throw error; // let Nuxt handle it
+				}
 			} finally {
 				this.password = null;
+				this.$refs.password.focus();
+				this.loading = false;
 			}
 		},
 	},
