@@ -17,19 +17,21 @@
 						<div class="card-body">
 							<p>Ez a projekt jelszóval védett.</p>
 							<p>Kérlek írd be a jelszót a megtekintéshez:</p>
-							<b-input-group>
-								<template #prepend>
-									<b-input-group-text>
-										<i class="fas fa-key fa-fw" />
-									</b-input-group-text>
-								</template>
-								<b-form-input
-									ref="password"
-									v-model="password"
-									placeholder="Jelszó"
-									type="password"
-								/>
-							</b-input-group>
+							<div class="form-group">
+								<b-input-group>
+									<template #prepend>
+										<b-input-group-text>
+											<i class="fas fa-key fa-fw" />
+										</b-input-group-text>
+									</template>
+									<b-form-input
+										ref="password"
+										v-model="password"
+										placeholder="Jelszó"
+										type="password"
+									/>
+								</b-input-group>
+							</div>
 						</div>
 						<div class="card-footer text-right">
 							<button class="btn btn-primary">

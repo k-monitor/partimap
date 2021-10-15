@@ -39,18 +39,38 @@
 						</template>
 						<template #append>
 							<b-button
-								variant="outline-success py-0"
+								variant="outline-success"
 								@click="project.slug = generateSlug()"
 							>
-								<span class="material-icons">
-									auto_fix_high
-								</span>
+								<i class="fas fa-magic fa-fw" />
 							</b-button>
 						</template>
 						<b-form-input
 							id="slug"
 							v-model="project.slug"
 							:placeholder="generateSlug()"
+						/>
+					</b-input-group>
+				</div>
+				<div class="form-group">
+					<label for="password">Jelszavas védelem</label>
+					<b-input-group>
+						<template #append>
+							<b-button
+								v-if="project.password"
+								variant="danger"
+								@click="resetPassword"
+							>
+								<i class="fas fa-backspace" />
+							</b-button>
+						</template>
+						<b-form-input
+							id="password"
+							v-model="newPassword"
+							type="password"
+							:placeholder="project.password ? 'Be van állítva' : 'Új jelszó'"
+							:readonly="project.password"
+							@change="passwordModified = true"
 						/>
 					</b-input-group>
 				</div>
@@ -101,6 +121,12 @@ export default {
 			// TODO error üzenet
 		}
 	},
+	data() {
+		return {
+			newPassword: '',
+			passwordModified: false,
+		};
+	},
 	head() {
 		return {
 			title: 'Admin: ' + this.project.title,
@@ -110,9 +136,22 @@ export default {
 		generateSlug() {
 			return slugify(this.project.title);
 		},
+		resetPassword() {
+			this.project.password = false;
+			this.newPassword = '';
+			this.passwordModified = true;
+		},
 		async update() {
 			try {
-				this.project = await this.$axios.$patch('/api/project', this.project);
+				const p = { ...this.project };
+				if (!this.passwordModified) {
+					delete p.password;
+				} else {
+					p.password = this.newPassword;
+				}
+				this.project = await this.$axios.$patch('/api/project', p);
+				this.newPassword = '';
+				this.passwordModified = false;
 				this.success('Módosítás sikeres.');
 			} catch (error) {
 				this.errorToast('Módosítás sikertelen.');

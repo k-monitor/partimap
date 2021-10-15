@@ -6,33 +6,37 @@
 					<div class="card shadow-sm">
 						<h5 class="card-header">Partimap Bejelentkezés</h5>
 						<div class="card-body">
-							<b-input-group class="mb-3">
-								<template #prepend>
-									<b-input-group-text>
-										<i class="fas fa-at fa-fw"/>
-									</b-input-group-text>
-								</template>
-								<b-form-input
-									ref="email"
-									v-model="login.email"
-									class="form-control"
-									placeholder="Email cím"
-									type="email"
-								/>
-							</b-input-group>
-							<b-input-group>
-								<template #prepend>
-									<b-input-group-text>
-										<i class="fas fa-key fa-fw" />
-									</b-input-group-text>
-								</template>
-								<b-form-input
-									v-model="login.password"
-									class="form-control"
-									placeholder="Jelszó"
-									type="password"
-								/>
-							</b-input-group>
+							<div class="form-group">
+								<b-input-group>
+									<template #prepend>
+										<b-input-group-text>
+											<i class="fas fa-at fa-fw"/>
+										</b-input-group-text>
+									</template>
+									<b-form-input
+										ref="email"
+										v-model="login.email"
+										class="form-control"
+										placeholder="Email cím"
+										type="email"
+									/>
+								</b-input-group>
+							</div>
+							<div class="form-group">
+								<b-input-group>
+									<template #prepend>
+										<b-input-group-text>
+											<i class="fas fa-key fa-fw" />
+										</b-input-group-text>
+									</template>
+									<b-form-input
+										v-model="login.password"
+										class="form-control"
+										placeholder="Jelszó"
+										type="password"
+									/>
+								</b-input-group>
+							</div>
 						</div>
 						<div class="card-footer text-right">
 							<button

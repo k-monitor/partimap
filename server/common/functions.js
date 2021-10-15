@@ -3,7 +3,9 @@ function hidePasswordField(obj) {
 	if (Array.isArray(obj)) {
 		return obj.map(hidePasswordField);
 	}
-	return obj && obj.password ? { ...obj, password: true } : obj;
+	return obj && obj.password !== undefined
+		? { ...obj, password: (obj.password || '').length > 0 } // null and '' means no password
+		: obj;
 }
 
 module.exports = {
