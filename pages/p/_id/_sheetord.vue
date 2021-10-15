@@ -92,13 +92,16 @@ export default {
 		if (!this.project) {
 			this.$refs.password.focus();
 		}
-		if (!this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
-			this.$store.commit('hit');
-			this.$axios.$post('/api/view/' + this.$route.params.id);
-		}
+		this.registerHit();
 		this.loading = false;
 	},
 	methods: {
+		registerHit() {
+			if (this.project && !this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
+				this.$store.commit('hit');
+				this.$axios.$post('/api/view/' + this.$route.params.id);
+			}
+		},
 		async sendPassword() {
 			this.loading = true;
 			const { password } = this;
@@ -110,6 +113,7 @@ export default {
 					projectId,
 					visitId,
 				});
+				this.registerHit();
 			} catch (error) {
 				if (error.message && error.message.endsWith('status code 401')) {
 					this.errorToast('Érvénytelen jelszó!');
