@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
+const jwt = require('jsonwebtoken');
 const rmrf = require('rimraf').sync;
 const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
+const { JWT_SECRET } = require('../conf');
 const sdb = require('../sheet/sheet.db');
 const pdb = require('./project.db');
 
@@ -89,6 +91,10 @@ router.post('/project/access',
 		console.log(COOKIE_NAME, req.cookies[COOKIE_NAME]);
 		console.log('BODY', JSON.stringify(req.body));
 
+		if (!req.body.visitId) {
+			return res.sendStatus(StatusCodes.BAD_REQUEST);
+		}
+
 		// projects without password can be accessed freely:
 		if (!req.project.password) {
 			return next();
@@ -97,6 +103,19 @@ router.post('/project/access',
 		// logged in admin or project owner can bypass password protection:
 		if (req.isAuthenticated && req.isAuthenticated() &&
 			req.user && (req.user.isAdmin || req.project.userId === req.user.id)) {
+			return next();
+		}
+
+		// check received password if any
+		if (req.body.password && req.project.password === req.body.password) { // TODO BCrypt check
+			const data = {
+				projectId: req.project.id,
+				visitId: req.body.visitId,
+				ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+			};
+			const expSeconds = 60 * 60; // 1 hour
+			const token = jwt.sign(data, JWT_SECRET, { expiresIn: `${expSeconds}s` });
+			res.cookie(COOKIE_NAME, token, { maxAge: expSeconds * 1000 });
 			return next();
 		}
 
