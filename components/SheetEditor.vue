@@ -1,15 +1,27 @@
 <template>
 	<b-card class="sheet-editor-container">
 		<template #header>
-			<div v-if="!titleEdit" @click="editTitle">
-				<h5 class="my-0 text-center" :class="{visitor: 'editable-title'}">{{ localSheet.title }}</h5>
+			<div
+				v-if="!titleEdit"
+				@click="editTitle"
+			>
+				<h5
+					class="my-0 text-center"
+					:class="{visitor: 'editable-title'}"
+				>
+					{{ localSheet.title }}
+				</h5>
 			</div>
 			<div v-else>
 				<b-form
 					id="sheetNameForm"
 					@submit.prevent="titleEdit = false;"
 				>
-					<b-form-input v-model="localSheet.title" size="sm" class="mr-sm-2" />
+					<b-form-input
+						v-model="localSheet.title"
+						size="sm"
+						class="mr-sm-2"
+					/>
 					<b-button
 						size="sm"
 						class="mt-1 mt-sm-0 ml-auto"
@@ -38,7 +50,10 @@
 						maxlength="1000"
 						:readonly="visitor"
 					/>
-					<span v-if="!visitor" class="badge badge-secondary char-count">{{ descriptionLength }} / 1000</span>
+					<span
+						v-if="!visitor"
+						class="badge badge-secondary char-count"
+					>{{ descriptionLength }} / 1000</span>
 				</div>
 				<div>
 					<b-form-checkbox
@@ -61,17 +76,24 @@
 					</b-form-checkbox>
 				</div>
 			</b-form>
-			<div ref="sidebar-collapse" class="sidebar-button sidebar-collapse">
-				<a href="#" @click="$emit('collapse',$refs['sidebar-collapse'])">
-					<svg width="13" height="150">
+			<div
+				ref="sidebar-collapse"
+				class="sidebar-button sidebar-collapse"
+			>
+				<a
+					href="#"
+					@click="$emit('collapse',$refs['sidebar-collapse'])"
+				>
+					<svg
+						width="13"
+						height="150"
+					>
 						<path
 							d=" M 13 150 L 0 135 L 0 15 L 13 0"
 							fill="rgb(247,247,247)"
 							stroke="rgb(223,223,223)"
 						/>
-						<path
-							d="M 13 0 L 13 150"
-						/>
+						<path d="M 13 0 L 13 150" />
 					</svg>
 				</a>
 				<span class="material-icons collapse-icon">
@@ -79,7 +101,10 @@
 				</span>
 			</div>
 			<hr>
-			<div v-if="!sheet.image && !sheet.features && !visitor" class="image-selector">
+			<div
+				v-if="!sheet.image && !sheet.features && !visitor"
+				class="image-selector"
+			>
 				<b-form @submit.prevent="submitFile">
 					<b-row>
 						<b-col class="pr-1">
@@ -99,7 +124,10 @@
 								/>
 							</b-form-group>
 						</b-col>
-						<b-col cols="auto" class="pl-0 ">
+						<b-col
+							cols="auto"
+							class="pl-0 "
+						>
 							<b-button
 								variant="outline-success"
 								size="sm"
@@ -115,8 +143,18 @@
 					</b-row>
 				</b-form>
 			</div>
-			<div v-if="sheet.image && !visitor" class="delete-image">
-				<b-button class="w-100" size="sm" variant="danger" @click="showConfirmModal">Háttérkép eltávolítása</b-button>
+			<div
+				v-if="sheet.image && !visitor"
+				class="delete-image"
+			>
+				<b-button
+					class="w-100"
+					size="sm"
+					variant="danger"
+					@click="showConfirmModal"
+				>
+					Háttérkép eltávolítása
+				</b-button>
 			</div>
 			<b-button
 				v-if="localSheet.survey"
@@ -172,7 +210,11 @@
 			ok-variant="success"
 			@ok="$emit('toggleTermsAndUseAccepted','accepted')"
 		>
-			<p v-for="i in 20" :key="i" class="my-4">
+			<p
+				v-for="i in 20"
+				:key="i"
+				class="my-4"
+			>
 				Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
 				in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 			</p>
@@ -183,7 +225,10 @@
 <script>
 export default {
 	props: {
-		sheet: {}, // TODO
+		sheet: {
+			type: Object,
+			default: null,
+		},
 		nextBtnShown: {
 			type: Boolean,
 			default: false
@@ -305,7 +350,6 @@ export default {
 </script>
 
 <style scoped>
-
 .sheet-editor-container {
 	width: 250px;
 }
@@ -334,7 +378,7 @@ export default {
 
 <style>
 .custom-file-input:lang(en) ~ .custom-file-label::after {
-  display: none;
+	display: none;
 }
 .sidebar-button {
 	position: absolute;
@@ -348,12 +392,11 @@ export default {
 }
 .sidebar-button.sidebar-collapse {
 	transform: translate(0, -50%);
-
 }
 .sheet-sidebar .sidebar-button.sidebar-collapse {
 	right: 0;
 }
-.sidebar-button:hover path{
+.sidebar-button:hover path {
 	fill: rgb(223, 223, 223);
 }
 .sidebar-button .collapse-icon {
@@ -363,7 +406,6 @@ export default {
 	top: 50%;
 	transform: translate(-15px, -50%) rotate(90deg);
 	pointer-events: none;
-
 }
 .side-footer {
 	height: 100px;

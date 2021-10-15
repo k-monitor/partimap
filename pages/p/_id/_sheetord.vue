@@ -68,7 +68,7 @@ export default {
 			return { project };
 		} catch (error) {
 			if (error.message && error.message.endsWith('status code 401')) {
-				// TOOD display password field
+				// NOP displaying password field
 			} else {
 				redirect('/');
 			}
@@ -82,7 +82,9 @@ export default {
 		};
 	},
 	mounted() {
-		this.$refs.password.focus();
+		if (!this.project) {
+			this.$refs.password.focus();
+		}
 		if (!this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
 			this.$store.commit('hit');
 			this.$axios.$post('/api/view/' + this.$route.params.id);

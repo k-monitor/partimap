@@ -12,7 +12,9 @@
 						:to="'/p/' + (project.slug || project.id) + '/0'"
 						class="btn btn-success ml-auto"
 						target="_blank"
-					>Megtekintés</NuxtLink>
+					>
+						Megtekintés
+					</NuxtLink>
 				</div>
 			</template>
 			<form
