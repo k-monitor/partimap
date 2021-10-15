@@ -4,28 +4,35 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="userLogin">
 					<div class="card shadow-sm">
-						<h2 class="card-header">
-							Partimap Bejelentkezés
-						</h2>
+						<h5 class="card-header">Partimap Bejelentkezés</h5>
 						<div class="card-body">
-							<div class="form-group">
-								<label for="email">Email cím</label>
-								<input
-									id="email"
+							<b-input-group class="mb-3">
+								<template #prepend>
+									<b-input-group-text>
+										<i class="fas fa-at fa-fw"/>
+									</b-input-group-text>
+								</template>
+								<b-form-input
+									ref="email"
 									v-model="login.email"
 									class="form-control"
+									placeholder="Email cím"
 									type="email"
-								>
-							</div>
-							<div class="form-group">
-								<label for="password">Jelszó</label>
-								<input
-									id="password"
+								/>
+							</b-input-group>
+							<b-input-group>
+								<template #prepend>
+									<b-input-group-text>
+										<i class="fas fa-key fa-fw" />
+									</b-input-group-text>
+								</template>
+								<b-form-input
 									v-model="login.password"
 									class="form-control"
+									placeholder="Jelszó"
 									type="password"
-								>
-							</div>
+								/>
+							</b-input-group>
 						</div>
 						<div class="card-footer text-right">
 							<button
@@ -33,6 +40,7 @@
 								type="submit"
 							>
 								Bejelentkezés
+								<i class="fas fa-sign-in-alt ml-1" />
 							</button>
 						</div>
 					</div>
@@ -53,7 +61,10 @@ export default {
 		};
 	},
 	head: {
-		title: 'Bejelentkezés'
+		title: 'Bejelentkezés',
+	},
+	mounted() {
+		this.$refs.email.focus();
 	},
 	methods: {
 		async userLogin() {

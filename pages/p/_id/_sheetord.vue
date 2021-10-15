@@ -7,45 +7,50 @@
 	/>
 	<div
 		v-else
-		class="align-items-center d-flex flex-column flex-grow-1 justify-content-center"
+		class="container d-flex flex-column flex-grow-1"
 	>
-		<div class="card m-3 shadow">
-			<form @submit.prevent="sendPassword">
-				<h5 class="card-header">Partimap</h5>
-				<div class="card-body">
-					<p>Ez a projekt jelszóval védett.</p>
-					<p>Kérlek írd be a jelszót a megtekintéshez:</p>
-					<b-input-group class="mt-3">
-						<template #prepend>
-							<b-input-group-text>
-								<i class="fas fa-key" />
-							</b-input-group-text>
-						</template>
-						<b-form-input
-							ref="password"
-							v-model="password"
-							placeholder="Jelszó"
-							type="password"
-						/>
-					</b-input-group>
-				</div>
-				<div class="card-footer text-right">
-					<button class="btn btn-primary">
-						Megtekintés
-						<i class="fas fa-sign-in-alt ml-1" />
-					</button>
-				</div>
-			</form>
-			<div
-				v-if="loading"
-				class="bg-white d-flex h-100 position-absolute w-100"
-			>
-				<div
-					class="m-auto spinner-border"
-					role="status"
-				>
-					<span class="sr-only">Loading...</span>
-				</div>
+		<div class="row flex-grow-1">
+			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
+				<form @submit.prevent="sendPassword">
+					<div class="card m-3 shadow-sm">
+						<h5 class="card-header">Partimap</h5>
+						<div class="card-body">
+							<p>Ez a projekt jelszóval védett.</p>
+							<p>Kérlek írd be a jelszót a megtekintéshez:</p>
+							<b-input-group>
+								<template #prepend>
+									<b-input-group-text>
+										<i class="fas fa-key fa-fw" />
+									</b-input-group-text>
+								</template>
+								<b-form-input
+									ref="password"
+									v-model="password"
+									placeholder="Jelszó"
+									type="password"
+								/>
+							</b-input-group>
+						</div>
+						<div class="card-footer text-right">
+							<button class="btn btn-primary">
+								Megtekintés
+								<i class="fas fa-sign-in-alt ml-1" />
+							</button>
+						</div>
+
+						<div
+							v-if="loading"
+							class="bg-white d-flex h-100 position-absolute w-100"
+						>
+							<div
+								class="m-auto spinner-border"
+								role="status"
+							>
+								<span class="sr-only">Loading...</span>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
