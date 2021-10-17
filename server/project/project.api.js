@@ -46,6 +46,7 @@ router.patch('/project',
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		const changes = req.body;
+		delete changes.password;
 		if (!req.user.isAdmin) {
 			delete changes.userId;
 		}
@@ -56,8 +57,8 @@ router.patch('/project',
 			// request modifies slug, just validate
 			changes.slug = await generateValidSlug(changes.slug, req.project.id);
 		}
-		if (changes.newPassword) {
-			changes.password = bcrypt.hashSync(changes.newPassword, 10);
+		if (changes.newPassword !== undefined) {
+			changes.password = changes.newPassword ? bcrypt.hashSync(changes.newPassword, 10) : null;
 		}
 
 		let project = new Project(Object.assign(req.project, changes));
@@ -79,6 +80,9 @@ router.put('/project',
 		}
 		if (!project.userId || !req.user.isAdmin) {
 			project.userId = req.user.id;
+		}
+		if (project.password) {
+			project.password = bcrypt.hashSync(project.password, 10);
 		}
 		project.slug = await generateValidSlug(project.slug || project.title);
 
