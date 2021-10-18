@@ -95,7 +95,7 @@
 					</div>
 				</div>
 				<div
-					v-else
+					v-else-if="!localSheet.features && !localSheet.survey"
 					class="form-group"
 				>
 					<b-form-checkbox v-model="socialButtons">
