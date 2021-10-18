@@ -346,30 +346,21 @@ export default {
 			this.sheet.features = features.length ? features : [];
 		},
 		featuresFromRaw(featuresRaw) {
-			const featuresJSON = JSON.parse(featuresRaw);
-			const geoJSONify = featuresJSON => {
-				return { type: 'FeatureCollection', features: featuresJSON };
-			};
-
-			if (!featuresJSON) {
-				return null;
-			}
-			const features = new GeoJSON().readFeatures(geoJSONify(featuresJSON));
-			return features;
+			const features = JSON.parse(featuresRaw);
+			const featureCollection = { type: 'FeatureCollection', features };
+			return features
+				? new GeoJSON().readFeatures(featureCollection)
+				: null;
 		},
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.initSheet.features);
-			const visitorFeatures = this.getVisitorFeatures(this.sheet.id)
-				? this.getVisitorFeatures(this.sheet.id)
-				: [];
+			const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
 			this.localVisitorFeatures = [...visitorFeatures];
 			return [...visitorFeatures, ...adminFeatures];
 		},
 		loadInitFeatureRatings() {
 			// called every time when the feature sidebar is closed or opened
-			const visitorRatings = this.getVisitorRatings(this.sheet.id)
-				? this.getVisitorRatings(this.sheet.id)
-				: {};
+			const visitorRatings = this.getVisitorRatings(this.sheet.id) || [];
 			this.localVisitorFeatureRatings = { ...visitorRatings };
 			return { ...visitorRatings };
 		},
