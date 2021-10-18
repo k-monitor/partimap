@@ -49,6 +49,7 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/auth-next',
 		'bootstrap-vue/nuxt',
+		'vue-social-sharing/nuxt',
 	],
 
 	axios: {

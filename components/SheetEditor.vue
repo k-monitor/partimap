@@ -55,7 +55,7 @@
 						class="badge badge-secondary char-count"
 					>{{ descriptionLength }} / 1000</span>
 				</div>
-				<div>
+				<div class="form-group">
 					<b-form-checkbox
 						v-if="visitor && firstSheet()"
 						id="checkbox-1"
@@ -74,6 +74,23 @@
 							</a>
 						</small>
 					</b-form-checkbox>
+				</div>
+				<div
+					v-if="visitor"
+					class="d-flex justify-content-around mb-3"
+				>
+					<ShareNetwork
+						v-for="s in social"
+						:key="s.network"
+						:network="s.network"
+						:url="projectUrl"
+						hashtags="vuejs,vite"
+					>
+						<i
+							class="fa-fw fa-2x"
+							:class="s.icon"
+						/>
+					</ShareNetwork>
 				</div>
 			</b-form>
 			<div
@@ -100,7 +117,6 @@
 					expand_more
 				</span>
 			</div>
-			<hr>
 			<div
 				v-if="!sheet.image && !sheet.features && !visitor"
 				class="image-selector"
@@ -231,20 +247,20 @@ export default {
 		},
 		nextBtnShown: {
 			type: Boolean,
-			default: false
+			default: false,
 		},
 		prevBtnShown: {
 			type: Boolean,
-			default: false
+			default: false,
 		},
 		visitor: {
 			type: Boolean,
-			default: false
+			default: false,
 		},
 		termsAndUseAccepted: {
 			type: String,
-			default: 'not_accepted'
-		}
+			default: 'not_accepted',
+		},
 	},
 	data() {
 		return {
@@ -252,11 +268,18 @@ export default {
 			titleEdit: false,
 			backgroundImage: null,
 			imageState: null,
+			social: [
+				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
+				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
+				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
+			],
 		};
 	},
 	computed: {
 		descriptionLength() {
-			return this.localSheet.description ? this.localSheet.description.length : 0;
+			return this.localSheet.description
+				? this.localSheet.description.length
+				: 0;
 		},
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
@@ -265,14 +288,17 @@ export default {
 				return false;
 			}
 		},
+		projectUrl() {
+			return window.location.href.replace(/\/\d+\/?/, '');
+		},
 		termsAndUseAcceptedLocal: {
 			get() {
 				return this.termsAndUseAccepted;
 			},
 			set(val) {
 				this.$emit('toggleTermsAndUseAccepted', val);
-			}
-		}
+			},
+		},
 	},
 	watch: {
 		backgroundImage(val) {
@@ -284,11 +310,11 @@ export default {
 		sheet(val) {
 			this.localSheet = val;
 		},
-		'localSheet.description' (val) {
+		'localSheet.description'(val) {
 			this.$emit('sheetDescriptionChanged', val);
 			this.$nuxt.$emit('contentModified');
 		},
-		'localSheet.title' (val) {
+		'localSheet.title'(val) {
 			this.$emit('sheetTitleChanged', val);
 			this.$nuxt.$emit('contentModified');
 		},
@@ -296,7 +322,7 @@ export default {
 	methods: {
 		checkFileValidity() {
 			// Filesize: max 5MB
-			const valid = (this.backgroundImage.size < 5 * 1024 * 1024);
+			const valid = this.backgroundImage.size < 5 * 1024 * 1024;
 			this.imageState = valid;
 			return valid;
 		},
@@ -307,18 +333,19 @@ export default {
 			this.$emit('uploadImage', this.backgroundImage);
 		},
 		showConfirmModal() {
-			this.$bvModal.msgBoxConfirm('Biztosan törli a háttérképet?', {
-				title: 'Megerősítés',
-				size: 'sm',
-				buttonSize: 'sm',
-				okVariant: 'danger',
-				okTitle: 'IGEN',
-				cancelTitle: 'MÉGSEM',
-				footerClass: 'p-2',
-				hideHeaderClose: false,
-				centered: true,
-				autoFocusButton: 'ok'
-			})
+			this.$bvModal
+				.msgBoxConfirm('Biztosan törli a háttérképet?', {
+					title: 'Megerősítés',
+					size: 'sm',
+					buttonSize: 'sm',
+					okVariant: 'danger',
+					okTitle: 'IGEN',
+					cancelTitle: 'MÉGSEM',
+					footerClass: 'p-2',
+					hideHeaderClose: false,
+					centered: true,
+					autoFocusButton: 'ok',
+				})
 				.then(value => {
 					if (value) {
 						this.deleteBackgroundImage();
@@ -343,10 +370,9 @@ export default {
 		},
 		firstSheet() {
 			return !this.sheet.ord;
-		}
-	}
+		},
+	},
 };
-
 </script>
 
 <style scoped>
