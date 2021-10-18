@@ -157,26 +157,30 @@ export default {
 				this.errorToast('Módosítás sikertelen.');
 			}
 		},
-		async addSheet(title, type) {
+		async addSheet(title, type, sourceMap) {
+			let initialFeatures = [];
+			alert(sourceMap);
+			if (sourceMap) {
+				const m = await this.$axios.$get('/api/map/' + sourceMap);
+				initialFeatures = m.features;
+			}
+			alert(initialFeatures);
+
 			const sheetData = {};
 			sheetData.title = title;
-			switch (type) {
-			case 'poll':
+			if (type.match(/poll$/i)) {
+				// poll / demographicsPoll
 				sheetData.survey = {};
-				break;
-			case 'staticMap':
-				sheetData.features = [];
-				break;
-			case 'interactiveMap':
-				sheetData.features = [];
-				sheetData.interactions = [];
-				break;
-			case 'demographicsPoll':
-				sheetData.survey = {};
-				break;
-			default:
-				break;
+			} else if (type.match(/map$/i)) {
+				// staticMap / interactiveMap
+				sheetData.features = initialFeatures;
+				if (type.startsWith('interactive')) {
+					// interactiveMap
+					sheetData.interactions = [];
+				}
 			}
+			alert(sheetData.features);
+
 			try {
 				const newSheet = await this.$axios.$put(
 					'/api/project/' + this.project.id + '/sheet',

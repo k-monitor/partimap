@@ -256,7 +256,7 @@ export default {
 				return;
 			}
 			// Create sheet
-			this.$emit('addSheet', this.newSheetTitle, this.newSheetType);
+			this.$emit('addSheet', this.newSheetTitle, this.newSheetType, this.sourceMap);
 			this.newSheetTitle = '';
 			this.newSheetType = '';
 			// Hide the modal manually
