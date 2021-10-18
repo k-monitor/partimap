@@ -20,7 +20,10 @@
 					@hidden="resetModal"
 					@ok="handleOk"
 				>
-					<form ref="form" @submit.stop.prevent="handleSubmit">
+					<form
+						ref="form"
+						@submit.stop.prevent="handleSubmit"
+					>
 						<b-form-group
 							label="Munkalap elnevezése:"
 							label-for="name-input"
@@ -35,64 +38,81 @@
 							/>
 						</b-form-group>
 					</form>
-					<label for="type-selector" class="pb-3">Munkalap típusa:</label>
-					<b-row id="type-selector" align-h="around" class="sheet-types">
-						<b-col cols="auto">
-							<span
-								v-b-tooltip.hover
-								title="Szöveges munkalap (alapértelmezett)"
-								:class="[newSheetType === 'text' ? ['text-success','selected'] : '' ]"
-								class="material-icons clickable"
-								@click="toggleSheetType('text')"
-							>
-								description
-							</span>
-						</b-col>
-						<b-col cols="auto">
-							<span
-								v-b-tooltip.hover
-								title="Kérdőíves munkalap"
-								:class="[newSheetType === 'poll' ? ['text-success','selected'] : '' ]"
-								class="material-icons clickable"
-								@click="toggleSheetType('poll')"
-							>
-								poll
-							</span>
-						</b-col>
-						<b-col cols="auto">
-							<span
-								v-b-tooltip.hover
-								title="Térképes munkalap (statikus)"
-								:class="[newSheetType === 'staticMap' ? ['text-success','selected'] : '' ]"
-								class="material-icons clickable"
-								@click="toggleSheetType('staticMap')"
-							>
-								map
-							</span>
-						</b-col>
-						<b-col cols="auto">
-							<span
-								v-b-tooltip.hover
-								title="Térképes munkalap (interaktív)"
-								:class="[newSheetType === 'interactiveMap' ? ['text-success','selected'] : '' ]"
-								class="material-icons clickable"
-								@click="toggleSheetType('interactiveMap')"
-							>
-								location_on
-							</span>
-						</b-col>
-						<b-col cols="auto">
-							<span
-								v-b-tooltip.hover
-								title="Demográfiai kérdőíves munkalap"
-								:class="[newSheetType === 'demographicsPoll' ? ['text-success','selected'] : '' ]"
-								class="material-icons clickable"
-								@click="toggleSheetType('demographicsPoll')"
-							>
-								groups
-							</span>
-						</b-col>
-					</b-row>
+					<b-form-group>
+						<label
+							for="type-selector"
+							class="pb-3"
+						>Munkalap típusa:</label>
+						<b-row
+							id="type-selector"
+							align-h="around"
+							class="sheet-types"
+						>
+							<b-col cols="auto">
+								<span
+									v-b-tooltip.hover
+									title="Szöveges munkalap (alapértelmezett)"
+									:class="[newSheetType === 'text' ? ['text-success','selected'] : '' ]"
+									class="material-icons clickable"
+									@click="toggleSheetType('text')"
+								>
+									description
+								</span>
+							</b-col>
+							<b-col cols="auto">
+								<span
+									v-b-tooltip.hover
+									title="Kérdőíves munkalap"
+									:class="[newSheetType === 'poll' ? ['text-success','selected'] : '' ]"
+									class="material-icons clickable"
+									@click="toggleSheetType('poll')"
+								>
+									poll
+								</span>
+							</b-col>
+							<b-col cols="auto">
+								<span
+									v-b-tooltip.hover
+									title="Térképes munkalap (statikus)"
+									:class="[newSheetType === 'staticMap' ? ['text-success','selected'] : '' ]"
+									class="material-icons clickable"
+									@click="toggleSheetType('staticMap')"
+								>
+									map
+								</span>
+							</b-col>
+							<b-col cols="auto">
+								<span
+									v-b-tooltip.hover
+									title="Térképes munkalap (interaktív)"
+									:class="[newSheetType === 'interactiveMap' ? ['text-success','selected'] : '' ]"
+									class="material-icons clickable"
+									@click="toggleSheetType('interactiveMap')"
+								>
+									location_on
+								</span>
+							</b-col>
+							<b-col cols="auto">
+								<span
+									v-b-tooltip.hover
+									title="Demográfiai kérdőíves munkalap"
+									:class="[newSheetType === 'demographicsPoll' ? ['text-success','selected'] : '' ]"
+									class="material-icons clickable"
+									@click="toggleSheetType('demographicsPoll')"
+								>
+									groups
+								</span>
+							</b-col>
+						</b-row>
+					</b-form-group>
+					<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
+						<label for="sourceMap">Térkép elemek másolása innen:</label>
+						<b-form-select
+							id="sourceMap"
+							v-model="sourceMap"
+							:options="[{value: null, text: 'Nincs másolás'}].concat(maps)"
+						/>
+					</b-form-group>
 				</b-modal>
 			</template>
 			<div class="list-group">
@@ -102,7 +122,10 @@
 					:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
 					class="align-items-center list-group-item list-group-item-action py-0"
 				>
-					<b-row align-v="center" class="px-2 py-3">
+					<b-row
+						align-v="center"
+						class="px-2 py-3"
+					>
 						<div style="width: 70px;">
 							<span
 								class="material-icons  float-left mr-3"
@@ -149,16 +172,31 @@ export default {
 	props: {
 		projectId: {
 			type: Number,
-			default: 0
+			default: 0,
 		},
-		sheets: {}
+		sheets: {
+			type: Array,
+			default: () => [],
+		},
 	},
 	data() {
 		return {
+			maps: [],
 			newSheetTitle: '',
 			newSheetType: 'text',
-			nameState: null
+			nameState: null,
+			sourceMap: null,
 		};
+	},
+	async fetch() {
+		const maps = await this.$axios.$get('/api/maps');
+		this.maps = maps
+			.map(m => ({ ...m, featureCount: JSON.parse(m.features || '[]').length }))
+			.filter(m => m.featureCount > 0)
+			.map(m => ({
+				value: m.id,
+				text: `${m.title} (${m.featureCount} elem)`,
+			}));
 	},
 	methods: {
 		getSheetType(sheet) {
@@ -175,18 +213,19 @@ export default {
 			}
 		},
 		showConfirmModal(sheet) {
-			this.$bvModal.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
-				title: 'Megerősítés',
-				size: 'sm',
-				buttonSize: 'sm',
-				okVariant: 'danger',
-				okTitle: 'IGEN',
-				cancelTitle: 'MÉGSEM',
-				footerClass: 'p-2',
-				hideHeaderClose: false,
-				centered: true,
-				autoFocusButton: 'ok',
-			})
+			this.$bvModal
+				.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
+					title: 'Megerősítés',
+					size: 'sm',
+					buttonSize: 'sm',
+					okVariant: 'danger',
+					okTitle: 'IGEN',
+					cancelTitle: 'MÉGSEM',
+					footerClass: 'p-2',
+					hideHeaderClose: false,
+					centered: true,
+					autoFocusButton: 'ok',
+				})
 				.then(value => {
 					if (value) {
 						this.$emit('delSheet', sheet);
@@ -231,22 +270,22 @@ export default {
 			} else {
 				this.newSheetType = type;
 			}
-		}
-	}
+		},
+	},
 };
 </script>
 
 <style scoped>
 .material-icons {
-  font-size: 24px;
+	font-size: 24px;
 }
 
 .material-icons.clickable {
-  cursor: pointer;
-  opacity: 0.5;
+	cursor: pointer;
+	opacity: 0.5;
 }
 .material-icons.clickable:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .material-icons.down-arrow-disabled {
