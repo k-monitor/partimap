@@ -1,3 +1,5 @@
+import GeoJSON from 'ol/format/GeoJSON';
+
 export const state = () => ({
 	visitorFeatures: {},
 	visitorRatings: {},
@@ -28,7 +30,7 @@ export const getters = {
 			const f = state.visitorFeatures[id.toString()];
 			if (f && f.length) {
 				data[id] = data[id] || {};
-				data[id].features = f;
+				data[id].features = f.map(e => JSON.parse(new GeoJSON().writeFeature(e)));
 			}
 
 			const r = state.visitorRatings[id.toString()];
