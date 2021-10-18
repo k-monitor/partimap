@@ -204,6 +204,7 @@
 				size="sm"
 				class="float-left"
 				variant="outline-secondary"
+				:disabled="submitted"
 				@click="$emit('prevSheet')"
 			>
 				Vissza
@@ -228,7 +229,7 @@
 				</b-button>
 				<b-button
 					v-else-if="visitor"
-					:disabled="nextButtonDisabled"
+					:disabled="nextButtonDisabled || submitted"
 					size="sm"
 					variant="success"
 					@click="$emit('submit')"
@@ -283,6 +284,10 @@ export default {
 		termsAndUseAccepted: {
 			type: String,
 			default: 'not_accepted',
+		},
+		submitted: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	data() {

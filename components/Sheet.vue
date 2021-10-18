@@ -45,6 +45,7 @@
 					:prev-btn-shown="prevSheetExists()"
 					:visitor="visitor"
 					:terms-and-use-accepted="termsAndUseAccepted"
+					:submitted="submitted"
 					@sheetDescriptionChanged="changeSheetDescription"
 					@sheetTitleChanged="changeSheetTitle"
 					@sheetInteractionsChanged="changeSheetInteractions"
@@ -93,6 +94,7 @@
 					<b-button
 						size="sm"
 						variant="outline-secondary"
+						:disabled="submitted"
 						@click="goToOtherSheet(-1)"
 					>
 						<div class="content d-flex">
@@ -128,7 +130,7 @@
 						v-else-if="visitor"
 						size="sm"
 						variant="success"
-						:disabled="nextButtonDisabled"
+						:disabled="nextButtonDisabled || submitted"
 						@click="submit"
 					>
 						Küldés
@@ -170,6 +172,7 @@ export default {
 			localVisitorFeatures: [],
 			localVisitorFeatureRatings: {},
 			initFeatureRatings: null,
+			submitted: false,
 		};
 	},
 	computed: {
@@ -219,12 +222,16 @@ export default {
 	},
 	methods: {
 		async submit() {
+			this.submitted = true;
 			this.storeLocalVisitorFeatures();
 			this.storeLocalVisitorFeatureRatings();
 			const sheetIds = this.project.sheets.map(s => s.id);
 			const data = this.getSubmissionData(sheetIds);
-			await this.$axios.$post('/api/submission/' + this.project.id, data);
-			// TODO mark submitted
+			if (Object.keys(data).length) {
+				await this.$axios.$post('/api/submission/' + this.project.id, data);
+			} else {
+				this.submitted = false;
+			}
 		},
 		async update(localSheet) {
 			try {
