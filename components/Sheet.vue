@@ -57,17 +57,24 @@
 					@submit="submit"
 				/>
 			</b-sidebar>
-			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">
-				<a v-b-toggle.sheet-sidebar href="#">
-					<svg width="14" height="150">
+			<div
+				ref="sidebar-expand"
+				class="sidebar-button sidebar-expand"
+			>
+				<a
+					v-b-toggle.sheet-sidebar
+					href="#"
+				>
+					<svg
+						width="14"
+						height="150"
+					>
 						<path
 							d=" M 0 150 L 13 135 L 13 15 L 0 0"
 							fill="rgb(247,247,247)"
 							stroke="rgb(223,223,223)"
 						/>
-						<path
-							d="M 0 0 L 0 150"
-						/>
+						<path d="M 0 0 L 0 150" />
 					</svg>
 				</a>
 				<span class="material-icons collapse-icon">
@@ -100,7 +107,7 @@
 				</div>
 			</b-navbar-nav>
 			<b-navbar-nav>
-				<div >
+				<div>
 					<b-button
 						v-if="nextSheetExists()"
 						size="sm"
@@ -140,15 +147,15 @@ export default {
 	props: {
 		sheetOrd: {
 			type: String,
-			required: true
+			required: true,
 		},
 		parentProjectData: {
 			type: Object,
-			required: true
+			required: true,
 		},
 		visitor: {
 			type: Boolean,
-			default: false
+			default: false,
 		},
 	},
 	data() {
@@ -162,16 +169,16 @@ export default {
 			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
 			localVisitorFeatures: [],
 			localVisitorFeatureRatings: {},
-			initFeatureRatings: null
+			initFeatureRatings: null,
 		};
 	},
 	computed: {
-		...mapGetters(
-			{
-				getAllFeature: 'features/getAllFeature',
-				getVisitorFeatures: 'visitordata/getVisitorFeatures',
-				getVisitorRatings: 'visitordata/getVisitorRatings'
-			}),
+		...mapGetters({
+			getAllFeature: 'features/getAllFeature',
+			getVisitorFeatures: 'visitordata/getVisitorFeatures',
+			getVisitorRatings: 'visitordata/getVisitorRatings',
+			getSubmissionData: 'visitordata/getSubmissionData',
+		}),
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
 				return this.termsAndUseAccepted === 'not_accepted';
@@ -179,7 +186,6 @@ export default {
 				return false;
 			}
 		},
-
 	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
@@ -199,7 +205,9 @@ export default {
 		});
 	},
 	mounted() {
-		this.sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(this.sheetOrd))[0];
+		this.sheet = this.project.sheets.filter(
+			sheet => sheet.ord === parseInt(this.sheetOrd)
+		)[0];
 		this.initSheet = { ...this.sheet };
 		this.initFeatureRatings = this.loadInitFeatureRatings();
 	},
@@ -210,10 +218,13 @@ export default {
 		this.$nuxt.$off('featureRatedByVisitor');
 	},
 	methods: {
-		/* async */ submit() {
-			console.log('--- SUBMIT');
-			console.log('VIS FEAUTRES', this.getVisitorFeatures);
-			console.log('VIS RATINGS', this.getVisitorRatings);
+		async submit() {
+			this.storeLocalVisitorFeatures();
+			this.storeLocalVisitorFeatureRatings();
+			const sheetIds = this.project.sheets.map(s => s.id);
+			const data = this.getSubmissionData(sheetIds);
+			await this.$axios.$post('/api/submission/' + this.project.id, data);
+			// TODO mark submitted
 		},
 		async update(localSheet) {
 			try {
@@ -228,11 +239,15 @@ export default {
 			const formData = new FormData();
 			formData.append('image', image);
 			try {
-				this.sheet = await this.$axios.$put('/api/sheet/' + this.sheet.id + '/image', formData, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
+				this.sheet = await this.$axios.$put(
+					'/api/sheet/' + this.sheet.id + '/image',
+					formData,
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
 					}
-				});
+				);
 			} catch (error) {
 				this.errorToast('Kép feltöltése sikertelen.');
 			}
@@ -255,16 +270,18 @@ export default {
 			}
 		},
 		/**
-         * Gets sheet from DB by its order instead of is
-         * @returns {Object} sheet
-         */
+		 * Gets sheet from DB by its order instead of is
+		 * @returns {Object} sheet
+		 */
 		getByOrd(ord) {
-			const sheet = this.project.sheets.filter(sheet => { return sheet.ord === ord; });
+			const sheet = this.project.sheets.filter(sheet => {
+				return sheet.ord === ord;
+			});
 			return sheet[0];
 		},
 		/**
-         * @param {int} orderDiff - new sheet order = order + orderDiff
-         */
+		 * @param {int} orderDiff - new sheet order = order + orderDiff
+		 */
 		goToOtherSheet(orderDiff) {
 			if (this.visitor && this.sheet.interactions) {
 				this.storeLocalVisitorFeatures();
@@ -274,7 +291,9 @@ export default {
 			}
 			// change only the last part of the route which indicates the sheet order
 			const fullPath = this.$route.fullPath;
-			const route = fullPath.slice(0, fullPath.lastIndexOf('/') + 1) + (parseInt(this.sheetOrd) + orderDiff);
+			const route =
+				fullPath.slice(0, fullPath.lastIndexOf('/') + 1) +
+				(parseInt(this.sheetOrd) + orderDiff);
 			if (this.contentModified && !this.visitor) {
 				this.showConfirmModal(route);
 			} else {
@@ -282,11 +301,17 @@ export default {
 			}
 		},
 		storeLocalVisitorFeatures() {
-			const payload = { features: this.localVisitorFeatures, sheetId: this.sheet.id };
+			const payload = {
+				features: this.localVisitorFeatures,
+				sheetId: this.sheet.id,
+			};
 			this.$store.commit('visitordata/addFeatures', payload);
 		},
 		storeLocalVisitorFeatureRatings() {
-			const payload = { ratings: this.localVisitorFeatureRatings, sheetId: this.sheet.id };
+			const payload = {
+				ratings: this.localVisitorFeatureRatings,
+				sheetId: this.sheet.id,
+			};
 			this.$store.commit('visitordata/addRatings', payload);
 		},
 		prevSheetExists() {
@@ -356,18 +381,22 @@ export default {
 		 * @param {string} route - redirect route upon modal close
 		 */
 		showConfirmModal(route) {
-			this.$bvModal.msgBoxConfirm('Önnek nem mentett módosításai vannak. Kívánja őket menteni?', {
-				title: 'Visszalépés',
-				size: 'sm',
-				buttonSize: 'sm',
-				okVariant: 'danger',
-				okTitle: 'IGEN',
-				cancelTitle: 'NEM',
-				footerClass: 'p-2',
-				hideHeaderClose: false,
-				centered: true,
-				autoFocusButton: 'ok'
-			})
+			this.$bvModal
+				.msgBoxConfirm(
+					'Önnek nem mentett módosításai vannak. Kívánja őket menteni?',
+					{
+						title: 'Visszalépés',
+						size: 'sm',
+						buttonSize: 'sm',
+						okVariant: 'danger',
+						okTitle: 'IGEN',
+						cancelTitle: 'NEM',
+						footerClass: 'p-2',
+						hideHeaderClose: false,
+						centered: true,
+						autoFocusButton: 'ok',
+					}
+				)
 				.then(value => {
 					if (value === true) {
 						this.saveMap();
@@ -382,20 +411,18 @@ export default {
 		},
 		toggleTermsAndUseAccepted(val) {
 			this.termsAndUseAccepted = val;
-		}
-	}
+		},
+	},
 };
 </script>
 
 <style>
-
 #sheet-sidebar {
 	border-radius: 0.25rem;
 	height: auto;
 	width: auto;
 	top: 120px;
 }
-
 </style>
 <style scoped>
 .bottom-nav .material-icons {
