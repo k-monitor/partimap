@@ -75,22 +75,32 @@
 						</small>
 					</b-form-checkbox>
 				</div>
-				<div
-					v-if="visitor"
-					class="d-flex justify-content-around mb-3"
-				>
-					<ShareNetwork
-						v-for="s in social"
-						:key="s.network"
-						:network="s.network"
-						:url="projectUrl"
-						hashtags="vuejs,vite"
+				<div v-if="visitor">
+					<div
+						v-if="socialButtons"
+						class="d-flex justify-content-around mb-3"
 					>
-						<i
-							class="fa-fw fa-2x"
-							:class="s.icon"
-						/>
-					</ShareNetwork>
+						<ShareNetwork
+							v-for="s in social"
+							:key="s.network"
+							:network="s.network"
+							:url="projectUrl"
+							hashtags="vuejs,vite"
+						>
+							<i
+								class="fa-fw fa-2x"
+								:class="s.icon"
+							/>
+						</ShareNetwork>
+					</div>
+				</div>
+				<div
+					v-else
+					class="form-group"
+				>
+					<b-form-checkbox v-model="socialButtons">
+						Megosztás gombok
+					</b-form-checkbox>
 				</div>
 			</b-form>
 			<div
@@ -239,6 +249,8 @@
 </template>
 
 <script>
+const SOCIAL_SHARING = 'SocialSharing';
+
 export default {
 	props: {
 		sheet: {
@@ -268,6 +280,7 @@ export default {
 			titleEdit: false,
 			backgroundImage: null,
 			imageState: null,
+			socialButtons: (this.sheet.interactions || '').includes(SOCIAL_SHARING),
 			social: [
 				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
@@ -309,6 +322,19 @@ export default {
 		},
 		sheet(val) {
 			this.localSheet = val;
+		},
+		socialButtons(val) {
+			const i = JSON.parse(this.localSheet.interactions || '[]');
+			if (val) {
+				i.push(SOCIAL_SHARING);
+				this.localSheet.interactions = JSON.stringify(i);
+			} else {
+				this.localSheet.interactions = JSON.stringify(
+					i.filter(e => e !== SOCIAL_SHARING)
+				);
+			}
+			this.$emit('sheetInteractionsChanged', this.localSheet.interactions);
+			this.$nuxt.$emit('contentModified');
 		},
 		'localSheet.description'(val) {
 			this.$emit('sheetDescriptionChanged', val);

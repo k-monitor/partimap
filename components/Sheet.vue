@@ -47,6 +47,7 @@
 					:terms-and-use-accepted="termsAndUseAccepted"
 					@sheetDescriptionChanged="changeSheetDescription"
 					@sheetTitleChanged="changeSheetTitle"
+					@sheetInteractionsChanged="changeSheetInteractions"
 					@prevSheet="goToOtherSheet(-1)"
 					@nextSheet="goToOtherSheet(1)"
 					@collapse="handleCollapse"
@@ -223,6 +224,9 @@ export default {
 		},
 		changeSheetTitle(val) {
 			this.sheet.title = val;
+		},
+		changeSheetInteractions(val) {
+			this.sheet.interactions = val;
 		},
 		goBackToProject() {
 			const route = '/admin/project/' + this.project.id;
