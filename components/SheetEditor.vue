@@ -85,7 +85,7 @@
 							:key="s.network"
 							:network="s.network"
 							:url="projectUrl"
-							hashtags="vuejs,vite"
+							title=""
 						>
 							<i
 								class="fa-fw fa-2x"
