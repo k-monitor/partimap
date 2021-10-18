@@ -203,6 +203,7 @@
 				v-if="prevBtnShown"
 				size="sm"
 				class="float-left"
+				variant="outline-secondary"
 				@click="$emit('prevSheet')"
 			>
 				Vissza
@@ -220,9 +221,19 @@
 					v-if="nextBtnShown"
 					:disabled="nextButtonDisabled"
 					size="sm"
+					variant="primary"
 					@click="$emit('nextSheet')"
 				>
 					Tovább
+				</b-button>
+				<b-button
+					v-else-if="visitor"
+					:disabled="nextButtonDisabled"
+					size="sm"
+					variant="success"
+					@click="$emit('submit')"
+				>
+					Küldés
 				</b-button>
 			</span>
 		</template>

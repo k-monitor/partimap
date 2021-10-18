@@ -54,6 +54,7 @@
 					@uploadImage="uploadImage"
 					@backgroundImageDeleted="update"
 					@toggleTermsAndUseAccepted="toggleTermsAndUseAccepted"
+					@submit="submit"
 				/>
 			</b-sidebar>
 			<div ref="sidebar-expand" class="sidebar-button sidebar-expand">
@@ -84,6 +85,7 @@
 				<div v-if="prevSheetExists()">
 					<b-button
 						size="sm"
+						variant="outline-secondary"
 						@click="goToOtherSheet(-1)"
 					>
 						<div class="content d-flex">
@@ -98,9 +100,11 @@
 				</div>
 			</b-navbar-nav>
 			<b-navbar-nav>
-				<div v-if="nextSheetExists()">
+				<div >
 					<b-button
+						v-if="nextSheetExists()"
 						size="sm"
+						variant="primary"
 						:disabled="nextButtonDisabled"
 						@click="goToOtherSheet(1)"
 					>
@@ -112,6 +116,15 @@
 								arrow_forward_ios
 							</div>
 						</div>
+					</b-button>
+					<b-button
+						v-else-if="visitor"
+						size="sm"
+						variant="success"
+						:disabled="nextButtonDisabled"
+						@click="submit"
+					>
+						Küldés
 					</b-button>
 				</div>
 			</b-navbar-nav>
@@ -197,6 +210,11 @@ export default {
 		this.$nuxt.$off('featureRatedByVisitor');
 	},
 	methods: {
+		/* async */ submit() {
+			console.log('--- SUBMIT');
+			console.log('VIS FEAUTRES', this.getVisitorFeatures);
+			console.log('VIS RATINGS', this.getVisitorRatings);
+		},
 		async update(localSheet) {
 			try {
 				const sheet = await this.$axios.$patch('/api/sheet', localSheet);
