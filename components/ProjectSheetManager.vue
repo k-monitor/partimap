@@ -200,14 +200,12 @@ export default {
 	},
 	methods: {
 		getSheetType(sheet) {
-			if (sheet.image) {
-				return 'image';
+			if (sheet.features) {
+				return JSON.parse(sheet.interactions || '[]').length
+					? 'location_on'
+					: 'map';
 			} else if (sheet.survey) {
 				return 'poll';
-			} else if (sheet.features && !sheet.interactions) {
-				return 'map';
-			} else if (sheet.interactions) {
-				return 'location_on';
 			} else {
 				return 'description';
 			}
@@ -256,7 +254,12 @@ export default {
 				return;
 			}
 			// Create sheet
-			this.$emit('addSheet', this.newSheetTitle, this.newSheetType, this.sourceMap);
+			this.$emit(
+				'addSheet',
+				this.newSheetTitle,
+				this.newSheetType,
+				this.sourceMap
+			);
 			this.newSheetTitle = '';
 			this.newSheetType = '';
 			// Hide the modal manually
