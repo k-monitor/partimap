@@ -30,7 +30,12 @@ export const getters = {
 			const f = state.visitorFeatures[id.toString()];
 			if (f && f.length) {
 				data[id] = data[id] || {};
-				data[id].features = f.map(e => JSON.parse(new GeoJSON().writeFeature(e)));
+				data[id].features = f.map(e => {
+					const json = new GeoJSON().writeFeature(e);
+					const feature = JSON.parse(json);
+					delete feature.properties.visitorFeature;
+					return feature;
+				});
 			}
 
 			const r = state.visitorRatings[id.toString()];
