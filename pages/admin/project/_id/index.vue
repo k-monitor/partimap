@@ -97,6 +97,7 @@
 			</template>
 		</AdminFrame>
 		<ProjectSheetManager
+			:project="project"
 			:project-id="project.id"
 			:sheets="project.sheets"
 			@addSheet="addSheet"

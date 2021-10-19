@@ -21,7 +21,17 @@ function findByProjectId(projectId) {
 		where s.projectId = ?`, [projectId]);
 }
 
+/**
+ * @param {Number} sheetId
+ * @returns {SubmittedFeatures[]}
+ */
+async function findBySheetId(sheetId) {
+	const rows = await db.query('SELECT * FROM submitted_features WHERE sheetId = ?', [sheetId]);
+	return rows.map(r => new SubmittedFeatures(r));
+}
+
 module.exports = {
 	create,
-	findByProjectId
+	findByProjectId,
+	findBySheetId
 };

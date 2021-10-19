@@ -140,7 +140,7 @@
 							<span v-if="sheet.submittedFeatureCount">
 								<br>
 								{{ sheet.submittedFeatureCount }} beküldött térkép elem
-								<a href="javascript:void(0)" @click.prevent="submittedFeaturesToMap(sheet.id)">Új saját térképre küldés</a>
+								<a href="javascript:void(0)" @click.prevent="submittedFeaturesToMap(sheet)">Új saját térképre küldés</a>
 							</span>
 						</b-col>
 						<div style="width: 90px">
@@ -178,6 +178,10 @@ export default {
 		projectId: {
 			type: Number,
 			default: 0,
+		},
+		project: { // TODO makes sheets and projectId props redundant
+			type: Object,
+			default: null
 		},
 		sheets: {
 			type: Array,
@@ -279,8 +283,13 @@ export default {
 				this.newSheetType = type;
 			}
 		},
-		submittedFeaturesToMap(sheetId) {
-			alert('HELÓ');
+		async submittedFeaturesToMap(sheet) {
+			const data = {
+				title: `${this.project.title} / ${sheet.title} ${new Date().toLocaleString()}`,
+				importSubmittedFeatures: sheet.id
+			};
+			const map = await this.$axios.$put('/api/map', data);
+			this.$router.push('/admin/map/' + map.id);
 		},
 	},
 };

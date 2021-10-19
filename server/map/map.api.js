@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const Map = require('../../model/map');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
+const sfdb = require('../submittedFeatues/submittedFeatures.db');
 const db = require('./map.db');
 
 router.delete('/map/:id',
@@ -58,6 +59,13 @@ router.put('/map',
 		}
 		if (!map.userId || !req.user.isAdmin) {
 			map.userId = req.user.id;
+		}
+
+		if (req.body.importSubmittedFeatures) { // sheetID
+			const features = [];
+			const sfs = await sfdb.findBySheetId(req.body.importSubmittedFeatures);
+			(sfs || []).forEach(sf => features.push(...JSON.parse(sf.features)));
+			map.features = JSON.stringify(features);
 		}
 
 		const id = await db.create(map);
