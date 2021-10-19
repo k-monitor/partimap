@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
+const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('../sheet/sheet.db');
@@ -79,6 +80,21 @@ router.post('/submission/:projectId',
 		// TODO improvement I: insert in bulk by table
 		// TODO improvement II: do all this in transaction
 		res.json({ submissionId });
+	}
+);
+
+router.get('/submission/feature-counts/:id',
+	ensureLoggedIn,
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	async (req, res) => {
+		const sfs = await sfdb.findByProjectId(req.project.id);
+		const sfcs = {};
+		sfs.forEach(({ sheetId, features }) => {
+			const f = JSON.parse(features || '[]');
+			sfcs[sheetId] = (sfcs[sheetId] || 0) + f.length;
+		});
+		res.json(sfcs);
 	}
 );
 

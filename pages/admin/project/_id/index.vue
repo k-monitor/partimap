@@ -115,6 +115,12 @@ export default {
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
+			const sfcs = await $axios.$get(
+				'/api/submission/feature-counts/' + params.id
+			);
+			project.sheets.forEach((s, i) => {
+				project.sheets[i].submittedFeatureCount = Number(sfcs[s.id] || 0);
+			});
 			return { project };
 		} catch (err) {
 			redirect('/admin/projects');

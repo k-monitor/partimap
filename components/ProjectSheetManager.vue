@@ -137,6 +137,11 @@
 						</div>
 						<b-col>
 							<strong>{{ sheet.title }}</strong>
+							<span v-if="sheet.submittedFeatureCount">
+								<br>
+								{{ sheet.submittedFeatureCount }} beküldött térkép elem
+								<a href="javascript:void(0)" @click.prevent="submittedFeaturesToMap(sheet.id)">Új saját térképre küldés</a>
+							</span>
 						</b-col>
 						<div style="width: 90px">
 							<span
@@ -273,6 +278,9 @@ export default {
 			} else {
 				this.newSheetType = type;
 			}
+		},
+		submittedFeaturesToMap(sheetId) {
+			alert('HELÓ');
 		},
 	},
 };
