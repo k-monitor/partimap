@@ -11,7 +11,7 @@
 			<template #back-button-name>Térképek</template>
 		</EditorNavbar>
 		<MapEditor
-			:features-raw="initMapData.features"
+			:features="loadInitFeatures()"
 		>
 			<template #feature-editor>
 				<FeatureListContainer />
@@ -58,6 +58,17 @@ export default {
 		this.$nuxt.$off('contentModified');
 	},
 	methods: {
+		featuresFromRaw(featuresRaw) {
+			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
+			const features = JSON.parse(featuresRaw);
+			const featureCollection = { type: 'FeatureCollection', features };
+			return features
+				? new GeoJSON().readFeatures(featureCollection)
+				: null;
+		},
+		loadInitFeatures() {
+			return this.featuresFromRaw(this.initMapData.features);
+		},
 		async saveMap() { // to DB
 			this.loadFeaturesFromStore();
 			try {

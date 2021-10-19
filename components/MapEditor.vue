@@ -41,7 +41,10 @@ export default {
 		Map: () => process.client ? import('@/components/Map') : null,
 	},
 	props: {
-		features: {},
+		features: {
+			type: Array,
+			default: null
+		},
 		visitor: {
 			type: Boolean,
 			default: false
