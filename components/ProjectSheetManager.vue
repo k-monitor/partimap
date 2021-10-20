@@ -37,82 +37,34 @@
 								required
 							/>
 						</b-form-group>
+
+						<p class="pb-3">Munkalap típusa:</p>
+						<div class="d-flex justify-content-between">
+							<button
+								v-for="t in sheetTypes"
+								:key="t.name"
+								v-b-tooltip.hover
+								:title="t.tooltip"
+								:class="newSheetType === t.name ? 'text-success border border-success': 'text-muted'"
+								class="btn btn-link"
+								@click="toggleSheetType(t.name)"
+							>
+								<i
+									:class="t.icon"
+									class="fas fa-fw fa-2x"
+								/>
+							</button>
+						</div>
+
+						<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
+							<label for="sourceMap">Térkép elemek másolása innen:</label>
+							<b-form-select
+								id="sourceMap"
+								v-model="sourceMap"
+								:options="[{value: null, text: 'Nincs másolás'}].concat(maps)"
+							/>
+						</b-form-group>
 					</form>
-					<b-form-group>
-						<label
-							for="type-selector"
-							class="pb-3"
-						>Munkalap típusa:</label>
-						<b-row
-							id="type-selector"
-							align-h="around"
-							class="sheet-types"
-						>
-							<b-col cols="auto">
-								<span
-									v-b-tooltip.hover
-									title="Szöveges munkalap (alapértelmezett)"
-									:class="[newSheetType === 'text' ? ['text-success','selected'] : '' ]"
-									class="material-icons clickable"
-									@click="toggleSheetType('text')"
-								>
-									description
-								</span>
-							</b-col>
-							<b-col cols="auto">
-								<span
-									v-b-tooltip.hover
-									title="Kérdőíves munkalap"
-									:class="[newSheetType === 'poll' ? ['text-success','selected'] : '' ]"
-									class="material-icons clickable"
-									@click="toggleSheetType('poll')"
-								>
-									poll
-								</span>
-							</b-col>
-							<b-col cols="auto">
-								<span
-									v-b-tooltip.hover
-									title="Térképes munkalap (statikus)"
-									:class="[newSheetType === 'staticMap' ? ['text-success','selected'] : '' ]"
-									class="material-icons clickable"
-									@click="toggleSheetType('staticMap')"
-								>
-									map
-								</span>
-							</b-col>
-							<b-col cols="auto">
-								<span
-									v-b-tooltip.hover
-									title="Térképes munkalap (interaktív)"
-									:class="[newSheetType === 'interactiveMap' ? ['text-success','selected'] : '' ]"
-									class="material-icons clickable"
-									@click="toggleSheetType('interactiveMap')"
-								>
-									location_on
-								</span>
-							</b-col>
-							<b-col cols="auto">
-								<span
-									v-b-tooltip.hover
-									title="Demográfiai kérdőíves munkalap"
-									:class="[newSheetType === 'demographicsPoll' ? ['text-success','selected'] : '' ]"
-									class="material-icons clickable"
-									@click="toggleSheetType('demographicsPoll')"
-								>
-									groups
-								</span>
-							</b-col>
-						</b-row>
-					</b-form-group>
-					<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
-						<label for="sourceMap">Térkép elemek másolása innen:</label>
-						<b-form-select
-							id="sourceMap"
-							v-model="sourceMap"
-							:options="[{value: null, text: 'Nincs másolás'}].concat(maps)"
-						/>
-					</b-form-group>
 				</b-modal>
 			</template>
 			<div class="list-group">
@@ -120,52 +72,49 @@
 					v-for="sheet in sheets"
 					:key="sheet.ord"
 					:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
-					class="align-items-center list-group-item list-group-item-action py-0"
+					class="align-items-center d-flex list-group-item list-group-item-action"
 				>
-					<b-row
-						align-v="center"
-						class="px-2 py-3"
-					>
-						<div style="width: 70px;">
-							<span
-								class="material-icons  float-left mr-3"
-								@mousedown.prevent="showConfirmModal(sheet)"
-							>
-								{{ getSheetType(sheet) }}
-							</span>
-							<span>{{ sheet.ord + 1 }}.</span>
-						</div>
-						<b-col>
-							<strong>{{ sheet.title }}</strong>
-							<span v-if="sheet.submittedFeatureCount">
-								<br>
-								{{ sheet.submittedFeatureCount }} beküldött térkép elem
-								<a href="javascript:void(0)" @click.prevent="submittedFeaturesToMap(sheet)">Új saját térképre küldés</a>
-							</span>
-						</b-col>
-						<div style="width: 90px">
-							<span
-								class="material-icons clickable delete text-danger float-right"
-								@mousedown.prevent="showConfirmModal(sheet)"
-							>
-								delete
-							</span>
-							<span
-								:class="{'down-arrow-disabled' : sheet.ord == (sheets.length-1)}"
-								class="material-icons clickable float-right mr-3"
-								@click.prevent="$emit('moveSheet','down',sheet)"
-							>
-								arrow_downward
-							</span>
-							<span
-								v-if="sheet.ord"
-								class="material-icons clickable float-right"
-								@click.prevent="$emit('moveSheet','up',sheet)"
-							>
-								arrow_upward
-							</span>
-						</div>
-					</b-row>
+					<i
+						:class="sheetIcon(sheet)"
+						class="fas fa-fw mr-3"
+					/>
+					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
+					<div>
+						<strong class="mr-2">{{ sheet.title }}</strong>
+						<span v-if="sheet.submittedFeatureCount">
+							<br>
+							{{ sheet.submittedFeatureCount }} beküldött térkép elem
+							<a
+								href="javascript:void(0)"
+								@click.prevent="submittedFeaturesToMap(sheet)"
+							>Új saját térképre küldés</a>
+						</span>
+					</div>
+					<div class="ml-auto">
+						<span
+							v-if="sheet.ord"
+							class="mr-3"
+							role="button"
+							@click.prevent="$emit('moveSheet','up',sheet)"
+						>
+							<i class="fas fa-fw fa-arrow-up" />
+						</span>
+						<span
+							v-if="(sheet.ord || 0) < sheets.length - 1"
+							class="mr-3"
+							role="button"
+							@click.prevent="$emit('moveSheet','down',sheet)"
+						>
+							<i class="fas fa-fw fa-arrow-down" />
+						</span>
+						<span
+							class="text-danger"
+							role="button"
+							@click.prevent="showConfirmModal(sheet)"
+						>
+							<i class="fas fa-fw fa-trash" />
+						</span>
+					</div>
 				</NuxtLink>
 			</div>
 		</b-card>
@@ -179,9 +128,10 @@ export default {
 			type: Number,
 			default: 0,
 		},
-		project: { // TODO makes sheets and projectId props redundant
+		project: {
+			// TODO makes sheets and projectId props redundant
 			type: Object,
-			default: null
+			default: null,
 		},
 		sheets: {
 			type: Array,
@@ -193,6 +143,33 @@ export default {
 			maps: [],
 			newSheetTitle: '',
 			newSheetType: 'text',
+			sheetTypes: [
+				{
+					name: 'text',
+					icon: 'fa-paragraph',
+					tooltip: 'Szöveg',
+				},
+				{
+					name: 'poll',
+					icon: 'fa-poll',
+					tooltip: 'Kérdőív',
+				},
+				{
+					name: 'staticMap',
+					icon: 'fa-map',
+					tooltip: 'Térkép',
+				},
+				{
+					name: 'interactiveMap',
+					icon: 'fa-map-marker-alt',
+					tooltip: 'Interaktív térkép',
+				},
+				{
+					name: 'demographicsPoll',
+					icon: 'fa-users',
+					tooltip: 'Demográfiai kérdőív',
+				},
+			],
 			nameState: null,
 			sourceMap: null,
 		};
@@ -208,16 +185,25 @@ export default {
 			}));
 	},
 	methods: {
-		getSheetType(sheet) {
+		sheetType(sheet) {
+			if (!sheet) {
+				return null;
+			}
+			// This does not differentiate "poll" and "demographicsPoll"
+			// since there's no marker for the latter in the Sheet record.
 			if (sheet.features) {
 				return JSON.parse(sheet.interactions || '[]').length
-					? 'location_on'
-					: 'map';
+					? 'interactiveMap'
+					: 'staticMap';
 			} else if (sheet.survey) {
 				return 'poll';
 			} else {
-				return 'description';
+				return 'text';
 			}
+		},
+		sheetIcon(sheet) {
+			const type = this.sheetType(sheet);
+			return this.sheetTypes.filter(t => t.name === type)[0].icon;
 		},
 		showConfirmModal(sheet) {
 			this.$bvModal
@@ -285,8 +271,10 @@ export default {
 		},
 		async submittedFeaturesToMap(sheet) {
 			const data = {
-				title: `${this.project.title} / ${sheet.title} ${new Date().toLocaleString()}`,
-				importSubmittedFeatures: sheet.id
+				title: `${this.project.title} / ${
+					sheet.title
+				} ${new Date().toLocaleString()}`,
+				importSubmittedFeatures: sheet.id,
 			};
 			const map = await this.$axios.$put('/api/map', data);
 			this.$router.push('/admin/map/' + map.id);
@@ -294,30 +282,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-.material-icons {
-	font-size: 24px;
-}
-
-.material-icons.clickable {
-	cursor: pointer;
-	opacity: 0.5;
-}
-.material-icons.clickable:hover {
-	opacity: 1;
-}
-
-.material-icons.down-arrow-disabled {
-	pointer-events: none;
-	opacity: 0;
-}
-
-.material-icons.selected {
-	opacity: 1;
-}
-
-.sheet-types .material-icons {
-	font-size: 30px;
-}
-</style>

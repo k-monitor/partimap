@@ -105,18 +105,9 @@
 
 				<!-- <b-button
 					v-if="localSheet.survey"
-					size="sm"
-					class="w-100 mt-1"
 					variant="success"
 				>
-					<div class="content d-flex">
-						<div class="material-icons d-inline pr-1">
-							poll
-						</div>
-						<div class="text d-inline">
-							Kérdőív szerkesztése
-						</div>
-					</div>
+					Kérdőív szerkesztése
 				</b-button> -->
 
 				<div

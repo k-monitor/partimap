@@ -42,20 +42,28 @@
 				v-for="p in filteredProjects"
 				:key="p.id"
 				:to="'/admin/project/' + p.id"
-				class="align-items-center list-group-item list-group-item-action"
+				class="align-items-center d-flex list-group-item list-group-item-action"
 			>
-				<strong>{{ p.title }}</strong>
+				<div>
+					<strong class="mr-2">{{ p.title }}</strong>
+					<span
+						v-if="p.userId != $auth.user.id"
+						class="badge badge-warning"
+					>Tulajdonos: #{{ p.userId }}</span>
+					<span
+						v-else-if="$auth.user.isAdmin"
+						class="badge badge-success"
+					>Saját</span>
+					<br>
+					{{ p.views }} megtekintés, {{ p.submissions }} kitöltés
+				</div>
 				<span
-					v-if="p.userId != $auth.user.id"
-					class="badge badge-warning"
-				>Tulajdonos: #{{ p.userId }}</span>
-				<span
-					v-else-if="$auth.user.isAdmin"
-					class="badge badge-success"
-				>Saját</span>
-				<span class="material-icons m-0 float-right text-danger" @click.prevent="showConfirmModal(p.id)"> delete </span>
-				<br>
-				{{ p.views }} megtekintés, {{ p.submissions }} kitöltés
+					class="ml-auto text-danger"
+					role="button"
+					@click.prevent="showConfirmModal(p.id)"
+				>
+					<i class="fas fa-trash" />
+				</span>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
@@ -108,24 +116,25 @@ export default {
 			}
 		},
 		showConfirmModal(id) {
-			this.$bvModal.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
-				title: 'Megerősítés',
-				size: 'sm',
-				buttonSize: 'sm',
-				okVariant: 'danger',
-				okTitle: 'Igen',
-				cancelTitle: 'Mégsem',
-				footerClass: 'p-2',
-				hideHeaderClose: false,
-				centered: true,
-				autoFocusButton: 'ok'
-			})
+			this.$bvModal
+				.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
+					title: 'Megerősítés',
+					size: 'sm',
+					buttonSize: 'sm',
+					okVariant: 'danger',
+					okTitle: 'Igen',
+					cancelTitle: 'Mégsem',
+					footerClass: 'p-2',
+					hideHeaderClose: false,
+					centered: true,
+					autoFocusButton: 'ok',
+				})
 				.then(value => {
 					if (value) {
 						this.removeProjFromDB(id);
-						this.projects = this.projects.filter(
-							function(proj) { return proj.id !== id; }
-						);
+						this.projects = this.projects.filter(function (proj) {
+							return proj.id !== id;
+						});
 					}
 				})
 				.catch(err => {
@@ -135,14 +144,3 @@ export default {
 	},
 };
 </script>
-<style scoped>
-.material-icons {
-  font-size: 24px;
-  margin-left: 10px;
-  cursor: pointer;
-  opacity: 0.5;
-}
-.material-icons:hover {
-  opacity: 1;
-}
-</style>
