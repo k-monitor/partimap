@@ -98,4 +98,19 @@ router.get('/submission/feature-counts/:id',
 	}
 );
 
+router.get('/submission/ratings/:id',
+	ensureLoggedIn,
+	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
+	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	async (req, res) => {
+		const ars = await rdb.aggregateBySheetId(req.sheet.id);
+		const frs = {};
+		ars.forEach(({ featureId, average }) => {
+			frs[featureId] = average;
+		});
+		res.json(frs);
+	}
+);
+
 module.exports = router;

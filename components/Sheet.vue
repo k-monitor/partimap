@@ -207,12 +207,12 @@ export default {
 			this.localVisitorFeatureRatings[featureId.toString()] = rating;
 		});
 	},
-	mounted() {
+	async mounted() {
 		this.sheet = this.project.sheets.filter(
 			sheet => sheet.ord === parseInt(this.sheetOrd)
 		)[0];
 		this.initSheet = { ...this.sheet };
-		this.initFeatureRatings = this.loadInitFeatureRatings();
+		this.initFeatureRatings = await this.loadInitFeatureRatings();
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
@@ -348,9 +348,7 @@ export default {
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
-			return features
-				? new GeoJSON().readFeatures(featureCollection)
-				: null;
+			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.initSheet.features);
@@ -358,11 +356,21 @@ export default {
 			this.localVisitorFeatures = [...visitorFeatures];
 			return [...visitorFeatures, ...adminFeatures];
 		},
-		loadInitFeatureRatings() {
-			// called every time when the feature sidebar is closed or opened
-			const visitorRatings = this.getVisitorRatings(this.sheet.id) || [];
-			this.localVisitorFeatureRatings = { ...visitorRatings };
-			return { ...visitorRatings };
+		async loadInitFeatureRatings() {
+			if (this.visitor) {
+				const visitorRatings = this.getVisitorRatings(this.sheet.id) || [];
+				this.localVisitorFeatureRatings = { ...visitorRatings };
+				return { ...visitorRatings };
+			} else {
+				let submittedRatings = {};
+				try {
+					submittedRatings = await this.$axios.$get(
+						'/api/submission/ratings/' + this.sheet.id
+					);
+				} catch (error) {
+				}
+				return submittedRatings;
+			}
 		},
 		saveMap() {
 			if (this.sheet.features) {

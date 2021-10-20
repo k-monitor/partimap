@@ -172,7 +172,7 @@ export default {
 		},
 		initFeatureRatings: {
 			type: Object,
-			default: null,
+			default: () => {},
 		},
 	},
 	data() {
@@ -261,9 +261,7 @@ export default {
 			}[drawType];
 		},
 		getFeatureRating(featureId) {
-			return this.visitor
-				? this.initFeatureRatings[featureId.toString()]
-				: null;
+			return Number(this.initFeatureRatings[featureId.toString()] || 0);
 		},
 		updateCategories() {
 			const cats = new Set(

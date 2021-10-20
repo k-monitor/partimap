@@ -171,15 +171,16 @@
 					<div v-else>
 						<p v-if="form.category">{{ form.category }}</p>
 						<p v-if="form.description">{{ form.description }}</p>
-						<b-row>
-							<b-col>
-								<b-form-rating
-									v-model="rating"
-									variant="warning"
-								/>
-							</b-col>
-						</b-row>
 					</div>
+					<b-form-group>
+						<b-form-rating
+							v-model="rating"
+							:variant="visitor ? 'warning' : 'info'"
+							:readonly="!visitor"
+							:show-value="!visitor"
+							precision="1"
+						/>
+					</b-form-group>
 				</b-form>
 			</b-card>
 		</b-collapse>

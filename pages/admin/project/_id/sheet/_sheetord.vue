@@ -12,7 +12,6 @@ export default {
 		store.commit('features/clear');
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
-			// const sheet = this.project.sheets.filter(sheet => sheet.ord === parseInt(params.sheetOrd))[0];
 			return { project };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);

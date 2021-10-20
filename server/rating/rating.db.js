@@ -15,7 +15,7 @@ function create(rating) {
  * @return {AggregatedRating[]}
  */
 async function aggregateBySheetId(sheetId) {
-	const rows = await db.query('SELECT featureID, COUNT(rating) count, SUM(rating)/COUNT(rating) average FROM rating WHERE sheetID = ? GROUP BY featureID', [sheetId]);
+	const rows = await db.query('SELECT featureId, COUNT(rating) count, AVG(rating) average FROM rating WHERE sheetID = ? GROUP BY featureID', [sheetId]);
 	return rows.map(r => new AggregatedRating(r));
 }
 
