@@ -3,55 +3,67 @@
 		<b-navbar
 			type="light"
 			variant="white"
-			class="justify-content-between fixed-top border-bottom shadow-sm py-2"
+			class="border-bottom fixed-top shadow-sm"
 		>
 			<div class="container-fluid">
-				<div class="w-50 d-flex">
-					<b-navbar-nav class="nav-back">
-						<b-button class="back-button" variant="outline-secondary p-0" @click="$emit('back')">
-							<div class="content d-flex align-items-center">
-								<div class="material-icons d-inline  border-info py-1 pl-1">
-									arrow_back_ios_new
-								</div>
-								<div class="text d-inline p-1 pr-2">
-									<slot name="back-button-name">Vissza</slot>
-								</div>
-							</div>
+				<b-navbar-nav>
+					<b-nav-form>
+						<b-button
+							variant="outline-secondary"
+							@click="$emit('back')"
+						>
+							<i class="fas fa-chevron-left mr-1" />
+							<slot name="back-button-name">Vissza</slot>
 						</b-button>
-					</b-navbar-nav>
-				</div>
-				<div class="d-flex justify-content-center nav-title text-center w-50">
+					</b-nav-form>
+				</b-navbar-nav>
+
+				<div class="d-flex flex-grow-1 justify-content-center nav-title">
 					<div v-if="dynamicTitle">
-						<b-navbar-nav v-if="!titleEdit" @click="titleEdit = true">
-							<b-nav-text> <h3 class="my-0 text-dark editable-title">{{ titleName }}<span v-html="titleExtraHtmlContent" /></h3></b-nav-text>
+						<b-navbar-nav
+							v-if="!titleEdit"
+							@click="titleEdit = true"
+						>
+							<b-nav-text class="editable-title font-weight-bold text-dark">
+								{{ titleName }}
+								<span v-html="titleExtraHtmlContent" />
+							</b-nav-text>
 						</b-navbar-nav>
-						<b-navbar v-if="titleEdit">
+						<b-navbar-nav v-else>
 							<b-nav-form @submit="modifyTitle">
-								<b-form-input v-model="localTitle" size="sm" class="mr-sm-2" />
-								<b-button size="sm" class="mt-1 mt-sm-0 ml-auto" variant="outline-success" type="submit">Módosít</b-button>
+								<b-input-group>
+									<b-form-input v-model="localTitle" />
+									<template #append>
+										<b-button
+											class="mt-1 mt-sm-0 ml-auto"
+											variant="outline-success"
+											type="submit"
+										>Módosít</b-button>
+									</template>
+								</b-input-group>
 							</b-nav-form>
-						</b-navbar>
+						</b-navbar-nav>
 					</div>
 					<div v-else>
 						<b-navbar-nav>
-							<b-nav-text> <h3 class="my-0 text-dark">{{ titleName }}<span v-html="titleExtraHtmlContent" /></h3></b-nav-text>
+							<b-nav-text class="editable-title font-weight-bold text-dark">
+								{{ titleName }}
+								<span v-html="titleExtraHtmlContent" />
+							</b-nav-text>
 						</b-navbar-nav>
 					</div>
 				</div>
-				<div class="d-flex justify-content-end w-50">
-					<b-navbar-nav class="nav-save">
-						<b-button class="save" variant="outline-success p-0" :disabled="!contentModified" @click="$emit('save')">
-							<div class="content d-flex">
-								<div class="material-icons d-inline  border-success py-1 pl-1">
-									save
-								</div>
-								<div class="text d-inline p-1 pr-2">
-									Mentés
-								</div>
-							</div>
-						</b-button>
-					</b-navbar-nav>
-				</div>
+
+				<b-navbar-nav>
+					<b-button
+						variant="success"
+						:disabled="!contentModified"
+						@click="$emit('save')"
+					>
+						<i class="fas fa-save mr-1" />
+						Mentés
+					</b-button>
+				</b-navbar-nav>
 			</div>
 		</b-navbar>
 	</div>
@@ -62,20 +74,20 @@ export default {
 	props: {
 		titleName: {
 			type: String,
-			default: null
+			default: null,
 		},
 		titleExtraHtmlContent: {
 			type: String,
-			default: null
+			default: null,
 		},
 		dynamicTitle: {
 			type: Boolean,
-			default: false
+			default: false,
 		},
 		contentModified: {
 			type: Boolean,
-			default: false
-		}
+			default: false,
+		},
 	},
 	data() {
 		return {
@@ -97,7 +109,7 @@ export default {
 				this.localTitle = this.titleName; // if empty, use the previous
 			}
 		},
-	}
+	},
 };
 </script>
 

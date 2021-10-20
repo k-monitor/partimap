@@ -15,7 +15,7 @@
 			@back="goBackToProject"
 			@save="saveMap"
 		>
-			<template #back-button-name> {{ project.title }}</template>
+			<template #back-button-name>{{ project.title }}</template>
 		</EditorNavbar>
 		<MapEditor
 			v-if="sheet.features"

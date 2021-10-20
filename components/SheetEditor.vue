@@ -375,11 +375,7 @@ export default {
 	padding: 0.5rem;
 }
 
-.editable-title {
-	cursor: pointer;
-}
-
-#description {
+textarea {
 	resize: none;
 }
 </style>
