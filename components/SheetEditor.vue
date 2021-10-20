@@ -1,6 +1,9 @@
 <template>
 	<b-card class="sheet-editor-container">
-		<template #header>
+		<template
+			v-if="!visitor"
+			#header
+		>
 			<div
 				v-if="!titleEdit"
 				@click="editTitle"
@@ -34,10 +37,48 @@
 				</b-form>
 			</div>
 		</template>
-		<b-card-body class="p-0">
+		<b-card-body
+			class="p-0 pr-2"
+			style="min-height: 200px;"
+		>
+			<div v-if="visitor">
+				<h4 class="card-title">{{ localSheet.title }}</h4>
+				<p class="card-text mb-4">{{ localSheet.description }}</p>
+				<div
+					v-if="socialButtons"
+					class="d-flex justify-content-around"
+				>
+					<ShareNetwork
+						v-for="s in social"
+						:key="s.network"
+						:network="s.network"
+						:url="projectUrl"
+						title=""
+					>
+						<i
+							class="fa-fw"
+							:class="s.icon"
+						/>
+					</ShareNetwork>
+				</div>
+				<b-form-checkbox
+					v-if="firstSheet()"
+					v-model="termsAndUseAcceptedLocal"
+					class="mt-4"
+					value="accepted"
+					unchecked-value="not_accepted"
+				>
+					Elfogadom az
+					<a
+						href="#"
+						@click="$bvModal.show('terms-and-use-modal')"
+					>
+						Adatvédelmi Nyilatkozatot.
+					</a>
+				</b-form-checkbox>
+			</div>
 			<b-form
-				id="sheetForm"
-				class="pb-1"
+				v-else
 				@submit.prevent=""
 			>
 				<div class="form-group">
@@ -48,54 +89,14 @@
 						class="form-control"
 						rows="6"
 						maxlength="1000"
-						:readonly="visitor"
 					/>
 					<span
 						v-if="!visitor"
 						class="badge badge-secondary char-count"
 					>{{ descriptionLength }} / 1000</span>
 				</div>
-				<div class="form-group">
-					<b-form-checkbox
-						v-if="visitor && firstSheet()"
-						id="checkbox-1"
-						v-model="termsAndUseAcceptedLocal"
-						name="checkbox-1"
-						value="accepted"
-						unchecked-value="not_accepted"
-					>
-						<small>
-							Elfogadom az
-							<a
-								href="#"
-								@click="$bvModal.show('terms-and-use-modal')"
-							>
-								Adatvédelmi Nyilatkozatot.
-							</a>
-						</small>
-					</b-form-checkbox>
-				</div>
-				<div v-if="visitor">
-					<div
-						v-if="socialButtons"
-						class="d-flex justify-content-around mb-3"
-					>
-						<ShareNetwork
-							v-for="s in social"
-							:key="s.network"
-							:network="s.network"
-							:url="projectUrl"
-							title=""
-						>
-							<i
-								class="fa-fw fa-2x"
-								:class="s.icon"
-							/>
-						</ShareNetwork>
-					</div>
-				</div>
 				<div
-					v-else-if="!localSheet.features && !localSheet.survey"
+					v-if="!localSheet.features && !localSheet.survey"
 					class="form-group"
 				>
 					<b-form-checkbox v-model="socialButtons">
@@ -445,7 +446,7 @@ export default {
 </style>
 
 <style>
-.custom-file-input:lang(en) ~ .custom-file-label::after {
+.custom-file-input ~ .custom-file-label::after {
 	display: none;
 }
 .sidebar-button {
