@@ -36,7 +36,7 @@
 									<template #append>
 										<b-button
 											class="mt-1 mt-sm-0 ml-auto"
-											variant="outline-success"
+											variant="success"
 											type="submit"
 										>Módosít</b-button>
 									</template>

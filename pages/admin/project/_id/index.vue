@@ -10,7 +10,7 @@
 					</div>
 					<NuxtLink
 						:to="'/p/' + (project.slug || project.id) + '/0'"
-						class="btn btn-success ml-auto"
+						class="btn btn-primary ml-auto"
 						target="_blank"
 					>
 						Megtekintés
@@ -39,7 +39,7 @@
 						</template>
 						<template #append>
 							<b-button
-								variant="outline-success"
+								variant="outline-primary"
 								@click="project.slug = generateSlug()"
 							>
 								<i class="fas fa-magic fa-fw" />
@@ -87,7 +87,7 @@
 			<template #footer>
 				<div class="d-flex justify-content-end">
 					<button
-						class="btn btn-primary"
+						class="btn btn-success"
 						form="projectForm"
 						type="submit"
 					>

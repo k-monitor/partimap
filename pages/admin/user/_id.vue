@@ -76,7 +76,7 @@
 		<template #footer>
 			<div class="d-flex justify-content-end">
 				<button
-					class="btn btn-outline-primary"
+					class="btn btn-primary"
 					form="userForm"
 					type="submit"
 				>
