@@ -10,20 +10,17 @@
 					<b-button
 						:class="{ 'btn-success': !editState, 'btn-danger': editState}"
 						:disabled="!selectedDrawType"
+						class="text-center"
 						@click="changeDrawType()"
 					>
-						<span
+						<i
 							v-if="!editState"
-							class="material-icons d-flex justify-content-center"
-						>
-							add
-						</span>
-						<span
-							v-if="editState"
-							class="material-icons d-flex justify-content-center"
-						>
-							close
-						</span>
+							class="fas fa-plus"
+						/>
+						<i
+							v-else
+							class="fas fa-times"
+						/>
 					</b-button>
 					<b-dropdown
 						right
@@ -130,9 +127,6 @@
 			<div class="buttons">
 				<b-button variant="warning p-0 mb-1">
 					<div class="content d-flex">
-						<div class="material-icons d-inline  border-info py-1 pl-1">
-							file_upload
-						</div>
 						<div class="text d-inline p-1 pr-2">
 							Import
 						</div>
@@ -140,9 +134,6 @@
 				</b-button>
 				<b-button variant="warning p-0 mb-1">
 					<div class="content d-flex">
-						<div class="material-icons d-inline  border-info py-1 pl-1">
-							file_download
-						</div>
 						<div class="text d-inline p-1 pr-2">
 							Export
 						</div>

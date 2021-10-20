@@ -11,13 +11,18 @@
 			<span class="text-break">{{ form.name }}</span>
 			<span
 				v-if="editable"
-				class="material-icons clickable m-0 float-right text-danger"
+				class="ml-auto text-danger"
+				role="button"
 				@click.stop="showConfirmModal"
-			> delete </span>
+			>
+				<i class="fas fa-trash" />
+			</span>
 			<span
 				v-else
-				class="material-icons m-0 float-right"
-			> lock </span>
+				class="ml-auto text-muted"
+			>
+				<i class="fas fa-lock" />
+			</span>
 		</b-list-group-item>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
@@ -342,18 +347,6 @@ export default {
 }
 .selected > span:first-child {
 	font-weight: bold;
-}
-.material-icons {
-	font-size: 24px;
-	margin-left: 10px;
-}
-.material-icons.clickable:hover {
-	opacity: 1;
-}
-
-.material-icons.clickable {
-	cursor: pointer;
-	opacity: 0.5;
 }
 .collapse-content {
 	border-top: none;
