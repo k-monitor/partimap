@@ -261,7 +261,8 @@ export default {
 			}[drawType];
 		},
 		getFeatureRating(featureId) {
-			return Number(this.initFeatureRatings[featureId.toString()] || 0);
+			const dict = this.initFeatureRatings || {};
+			return Number(dict[featureId.toString()] || 0);
 		},
 		updateCategories() {
 			const cats = new Set(
