@@ -38,21 +38,25 @@
 			</div>
 		</div>
 		<div class="list-group">
-			<NuxtLink
+			<div
 				v-for="p in filteredProjects"
 				:key="p.id"
-				:to="'/admin/project/' + p.id"
-				class="align-items-center d-flex list-group-item list-group-item-action"
+				class="align-items-center d-flex list-group-item"
 			>
 				<div>
-					<strong class="mr-2">{{ p.title }}</strong>
+					<NuxtLink
+						:to="'/admin/project/' + p.id"
+						class="font-weight-bold mr-2"
+					>
+						{{ p.title }}
+					</NuxtLink>
 					<span
 						v-if="p.userId != $auth.user.id"
 						class="badge badge-warning"
 					>Tulajdonos: #{{ p.userId }}</span>
 					<span
 						v-else-if="$auth.user.isAdmin"
-						class="badge badge-success"
+						class="badge badge-info"
 					>Saját</span>
 					<br>
 					{{ p.views }} megtekintés, {{ p.submissions }} kitöltés
@@ -64,7 +68,7 @@
 				>
 					<i class="fas fa-trash" />
 				</span>
-			</NuxtLink>
+			</div>
 		</div>
 	</AdminFrame>
 </template>

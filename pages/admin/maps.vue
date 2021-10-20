@@ -38,13 +38,17 @@
 			</div>
 		</div>
 		<div class="list-group">
-			<NuxtLink
+			<div
 				v-for="m in filteredMaps"
 				:key="m.id"
-				:to="'/admin/map/' + m.id"
-				class="align-items-center d-flex list-group-item list-group-item-action"
+				class="align-items-center d-flex list-group-item"
 			>
-				<strong class="mr-2">{{ m.title }}</strong>
+				<NuxtLink
+					:to="'/admin/map/' + m.id"
+					class="font-weight-bold mr-2"
+				>
+					{{ m.title }}
+				</NuxtLink>
 				<span
 					v-if="m.userId != $auth.user.id"
 					class="badge badge-warning"
@@ -53,7 +57,7 @@
 				</span>
 				<span
 					v-else-if="$auth.user.isAdmin"
-					class="badge badge-success"
+					class="badge badge-info"
 				>
 					Saját
 				</span>
@@ -64,7 +68,7 @@
 				>
 					<i class="fas fa-trash" />
 				</span>
-			</NuxtLink>
+			</div>
 		</div>
 	</AdminFrame>
 </template>

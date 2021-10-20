@@ -68,11 +68,10 @@
 				</b-modal>
 			</template>
 			<div class="list-group">
-				<NuxtLink
+				<div
 					v-for="sheet in sheets"
 					:key="sheet.ord"
-					:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
-					class="align-items-center d-flex list-group-item list-group-item-action"
+					class="align-items-center d-flex list-group-item"
 				>
 					<i
 						:class="sheetIcon(sheet)"
@@ -80,7 +79,12 @@
 					/>
 					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
 					<div>
-						<strong class="mr-2">{{ sheet.title }}</strong>
+						<NuxtLink
+							:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
+							class="font-weight-bold mr-2"
+						>
+							{{ sheet.title }}
+						</NuxtLink>
 						<span v-if="sheet.submittedFeatureCount">
 							<br>
 							{{ sheet.submittedFeatureCount }} beküldött térkép elem
@@ -115,7 +119,7 @@
 							<i class="fas fa-fw fa-trash" />
 						</span>
 					</div>
-				</NuxtLink>
+				</div>
 			</div>
 		</b-card>
 	</b-container>
