@@ -156,12 +156,12 @@
 		<template #footer>
 			<b-button
 				v-if="prevBtnShown"
-				size="sm"
 				class="float-left"
 				variant="outline-secondary"
 				:disabled="submitted"
 				@click="$emit('prevSheet')"
 			>
+				<i class="fas fa-chevron-left mr-1" />
 				Vissza
 			</b-button>
 			<span
@@ -176,20 +176,20 @@
 				<b-button
 					v-if="nextBtnShown"
 					:disabled="nextButtonDisabled"
-					size="sm"
 					variant="primary"
 					@click="$emit('nextSheet')"
 				>
 					Tovább
+					<i class="fas fa-chevron-right ml-1" />
 				</b-button>
 				<b-button
 					v-else-if="visitor"
 					:disabled="nextButtonDisabled || submitted"
-					size="sm"
 					variant="success"
 					@click="$emit('submit')"
 				>
 					Küldés
+					<i class="fas fa-paper-plane ml-1" />
 				</b-button>
 			</span>
 		</template>
@@ -371,10 +371,6 @@ export default {
 	width: 250px;
 }
 
-.card-footer {
-	padding: 0.5rem;
-}
-
 textarea {
 	resize: none;
 }
@@ -410,8 +406,5 @@ textarea {
 	top: 50%;
 	transform: translate(-15px, -50%) rotate(90deg);
 	pointer-events: none;
-}
-.side-footer {
-	height: 100px;
 }
 </style>

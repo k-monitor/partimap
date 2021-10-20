@@ -85,26 +85,19 @@
 		</div>
 		<b-navbar
 			v-if="showBottomNav"
+			class="justify-content-between fixed-bottom border-top"
 			type="light"
 			variant="white"
-			class="bottom-nav justify-content-between fixed-bottom border-top shadow-sm"
 		>
 			<b-navbar-nav>
 				<div v-if="prevSheetExists()">
 					<b-button
-						size="sm"
 						variant="outline-secondary"
 						:disabled="submitted"
 						@click="goToOtherSheet(-1)"
 					>
-						<div class="content d-flex">
-							<div class="material-icons d-inline border-info  pr-1">
-								arrow_back_ios
-							</div>
-							<div class="text d-inline">
-								{{ getByOrd(sheet.ord - 1).title }}
-							</div>
-						</div>
+						<i class="fas fa-chevron-left mr-1" />
+						<span class="d-none d-lg-inline">{{ getByOrd(sheet.ord - 1).title }}</span>
 					</b-button>
 				</div>
 			</b-navbar-nav>
@@ -112,28 +105,21 @@
 				<div>
 					<b-button
 						v-if="nextSheetExists()"
-						size="sm"
 						variant="primary"
 						:disabled="nextButtonDisabled"
 						@click="goToOtherSheet(1)"
 					>
-						<div class="content d-flex">
-							<div class="text d-inline">
-								{{ getByOrd(sheet.ord + 1).title }}
-							</div>
-							<div class="material-icons d-inline border-info pl-1">
-								arrow_forward_ios
-							</div>
-						</div>
+						<span class="d-none d-md-inline">{{ getByOrd(sheet.ord + 1).title }}</span>
+						<i class="fas fa-chevron-right ml-1" />
 					</b-button>
 					<b-button
 						v-else-if="visitor"
-						size="sm"
 						variant="success"
 						:disabled="nextButtonDisabled || submitted"
 						@click="submit"
 					>
 						Küldés
+						<i class="fas fa-paper-plane ml-1" />
 					</b-button>
 				</div>
 			</b-navbar-nav>
@@ -367,8 +353,7 @@ export default {
 					submittedRatings = await this.$axios.$get(
 						'/api/submission/ratings/' + this.sheet.id
 					);
-				} catch (error) {
-				}
+				} catch (error) {}
 				return submittedRatings;
 			}
 		},
@@ -428,10 +413,5 @@ export default {
 	height: auto;
 	width: auto;
 	top: 120px;
-}
-</style>
-<style scoped>
-.bottom-nav .material-icons {
-	font-size: 21px;
 }
 </style>
