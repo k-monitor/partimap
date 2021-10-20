@@ -1,42 +1,5 @@
 <template>
 	<b-card class="sheet-editor-container">
-		<template
-			v-if="!visitor"
-			#header
-		>
-			<div
-				v-if="!titleEdit"
-				@click="editTitle"
-			>
-				<h5
-					class="my-0 text-center"
-					:class="{visitor: 'editable-title'}"
-				>
-					{{ localSheet.title }}
-				</h5>
-			</div>
-			<div v-else>
-				<b-form
-					id="sheetNameForm"
-					@submit.prevent="titleEdit = false;"
-				>
-					<b-form-input
-						v-model="localSheet.title"
-						size="sm"
-						class="mr-sm-2"
-					/>
-					<b-button
-						size="sm"
-						class="mt-1 mt-sm-0 ml-auto"
-						variant="outline-success"
-						type="submit"
-						form="sheetNameForm"
-					>
-						Módosít
-					</b-button>
-				</b-form>
-			</div>
-		</template>
 		<b-card-body
 			class="p-0 pr-2"
 			style="min-height: 200px;"
@@ -77,24 +40,85 @@
 					</a>
 				</b-form-checkbox>
 			</div>
-			<b-form
-				v-else
-				@submit.prevent=""
-			>
-				<div class="form-group">
-					<label for="description">Leírás:</label>
+			<div v-else>
+				<b-form-group>
+					<b-form-input
+						v-model="localSheet.title"
+						placeholder="Cím"
+						size="lg"
+					/>
+				</b-form-group>
+				<b-form-group>
 					<b-textarea
-						id="description"
 						v-model="localSheet.description"
 						class="form-control"
-						rows="6"
 						maxlength="1000"
+						placeholder="Leírás"
+						rows="6"
 					/>
 					<span
 						v-if="!visitor"
-						class="badge badge-secondary char-count"
+						class="badge badge-secondary"
 					>{{ descriptionLength }} / 1000</span>
+				</b-form-group>
+
+				<div v-if="!localSheet.features">
+					<b-form
+						v-if="!localSheet.image"
+						@submit.prevent="submitFile"
+					>
+						<b-form-group
+							invalid-feedback="Maximális fájlméret: 5 MB"
+							:state="imageState"
+						>
+							<b-input-group>
+								<b-form-file
+									ref="file-selector"
+									v-model="backgroundImage"
+									:state="imageState"
+									accept="image/jpeg, image/png, image/webp"
+									drop-placeholder="Húzza ide a fájlt!"
+									placeholder="Kép tallózása..."
+								/>
+								<template #append>
+									<b-button
+										:disabled="!backgroundImage"
+										variant="success"
+										type="submit"
+									>
+										<i class="fas fa-upload" />
+									</b-button>
+								</template>
+							</b-input-group>
+						</b-form-group>
+					</b-form>
+					<b-form-group v-else>
+						<b-button
+							class="w-100"
+							variant="danger"
+							@click="showConfirmModal"
+						>
+							Kép törlése
+						</b-button>
+					</b-form-group>
 				</div>
+
+				<!-- <b-button
+					v-if="localSheet.survey"
+					size="sm"
+					class="w-100 mt-1"
+					variant="success"
+				>
+					<div class="content d-flex">
+						<div class="material-icons d-inline pr-1">
+							poll
+						</div>
+						<div class="text d-inline">
+							Kérdőív szerkesztése
+						</div>
+					</div>
+				</b-button> -->
+
 				<div
 					v-if="!localSheet.features && !localSheet.survey"
 					class="form-group"
@@ -103,7 +127,7 @@
 						Megosztás gombok
 					</b-form-checkbox>
 				</div>
-			</b-form>
+			</div>
 			<div
 				ref="sidebar-collapse"
 				class="sidebar-button sidebar-collapse"
@@ -128,76 +152,6 @@
 					expand_more
 				</span>
 			</div>
-			<div
-				v-if="!sheet.image && !sheet.features && !visitor"
-				class="image-selector"
-			>
-				<b-form @submit.prevent="submitFile">
-					<b-row>
-						<b-col class="pr-1">
-							<b-form-group
-								invalid-feedback="Maximális fájlméret: 5MB"
-								:state="imageState"
-								class="m-0"
-							>
-								<b-form-file
-									ref="file-selector"
-									v-model="backgroundImage"
-									:state="imageState"
-									accept="image/jpeg, image/png, image/webp"
-									placeholder="Kép kiválasztása..."
-									drop-placeholder="Húzza ide a fájlt..."
-									size="sm"
-								/>
-							</b-form-group>
-						</b-col>
-						<b-col
-							cols="auto"
-							class="pl-0 "
-						>
-							<b-button
-								variant="outline-success"
-								size="sm"
-								:disabled="!backgroundImage"
-								class="pb-0 px-1"
-								type="submit"
-							>
-								<span class="material-icons">
-									check
-								</span>
-							</b-button>
-						</b-col>
-					</b-row>
-				</b-form>
-			</div>
-			<div
-				v-if="sheet.image && !visitor"
-				class="delete-image"
-			>
-				<b-button
-					class="w-100"
-					size="sm"
-					variant="danger"
-					@click="showConfirmModal"
-				>
-					Háttérkép eltávolítása
-				</b-button>
-			</div>
-			<b-button
-				v-if="localSheet.survey"
-				size="sm"
-				class="w-100 mt-1"
-				variant="success"
-			>
-				<div class="content d-flex">
-					<div class="material-icons d-inline pr-1">
-						poll
-					</div>
-					<div class="text d-inline">
-						Kérdőív szerkesztése
-					</div>
-				</div>
-			</b-button>
 		</b-card-body>
 		<template #footer>
 			<b-button
@@ -294,7 +248,6 @@ export default {
 	data() {
 		return {
 			localSheet: this.sheet,
-			titleEdit: false,
 			backgroundImage: null,
 			imageState: null,
 			socialButtons: (this.sheet.interactions || '').includes(SOCIAL_SHARING),
@@ -406,11 +359,6 @@ export default {
 
 			this.imageState = null;
 		},
-		editTitle() {
-			if (!this.visitor) {
-				this.titleEdit = true;
-			}
-		},
 		firstSheet() {
 			return !this.sheet.ord;
 		},
@@ -429,15 +377,6 @@ export default {
 
 .editable-title {
 	cursor: pointer;
-}
-
-.char-count {
-	position: absolute;
-	margin-top: 2px;
-	font-size: 60%;
-}
-.image-selector .material-icons {
-	font-size: 20px;
 }
 
 #description {
