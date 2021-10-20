@@ -10,9 +10,7 @@
 		>
 			<template #back-button-name>Térképek</template>
 		</EditorNavbar>
-		<MapEditor
-			:features="loadInitFeatures()"
-		>
+		<MapEditor :features="loadInitFeatures()">
 			<template #feature-editor>
 				<FeatureListContainer />
 			</template>
@@ -37,7 +35,7 @@ export default {
 	},
 	data() {
 		return {
-			contentModified: false
+			contentModified: false,
 		};
 	},
 	head() {
@@ -47,7 +45,6 @@ export default {
 	},
 	computed: {
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
-
 	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
@@ -62,14 +59,13 @@ export default {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
-			return features
-				? new GeoJSON().readFeatures(featureCollection)
-				: null;
+			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
 		loadInitFeatures() {
 			return this.featuresFromRaw(this.initMapData.features);
 		},
-		async saveMap() { // to DB
+		async saveMap() {
+			// to DB
 			this.loadFeaturesFromStore();
 			try {
 				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
@@ -88,18 +84,22 @@ export default {
 			this.mapData.features = features.length ? features : null;
 		},
 		showConfirmModal() {
-			this.$bvModal.msgBoxConfirm('Önnek nem mentett módosításai vannak. Kívánja őket menteni?', {
-				title: 'Visszalépés',
-				size: 'sm',
-				buttonSize: 'sm',
-				okVariant: 'danger',
-				okTitle: 'Igen',
-				cancelTitle: 'Nem',
-				footerClass: 'p-2',
-				hideHeaderClose: false,
-				centered: true,
-				autoFocusButton: 'ok'
-			})
+			this.$bvModal
+				.msgBoxConfirm(
+					'Önnek nem mentett módosításai vannak. Kívánja őket menteni?',
+					{
+						title: 'Visszalépés',
+						size: 'sm',
+						buttonSize: 'sm',
+						okVariant: 'danger',
+						okTitle: 'Igen',
+						cancelTitle: 'Nem',
+						footerClass: 'p-2',
+						hideHeaderClose: false,
+						centered: true,
+						autoFocusButton: 'ok',
+					}
+				)
 				.then(value => {
 					if (value === true) {
 						this.saveMap();
@@ -123,7 +123,7 @@ export default {
 			if (this.mapData.title !== title) {
 				this.mapData.title = title;
 			}
-		}
-	}
+		},
+	},
 };
 </script>

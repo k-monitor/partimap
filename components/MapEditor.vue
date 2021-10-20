@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper">
+	<div>
 		<client-only placeholder="Loading...">
 			<Map
 				:initial-center="[2129152.791287463,6017729.508627875]"

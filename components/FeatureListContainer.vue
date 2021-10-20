@@ -122,6 +122,7 @@
 				</span>
 			</div>
 		</b-card-body>
+		<!--
 		<template
 			v-if="!visitor"
 			#footer
@@ -149,6 +150,7 @@
 				</b-button>
 			</div>
 		</template>
+		-->
 	</b-card>
 </template>
 

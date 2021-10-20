@@ -1,72 +1,70 @@
 <template>
-	<div class="wrapper">
-		<b-navbar
-			type="light"
-			variant="white"
-			class="border-bottom fixed-top shadow-sm"
-		>
-			<div class="container-fluid">
-				<b-navbar-nav>
-					<b-nav-form>
-						<b-button
-							variant="outline-secondary"
-							@click="$emit('back')"
-						>
-							<i class="fas fa-chevron-left mr-1" />
-							<slot name="back-button-name">Vissza</slot>
-						</b-button>
-					</b-nav-form>
-				</b-navbar-nav>
-
-				<div class="d-flex flex-grow-1 justify-content-center nav-title">
-					<div v-if="dynamicTitle">
-						<b-navbar-nav
-							v-if="!titleEdit"
-							@click="titleEdit = true"
-						>
-							<b-nav-text class="editable-title font-weight-bold text-dark">
-								{{ titleName }}
-								<span v-html="titleExtraHtmlContent" />
-							</b-nav-text>
-						</b-navbar-nav>
-						<b-navbar-nav v-else>
-							<b-nav-form @submit="modifyTitle">
-								<b-input-group>
-									<b-form-input v-model="localTitle" />
-									<template #append>
-										<b-button
-											class="mt-1 mt-sm-0 ml-auto"
-											variant="success"
-											type="submit"
-										>Módosít</b-button>
-									</template>
-								</b-input-group>
-							</b-nav-form>
-						</b-navbar-nav>
-					</div>
-					<div v-else>
-						<b-navbar-nav>
-							<b-nav-text class="editable-title font-weight-bold text-dark">
-								{{ titleName }}
-								<span v-html="titleExtraHtmlContent" />
-							</b-nav-text>
-						</b-navbar-nav>
-					</div>
-				</div>
-
-				<b-navbar-nav>
+	<b-navbar
+		type="light"
+		variant="white"
+		class="border-bottom fixed-top shadow-sm"
+	>
+		<div class="container-fluid">
+			<b-navbar-nav>
+				<b-nav-form>
 					<b-button
-						variant="success"
-						:disabled="!contentModified"
-						@click="$emit('save')"
+						variant="outline-secondary"
+						@click="$emit('back')"
 					>
-						<i class="fas fa-save mr-1" />
-						Mentés
+						<i class="fas fa-chevron-left mr-1" />
+						<slot name="back-button-name">Vissza</slot>
 					</b-button>
-				</b-navbar-nav>
+				</b-nav-form>
+			</b-navbar-nav>
+
+			<div class="d-flex flex-grow-1 justify-content-center nav-title">
+				<div v-if="dynamicTitle">
+					<b-navbar-nav
+						v-if="!titleEdit"
+						@click="titleEdit = true"
+					>
+						<b-nav-text class="editable-title font-weight-bold text-dark">
+							{{ titleName }}
+							<span v-html="titleExtraHtmlContent" />
+						</b-nav-text>
+					</b-navbar-nav>
+					<b-navbar-nav v-else>
+						<b-nav-form @submit="modifyTitle">
+							<b-input-group>
+								<b-form-input v-model="localTitle" />
+								<template #append>
+									<b-button
+										class="mt-1 mt-sm-0 ml-auto"
+										variant="success"
+										type="submit"
+									>Módosít</b-button>
+								</template>
+							</b-input-group>
+						</b-nav-form>
+					</b-navbar-nav>
+				</div>
+				<div v-else>
+					<b-navbar-nav>
+						<b-nav-text class="editable-title font-weight-bold text-dark">
+							{{ titleName }}
+							<span v-html="titleExtraHtmlContent" />
+						</b-nav-text>
+					</b-navbar-nav>
+				</div>
 			</div>
-		</b-navbar>
-	</div>
+
+			<b-navbar-nav>
+				<b-button
+					variant="success"
+					:disabled="!contentModified"
+					@click="$emit('save')"
+				>
+					<i class="fas fa-save mr-1" />
+					Mentés
+				</b-button>
+			</b-navbar-nav>
+		</div>
+	</b-navbar>
 </template>
 
 <script>

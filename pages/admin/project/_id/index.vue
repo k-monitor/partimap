@@ -166,12 +166,10 @@ export default {
 		},
 		async addSheet(title, type, sourceMap) {
 			let initialFeatures = [];
-			alert(sourceMap);
 			if (sourceMap) {
 				const m = await this.$axios.$get('/api/map/' + sourceMap);
 				initialFeatures = m.features;
 			}
-			alert(initialFeatures);
 
 			const sheetData = {};
 			sheetData.title = title;
@@ -186,7 +184,6 @@ export default {
 					sheetData.interactions = [];
 				}
 			}
-			alert(sheetData.features);
 
 			try {
 				const newSheet = await this.$axios.$put(

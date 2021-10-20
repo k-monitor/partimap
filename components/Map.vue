@@ -336,6 +336,6 @@ export default {
 
 <style>
 .ol-zoom {
-	top: 6.5em;
+	top: 5rem;
 }
 </style>
