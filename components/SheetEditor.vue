@@ -7,6 +7,33 @@
 			<div v-if="visitor">
 				<h4 class="card-title">{{ localSheet.title }}</h4>
 				<p class="card-text mb-4">{{ localSheet.description }}</p>
+				<div v-if="localSheet.survey">
+					<b-form-group
+						v-for="q in JSON.parse(localSheet.survey).questions"
+						:key="q.id"
+						:label="q.label"
+					>
+						<b-form-input v-if="q.type === 'text'" />
+						<b-form-checkbox-group
+							v-else-if="q.type === 'checkbox'"
+							:options="q.options"
+							stacked
+						/>
+						<b-form-radio-group
+							v-else-if="q.type === 'radiogroup'"
+							:options="q.options"
+							stacked
+						/>
+						<b-form-select
+							v-else-if="q.type === 'dropdown'"
+							:options="q.options"
+						/>
+						<b-form-rating
+							v-else-if="q.type === 'rating'"
+							variant="warning"
+						/>
+					</b-form-group>
+				</div>
 				<div
 					v-if="socialButtons"
 					class="d-flex justify-content-around"
@@ -307,7 +334,7 @@ export default {
 		'localSheet.survey'(val) {
 			this.$emit('sheetSurveyChanged', val);
 			this.$nuxt.$emit('contentModified');
-		}
+		},
 	},
 	methods: {
 		checkFileValidity() {
