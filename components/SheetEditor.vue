@@ -107,7 +107,7 @@
 					<SurveyEditor v-model="localSheet.survey" />
 				</b-form-group>
 
-				<div class="bg-light">{{ JSON.stringify(localSheet.survey) }}</div>
+				<div class="bg-light">{{ localSheet.survey }}</div>
 
 				<div
 					v-if="!localSheet.features && !localSheet.survey"
