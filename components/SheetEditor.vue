@@ -359,7 +359,7 @@ export default {
 
 <style scoped>
 .sheet-editor-container {
-	width: 250px;
+	width: 100%;
 }
 
 textarea {

@@ -411,7 +411,6 @@ export default {
 #sheet-sidebar {
 	border-radius: 0.25rem;
 	height: auto;
-	width: auto;
 	top: 120px;
 }
 </style>
