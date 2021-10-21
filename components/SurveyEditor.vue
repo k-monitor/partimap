@@ -1,27 +1,35 @@
 <template>
 	<div>
 		<b-list-group>
-			<b-list-group-item
-				v-for="(q, i) in survey.questions"
-				:key="q.id"
-				button
-				@click="editQuestion(i)"
-				class="d-flex align-items-center"
+			<draggable
+				v-model="survey.questions"
+				draggable=".item"
+				@end="emitSurvey"
 			>
-				<i
-					class="fas fa-fw mr-2"
-					:class="icon[q.type]"
-				/>
-				<strong class="flex-grow-1 text-truncate">{{ q.label }}</strong>
-			</b-list-group-item>
-			<b-list-group-item
-				button
-				@click="addQuestion"
-				class="d-flex align-items-center text-success"
-			>
-				<i class="fas fa-fw fa-plus mr-2" />
-				Új kérdés hozzáadása
-			</b-list-group-item>
+				<b-list-group-item
+					v-for="(q, i) in survey.questions"
+					:key="q.id"
+					button
+					class="d-flex align-items-center item"
+					@click="editQuestion(i)"
+				>
+					<i
+						class="fas fa-fw mr-2"
+						:class="icon[q.type]"
+					/>
+					<strong class="flex-grow-1 text-truncate">{{ q.label }}</strong>
+				</b-list-group-item>
+				<b-list-group-item
+					slot="footer"
+					button
+					class="d-flex align-items-center text-success"
+					@click="addQuestion"
+				>
+					<i class="fas fa-fw fa-plus mr-2" />
+					Új kérdés hozzáadása
+				</b-list-group-item>
+			</draggable>
+
 		</b-list-group>
 		<b-modal
 			id="survey-question-editor"
@@ -50,7 +58,10 @@
 					>
 						<b-form-input v-model="question.options[i]" />
 						<template #append>
-							<b-button variant="outline-danger" @click="delOption(i)">
+							<b-button
+								variant="outline-danger"
+								@click="delOption(i)"
+							>
 								<i class="fas fa-fw fa-trash" />
 							</b-button>
 						</template>
@@ -67,12 +78,17 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable';
+
 export default {
 	props: {
 		value: {
 			type: String, // survey definition as JSON string
 			default: null,
 		},
+	},
+	components: {
+		draggable,
 	},
 	data() {
 		const survey = JSON.parse(this.value || '{}');
