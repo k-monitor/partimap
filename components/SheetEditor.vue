@@ -103,12 +103,11 @@
 					</b-form-group>
 				</div>
 
-				<!-- <b-button
-					v-if="localSheet.survey"
-					variant="success"
-				>
-					Kérdőív szerkesztése
-				</b-button> -->
+				<b-form-group v-if="localSheet.survey">
+					<SurveyEditor v-model="localSheet.survey" />
+				</b-form-group>
+
+				<div class="bg-light">{{ JSON.stringify(localSheet.survey) }}</div>
 
 				<div
 					v-if="!localSheet.features && !localSheet.survey"
@@ -207,9 +206,11 @@
 </template>
 
 <script>
+import SurveyEditor from './SurveyEditor.vue';
 const SOCIAL_SHARING = 'SocialSharing';
 
 export default {
+	components: { SurveyEditor },
 	props: {
 		sheet: {
 			type: Object,
