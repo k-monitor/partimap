@@ -41,10 +41,27 @@
 				</b-form-group>
 				<b-form-group
 					label="Opciók:"
-					v-if="'checkbox|radiogroup|dropdown'.includes(question.type)"
+					v-if="hasOptions"
 				>
+					<b-input-group
+						v-for="(o,i) in (question.options || [])"
+						:key="i"
+						class="mb-2"
+					>
+						<b-form-input v-model="question.options[i]" />
+						<template #append>
+							<b-button variant="outline-danger" @click="delOption(i)">
+								<i class="fas fa-fw fa-trash" />
+							</b-button>
+						</template>
+					</b-input-group>
+					<b-button
+						variant="success"
+						@click="addOption"
+					>Új opció</b-button>
 				</b-form-group>
 			</b-form>
+			<p>{{ JSON.stringify(question) }}</p>
 		</b-modal>
 	</div>
 </template>
@@ -85,6 +102,11 @@ export default {
 			question: {},
 		};
 	},
+	computed: {
+		hasOptions() {
+			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+		},
+	},
 	methods: {
 		addQuestion() {
 			const id = new Date().getTime();
@@ -99,8 +121,20 @@ export default {
 			this.question = { ...this.survey.questions[i] };
 			this.$bvModal.show('survey-question-editor');
 		},
+		addOption() {
+			if (!this.question.options) {
+				this.$set(this.question, 'options', []);
+			}
+			this.question.options.push(`Opció #${this.question.options.length + 1}`);
+		},
+		delOption(i) {
+			this.question.options.splice(i, 1);
+		},
 		saveQuestion() {
 			this.$bvModal.hide('survey-question-editor');
+			if (!this.hasOptions) {
+				this.$delete(this.question, 'options');
+			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();
 		},
