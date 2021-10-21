@@ -49,6 +49,7 @@
 					@sheetDescriptionChanged="changeSheetDescription"
 					@sheetTitleChanged="changeSheetTitle"
 					@sheetInteractionsChanged="changeSheetInteractions"
+					@sheetSurveyChanged="changeSheetSurvey"
 					@prevSheet="goToOtherSheet(-1)"
 					@nextSheet="goToOtherSheet(1)"
 					@collapse="handleCollapse"
@@ -253,6 +254,9 @@ export default {
 		},
 		changeSheetInteractions(val) {
 			this.sheet.interactions = val;
+		},
+		changeSheetSurvey(val) {
+			this.sheet.survey = val;
 		},
 		goBackToProject() {
 			const route = '/admin/project/' + this.project.id;

@@ -306,6 +306,10 @@ export default {
 			this.$emit('sheetTitleChanged', val);
 			this.$nuxt.$emit('contentModified');
 		},
+		'localSheet.survey'(val) {
+			this.$emit('sheetSurveyChanged', val);
+			this.$nuxt.$emit('contentModified');
+		}
 	},
 	methods: {
 		checkFileValidity() {
