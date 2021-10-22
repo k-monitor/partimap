@@ -173,7 +173,7 @@ export default {
 
 			const sheetData = {};
 			sheetData.title = title;
-			if (type.match(/poll$/i)) {
+			if (type.match(/poll$|staticMap/i)) {
 				// poll / demographicsPoll
 				sheetData.survey = {};
 			} else if (type.match(/map$/i)) {
