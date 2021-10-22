@@ -1,11 +1,17 @@
 import GeoJSON from 'ol/format/GeoJSON';
 
 export const state = () => ({
+	visitorAnswers: {},
 	visitorFeatures: {},
 	visitorRatings: {},
 });
 
 export const mutations = {
+	addAnswers(state, payload) {
+		const answers = payload.answers;
+		const sheetId = payload.sheetId.toString();
+		state.visitorAnswers[sheetId] = answers;
+	},
 	addFeatures(state, payload) {
 		const featureArray = payload.features;
 		const sheetIdKey = payload.sheetId.toString();
@@ -22,6 +28,7 @@ export const mutations = {
 };
 
 export const getters = {
+	getVisitorAnswers: state => sheetId => state.visitorAnswers[sheetId.toString()],
 	getVisitorFeatures: state => sheetId => state.visitorFeatures[sheetId.toString()],
 	getVisitorRatings: state => sheetId => state.visitorRatings[sheetId.toString()],
 	getSubmissionData: state => sheetIds => {
