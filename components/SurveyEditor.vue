@@ -186,6 +186,5 @@ export default {
 			this.$emit('input', JSON.stringify(this.survey));
 		},
 	},
-	// TODO emit "input", pass survey as JSON string
 };
 </script>

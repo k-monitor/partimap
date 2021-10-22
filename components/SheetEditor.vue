@@ -8,31 +8,10 @@
 				<h4 class="card-title">{{ localSheet.title }}</h4>
 				<p class="card-text mb-4">{{ localSheet.description }}</p>
 				<div v-if="localSheet.survey">
-					<b-form-group
-						v-for="q in JSON.parse(localSheet.survey).questions"
-						:key="q.id"
-						:label="q.label"
-					>
-						<b-form-input v-if="q.type === 'text'" />
-						<b-form-checkbox-group
-							v-else-if="q.type === 'checkbox'"
-							:options="q.options"
-							stacked
-						/>
-						<b-form-radio-group
-							v-else-if="q.type === 'radiogroup'"
-							:options="q.options"
-							stacked
-						/>
-						<b-form-select
-							v-else-if="q.type === 'dropdown'"
-							:options="q.options"
-						/>
-						<b-form-rating
-							v-else-if="q.type === 'rating'"
-							variant="warning"
-						/>
-					</b-form-group>
+					<Survey
+						v-model="visitorAnswers"
+						:survey="localSheet.survey"
+					/>
 				</div>
 				<div
 					v-if="socialButtons"
@@ -273,6 +252,7 @@ export default {
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
 				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
 			],
+			visitorAnswers: {},
 		};
 	},
 	computed: {
@@ -301,6 +281,12 @@ export default {
 		},
 	},
 	watch: {
+		visitorAnswers: {
+			handler(a) {
+				console.log('SheetEditor, visitorAnswers watch', JSON.stringify(a));
+			},
+			deep: true,
+		},
 		backgroundImage(val) {
 			// clear validation error message on file removal
 			if (!val) {
