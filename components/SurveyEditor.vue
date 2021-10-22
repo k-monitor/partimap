@@ -42,10 +42,14 @@
 			cancel-title="Mégsem"
 			:title="`Kérdés #${questionIndex + 1}`"
 			@ok="saveQuestion"
+			@shown="$refs.questionLabelInput.focus()"
 		>
 			<b-form @submit.prevent="saveQuestion">
 				<b-form-group label="Kérdés szövege:">
-					<b-form-input v-model="question.label" />
+					<b-form-input
+						ref="questionLabelInput"
+						v-model="question.label"
+					/>
 				</b-form-group>
 				<b-form-group label="Kérdés típusa:">
 					<b-form-select

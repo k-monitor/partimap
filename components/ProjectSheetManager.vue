@@ -17,6 +17,7 @@
 					cancel-title="Mégsem"
 					ok-variant="success"
 					@show="resetModal"
+					@shown="$refs.sheetNameInput.focus()"
 					@hidden="resetModal"
 					@ok="handleOk"
 				>
@@ -26,12 +27,11 @@
 					>
 						<b-form-group
 							label="Munkalap elnevezése:"
-							label-for="name-input"
 							invalid-feedback="Név megadása kötelező"
 							:state="nameState"
 						>
 							<b-form-input
-								id="name-input"
+								ref="sheetNameInput"
 								v-model="newSheetTitle"
 								:state="nameState"
 								required
