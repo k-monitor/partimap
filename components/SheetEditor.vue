@@ -210,6 +210,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 const SOCIAL_SHARING = 'SocialSharing';
 
 export default {
@@ -250,10 +252,24 @@ export default {
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
 				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
 			],
-			visitorAnswers: {},
 		};
 	},
 	computed: {
+		...mapGetters({
+			getVisitorAnswers: 'visitordata/getVisitorAnswers',
+		}),
+		visitorAnswers: {
+			get() {
+				return this.getVisitorAnswers(this.sheet.id);
+			},
+			set(answers) {
+				const payload = {
+					answers,
+					sheetId: this.sheet.id,
+				};
+				this.$store.commit('visitordata/addAnswers', payload);
+			},
+		},
 		descriptionLength() {
 			return this.localSheet.description
 				? this.localSheet.description.length
@@ -279,12 +295,6 @@ export default {
 		},
 	},
 	watch: {
-		visitorAnswers: {
-			handler(a) {
-				console.log('SheetEditor, visitorAnswers watch', JSON.stringify(a));
-			},
-			deep: true,
-		},
 		backgroundImage(val) {
 			// clear validation error message on file removal
 			if (!val) {
