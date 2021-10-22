@@ -40,20 +40,21 @@
 
 						<p class="pb-3">Munkalap típusa:</p>
 						<div class="d-flex justify-content-between">
-							<button
+							<span
 								v-for="t in sheetTypes"
 								:key="t.name"
 								v-b-tooltip.hover
 								:title="t.tooltip"
 								:class="newSheetType === t.name ? 'text-success border border-success': 'text-muted'"
 								class="btn btn-link"
+								role="button"
 								@click="toggleSheetType(t.name)"
 							>
 								<i
 									:class="t.icon"
 									class="fas fa-fw fa-2x"
 								/>
-							</button>
+							</span>
 						</div>
 
 						<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
