@@ -34,6 +34,12 @@ export const getters = {
 	getSubmissionData: state => sheetIds => {
 		const data = {};
 		sheetIds.forEach(id => {
+			const a = state.visitorAnswers[id.toString()];
+			if (a && Object.keys(a).length) {
+				data[id] = data[id] = {};
+				data[id].answers = a;
+			}
+
 			const f = state.visitorFeatures[id.toString()];
 			if (f && f.length) {
 				data[id] = data[id] || {};
