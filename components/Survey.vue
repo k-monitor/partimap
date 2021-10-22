@@ -9,6 +9,11 @@
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
 			/>
+			<b-form-input
+				v-else-if="q.type === 'number'"
+				v-model="answers[q.id]"
+				type="number"
+			/>
 			<b-form-checkbox-group
 				v-else-if="q.type === 'checkbox'"
 				v-model="answers[q.id]"

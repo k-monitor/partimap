@@ -110,6 +110,7 @@ export default {
 			survey,
 			icon: {
 				text: 'fa-keyboard',
+				number: 'fa-hashtag',
 				checkbox: 'fa-check-square',
 				radiogroup: 'fa-dot-circle',
 				dropdown: 'fa-caret-square-down',
@@ -117,6 +118,7 @@ export default {
 			},
 			questionTypes: [
 				{ value: 'text', text: 'Szöveges válasz' },
+				{ value: 'number', text: 'Numerikus válasz' },
 				{ value: 'checkbox', text: 'Opciók (többet lehet vál.)' },
 				{ value: 'radiogroup', text: 'Opciók (egyet lehet vál.)' },
 				{
