@@ -210,11 +210,9 @@
 </template>
 
 <script>
-import SurveyEditor from './SurveyEditor.vue';
 const SOCIAL_SHARING = 'SocialSharing';
 
 export default {
-	components: { SurveyEditor },
 	props: {
 		sheet: {
 			type: Object,

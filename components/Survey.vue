@@ -11,20 +11,24 @@
 			/>
 			<b-form-checkbox-group
 				v-else-if="q.type === 'checkbox'"
+				v-model="answers[q.id]"
 				:options="q.options"
 				stacked
 			/>
 			<b-form-radio-group
 				v-else-if="q.type === 'radiogroup'"
+				v-model="answers[q.id]"
 				:options="q.options"
 				stacked
 			/>
 			<b-form-select
 				v-else-if="q.type === 'dropdown'"
+				v-model="answers[q.id]"
 				:options="q.options"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
+				v-model="answers[q.id]"
 				variant="warning"
 			/>
 		</b-form-group>
