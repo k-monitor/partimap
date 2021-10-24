@@ -3,7 +3,7 @@
 		<b-list-group>
 			<draggable
 				v-model="survey.questions"
-				draggable=".item"
+				:draggable="readonly ? null : '.item'"
 				@end="emitSurvey"
 			>
 				<b-list-group-item
@@ -19,6 +19,7 @@
 					/>
 					<strong class="flex-grow-1 text-truncate">{{ q.label }}</strong>
 					<span
+						v-if="!readonly"
 						class="text-danger"
 						role="button"
 						@click.stop="delQuestion(i)"
@@ -27,6 +28,7 @@
 					</span>
 				</b-list-group-item>
 				<b-list-group-item
+					v-if="!readonly"
 					slot="footer"
 					button
 					class="d-flex align-items-center text-success"
@@ -40,6 +42,7 @@
 		<b-modal
 			id="survey-question-editor"
 			cancel-title="Mégsem"
+			:ok-disabled="readonly"
 			:title="`Kérdés #${questionIndex + 1}`"
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
@@ -49,12 +52,15 @@
 					<b-form-input
 						ref="questionLabelInput"
 						v-model="question.label"
+						:readonly="readonly"
+						:disabled="readonly"
 					/>
 				</b-form-group>
 				<b-form-group label="Kérdés típusa:">
 					<b-form-select
 						v-model="question.type"
 						:options="questionTypes"
+						:disabled="readonly"
 					/>
 				</b-form-group>
 				<b-form-group
@@ -66,9 +72,14 @@
 						:key="i"
 						class="mb-2"
 					>
-						<b-form-input v-model="question.options[i]" />
+						<b-form-input
+							v-model="question.options[i]"
+							:readonly="readonly"
+							:disabled="readonly"
+						/>
 						<template #append>
 							<b-button
+								v-if="!readonly"
 								variant="outline-danger"
 								@click="delOption(i)"
 							>
@@ -77,6 +88,7 @@
 						</template>
 					</b-input-group>
 					<b-button
+						v-if="!readonly"
 						variant="success"
 						@click="addOption"
 					>
@@ -99,6 +111,10 @@ export default {
 		value: {
 			type: String, // survey definition as JSON string
 			default: null,
+		},
+		readonly: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	data() {
@@ -189,6 +205,11 @@ export default {
 			this.emitSurvey();
 		},
 		emitSurvey() {
+			if (this.readonly) {
+				// all form controls are disabled so this won't be called
+				// but let's just add this condition just in case :)
+				return true;
+			}
 			this.$emit('input', JSON.stringify(this.survey));
 		},
 	},

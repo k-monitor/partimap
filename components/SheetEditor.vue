@@ -9,6 +9,12 @@
 				<p class="card-text mb-4">{{ localSheet.description }}</p>
 				<div v-if="localSheet.survey">
 					<Survey
+						v-if="JSON.parse(localSheet.survey).demographic"
+						v-model="visitorAnswers"
+						:survey="demographicSurvey"
+					/>
+					<Survey
+						v-else
 						v-model="visitorAnswers"
 						:survey="localSheet.survey"
 					/>
@@ -110,7 +116,15 @@
 				</div>
 
 				<b-form-group v-if="localSheet.survey">
-					<SurveyEditor v-model="localSheet.survey" />
+					<SurveyEditor
+						v-if="JSON.parse(localSheet.survey).demographic"
+						:value="demographicSurvey"
+						:readonly="true"
+					/>
+					<SurveyEditor
+						v-else
+						v-model="localSheet.survey"
+					/>
 				</b-form-group>
 
 				<div
@@ -252,6 +266,38 @@ export default {
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
 				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
 			],
+			demographicSurvey: JSON.stringify({
+				demographic: true,
+				questions: [
+					{
+						id: 1,
+						label: 'Hány éves vagy?',
+						type: 'number',
+					},
+					{
+						id: 2,
+						label: 'Nemed:',
+						type: 'radiogroup',
+						options: ['Férfi', 'Nő'],
+					},
+					{
+						id: 3,
+						label: 'Melyik szomszédságban élsz?',
+						type: 'dropdown',
+						options: ['Budapest', 'Vidék'],
+					},
+					{
+						id: 4,
+						label: 'E-mail cím',
+						type: 'text',
+					},
+					{
+						id: 5,
+						label: 'Bármi hozzáfűznivaló:',
+						type: 'text',
+					},
+				],
+			}),
 		};
 	},
 	computed: {
