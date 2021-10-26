@@ -180,7 +180,7 @@ export default {
 				// padding, so the feature list and navbar doesn't block the view from features
 				this.map
 					.getView()
-					.fit(this.source.getExtent(), { padding: [80, 300, 0, 0] });
+					.fit(this.source.getExtent(), { padding: [100, 100, 100, 100] });
 			}
 		},
 		addEventListeners() {
