@@ -173,10 +173,9 @@ export default {
 
 			const sheetData = {};
 			sheetData.title = title;
-			if (type.match(/poll$|staticMap/i)) {
+			if (type.match(/poll$/i)) {
 				// poll / demographicsPoll
 				sheetData.survey = {};
-
 				if (type === 'demographicsPoll') {
 					sheetData.survey = { demographic: true };
 				}
@@ -186,6 +185,9 @@ export default {
 				if (type.startsWith('interactive')) {
 					// interactiveMap
 					sheetData.interactions = [];
+				} else {
+					// staticMap has optional survey too
+					sheetData.survey = {};
 				}
 			}
 
