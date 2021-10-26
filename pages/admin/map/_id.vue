@@ -9,64 +9,19 @@
 			class="text-right"
 			@click="setSidebarVisible(!getSidebarVisible)"
 		>{{ getSidebarVisible }}</h1>-->
-		<b-sidebar
-			v-model="getSidebarVisible"
-			bg-variant="white"
-			header-class="p-0"
-			shadow="sm"
-			sidebar-class="border-right"
-			@change="setSidebarVisible"
+		<AdminSidebar
+			back-label="Térképek"
+			:content-modified="contentModified"
+			@back="goBackRoute"
+			@save="saveMap"
 		>
-			<template #header="{ hide }">
-				<b-navbar
-					type="light"
-					class="border-bottom shadow-sm w-100"
-				>
-					<b-navbar-brand
-						role="button"
-						@click="goBackRoute"
-					>
-						<strong>Partimap</strong>
-						Admin
-					</b-navbar-brand>
-					<b-navbar-nav class="ml-auto">
-						<b-nav-item @click="hide">
-							<i class="fas fa-fw fa-times" />
-						</b-nav-item>
-					</b-navbar-nav>
-				</b-navbar>
-			</template>
-			<template #default>
-				<div class="p-3">
-					<b-form-group>
-						<b-form-input
-							v-model="mapData.title"
-							size="lg"
-						/>
-					</b-form-group>
-				</div>
-			</template>
-			<template #footer>
-				<div class="d-flex border-top align-items-center p-3">
-					<b-button
-						variant="outline-secondary"
-						@click="goBackRoute"
-					>
-						<i class="fas fa-fw fa-chevron-left mr-1" />
-						Térképek
-					</b-button>
-					<b-button
-						class="ml-auto"
-						:disabled="!contentModified"
-						variant="success"
-						@click="saveMap"
-					>
-						<i class="fas fa-fw fa-save mr-1" />
-						Mentés
-					</b-button>
-				</div>
-			</template>
-		</b-sidebar>
+			<b-form-group>
+				<b-form-input
+					v-model="mapData.title"
+					size="lg"
+				/>
+			</b-form-group>
+		</AdminSidebar>
 	</div>
 </template>
 
