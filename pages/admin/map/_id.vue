@@ -2,25 +2,23 @@
 	<div>
 		<MapEditor :features="loadInitFeatures()">
 			<template #feature-editor>
-				<FeatureListContainer />
+				<!--<FeatureListContainer />-->
 			</template>
 		</MapEditor>
-		<!--<h1
-			class="text-right"
-			@click="setSidebarVisible(!getSidebarVisible)"
-		>{{ getSidebarVisible }}</h1>-->
 		<AdminSidebar
 			back-label="Térképek"
 			:content-modified="contentModified"
 			@back="goBackRoute"
 			@save="saveMap"
 		>
-			<b-form-group>
+			<h6>Térkép neve</h6>
+			<b-form-group class="mb-4">
 				<b-form-input
 					v-model="mapData.title"
 					size="lg"
 				/>
 			</b-form-group>
+			<FeatureList />
 		</AdminSidebar>
 	</div>
 </template>
