@@ -1,26 +1,78 @@
 <template>
 	<div>
-		<EditorNavbar
-			:title-name="mapData.title"
-			:dynamic-title="true"
-			:content-modified="contentModified"
-			@updateTitle="changeMapTitle"
-			@back="goBackRoute"
-			@save="saveMap"
-		>
-			<template #back-button-name>Térképek</template>
-		</EditorNavbar>
 		<MapEditor :features="loadInitFeatures()">
 			<template #feature-editor>
 				<FeatureListContainer />
 			</template>
 		</MapEditor>
+		<!--<h1
+			class="text-right"
+			@click="setSidebarVisible(!getSidebarVisible)"
+		>{{ getSidebarVisible }}</h1>-->
+		<b-sidebar
+			v-model="getSidebarVisible"
+			bg-variant="white"
+			header-class="p-0"
+			shadow="sm"
+			sidebar-class="border-right"
+			@change="setSidebarVisible"
+		>
+			<template #header="{ hide }">
+				<b-navbar
+					type="light"
+					class="border-bottom shadow-sm w-100"
+				>
+					<b-navbar-brand
+						role="button"
+						@click="goBackRoute"
+					>
+						<strong>Partimap</strong>
+						Admin
+					</b-navbar-brand>
+					<b-navbar-nav class="ml-auto">
+						<b-nav-item @click="hide">
+							<i class="fas fa-fw fa-times" />
+						</b-nav-item>
+					</b-navbar-nav>
+				</b-navbar>
+			</template>
+			<template #default>
+				<div class="p-3">
+					<b-form-group>
+						<b-form-input
+							v-model="mapData.title"
+							size="lg"
+						/>
+					</b-form-group>
+				</div>
+			</template>
+			<template #footer>
+				<div class="d-flex border-top align-items-center p-3">
+					<b-button
+						variant="outline-secondary"
+						@click="goBackRoute"
+					>
+						<i class="fas fa-fw fa-chevron-left mr-1" />
+						Térképek
+					</b-button>
+					<b-button
+						class="ml-auto"
+						:disabled="!contentModified"
+						variant="success"
+						@click="saveMap"
+					>
+						<i class="fas fa-fw fa-save mr-1" />
+						Mentés
+					</b-button>
+				</div>
+			</template>
+		</b-sidebar>
 	</div>
 </template>
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
 	middleware: ['auth'],
@@ -44,7 +96,13 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(['getSidebarVisible']),
 		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+	},
+	watch: {
+		'mapData.title'() {
+			this.$nuxt.$emit('contentModified');
+		},
 	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
@@ -55,6 +113,7 @@ export default {
 		this.$nuxt.$off('contentModified');
 	},
 	methods: {
+		...mapMutations(['setSidebarVisible']),
 		featuresFromRaw(featuresRaw) {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
 			const features = JSON.parse(featuresRaw);
@@ -117,11 +176,6 @@ export default {
 				this.showConfirmModal();
 			} else {
 				this.$router.push('/admin/maps');
-			}
-		},
-		changeMapTitle(title) {
-			if (this.mapData.title !== title) {
-				this.mapData.title = title;
 			}
 		},
 	},
