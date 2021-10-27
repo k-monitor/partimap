@@ -3,6 +3,12 @@
 		class="flex-grow-1"
 		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
 	>
+		<template v-if="sheet.features">
+			<client-only placeholder="Loading...">
+				<Map :features="loadInitFeatures()" />
+			</client-only>
+			<MapToolbar />
+		</template>
 		<AdminSidebar
 			back-label="Projekt"
 			:content-modified="contentModified"
@@ -54,6 +60,7 @@
 					:options="interactionOptions"
 				/>
 			</b-form-group>
+			<FeatureList v-if="sheet.features" />
 		</AdminSidebar>
 	</div>
 </template>
@@ -95,6 +102,9 @@ const demographicSurvey = JSON.stringify({
 });
 
 export default {
+	components: {
+		Map: () => (process.client ? import('@/components/Map') : null),
+	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
@@ -166,6 +176,11 @@ export default {
 			}
 			this.$router.push('/admin/project/' + this.project.id);
 		},
+		featuresFromRaw(featuresRaw) {
+			const features = JSON.parse(featuresRaw);
+			const featureCollection = { type: 'FeatureCollection', features };
+			return features ? new GeoJSON().readFeatures(featureCollection) : null;
+		},
 		loadFeaturesFromStore() {
 			const features = [];
 			for (const f of this.getAllFeature) {
@@ -173,6 +188,9 @@ export default {
 				features.push(JSON.parse(featureStr));
 			}
 			this.sheet.features = features;
+		},
+		loadInitFeatures() {
+			return this.featuresFromRaw(this.sheet.features);
 		},
 		async save() {
 			if (this.sheet.features) {
