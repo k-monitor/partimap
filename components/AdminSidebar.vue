@@ -1,11 +1,10 @@
 <template>
 	<b-sidebar
-		v-model="getSidebarVisible"
+		v-model="visible"
 		bg-variant="white"
 		header-class="p-0 reset-font-size"
 		shadow="sm"
 		sidebar-class="border-right border-secondary"
-		@change="setSidebarVisible"
 	>
 		<template #header="{ hide }">
 			<b-navbar
@@ -69,6 +68,14 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getSidebarVisible']),
+		visible: {
+			get() {
+				return this.getSidebarVisible;
+			},
+			set(v) {
+				this.setSidebarVisible(v);
+			},
+		},
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
