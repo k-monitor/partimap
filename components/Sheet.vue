@@ -1,23 +1,28 @@
 <template>
-	<b-container
+	<div
 		v-if="sheet"
-		ref="background"
-		fluid
-		class="flex-grow-1 p-0"
-		:style="'background: center / cover no-repeat url('+sheet.image+');'"
+		class="flex-grow-1"
+		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
 	>
-		<EditorNavbar
+		<AdminSidebar
 			v-if="!visitor"
-			:title-name="project.title"
-			:title-extra-html-content="` - <nobr>${sheet.ord + 1} / ${project.sheets.length}</nobr>`"
-			:dynamic-title="false"
+			back-label="Projekt"
 			:content-modified="contentModified"
 			@back="goBackToProject"
 			@save="saveMap"
 		>
+			<h6>Munkalap neve</h6>
+
+		</AdminSidebar>
+		<!--<EditorNavbar
+			v-if="!visitor"
+			:title-name="project.title"
+			:title-extra-html-content="` - <nobr>${sheet.ord + 1} / ${project.sheets.length}</nobr>`"
+			:dynamic-title="false"
+		>
 			<template #back-button-name>{{ project.title }}</template>
-		</EditorNavbar>
-		<MapEditor
+		</EditorNavbar>-->
+		<!--<MapEditor
 			v-if="sheet.features"
 			:features="loadInitFeatures()"
 			:visitor="visitor"
@@ -30,8 +35,8 @@
 					@addVisitorDrawingInteractions="addVisitorDrawingInteractions"
 				/>
 			</template>
-		</MapEditor>
-		<div class="sheet-sidebar">
+		</MapEditor>-->
+		<!--<div class="sheet-sidebar">
 			<b-sidebar
 				id="sheet-sidebar"
 				visible
@@ -83,8 +88,8 @@
 					expand_less
 				</span>
 			</div>
-		</div>
-		<b-navbar
+		</div>-->
+		<!--<b-navbar
 			v-if="showBottomNav"
 			class="justify-content-between fixed-bottom border-top"
 			type="light"
@@ -124,8 +129,8 @@
 					</b-button>
 				</div>
 			</b-navbar-nav>
-		</b-navbar>
-	</b-container>
+		</b-navbar>-->
+	</div>
 </template>
 
 <script>
@@ -138,7 +143,7 @@ export default {
 			type: String,
 			required: true,
 		},
-		parentProjectData: {
+		project: {
 			type: Object,
 			required: true,
 		},
@@ -149,17 +154,17 @@ export default {
 	},
 	data() {
 		return {
-			showBottomNav: false,
-			imageSource: null,
 			contentModified: false,
-			sheet: null,
-			initSheet: null,
-			project: this.parentProjectData,
-			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
-			localVisitorFeatures: [],
-			localVisitorFeatureRatings: {},
+			imageSource: null,
 			initFeatureRatings: null,
+			localVisitorFeatureRatings: {},
+			localVisitorFeatures: [],
+			sheet: this.project.sheets.filter(
+				sheet => sheet.ord === parseInt(this.sheetOrd)
+			)[0],
+			showBottomNav: false,
 			submitted: false,
+			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
 		};
 	},
 	computed: {
@@ -195,10 +200,6 @@ export default {
 		});
 	},
 	async mounted() {
-		this.sheet = this.project.sheets.filter(
-			sheet => sheet.ord === parseInt(this.sheetOrd)
-		)[0];
-		this.initSheet = { ...this.sheet };
 		this.initFeatureRatings = await this.loadInitFeatureRatings();
 	},
 	beforeDestroy() {
@@ -341,7 +342,7 @@ export default {
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
 		loadInitFeatures() {
-			const adminFeatures = this.featuresFromRaw(this.initSheet.features);
+			const adminFeatures = this.featuresFromRaw(this.sheet.features);
 			const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
 			this.localVisitorFeatures = [...visitorFeatures];
 			return [...visitorFeatures, ...adminFeatures];

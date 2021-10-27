@@ -1,6 +1,6 @@
 <template>
 	<Sheet
-		:parent-project-data="project"
+		:project="project"
 		:sheet-ord="$route.params.sheetord"
 	/>
 </template>
@@ -16,6 +16,11 @@ export default {
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
+	},
+	head() {
+		return {
+			title: `Admin: ${this.project.title} (${Number(this.$route.params.sheetord) + 1}/${this.project.sheets.length})`,
+		};
 	},
 };
 </script>
