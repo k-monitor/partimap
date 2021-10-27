@@ -1,26 +1,139 @@
 <template>
-	<Sheet
+	<!--<Sheet
 		:project="project"
 		:sheet-ord="$route.params.sheetord"
-	/>
+	/>-->
+	<div
+		class="flex-grow-1"
+		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
+	>
+		<AdminSidebar
+			back-label="Projekt"
+			:content-modified="contentModified"
+			@back="goBackToProject"
+			@save="saveMap"
+		>
+			<b-form-group
+				class="mb-4"
+				label="Cím:"
+			>
+				<template #label>
+					<h6 class="mb-0">Munkalap címe</h6>
+				</template>
+				<b-form-input
+					v-model="sheet.title"
+					size="lg"
+				/>
+			</b-form-group>
+			<b-form-group>
+				<template #label>
+					<div class="align-items-center d-flex justify-content-between">
+						<h6 class="mb-0">Munkalap leírása</h6>
+						<b-badge variant="secondary">{{ (sheet.description || '').length }} / 1000</b-badge>
+					</div>
+				</template>
+				<b-textarea
+					v-model="sheet.description"
+					maxlength="1000"
+					rows="6"
+				/>
+			</b-form-group>
+			<b-form-group v-if="sheet.survey">
+				<template #label>
+					<h6 class="mb-0">Kérdőív</h6>
+				</template>
+				<SurveyEditor
+					v-if="JSON.parse(sheet.survey).demographic"
+					:value="demographicSurvey"
+					:readonly="true"
+				/>
+				<SurveyEditor
+					v-else
+					v-model="sheet.survey"
+				/>
+			</b-form-group>
+			<b-form-group v-else>
+				<template #label>
+					<h6 class="mb-0">Látogatói interakciók</h6>
+				</template>
+				<b-form-checkbox
+					v-if="!sheet.features"
+					v-model="socialButtons"
+				>
+					Megosztás gombok
+				</b-form-checkbox>
+			</b-form-group>
+		</AdminSidebar>
+	</div>
 </template>
 
 <script>
+const demographicSurvey = JSON.stringify({
+	demographic: true,
+	questions: [
+		{
+			id: 1,
+			label: 'Hány éves vagy?',
+			type: 'number',
+		},
+		{
+			id: 2,
+			label: 'Nemed:',
+			type: 'radiogroup',
+			options: ['Férfi', 'Nő'],
+		},
+		{
+			id: 3,
+			label: 'Melyik szomszédságban élsz?',
+			type: 'dropdown',
+			options: ['Budapest', 'Vidék'],
+		},
+		{
+			id: 4,
+			label: 'E-mail cím',
+			type: 'text',
+		},
+		{
+			id: 5,
+			label: 'Bármi hozzáfűznivaló:',
+			type: 'text',
+		},
+	],
+});
+
 export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
-			return { project };
+			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
+			return { project, sheet };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
 	},
+	data() {
+		return {
+			contentModified: false,
+			demographicSurvey,
+		};
+	},
 	head() {
 		return {
-			title: `Admin: ${this.project.title} (${Number(this.$route.params.sheetord) + 1}/${this.project.sheets.length})`,
+			title: `Admin: ${this.project.title} (${
+				Number(this.$route.params.sheetord) + 1
+			}/${this.project.sheets.length})`,
 		};
+	},
+	computed: {},
+	watch: {
+		sheet: {
+			handler() {
+				this.contentModified = true;
+			},
+			deep: true,
+		},
 	},
 };
 </script>

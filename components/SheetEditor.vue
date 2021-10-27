@@ -53,27 +53,6 @@
 				</b-form-checkbox>
 			</div>
 			<div v-else>
-				<b-form-group>
-					<b-form-input
-						v-model="localSheet.title"
-						placeholder="Cím"
-						size="lg"
-					/>
-				</b-form-group>
-				<b-form-group>
-					<b-textarea
-						v-model="localSheet.description"
-						class="form-control"
-						maxlength="1000"
-						placeholder="Leírás"
-						rows="6"
-					/>
-					<span
-						v-if="!visitor"
-						class="badge badge-secondary"
-					>{{ descriptionLength }} / 1000</span>
-				</b-form-group>
-
 				<div v-if="!localSheet.features">
 					<b-form
 						v-if="!localSheet.image"
@@ -113,27 +92,6 @@
 							Kép törlése
 						</b-button>
 					</b-form-group>
-				</div>
-
-				<b-form-group v-if="localSheet.survey">
-					<SurveyEditor
-						v-if="JSON.parse(localSheet.survey).demographic"
-						:value="demographicSurvey"
-						:readonly="true"
-					/>
-					<SurveyEditor
-						v-else
-						v-model="localSheet.survey"
-					/>
-				</b-form-group>
-
-				<div
-					v-if="!localSheet.features && !localSheet.survey"
-					class="form-group"
-				>
-					<b-form-checkbox v-model="socialButtons">
-						Megosztás gombok
-					</b-form-checkbox>
 				</div>
 			</div>
 			<div
@@ -266,38 +224,7 @@ export default {
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
 				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
 			],
-			demographicSurvey: JSON.stringify({
-				demographic: true,
-				questions: [
-					{
-						id: 1,
-						label: 'Hány éves vagy?',
-						type: 'number',
-					},
-					{
-						id: 2,
-						label: 'Nemed:',
-						type: 'radiogroup',
-						options: ['Férfi', 'Nő'],
-					},
-					{
-						id: 3,
-						label: 'Melyik szomszédságban élsz?',
-						type: 'dropdown',
-						options: ['Budapest', 'Vidék'],
-					},
-					{
-						id: 4,
-						label: 'E-mail cím',
-						type: 'text',
-					},
-					{
-						id: 5,
-						label: 'Bármi hozzáfűznivaló:',
-						type: 'text',
-					},
-				],
-			}),
+
 		};
 	},
 	computed: {
@@ -349,27 +276,6 @@ export default {
 		},
 		sheet(val) {
 			this.localSheet = val;
-		},
-		socialButtons(val) {
-			const i = JSON.parse(this.localSheet.interactions || '[]');
-			if (val) {
-				i.push(SOCIAL_SHARING);
-				this.localSheet.interactions = JSON.stringify(i);
-			} else {
-				this.localSheet.interactions = JSON.stringify(
-					i.filter(e => e !== SOCIAL_SHARING)
-				);
-			}
-			this.$emit('sheetInteractionsChanged', this.localSheet.interactions);
-			this.$nuxt.$emit('contentModified');
-		},
-		'localSheet.description'(val) {
-			this.$emit('sheetDescriptionChanged', val);
-			this.$nuxt.$emit('contentModified');
-		},
-		'localSheet.title'(val) {
-			this.$emit('sheetTitleChanged', val);
-			this.$nuxt.$emit('contentModified');
 		},
 		'localSheet.survey'(val) {
 			this.$emit('sheetSurveyChanged', val);

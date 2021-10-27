@@ -5,7 +5,7 @@
 		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
 	>
 		<AdminSidebar
-			v-if="!visitor"
+
 			back-label="Projekt"
 			:content-modified="contentModified"
 			@back="goBackToProject"
@@ -185,39 +185,6 @@ import { mapGetters } from 'vuex';
 
 const SOCIAL_SHARING = 'SocialSharing';
 
-const demographicSurvey = JSON.stringify({
-	demographic: true,
-	questions: [
-		{
-			id: 1,
-			label: 'Hány éves vagy?',
-			type: 'number',
-		},
-		{
-			id: 2,
-			label: 'Nemed:',
-			type: 'radiogroup',
-			options: ['Férfi', 'Nő'],
-		},
-		{
-			id: 3,
-			label: 'Melyik szomszédságban élsz?',
-			type: 'dropdown',
-			options: ['Budapest', 'Vidék'],
-		},
-		{
-			id: 4,
-			label: 'E-mail cím',
-			type: 'text',
-		},
-		{
-			id: 5,
-			label: 'Bármi hozzáfűznivaló:',
-			type: 'text',
-		},
-	],
-});
-
 export default {
 	props: {
 		sheetOrd: {
@@ -244,7 +211,6 @@ export default {
 
 		return {
 			contentModified: false,
-			demographicSurvey,
 			imageSource: null,
 			initFeatureRatings: null,
 			localVisitorFeatureRatings: {},
