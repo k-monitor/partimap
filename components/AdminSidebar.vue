@@ -4,7 +4,7 @@
 		bg-variant="white"
 		header-class="p-0 reset-font-size"
 		shadow="sm"
-		sidebar-class="border-right"
+		sidebar-class="border-right border-secondary"
 		@change="setSidebarVisible"
 	>
 		<template #header="{ hide }">
@@ -32,7 +32,7 @@
 			</div>
 		</template>
 		<template #footer>
-			<div class="d-flex border-top align-items-center p-3">
+			<div class="align-items-center bg-light border-top d-flex p-3">
 				<b-button
 					variant="outline-secondary"
 					@click="$emit('back')"
