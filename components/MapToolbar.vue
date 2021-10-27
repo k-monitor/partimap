@@ -17,7 +17,6 @@
 					v-for="b in drawingButtons"
 					:key="b.drawType"
 					v-b-tooltip.hover.left
-					:disabled="b.disabled"
 					:title="b.tooltip"
 					:variant="b.variant"
 					class="border border-secondary py-2"
@@ -58,6 +57,11 @@ export default {
 				this.db('', 'fa-times', 'Mégsem', 'warning'),
 			].filter(b => b); // removing hidden buttons
 		},
+		sheetInteractions() {
+			return this.sheet && this.sheet.interactions
+				? JSON.parse(this.sheet.interactions)
+				: [];
+		},
 	},
 	watch: {
 		getDrawType(type) {
@@ -79,8 +83,15 @@ export default {
 				// hide others if in drawing mode
 				return null;
 			}
-			// TODO calculate disabled by itself, not from argument
-			return { drawType, disabled: false, icon, tooltip, variant };
+
+			const isAllowed = this.sheetInteractions.includes(drawType);
+			if (this.visitor && !isAllowed) {
+				// hide buttons for visitors unless
+				// enabled in sheet interactions
+				return null;
+			}
+
+			return { drawType, icon, tooltip, variant };
 		},
 	},
 };
