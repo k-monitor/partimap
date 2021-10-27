@@ -5,6 +5,7 @@
 				<!--<FeatureListContainer />-->
 			</template>
 		</MapEditor>
+		<MapToolbar />
 		<AdminSidebar
 			back-label="Térképek"
 			:content-modified="contentModified"

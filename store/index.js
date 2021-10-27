@@ -22,6 +22,9 @@ export const mutations = {
 	setSidebarVisible(state, visible) {
 		state.sidebarVisible = visible;
 	},
+	toggleSidebarVisible(state) {
+		state.sidebarVisible = !state.sidebarVisible;
+	}
 };
 
 export const getters = {

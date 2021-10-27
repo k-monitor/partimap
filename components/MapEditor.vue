@@ -8,7 +8,7 @@
 				:visitor="visitor"
 			/>
 		</client-only>
-		<div class="feature-sidebar">
+		<!--<div class="feature-sidebar">
 			<b-sidebar id="map-sidebar" v-model="mapSidebarShown" right no-header>
 				<slot name="feature-editor" />
 			</b-sidebar>
@@ -29,7 +29,7 @@
 					expand_more
 				</span>
 			</div>
-		</div>
+		</div>-->
 	</div>
 </template>
 
