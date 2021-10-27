@@ -45,17 +45,15 @@
 					v-model="sheet.survey"
 				/>
 			</b-form-group>
-			<!--<b-form-group v-else>
+			<b-form-group v-if="interactionOptions.length">
 				<template #label>
 					<h6 class="mb-0">Látogatói interakciók</h6>
 				</template>
-				<b-form-checkbox
-					v-if="!sheet.features"
-					v-model="socialButtons"
-				>
-					Megosztás gombok
-				</b-form-checkbox>
-			</b-form-group>-->
+				<b-form-checkbox-group
+					v-model="selectedInteractions"
+					:options="interactionOptions"
+				/>
+			</b-form-group>
 		</AdminSidebar>
 	</div>
 </template>
@@ -103,7 +101,8 @@ export default {
 		try {
 			const project = await $axios.$get('/api/project/' + params.id);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			return { project, sheet };
+			const selectedInteractions = sheet ? JSON.parse(sheet.interactions) : []; // for some reason I had to parse it here
+			return { project, sheet, selectedInteractions };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
@@ -121,7 +120,21 @@ export default {
 			}/${this.project.sheets.length})`,
 		};
 	},
-	computed: {},
+	computed: {
+		interactionOptions() {
+			const options = [];
+			if (this.sheet.features) {
+				options.push(
+					{ value: 'Point', text: 'Pont' },
+					{ value: 'LineString', text: 'Vonal' },
+					{ value: 'Polygon', text: 'Terület' }
+				);
+			} else if (!this.sheet.survey) {
+				options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
+			}
+			return options;
+		},
+	},
 	watch: {
 		sheet: {
 			handler() {
@@ -129,6 +142,17 @@ export default {
 			},
 			deep: true,
 		},
+		selectedInteractions(i) {
+			this.sheet.interactions = JSON.stringify(i);
+		},
+	},
+	created() {
+		this.$nuxt.$on('contentModified', () => {
+			this.contentModified = true;
+		});
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('contentModified');
 	},
 	methods: {
 		async back() {
@@ -155,7 +179,7 @@ export default {
 				this.loadFeaturesFromStore();
 			}
 			try {
-				this.sheet = await this.$axios.$patch('/api/sheet', this.sheet);
+				await this.$axios.$patch('/api/sheet', this.sheet);
 				this.contentModified = false;
 				this.success('Módosítás sikeres.');
 			} catch (error) {

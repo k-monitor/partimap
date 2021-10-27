@@ -224,7 +224,6 @@ export default {
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
 				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
 			],
-
 		};
 	},
 	computed: {
@@ -242,11 +241,6 @@ export default {
 				};
 				this.$store.commit('visitordata/addAnswers', payload);
 			},
-		},
-		descriptionLength() {
-			return this.localSheet.description
-				? this.localSheet.description.length
-				: 0;
 		},
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
@@ -276,10 +270,6 @@ export default {
 		},
 		sheet(val) {
 			this.localSheet = val;
-		},
-		'localSheet.survey'(val) {
-			this.$emit('sheetSurveyChanged', val);
-			this.$nuxt.$emit('contentModified');
 		},
 	},
 	methods: {

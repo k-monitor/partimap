@@ -99,7 +99,6 @@
 					:visitor="visitor"
 					:terms-and-use-accepted="termsAndUseAccepted"
 					:submitted="submitted"
-					@sheetInteractionsChanged="changeSheetInteractions"
 					@sheetSurveyChanged="changeSheetSurvey"
 					@prevSheet="goToOtherSheet(-1)"
 					@nextSheet="goToOtherSheet(1)"
@@ -237,32 +236,7 @@ export default {
 			}
 		},
 	},
-	watch: {
-		sheet: {
-			handler() {
-				this.$nuxt.$emit('contentModified');
-			},
-			deep: true,
-		},
-		socialButtons(val) {
-			if (!this.sheet) {
-				return;
-			}
-			const i = JSON.parse(this.sheet.interactions || '[]');
-			if (val) {
-				i.push(SOCIAL_SHARING);
-				this.sheet.interactions = JSON.stringify(i);
-			} else {
-				this.sheet.interactions = JSON.stringify(
-					i.filter(e => e !== SOCIAL_SHARING)
-				);
-			}
-		},
-	},
 	created() {
-		this.$nuxt.$on('contentModified', () => {
-			this.contentModified = true;
-		});
 		this.$nuxt.$on('visitorFeatureAdded', feature => {
 			this.localVisitorFeatures.push(feature);
 		});
@@ -280,7 +254,6 @@ export default {
 		this.initFeatureRatings = await this.loadInitFeatureRatings();
 	},
 	beforeDestroy() {
-		this.$nuxt.$off('contentModified');
 		this.$nuxt.$off('visitorFeatureAdded');
 		this.$nuxt.$off('visitorFeatureRemoved');
 		this.$nuxt.$off('featureRatedByVisitor');
@@ -323,9 +296,6 @@ export default {
 			} catch (error) {
 				this.errorToast('Kép feltöltése sikertelen.');
 			}
-		},
-		changeSheetInteractions(val) {
-			this.sheet.interactions = val;
 		},
 		/**
 		 * Gets sheet from DB by its order instead of is
