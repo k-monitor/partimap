@@ -10,8 +10,10 @@
 			@back="goBackRoute"
 			@save="saveMap"
 		>
-			<h6>Térkép neve</h6>
 			<b-form-group class="mb-4">
+				<template #label>
+					<h6 class="mb-0">Térkép neve</h6>
+				</template>
 				<b-form-input
 					v-model="mapData.title"
 					size="lg"

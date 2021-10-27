@@ -11,8 +11,56 @@
 			@back="goBackToProject"
 			@save="saveMap"
 		>
-			<h6>Munkalap neve</h6>
-
+			<b-form-group
+				class="mb-4"
+				label="Cím:"
+			>
+				<template #label>
+					<h6 class="mb-0">Munkalap címe</h6>
+				</template>
+				<b-form-input
+					v-model="sheet.title"
+					size="lg"
+				/>
+			</b-form-group>
+			<b-form-group>
+				<template #label>
+					<div class="align-items-center d-flex justify-content-between">
+						<h6 class="mb-0">Munkalap leírása</h6>
+						<b-badge variant="secondary">{{ (sheet.description || '').length }} / 1000</b-badge>
+					</div>
+				</template>
+				<b-textarea
+					v-model="sheet.description"
+					maxlength="1000"
+					rows="6"
+				/>
+			</b-form-group>
+			<b-form-group v-if="sheet.survey">
+				<template #label>
+					<h6 class="mb-0">Kérdőív</h6>
+				</template>
+				<SurveyEditor
+					v-if="JSON.parse(sheet.survey).demographic"
+					:value="demographicSurvey"
+					:readonly="true"
+				/>
+				<SurveyEditor
+					v-else
+					v-model="sheet.survey"
+				/>
+			</b-form-group>
+			<b-form-group v-else>
+				<template #label>
+					<h6 class="mb-0">Látogatói interakciók</h6>
+				</template>
+				<b-form-checkbox
+					v-if="!sheet.features"
+					v-model="socialButtons"
+				>
+					Megosztás gombok
+				</b-form-checkbox>
+			</b-form-group>
 		</AdminSidebar>
 		<!--<EditorNavbar
 			v-if="!visitor"
@@ -51,8 +99,6 @@
 					:visitor="visitor"
 					:terms-and-use-accepted="termsAndUseAccepted"
 					:submitted="submitted"
-					@sheetDescriptionChanged="changeSheetDescription"
-					@sheetTitleChanged="changeSheetTitle"
 					@sheetInteractionsChanged="changeSheetInteractions"
 					@sheetSurveyChanged="changeSheetSurvey"
 					@prevSheet="goToOtherSheet(-1)"
@@ -137,6 +183,41 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
+const SOCIAL_SHARING = 'SocialSharing';
+
+const demographicSurvey = JSON.stringify({
+	demographic: true,
+	questions: [
+		{
+			id: 1,
+			label: 'Hány éves vagy?',
+			type: 'number',
+		},
+		{
+			id: 2,
+			label: 'Nemed:',
+			type: 'radiogroup',
+			options: ['Férfi', 'Nő'],
+		},
+		{
+			id: 3,
+			label: 'Melyik szomszédságban élsz?',
+			type: 'dropdown',
+			options: ['Budapest', 'Vidék'],
+		},
+		{
+			id: 4,
+			label: 'E-mail cím',
+			type: 'text',
+		},
+		{
+			id: 5,
+			label: 'Bármi hozzáfűznivaló:',
+			type: 'text',
+		},
+	],
+});
+
 export default {
 	props: {
 		sheetOrd: {
@@ -153,15 +234,23 @@ export default {
 		},
 	},
 	data() {
+		const sheet = this.project.sheets.filter(
+			sheet => sheet.ord === parseInt(this.sheetOrd)
+		)[0];
+
+		const socialButtons = ((this.sheet || {}).interactions || '').includes(
+			SOCIAL_SHARING
+		);
+
 		return {
 			contentModified: false,
+			demographicSurvey,
 			imageSource: null,
 			initFeatureRatings: null,
 			localVisitorFeatureRatings: {},
 			localVisitorFeatures: [],
-			sheet: this.project.sheets.filter(
-				sheet => sheet.ord === parseInt(this.sheetOrd)
-			)[0],
+			sheet,
+			socialButtons,
 			showBottomNav: false,
 			submitted: false,
 			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,
@@ -179,6 +268,28 @@ export default {
 				return this.termsAndUseAccepted === 'not_accepted';
 			} else {
 				return false;
+			}
+		},
+	},
+	watch: {
+		sheet: {
+			handler() {
+				this.$nuxt.$emit('contentModified');
+			},
+			deep: true,
+		},
+		socialButtons(val) {
+			if (!this.sheet) {
+				return;
+			}
+			const i = JSON.parse(this.sheet.interactions || '[]');
+			if (val) {
+				i.push(SOCIAL_SHARING);
+				this.sheet.interactions = JSON.stringify(i);
+			} else {
+				this.sheet.interactions = JSON.stringify(
+					i.filter(e => e !== SOCIAL_SHARING)
+				);
 			}
 		},
 	},
@@ -246,12 +357,6 @@ export default {
 			} catch (error) {
 				this.errorToast('Kép feltöltése sikertelen.');
 			}
-		},
-		changeSheetDescription(val) {
-			this.sheet.description = val;
-		},
-		changeSheetTitle(val) {
-			this.sheet.title = val;
 		},
 		changeSheetInteractions(val) {
 			this.sheet.interactions = val;
