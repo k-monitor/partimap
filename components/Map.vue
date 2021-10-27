@@ -30,11 +30,11 @@ export default {
 	props: {
 		initialCenter: {
 			type: Array,
-			default: () => [0, 0],
+			default: () => [2129152.791287463, 6017729.508627875],
 		},
 		initialZoom: {
 			type: Number,
-			default: 3,
+			default: 10,
 		},
 		features: {
 			type: Array,

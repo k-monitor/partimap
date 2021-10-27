@@ -1,10 +1,8 @@
 <template>
 	<div>
-		<MapEditor :features="loadInitFeatures()">
-			<template #feature-editor>
-				<!--<FeatureListContainer />-->
-			</template>
-		</MapEditor>
+		<client-only placeholder="Loading...">
+			<Map :features="loadInitFeatures()" />
+		</client-only>
 		<MapToolbar />
 		<AdminSidebar
 			back-label="Térképek"
@@ -29,6 +27,9 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+	components: {
+		Map: () => (process.client ? import('@/components/Map') : null),
+	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
@@ -65,6 +66,9 @@ export default {
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
+	},
+	mounted() {
+		// this.$store.commit('selected/clear');
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
