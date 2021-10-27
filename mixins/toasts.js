@@ -2,10 +2,11 @@ export default {
 	methods: {
 		toast(message, variant) {
 			this.$bvToast.toast(message, {
+				autoHideDelay: 1000,
+				noCloseButton: true,
+				solid: true,
 				toaster: 'b-toaster-bottom-left',
 				variant,
-				solid: true,
-				noCloseButton: true
 			});
 		},
 		errorToast(message) {

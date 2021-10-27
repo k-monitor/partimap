@@ -1,8 +1,4 @@
 <template>
-	<!--<Sheet
-		:project="project"
-		:sheet-ord="$route.params.sheetord"
-	/>-->
 	<div
 		class="flex-grow-1"
 		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
@@ -10,13 +6,10 @@
 		<AdminSidebar
 			back-label="Projekt"
 			:content-modified="contentModified"
-			@back="goBackToProject"
-			@save="saveMap"
+			@back="back"
+			@save="save"
 		>
-			<b-form-group
-				class="mb-4"
-				label="Cím:"
-			>
+			<b-form-group class="mb-4">
 				<template #label>
 					<h6 class="mb-0">Munkalap címe</h6>
 				</template>
@@ -52,7 +45,7 @@
 					v-model="sheet.survey"
 				/>
 			</b-form-group>
-			<b-form-group v-else>
+			<!--<b-form-group v-else>
 				<template #label>
 					<h6 class="mb-0">Látogatói interakciók</h6>
 				</template>
@@ -62,12 +55,14 @@
 				>
 					Megosztás gombok
 				</b-form-checkbox>
-			</b-form-group>
+			</b-form-group>-->
 		</AdminSidebar>
 	</div>
 </template>
 
 <script>
+import GeoJSON from 'ol/format/GeoJSON';
+
 const demographicSurvey = JSON.stringify({
 	demographic: true,
 	questions: [
@@ -133,6 +128,39 @@ export default {
 				this.contentModified = true;
 			},
 			deep: true,
+		},
+	},
+	methods: {
+		async back() {
+			if (this.contentModified) {
+				const needSave = await this.askSaveModifications();
+				if (needSave) {
+					await this.save();
+				} else if (needSave !== false) {
+					return;
+				}
+			}
+			this.$router.push('/admin/project/' + this.project.id);
+		},
+		loadFeaturesFromStore() {
+			const features = [];
+			for (const f of this.getAllFeature) {
+				const featureStr = new GeoJSON().writeFeature(f);
+				features.push(JSON.parse(featureStr));
+			}
+			this.sheet.features = features;
+		},
+		async save() {
+			if (this.sheet.features) {
+				this.loadFeaturesFromStore();
+			}
+			try {
+				this.sheet = await this.$axios.$patch('/api/sheet', this.sheet);
+				this.contentModified = false;
+				this.success('Módosítás sikeres.');
+			} catch (error) {
+				this.errorToast('Módosítás sikertelen.');
+			}
 		},
 	},
 };

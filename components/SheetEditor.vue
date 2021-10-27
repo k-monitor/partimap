@@ -295,30 +295,6 @@ export default {
 			}
 			this.$emit('uploadImage', this.backgroundImage);
 		},
-		showConfirmModal() {
-			this.$bvModal
-				.msgBoxConfirm('Biztosan törli a háttérképet?', {
-					title: 'Megerősítés',
-					size: 'sm',
-					buttonSize: 'sm',
-					okVariant: 'danger',
-					okTitle: 'Igen',
-					cancelTitle: 'Mégsem',
-					footerClass: 'p-2',
-					hideHeaderClose: false,
-					centered: true,
-					autoFocusButton: 'ok',
-				})
-				.then(value => {
-					if (value) {
-						this.deleteBackgroundImage();
-					}
-				})
-				.catch(err => {
-					console.warn(err.message);
-					this.errorToast('Sikertelen törlés.');
-				});
-		},
 		deleteBackgroundImage() {
 			this.localSheet.image = null;
 			this.backgroundImage = null;

@@ -327,17 +327,6 @@ export default {
 		changeSheetInteractions(val) {
 			this.sheet.interactions = val;
 		},
-		changeSheetSurvey(val) {
-			this.sheet.survey = val;
-		},
-		goBackToProject() {
-			const route = '/admin/project/' + this.project.id;
-			if (this.contentModified) {
-				this.showConfirmModal(route);
-			} else {
-				this.$router.push(route);
-			}
-		},
 		/**
 		 * Gets sheet from DB by its order instead of is
 		 * @returns {Object} sheet
@@ -399,14 +388,6 @@ export default {
 			this.$refs['sidebar-expand'].style.transform = `translateY(${topPos}px)`;
 			this.$refs['sidebar-expand'].style.visibility = 'visible';
 		},
-		loadFeaturesFromStore() {
-			const features = [];
-			for (const f of this.getAllFeature) {
-				const featureStr = new GeoJSON().writeFeature(f);
-				features.push(JSON.parse(featureStr));
-			}
-			this.sheet.features = features.length ? features : [];
-		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
@@ -433,48 +414,9 @@ export default {
 				return submittedRatings;
 			}
 		},
-		saveMap() {
-			if (this.sheet.features) {
-				this.loadFeaturesFromStore();
-			}
-			this.update(this.sheet);
-			this.contentModified = false;
-		},
 		addVisitorDrawingInteractions(interactions) {
 			this.sheet.interactions = interactions;
 			this.contentModified = true;
-		},
-		/**
-		 * @param {string} route - redirect route upon modal close
-		 */
-		showConfirmModal(route) {
-			this.$bvModal
-				.msgBoxConfirm(
-					'Önnek nem mentett módosításai vannak. Kívánja őket menteni?',
-					{
-						title: 'Visszalépés',
-						size: 'sm',
-						buttonSize: 'sm',
-						okVariant: 'danger',
-						okTitle: 'Igen',
-						cancelTitle: 'Nem',
-						footerClass: 'p-2',
-						hideHeaderClose: false,
-						centered: true,
-						autoFocusButton: 'ok',
-					}
-				)
-				.then(value => {
-					if (value === true) {
-						this.saveMap();
-						this.$router.push(route);
-					} else if (value === false) {
-						this.$router.push(route);
-					} // Do nothing on window close or backdrop click
-				})
-				.catch(() => {
-					this.errorToast('Sikertelen mentés');
-				});
 		},
 		toggleTermsAndUseAccepted(val) {
 			this.termsAndUseAccepted = val;

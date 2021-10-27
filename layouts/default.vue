@@ -6,8 +6,10 @@
 
 <script>
 import Vue from 'vue';
+import modals from '~/mixins/modals';
 import toasts from '~/mixins/toasts';
 
+Vue.mixin(modals);
 Vue.mixin(toasts);
 
 export default {

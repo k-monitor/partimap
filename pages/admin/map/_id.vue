@@ -7,8 +7,8 @@
 		<AdminSidebar
 			back-label="Térképek"
 			:content-modified="contentModified"
-			@back="goBackRoute"
-			@save="saveMap"
+			@back="back"
+			@save="save"
 		>
 			<b-form-group class="mb-4">
 				<template #label>
@@ -80,19 +80,16 @@ export default {
 			const featureCollection = { type: 'FeatureCollection', features };
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
-		loadInitFeatures() {
-			return this.featuresFromRaw(this.initMapData.features);
-		},
-		async saveMap() {
-			// to DB
-			this.loadFeaturesFromStore();
-			try {
-				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
-				this.success('A módosítások mentése sikeres.');
-			} catch (error) {
-				this.errorToast('A módosítások mentése sikertelen.');
+		async back() {
+			if (this.contentModified) {
+				const needSave = await this.askSaveModifications();
+				if (needSave) {
+					await this.save();
+				} else if (needSave !== false) {
+					return;
+				}
 			}
-			this.contentModified = false;
+			this.$router.push('/admin/maps');
 		},
 		loadFeaturesFromStore() {
 			const features = [];
@@ -102,40 +99,17 @@ export default {
 			}
 			this.mapData.features = features.length ? features : null;
 		},
-		showConfirmModal() {
-			this.$bvModal
-				.msgBoxConfirm(
-					'Önnek nem mentett módosításai vannak. Kívánja őket menteni?',
-					{
-						title: 'Visszalépés',
-						size: 'sm',
-						buttonSize: 'sm',
-						okVariant: 'danger',
-						okTitle: 'Igen',
-						cancelTitle: 'Nem',
-						footerClass: 'p-2',
-						hideHeaderClose: false,
-						centered: true,
-						autoFocusButton: 'ok',
-					}
-				)
-				.then(value => {
-					if (value === true) {
-						this.saveMap();
-						this.$router.push('/admin/maps');
-					} else if (value === false) {
-						this.$router.push('/admin/maps');
-					} // Do nothing on window close or backdrop click
-				})
-				.catch(() => {
-					this.errorToast('Sikertelen mentés');
-				});
+		loadInitFeatures() {
+			return this.featuresFromRaw(this.initMapData.features);
 		},
-		goBackRoute() {
-			if (this.contentModified) {
-				this.showConfirmModal();
-			} else {
-				this.$router.push('/admin/maps');
+		async save() {
+			this.loadFeaturesFromStore();
+			try {
+				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
+				this.contentModified = false;
+				this.success('A módosítások mentése sikeres.');
+			} catch (error) {
+				this.errorToast('A módosítások mentése sikertelen.');
 			}
 		},
 	},
