@@ -1,7 +1,7 @@
 export const strict = false; // feature referenciát tárolok, ami változik
 
 export const state = () => ({
-	editState: false,
+	drawType: '',
 	hit: false,
 	sidebarVisible: true,
 	visitId: null,
@@ -16,8 +16,8 @@ export const mutations = {
 			state.visitId = new Date().getTime();
 		}
 	},
-	toggleEditState(state, flag) {
-		state.editState = flag;
+	setDrawType(state, drawType) {
+		state.drawType = drawType;
 	},
 	setSidebarVisible(state, visible) {
 		state.sidebarVisible = visible;
@@ -28,7 +28,7 @@ export const mutations = {
 };
 
 export const getters = {
-	getEditState: state => state.editState,
+	getDrawType: state => state.drawType,
 	getHit: state => state.hit,
 	getSidebarVisible: state => state.sidebarVisible,
 };

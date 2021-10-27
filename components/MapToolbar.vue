@@ -21,7 +21,8 @@
 					:title="b.tooltip"
 					:variant="b.variant"
 					class="border border-secondary py-2"
-					___click="toggleEditState(b.drawType)"
+					:class="!b.drawType ? 'cancel-button' : ''"
+					@click="setDrawType(b.drawType)"
 				>
 					<i
 						class="fas fa-fw"
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
 	props: {
@@ -48,21 +49,38 @@ export default {
 		},
 	},
 	computed: {
+		...mapGetters(['getDrawType']),
 		drawingButtons() {
 			return [
-				this.db('Point', false, 'fa-map-marker-alt', 'Pont', 'danger'),
-				this.db('LineString', false, 'fa-route', 'Vonal', 'primary'),
-				this.db('Polygon', false, 'fa-draw-polygon', 'Terület', 'success'),
-				this.db('', false, 'fa-times py-4', 'Mégsem', 'warning'),
+				this.db('Point', 'fa-map-marker-alt', 'Pont', 'danger'),
+				this.db('LineString', 'fa-route', 'Vonal', 'primary'),
+				this.db('Polygon', 'fa-draw-polygon', 'Terület', 'success'),
+				this.db('', 'fa-times', 'Mégsem', 'warning'),
 			].filter(b => b); // removing hidden buttons
 		},
 	},
+	watch: {
+		getDrawType(type) {
+			const isDrawing = !!type;
+			this.setSidebarVisible(!isDrawing);
+		},
+	},
 	methods: {
-		...mapMutations(['toggleEditState', 'toggleSidebarVisible']),
-		db(drawType, disabled, icon, tooltip, variant) {
+		...mapMutations([
+			'setDrawType',
+			'setSidebarVisible',
+			'toggleSidebarVisible',
+		]),
+		db(drawType, icon, tooltip, variant) {
+			const isDrawing = this.getDrawType;
+			const isCancel = !drawType;
+			if ((isDrawing && !isCancel) || (!isDrawing && isCancel)) {
+				// hide cancel if not in drawing mode
+				// hide others if in drawing mode
+				return null;
+			}
 			// TODO calculate disabled by itself, not from argument
-			// TODO return null if button should be hidden
-			return { drawType, disabled, icon, tooltip, variant };
+			return { drawType, disabled: false, icon, tooltip, variant };
 		},
 	},
 };
@@ -83,5 +101,9 @@ export default {
 .map-toolbar > .btn {
 	border-top-left-radius: 1.5rem;
 	border-bottom-left-radius: 1.5rem;
+}
+
+.cancel-button {
+	height: 126px;
 }
 </style>
