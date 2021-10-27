@@ -100,7 +100,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'Admin: ' + this.u.email,
+			title: 'Admin: ' + (this.u.name || this.u.email),
 		};
 	},
 	methods: {

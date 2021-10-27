@@ -47,7 +47,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.mapData.title,
+			title: `Admin: ${this.mapData.title}`,
 		};
 	},
 	computed: {
