@@ -1,7 +1,7 @@
 <template>
 	<div
-		class="flex-grow-1"
-		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
+		class="flex-grow-1 sheet"
+		:style="sheetStyle"
 	>
 		<template v-if="sheet.features">
 			<client-only placeholder="Loading...">
@@ -15,7 +15,7 @@
 			@back="back"
 			@save="save"
 		>
-			<b-form-group class="mb-4">
+			<b-form-group>
 				<template #label>
 					<h6 class="mb-0">Munkalap címe</h6>
 				</template>
@@ -37,6 +37,45 @@
 					rows="6"
 				/>
 			</b-form-group>
+			<div v-if="!sheet.features">
+				<b-form @submit.prevent="uploadBackground">
+					<b-form-group
+						invalid-feedback="Maximális fájlméret: 5 MB"
+						:state="backgroundImageState"
+					>
+						<template #label>
+							<h6 class="mb-0">Háttérkép</h6>
+						</template>
+						<b-input-group v-if="!sheet.image">
+							<b-form-file
+								v-model="backgroundImage"
+								accept="image/jpeg, image/png, image/webp"
+								browse-text=""
+								drop-placeholder="Húzza ide a fájlt!"
+								placeholder="Kép tallózása..."
+								:state="backgroundImageState"
+							/>
+							<template #append>
+								<b-button
+									:disabled="!backgroundImage"
+									variant="outline-danger"
+									@click="removeBackground"
+								>
+									<i class="fas fa-backspace" />
+								</b-button>
+							</template>
+						</b-input-group>
+						<b-button
+							v-else
+							class="w-100"
+							variant="outline-danger"
+							@click="removeBackground"
+						>
+							Kép törlése
+						</b-button>
+					</b-form-group>
+				</b-form>
+			</div>
 			<b-form-group v-if="sheet.survey">
 				<template #label>
 					<h6 class="mb-0">Kérdőív</h6>
@@ -119,6 +158,9 @@ export default {
 	},
 	data() {
 		return {
+			backgroundImage: null,
+			backgroundImageData: null,
+			backgroundImageState: null,
 			contentModified: false,
 			demographicSurvey,
 		};
@@ -146,8 +188,31 @@ export default {
 			}
 			return options;
 		},
+		sheetStyle() {
+			return {
+				backgroundImage: `url(${this.backgroundImageData || this.sheet.image})`,
+			};
+		},
 	},
 	watch: {
+		backgroundImage(val) {
+			this.contentModified = true;
+			this.backgroundImageData = null;
+			if (!val) {
+				// clear validation error message on file removal
+				this.backgroundImageState = null;
+			} else {
+				const valid = this.backgroundImage.size < 5 * 1024 * 1024;
+				this.backgroundImageState = valid;
+				if (valid) {
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						this.backgroundImageData = reader.result;
+					};
+					reader.readAsDataURL(val);
+				}
+			}
+		},
 		sheet: {
 			handler() {
 				this.contentModified = true;
@@ -194,9 +259,16 @@ export default {
 		loadInitFeatures() {
 			return this.featuresFromRaw(this.sheet.features);
 		},
+		removeBackground() {
+			this.backgroundImage = null;
+			this.sheet.image = null;
+		},
 		async save() {
 			if (this.sheet.features) {
 				this.loadFeaturesFromStore();
+			}
+			if (this.backgroundImage) {
+				await this.uploadBackground();
 			}
 			try {
 				await this.$axios.$patch('/api/sheet', this.sheet);
@@ -206,6 +278,40 @@ export default {
 				this.errorToast('Módosítás sikertelen.');
 			}
 		},
+		async uploadBackground() {
+			if (!this.backgroundImageState) {
+				return;
+			}
+			const formData = new FormData();
+			formData.append('image', this.backgroundImage);
+			try {
+				this.sheet = await this.$axios.$put(
+					'/api/sheet/' + this.sheet.id + '/image',
+					formData,
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
+					}
+				);
+				this.backgroundImage = null;
+			} catch (error) {
+				this.errorToast('Kép feltöltése sikertelen.');
+			}
+		},
 	},
 };
 </script>
+
+<style>
+.sheet {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.sheet .custom-file-label::after {
+	/* does not work in scoped stlye block */
+	display: none !important;
+}
+</style>
