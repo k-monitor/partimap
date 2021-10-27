@@ -6,7 +6,10 @@
 			variant="light"
 			@click="toggleSidebarVisible"
 		>
-			<i class="fas fa-fw fa-info" />
+			<i
+				class="fas fa-fw"
+				:class="visitor ? 'fa-info' : 'fa-cog'"
+			/>
 		</b-button>
 		<div class="pl-2">
 			<b-button-group
