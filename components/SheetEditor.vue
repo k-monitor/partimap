@@ -52,48 +52,6 @@
 					</a>
 				</b-form-checkbox>
 			</div>
-			<div v-else>
-				<div v-if="!localSheet.features">
-					<b-form
-						v-if="!localSheet.image"
-						@submit.prevent="submitFile"
-					>
-						<b-form-group
-							invalid-feedback="Maximális fájlméret: 5 MB"
-							:state="imageState"
-						>
-							<b-input-group>
-								<b-form-file
-									ref="file-selector"
-									v-model="backgroundImage"
-									:state="imageState"
-									accept="image/jpeg, image/png, image/webp"
-									drop-placeholder="Húzza ide a fájlt!"
-									placeholder="Kép tallózása..."
-								/>
-								<template #append>
-									<b-button
-										:disabled="!backgroundImage"
-										variant="success"
-										type="submit"
-									>
-										<i class="fas fa-upload" />
-									</b-button>
-								</template>
-							</b-input-group>
-						</b-form-group>
-					</b-form>
-					<b-form-group v-else>
-						<b-button
-							class="w-100"
-							variant="danger"
-							@click="showConfirmModal"
-						>
-							Kép törlése
-						</b-button>
-					</b-form-group>
-				</div>
-			</div>
 			<div
 				ref="sidebar-collapse"
 				class="sidebar-button sidebar-collapse"
@@ -216,8 +174,6 @@ export default {
 	data() {
 		return {
 			localSheet: this.sheet,
-			backgroundImage: null,
-			imageState: null,
 			socialButtons: (this.sheet.interactions || '').includes(SOCIAL_SHARING),
 			social: [
 				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
@@ -262,36 +218,11 @@ export default {
 		},
 	},
 	watch: {
-		backgroundImage(val) {
-			// clear validation error message on file removal
-			if (!val) {
-				this.imageState = null;
-			}
-		},
 		sheet(val) {
 			this.localSheet = val;
 		},
 	},
 	methods: {
-		checkFileValidity() {
-			// Filesize: max 5MB
-			const valid = this.backgroundImage.size < 5 * 1024 * 1024;
-			this.imageState = valid;
-			return valid;
-		},
-		submitFile() {
-			if (!this.checkFileValidity()) {
-				return;
-			}
-			this.$emit('uploadImage', this.backgroundImage);
-		},
-		deleteBackgroundImage() {
-			this.localSheet.image = null;
-			this.backgroundImage = null;
-			this.$emit('backgroundImageDeleted', this.localSheet);
-
-			this.imageState = null;
-		},
 		firstSheet() {
 			return !this.sheet.ord;
 		},

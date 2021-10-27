@@ -37,45 +37,43 @@
 					rows="6"
 				/>
 			</b-form-group>
-			<div v-if="!sheet.features">
-				<b-form @submit.prevent="uploadBackground">
-					<b-form-group
-						invalid-feedback="Maximális fájlméret: 5 MB"
+
+			<b-form-group
+				v-if="!sheet.features"
+				invalid-feedback="Maximális fájlméret: 5 MB"
+				:state="backgroundImageState"
+			>
+				<template #label>
+					<h6 class="mb-0">Háttérkép</h6>
+				</template>
+				<b-input-group v-if="!sheet.image">
+					<b-form-file
+						v-model="backgroundImage"
+						accept="image/jpeg, image/png, image/webp"
+						browse-text=""
+						drop-placeholder="Húzza ide a fájlt!"
+						placeholder="Kép tallózása..."
 						:state="backgroundImageState"
-					>
-						<template #label>
-							<h6 class="mb-0">Háttérkép</h6>
-						</template>
-						<b-input-group v-if="!sheet.image">
-							<b-form-file
-								v-model="backgroundImage"
-								accept="image/jpeg, image/png, image/webp"
-								browse-text=""
-								drop-placeholder="Húzza ide a fájlt!"
-								placeholder="Kép tallózása..."
-								:state="backgroundImageState"
-							/>
-							<template #append>
-								<b-button
-									:disabled="!backgroundImage"
-									variant="outline-danger"
-									@click="removeBackground"
-								>
-									<i class="fas fa-backspace" />
-								</b-button>
-							</template>
-						</b-input-group>
+					/>
+					<template #append>
 						<b-button
-							v-else
-							class="w-100"
+							:disabled="!backgroundImage"
 							variant="outline-danger"
 							@click="removeBackground"
 						>
-							Kép törlése
+							<i class="fas fa-backspace" />
 						</b-button>
-					</b-form-group>
-				</b-form>
-			</div>
+					</template>
+				</b-input-group>
+				<b-button
+					v-else
+					class="w-100"
+					variant="outline-danger"
+					@click="removeBackground"
+				>
+					Kép törlése
+				</b-button>
+			</b-form-group>
 			<b-form-group v-if="sheet.survey">
 				<template #label>
 					<h6 class="mb-0">Kérdőív</h6>
