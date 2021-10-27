@@ -15,33 +15,19 @@
 			>
 				<b-button
 					v-for="b in drawingButtons"
-					:key="b.tooltip"
+					:key="b.drawType"
 					v-b-tooltip.hover.left
 					:disabled="b.disabled"
 					:title="b.tooltip"
 					:variant="b.variant"
 					class="border border-secondary py-2"
+					___click="toggleEditState(b.drawType)"
 				>
-					<i class="fas fa-fw" :class="b.icon" />
+					<i
+						class="fas fa-fw"
+						:class="b.icon"
+					/>
 				</b-button>
-				<!--<b-button
-					class="border border-secondary py-2"
-					variant="danger"
-				>
-					<i class="fas fa-fw fa-map-marker-alt" />
-				</b-button>
-				<b-button
-					class="border border-secondary py-2"
-					variant="primary"
-				>
-					<i class="fas fa-fw fa-route" />
-				</b-button>
-				<b-button
-					class="border border-secondary py-2"
-					variant="success"
-				>
-					<i class="fas fa-fw fa-draw-polygon" />
-				</b-button>-->
 			</b-button-group>
 		</div>
 	</div>
@@ -51,21 +37,33 @@
 import { mapMutations } from 'vuex';
 
 export default {
+	props: {
+		sheet: {
+			type: Object,
+			default: null,
+		},
+		visitor: {
+			type: Boolean,
+			default: false,
+		},
+	},
 	computed: {
 		drawingButtons() {
-			function b(disabled, icon, tooltip, variant) {
-				return { disabled, icon, tooltip, variant };
-			}
-
 			return [
-				b(false, 'fa-map-marker-alt', 'Pont', 'danger'),
-				b(false, 'fa-route', 'Vonal', 'primary'),
-				b(false, 'fa-draw-polygon', 'Terület', 'success'),
-			];
+				this.db('Point', false, 'fa-map-marker-alt', 'Pont', 'danger'),
+				this.db('LineString', false, 'fa-route', 'Vonal', 'primary'),
+				this.db('Polygon', false, 'fa-draw-polygon', 'Terület', 'success'),
+				this.db('', false, 'fa-times py-4', 'Mégsem', 'warning'),
+			].filter(b => b); // removing hidden buttons
 		},
 	},
 	methods: {
-		...mapMutations(['toggleSidebarVisible']),
+		...mapMutations(['toggleEditState', 'toggleSidebarVisible']),
+		db(drawType, disabled, icon, tooltip, variant) {
+			// TODO calculate disabled by itself, not from argument
+			// TODO return null if button should be hidden
+			return { drawType, disabled, icon, tooltip, variant };
+		},
 	},
 };
 </script>
