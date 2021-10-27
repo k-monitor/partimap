@@ -133,14 +133,16 @@ export default {
 	computed: {
 		interactionOptions() {
 			const options = [];
-			if (this.sheet.features) {
-				options.push(
-					{ value: 'Point', text: 'Pont' },
-					{ value: 'LineString', text: 'Vonal' },
-					{ value: 'Polygon', text: 'Terület' }
-				);
-			} else if (!this.sheet.survey) {
-				options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
+			if (!this.sheet.survey) {
+				if (this.sheet.features) {
+					options.push(
+						{ value: 'Point', text: 'Pont' },
+						{ value: 'LineString', text: 'Vonal' },
+						{ value: 'Polygon', text: 'Terület' }
+					);
+				} else {
+					options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
+				}
 			}
 			return options;
 		},
