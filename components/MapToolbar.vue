@@ -1,7 +1,7 @@
 <template>
 	<div class="map-toolbar d-flex flex-column align-items-end">
 		<b-button
-			class="border border-secondary mb-2 p-3 pl-4 shadow-sm"
+			class="border border-secondary mb-2 p-3 pl-4 shadow-sm sidebar-button"
 			size="lg"
 			variant="light"
 			@click="toggleSidebarVisible"
@@ -105,11 +105,13 @@ export default {
 }
 
 .btn {
+	border-radius: 0.5rem;
 	border-top-right-radius: 0px !important;
 	border-bottom-right-radius: 0px !important;
+	border-right-width: 0px !important;
 }
 
-.map-toolbar > .btn {
+.sidebar-button {
 	border-top-left-radius: 1.5rem;
 	border-bottom-left-radius: 1.5rem;
 }
