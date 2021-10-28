@@ -21,40 +21,7 @@
 			static
 			visible
 		>
-			<h1 class="h3">{{ sheet.title }}</h1>
-			<p
-				class="mb-4"
-				v-html="(sheet.description || '').replace(/\n/g, '<br>')"
-			/>
-			<div v-if="sheet.survey">
-				<Survey
-					v-if="JSON.parse(sheet.survey).demographic"
-					v-model="visitorAnswers"
-					:survey="demographicSurvey"
-				/>
-				<Survey
-					v-else
-					v-model="visitorAnswers"
-					:survey="sheet.survey"
-				/>
-			</div>
-			<div
-				v-if="interactions.includes('SocialSharing')"
-				class="d-flex justify-content-around"
-			>
-				<ShareNetwork
-					v-for="s in social"
-					:key="s.network"
-					:network="s.network"
-					:url="projectUrl || ''"
-					title=""
-				>
-					<i
-						class="fa-fw fa-2x"
-						:class="s.icon"
-					/>
-				</ShareNetwork>
-			</div>
+			<SheetContent :sheet="sheet" />
 			<template #modal-footer>
 				<b-navbar>TODO: prev, next</b-navbar>
 			</template>
@@ -114,8 +81,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
@@ -130,8 +95,7 @@ export default {
 				return redirect(`/p/${project.slug}/${params.sheetord}`);
 			}
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			const interactions = sheet ? JSON.parse(sheet.interactions) : []; // for some reason I had to parse it here
-			return { project, sheet, interactions };
+			return { project, sheet };
 		} catch (error) {
 			if (error.message && error.message.endsWith('status code 401')) {
 				// NOP displaying password field
@@ -144,43 +108,13 @@ export default {
 		return {
 			loading: true,
 			password: null,
-			projectUrl: null,
-			social: [
-				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
-				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
-				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
-			],
 		};
-	},
-	computed: {
-		...mapGetters({
-			getVisitorAnswers: 'visitordata/getVisitorAnswers',
-		}),
-		isFirstSheet() {
-			return this.sheet.ord === 0;
-		},
-		isLastSheet() {
-			return this.sheet.ord === this.project.sheets.length - 1;
-		},
-		visitorAnswers: {
-			get() {
-				return this.getVisitorAnswers(this.sheet.id);
-			},
-			set(answers) {
-				const payload = {
-					answers,
-					sheetId: this.sheet.id,
-				};
-				this.$store.commit('visitordata/addAnswers', payload);
-			},
-		},
 	},
 	mounted() {
 		if (!this.project) {
 			this.$refs.password.focus();
 		}
 		this.registerHit();
-		this.projectUrl = window.location.href.replace(/\/\d+\/?/, ''); // need to set here to avoid SSR error
 		this.loading = false;
 	},
 	methods: {
