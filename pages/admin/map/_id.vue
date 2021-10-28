@@ -7,6 +7,7 @@
 		<AdminSidebar
 			back-label="Térképek"
 			:content-modified="contentModified"
+			:loading="loading"
 			@back="back"
 			@save="save"
 		>
@@ -45,6 +46,7 @@ export default {
 	data() {
 		return {
 			contentModified: false,
+			loading: true,
 		};
 	},
 	head() {
@@ -70,7 +72,7 @@ export default {
 		this.$nuxt.$off('contentModified');
 	},
 	mounted() {
-		// this.$store.commit('selected/clear');
+		this.loading = false;
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
@@ -103,6 +105,7 @@ export default {
 			return this.featuresFromRaw(this.initMapData.features);
 		},
 		async save() {
+			this.loading = true;
 			this.loadFeaturesFromStore();
 			try {
 				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
@@ -111,6 +114,7 @@ export default {
 			} catch (error) {
 				this.errorToast('A módosítások mentése sikertelen.');
 			}
+			this.loading = false;
 		},
 	},
 };

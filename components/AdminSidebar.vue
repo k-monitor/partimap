@@ -29,6 +29,11 @@
 			<div class="p-3">
 				<slot />
 			</div>
+			<b-overlay
+				no-wrap
+				opacity="0.5"
+				:show="loading"
+			/>
 		</template>
 		<template #footer>
 			<div class="align-items-center bg-light border-top d-flex p-3">
@@ -62,6 +67,10 @@ export default {
 			default: 'Vissza',
 		},
 		contentModified: {
+			type: Boolean,
+			default: false,
+		},
+		loading: {
 			type: Boolean,
 			default: false,
 		},

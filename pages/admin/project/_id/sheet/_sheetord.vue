@@ -12,6 +12,7 @@
 		<AdminSidebar
 			back-label="Projekt"
 			:content-modified="contentModified"
+			:loading="loading"
 			@back="back"
 			@save="save"
 		>
@@ -161,6 +162,7 @@ export default {
 			backgroundImageState: null,
 			contentModified: false,
 			demographicSurvey,
+			loading: true,
 		};
 	},
 	head() {
@@ -229,6 +231,9 @@ export default {
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
 	},
+	mounted() {
+		this.loading = false;
+	},
 	methods: {
 		async back() {
 			if (this.contentModified) {
@@ -265,6 +270,7 @@ export default {
 			if (this.sheet.features) {
 				this.loadFeaturesFromStore();
 			}
+			this.loading = true;
 			if (this.backgroundImage) {
 				await this.uploadBackground();
 			}
@@ -275,6 +281,7 @@ export default {
 			} catch (error) {
 				this.errorToast('Módosítás sikertelen.');
 			}
+			this.loading = false;
 		},
 		async uploadBackground() {
 			if (!this.backgroundImageState) {
