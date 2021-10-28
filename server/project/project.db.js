@@ -29,7 +29,7 @@ async function findAll() {
 		SELECT p.*, COUNT(s.id) submissions
 		FROM project p
 		LEFT JOIN submission s ON s.projectId = p.id
-		GROUP BY p.id`)
+		GROUP BY p.id`);
 	return rows.map(r => new Project(r));
 }
 

@@ -99,7 +99,10 @@
 					:options="interactionOptions"
 				/>
 			</b-form-group>
-			<FeatureList v-if="sheet.features" />
+			<FeatureList
+				v-if="sheet.features"
+				:init-feature-ratings="submittedRatings"
+			/>
 		</AdminSidebar>
 	</div>
 </template>
@@ -149,10 +152,14 @@ export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
-			const project = await $axios.$get('/api/project/' + params.id);
+			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
 			const selectedInteractions = sheet ? JSON.parse(sheet.interactions) : []; // for some reason I had to parse it here
-			return { project, sheet, selectedInteractions };
+
+			const submittedRatings = await $axios.$get(
+				`/api/submission/ratings/${sheet.id}`
+			);
+			return { project, sheet, selectedInteractions, submittedRatings };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
