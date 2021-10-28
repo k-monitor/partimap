@@ -9,7 +9,36 @@
 		v-if="project"
 		:background-image-url="sheet.image"
 	>
-		<h1>Heló!</h1>
+		<b-modal
+			v-if="!sheet.features"
+			content-class="shadow-sm"
+			hide-backdrop
+			hide-header
+			no-close-on-backdrop
+			no-close-on-esc
+			no-fade
+			scrollable
+			static
+			visible
+		>
+			<h1 class="h3">{{ sheet.title }}</h1>
+			<p v-html="(sheet.description || '').replace(/\n/g, '<br>')" />
+			<div v-if="sheet.survey">
+				<Survey
+					v-if="JSON.parse(sheet.survey).demographic"
+					v-model="visitorAnswers"
+					:survey="demographicSurvey"
+				/>
+				<Survey
+					v-else
+					v-model="visitorAnswers"
+					:survey="sheet.survey"
+				/>
+			</div>
+			<template #modal-footer>
+				<b-navbar>TODO: prev, next</b-navbar>
+			</template>
+		</b-modal>
 	</SheetFrame>
 	<div
 		v-else

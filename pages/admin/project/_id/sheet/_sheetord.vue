@@ -113,39 +113,6 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
-const demographicSurvey = JSON.stringify({
-	demographic: true,
-	questions: [
-		{
-			id: 1,
-			label: 'Hány éves vagy?',
-			type: 'number',
-		},
-		{
-			id: 2,
-			label: 'Nemed:',
-			type: 'radiogroup',
-			options: ['Férfi', 'Nő'],
-		},
-		{
-			id: 3,
-			label: 'Melyik szomszédságban élsz?',
-			type: 'dropdown',
-			options: ['Budapest', 'Vidék'],
-		},
-		{
-			id: 4,
-			label: 'E-mail cím',
-			type: 'text',
-		},
-		{
-			id: 5,
-			label: 'Bármi hozzáfűznivaló:',
-			type: 'text',
-		},
-	],
-});
-
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
@@ -172,7 +139,6 @@ export default {
 			backgroundImageData: null,
 			backgroundImageState: null,
 			contentModified: false,
-			demographicSurvey,
 			loading: true,
 		};
 	},

@@ -6,9 +6,11 @@
 
 <script>
 import Vue from 'vue';
+import demographicSurvey from '~/mixins/demographicSurvey';
 import modals from '~/mixins/modals';
 import toasts from '~/mixins/toasts';
 
+Vue.mixin(demographicSurvey);
 Vue.mixin(modals);
 Vue.mixin(toasts);
 
