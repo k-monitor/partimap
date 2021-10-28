@@ -64,7 +64,7 @@
 				<span
 					class="ml-auto text-danger"
 					role="button"
-					@click.prevent="showConfirmModal(p.id)"
+					@click.prevent="del(p)"
 				>
 					<i class="fas fa-trash" />
 				</span>
@@ -112,38 +112,16 @@ export default {
 				this.errorToast('Létrehozás sikertelen');
 			}
 		},
-		async removeProjFromDB(id) {
-			try {
-				await this.$axios.$delete('/api/project/' + id);
-			} catch (error) {
-				this.errorToast('Sikertelen törlés.');
+		async del(project) {
+			const confirmed = await this.confirmDeletion(project.title);
+			if (confirmed) {
+				try {
+					await this.$axios.$delete('/api/project/' + project.id);
+					this.projects = await this.$axios.$get('/api/projects');
+				} catch (error) {
+					this.errorToast('Sikertelen törlés.');
+				}
 			}
-		},
-		showConfirmModal(id) {
-			this.$bvModal
-				.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
-					title: 'Megerősítés',
-					size: 'sm',
-					buttonSize: 'sm',
-					okVariant: 'danger',
-					okTitle: 'Igen',
-					cancelTitle: 'Mégsem',
-					footerClass: 'p-2',
-					hideHeaderClose: false,
-					centered: true,
-					autoFocusButton: 'ok',
-				})
-				.then(value => {
-					if (value) {
-						this.removeProjFromDB(id);
-						this.projects = this.projects.filter(function (proj) {
-							return proj.id !== id;
-						});
-					}
-				})
-				.catch(err => {
-					console.log(err);
-				});
 		},
 	},
 };

@@ -115,7 +115,7 @@
 						<span
 							class="text-danger"
 							role="button"
-							@click.prevent="showConfirmModal(sheet)"
+							@click.prevent="deleteSheet(sheet)"
 						>
 							<i class="fas fa-fw fa-trash" />
 						</span>
@@ -210,28 +210,11 @@ export default {
 			const type = this.sheetType(sheet);
 			return this.sheetTypes.filter(t => t.name === type)[0].icon;
 		},
-		showConfirmModal(sheet) {
-			this.$bvModal
-				.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
-					title: 'Megerősítés',
-					size: 'sm',
-					buttonSize: 'sm',
-					okVariant: 'danger',
-					okTitle: 'Igen',
-					cancelTitle: 'Mégsem',
-					footerClass: 'p-2',
-					hideHeaderClose: false,
-					centered: true,
-					autoFocusButton: 'ok',
-				})
-				.then(value => {
-					if (value) {
-						this.$emit('delSheet', sheet);
-					}
-				})
-				.catch(err => {
-					console.log(err);
-				});
+		async deleteSheet(sheet) {
+			const confirmed = await this.confirmDeletion(sheet.title);
+			if (confirmed) {
+				this.$emit('delSheet', sheet);
+			}
 		},
 		checkFormValidity() {
 			const valid = this.$refs.form.checkValidity();

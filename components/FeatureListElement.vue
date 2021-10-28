@@ -13,7 +13,7 @@
 				v-if="editable"
 				class="ml-auto text-danger"
 				role="button"
-				@click.stop="showConfirmModal"
+				@click.stop="deleteFeature"
 			>
 				<i class="fas fa-trash" />
 			</span>
@@ -306,29 +306,13 @@ export default {
 				? this.$store.commit('selected/remove', this.feature)
 				: this.$store.commit('selected/change', this.feature);
 		},
-		showConfirmModal() {
-			this.$bvModal
-				.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
-					title: 'Megerősítés',
-					size: 'sm',
-					buttonSize: 'sm',
-					okVariant: 'danger',
-					okTitle: 'Igen',
-					cancelTitle: 'Mégsem',
-					footerClass: 'p-2',
-					hideHeaderClose: false,
-					centered: true,
-					autoFocusButton: 'ok',
-				})
-				.then(value => {
-					if (value) {
-						this.$nuxt.$emit('clearFeature', this.feature);
-					}
-				})
-				.catch(err => {
-					console.warn(err.message);
-					this.errorToast('Sikertelen törlés.');
-				});
+		async deleteFeature() {
+			const confirmed = await this.confirmDeletion(
+				this.form.name || this.feature.id
+			);
+			if (confirmed) {
+				this.$nuxt.$emit('clearFeature', this.feature);
+			}
 		},
 		expandFinished() {
 			this.$refs.feature.scrollIntoView({ behavior: 'smooth' });

@@ -167,22 +167,8 @@ export default {
 			this.$bvModal.show('survey-question-editor');
 		},
 		async delQuestion(i) {
-			const confirm = await this.$bvModal.msgBoxConfirm(
-				'Biztosan törli a kiválasztott kérdést?',
-				{
-					title: 'Megerősítés',
-					size: 'sm',
-					buttonSize: 'sm',
-					okVariant: 'danger',
-					okTitle: 'Igen',
-					cancelTitle: 'Mégsem',
-					footerClass: 'p-2',
-					hideHeaderClose: false,
-					centered: true,
-					autoFocusButton: 'ok',
-				}
-			);
-			if (confirm) {
+			const confirmed = await this.confirmDeletion(this.survey.questions[i].label);
+			if (confirmed) {
 				this.survey.questions.splice(i, 1);
 				this.emitSurvey();
 			}
