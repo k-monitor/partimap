@@ -55,21 +55,15 @@
 			/>
 		</template>
 		<template #footer>
-			<div class="align-items-center bg-light border-top d-flex p-3">
+			<div class="bg-light border-top d-flex p-3">
 				<b-button
-					variant="outline-secondary"
-					@click="$emit('back')"
-				>
-					<i class="fas fa-fw fa-chevron-left mr-1" />
-					{{ backLabel }}
-				</b-button>
-				<b-button
-					class="ml-auto"
+					class="mx-auto"
 					:disabled="!contentModified"
-					variant="success"
+					:variant="contentModified ? 'success' : 'outline-success'"
 					@click="$emit('save')"
 				>
 					<i class="fas fa-fw fa-save mr-1" />
+					<span>{{ contentModified ? 'Mentés' : 'Mentve' }}</span>
 				</b-button>
 			</div>
 		</template>
