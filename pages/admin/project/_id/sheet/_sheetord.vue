@@ -106,6 +106,7 @@
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
+import { mapGetters } from 'vuex';
 
 const demographicSurvey = JSON.stringify({
 	demographic: true,
@@ -174,6 +175,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters('features', ['getAllFeature']),
 		interactionOptions() {
 			const options = [];
 			if (!this.sheet.survey) {
@@ -258,7 +260,7 @@ export default {
 				const featureStr = new GeoJSON().writeFeature(f);
 				features.push(JSON.parse(featureStr));
 			}
-			this.sheet.features = features;
+			this.sheet.features = JSON.stringify(features);
 		},
 		loadInitFeatures() {
 			return this.featuresFromRaw(this.sheet.features);
@@ -276,8 +278,10 @@ export default {
 				await this.uploadBackground();
 			}
 			try {
-				await this.$axios.$patch('/api/sheet', this.sheet);
-				this.contentModified = false;
+				this.sheet = await this.$axios.$patch('/api/sheet', this.sheet);
+				this.$nextTick(() => {
+					this.contentModified = false;
+				});
 				this.success('Módosítás sikeres.');
 			} catch (error) {
 				this.errorToast('Módosítás sikertelen.');

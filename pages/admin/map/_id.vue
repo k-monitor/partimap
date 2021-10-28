@@ -38,7 +38,7 @@ export default {
 		store.commit('features/clear');
 		try {
 			const mapData = await $axios.$get('/api/map/' + params.id);
-			return { mapData, initMapData: { ...mapData } };
+			return { mapData };
 		} catch (error) {
 			redirect('/admin/maps');
 		}
@@ -56,7 +56,7 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getSidebarVisible']),
-		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+		...mapGetters('features', ['getAllFeature']),
 	},
 	watch: {
 		'mapData.title'() {
@@ -99,10 +99,10 @@ export default {
 				const featureStr = new GeoJSON().writeFeature(f);
 				features.push(JSON.parse(featureStr));
 			}
-			this.mapData.features = features.length ? features : null;
+			this.mapData.features = JSON.stringify(features);
 		},
 		loadInitFeatures() {
-			return this.featuresFromRaw(this.initMapData.features);
+			return this.featuresFromRaw(this.mapData.features);
 		},
 		async save() {
 			this.loading = true;
