@@ -5,37 +5,6 @@
 			style="min-height: 200px;"
 		>
 			<div v-if="visitor">
-				<h4 class="card-title">{{ localSheet.title }}</h4>
-				<p class="card-text mb-4">{{ localSheet.description }}</p>
-				<div v-if="localSheet.survey">
-					<Survey
-						v-if="JSON.parse(localSheet.survey).demographic"
-						v-model="visitorAnswers"
-						:survey="demographicSurvey"
-					/>
-					<Survey
-						v-else
-						v-model="visitorAnswers"
-						:survey="localSheet.survey"
-					/>
-				</div>
-				<div
-					v-if="socialButtons"
-					class="d-flex justify-content-around"
-				>
-					<ShareNetwork
-						v-for="s in social"
-						:key="s.network"
-						:network="s.network"
-						:url="projectUrl"
-						title=""
-					>
-						<i
-							class="fa-fw"
-							:class="s.icon"
-						/>
-					</ShareNetwork>
-				</div>
 				<b-form-checkbox
 					v-if="firstSheet()"
 					v-model="termsAndUseAcceptedLocal"
@@ -142,8 +111,6 @@
 <script>
 import { mapGetters } from 'vuex';
 
-const SOCIAL_SHARING = 'SocialSharing';
-
 export default {
 	props: {
 		sheet: {
@@ -174,12 +141,6 @@ export default {
 	data() {
 		return {
 			localSheet: this.sheet,
-			socialButtons: (this.sheet.interactions || '').includes(SOCIAL_SHARING),
-			social: [
-				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
-				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
-				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
-			],
 		};
 	},
 	computed: {
@@ -204,9 +165,6 @@ export default {
 			} else {
 				return false;
 			}
-		},
-		projectUrl() {
-			return window.location.href.replace(/\/\d+\/?/, '');
 		},
 		termsAndUseAcceptedLocal: {
 			get() {

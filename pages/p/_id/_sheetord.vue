@@ -22,7 +22,10 @@
 			visible
 		>
 			<h1 class="h3">{{ sheet.title }}</h1>
-			<p v-html="(sheet.description || '').replace(/\n/g, '<br>')" />
+			<p
+				class="mb-4"
+				v-html="(sheet.description || '').replace(/\n/g, '<br>')"
+			/>
 			<div v-if="sheet.survey">
 				<Survey
 					v-if="JSON.parse(sheet.survey).demographic"
@@ -34,6 +37,23 @@
 					v-model="visitorAnswers"
 					:survey="sheet.survey"
 				/>
+			</div>
+			<div
+				v-if="interactions.includes('SocialSharing')"
+				class="d-flex justify-content-around"
+			>
+				<ShareNetwork
+					v-for="s in social"
+					:key="s.network"
+					:network="s.network"
+					:url="projectUrl"
+					title=""
+				>
+					<i
+						class="fa-fw fa-2x"
+						:class="s.icon"
+					/>
+				</ShareNetwork>
 			</div>
 			<template #modal-footer>
 				<b-navbar>TODO: prev, next</b-navbar>
@@ -108,7 +128,8 @@ export default {
 				return redirect(`/p/${project.slug}/${params.sheetord}`);
 			}
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			return { project, sheet };
+			const interactions = sheet ? JSON.parse(sheet.interactions) : []; // for some reason I had to parse it here
+			return { project, sheet, interactions };
 		} catch (error) {
 			if (error.message && error.message.endsWith('status code 401')) {
 				// NOP displaying password field
@@ -122,7 +143,17 @@ export default {
 			loading: true,
 			project: null,
 			password: null,
+			social: [
+				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
+				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
+				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
+			],
 		};
+	},
+	computed: {
+		projectUrl() {
+			return window.location.href.replace(/\/\d+\/?/, '');
+		},
 	},
 	mounted() {
 		if (!this.project) {
