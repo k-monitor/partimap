@@ -46,7 +46,7 @@
 					v-for="s in social"
 					:key="s.network"
 					:network="s.network"
-					:url="projectUrl"
+					:url="projectUrl || ''"
 					title=""
 				>
 					<i
@@ -143,8 +143,8 @@ export default {
 	data() {
 		return {
 			loading: true,
-			project: null,
 			password: null,
+			projectUrl: null,
 			social: [
 				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
@@ -161,9 +161,6 @@ export default {
 		},
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
-		},
-		projectUrl() {
-			return window.location.href.replace(/\/\d+\/?/, '');
 		},
 		visitorAnswers: {
 			get() {
@@ -183,6 +180,7 @@ export default {
 			this.$refs.password.focus();
 		}
 		this.registerHit();
+		this.projectUrl = window.location.href.replace(/\/\d+\/?/, ''); // need to set here to avoid SSR error
 		this.loading = false;
 	},
 	methods: {
