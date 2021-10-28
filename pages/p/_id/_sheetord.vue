@@ -1,10 +1,16 @@
 <template>
-	<Sheet
+	<!--<Sheet
 		v-if="project"
 		:parent-project-data="project"
 		:sheet-ord="$route.params.sheetord"
 		:visitor="true"
-	/>
+	/>-->
+	<SheetFrame
+		v-if="project"
+		:background-image-url="sheet.image"
+	>
+		<h1>Heló!</h1>
+	</SheetFrame>
 	<div
 		v-else
 		class="container d-flex flex-column flex-grow-1"
@@ -72,7 +78,8 @@ export default {
 			if (params.id !== project.slug) {
 				return redirect(`/p/${project.slug}/${params.sheetord}`);
 			}
-			return { project };
+			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
+			return { project, sheet };
 		} catch (error) {
 			if (error.message && error.message.endsWith('status code 401')) {
 				// NOP displaying password field
@@ -97,7 +104,11 @@ export default {
 	},
 	methods: {
 		registerHit() {
-			if (this.project && !this.$store.state.hit && Number(this.$route.params.sheetord) === 0) {
+			if (
+				this.project &&
+				!this.$store.state.hit &&
+				Number(this.$route.params.sheetord) === 0
+			) {
 				this.$store.commit('hit');
 				this.$axios.$post('/api/view/' + this.$route.params.id);
 			}

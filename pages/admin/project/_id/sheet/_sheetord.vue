@@ -1,8 +1,5 @@
 <template>
-	<div
-		class="flex-grow-1 sheet"
-		:style="sheetStyle"
-	>
+	<SheetFrame :background-image-url="backgroundImageData || sheet.image">
 		<template v-if="sheet.features">
 			<client-only placeholder="Loading...">
 				<Map :features="loadInitFeatures()" />
@@ -56,6 +53,7 @@
 					<b-form-file
 						v-model="backgroundImage"
 						accept="image/jpeg, image/png, image/webp"
+						class="sheet-background-input"
 						browse-text=""
 						drop-placeholder="Húzza ide a fájlt!"
 						placeholder="Kép tallózása..."
@@ -108,7 +106,7 @@
 				:init-feature-ratings="submittedRatings"
 			/>
 		</AdminSidebar>
-	</div>
+	</SheetFrame>
 </template>
 
 <script>
@@ -207,11 +205,6 @@ export default {
 		},
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
-		},
-		sheetStyle() {
-			return {
-				backgroundImage: `url(${this.backgroundImageData || this.sheet.image})`,
-			};
 		},
 	},
 	watch: {
@@ -336,13 +329,7 @@ export default {
 </script>
 
 <style>
-.sheet {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.sheet .custom-file-label::after {
+.sheet-background-input .custom-file-label::after {
 	/* does not work in scoped stlye block */
 	display: none !important;
 }
