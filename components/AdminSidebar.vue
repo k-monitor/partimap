@@ -2,7 +2,8 @@
 	<b-sidebar
 		v-model="visible"
 		bg-variant="white"
-		header-class="p-0 reset-font-size"
+		class="admin-sidebar"
+		header-class="p-0"
 		shadow="sm"
 		sidebar-class="border-right border-secondary"
 		width="360px"
@@ -10,14 +11,14 @@
 		<template #header="{ hide }">
 			<b-navbar
 				type="light"
-				class="border-bottom shadow-sm w-100"
+				class="border-bottom justify-content-between shadow-sm w-100"
 			>
-				<b-navbar-nav
-					v-b-tooltip.hover
-					class="mr-auto"
-					:title="`Vissza ide: ${backLabel}`"
-				>
-					<b-nav-item @click="$emit('back')">
+				<b-navbar-nav>
+					<b-nav-item
+						v-b-tooltip.hover
+						:title="`Vissza ide: ${backLabel}`"
+						@click="$emit('back')"
+					>
 						<i class="fas fa-fw fa-arrow-left" />
 					</b-nav-item>
 				</b-navbar-nav>
@@ -30,13 +31,14 @@
 					<strong>Partimap</strong>
 					Admin
 				</b-navbar-brand>
-				<b-navbar-nav
-					v-if="!fixed"
-					v-b-tooltip.hover
-					class="ml-auto"
-					title="Oldalsáv elrejtése"
-				>
-					<b-nav-item @click="hide">
+				<b-navbar-nav>
+					<b-nav-item
+						v-if="!fixed"
+						v-b-tooltip.hover
+						class="ml-auto"
+						title="Oldalsáv elrejtése"
+						@click="hide"
+					>
 						<i class="fas fa-fw fa-times" />
 					</b-nav-item>
 				</b-navbar-nav>
@@ -116,7 +118,12 @@ export default {
 </script>
 
 <style>
-.b-sidebar-header.reset-font-size {
+.admin-sidebar .b-sidebar-header {
+	/* does not work in scoped stlye block */
 	font-size: 1rem;
+}
+
+.admin-sidebar .navbar-nav {
+	width: 40px;
 }
 </style>
