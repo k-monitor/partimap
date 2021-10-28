@@ -109,8 +109,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
 	props: {
 		sheet: {
@@ -144,21 +142,6 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters({
-			getVisitorAnswers: 'visitordata/getVisitorAnswers',
-		}),
-		visitorAnswers: {
-			get() {
-				return this.getVisitorAnswers(this.sheet.id);
-			},
-			set(answers) {
-				const payload = {
-					answers,
-					sheetId: this.sheet.id,
-				};
-				this.$store.commit('visitordata/addAnswers', payload);
-			},
-		},
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
 				return this.termsAndUseAccepted === 'not_accepted';

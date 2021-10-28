@@ -114,6 +114,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
@@ -151,8 +153,29 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters({
+			getVisitorAnswers: 'visitordata/getVisitorAnswers',
+		}),
+		isFirstSheet() {
+			return this.sheet.ord === 0;
+		},
+		isLastSheet() {
+			return this.sheet.ord === this.project.sheets.length - 1;
+		},
 		projectUrl() {
 			return window.location.href.replace(/\/\d+\/?/, '');
+		},
+		visitorAnswers: {
+			get() {
+				return this.getVisitorAnswers(this.sheet.id);
+			},
+			set(answers) {
+				const payload = {
+					answers,
+					sheetId: this.sheet.id,
+				};
+				this.$store.commit('visitordata/addAnswers', payload);
+			},
 		},
 	},
 	mounted() {
