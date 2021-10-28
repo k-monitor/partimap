@@ -255,28 +255,16 @@ export default {
 		this.loading = false;
 	},
 	methods: {
-		async back() {
-			const confirmed = await this.confirmIfNeeded();
-			if (confirmed) {
-				this.$router.push(`/admin/project/${this.project.id}`);
-			}
-		},
-		confirmIfNeeded() {
-			if (this.contentModified) {
-				return this.confirmLeavingUnsaved();
-			}
-			return true;
+		back() {
+			this.$router.push(`/admin/project/${this.project.id}`);
 		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
-		async goToSheetOrd(ord) {
-			const confirmed = await this.confirmIfNeeded();
-			if (confirmed) {
-				this.$router.push(`/admin/project/${this.project.id}/sheet/${ord}`);
-			}
+		goToSheetOrd(ord) {
+			this.$router.push(`/admin/project/${this.project.id}/sheet/${ord}`);
 		},
 		loadFeaturesFromStore() {
 			const features = [];

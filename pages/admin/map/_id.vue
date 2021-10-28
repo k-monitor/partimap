@@ -76,17 +76,8 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
-		async back() {
-			const confirmed = await this.confirmIfNeeded();
-			if (confirmed) {
-				this.$router.push('/admin/maps');
-			}
-		},
-		confirmIfNeeded() {
-			if (this.contentModified) {
-				return this.confirmLeavingUnsaved();
-			}
-			return true;
+		back() {
+			this.$router.push('/admin/maps');
 		},
 		featuresFromRaw(featuresRaw) {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...

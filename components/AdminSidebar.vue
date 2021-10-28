@@ -17,7 +17,7 @@
 					<b-nav-item
 						v-b-tooltip.hover
 						:title="`Vissza ide: ${backLabel}`"
-						@click="$emit('back')"
+						@click="nav('back')"
 					>
 						<i class="fas fa-fw fa-arrow-left" />
 					</b-nav-item>
@@ -26,7 +26,7 @@
 					v-b-tooltip.hover
 					role="button"
 					:title="`Vissza ide: ${backLabel}`"
-					@click="$emit('back')"
+					@click="nav('back')"
 				>
 					<strong>Partimap</strong>
 					Admin
@@ -64,7 +64,7 @@
 					<b-button
 						v-if="showPrev"
 						variant="primary"
-						@click="$emit('prev')"
+						@click="nav('prev')"
 					>
 						<i class="fas fa-fw fa-chevron-left" />
 					</b-button>
@@ -84,7 +84,7 @@
 					<b-button
 						v-if="showNext"
 						variant="primary"
-						@click="$emit('next')"
+						@click="nav('next')"
 					>
 						<i class="fas fa-fw fa-chevron-right" />
 					</b-button>
@@ -139,6 +139,18 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
+		confirmIfNeeded() {
+			if (this.contentModified) {
+				return this.confirmLeavingUnsaved();
+			}
+			return true;
+		},
+		async nav(eventName) {
+			const confirmed = await this.confirmIfNeeded();
+			if (confirmed) {
+				this.$emit(eventName);
+			}
+		},
 	},
 };
 </script>
