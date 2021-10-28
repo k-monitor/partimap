@@ -261,14 +261,9 @@ export default {
 				this.$router.push(`/admin/project/${this.project.id}`);
 			}
 		},
-		async confirmIfNeeded() {
+		confirmIfNeeded() {
 			if (this.contentModified) {
-				const needSave = await this.askSaveModifications();
-				if (needSave) {
-					await this.save();
-				} else if (needSave !== false) {
-					return false;
-				}
+				return this.confirmLeavingUnsaved();
 			}
 			return true;
 		},

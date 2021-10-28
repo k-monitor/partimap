@@ -76,22 +76,23 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
+		async back() {
+			const confirmed = await this.confirmIfNeeded();
+			if (confirmed) {
+				this.$router.push('/admin/maps');
+			}
+		},
+		confirmIfNeeded() {
+			if (this.contentModified) {
+				return this.confirmLeavingUnsaved();
+			}
+			return true;
+		},
 		featuresFromRaw(featuresRaw) {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
-		},
-		async back() {
-			if (this.contentModified) {
-				const needSave = await this.askSaveModifications();
-				if (needSave) {
-					await this.save();
-				} else if (needSave !== false) {
-					return;
-				}
-			}
-			this.$router.push('/admin/maps');
 		},
 		loadFeaturesFromStore() {
 			const features = [];

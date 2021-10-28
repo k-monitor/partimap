@@ -1,15 +1,14 @@
 export default {
 	methods: {
-		askSaveModifications() {
-			return this.$bvModal.msgBoxConfirm('El akarod menteni a módosításokat?', {
-				cancelTitle: 'Nem',
-				cancelVariant: 'danger',
+		confirmLeavingUnsaved() {
+			return this.$bvModal.msgBoxConfirm('Még nem mentetted el a módosításokat. Biztosan kilépsz?', {
+				cancelTitle: 'Mégsem',
+				cancelVariant: 'success',
 				centered: true,
 				footerClass: 'p-2',
-				hideHeaderClose: false,
 				okTitle: 'Igen',
-				okVariant: 'success',
-				title: 'Visszalépés',
+				okVariant: 'danger',
+				title: 'Nem mentett módosítások',
 			});
 		},
 	}
