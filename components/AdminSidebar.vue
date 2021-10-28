@@ -5,20 +5,37 @@
 		header-class="p-0 reset-font-size"
 		shadow="sm"
 		sidebar-class="border-right border-secondary"
+		width="360px"
 	>
 		<template #header="{ hide }">
 			<b-navbar
 				type="light"
 				class="border-bottom shadow-sm w-100"
 			>
+				<b-navbar-nav
+					v-b-tooltip.hover
+					class="mr-auto"
+					:title="`Vissza ide: ${backLabel}`"
+				>
+					<b-nav-item @click="$emit('back')">
+						<i class="fas fa-fw fa-arrow-left" />
+					</b-nav-item>
+				</b-navbar-nav>
 				<b-navbar-brand
+					v-b-tooltip.hover
 					role="button"
+					:title="`Vissza ide: ${backLabel}`"
 					@click="$emit('back')"
 				>
 					<strong>Partimap</strong>
 					Admin
 				</b-navbar-brand>
-				<b-navbar-nav class="ml-auto">
+				<b-navbar-nav
+					v-if="!fixed"
+					v-b-tooltip.hover
+					class="ml-auto"
+					title="Oldalsáv elrejtése"
+				>
 					<b-nav-item @click="hide">
 						<i class="fas fa-fw fa-times" />
 					</b-nav-item>
@@ -70,6 +87,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		fixed: {
+			type: Boolean,
+			default: false,
+		},
 		loading: {
 			type: Boolean,
 			default: false,
@@ -79,10 +100,12 @@ export default {
 		...mapGetters(['getSidebarVisible']),
 		visible: {
 			get() {
-				return this.getSidebarVisible;
+				return this.fixed ? true : this.getSidebarVisible;
 			},
 			set(v) {
-				this.setSidebarVisible(v);
+				if (!this.fixed) {
+					this.setSidebarVisible(v);
+				}
 			},
 		},
 	},

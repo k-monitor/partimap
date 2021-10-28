@@ -12,6 +12,7 @@
 		<AdminSidebar
 			back-label="Projekt"
 			:content-modified="contentModified"
+			:fixed="!sheet.features"
 			:loading="loading"
 			@back="back"
 			@save="save"
