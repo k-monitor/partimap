@@ -14,7 +14,11 @@
 			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
+			:show-next="!isLastSheet"
+			:show-prev="true"
 			@back="back"
+			@next="next"
+			@prev="prev"
 			@save="save"
 		>
 			<b-form-group>
@@ -198,6 +202,12 @@ export default {
 			}
 			return options;
 		},
+		isFirstSheet() {
+			return this.sheet.ord === 0;
+		},
+		isLastSheet() {
+			return this.sheet.ord === this.project.sheets.length - 1;
+		},
 		sheetStyle() {
 			return {
 				backgroundImage: `url(${this.backgroundImageData || this.sheet.image})`,
@@ -246,20 +256,32 @@ export default {
 	},
 	methods: {
 		async back() {
+			const confirmed = await this.confirmIfNeeded();
+			if (confirmed) {
+				this.$router.push(`/admin/project/${this.project.id}`);
+			}
+		},
+		async confirmIfNeeded() {
 			if (this.contentModified) {
 				const needSave = await this.askSaveModifications();
 				if (needSave) {
 					await this.save();
 				} else if (needSave !== false) {
-					return;
+					return false;
 				}
 			}
-			this.$router.push('/admin/project/' + this.project.id);
+			return true;
 		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
+		},
+		async goToSheetOrd(ord) {
+			const confirmed = await this.confirmIfNeeded();
+			if (confirmed) {
+				this.$router.push(`/admin/project/${this.project.id}/sheet/${ord}`);
+			}
 		},
 		loadFeaturesFromStore() {
 			const features = [];
@@ -271,6 +293,16 @@ export default {
 		},
 		loadInitFeatures() {
 			return this.featuresFromRaw(this.sheet.features);
+		},
+		next() {
+			this.goToSheetOrd(this.sheet.ord + 1);
+		},
+		prev() {
+			if (this.isFirstSheet) {
+				this.back();
+			} else {
+				this.goToSheetOrd(this.sheet.ord - 1);
+			}
 		},
 		removeBackground() {
 			this.backgroundImage = null;

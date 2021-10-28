@@ -55,17 +55,41 @@
 			/>
 		</template>
 		<template #footer>
-			<div class="bg-light border-top d-flex p-3">
-				<b-button
-					class="mx-auto"
-					:disabled="!contentModified"
-					:variant="contentModified ? 'success' : 'outline-success'"
-					@click="$emit('save')"
-				>
-					<i class="fas fa-fw fa-save mr-1" />
-					<span>{{ contentModified ? 'Mentés' : 'Mentve' }}</span>
-				</b-button>
-			</div>
+			<b-navbar
+				class="border-top justify-content-between shadow-sm w-100"
+				type="light"
+				variant="light"
+			>
+				<b-navbar-nav>
+					<b-button
+						v-if="showPrev"
+						variant="primary"
+						@click="$emit('prev')"
+					>
+						<i class="fas fa-fw fa-chevron-left" />
+					</b-button>
+				</b-navbar-nav>
+				<b-navbar-nav>
+					<b-button
+						class="mx-auto"
+						:disabled="!contentModified"
+						:variant="contentModified ? 'success' : 'outline-success'"
+						@click="$emit('save')"
+					>
+						<i class="fas fa-fw fa-save mr-1" />
+						<span>{{ contentModified ? 'Mentés' : 'Mentve' }}</span>
+					</b-button>
+				</b-navbar-nav>
+				<b-navbar-nav>
+					<b-button
+						v-if="showNext"
+						variant="primary"
+						@click="$emit('next')"
+					>
+						<i class="fas fa-fw fa-chevron-right" />
+					</b-button>
+				</b-navbar-nav>
+			</b-navbar>
 		</template>
 	</b-sidebar>
 </template>
@@ -88,6 +112,14 @@ export default {
 			default: false,
 		},
 		loading: {
+			type: Boolean,
+			default: false,
+		},
+		showNext: {
+			type: Boolean,
+			default: false,
+		},
+		showPrev: {
 			type: Boolean,
 			default: false,
 		},
@@ -118,6 +150,6 @@ export default {
 }
 
 .admin-sidebar .navbar-nav {
-	width: 40px;
+	min-width: 48px;
 }
 </style>

@@ -250,9 +250,6 @@ export default {
 			this.localVisitorFeatureRatings[featureId.toString()] = rating;
 		});
 	},
-	async mounted() {
-		this.initFeatureRatings = await this.loadInitFeatureRatings();
-	},
 	beforeDestroy() {
 		this.$nuxt.$off('visitorFeatureAdded');
 		this.$nuxt.$off('visitorFeatureRemoved');
@@ -269,32 +266,6 @@ export default {
 				await this.$axios.$post('/api/submission/' + this.project.id, data);
 			} else {
 				this.submitted = false;
-			}
-		},
-		async update(localSheet) {
-			try {
-				const sheet = await this.$axios.$patch('/api/sheet', localSheet);
-				this.sheet = sheet;
-				this.success('Módosítás sikeres.');
-			} catch (error) {
-				this.errorToast('Módosítás sikertelen.');
-			}
-		},
-		async uploadImage(image) {
-			const formData = new FormData();
-			formData.append('image', image);
-			try {
-				this.sheet = await this.$axios.$put(
-					'/api/sheet/' + this.sheet.id + '/image',
-					formData,
-					{
-						headers: {
-							'Content-Type': 'multipart/form-data',
-						},
-					}
-				);
-			} catch (error) {
-				this.errorToast('Kép feltöltése sikertelen.');
 			}
 		},
 		/**
@@ -369,19 +340,11 @@ export default {
 			this.localVisitorFeatures = [...visitorFeatures];
 			return [...visitorFeatures, ...adminFeatures];
 		},
-		async loadInitFeatureRatings() {
+		loadInitFeatureRatings() {
 			if (this.visitor) {
 				const visitorRatings = this.getVisitorRatings(this.sheet.id) || [];
 				this.localVisitorFeatureRatings = { ...visitorRatings };
 				return { ...visitorRatings };
-			} else {
-				let submittedRatings = {};
-				try {
-					submittedRatings = await this.$axios.$get(
-						'/api/submission/ratings/' + this.sheet.id
-					);
-				} catch (error) {}
-				return submittedRatings;
 			}
 		},
 		addVisitorDrawingInteractions(interactions) {
