@@ -213,7 +213,7 @@ export default {
 
 				if (this.visitor) {
 					f.feature.set('visitorFeature', true);
-					this.$nuxt.$emit('visitorFeatureAdded', f.feature);
+					this.$emit('visitorFeatureAdded', f.feature);
 				} else {
 					f.feature.set('visitorFeature', false);
 				}
@@ -229,7 +229,7 @@ export default {
 				this.$store.commit('features/remove', f.feature);
 
 				if (this.visitor) {
-					this.$nuxt.$emit('visitorFeatureRemoved', f.feature);
+					this.$emit('visitorFeatureRemoved', f.feature);
 				}
 				this.$nuxt.$emit('contentModified');
 			});

@@ -2,7 +2,6 @@
 	<div
 		v-if="sheet"
 		class="flex-grow-1"
-		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
 	>
 		<!--<EditorNavbar
 			v-if="!visitor"
@@ -21,7 +20,6 @@
 				<FeatureListContainer
 					:visitor="visitor"
 					:available-visitor-drawing-interactions="sheet.interactions"
-					:init-feature-ratings="initFeatureRatings"
 					@addVisitorDrawingInteractions="addVisitorDrawingInteractions"
 				/>
 			</template>
@@ -41,40 +39,12 @@
 					:visitor="visitor"
 					:terms-and-use-accepted="termsAndUseAccepted"
 					:submitted="submitted"
-					@sheetSurveyChanged="changeSheetSurvey"
 					@prevSheet="goToOtherSheet(-1)"
 					@nextSheet="goToOtherSheet(1)"
-					@collapse="handleCollapse"
-					@uploadImage="uploadImage"
-					@backgroundImageDeleted="update"
 					@toggleTermsAndUseAccepted="toggleTermsAndUseAccepted"
 					@submit="submit"
 				/>
 			</b-sidebar>
-			<div
-				ref="sidebar-expand"
-				class="sidebar-button sidebar-expand"
-			>
-				<a
-					v-b-toggle.sheet-sidebar
-					href="#"
-				>
-					<svg
-						width="14"
-						height="150"
-					>
-						<path
-							d=" M 0 150 L 13 135 L 13 15 L 0 0"
-							fill="rgb(247,247,247)"
-							stroke="rgb(223,223,223)"
-						/>
-						<path d="M 0 0 L 0 150" />
-					</svg>
-				</a>
-				<span class="material-icons collapse-icon">
-					expand_less
-				</span>
-			</div>
 		</div>-->
 		<!--<b-navbar
 			v-if="showBottomNav"
@@ -121,7 +91,6 @@
 </template>
 
 <script>
-import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -147,9 +116,6 @@ export default {
 		return {
 			contentModified: false,
 			imageSource: null,
-			initFeatureRatings: null,
-			localVisitorFeatureRatings: {},
-			localVisitorFeatures: [],
 			sheet,
 			showBottomNav: false,
 			submitted: false,
@@ -159,8 +125,6 @@ export default {
 	computed: {
 		...mapGetters({
 			getAllFeature: 'features/getAllFeature',
-			getVisitorFeatures: 'visitordata/getVisitorFeatures',
-			getVisitorRatings: 'visitordata/getVisitorRatings',
 			getSubmissionData: 'visitordata/getSubmissionData',
 		}),
 		nextButtonDisabled() {
@@ -171,30 +135,9 @@ export default {
 			}
 		},
 	},
-	created() {
-		this.$nuxt.$on('visitorFeatureAdded', feature => {
-			this.localVisitorFeatures.push(feature);
-		});
-		this.$nuxt.$on('visitorFeatureRemoved', feature => {
-			const idx = this.localVisitorFeatures.indexOf(feature);
-			if (idx !== -1) {
-				this.localVisitorFeatures.splice(idx, 1);
-			}
-		});
-		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
-			this.localVisitorFeatureRatings[featureId.toString()] = rating;
-		});
-	},
-	beforeDestroy() {
-		this.$nuxt.$off('visitorFeatureAdded');
-		this.$nuxt.$off('visitorFeatureRemoved');
-		this.$nuxt.$off('featureRatedByVisitor');
-	},
 	methods: {
 		async submit() {
 			this.submitted = true;
-			this.storeLocalVisitorFeatures();
-			this.storeLocalVisitorFeatureRatings();
 			const sheetIds = this.project.sheets.map(s => s.id);
 			const data = this.getSubmissionData(sheetIds);
 			if (Object.keys(data).length) {
@@ -234,20 +177,6 @@ export default {
 				this.$router.push(route);
 			}
 		},
-		storeLocalVisitorFeatures() {
-			const payload = {
-				features: this.localVisitorFeatures,
-				sheetId: this.sheet.id,
-			};
-			this.$store.commit('visitordata/addFeatures', payload);
-		},
-		storeLocalVisitorFeatureRatings() {
-			const payload = {
-				ratings: this.localVisitorFeatureRatings,
-				sheetId: this.sheet.id,
-			};
-			this.$store.commit('visitordata/addRatings', payload);
-		},
 		prevSheetExists() {
 			return !!this.getByOrd(this.sheet.ord - 1);
 		},
@@ -256,31 +185,6 @@ export default {
 		},
 		firstSheet() {
 			return this.sheetOrd === '0';
-		},
-		handleCollapse(collapseBtn) {
-			this.$root.$emit('bv::toggle::collapse', 'sheet-sidebar');
-			// place the expand button the same position as the collapse button
-			const topPos = collapseBtn.getBoundingClientRect().top;
-			this.$refs['sidebar-expand'].style.transform = `translateY(${topPos}px)`;
-			this.$refs['sidebar-expand'].style.visibility = 'visible';
-		},
-		featuresFromRaw(featuresRaw) {
-			const features = JSON.parse(featuresRaw);
-			const featureCollection = { type: 'FeatureCollection', features };
-			return features ? new GeoJSON().readFeatures(featureCollection) : null;
-		},
-		loadInitFeatures() {
-			const adminFeatures = this.featuresFromRaw(this.sheet.features);
-			const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
-			this.localVisitorFeatures = [...visitorFeatures];
-			return [...visitorFeatures, ...adminFeatures];
-		},
-		loadInitFeatureRatings() {
-			if (this.visitor) {
-				const visitorRatings = this.getVisitorRatings(this.sheet.id) || [];
-				this.localVisitorFeatureRatings = { ...visitorRatings };
-				return { ...visitorRatings };
-			}
 		},
 		addVisitorDrawingInteractions(interactions) {
 			this.sheet.interactions = interactions;

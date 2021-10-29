@@ -47,6 +47,8 @@
 				<Map
 					:features="loadInitFeatures()"
 					visitor
+					@visitorFeatureAdded="addVisitorFeature"
+					@visitorFeatureRemoved="delVisitorFeature"
 				/>
 			</client-only>
 			<MapToolbar
@@ -61,7 +63,10 @@
 				@prev="prev"
 			>
 				<SheetContent :sheet="sheet" />
-				<FeatureList visitor />
+				<FeatureList
+					:init-feature-ratings="getVisitorRatings(sheet.id)"
+					visitor
+				/>
 			</Sidebar>
 		</div>
 	</SheetFrame>
@@ -123,6 +128,9 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
 export default {
+	components: {
+		Map: () => (process.client ? import('@/components/Map') : null),
+	},
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		store.commit('generateVisitId');
@@ -149,10 +157,17 @@ export default {
 		return {
 			loading: true,
 			password: null,
+			localVisitorFeatures: [],
+			localVisitorFeatureRatings: {},
 		};
 	},
 	computed: {
 		...mapGetters('features', ['getAllFeature']),
+		...mapGetters('visitordata', [
+			'getVisitorFeatures',
+			'getVisitorRatings',
+			'getSubmissionData',
+		]),
 		isFirstSheet() {
 			return this.sheet.ord === 0;
 		},
@@ -167,7 +182,33 @@ export default {
 		this.registerHit();
 		this.loading = false;
 	},
+	created() {
+		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
+			const ratings = this.getVisitorRatings(this.sheet.id) || {};
+			ratings[featureId] = rating;
+			const payload = { ratings, sheetId: this.sheet.id };
+			this.$store.commit('visitordata/addRatings', payload);
+		});
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('featureRatedByVisitor');
+	},
 	methods: {
+		addVisitorFeature(feature) {
+			const features = this.getVisitorFeatures(this.sheet.id) || [];
+			features.push(feature);
+			const payload = { features, sheetId: this.sheet.id };
+			this.$store.commit('visitordata/addFeatures', payload);
+		},
+		delVisitorFeature(feature) {
+			const features = this.getVisitorFeatures(this.sheet.id) || [];
+			const idx = features.indexOf(feature);
+			if (idx !== -1) {
+				features.splice(idx, 1);
+				const payload = { features, sheetId: this.sheet.id };
+				this.$store.commit('visitordata/addFeatures', payload);
+			}
+		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
@@ -177,7 +218,9 @@ export default {
 			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
 		},
 		loadInitFeatures() {
-			return this.featuresFromRaw(this.sheet.features);
+			const adminFeatures = this.featuresFromRaw(this.sheet.features);
+			const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
+			return [...visitorFeatures, ...adminFeatures];
 		},
 		next() {
 			this.goToSheetOrd(this.sheet.ord + 1);
