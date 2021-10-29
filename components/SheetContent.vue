@@ -62,7 +62,8 @@ export default {
 			getVisitorAnswers: 'visitordata/getVisitorAnswers',
 		}),
 		interactions() {
-			return this.sheet ? JSON.parse(this.sheet.interactions || '[]') : [];
+			// no need for JSON parse, String also has `includes()`
+			return this.sheet ? this.sheet.interactions || '' : '';
 		},
 		visitorAnswers: {
 			get() {

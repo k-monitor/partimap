@@ -124,8 +124,9 @@ export default {
 		try {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			const selectedInteractions = sheet ? JSON.parse(sheet.interactions) : []; // for some reason I had to parse it here
-
+			const selectedInteractions = sheet && sheet.interactions
+				? sheet.interactions.replace(/[^A-Za-z,]/g, '').split(',') // custom parsing :D
+				: [];
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
