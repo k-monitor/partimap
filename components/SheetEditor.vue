@@ -75,15 +75,6 @@
 					Tovább
 					<i class="fas fa-chevron-right ml-1" />
 				</b-button>
-				<b-button
-					v-else-if="visitor"
-					:disabled="nextButtonDisabled || submitted"
-					variant="success"
-					@click="$emit('submit')"
-				>
-					Küldés
-					<i class="fas fa-paper-plane ml-1" />
-				</b-button>
 			</span>
 		</template>
 
@@ -156,16 +147,6 @@ export default {
 			set(val) {
 				this.$emit('toggleTermsAndUseAccepted', val);
 			},
-		},
-	},
-	watch: {
-		sheet(val) {
-			this.localSheet = val;
-		},
-	},
-	methods: {
-		firstSheet() {
-			return !this.sheet.ord;
 		},
 	},
 };
