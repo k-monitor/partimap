@@ -4,6 +4,7 @@ export const state = () => ({
 	drawType: '',
 	hit: false,
 	sidebarVisible: true,
+	submitted: false,
 	visitId: null,
 });
 
@@ -21,6 +22,9 @@ export const mutations = {
 	},
 	setSidebarVisible(state, visible) {
 		state.sidebarVisible = visible;
+	},
+	setSubmitted(state) {
+		state.submitted = true;
 	},
 	toggleSidebarVisible(state) {
 		state.sidebarVisible = !state.sidebarVisible;

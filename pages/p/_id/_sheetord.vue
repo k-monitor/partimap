@@ -23,15 +23,25 @@
 			visible
 		>
 			<SheetContent :sheet="sheet" />
+			<b-overlay
+				no-wrap
+				opacity="0.5"
+				:show="loading"
+			/>
 			<template #modal-footer>
 				<FooterButtons
 					:disable-submit="submitted"
 					:show-next="!isLastSheet"
-					:show-prev="!isFirstSheet"
+					:show-prev="!isFirstSheet && !submitted"
 					:show-submit="isLastSheet"
 					@next="next"
 					@prev="prev"
 					@submit="submit"
+				/>
+				<b-overlay
+					no-wrap
+					opacity="0.5"
+					:show="loading"
 				/>
 			</template>
 		</b-modal>
@@ -53,7 +63,7 @@
 				:fixed="!sheet.features"
 				:loading="loading"
 				:show-next="!isLastSheet"
-				show-prev
+				:show-prev="!submitted"
 				@next="next"
 				@prev="prev"
 				@submit="submit"
@@ -153,10 +163,12 @@ export default {
 		return {
 			loading: true,
 			password: null,
-			submitted: false,
 		};
 	},
 	computed: {
+		submitted() {
+			return this.$store.state.submitted;
+		},
 		...mapGetters('features', ['getAllFeature']),
 		...mapGetters('visitordata', [
 			'getVisitorFeatures',
@@ -261,15 +273,14 @@ export default {
 			this.loading = true;
 			const sheetIds = this.project.sheets.map(s => s.id);
 			const data = this.getSubmissionData(sheetIds);
-			if (!Object.keys(data).length) {
-				return;
-			}
-			try {
-				await this.$axios.$post('/api/submission/' + this.project.id, data);
-				this.submitted = true;
-				this.success('Beküldés sikeres.');
-			} catch {
-				this.errorToast('Beküldés sikertelen.');
+			if (Object.keys(data).length) {
+				try {
+					await this.$axios.$post('/api/submission/' + this.project.id, data);
+					this.$store.commit('setSubmitted');
+					this.success('Beküldés sikeres.');
+				} catch {
+					this.errorToast('Beküldés sikertelen.');
+				}
 			}
 			this.loading = false;
 		},
