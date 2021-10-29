@@ -6,13 +6,14 @@
 			</client-only>
 			<MapToolbar />
 		</template>
-		<AdminSidebar
+		<Sidebar
+			admin
 			back-label="Vissza a projekthez"
 			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
 			:show-next="!isLastSheet"
-			:show-prev="true"
+			show-prev
 			@back="back"
 			@next="next"
 			@prev="prev"
@@ -105,7 +106,7 @@
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
 			/>
-		</AdminSidebar>
+		</Sidebar>
 	</SheetFrame>
 </template>
 

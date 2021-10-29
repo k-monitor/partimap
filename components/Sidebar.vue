@@ -4,11 +4,13 @@
 		bg-variant="white"
 		class="admin-sidebar"
 		header-class="p-0"
+		:no-header="!admin"
 		shadow="sm"
 		sidebar-class="border-right border-secondary"
 		width="360px"
 	>
 		<template #header="{ hide }">
+			<!-- admin header! -->
 			<b-navbar
 				type="light"
 				class="border-bottom justify-content-between shadow-sm w-100"
@@ -66,6 +68,7 @@
 				</b-navbar-nav>
 				<b-navbar-nav>
 					<b-button
+						v-if="admin"
 						class="mx-auto"
 						:disabled="!contentModified"
 						:variant="contentModified ? 'success' : 'outline-success'"
@@ -94,6 +97,10 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
 	props: {
+		admin: {
+			type: Boolean,
+			default: false,
+		},
 		backLabel: {
 			type: String,
 			default: 'Vissza',

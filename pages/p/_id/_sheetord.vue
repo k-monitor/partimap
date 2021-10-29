@@ -42,6 +42,13 @@
 				</b-button>
 			</template>
 		</b-modal>
+		<Sidebar
+			v-else
+			show-next
+			show-prev
+		>
+			<h1>Heló!</h1>
+		</Sidebar>
 	</SheetFrame>
 	<div
 		v-else

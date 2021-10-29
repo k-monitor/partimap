@@ -4,7 +4,8 @@
 			<Map :features="loadInitFeatures()" />
 		</client-only>
 		<MapToolbar />
-		<AdminSidebar
+		<Sidebar
+			admin
 			back-label="Vissza a térképekhez"
 			:content-modified="contentModified"
 			:loading="loading"
@@ -21,7 +22,7 @@
 				/>
 			</b-form-group>
 			<FeatureList />
-		</AdminSidebar>
+		</Sidebar>
 	</div>
 </template>
 
