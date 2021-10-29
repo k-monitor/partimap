@@ -7,7 +7,7 @@
 			<MapToolbar />
 		</template>
 		<AdminSidebar
-			back-label="Projekt"
+			back-label="Vissza a projekthez"
 			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
@@ -223,7 +223,7 @@ export default {
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
 		goToSheetOrd(ord) {
-			this.$router.push(`/admin/project/${this.project.id}/sheet/${ord}`);
+			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
 		},
 		loadFeaturesFromStore() {
 			const features = [];

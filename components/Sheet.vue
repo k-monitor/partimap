@@ -4,64 +4,6 @@
 		class="flex-grow-1"
 		:style="'background: center / cover no-repeat url(' + sheet.image + ')'"
 	>
-		<AdminSidebar
-
-			back-label="Projekt"
-			:content-modified="contentModified"
-			@back="goBackToProject"
-			@save="saveMap"
-		>
-			<b-form-group
-				class="mb-4"
-				label="Cím:"
-			>
-				<template #label>
-					<h6 class="mb-0">Munkalap címe</h6>
-				</template>
-				<b-form-input
-					v-model="sheet.title"
-					size="lg"
-				/>
-			</b-form-group>
-			<b-form-group>
-				<template #label>
-					<div class="align-items-center d-flex justify-content-between">
-						<h6 class="mb-0">Munkalap leírása</h6>
-						<b-badge variant="secondary">{{ (sheet.description || '').length }} / 1000</b-badge>
-					</div>
-				</template>
-				<b-textarea
-					v-model="sheet.description"
-					maxlength="1000"
-					rows="6"
-				/>
-			</b-form-group>
-			<b-form-group v-if="sheet.survey">
-				<template #label>
-					<h6 class="mb-0">Kérdőív</h6>
-				</template>
-				<SurveyEditor
-					v-if="JSON.parse(sheet.survey).demographic"
-					:value="demographicSurvey"
-					:readonly="true"
-				/>
-				<SurveyEditor
-					v-else
-					v-model="sheet.survey"
-				/>
-			</b-form-group>
-			<b-form-group v-else>
-				<template #label>
-					<h6 class="mb-0">Látogatói interakciók</h6>
-				</template>
-				<b-form-checkbox
-					v-if="!sheet.features"
-					v-model="socialButtons"
-				>
-					Megosztás gombok
-				</b-form-checkbox>
-			</b-form-group>
-		</AdminSidebar>
 		<!--<EditorNavbar
 			v-if="!visitor"
 			:title-name="project.title"
@@ -182,8 +124,6 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
-const SOCIAL_SHARING = 'SocialSharing';
-
 export default {
 	props: {
 		sheetOrd: {
@@ -204,10 +144,6 @@ export default {
 			sheet => sheet.ord === parseInt(this.sheetOrd)
 		)[0];
 
-		const socialButtons = ((this.sheet || {}).interactions || '').includes(
-			SOCIAL_SHARING
-		);
-
 		return {
 			contentModified: false,
 			imageSource: null,
@@ -215,7 +151,6 @@ export default {
 			localVisitorFeatureRatings: {},
 			localVisitorFeatures: [],
 			sheet,
-			socialButtons,
 			showBottomNav: false,
 			submitted: false,
 			termsAndUseAccepted: this.visitor ? 'not_accepted' : null,

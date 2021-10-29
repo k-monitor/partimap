@@ -5,7 +5,7 @@
 		</client-only>
 		<MapToolbar />
 		<AdminSidebar
-			back-label="Térképek"
+			back-label="Vissza a térképekhez"
 			:content-modified="contentModified"
 			:loading="loading"
 			@back="back"

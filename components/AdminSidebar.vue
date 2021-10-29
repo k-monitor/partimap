@@ -16,18 +16,13 @@
 				<b-navbar-nav>
 					<b-nav-item
 						v-b-tooltip.hover
-						:title="`Vissza ide: ${backLabel}`"
+						:title="backLabel"
 						@click="nav('back')"
 					>
 						<i class="fas fa-fw fa-arrow-left" />
 					</b-nav-item>
 				</b-navbar-nav>
-				<b-navbar-brand
-					v-b-tooltip.hover
-					role="button"
-					:title="`Vissza ide: ${backLabel}`"
-					@click="nav('back')"
-				>
+				<b-navbar-brand>
 					<strong>Partimap</strong>
 					Admin
 				</b-navbar-brand>
@@ -162,6 +157,7 @@ export default {
 }
 
 .admin-sidebar .navbar-nav {
+	/* header & footer */
 	min-width: 48px;
 }
 </style>

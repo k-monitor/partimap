@@ -12,6 +12,7 @@
 		<b-modal
 			v-if="!sheet.features"
 			content-class="shadow-sm"
+			footer-class="d-flex p-2"
 			hide-backdrop
 			hide-header
 			no-close-on-backdrop
@@ -23,7 +24,22 @@
 		>
 			<SheetContent :sheet="sheet" />
 			<template #modal-footer>
-				<b-navbar>TODO: prev, next</b-navbar>
+				<b-button
+					v-if="!isFirstSheet"
+					class="mr-auto"
+					variant="primary"
+					@click="prev"
+				>
+					<i class="fas fa-fw fa-chevron-left" />
+				</b-button>
+				<b-button
+					v-if="!isLastSheet"
+					class="ml-auto"
+					variant="primary"
+					@click="next"
+				>
+					<i class="fas fa-fw fa-chevron-right" />
+				</b-button>
 			</template>
 		</b-modal>
 	</SheetFrame>
@@ -110,6 +126,14 @@ export default {
 			password: null,
 		};
 	},
+	computed: {
+		isFirstSheet() {
+			return this.sheet.ord === 0;
+		},
+		isLastSheet() {
+			return this.sheet.ord === this.project.sheets.length - 1;
+		},
+	},
 	mounted() {
 		if (!this.project) {
 			this.$refs.password.focus();
@@ -118,6 +142,15 @@ export default {
 		this.loading = false;
 	},
 	methods: {
+		goToSheetOrd(ord) {
+			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
+		},
+		next() {
+			this.goToSheetOrd(this.sheet.ord + 1);
+		},
+		prev() {
+			this.goToSheetOrd(this.sheet.ord - 1);
+		},
 		registerHit() {
 			if (
 				this.project &&
