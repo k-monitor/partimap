@@ -7,8 +7,8 @@
 				placeholder="Keresés..."
 				:data="categories"
 				:min-matching-chars="0"
-				:show-all-results="true"
-				:show-on-focus="true"
+				show-all-results
+				show-on-focus
 			>
 				<template #append>
 					<b-button

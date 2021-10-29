@@ -48,7 +48,6 @@
 				<i class="fas fa-fw fa-chevron-right" />
 			</b-button>
 		</div>
-
 	</div>
 </template>
 

@@ -1,10 +1,4 @@
 <template>
-	<!--<Sheet
-		v-if="project"
-		:parent-project-data="project"
-		:sheet-ord="$route.params.sheetord"
-		:visitor="true"
-	/>-->
 	<SheetFrame
 		v-if="project"
 		:background-image-url="sheet.image"

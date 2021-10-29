@@ -41,7 +41,6 @@
 					rows="6"
 				/>
 			</b-form-group>
-
 			<b-form-group
 				v-if="!sheet.features"
 				invalid-feedback="Maximális fájlméret: 5 MB"
@@ -86,7 +85,7 @@
 				<SurveyEditor
 					v-if="JSON.parse(sheet.survey).demographic"
 					:value="demographicSurvey"
-					:readonly="true"
+					readonly
 				/>
 				<SurveyEditor
 					v-else
@@ -124,9 +123,10 @@ export default {
 		try {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			const selectedInteractions = sheet && sheet.interactions
-				? sheet.interactions.replace(/[^A-Za-z,]/g, '').split(',') // custom parsing :D
-				: [];
+			const selectedInteractions =
+				sheet && sheet.interactions
+					? sheet.interactions.replace(/[^A-Za-z,]/g, '').split(',') // custom parsing :D
+					: [];
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
