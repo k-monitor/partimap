@@ -125,7 +125,6 @@ export default {
 	computed: {
 		...mapGetters({
 			getAllFeature: 'features/getAllFeature',
-			getSubmissionData: 'visitordata/getSubmissionData',
 		}),
 		nextButtonDisabled() {
 			if (this.visitor && this.firstSheet()) {
@@ -136,16 +135,6 @@ export default {
 		},
 	},
 	methods: {
-		async submit() {
-			this.submitted = true;
-			const sheetIds = this.project.sheets.map(s => s.id);
-			const data = this.getSubmissionData(sheetIds);
-			if (Object.keys(data).length) {
-				await this.$axios.$post('/api/submission/' + this.project.id, data);
-			} else {
-				this.submitted = false;
-			}
-		},
 		/**
 		 * Gets sheet from DB by its order instead of is
 		 * @returns {Object} sheet
@@ -155,40 +144,6 @@ export default {
 				return sheet.ord === ord;
 			});
 			return sheet[0];
-		},
-		/**
-		 * @param {int} orderDiff - new sheet order = order + orderDiff
-		 */
-		goToOtherSheet(orderDiff) {
-			if (this.visitor && this.sheet.interactions) {
-				this.storeLocalVisitorFeatures();
-			}
-			if (Object.keys(this.localVisitorFeatureRatings).length) {
-				this.storeLocalVisitorFeatureRatings();
-			}
-			// change only the last part of the route which indicates the sheet order
-			const fullPath = this.$route.fullPath;
-			const route =
-				fullPath.slice(0, fullPath.lastIndexOf('/') + 1) +
-				(parseInt(this.sheetOrd) + orderDiff);
-			if (this.contentModified && !this.visitor) {
-				this.showConfirmModal(route);
-			} else {
-				this.$router.push(route);
-			}
-		},
-		prevSheetExists() {
-			return !!this.getByOrd(this.sheet.ord - 1);
-		},
-		nextSheetExists() {
-			return !!this.getByOrd(this.sheet.ord + 1);
-		},
-		firstSheet() {
-			return this.sheetOrd === '0';
-		},
-		addVisitorDrawingInteractions(interactions) {
-			this.sheet.interactions = interactions;
-			this.contentModified = true;
 		},
 		toggleTermsAndUseAccepted(val) {
 			this.termsAndUseAccepted = val;

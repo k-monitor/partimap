@@ -55,6 +55,7 @@
 			<FooterButtons
 				class="bg-light border-top p-2 shadow-sm"
 				:disable-save="!contentModified"
+				:disable-submit="!contentModified"
 				:show-next="showNext"
 				:show-prev="showPrev"
 				:show-save="admin"
@@ -62,6 +63,7 @@
 				@next="nav('next')"
 				@prev="nav('prev')"
 				@save="$emit('save')"
+				@submit="$emit('submit')"
 			/>
 		</template>
 	</b-sidebar>
@@ -123,8 +125,12 @@ export default {
 			return true;
 		},
 		async nav(eventName) {
-			const confirmed = await this.confirmIfNeeded();
-			if (confirmed) {
+			if (this.admin) {
+				const confirmed = await this.confirmIfNeeded();
+				if (confirmed) {
+					this.$emit(eventName);
+				}
+			} else {
 				this.$emit(eventName);
 			}
 		},

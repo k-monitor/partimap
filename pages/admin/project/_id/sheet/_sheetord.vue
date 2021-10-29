@@ -265,7 +265,7 @@ export default {
 					this.contentModified = false;
 				});
 				this.success('Módosítás sikeres.');
-			} catch (error) {
+			} catch {
 				this.errorToast('Módosítás sikertelen.');
 			}
 			this.loading = false;

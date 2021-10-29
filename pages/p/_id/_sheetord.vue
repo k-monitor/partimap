@@ -25,11 +25,13 @@
 			<SheetContent :sheet="sheet" />
 			<template #modal-footer>
 				<FooterButtons
+					:disable-submit="submitted"
 					:show-next="!isLastSheet"
 					:show-prev="!isFirstSheet"
 					:show-submit="isLastSheet"
 					@next="next"
 					@prev="prev"
+					@submit="submit"
 				/>
 			</template>
 		</b-modal>
@@ -47,12 +49,14 @@
 				visitor
 			/>
 			<Sidebar
+				:content-modified="!submitted"
 				:fixed="!sheet.features"
 				:loading="loading"
 				:show-next="!isLastSheet"
 				show-prev
 				@next="next"
 				@prev="prev"
+				@submit="submit"
 			>
 				<SheetContent :sheet="sheet" />
 				<FeatureList
@@ -149,8 +153,7 @@ export default {
 		return {
 			loading: true,
 			password: null,
-			localVisitorFeatures: [],
-			localVisitorFeatureRatings: {},
+			submitted: false,
 		};
 	},
 	computed: {
@@ -253,6 +256,22 @@ export default {
 				this.$refs.password.focus();
 				this.loading = false;
 			}
+		},
+		async submit() {
+			this.loading = true;
+			const sheetIds = this.project.sheets.map(s => s.id);
+			const data = this.getSubmissionData(sheetIds);
+			if (!Object.keys(data).length) {
+				return;
+			}
+			try {
+				await this.$axios.$post('/api/submission/' + this.project.id, data);
+				this.submitted = true;
+				this.success('Beküldés sikeres.');
+			} catch {
+				this.errorToast('Beküldés sikertelen.');
+			}
+			this.loading = false;
 		},
 	},
 };
