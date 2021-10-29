@@ -2,8 +2,9 @@
 	<div>
 		<h1 class="h3">{{ sheet.title }}</h1>
 		<p
-			class="mb-4"
-			v-html="(sheet.description || '').replace(/\n/g, '<br>')"
+			v-for="p in (sheet.description || '').split('\n')"
+			:key="p"
+			v-text="p"
 		/>
 		<div v-if="sheet.survey">
 			<Survey
@@ -19,7 +20,7 @@
 		</div>
 		<div
 			v-if="interactions.includes('SocialSharing')"
-			class="d-flex justify-content-around"
+			class="d-flex justify-content-around mt-5 mb-4"
 		>
 			<ShareNetwork
 				v-for="s in social"
