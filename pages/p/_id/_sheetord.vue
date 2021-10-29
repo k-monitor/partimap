@@ -27,6 +27,7 @@
 				<FooterButtons
 					:show-next="!isLastSheet"
 					:show-prev="!isFirstSheet"
+					:show-submit="isLastSheet"
 					@next="next"
 					@prev="prev"
 				/>
@@ -47,7 +48,8 @@
 			/>
 			<Sidebar
 				:fixed="!sheet.features"
-				show-next
+				:loading="loading"
+				:show-next="!isLastSheet"
 				show-prev
 				@next="next"
 				@prev="prev"

@@ -12,16 +12,34 @@
 
 		<b-button
 			v-if="showSave"
-			class="mx-auto"
 			:disabled="disableSave"
 			:variant="disableSave ? 'outline-success' : 'success'"
 			@click="$emit('save')"
 		>
-			<i class="fas fa-fw mr-1" :class="disableSave ? 'fa-check' : 'fa-save'" />
+			<i
+				class="fas fa-fw mr-1"
+				:class="disableSave ? 'fa-check' : 'fa-save'"
+			/>
 			<span>{{ disableSave ? 'Mentve' : 'Mentés' }}</span>
 		</b-button>
 
-		<div class="fixed-width">
+		<b-button
+			v-if="showSubmit"
+			:disabled="disableSubmit"
+			:variant="disableSubmit ? 'outline-success' : 'success'"
+			@click="$emit('submit')"
+		>
+			<i
+				class="fas fa-fw mr-1"
+				:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
+			/>
+			<span>{{ disableSubmit ? 'Beküldve' : 'Beküldés' }}</span>
+		</b-button>
+
+		<div
+			v-else
+			class="fixed-width"
+		>
 			<b-button
 				v-if="showNext"
 				variant="primary"
@@ -30,6 +48,7 @@
 				<i class="fas fa-fw fa-chevron-right" />
 			</b-button>
 		</div>
+
 	</div>
 </template>
 
@@ -37,6 +56,10 @@
 export default {
 	props: {
 		disableSave: {
+			type: Boolean,
+			default: false,
+		},
+		disableSubmit: {
 			type: Boolean,
 			default: false,
 		},
@@ -49,6 +72,10 @@ export default {
 			default: false,
 		},
 		showSave: {
+			type: Boolean,
+			default: false,
+		},
+		showSubmit: {
 			type: Boolean,
 			default: false,
 		},

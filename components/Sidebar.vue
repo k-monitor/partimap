@@ -58,6 +58,7 @@
 				:show-next="showNext"
 				:show-prev="showPrev"
 				:show-save="admin"
+				:show-submit="!admin && !showNext"
 				@next="nav('next')"
 				@prev="nav('prev')"
 				@save="$emit('save')"
