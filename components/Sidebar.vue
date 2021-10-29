@@ -45,11 +45,13 @@
 			<div class="p-3">
 				<slot />
 			</div>
-			<b-overlay
-				no-wrap
-				opacity="0.5"
-				:show="loading"
-			/>
+			<client-only>
+				<b-overlay
+					no-wrap
+					opacity="0.5"
+					:show="loading"
+				/>
+			</client-only>
 		</template>
 		<template #footer>
 			<FooterButtons
