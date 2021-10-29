@@ -26,7 +26,7 @@
 			</client-only>
 			<template #modal-footer>
 				<FooterButtons
-					:disable-submit="submitted"
+					:disable-submit="loading || submitted"
 					:show-next="!isLastSheet"
 					:show-prev="!isFirstSheet && !submitted"
 					:show-submit="isLastSheet"
@@ -34,20 +34,6 @@
 					@prev="prev"
 					@submit="submit"
 				/>
-				<client-only>
-					<b-overlay
-						no-wrap
-						opacity="0.5"
-						:show="loading"
-					/>
-					<template #placeholder>
-						<b-overlay
-							no-wrap
-							opacity="0.5"
-							show
-						/>
-					</template>
-				</client-only>
 			</template>
 		</b-modal>
 		<div v-else>
