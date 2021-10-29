@@ -17,11 +17,13 @@
 			visible
 		>
 			<SheetContent :sheet="sheet" />
-			<b-overlay
-				no-wrap
-				opacity="0.5"
-				:show="loading"
-			/>
+			<client-only>
+				<b-overlay
+					no-wrap
+					opacity="0.5"
+					:show="loading"
+				/>
+			</client-only>
 			<template #modal-footer>
 				<FooterButtons
 					:disable-submit="submitted"
@@ -32,11 +34,13 @@
 					@prev="prev"
 					@submit="submit"
 				/>
-				<b-overlay
-					no-wrap
-					opacity="0.5"
-					:show="loading"
-				/>
+				<client-only>
+					<b-overlay
+						no-wrap
+						opacity="0.5"
+						:show="loading"
+					/>
+				</client-only>
 			</template>
 		</b-modal>
 		<div v-else>
@@ -104,7 +108,6 @@
 								<i class="fas fa-sign-in-alt ml-1" />
 							</button>
 						</div>
-
 						<div
 							v-if="loading"
 							class="bg-white d-flex h-100 position-absolute w-100"
