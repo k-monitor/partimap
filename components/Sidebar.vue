@@ -52,42 +52,16 @@
 			/>
 		</template>
 		<template #footer>
-			<b-navbar
-				class="border-top justify-content-between shadow-sm w-100"
-				type="light"
-				variant="light"
-			>
-				<b-navbar-nav>
-					<b-button
-						v-if="showPrev"
-						variant="primary"
-						@click="nav('prev')"
-					>
-						<i class="fas fa-fw fa-chevron-left" />
-					</b-button>
-				</b-navbar-nav>
-				<b-navbar-nav>
-					<b-button
-						v-if="admin"
-						class="mx-auto"
-						:disabled="!contentModified"
-						:variant="contentModified ? 'success' : 'outline-success'"
-						@click="$emit('save')"
-					>
-						<i class="fas fa-fw fa-save mr-1" />
-						<span>{{ contentModified ? 'Mentés' : 'Mentve' }}</span>
-					</b-button>
-				</b-navbar-nav>
-				<b-navbar-nav>
-					<b-button
-						v-if="showNext"
-						variant="primary"
-						@click="nav('next')"
-					>
-						<i class="fas fa-fw fa-chevron-right" />
-					</b-button>
-				</b-navbar-nav>
-			</b-navbar>
+			<FooterButtons
+				class="bg-light border-top p-2 shadow-sm"
+				:disable-save="!contentModified"
+				:show-next="showNext"
+				:show-prev="showPrev"
+				:show-save="admin"
+				@next="nav('next')"
+				@prev="nav('prev')"
+				@save="$emit('save')"
+			/>
 		</template>
 	</b-sidebar>
 </template>
@@ -164,7 +138,6 @@ export default {
 }
 
 .admin-sidebar .navbar-nav {
-	/* header & footer */
-	min-width: 48px;
+	min-width: 40px;
 }
 </style>

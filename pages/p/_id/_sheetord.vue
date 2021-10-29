@@ -24,22 +24,12 @@
 		>
 			<SheetContent :sheet="sheet" />
 			<template #modal-footer>
-				<b-button
-					v-if="!isFirstSheet"
-					class="mr-auto"
-					variant="primary"
-					@click="prev"
-				>
-					<i class="fas fa-fw fa-chevron-left" />
-				</b-button>
-				<b-button
-					v-if="!isLastSheet"
-					class="ml-auto"
-					variant="primary"
-					@click="next"
-				>
-					<i class="fas fa-fw fa-chevron-right" />
-				</b-button>
+				<FooterButtons
+					:show-next="!isLastSheet"
+					:show-prev="!isFirstSheet"
+					@next="next"
+					@prev="prev"
+				/>
 			</template>
 		</b-modal>
 		<div v-else>
