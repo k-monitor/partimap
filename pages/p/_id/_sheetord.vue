@@ -156,11 +156,13 @@ export default {
 		return {
 			loading: true,
 			password: null,
+			project: null, // do not delete, required by SSR
+			sheet: null,
 		};
 	},
 	head() {
 		return {
-			title: this.project.title,
+			title: this.project ? this.project.title : 'Jelszóval védett projekt',
 		};
 	},
 	computed: {
@@ -254,6 +256,7 @@ export default {
 					projectId,
 					visitId,
 				});
+				this.sheet = this.project.sheets[this.$route.params.sheetord];
 				this.registerHit();
 			} catch (error) {
 				if (error.message && error.message.endsWith('status code 401')) {
