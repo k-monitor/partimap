@@ -14,11 +14,11 @@
 			v-if="showSave"
 			class="mx-auto"
 			:disabled="disableSave"
-			:variant="!disableSave ? 'success' : 'outline-success'"
+			:variant="disableSave ? 'outline-success' : 'success'"
 			@click="$emit('save')"
 		>
-			<i class="fas fa-fw fa-save mr-1" />
-			<span>{{ !disableSave ? 'Mentés' : 'Mentve' }}</span>
+			<i class="fas fa-fw mr-1" :class="disableSave ? 'fa-check' : 'fa-save'" />
+			<span>{{ disableSave ? 'Mentve' : 'Mentés' }}</span>
 		</b-button>
 
 		<div class="fixed-width">
