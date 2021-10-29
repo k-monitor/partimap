@@ -61,8 +61,8 @@ export default {
 			].filter(b => b); // removing hidden buttons
 		},
 		sheetInteractions() {
-			return this.sheet && this.sheet.interactions
-				? JSON.parse(this.sheet.interactions)
+			return this.sheet
+				? JSON.parse(this.sheet.interactions || '[]')
 				: [];
 		},
 	},

@@ -42,13 +42,28 @@
 				</b-button>
 			</template>
 		</b-modal>
-		<Sidebar
-			v-else
-			show-next
-			show-prev
-		>
-			<h1>Heló!</h1>
-		</Sidebar>
+		<div v-else>
+			<client-only placeholder="Loading...">
+				<Map
+					:features="loadInitFeatures()"
+					visitor
+				/>
+			</client-only>
+			<MapToolbar
+				:sheet="sheet"
+				visitor
+			/>
+			<Sidebar
+				:fixed="!sheet.features"
+				show-next
+				show-prev
+				@next="next"
+				@prev="prev"
+			>
+				<SheetContent :sheet="sheet" />
+				<FeatureList visitor />
+			</Sidebar>
+		</div>
 	</SheetFrame>
 	<div
 		v-else
@@ -104,6 +119,9 @@
 </template>
 
 <script>
+import GeoJSON from 'ol/format/GeoJSON';
+import { mapGetters } from 'vuex';
+
 export default {
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
@@ -134,6 +152,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters('features', ['getAllFeature']),
 		isFirstSheet() {
 			return this.sheet.ord === 0;
 		},
@@ -149,8 +168,16 @@ export default {
 		this.loading = false;
 	},
 	methods: {
+		featuresFromRaw(featuresRaw) {
+			const features = JSON.parse(featuresRaw);
+			const featureCollection = { type: 'FeatureCollection', features };
+			return features ? new GeoJSON().readFeatures(featureCollection) : null;
+		},
 		goToSheetOrd(ord) {
 			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
+		},
+		loadInitFeatures() {
+			return this.featuresFromRaw(this.sheet.features);
 		},
 		next() {
 			this.goToSheetOrd(this.sheet.ord + 1);
