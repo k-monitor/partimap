@@ -87,7 +87,7 @@ export default {
 				return null;
 			}
 
-			const isAllowed = this.sheetInteractions.includes(drawType);
+			const isAllowed = isCancel || this.sheetInteractions.includes(drawType);
 			if (this.visitor && !isAllowed) {
 				// hide buttons for visitors unless
 				// enabled in sheet interactions
