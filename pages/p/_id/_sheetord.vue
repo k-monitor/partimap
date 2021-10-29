@@ -44,13 +44,16 @@
 			</template>
 		</b-modal>
 		<div v-else>
-			<client-only placeholder="Loading...">
+			<client-only>
 				<Map
 					:features="loadInitFeatures()"
 					visitor
 					@visitorFeatureAdded="addVisitorFeature"
 					@visitorFeatureRemoved="delVisitorFeature"
 				/>
+				<template #placeholder>
+					<div class="h-100 position-absolute w-100 map" />
+				</template>
 			</client-only>
 			<MapToolbar
 				:sheet="sheet"

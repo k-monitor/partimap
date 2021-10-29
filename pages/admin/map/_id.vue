@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<client-only placeholder="Loading...">
+		<client-only>
 			<Map :features="loadInitFeatures()" />
 		</client-only>
 		<MapToolbar />

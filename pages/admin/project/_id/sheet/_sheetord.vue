@@ -1,8 +1,11 @@
 <template>
 	<SheetFrame :background-image-url="backgroundImageData || sheet.image">
 		<template v-if="sheet.features">
-			<client-only placeholder="Loading...">
+			<client-only>
 				<Map :features="loadInitFeatures()" />
+				<template #placeholder>
+					<div class="h-100 position-absolute w-100 map" />
+				</template>
 			</client-only>
 			<MapToolbar />
 		</template>
