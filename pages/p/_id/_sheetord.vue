@@ -162,6 +162,11 @@ export default {
 			password: null,
 		};
 	},
+	head() {
+		return {
+			title: this.project.title,
+		};
+	},
 	computed: {
 		submitted() {
 			return this.$store.state.submitted;
@@ -216,7 +221,7 @@ export default {
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
-			return features ? new GeoJSON().readFeatures(featureCollection) : null;
+			return features ? new GeoJSON().readFeatures(featureCollection) : [];
 		},
 		goToSheetOrd(ord) {
 			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
