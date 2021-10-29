@@ -64,7 +64,7 @@
 				<span
 					class="ml-auto text-danger"
 					role="button"
-					@click.prevent="showConfirmModal(m.id)"
+					@click.prevent="del(m)"
 				>
 					<i class="fas fa-trash" />
 				</span>
@@ -112,38 +112,16 @@ export default {
 				this.errorToast('Létrehozás sikertelen');
 			}
 		},
-		async removeMapFromDB(id) {
-			try {
-				await this.$axios.$delete('/api/map/' + id);
-			} catch (error) {
-				this.errorToast('Sikertelen törlés.');
+		async del(map) {
+			const confirmed = await this.confirmDeletion(map.title);
+			if (confirmed) {
+				try {
+					await this.$axios.$delete('/api/map/' + map.id);
+					this.maps = await this.$axios.$get('/api/maps');
+				} catch (error) {
+					this.errorToast('Sikertelen törlés.');
+				}
 			}
-		},
-		showConfirmModal(id) {
-			this.$bvModal
-				.msgBoxConfirm('Biztosan törli a kiválasztott elemet?', {
-					title: 'Megerősítés',
-					size: 'sm',
-					buttonSize: 'sm',
-					okVariant: 'danger',
-					okTitle: 'Igen',
-					cancelTitle: 'Mégsem',
-					footerClass: 'p-2',
-					hideHeaderClose: false,
-					centered: true,
-					autoFocusButton: 'ok',
-				})
-				.then(value => {
-					if (value) {
-						this.removeMapFromDB(id);
-						this.maps = this.maps.filter(function (map) {
-							return map.id !== id;
-						});
-					}
-				})
-				.catch(err => {
-					console.log(err);
-				});
 		},
 	},
 };

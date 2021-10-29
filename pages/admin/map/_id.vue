@@ -1,34 +1,45 @@
 <template>
 	<div>
-		<EditorNavbar
-			:title-name="mapData.title"
-			:dynamic-title="true"
+		<client-only>
+			<Map :features="loadInitFeatures()" />
+		</client-only>
+		<MapToolbar />
+		<Sidebar
+			admin
+			back-label="Vissza a térképekhez"
 			:content-modified="contentModified"
-			@updateTitle="changeMapTitle"
-			@back="goBackRoute"
-			@save="saveMap"
+			:loading="loading"
+			@back="back"
+			@save="save"
 		>
-			<template #back-button-name>Térképek</template>
-		</EditorNavbar>
-		<MapEditor :features="loadInitFeatures()">
-			<template #feature-editor>
-				<FeatureListContainer />
-			</template>
-		</MapEditor>
+			<b-form-group class="mb-4">
+				<template #label>
+					<h6 class="mb-0">Térkép neve</h6>
+				</template>
+				<b-form-input
+					v-model="mapData.title"
+					size="lg"
+				/>
+			</b-form-group>
+			<FeatureList />
+		</Sidebar>
 	</div>
 </template>
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+	components: {
+		Map: () => (process.client ? import('@/components/Map') : null),
+	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
 		store.commit('features/clear');
 		try {
 			const mapData = await $axios.$get('/api/map/' + params.id);
-			return { mapData, initMapData: { ...mapData } };
+			return { mapData };
 		} catch (error) {
 			redirect('/admin/maps');
 		}
@@ -36,15 +47,22 @@ export default {
 	data() {
 		return {
 			contentModified: false,
+			loading: true,
 		};
 	},
 	head() {
 		return {
-			title: this.mapData.title,
+			title: `Admin: ${this.mapData.title}`,
 		};
 	},
 	computed: {
-		...mapGetters({ getAllFeature: 'features/getAllFeature' }),
+		...mapGetters(['getSidebarVisible']),
+		...mapGetters('features', ['getAllFeature']),
+	},
+	watch: {
+		'mapData.title'() {
+			this.$nuxt.$emit('contentModified');
+		},
 	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
@@ -54,26 +72,19 @@ export default {
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
 	},
+	mounted() {
+		this.loading = false;
+	},
 	methods: {
+		...mapMutations(['setSidebarVisible']),
+		back() {
+			this.$router.push('/admin/maps');
+		},
 		featuresFromRaw(featuresRaw) {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
-		},
-		loadInitFeatures() {
-			return this.featuresFromRaw(this.initMapData.features);
-		},
-		async saveMap() {
-			// to DB
-			this.loadFeaturesFromStore();
-			try {
-				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
-				this.success('A módosítások mentése sikeres.');
-			} catch (error) {
-				this.errorToast('A módosítások mentése sikertelen.');
-			}
-			this.contentModified = false;
 		},
 		loadFeaturesFromStore() {
 			const features = [];
@@ -81,48 +92,22 @@ export default {
 				const featureStr = new GeoJSON().writeFeature(f);
 				features.push(JSON.parse(featureStr));
 			}
-			this.mapData.features = features.length ? features : null;
+			this.mapData.features = JSON.stringify(features);
 		},
-		showConfirmModal() {
-			this.$bvModal
-				.msgBoxConfirm(
-					'Önnek nem mentett módosításai vannak. Kívánja őket menteni?',
-					{
-						title: 'Visszalépés',
-						size: 'sm',
-						buttonSize: 'sm',
-						okVariant: 'danger',
-						okTitle: 'Igen',
-						cancelTitle: 'Nem',
-						footerClass: 'p-2',
-						hideHeaderClose: false,
-						centered: true,
-						autoFocusButton: 'ok',
-					}
-				)
-				.then(value => {
-					if (value === true) {
-						this.saveMap();
-						this.$router.push('/admin/maps');
-					} else if (value === false) {
-						this.$router.push('/admin/maps');
-					} // Do nothing on window close or backdrop click
-				})
-				.catch(() => {
-					this.errorToast('Sikertelen mentés');
-				});
+		loadInitFeatures() {
+			return this.featuresFromRaw(this.mapData.features);
 		},
-		goBackRoute() {
-			if (this.contentModified) {
-				this.showConfirmModal();
-			} else {
-				this.$router.push('/admin/maps');
+		async save() {
+			this.loading = true;
+			this.loadFeaturesFromStore();
+			try {
+				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
+				this.contentModified = false;
+				this.success('A módosítások mentése sikeres.');
+			} catch (error) {
+				this.errorToast('A módosítások mentése sikertelen.');
 			}
-		},
-		changeMapTitle(title) {
-			if (this.mapData.title !== title) {
-				this.mapData.title = title;
-			}
+			this.loading = false;
 		},
 	},
 };

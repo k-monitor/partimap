@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import 'ol/ol.css';
 
 import Map from 'ol/Map';
@@ -20,7 +22,6 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { Draw, Select, Snap } from 'ol/interaction';
 import { OSM, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import { mapGetters } from 'vuex';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
 import { click } from 'ol/events/condition';
@@ -29,11 +30,11 @@ export default {
 	props: {
 		initialCenter: {
 			type: Array,
-			default: () => [0, 0],
+			default: () => [2129152.791287463, 6017729.508627875],
 		},
 		initialZoom: {
 			type: Number,
-			default: 3,
+			default: 10,
 		},
 		features: {
 			type: Array,
@@ -63,25 +64,34 @@ export default {
 				width: 2,
 			},
 			// either be 'Point','LineString', or 'Polygon'
-			drawType: '',
+			// drawType: '',
 		};
 	},
 	computed: {
-		// if true, a feature is currently drawn
-		editState() {
-			return this.$store.getters.getEditState;
-		},
+		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 	},
 	watch: {
 		drawType(type) {
-			this.setDrawType(type);
-		},
-		// when edit state is true, feature selection is disabled
-		editState(state) {
-			state
+			// when drawing, feature selection is disabled
+			type
 				? this.map.removeInteraction(this.select)
 				: this.map.addInteraction(this.select);
+
+			// set draw type on OL map
+			this.map.removeInteraction(this.draw);
+			this.map.removeInteraction(this.snap);
+			if (type) {
+				this.draw = new Draw({
+					source: this.source,
+					type,
+				});
+				this.map.addInteraction(this.draw);
+				this.snap = new Snap({
+					source: this.source,
+				});
+				this.map.addInteraction(this.snap);
+			}
 		},
 		/**
 		 * @param selFeature Is null if the map is clicked
@@ -128,15 +138,10 @@ export default {
 		this.$nuxt.$on('changeStyle', (feature, color, dash, width) => {
 			this.changeFeatureStyle(feature, color, dash, width);
 		});
-		// handles draw type change, performed in the feature-sidebar
-		this.$nuxt.$on('drawType', type => {
-			this.drawType = type;
-		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('changeStyle');
-		this.$nuxt.$off('drawType');
 	},
 	methods: {
 		initMapComponents() {
@@ -180,7 +185,7 @@ export default {
 				// padding, so the feature list and navbar doesn't block the view from features
 				this.map
 					.getView()
-					.fit(this.source.getExtent(), { padding: [80, 300, 0, 0] });
+					.fit(this.source.getExtent(), { padding: [100, 100, 100, 100] });
 			}
 		},
 		addEventListeners() {
@@ -202,13 +207,13 @@ export default {
 					this.defaultStroke.lineDash,
 					this.defaultStroke.width
 				);
-				this.$store.commit('toggleEditState', false);
+				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f.feature);
 				selectedFeatures.push(f.feature);
 
 				if (this.visitor) {
 					f.feature.set('visitorFeature', true);
-					this.$nuxt.$emit('visitorFeatureAdded', f.feature);
+					this.$emit('visitorFeatureAdded', f.feature);
 				} else {
 					f.feature.set('visitorFeature', false);
 				}
@@ -224,7 +229,7 @@ export default {
 				this.$store.commit('features/remove', f.feature);
 
 				if (this.visitor) {
-					this.$nuxt.$emit('visitorFeatureRemoved', f.feature);
+					this.$emit('visitorFeatureRemoved', f.feature);
 				}
 				this.$nuxt.$emit('contentModified');
 			});
@@ -268,21 +273,6 @@ export default {
 					fill: pointFillColor ? new Fill({ color: pointFillColor }) : null,
 				}),
 			});
-		},
-		setDrawType(type) {
-			this.map.removeInteraction(this.draw);
-			this.map.removeInteraction(this.snap);
-			if (type) {
-				this.draw = new Draw({
-					source: this.source,
-					type,
-				});
-				this.map.addInteraction(this.draw);
-				this.snap = new Snap({
-					source: this.source,
-				});
-				this.map.addInteraction(this.snap);
-			}
 		},
 		changeFeatureStyle(feature, color, lineDash, strokeWidth) {
 			// console.log('changeFeatureStyle', color, lineDash, strokeWidth);
@@ -336,6 +326,9 @@ export default {
 
 <style>
 .ol-zoom {
-	top: 5rem;
+	bottom: 3rem;
+	left: unset;
+	right: 1rem;
+	top: unset;
 }
 </style>

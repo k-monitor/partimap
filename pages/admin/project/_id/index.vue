@@ -136,7 +136,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'Admin: ' + this.project.title,
+			title: `Admin: ${this.project.title}`,
 		};
 	},
 	methods: {
