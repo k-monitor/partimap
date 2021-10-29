@@ -40,6 +40,13 @@
 						opacity="0.5"
 						:show="loading"
 					/>
+					<template #placeholder>
+						<b-overlay
+							no-wrap
+							opacity="0.5"
+							show
+						/>
+					</template>
 				</client-only>
 			</template>
 		</b-modal>
