@@ -194,6 +194,7 @@ export default {
 			selectedFeatures.on('add', f => {
 				if (f !== this.getSelectedFeature) {
 					this.$store.commit('selected/change', f.element);
+					this.$store.commit('setSidebarVisible', true);
 				}
 			});
 			selectedFeatures.on('remove', f => {
