@@ -1,6 +1,7 @@
 export const strict = false; // feature referenciát tárolok, ami változik
 
 export const state = () => ({
+	consent: false,
 	drawType: '',
 	hit: false,
 	sidebarVisible: true,
@@ -17,6 +18,9 @@ export const mutations = {
 			state.visitId = new Date().getTime();
 		}
 	},
+	setConsent(state, value) {
+		state.consent = value;
+	},
 	setDrawType(state, drawType) {
 		state.drawType = drawType;
 	},
@@ -32,6 +36,7 @@ export const mutations = {
 };
 
 export const getters = {
+	getConsent: state => state.consent,
 	getDrawType: state => state.drawType,
 	getHit: state => state.hit,
 	getSidebarVisible: state => state.sidebarVisible,

@@ -16,7 +16,10 @@
 			static
 			visible
 		>
-			<SheetContent :sheet="sheet" />
+			<SheetContent
+				:sheet="sheet"
+				:show-consent="isFirstSheet"
+			/>
 			<client-only>
 				<b-overlay
 					no-wrap
@@ -26,10 +29,10 @@
 			</client-only>
 			<template #modal-footer>
 				<FooterButtons
-					:disable-submit="loading || submitted"
-					:show-next="!isLastSheet"
+					:disable-submit="loading || !getConsent || submitted"
+					:show-next="!isLastSheet && getConsent"
 					:show-prev="!isFirstSheet && !submitted"
-					:show-submit="isLastSheet"
+					:show-submit="isLastSheet && getConsent"
 					@next="next"
 					@prev="prev"
 					@submit="submit"
@@ -56,16 +59,23 @@
 				:content-modified="!submitted"
 				:fixed="!sheet.features"
 				:loading="loading"
-				:show-next="!isLastSheet"
+				:show-next="!isLastSheet && getConsent"
 				:show-prev="!submitted"
 				@next="next"
 				@prev="prev"
 				@submit="submit"
 			>
-				<b-alert class="d-sm-none small" show variant="info">
+				<b-alert
+					class="d-sm-none small"
+					show
+					variant="info"
+				>
 					A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-times mx-1" /> gombbal. A kinyitáshoz a képernyő jobb szélén levő <i class="fas fa-info mx-1" /> gomb használható.
 				</b-alert>
-				<SheetContent :sheet="sheet" />
+				<SheetContent
+					:sheet="sheet"
+					:show-consent="isFirstSheet"
+				/>
 				<b-alert
 					class="small"
 					:show="(sheet.interactions || '').replace('Rating', '').length > 5"
@@ -180,6 +190,7 @@ export default {
 		submitted() {
 			return this.$store.state.submitted;
 		},
+		...mapGetters(['getConsent']),
 		...mapGetters('features', ['getAllFeature']),
 		...mapGetters('visitordata', [
 			'getVisitorFeatures',

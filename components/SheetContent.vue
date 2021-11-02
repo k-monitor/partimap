@@ -2,8 +2,8 @@
 	<div>
 		<h1 class="h3">{{ sheet.title }}</h1>
 		<p
-			v-for="p in (sheet.description || '').split('\n')"
-			:key="p"
+			v-for="(p,i) in (sheet.description || '').split('\n')"
+			:key="i + p"
 			v-text="p"
 		/>
 		<div v-if="sheet.survey">
@@ -35,6 +35,20 @@
 				/>
 			</ShareNetwork>
 		</div>
+		<b-alert
+			:show="showConsent"
+			variant="primary"
+		>
+			<b-form-checkbox
+				v-model="consent"
+				:disabled="consented"
+			>
+				Elolvastam és elfogadom az <a
+					class="alert-link"
+					href="javascript:void(0)"
+				>Adatvédelmi nyilatkozatot</a>
+			</b-form-checkbox>
+		</b-alert>
 	</div>
 </template>
 
@@ -47,9 +61,14 @@ export default {
 			type: Object,
 			default: null,
 		},
+		showConsent: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {
+			consented: false,
 			projectUrl: null,
 			social: [
 				{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
@@ -59,9 +78,18 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(['getConsent']),
 		...mapGetters({
 			getVisitorAnswers: 'visitordata/getVisitorAnswers',
 		}),
+		consent: {
+			get() {
+				return this.getConsent;
+			},
+			set(v) {
+				this.$store.commit('setConsent', v);
+			},
+		},
 		interactions() {
 			// no need for JSON parse, String also has `includes()`
 			return this.sheet ? this.sheet.interactions || '' : '';
@@ -81,6 +109,7 @@ export default {
 	},
 	mounted() {
 		this.projectUrl = window.location.href.replace(/\/\d+\/?/, ''); // need to set here to avoid SSR error
+		this.consented = this.getConsent; // this will disable checkbox on the next mount (next sheet view)
 	},
 };
 </script>
