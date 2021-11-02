@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<h6>Térkép elemei</h6>
 		<b-form-group class="mb-4">
+			<template #label>
+				<h6>Térkép elemei:</h6>
+			</template>
 			<vue-typeahead-bootstrap
 				v-model="search"
 				placeholder="Keresés..."
@@ -21,17 +23,35 @@
 				</template>
 			</vue-typeahead-bootstrap>
 		</b-form-group>
-		<b-list-group>
-			<FeatureListElement
-				v-for="feature in filteredFeatures"
-				:key="feature.getId()"
-				:categories="categories"
-				:feature="feature"
-				:init-feature-rating="getFeatureRating(feature.getId())"
-				:visitor="visitor"
-				@categoryEdited="updateCategories"
-			/>
-		</b-list-group>
+		<b-form-group
+			v-if="filteredVisitorFeatures.length"
+			label="Saját elemeid:"
+		>
+			<b-list-group>
+				<FeatureListElement
+					v-for="feature in filteredVisitorFeatures"
+					:key="feature.getId()"
+					:categories="categories"
+					:feature="feature"
+					:init-feature-rating="getFeatureRating(feature.getId())"
+					:visitor="visitor"
+					@categoryEdited="updateCategories"
+				/>
+			</b-list-group>
+		</b-form-group>
+		<b-form-group :label="filteredVisitorFeatures.length ? 'Fix elemek:' : null">
+			<b-list-group>
+				<FeatureListElement
+					v-for="feature in filteredAdminFeatures"
+					:key="feature.getId()"
+					:categories="categories"
+					:feature="feature"
+					:init-feature-rating="getFeatureRating(feature.getId())"
+					:visitor="visitor"
+					@categoryEdited="updateCategories"
+				/>
+			</b-list-group>
+		</b-form-group>
 		<p
 			v-if="search && !filteredFeatures.length"
 			class="font-italic text-muted"
@@ -83,6 +103,12 @@ export default {
 						.toLowerCase()
 						.includes(this.search.toLowerCase())
 			);
+		},
+		filteredAdminFeatures() {
+			return this.filteredFeatures.filter(f => !f.get('visitorFeature'));
+		},
+		filteredVisitorFeatures() {
+			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
 		},
 	},
 	watch: {
