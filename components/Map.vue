@@ -173,6 +173,7 @@ export default {
 				view: new View({
 					center: this.center,
 					constrainResolution: true,
+					maxZoom: 19,
 					zoom: this.zoom,
 				}),
 			});
