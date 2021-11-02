@@ -31,13 +31,10 @@
 					size="lg"
 				/>
 			</b-form-group>
-			<b-form-group>
-				<template #label>
-					<div class="align-items-center d-flex justify-content-between">
-						<h6 class="mb-0">Munkalap leírása</h6>
-						<b-badge variant="secondary">{{ (sheet.description || '').length }} / 1000</b-badge>
-					</div>
-				</template>
+			<b-form-group
+				label="Munkalap leírása"
+				:description="(sheet.description || '').length + '/1000'"
+			>
 				<b-textarea
 					v-model="sheet.description"
 					maxlength="1000"

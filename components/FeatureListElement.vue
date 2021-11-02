@@ -116,14 +116,10 @@
 							show-on-focus
 						/>
 					</b-form-group>
-					<b-form-group>
-						<template #label>
-							<div class="align-items-center d-flex justify-content-between">
-								<div v-if="visitor">Miért rajzoltad ezt fel?</div>
-								<div v-else>Leírás</div>
-								<b-badge variant="secondary">{{ (form.description || '').length }} / 1000</b-badge>
-							</div>
-						</template>
+					<b-form-group
+						:label="visitor ? 'Miért rajzoltad ezt fel?' : 'Leírás'"
+						:description="(form.description || '').length + '/1000'"
+					>
 						<b-textarea
 							id=""
 							v-model="form.description"
@@ -214,9 +210,6 @@ export default {
 		},
 		onEditMode() {
 			return this.$store.getters.getEditState;
-		},
-		descriptionLength() {
-			return this.form.description ? this.form.description.length : 0;
 		},
 	},
 	watch: {

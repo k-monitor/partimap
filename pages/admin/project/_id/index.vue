@@ -8,52 +8,52 @@
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
-					<NuxtLink
+					<b-button
 						:to="'/p/' + (project.slug || project.id) + '/0'"
-						class="btn btn-primary ml-auto"
+						class="ml-auto"
 						target="_blank"
+						variant="primary"
 					>
 						Megtekintés
-					</NuxtLink>
+					</b-button>
 				</div>
 			</template>
 			<form
 				id="projectForm"
 				@submit.prevent="update"
 			>
-				<div class="form-group">
-					<label for="title">Projekt elnevezése</label>
-					<input
-						id="title"
+				<b-form-group label="Projekt címe">
+					<b-form-input
 						v-model="project.title"
-						class="form-control"
 						required
 						type="text"
-					>
-				</div>
-				<div class="form-group">
-					<label for="slug">Projekt elérési útvonala</label>
-					<b-input-group>
-						<template #prepend>
-							<b-input-group-text>/p/</b-input-group-text>
-						</template>
+					/>
+				</b-form-group>
+				<b-form-group
+					label="Elérési útvonal"
+					description="Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal."
+				>
+					<b-input-group prepend="/p/">
+						<b-form-input
+							v-model="project.slug"
+							:placeholder="generateSlug()"
+						/>
 						<template #append>
 							<b-button
+								v-b-tooltip.hover
+								title="Generálás projekt címéből"
 								variant="outline-primary"
 								@click="project.slug = generateSlug()"
 							>
 								<i class="fas fa-magic fa-fw" />
 							</b-button>
 						</template>
-						<b-form-input
-							id="slug"
-							v-model="project.slug"
-							:placeholder="generateSlug()"
-						/>
 					</b-input-group>
-				</div>
-				<div class="form-group">
-					<label for="password">Jelszavas védelem</label>
+				</b-form-group>
+				<b-form-group
+					label="Jelszavas védelem"
+					description="Ha be vagy jelentkezve, a saját projektjeid nem fognak jelszót kérni. Inkognitó/privát módban tudod tesztelni a védelmet."
+				>
 					<b-input-group>
 						<template #append>
 							<b-button
@@ -65,34 +65,40 @@
 							</b-button>
 						</template>
 						<b-form-input
-							id="password"
 							v-model="newPassword"
-							type="password"
 							:placeholder="project.password ? 'Be van állítva' : 'Új jelszó'"
 							:readonly="project.password"
+							type="password"
 							@change="passwordModified = true"
 						/>
 					</b-input-group>
-				</div>
-				<div class="form-group">
-					<label for="description">Leírás</label>
-					<textarea
-						id="description"
+				</b-form-group>
+				<b-form-group label="Leírás">
+					<b-textarea
 						v-model="project.description"
-						class="form-control"
 						rows="5"
 					/>
-				</div>
+				</b-form-group>
+				<b-form-group
+					label="Adatvédelmi nyilatkozat"
+					description="A látogatóknak az 1. munkalapon kell majd elfogadniuk ezt a továbblépés érdekében."
+				>
+					<b-textarea
+						v-model="project.privacyPolicy"
+						required
+						rows="5"
+					/>
+				</b-form-group>
 			</form>
 			<template #footer>
 				<div class="d-flex justify-content-end">
-					<button
-						class="btn btn-success"
+					<b-button
 						form="projectForm"
 						type="submit"
+						variant="success"
 					>
 						Mentés
-					</button>
+					</b-button>
 				</div>
 			</template>
 		</AdminFrame>

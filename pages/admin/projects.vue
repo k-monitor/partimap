@@ -106,6 +106,7 @@ export default {
 			try {
 				const { id } = await this.$axios.$put('/api/project', {
 					title: this.newProjectTitle,
+					privacyPolicy: `Adatkezelő és adatfeldolgozó: ${this.$auth.user.name} <${this.$auth.user.email}>`,
 				});
 				this.$router.push({ path: `/admin/project/${id}` });
 			} catch (error) {
