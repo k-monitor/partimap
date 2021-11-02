@@ -194,14 +194,12 @@ export default {
 			if (!sheet) {
 				return null;
 			}
-			// This does not differentiate "poll" and "demographicsPoll"
-			// since there's no marker for the latter in the Sheet record.
 			if (sheet.features) {
-				return JSON.parse(sheet.interactions || '[]').length
+				return (sheet.interactions || '[]').replace('Rating', '').length > 5
 					? 'interactiveMap'
 					: 'staticMap';
 			} else if (sheet.survey) {
-				return 'poll';
+				return sheet.survey.includes('demographic') ? 'demographicsPoll' : 'poll';
 			} else {
 				return 'text';
 			}

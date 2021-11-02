@@ -141,13 +141,13 @@
 					<p v-if="form.category">{{ form.category }}</p>
 					<p v-if="form.description">{{ form.description }}</p>
 				</div>
-				<b-form-group>
+				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
 					<b-form-rating
 						v-model="rating"
-						:variant="visitor ? 'warning' : 'info'"
+						precision="1"
 						:readonly="!visitor"
 						:show-value="!visitor"
-						precision="1"
+						:variant="visitor ? 'warning' : 'info'"
 					/>
 				</b-form-group>
 			</b-card>
@@ -173,13 +173,17 @@ export default {
 			type: Feature,
 			default: new Feature(),
 		},
+		initFeatureRating: {
+			type: Number,
+			default: null,
+		},
 		visitor: {
 			type: Boolean,
 			default: false,
 		},
-		initFeatureRating: {
-			type: Number,
-			default: null,
+		visitorCanRate: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	data() {

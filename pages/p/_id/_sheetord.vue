@@ -70,11 +70,12 @@
 				>
 					<p class="d-sm-none">A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-times mx-1" /> gombbal. A kinyitáshoz a képernyő jobb szélén levő <i class="fas fa-info mx-1" /> gomb használható.</p>
 
-					<p v-if="sheet.interactions.length > 3">A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.</p>
+					<p v-if="(sheet.interactions || '').length > 3">A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.</p>
 				</b-alert>
 				<FeatureList
 					:init-feature-ratings="getVisitorRatings(sheet.id)"
 					visitor
+					:visitor-can-rate="(sheet.interactions || '').includes('Rating')"
 				/>
 			</Sidebar>
 		</div>

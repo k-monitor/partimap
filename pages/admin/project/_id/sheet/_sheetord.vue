@@ -102,6 +102,7 @@
 				<b-form-checkbox-group
 					v-model="selectedInteractions"
 					:options="interactionOptions"
+					stacked
 				/>
 			</b-form-group>
 			<FeatureList
@@ -158,16 +159,19 @@ export default {
 		...mapGetters('features', ['getAllFeature']),
 		interactionOptions() {
 			const options = [];
-			if (!this.sheet.survey) {
-				if (this.sheet.features) {
+			if (this.sheet.features) {
+				// map sheet
+				if (!this.sheet.survey) {
+					// interactive map sheet
 					options.push(
-						{ value: 'Point', text: 'Pont' },
-						{ value: 'LineString', text: 'Vonal' },
-						{ value: 'Polygon', text: 'Terület' }
+						{ value: 'Point', text: 'Pont felrajzolása' },
+						{ value: 'LineString', text: 'Vonal felrajzolása' },
+						{ value: 'Polygon', text: 'Terület felrajzolása' }
 					);
-				} else {
-					options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
 				}
+				options.push({ value: 'Rating', text: 'Fix elemek értékelése' });
+			} else {
+				options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
 			}
 			return options;
 		},

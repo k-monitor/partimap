@@ -48,6 +48,7 @@
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:visitor="visitor"
+					:visitor-can-rate="visitorCanRate"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -78,6 +79,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		visitorCanRate: {
+			type: Boolean,
+			default: false,
+		}
 	},
 	data() {
 		return {

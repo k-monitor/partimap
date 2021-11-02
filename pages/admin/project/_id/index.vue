@@ -184,7 +184,7 @@ export default {
 				sheetData.features = initialFeatures;
 				if (type.startsWith('interactive')) {
 					// interactiveMap
-					sheetData.interactions = [];
+					sheetData.interactions = ['Point'];
 				} else {
 					// staticMap has optional survey too
 					sheetData.survey = {};
