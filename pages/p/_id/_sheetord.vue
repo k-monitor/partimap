@@ -63,6 +63,15 @@
 				@submit="submit"
 			>
 				<SheetContent :sheet="sheet" />
+				<b-alert
+					class="small"
+					show
+					variant="info"
+				>
+					<p class="d-sm-none">A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-times mx-1" /> gombbal. A kinyitáshoz a képernyő jobb szélén levő <i class="fas fa-info mx-1" /> gomb használható.</p>
+
+					<p v-if="sheet.interactions.length > 3">A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.</p>
+				</b-alert>
 				<FeatureList
 					:init-feature-ratings="getVisitorRatings(sheet.id)"
 					visitor
@@ -288,3 +297,9 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.alert p:last-child {
+	margin-bottom: 0;
+}
+</style>

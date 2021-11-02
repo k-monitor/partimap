@@ -4,14 +4,14 @@
 		bg-variant="white"
 		class="admin-sidebar"
 		header-class="p-0"
-		:no-header="!admin"
+		__:no-header="!admin"
 		shadow="sm"
 		sidebar-class="border-right border-secondary"
 		width="360px"
 	>
 		<template #header="{ hide }">
-			<!-- admin header! -->
 			<b-navbar
+				v-if="admin"
 				type="light"
 				class="border-bottom justify-content-between shadow-sm w-100"
 			>
@@ -26,7 +26,7 @@
 				</b-navbar-nav>
 				<b-navbar-brand>
 					<strong>Partimap</strong>
-					Admin
+					<span>Admin</span>
 				</b-navbar-brand>
 				<b-navbar-nav>
 					<b-nav-item
@@ -40,6 +40,19 @@
 					</b-nav-item>
 				</b-navbar-nav>
 			</b-navbar>
+			<div
+				v-else
+				class="align-items-center bg-light border-bottom d-flex d-sm-none shadow-sm w-100"
+			>
+				<b-button
+					class="btn ml-auto text-dark"
+					variant="light"
+					@click="hide"
+				>
+					Elrejtés
+					<i class="fas fa-fw fa-times ml-1" />
+				</b-button>
+			</div>
 		</template>
 		<template #default>
 			<div class="p-3">
