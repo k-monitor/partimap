@@ -30,22 +30,19 @@
 			accordion="my-accordion"
 			@shown="expandFinished()"
 		>
-			<b-card class="collapse-content">
-				<b-form
-					v-if="selectedFeature"
-					@submit.prevent=""
-				>
-					<div v-if="editable">
-						<b-row
-							align-h="between"
-							align-v="center"
-							class="mb-3"
-						>
-							<b-col>
-								<label
-									class="mb-md-0"
-									for="type-color"
-								>Szín: </label>
+			<b-card
+				v-if="selectedFeature"
+				body-class="pb-0"
+				class="collapse-content"
+			>
+				<div v-if="editable">
+					<b-row
+						v-if="!visitor"
+						align-h="between"
+						align-v="center"
+					>
+						<b-col>
+							<b-form-group label="Szín:">
 								<b-form-input
 									id="type-color"
 									v-model="form.color"
@@ -75,118 +72,84 @@
 									<option>#000000</option>
 									<option>#607D8B</option>
 								</datalist>
-							</b-col>
-							<b-col>
-								<label
-									class="mb-md-0"
-									for="type-color"
-								>Méret: </label>
+							</b-form-group>
+						</b-col>
+						<b-col>
+							<b-form-group label="Méret:">
 								<b-form-input
 									v-model="form.width"
 									size="sm"
 									type="number"
 								/>
-							</b-col>
-						</b-row>
-						<b-row
-							v-if="feature.getGeometry().getType() !== 'Point'"
-							align-h="between"
-							align-v="center"
-							class="mb-3"
-						>
-							<b-col md="3">
-								<label
-									class="mb-md-0"
-									for="type-color"
-								>Vonal: </label>
-							</b-col>
-							<b-col>
-								<b-form-select
-									v-model="form.dash"
-									size="sm"
-									:options="dashOptions"
-								/>
-							</b-col>
-						</b-row>
-						<b-row
-							align-h="between"
-							align-v="start"
-						>
-							<b-col>
-								<label
-									class="mb-md-0"
-									for="type-text"
-								>Név: </label>
-							</b-col>
-						</b-row>
-						<b-row class="mb-3">
-							<b-col>
-								<b-form-input
-									id="type-text"
-									v-model="form.name"
-									size="sm"
-									type="text"
-								/>
-							</b-col>
-						</b-row>
-						<b-row
-							align-h="between"
-							align-v="start"
-						>
-							<b-col>
-								<label
-									class="mb-md-0"
-									for="type-text"
-								>Kategória:</label>
-							</b-col>
-						</b-row>
-						<b-row class="mb-3">
-							<b-col>
-								<vue-typeahead-bootstrap
-									v-model="form.category"
-									placeholder="Kategória"
-									size="sm"
-									:data="categories"
-									:min-matching-chars="0"
-									show-all-results
-									show-on-focus
-								/>
-							</b-col>
-						</b-row>
-						<b-row class="mb-3">
-							<b-col>
-								<b-textarea
-									id=""
-									v-model="form.description"
-									name="form-description"
-									cols="30"
-									rows="5"
-									class="w-100"
-									size="sm"
-									placeholder="Leírás"
-									maxlength="1000"
-								/>
-								<span
-									v-if="editable"
-									class="badge badge-secondary char-count"
-								>{{ descriptionLength }} / 1000</span>
-							</b-col>
-						</b-row>
-					</div>
-					<div v-else>
-						<p v-if="form.category">{{ form.category }}</p>
-						<p v-if="form.description">{{ form.description }}</p>
-					</div>
-					<b-form-group>
-						<b-form-rating
-							v-model="rating"
-							:variant="visitor ? 'warning' : 'info'"
-							:readonly="!visitor"
-							:show-value="!visitor"
-							precision="1"
+							</b-form-group>
+						</b-col>
+					</b-row>
+					<b-form-group
+						v-if="!visitor && feature.getGeometry().getType() !== 'Point'"
+						label="Vonal:"
+					>
+						<b-form-select
+							v-model="form.dash"
+							size="sm"
+							:options="dashOptions"
 						/>
 					</b-form-group>
-				</b-form>
+					<b-form-group label="Név:">
+						<b-form-input
+							id="type-text"
+							v-model="form.name"
+							size="sm"
+							type="text"
+						/>
+					</b-form-group>
+					<b-form-group
+						v-if="!visitor"
+						label="Kategória:"
+					>
+						<vue-typeahead-bootstrap
+							v-model="form.category"
+							placeholder="Kategória"
+							size="sm"
+							:data="categories"
+							:min-matching-chars="0"
+							show-all-results
+							show-on-focus
+						/>
+					</b-form-group>
+					<b-form-group>
+						<template #label>
+							<div class="align-items-center d-flex justify-content-between">
+								<div v-if="visitor">Miért rajzoltad ezt fel?</div>
+								<div v-else>Leírás:</div>
+								<b-badge variant="secondary">{{ (form.description || '').length }} / 1000</b-badge>
+							</div>
+						</template>
+						<b-textarea
+							id=""
+							v-model="form.description"
+							name="form-description"
+							cols="30"
+							rows="5"
+							class="w-100"
+							size="sm"
+							placeholder="Leírás"
+							maxlength="1000"
+						/>
+					</b-form-group>
+				</div>
+				<div v-else>
+					<p v-if="form.category">{{ form.category }}</p>
+					<p v-if="form.description">{{ form.description }}</p>
+				</div>
+				<b-form-group>
+					<b-form-rating
+						v-model="rating"
+						:variant="visitor ? 'warning' : 'info'"
+						:readonly="!visitor"
+						:show-value="!visitor"
+						precision="1"
+					/>
+				</b-form-group>
 			</b-card>
 		</b-collapse>
 	</div>
