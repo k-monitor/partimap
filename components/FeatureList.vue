@@ -2,7 +2,7 @@
 	<div>
 		<b-form-group class="mb-4">
 			<template #label>
-				<h6>Térkép elemei:</h6>
+				<h6 class="mb-0">Térkép elemei</h6>
 			</template>
 			<vue-typeahead-bootstrap
 				v-model="search"
@@ -25,7 +25,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="filteredVisitorFeatures.length"
-			label="Saját elemeid:"
+			label="Saját elemeid"
 		>
 			<b-list-group>
 				<FeatureListElement
@@ -39,7 +39,7 @@
 				/>
 			</b-list-group>
 		</b-form-group>
-		<b-form-group :label="filteredVisitorFeatures.length ? 'Fix elemek:' : null">
+		<b-form-group :label="filteredVisitorFeatures.length ? 'Fix elemek' : null">
 			<b-list-group>
 				<FeatureListElement
 					v-for="feature in filteredAdminFeatures"

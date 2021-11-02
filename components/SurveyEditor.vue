@@ -48,7 +48,7 @@
 			@shown="$refs.questionLabelInput.focus()"
 		>
 			<b-form @submit.prevent="saveQuestion">
-				<b-form-group label="Kérdés szövege:">
+				<b-form-group label="Kérdés szövege">
 					<b-form-input
 						ref="questionLabelInput"
 						v-model="question.label"
@@ -56,7 +56,7 @@
 						:disabled="readonly"
 					/>
 				</b-form-group>
-				<b-form-group label="Kérdés típusa:">
+				<b-form-group label="Kérdés típusa">
 					<b-form-select
 						v-model="question.type"
 						:options="questionTypes"
@@ -65,7 +65,7 @@
 				</b-form-group>
 				<b-row v-if="question.type === 'number'">
 					<b-col>
-						<b-form-group label="Minimum érték:">
+						<b-form-group label="Minimum érték">
 							<b-form-input
 								v-model="question.min"
 								type="number"
@@ -73,7 +73,7 @@
 						</b-form-group>
 					</b-col>
 					<b-col>
-						<b-form-group label="Maximum érték:">
+						<b-form-group label="Maximum érték">
 							<b-form-input
 								v-model="question.max"
 								type="number"
@@ -84,7 +84,7 @@
 
 				<b-form-group
 					v-if="hasOptions"
-					label="Opciók:"
+					label="Opciók"
 				>
 					<b-input-group
 						v-for="(o,i) in (question.options || [])"

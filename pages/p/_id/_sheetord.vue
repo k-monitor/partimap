@@ -92,7 +92,7 @@
 						<h5 class="card-header">Partimap</h5>
 						<div class="card-body">
 							<p>Ez a projekt jelszóval védett.</p>
-							<p>Kérlek írd be a jelszót a megtekintéshez:</p>
+							<p>Kérlek írd be a jelszót a megtekintéshez!</p>
 							<div class="form-group">
 								<b-input-group>
 									<template #prepend>

@@ -42,7 +42,7 @@
 						align-v="center"
 					>
 						<b-col>
-							<b-form-group label="Szín:">
+							<b-form-group label="Szín">
 								<b-form-input
 									id="type-color"
 									v-model="form.color"
@@ -75,7 +75,7 @@
 							</b-form-group>
 						</b-col>
 						<b-col>
-							<b-form-group label="Méret:">
+							<b-form-group label="Méret">
 								<b-form-input
 									v-model="form.width"
 									size="sm"
@@ -86,7 +86,7 @@
 					</b-row>
 					<b-form-group
 						v-if="!visitor && feature.getGeometry().getType() !== 'Point'"
-						label="Vonal:"
+						label="Vonal"
 					>
 						<b-form-select
 							v-model="form.dash"
@@ -94,7 +94,7 @@
 							:options="dashOptions"
 						/>
 					</b-form-group>
-					<b-form-group label="Név:">
+					<b-form-group label="Név">
 						<b-form-input
 							id="type-text"
 							v-model="form.name"
@@ -104,7 +104,7 @@
 					</b-form-group>
 					<b-form-group
 						v-if="!visitor"
-						label="Kategória:"
+						label="Kategória"
 					>
 						<vue-typeahead-bootstrap
 							v-model="form.category"
@@ -120,7 +120,7 @@
 						<template #label>
 							<div class="align-items-center d-flex justify-content-between">
 								<div v-if="visitor">Miért rajzoltad ezt fel?</div>
-								<div v-else>Leírás:</div>
+								<div v-else>Leírás</div>
 								<b-badge variant="secondary">{{ (form.description || '').length }} / 1000</b-badge>
 							</div>
 						</template>

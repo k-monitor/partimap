@@ -26,7 +26,7 @@
 						@submit.stop.prevent="handleSubmit"
 					>
 						<b-form-group
-							label="Munkalap elnevezése:"
+							label="Munkalap elnevezése"
 							invalid-feedback="Név megadása kötelező"
 							:state="nameState"
 						>
@@ -38,7 +38,7 @@
 							/>
 						</b-form-group>
 
-						<p class="pb-3">Munkalap típusa:</p>
+						<p class="pb-3">Munkalap típusa</p>
 						<div class="d-flex justify-content-between">
 							<span
 								v-for="t in sheetTypes"
@@ -58,7 +58,7 @@
 						</div>
 
 						<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
-							<label for="sourceMap">Térkép elemek másolása innen:</label>
+							<label for="sourceMap">Térkép elemek másolása innen</label>
 							<b-form-select
 								id="sourceMap"
 								v-model="sourceMap"
