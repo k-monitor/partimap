@@ -8,7 +8,13 @@
 			:style="{ borderLeftColor: form.color }"
 			@click="featureClicked()"
 		>
-			<span class="text-break">{{ form.name }}</span>
+			<span class="text-break">
+				<i
+					class="fas fa-fw mr-1"
+					:class="icons[feature.getGeometry().getType()]"
+				/>
+				{{ form.name }}
+			</span>
 			<span
 				v-if="editable"
 				class="ml-auto text-danger"
@@ -201,6 +207,11 @@ export default {
 				{ text: 'Pont-vonal', value: '1,1,3,1' },
 			],
 			editable: !this.visitor || this.feature.get('visitorFeature'),
+			icons: {
+				Point: 'fa-map-marker-alt',
+				LineString: 'fa-route',
+				Polygon: 'fa-draw-polygon',
+			},
 		};
 	},
 	computed: {
