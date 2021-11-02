@@ -195,7 +195,7 @@ export default {
 				return null;
 			}
 			if (sheet.features) {
-				return (sheet.interactions || '[]').replace('Rating', '').length > 5
+				return (sheet.interactions || '').replace('Rating', '').length > 5
 					? 'interactiveMap'
 					: 'staticMap';
 			} else if (sheet.survey) {
