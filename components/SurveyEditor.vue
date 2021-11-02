@@ -63,6 +63,25 @@
 						:disabled="readonly"
 					/>
 				</b-form-group>
+				<b-row v-if="question.type === 'number'">
+					<b-col>
+						<b-form-group label="Minimum érték:">
+							<b-form-input
+								v-model="question.min"
+								type="number"
+							/>
+						</b-form-group>
+					</b-col>
+					<b-col>
+						<b-form-group label="Maximum érték:">
+							<b-form-input
+								v-model="question.max"
+								type="number"
+							/>
+						</b-form-group>
+					</b-col>
+				</b-row>
+
 				<b-form-group
 					v-if="hasOptions"
 					label="Opciók:"
@@ -167,7 +186,9 @@ export default {
 			this.$bvModal.show('survey-question-editor');
 		},
 		async delQuestion(i) {
-			const confirmed = await this.confirmDeletion(this.survey.questions[i].label);
+			const confirmed = await this.confirmDeletion(
+				this.survey.questions[i].label
+			);
 			if (confirmed) {
 				this.survey.questions.splice(i, 1);
 				this.emitSurvey();

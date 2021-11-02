@@ -9,11 +9,18 @@
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
 			/>
-			<b-form-input
+			<div
 				v-else-if="q.type === 'number'"
-				v-model="answers[q.id]"
-				type="number"
-			/>
+				class="align-items-center d-flex"
+			>
+				<b-form-input
+					v-model="answers[q.id]"
+					:min="q.min"
+					:max="q.max"
+					type="range"
+				/>
+				<strong class="ml-2 text-right" style="min-width: 2rem">{{ answers[q.id] }}</strong>
+			</div>
 			<b-form-checkbox-group
 				v-else-if="q.type === 'checkbox'"
 				v-model="answers[q.id]"
