@@ -90,6 +90,18 @@
 				/>
 			</Sidebar>
 		</div>
+		<b-modal
+			id="privacy-modal"
+			hide-footer
+			scrollable
+			title="Adatvédelmi nyilatkozat"
+		>
+			<p
+				v-for="(p,i) in (project.privacyPolicy || '').split('\n')"
+				:key="i + p"
+				v-text="p"
+			/>
+		</b-modal>
 	</SheetFrame>
 	<div
 		v-else

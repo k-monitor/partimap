@@ -46,6 +46,7 @@
 				Elolvastam és elfogadom az <a
 					class="alert-link"
 					href="javascript:void(0)"
+					@click.stop="$bvModal.show('privacy-modal')"
 				>Adatvédelmi nyilatkozatot</a>
 			</b-form-checkbox>
 		</b-alert>
