@@ -302,7 +302,7 @@ export default {
 
 <style>
 .sheet-background-input .custom-file-label::after {
-	/* does not work in scoped stlye block */
+	/* does not work in scoped style block */
 	display: none !important;
 }
 </style>

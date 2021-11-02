@@ -61,9 +61,7 @@ export default {
 			].filter(b => b); // removing hidden buttons
 		},
 		sheetInteractions() {
-			return this.sheet
-				? JSON.parse(this.sheet.interactions || '[]')
-				: [];
+			return this.sheet ? JSON.parse(this.sheet.interactions || '[]') : [];
 		},
 	},
 	watch: {
@@ -104,7 +102,7 @@ export default {
 .map-toolbar {
 	position: absolute;
 	right: 0;
-	top: 2rem;
+	top: 0.5rem;
 }
 
 .btn {

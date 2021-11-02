@@ -162,7 +162,7 @@ export default {
 
 <style>
 .admin-sidebar .b-sidebar-header {
-	/* does not work in scoped stlye block */
+	/* does not work in scoped style block */
 	font-size: 1rem;
 }
 

@@ -8,6 +8,27 @@
 			ref="map-root"
 			class="h-100 position-absolute w-100 map"
 		/>
+		<div class="map-zoom-toolbar">
+			<b-button-group
+				class="shadow-sm"
+				vertical
+			>
+				<b-button
+					class="border border-secondary py-2"
+					variant="dark"
+					@click="changeZoom(1)"
+				>
+					<i class="fas fa-fw fa-plus" />
+				</b-button>
+				<b-button
+					class="border border-secondary py-2"
+					variant="dark"
+					@click="changeZoom(-1)"
+				>
+					<i class="fas fa-fw fa-minus" />
+				</b-button>
+			</b-button-group>
+		</div>
 	</div>
 </template>
 
@@ -144,6 +165,13 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		changeZoom(delta) {
+			const view = this.map.getView();
+			view.animate({
+				duration: 200,
+				zoom: view.getZoom() + delta,
+			});
+		},
 		initMapComponents() {
 			const raster = new TileLayer({
 				source: new OSM(),
@@ -326,11 +354,24 @@ export default {
 };
 </script>
 
+<style scoped>
+.map-zoom-toolbar {
+	position: absolute;
+	right: 0;
+	bottom: 2rem;
+}
+
+.btn {
+	border-radius: 0.5rem;
+	border-top-right-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+	border-right-width: 0px !important;
+}
+</style>
+
 <style>
 .ol-zoom {
-	bottom: 3rem;
-	left: unset;
-	right: 1rem;
-	top: unset;
+	/* does not work in scoped style block */
+	display: none;
 }
 </style>
