@@ -143,6 +143,8 @@ export default {
 					}
 				});
 			}
+
+			this.fitViewToFeatures();
 		},
 	},
 	mounted() {
@@ -211,10 +213,15 @@ export default {
 		fitViewToFeatures() {
 			// no need to fit view if no feature is present
 			if (this.source.getFeatures().length) {
-				// padding, so the feature list and navbar doesn't block the view from features
-				this.map
-					.getView()
-					.fit(this.source.getExtent(), { padding: [100, 100, 100, 100] });
+				// fit to selected feature or all features
+				const extent = this.getSelectedFeature
+					? this.getSelectedFeature.getGeometry().getExtent()
+					: this.source.getExtent();
+
+				this.map.getView().fit(extent, {
+					duration: 200,
+					padding: [100, 100, 100, 100],
+				});
 			}
 		},
 		addEventListeners() {
