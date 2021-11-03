@@ -259,7 +259,7 @@ export default {
 		this.$emit('categoryEdited');
 
 		// When an element is created, scroll to it
-		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
+		// this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 	},
 	methods: {
 		emitChangeStyle() {
