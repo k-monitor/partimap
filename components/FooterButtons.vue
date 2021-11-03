@@ -8,7 +8,7 @@
 			:max="steps"
 			:variant="showSubmit && disableSubmit ? 'success' : 'primary'"
 		/>
-		<div class="d-flex justify-content-between p-2 w-100">
+		<div class="align-items-center d-flex justify-content-between p-2 w-100">
 			<div class="fixed-width">
 				<b-button
 					v-if="showPrev"
@@ -30,6 +30,7 @@
 				/>
 				<span>{{ disableSave ? 'Mentve' : 'Mentés' }}</span>
 			</b-button>
+			<div v-else-if="step && steps && !showSubmit">{{ step }} / {{ steps }}</div>
 			<b-button
 				v-if="showSubmit"
 				:disabled="disableSubmit"
