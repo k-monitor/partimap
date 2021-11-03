@@ -6,7 +6,7 @@
 		<b-modal
 			v-if="!sheet.features"
 			content-class="shadow-sm"
-			footer-class="d-flex p-2"
+			footer-class="d-flex p-0"
 			hide-backdrop
 			hide-header
 			no-close-on-backdrop
@@ -27,6 +27,8 @@
 					:show-next="!isLastSheet && getConsent"
 					:show-prev="!isFirstSheet && !submitted"
 					:show-submit="isLastSheet && getConsent"
+					:step="sheet.ord + 1"
+					:steps="project.sheets.length"
 					@next="next"
 					@prev="prev"
 					@submit="submit"
@@ -55,6 +57,8 @@
 				:loading="loading"
 				:show-next="!isLastSheet && getConsent"
 				:show-prev="!submitted"
+				:step="sheet.ord + 1"
+				:steps="project.sheets.length"
 				@next="next"
 				@prev="prev"
 				@submit="submit"

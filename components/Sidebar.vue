@@ -61,19 +61,22 @@
 			<LoadingOverlay :show="loading" />
 		</template>
 		<template #footer>
-			<FooterButtons
-				class="bg-light border-top p-2 shadow-sm"
-				:disable-save="!contentModified"
-				:disable-submit="!contentModified"
-				:show-next="showNext"
-				:show-prev="showPrev"
-				:show-save="admin"
-				:show-submit="!admin && !showNext"
-				@next="nav('next')"
-				@prev="nav('prev')"
-				@save="$emit('save')"
-				@submit="$emit('submit')"
-			/>
+			<div class="bg-light border-top">
+				<FooterButtons
+					:disable-save="!contentModified"
+					:disable-submit="!contentModified"
+					:show-next="showNext"
+					:show-prev="showPrev"
+					:show-save="admin"
+					:show-submit="!admin && !showNext"
+					:step="step"
+					:steps="steps"
+					@next="nav('next')"
+					@prev="nav('prev')"
+					@save="$emit('save')"
+					@submit="$emit('submit')"
+				/>
+			</div>
 		</template>
 	</b-sidebar>
 </template>
@@ -110,6 +113,14 @@ export default {
 		showPrev: {
 			type: Boolean,
 			default: false,
+		},
+		step: {
+			type: Number,
+			default: 0,
+		},
+		steps: {
+			type: Number,
+			default: 0,
 		},
 	},
 	computed: {
