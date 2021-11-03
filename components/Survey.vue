@@ -9,17 +9,28 @@
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
 			/>
-			<div
-				v-else-if="q.type === 'number'"
-				class="align-items-center d-flex"
-			>
-				<b-form-input
-					v-model="answers[q.id]"
-					:min="q.min"
-					:max="q.max"
-					type="range"
-				/>
-				<strong class="ml-2 text-right" style="min-width: 2rem">{{ answers[q.id] }}</strong>
+			<div v-else-if="q.type === 'number'">
+				<div
+					v-if="q.minLabel && q.maxLabel"
+					class="align-items-end d-flex justify-content-between small"
+				>
+					<span>{{ q.minLabel }}</span>
+					<strong>{{ answers[q.id] }}</strong>
+					<span>{{ q.maxLabel }}</span>
+				</div>
+				<div class="align-items-center d-flex">
+					<b-form-input
+						v-model="answers[q.id]"
+						:min="q.min"
+						:max="q.max"
+						type="range"
+					/>
+					<strong
+						v-if="!q.minLabel || !q.maxLabel"
+						class="ml-2 text-right"
+						style="min-width: 2rem"
+					>{{ answers[q.id] }}</strong>
+				</div>
 			</div>
 			<b-form-checkbox-group
 				v-else-if="q.type === 'checkbox'"

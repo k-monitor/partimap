@@ -81,6 +81,18 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
+				<b-row v-if="question.type === 'number'">
+					<b-col>
+						<b-form-group label="Minimum elnevezése">
+							<b-form-input v-model="question.minLabel" />
+						</b-form-group>
+					</b-col>
+					<b-col>
+						<b-form-group label="Maximum elnevezése">
+							<b-form-input v-model="question.maxLabel" />
+						</b-form-group>
+					</b-col>
+				</b-row>
 
 				<b-form-group
 					v-if="hasOptions"
