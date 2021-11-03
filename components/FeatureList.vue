@@ -22,6 +22,15 @@
 					</b-button>
 				</template>
 			</vue-typeahead-bootstrap>
+			<b-badge
+				v-for="c in categories"
+				:key="c"
+				class="border border-secondary m-2"
+				role="button"
+				variant="light"
+				@click="search=c"
+				v-text="c"
+			/>
 		</b-form-group>
 		<b-form-group
 			v-if="filteredVisitorFeatures.length"
