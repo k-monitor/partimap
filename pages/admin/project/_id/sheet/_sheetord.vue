@@ -82,15 +82,7 @@
 				<template #label>
 					<h6 class="mb-0">Kérdőív</h6>
 				</template>
-				<SurveyEditor
-					v-if="JSON.parse(sheet.survey).demographic"
-					:value="demographicSurvey"
-					readonly
-				/>
-				<SurveyEditor
-					v-else
-					v-model="sheet.survey"
-				/>
+				<SurveyEditor v-model="sheet.survey" />
 			</b-form-group>
 			<b-form-group v-if="interactionOptions.length">
 				<template #label>

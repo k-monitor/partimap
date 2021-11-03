@@ -169,11 +169,6 @@ export default {
 					icon: 'fa-map-marker-alt',
 					tooltip: 'Interaktív térkép',
 				},
-				{
-					name: 'demographicsPoll',
-					icon: 'fa-users',
-					tooltip: 'Demográfiai kérdőív',
-				},
 			],
 			nameState: null,
 			sourceMap: null,
@@ -199,7 +194,7 @@ export default {
 					? 'interactiveMap'
 					: 'staticMap';
 			} else if (sheet.survey) {
-				return sheet.survey.includes('demographic') ? 'demographicsPoll' : 'poll';
+				return 'poll';
 			} else {
 				return 'text';
 			}

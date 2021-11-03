@@ -8,12 +8,6 @@
 		/>
 		<div v-if="sheet.survey">
 			<Survey
-				v-if="JSON.parse(sheet.survey).demographic"
-				v-model="visitorAnswers"
-				:survey="demographicSurvey"
-			/>
-			<Survey
-				v-else
 				v-model="visitorAnswers"
 				:survey="sheet.survey"
 			/>

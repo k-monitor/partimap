@@ -180,11 +180,7 @@ export default {
 			const sheetData = {};
 			sheetData.title = title;
 			if (type.match(/poll$/i)) {
-				// poll / demographicsPoll
 				sheetData.survey = {};
-				if (type === 'demographicsPoll') {
-					sheetData.survey = { demographic: true };
-				}
 			} else if (type.match(/map$/i)) {
 				// staticMap / interactiveMap
 				sheetData.features = initialFeatures;
