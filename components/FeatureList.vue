@@ -150,9 +150,6 @@ export default {
 			}
 		},
 	},
-	mounted() {
-		this.updateCategories();
-	},
 	methods: {
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};

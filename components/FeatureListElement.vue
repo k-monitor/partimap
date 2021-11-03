@@ -255,6 +255,9 @@ export default {
 		},
 	},
 	mounted() {
+		// notify feature list to initialize category tags/autocomplete
+		this.$emit('categoryEdited');
+
 		// When an element is created, scroll to it
 		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 	},
