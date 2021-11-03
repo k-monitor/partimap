@@ -155,7 +155,7 @@ export default {
 					tooltip: 'Szöveg',
 				},
 				{
-					name: 'poll',
+					name: 'survey',
 					icon: 'fa-poll',
 					tooltip: 'Kérdőív',
 				},
@@ -194,7 +194,7 @@ export default {
 					? 'interactiveMap'
 					: 'staticMap';
 			} else if (sheet.survey) {
-				return 'poll';
+				return 'survey';
 			} else {
 				return 'text';
 			}

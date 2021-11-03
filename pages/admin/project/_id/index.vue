@@ -179,7 +179,7 @@ export default {
 
 			const sheetData = {};
 			sheetData.title = title;
-			if (type.match(/poll$/i)) {
+			if (type === 'survey') {
 				sheetData.survey = {};
 			} else if (type.match(/map$/i)) {
 				// staticMap / interactiveMap
