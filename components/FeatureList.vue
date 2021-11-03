@@ -82,7 +82,7 @@ export default {
 		visitorCanRate: {
 			type: Boolean,
 			default: false,
-		}
+		},
 	},
 	data() {
 		return {
@@ -96,18 +96,29 @@ export default {
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
 		filteredFeatures() {
-			return this.getAllFeatures.filter(
-				f =>
-					String(f.getId() || '')
-						.toLowerCase()
-						.includes(this.search.toLowerCase()) ||
-					(f.get('name') || '')
-						.toLowerCase()
-						.includes(this.search.toLowerCase()) ||
-					(f.get('category') || '')
-						.toLowerCase()
-						.includes(this.search.toLowerCase())
-			);
+			return this.getAllFeatures
+				.filter(
+					f =>
+						String(f.getId() || '')
+							.toLowerCase()
+							.includes(this.search.toLowerCase()) ||
+						(f.get('name') || '')
+							.toLowerCase()
+							.includes(this.search.toLowerCase()) ||
+						(f.get('category') || '')
+							.toLowerCase()
+							.includes(this.search.toLowerCase())
+				)
+				.sort((a, b) => {
+					const ac = a.get('category') || '';
+					const bc = b.get('category') || '';
+					if (ac === bc) {
+						const an = a.get('name') || a.getId();
+						const bn = b.get('name') || b.getId();
+						return String(an).localeCompare(String(bn));
+					}
+					return String(ac).localeCompare(String(bc));
+				});
 		},
 		filteredAdminFeatures() {
 			return this.filteredFeatures.filter(f => !f.get('visitorFeature'));
