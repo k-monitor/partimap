@@ -6,23 +6,22 @@
 					<div class="card shadow-sm">
 						<h5 class="card-header">Partimap Bejelentkezés</h5>
 						<div class="card-body">
-							<div class="form-group">
+							<b-form-group>
 								<b-input-group>
 									<template #prepend>
 										<b-input-group-text>
-											<i class="fas fa-at fa-fw"/>
+											<i class="fas fa-at fa-fw" />
 										</b-input-group-text>
 									</template>
 									<b-form-input
 										ref="email"
 										v-model="login.email"
-										class="form-control"
 										placeholder="Email cím"
 										type="email"
 									/>
 								</b-input-group>
-							</div>
-							<div class="form-group">
+							</b-form-group>
+							<b-form-group>
 								<b-input-group>
 									<template #prepend>
 										<b-input-group-text>
@@ -31,22 +30,22 @@
 									</template>
 									<b-form-input
 										v-model="login.password"
-										class="form-control"
 										placeholder="Jelszó"
 										type="password"
 									/>
 								</b-input-group>
-							</div>
+							</b-form-group>
 						</div>
 						<div class="card-footer text-right">
-							<button
-								class="btn btn-primary"
+							<b-button
 								type="submit"
+								variant="primary"
 							>
 								Bejelentkezés
 								<i class="fas fa-sign-in-alt ml-1" />
-							</button>
+							</b-button>
 						</div>
+						<LoadingOverlay :show="loading" />
 					</div>
 				</form>
 			</div>
@@ -62,16 +61,19 @@ export default {
 				email: '',
 				password: '',
 			},
+			loading: true,
 		};
 	},
 	head: {
 		title: 'Bejelentkezés',
 	},
 	mounted() {
+		this.loading = false;
 		this.$refs.email.focus();
 	},
 	methods: {
 		async userLogin() {
+			this.loading = true;
 			try {
 				await this.$auth.loginWith('cookie', {
 					data: this.login,
@@ -79,6 +81,7 @@ export default {
 			} catch (err) {
 				this.errorToast('Bejelentkezés sikertelen');
 			}
+			this.loading = false;
 		},
 	},
 };

@@ -20,13 +20,7 @@
 				:sheet="sheet"
 				:show-consent="isFirstSheet"
 			/>
-			<client-only>
-				<b-overlay
-					no-wrap
-					opacity="0.5"
-					:show="loading"
-				/>
-			</client-only>
+			<LoadingOverlay :show="loading" />
 			<template #modal-footer>
 				<FooterButtons
 					:disable-submit="loading || !getConsent || submitted"
@@ -137,17 +131,7 @@
 								<i class="fas fa-sign-in-alt ml-1" />
 							</button>
 						</div>
-						<div
-							v-if="loading"
-							class="bg-white d-flex h-100 position-absolute w-100"
-						>
-							<div
-								class="m-auto spinner-border"
-								role="status"
-							>
-								<span class="sr-only">Loading...</span>
-							</div>
-						</div>
+						<LoadingOverlay :show="loading" />
 					</div>
 				</form>
 			</div>

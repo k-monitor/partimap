@@ -58,20 +58,7 @@
 			<div class="p-3">
 				<slot />
 			</div>
-			<client-only>
-				<b-overlay
-					no-wrap
-					opacity="0.5"
-					:show="loading"
-				/>
-				<template #placeholder>
-					<b-overlay
-						no-wrap
-						opacity="0.5"
-						show
-					/>
-				</template>
-			</client-only>
+			<LoadingOverlay :show="loading" />
 		</template>
 		<template #footer>
 			<FooterButtons
