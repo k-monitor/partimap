@@ -96,6 +96,7 @@ export default {
 	data() {
 		return {
 			categories: [],
+			filteredFeatures: [],
 			search: '',
 		};
 	},
@@ -104,8 +105,49 @@ export default {
 			getAllFeatures: 'features/getAllFeature',
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
-		filteredFeatures() {
-			return this.getAllFeatures
+		filteredAdminFeatures() {
+			return this.filteredFeatures.filter(f => !f.get('visitorFeature'));
+		},
+		filteredVisitorFeatures() {
+			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
+		},
+	},
+	watch: {
+		getSelectedFeature(f) {
+			if (f) {
+				const id = f.getId();
+				const ids = this.filteredFeatures.map(f => f.getId());
+				if (!ids.includes(id)) {
+					// selected feature doesn't match current search filter
+					// it means that click was on the map, we must show the
+					// feature to the user -> we should reset search filter
+					this.search = '';
+				}
+			}
+			this.updateFilteredFeatures();
+		},
+		getAllFeatures() {
+			this.updateFilteredFeatures();
+		},
+		search() {
+			this.updateFilteredFeatures();
+		},
+	},
+	methods: {
+		getFeatureRating(featureId) {
+			const dict = this.initFeatureRatings || {};
+			return Number(dict[featureId.toString()] || 0);
+		},
+		updateCategories() {
+			const cats = new Set(
+				this.getAllFeatures
+					.map(f => (f.get('category') || '').trim())
+					.filter(f => f.length)
+			);
+			this.categories = Array.from(cats);
+		},
+		updateFilteredFeatures() {
+			this.filteredFeatures = this.getAllFeatures
 				.filter(
 					f =>
 						String(f.getId() || '')
@@ -128,40 +170,6 @@ export default {
 					}
 					return String(ac).localeCompare(String(bc));
 				});
-		},
-		filteredAdminFeatures() {
-			return this.filteredFeatures.filter(f => !f.get('visitorFeature'));
-		},
-		filteredVisitorFeatures() {
-			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
-		},
-	},
-	watch: {
-		getSelectedFeature(f) {
-			if (f) {
-				const id = f.getId();
-				const ids = this.filteredFeatures.map(f => f.getId());
-				if (!ids.includes(id)) {
-					// selected feature doesn't match current search filter
-					// it means that click was on the map, we must show the
-					// feature to the user -> we should reset search filter
-					this.search = '';
-				}
-			}
-		},
-	},
-	methods: {
-		getFeatureRating(featureId) {
-			const dict = this.initFeatureRatings || {};
-			return Number(dict[featureId.toString()] || 0);
-		},
-		updateCategories() {
-			const cats = new Set(
-				this.getAllFeatures
-					.map(f => (f.get('category') || '').trim())
-					.filter(f => f.length)
-			);
-			this.categories = Array.from(cats);
 		},
 	},
 };
