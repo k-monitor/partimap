@@ -68,7 +68,7 @@
 					show
 					variant="info"
 				>
-					A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-times mx-1" /> gombbal. A kinyitáshoz a képernyő jobb szélén levő <i class="fas fa-info mx-1" /> gomb használható.
+					A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
 				</b-alert>
 				<SheetContent
 					:sheet="sheet"

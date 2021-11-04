@@ -1,16 +1,5 @@
 <template>
 	<div class="map-toolbar d-flex flex-column align-items-end">
-		<b-button
-			class="border border-secondary mb-2 p-3 pl-4 shadow-sm sidebar-button"
-			size="lg"
-			variant="light"
-			@click="toggleSidebarVisible"
-		>
-			<i
-				class="fas fa-fw"
-				:class="visitor ? 'fa-info' : 'fa-cog'"
-			/>
-		</b-button>
 		<div class="pl-2">
 			<b-button-group
 				class="shadow-sm"
@@ -74,7 +63,6 @@ export default {
 		...mapMutations([
 			'setDrawType',
 			'setSidebarVisible',
-			'toggleSidebarVisible',
 		]),
 		db(drawType, icon, tooltip, variant) {
 			const isDrawing = this.getDrawType;

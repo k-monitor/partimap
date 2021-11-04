@@ -1,84 +1,73 @@
 <template>
-	<b-sidebar
-		v-model="visible"
-		bg-variant="white"
-		class="admin-sidebar"
-		header-class="p-0"
-		__:no-header="!admin"
-		shadow="sm"
-		sidebar-class="border-right border-secondary"
-		width="360px"
-	>
-		<template #header="{ hide }">
-			<b-navbar
-				v-if="admin"
-				type="light"
-				class="border-bottom justify-content-between shadow-sm w-100"
-			>
-				<b-navbar-nav>
-					<b-nav-item
+	<div>
+		<b-button
+			class="border border-secondary position-absolute py-2 shadow-sm sidebar-button"
+			variant="light"
+			@click="setSidebarVisible(true)"
+		>
+			<i class="fas fa-fw fa-angle-double-right" />
+		</b-button>
+		<b-sidebar
+			v-model="visible"
+			bg-variant="white"
+			class="admin-sidebar"
+			header-class="p-0"
+			shadow="sm"
+			sidebar-class="border-right border-secondary"
+			width="360px"
+		>
+			<template #header="{ hide }">
+				<b-navbar
+					type="light"
+					class="border-bottom justify-content-between shadow-sm w-100"
+				>
+					<b-navbar-brand
 						v-b-tooltip.hover
-						:title="backLabel"
+						:role="admin ? 'button' : null"
+						:title="admin ? backLabel : null"
 						@click="nav('back')"
 					>
-						<i class="fas fa-fw fa-arrow-left" />
-					</b-nav-item>
-				</b-navbar-nav>
-				<b-navbar-brand>
-					<strong>Partimap</strong>
-					<span>Admin</span>
-				</b-navbar-brand>
-				<b-navbar-nav>
-					<b-nav-item
-						v-if="!fixed"
-						v-b-tooltip.hover
-						class="ml-auto"
-						title="Oldalsáv elrejtése"
-						@click="hide"
-					>
-						<i class="fas fa-fw fa-times" />
-					</b-nav-item>
-				</b-navbar-nav>
-			</b-navbar>
-			<div
-				v-else
-				class="align-items-center bg-light border-bottom d-flex d-sm-none shadow-sm w-100"
-			>
-				<b-button
-					class="btn ml-auto text-dark"
-					variant="light"
-					@click="hide"
-				>
-					Elrejtés
-					<i class="fas fa-fw fa-times ml-1" />
-				</b-button>
-			</div>
-		</template>
-		<template #default>
-			<div class="p-3">
-				<slot />
-			</div>
-			<LoadingOverlay :show="loading" />
-		</template>
-		<template #footer>
-			<div class="bg-light border-top">
-				<FooterButtons
-					:disable-save="!contentModified"
-					:disable-submit="!contentModified"
-					:show-next="showNext"
-					:show-prev="showPrev"
-					:show-save="admin"
-					:show-submit="!admin && step === steps"
-					:step="step"
-					:steps="steps"
-					@next="nav('next')"
-					@prev="nav('prev')"
-					@save="$emit('save')"
-					@submit="$emit('submit')"
-				/>
-			</div>
-		</template>
-	</b-sidebar>
+						<strong>Partimap</strong>
+						<span v-if="admin">Admin</span>
+					</b-navbar-brand>
+					<b-navbar-nav>
+						<b-nav-item
+							v-if="!fixed"
+							v-b-tooltip.hover
+							title="Oldalsáv elrejtése"
+							@click="hide"
+						>
+							<i class="fas fa-fw fa-angle-double-left" />
+						</b-nav-item>
+					</b-navbar-nav>
+				</b-navbar>
+			</template>
+			<template #default>
+				<div class="p-3">
+					<slot />
+				</div>
+				<LoadingOverlay :show="loading" />
+			</template>
+			<template #footer>
+				<div class="bg-light border-top">
+					<FooterButtons
+						:disable-save="!contentModified"
+						:disable-submit="!contentModified"
+						:show-next="showNext"
+						:show-prev="showPrev"
+						:show-save="admin"
+						:show-submit="!admin && step === steps"
+						:step="step"
+						:steps="steps"
+						@next="nav('next')"
+						@prev="nav('prev')"
+						@save="$emit('save')"
+						@submit="$emit('submit')"
+					/>
+				</div>
+			</template>
+		</b-sidebar>
+	</div>
 </template>
 
 <script>
@@ -164,7 +153,11 @@ export default {
 	font-size: 1rem;
 }
 
-.admin-sidebar .navbar-nav {
-	min-width: 40px;
+.sidebar-button {
+	border-top-right-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
+	border-top-left-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	top: 0.5rem;
 }
 </style>
