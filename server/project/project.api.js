@@ -128,21 +128,25 @@ router.post('/project/access',
 
 		// if no password received, verify token
 		const token = req.cookies[COOKIE_NAME];
-		if (!token) { // no token => no access
-			return res.sendStatus(StatusCodes.UNAUTHORIZED);
-		}
-		try {
-			const decoded = jwt.verify(token, JWT_SECRET);
-			if (decoded.projectId === req.project.id &&
-				decoded.visitId === req.body.visitId &&
-				decoded.ip === ip) {
-				next();
-			} else {
-				res.sendStatus(StatusCodes.UNAUTHORIZED);
+		if (token) {
+			try {
+				const decoded = jwt.verify(token, JWT_SECRET);
+				if (decoded.projectId === req.project.id &&
+					decoded.visitId === req.body.visitId &&
+					decoded.ip === ip) {
+					// token is valid
+					next();
+				}
+			} catch (error) {
+				// token is invalid/expired
 			}
-		} catch (error) { // token is invalid/expired
-			res.sendStatus(StatusCodes.UNAUTHORIZED);
 		}
+
+		// token is missing / invalid / expired
+		res.status(StatusCodes.UNAUTHORIZED).json({
+			title: req.project.title,
+			description: req.project.description
+		});
 	},
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);

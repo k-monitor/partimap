@@ -1,6 +1,6 @@
 <template>
 	<SheetFrame
-		v-if="project"
+		v-if="project && sheet"
 		:background-image-url="sheet.image"
 	>
 		<b-modal
@@ -167,7 +167,9 @@ export default {
 			return { project, sheet };
 		} catch (error) {
 			if (error.message && error.message.endsWith('status code 401')) {
-				// NOP displaying password field
+				// displaying password field
+				// returning received minimal project metadata
+				return { project: error.response.data };
 			} else {
 				redirect('/');
 			}
