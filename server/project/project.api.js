@@ -1,3 +1,4 @@
+const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
@@ -7,10 +8,32 @@ const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
-const { resolveRecord } = require('../common/middlewares');
+const { acceptImage, resolveRecord } = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
 const sdb = require('../sheet/sheet.db');
 const pdb = require('./project.db');
+
+function removeProjectImageFile(project) {
+	if (project.image) {
+		const fn = `.${project.image}`; // make it relative for server
+		if (fs.existsSync(fn)) {
+			fs.unlinkSync(fn);
+		}
+	}
+}
+
+router.put('/project/:id/image',
+	ensureLoggedIn,
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	acceptImage(req => req.project.id, 1200, 1200, 'image'),
+	async (req, res) => {
+		removeProjectImageFile(req.project);
+		req.project.image = req.image.replace(/^\./, ''); // make it absolute for client
+		await pdb.update(req.project);
+		const project = await pdb.findById(req.project.id);
+		res.json(hidePasswordField(project));
+	});
 
 router.delete('/project/:id',
 	ensureLoggedIn,
@@ -46,10 +69,15 @@ router.patch('/project',
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		const changes = req.body;
-		delete changes.password;
 		if (!req.user.isAdmin) {
 			delete changes.userId;
 		}
+
+		delete changes.password;
+		if (changes.newPassword !== undefined) {
+			changes.password = changes.newPassword ? bcrypt.hashSync(changes.newPassword, 10) : null;
+		}
+
 		if (changes.slug === null || changes.slug === '') {
 			// request removes custom slug, generate based on title
 			changes.slug = await generateValidSlug(changes.title || req.project.title, req.project.id);
@@ -57,8 +85,11 @@ router.patch('/project',
 			// request modifies slug, just validate
 			changes.slug = await generateValidSlug(changes.slug, req.project.id);
 		}
-		if (changes.newPassword !== undefined) {
-			changes.password = changes.newPassword ? bcrypt.hashSync(changes.newPassword, 10) : null;
+
+		if (changes.image === null || changes.image === '') {
+			removeProjectImageFile(req.project);
+		} else {
+			delete changes.image;
 		}
 
 		let project = new Project(Object.assign(req.project, changes));
@@ -74,6 +105,7 @@ router.patch('/project',
 router.put('/project',
 	ensureLoggedIn,
 	async (req, res) => {
+		delete req.body.image;
 		let project = new Project(req.body);
 		if (!project.title) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
@@ -145,7 +177,8 @@ router.post('/project/access',
 		// token is missing / invalid / expired
 		res.status(StatusCodes.UNAUTHORIZED).json({
 			title: req.project.title,
-			description: req.project.description
+			description: req.project.description,
+			image: req.project.image,
 		});
 	},
 	async (req, res) => {

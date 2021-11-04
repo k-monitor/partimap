@@ -6,6 +6,7 @@ class Project {
 	 * @param {String} data.slug
 	 * @param {String} data.title
 	 * @param {String} data.description
+	 * @param {String} data.image
 	 * @param {String} data.privacyPolicy
 	 * @param {String} data.password
 	 * @param {Number} data.views
@@ -17,6 +18,7 @@ class Project {
 		this.slug = data.slug;
 		this.title = data.title;
 		this.description = data.description;
+		this.image = data.image;
 		this.privacyPolicy = data.privacyPolicy;
 		this.password = data.password;
 		this.views = data.views;

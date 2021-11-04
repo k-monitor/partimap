@@ -83,6 +83,42 @@
 					/>
 				</b-form-group>
 				<b-form-group
+					invalid-feedback="Maximális fájlméret: 5 MB"
+					:state="imageState"
+				>
+					<template #label>
+						<h6 class="mb-0">Facebook bélyegkép (ajánlott méret: 1200x630 pixel)</h6>
+					</template>
+					<b-input-group v-if="!project.image">
+						<b-form-file
+							v-model="image"
+							accept="image/jpeg, image/png, image/webp"
+							class="project-image-input"
+							browse-text=""
+							drop-placeholder="Húzza ide a fájlt!"
+							placeholder="Kép tallózása..."
+							:state="imageState"
+						/>
+						<template #append>
+							<b-button
+								:disabled="!image"
+								variant="outline-danger"
+								@click="removeImage"
+							>
+								<i class="fas fa-backspace" />
+							</b-button>
+						</template>
+					</b-input-group>
+					<b-button
+						v-else
+						class="w-100"
+						variant="outline-danger"
+						@click="removeImage"
+					>
+						Kép törlése
+					</b-button>
+				</b-form-group>
+				<b-form-group
 					label="Adatvédelmi nyilatkozat"
 					description="A látogatóknak az 1. munkalapon kell majd elfogadniuk ezt a továbblépés érdekében."
 				>
@@ -139,6 +175,8 @@ export default {
 	},
 	data() {
 		return {
+			image: null,
+			imageState: null,
 			newPassword: '',
 			passwordModified: false,
 		};
@@ -147,6 +185,18 @@ export default {
 		return {
 			title: `Admin: ${this.project.title}`,
 		};
+	},
+	watch: {
+		image(val) {
+			this.imageData = null;
+			if (!val) {
+				// clear validation error message on file removal
+				this.imageState = null;
+			} else {
+				const valid = this.image.size < 5 * 1024 * 1024;
+				this.imageState = valid;
+			}
+		},
 	},
 	methods: {
 		generateSlug() {
@@ -157,8 +207,15 @@ export default {
 			this.newPassword = '';
 			this.passwordModified = true;
 		},
+		removeImage() {
+			this.image = null;
+			this.project.image = null;
+		},
 		async update() {
 			try {
+				if (this.image) {
+					await this.uploadImage();
+				}
 				const p = { ...this.project };
 				if (!this.passwordModified) {
 					delete p.password;
@@ -171,6 +228,27 @@ export default {
 				this.success('Módosítás sikeres.');
 			} catch (error) {
 				this.errorToast('Módosítás sikertelen.');
+			}
+		},
+		async uploadImage() {
+			if (!this.imageState) {
+				return;
+			}
+			const formData = new FormData();
+			formData.append('image', this.image);
+			try {
+				this.project = await this.$axios.$put(
+					'/api/project/' + this.project.id + '/image',
+					formData,
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
+					}
+				);
+				this.image = null;
+			} catch (error) {
+				this.errorToast('Kép feltöltése sikertelen.');
 			}
 		},
 		async addSheet(title, type, sourceMap) {
@@ -256,3 +334,10 @@ export default {
 	},
 };
 </script>
+
+<style>
+.project-image-input .custom-file-label::after {
+	/* does not work in scoped style block */
+	display: none !important;
+}
+</style>
