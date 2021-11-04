@@ -244,7 +244,7 @@ export default {
 			return features ? new GeoJSON().readFeatures(featureCollection) : [];
 		},
 		goToSheetOrd(ord) {
-			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
+			this.$router.push(this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord));
 		},
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.sheet.features);

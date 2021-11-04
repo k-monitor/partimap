@@ -221,7 +221,7 @@ export default {
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
 		goToSheetOrd(ord) {
-			this.$router.push(this.$route.fullPath.replace(/\d+$/, ord));
+			this.$router.push(this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord));
 		},
 		loadFeaturesFromStore() {
 			const features = [];

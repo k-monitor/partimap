@@ -68,7 +68,7 @@
 					:show-next="showNext"
 					:show-prev="showPrev"
 					:show-save="admin"
-					:show-submit="!admin && !showNext"
+					:show-submit="!admin && step === steps"
 					:step="step"
 					:steps="steps"
 					@next="nav('next')"
