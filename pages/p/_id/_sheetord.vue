@@ -184,6 +184,13 @@ export default {
 	head() {
 		return {
 			title: this.project ? this.project.title : 'Jelszóval védett projekt',
+			meta: [
+				{
+					hid: 'description',
+					name: 'description',
+					content: this.project ? this.project.description : null,
+				},
+			],
 		};
 	},
 	computed: {
@@ -244,7 +251,9 @@ export default {
 			return features ? new GeoJSON().readFeatures(featureCollection) : [];
 		},
 		goToSheetOrd(ord) {
-			this.$router.push(this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord));
+			this.$router.push(
+				this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord)
+			);
 		},
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.sheet.features);

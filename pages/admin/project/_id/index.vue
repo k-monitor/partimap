@@ -73,10 +73,13 @@
 						/>
 					</b-input-group>
 				</b-form-group>
-				<b-form-group label="Leírás">
+				<b-form-group
+					label="Meta leírás (Facebook előnézeti szöveg)"
+					:description="(project.description || '').length + '/200'"
+				>
 					<b-textarea
 						v-model="project.description"
-						rows="5"
+						maxlength="200"
 					/>
 				</b-form-group>
 				<b-form-group
