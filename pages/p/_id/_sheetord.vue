@@ -192,6 +192,11 @@ export default {
 					name: 'description',
 					content: this.project ? this.project.description : null,
 				},
+				{
+					hid: 'og:image',
+					property: 'og:image',
+					content: this.project.image ? `${this.$config.baseURL}${this.project.image}` : null, // TODO use Partimap logo/ogimage otherwise
+				},
 			],
 		};
 	},
