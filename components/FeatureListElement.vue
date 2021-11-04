@@ -23,12 +23,6 @@
 			>
 				<i class="fas fa-trash" />
 			</span>
-			<span
-				v-else
-				class="ml-auto text-muted"
-			>
-				<i class="fas fa-lock" />
-			</span>
 		</b-list-group-item>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
@@ -140,8 +134,17 @@
 					</b-form-group>
 				</div>
 				<div v-else>
-					<p v-if="form.category">{{ form.category }}</p>
-					<p v-if="form.description">{{ form.description }}</p>
+					<b-badge
+						v-if="form.category"
+						class="border border-secondary mb-2"
+						variant="light"
+						v-text="form.category"
+					/>
+					<p
+						v-for="(p,i) in (form.description || '').split('\n')"
+						:key="i + p"
+						v-text="p"
+					/>
 				</div>
 				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
 					<b-form-rating
