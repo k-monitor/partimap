@@ -84,11 +84,9 @@
 				</b-form-group>
 				<b-form-group
 					invalid-feedback="Maximális fájlméret: 5 MB"
+					label="Facebook bélyegkép (ajánlott méret: 1200x630 pixel)"
 					:state="imageState"
 				>
-					<template #label>
-						<h6 class="mb-0">Facebook bélyegkép (ajánlott méret: 1200x630 pixel)</h6>
-					</template>
 					<b-input-group v-if="!project.image">
 						<b-form-file
 							v-model="image"
