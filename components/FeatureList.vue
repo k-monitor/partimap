@@ -27,8 +27,8 @@
 				:key="c"
 				class="border border-secondary m-2"
 				role="button"
-				variant="light"
-				@click="search=c"
+				:variant="categoryFilter === c ? 'dark' : 'light'"
+				@click="toggleCategoryFilter(c)"
 				v-text="c"
 			/>
 		</b-form-group>
@@ -96,6 +96,7 @@ export default {
 	data() {
 		return {
 			categories: [],
+			categoryFilter: '',
 			filteredFeatures: [],
 			search: '',
 		};
@@ -121,6 +122,7 @@ export default {
 					// selected feature doesn't match current search filter
 					// it means that click was on the map, we must show the
 					// feature to the user -> we should reset search filter
+					this.categoryFilter = '';
 					this.search = '';
 				}
 			}
@@ -132,6 +134,9 @@ export default {
 		search() {
 			this.updateFilteredFeatures();
 		},
+		categoryFilter() {
+			this.updateFilteredFeatures();
+		}
 	},
 	methods: {
 		getFeatureRating(featureId) {
@@ -148,6 +153,9 @@ export default {
 		},
 		updateFilteredFeatures() {
 			this.filteredFeatures = this.getAllFeatures
+				.filter(
+					f => !this.categoryFilter || f.get('category') === this.categoryFilter
+				)
 				.filter(
 					f =>
 						String(f.getId() || '')
@@ -170,6 +178,9 @@ export default {
 					}
 					return String(ac).localeCompare(String(bc));
 				});
+		},
+		toggleCategoryFilter(c) {
+			this.categoryFilter = this.categoryFilter === c ? '' : c;
 		},
 	},
 };
