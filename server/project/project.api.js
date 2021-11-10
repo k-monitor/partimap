@@ -99,6 +99,7 @@ router.patch('/project',
 		await pdb.update(project);
 
 		project = await pdb.findById(project.id);
+		project.sheets = await sdb.findByProjectId(project.id);
 		res.json(hidePasswordField(project));
 	});
 
