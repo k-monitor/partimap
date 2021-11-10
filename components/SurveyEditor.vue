@@ -63,7 +63,7 @@
 						:disabled="readonly"
 					/>
 				</b-form-group>
-				<b-row v-if="question.type === 'number'">
+				<b-row v-if="'number|range'.includes(question.type)">
 					<b-col>
 						<b-form-group label="Minimum érték">
 							<b-form-input
@@ -81,7 +81,7 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
-				<b-row v-if="question.type === 'number'">
+				<b-row v-if="question.type === 'range'">
 					<b-col>
 						<b-form-group label="Minimum elnevezése">
 							<b-form-input v-model="question.minLabel" />
@@ -158,6 +158,7 @@ export default {
 			icon: {
 				text: 'fa-keyboard',
 				number: 'fa-hashtag',
+				range: 'fa-sliders-h',
 				checkbox: 'fa-check-square',
 				radiogroup: 'fa-dot-circle',
 				dropdown: 'fa-caret-square-down',
@@ -165,7 +166,8 @@ export default {
 			},
 			questionTypes: [
 				{ value: 'text', text: 'Szöveges válasz' },
-				{ value: 'number', text: 'Numerikus válasz' },
+				{ value: 'number', text: 'Numerikus válasz (bepötyögős)' },
+				{ value: 'range', text: 'Numerikus válasz (csúszkával)' },
 				{ value: 'checkbox', text: 'Opciók (többet lehet vál.)' },
 				{ value: 'radiogroup', text: 'Opciók (egyet lehet vál.)' },
 				{

@@ -9,9 +9,9 @@
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
 			/>
-			<div v-else-if="q.type === 'number'">
+			<div v-else-if="'number|range'.includes(q.type)">
 				<div
-					v-if="q.minLabel && q.maxLabel"
+					v-if="q.type === 'range' && q.minLabel && q.maxLabel"
 					class="align-items-end d-flex justify-content-between small"
 				>
 					<span>{{ q.minLabel }}</span>
@@ -23,10 +23,10 @@
 						v-model="answers[q.id]"
 						:min="q.min"
 						:max="q.max"
-						type="range"
+						:type="q.type"
 					/>
 					<strong
-						v-if="!q.minLabel || !q.maxLabel"
+						v-if="q.type !== 'range' || !q.minLabel || !q.maxLabel"
 						class="ml-2 text-right"
 						style="min-width: 2rem"
 					>{{ answers[q.id] }}</strong>
