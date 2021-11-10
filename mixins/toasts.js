@@ -5,7 +5,7 @@ export default {
 				autoHideDelay: 1000,
 				noCloseButton: true,
 				solid: true,
-				toaster: 'b-toaster-bottom-left',
+				toaster: 'b-toaster-bottom-center',
 				variant,
 			});
 		},
