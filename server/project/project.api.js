@@ -168,7 +168,7 @@ router.post('/project/access',
 					decoded.visitId === req.body.visitId &&
 					decoded.ip === ip) {
 					// token is valid
-					next();
+					return next();
 				}
 			} catch (error) {
 				// token is invalid/expired
