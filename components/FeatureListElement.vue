@@ -31,7 +31,7 @@
 			@shown="expandFinished()"
 		>
 			<b-card
-				v-if="selectedFeature"
+				v-if="selectedFeature && (editable || (form.category || form.description || visitorCanRate))"
 				body-class="pb-0"
 				class="collapse-content"
 			>
