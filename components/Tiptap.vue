@@ -1,6 +1,9 @@
 <template>
 	<div class="form-control tiptap-editor">
-		<editor-content :editor="editor" />
+		<editor-content
+			v-if="editor"
+			:editor="editor"
+		/>
 	</div>
 </template>
 
@@ -28,6 +31,9 @@ export default {
 
 	watch: {
 		value(value) {
+			if (!this.editor) {
+				return;
+			}
 			const isSame = this.editor.getHTML() === value;
 			if (isSame) {
 				return;
@@ -47,12 +53,18 @@ export default {
 	},
 
 	beforeDestroy() {
-		this.editor.destroy();
+		if (this.editor) {
+			this.editor.destroy();
+		}
 	},
 };
 </script>
 
 <style>
+.tiptap-editor {
+	height: auto;
+}
+
 .tiptap-editor .ProseMirror {
 	outline: none;
 }
