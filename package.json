@@ -13,6 +13,8 @@
   "dependencies": {
     "@nuxtjs/auth-next": "^5.0.0-1622918202.e815752",
     "@nuxtjs/axios": "^5.13.6",
+    "@tiptap/starter-kit": "^2.0.0-beta.140",
+    "@tiptap/vue-2": "^2.0.0-beta.68",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",

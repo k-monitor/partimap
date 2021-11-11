@@ -120,11 +120,9 @@
 					label="Adatvédelmi nyilatkozat"
 					description="A látogatóknak az 1. munkalapon kell majd elfogadniuk ezt a továbblépés érdekében."
 				>
-					<b-textarea
-						v-model="project.privacyPolicy"
-						required
-						rows="5"
-					/>
+					<client-only>
+						<tiptap v-model="project.privacyPolicy" />
+					</client-only>
 				</b-form-group>
 			</form>
 			<template #footer>
