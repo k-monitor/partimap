@@ -88,6 +88,7 @@ export default {
 			try {
 				const { id } = await this.$axios.$put('/api/user', {
 					email: this.newUserEmail,
+					name: this.newUserEmail.split('@')[0],
 				});
 				this.$router.push({ path: '/admin/user/' + id });
 			} catch (error) {

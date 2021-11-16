@@ -35,11 +35,8 @@ router.patch('/user',
 			delete changes.isAdmin;
 
 			if (changes.newPassword || changes.email !== req._user.email) {
-				if (!changes.oldPassword) {
-					return res.sendStatus(StatusCodes.BAD_REQUEST);
-				}
-				if (!bcrypt.compareSync(changes.oldPassword, req._user.password)) {
-					return res.sendStatus(StatusCodes.FORBIDDEN);
+				if (!changes.oldPassword || !bcrypt.compareSync(changes.oldPassword, req._user.password)) {
+					return res.status(StatusCodes.FORBIDDEN).json({ error: 'OLDPASSWORD_INVALID' });
 				}
 			}
 		}
@@ -50,7 +47,7 @@ router.patch('/user',
 
 		let user = new User(Object.assign(req._user, changes));
 		if (!emailValidator.validate(user.email)) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'EMAIL_INVALID' });
 		}
 		await db.update(user);
 
@@ -63,8 +60,11 @@ router.put('/user',
 	ensureAdmin,
 	async (req, res) => {
 		const user = new User(req.body);
+		if (!user.name) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'NAME_MISSING' });
+		}
 		if (!emailValidator.validate(user.email)) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'EMAIL_INVALID' });
 		}
 
 		if (user.password) {
