@@ -94,11 +94,7 @@
 			scrollable
 			title="Adatvédelmi nyilatkozat"
 		>
-			<p
-				v-for="(p,i) in (project.privacyPolicy || '').split('\n')"
-				:key="i + p"
-				v-text="p"
-			/>
+			<div v-html="project.privacyPolicy" />
 		</b-modal>
 	</SheetFrame>
 	<div
@@ -195,7 +191,9 @@ export default {
 				{
 					hid: 'og:image',
 					property: 'og:image',
-					content: this.project.image ? `${this.$config.baseURL}${this.project.image}` : null, // TODO use Partimap logo/ogimage otherwise
+					content: this.project.image
+						? `${this.$config.baseURL}${this.project.image}`
+						: null, // TODO use Partimap logo/ogimage otherwise
 				},
 			],
 		};
