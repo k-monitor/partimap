@@ -148,6 +148,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.$store.commit('selected/clear');
 		this.initMapComponents();
 		this.fitViewToFeatures();
 		this.addEventListeners();
