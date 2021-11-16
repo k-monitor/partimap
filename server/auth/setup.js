@@ -5,8 +5,9 @@ const MySQLStore = require('express-mysql-session')(expressSession);
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const { StatusCodes } = require('http-status-codes');
-const db = require('../user/user.db');
+const { hidePasswordField } = require('../common/functions');
 const conf = require('../conf');
+const db = require('../user/user.db');
 
 const SESSION_AGE = 24 * 60 * 60 * 1000; // 1 day
 
@@ -32,7 +33,7 @@ const sessionOpts = {
 
 passport.use(new Strategy({ usernameField: 'email' }, (email, password, callback) => {
 	db.findByEmail(email).then(user => {
-		if (!user || !bcrypt.compareSync(password, user.password)) {
+		if (!user || !user.active || !bcrypt.compareSync(password, user.password)) {
 			return callback(null, false);
 		}
 		callback(null, user);
@@ -65,13 +66,12 @@ function setup(app) {
 		})(req, res, next);
 	});
 
-
 	app.post('/auth/logout', (req, res) => {
 		req.logout();
 		res.end();
 	});
 	app.get('/auth/user', (req, res) => {
-		res.json({ user: req.user });
+		res.json({ user: hidePasswordField(req.user) });
 	});
 }
 

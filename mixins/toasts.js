@@ -2,7 +2,7 @@ export default {
 	methods: {
 		toast(message, variant) {
 			this.$bvToast.toast(message, {
-				autoHideDelay: 1000,
+				autoHideDelay: 2500,
 				noCloseButton: true,
 				solid: true,
 				toaster: 'b-toaster-bottom-center',

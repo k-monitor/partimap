@@ -3,9 +3,16 @@ function hidePasswordField(obj) {
 	if (Array.isArray(obj)) {
 		return obj.map(hidePasswordField);
 	}
-	return obj && obj.password !== undefined
-		? { ...obj, password: (obj.password || '').length > 0 } // null and '' means no password
-		: obj;
+
+	hideField(obj, 'password');
+	hideField(obj, 'token');
+	return obj;
+}
+
+function hideField(obj, field) {
+	if (obj && obj[field] !== undefined) {
+		obj[field] = (obj[field] || '').length > 0;
+	}
 }
 
 module.exports = {

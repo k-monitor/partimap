@@ -12,64 +12,56 @@
 			id="userForm"
 			@submit.prevent="update"
 		>
-			<div class="form-group">
-				<label for="email">Email</label>
-				<input
-					id="email"
+			<b-form-group label="Email">
+				<b-form-input
 					v-model="m.email"
-					class="form-control"
 					required
 					type="email"
-				>
-			</div>
-			<div class="form-group">
-				<label for="name">Név</label>
-				<input
-					id="name"
+				/>
+			</b-form-group>
+			<b-form-group label="Név">
+				<b-form-input
 					v-model="m.name"
-					class="form-control"
 					required
-					type="text"
-				>
-			</div>
-			<div class="form-group">
-				<label for="newPassword">Új jelszó</label>
-				<input
-					id="newPassword"
+				/>
+			</b-form-group>
+			<b-form-group label="Új jelszó">
+				<b-form-input
 					v-model="m.newPassword"
-					class="form-control"
 					type="password"
-				>
-			</div>
-			<div
+				/>
+			</b-form-group>
+			<b-form-group
 				v-if="!$auth.user.isAdmin"
-				class="form-group"
+				label="Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)"
 			>
-				<label for="oldPassword">Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)</label>
-				<input
-					id="oldPassword"
+				<b-form-input
 					v-model="m.oldPassword"
 					:required="m.newPassword || m.email !== u.email"
-					class="form-control"
 					type="password"
-				>
-			</div>
-			<div
-				v-if="$auth.user.isAdmin"
-				class="form-check mt-5"
-			>
-				<input
-					id="isAdmin"
-					v-model="m.isAdmin"
-					class="form-check-input"
-					type="checkbox"
-				>
-				<label
-					class="form-check-label text-danger"
-					for="isAdmin"
-				>
-					Adminisztrátor
-				</label>
+				/>
+			</b-form-group>
+			<div v-if="$auth.user.isAdmin">
+				<b-form-group>
+					<b-form-checkbox
+						v-model="m.active"
+						class="text-danger"
+						:value="1"
+						:unchecked-value="0"
+					>
+						Aktiválva
+					</b-form-checkbox>
+				</b-form-group>
+				<b-form-group>
+					<b-form-checkbox
+						v-model="m.isAdmin"
+						class="text-danger"
+						:value="1"
+						:unchecked-value="0"
+					>
+						Adminisztrátor
+					</b-form-checkbox>
+				</b-form-group>
 			</div>
 		</form>
 

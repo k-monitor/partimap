@@ -1,0 +1,4 @@
+ALTER TABLE `user`
+	ADD COLUMN `active` TINYINT(1) NOT NULL DEFAULT 0 AFTER `id`,
+	ADD COLUMN `token` VARCHAR(255) NULL AFTER `registered`,
+	ADD COLUMN `tokenExpires` BIGINT(20) NULL AFTER `token`;

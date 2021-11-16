@@ -48,10 +48,20 @@
 						"
 			>
 				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
-				<span
+				<b-badge
 					v-if="u.isAdmin"
-					class="badge badge-danger"
-				>ADMIN</span>
+					variant="danger"
+				>
+					Admin
+				</b-badge>
+				<b-badge
+					v-if="!u.active"
+					variant="warning"
+				>
+					Még nem aktivált
+				</b-badge>
+				<br>
+				<small class="text-muted">Regisztrálva: {{ new Date(u.registered).toLocaleString() }}</small>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
