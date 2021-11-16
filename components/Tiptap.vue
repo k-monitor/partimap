@@ -1,7 +1,7 @@
 <template>
 	<div v-if="editor">
-		<div class="bg-light border border-bottom-0 d-flex flex-wrap px-1 tiptap-toolbar">
-			<div class="border-right mr-1 pr-1">
+		<div class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar">
+			<div class="border-bottom border-right px-1">
 				<b-button
 					size="sm"
 					variant="light"
@@ -17,7 +17,7 @@
 					<i class="fas fa-fw fa-redo" />
 				</b-button>
 			</div>
-			<div class="border-right mr-1 pr-1">
+			<div class="border-bottom border-right px-1">
 				<b-button
 					:class="{ 'active': editor.isActive('heading', { level: 4 }) }"
 					size="sm"
@@ -53,7 +53,7 @@
 					<i class="fas fa-fw fa-list-ul" />
 				</b-button>
 			</div>
-			<div class="border-right mr-1 pr-1 flex-grow-1">
+			<div class="border-bottom border-right px-1 flex-grow-1">
 				<b-button
 					:class="{ 'active' : editor.isActive('bold') }"
 					size="sm"
@@ -86,15 +86,17 @@
 					<i class="fas fa-fw fa-image" />
 				</b-button>
 			</div>
-			<b-button
-				size="sm"
-				variant="light"
-				@click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
-			>
-				<i class="fas fa-fw fa-remove-format" />
-			</b-button>
+			<div class="border-bottom px-1">
+				<b-button
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
+				>
+					<i class="fas fa-fw fa-remove-format" />
+				</b-button>
+			</div>
 		</div>
-		<div class="form-control tiptap-editor">
+		<div class="border-top-0 form-control tiptap-editor">
 			<editor-content :editor="editor" />
 		</div>
 	</div>

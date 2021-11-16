@@ -1,11 +1,7 @@
 <template>
 	<div>
 		<h1 class="h3">{{ sheet.title }}</h1>
-		<p
-			v-for="(p,i) in (sheet.description || '').split('\n')"
-			:key="i + p"
-			v-text="p"
-		/>
+		<div v-html="sheet.description" />
 		<div v-if="sheet.survey">
 			<Survey
 				v-model="visitorAnswers"

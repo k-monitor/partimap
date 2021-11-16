@@ -116,21 +116,10 @@
 							show-on-focus
 						/>
 					</b-form-group>
-					<b-form-group
-						:label="visitor ? 'Miért rajzoltad ezt fel?' : 'Leírás'"
-						:description="(form.description || '').length + '/1000'"
-					>
-						<b-textarea
-							id=""
-							v-model="form.description"
-							name="form-description"
-							cols="30"
-							rows="5"
-							class="w-100"
-							size="sm"
-							placeholder="Leírás"
-							maxlength="1000"
-						/>
+					<b-form-group :label="visitor ? 'Miért rajzoltad ezt fel?' : 'Leírás'">
+						<client-only>
+							<tiptap v-model="form.description" />
+						</client-only>
 					</b-form-group>
 				</div>
 				<div v-else>
@@ -140,11 +129,7 @@
 						variant="light"
 						v-text="form.category"
 					/>
-					<p
-						v-for="(p,i) in (form.description || '').split('\n')"
-						:key="i + p"
-						v-text="p"
-					/>
+					<div v-html="form.description" />
 				</div>
 				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
 					<b-form-rating

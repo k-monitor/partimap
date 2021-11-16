@@ -31,15 +31,10 @@
 					size="lg"
 				/>
 			</b-form-group>
-			<b-form-group
-				label="Munkalap leírása"
-				:description="(sheet.description || '').length + '/1000'"
-			>
-				<b-textarea
-					v-model="sheet.description"
-					maxlength="1000"
-					rows="6"
-				/>
+			<b-form-group label="Munkalap leírása">
+				<client-only>
+					<tiptap v-model="sheet.description" />
+				</client-only>
 			</b-form-group>
 			<b-form-group
 				v-if="!sheet.features"
@@ -221,7 +216,9 @@ export default {
 			return features ? new GeoJSON().readFeatures(featureCollection) : null;
 		},
 		goToSheetOrd(ord) {
-			this.$router.push(this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord));
+			this.$router.push(
+				this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord)
+			);
 		},
 		loadFeaturesFromStore() {
 			const features = [];
