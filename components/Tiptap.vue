@@ -1,6 +1,6 @@
 <template>
 	<div v-if="editor">
-		<div class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar">
+		<div class="bg-light border border-bottom-0 d-flex flex-wrap px-1 tiptap-toolbar">
 			<div class="border-right mr-1 pr-1">
 				<b-button
 					size="sm"
@@ -53,36 +53,45 @@
 					<i class="fas fa-fw fa-list-ul" />
 				</b-button>
 			</div>
+			<div class="border-right mr-1 pr-1 flex-grow-1">
+				<b-button
+					:class="{ 'active' : editor.isActive('bold') }"
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().toggleBold().run()"
+				>
+					<i class="fas fa-fw fa-bold" />
+				</b-button>
+				<b-button
+					:class="{ 'active' : editor.isActive('italic') }"
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().toggleItalic().run()"
+				>
+					<i class="fas fa-fw fa-italic" />
+				</b-button>
+				<b-button
+					:class="{ 'active': editor.isActive('link') }"
+					size="sm"
+					variant="light"
+					@click="setLink"
+				>
+					<i class="fas fa-fw fa-link" />
+				</b-button>
+				<b-button
+					size="sm"
+					variant="light"
+					@click="addImage"
+				>
+					<i class="fas fa-fw fa-image" />
+				</b-button>
+			</div>
 			<b-button
-				:class="{ 'active' : editor.isActive('bold') }"
 				size="sm"
 				variant="light"
-				@click="editor.chain().focus().toggleBold().run()"
+				@click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
 			>
-				<i class="fas fa-fw fa-bold" />
-			</b-button>
-			<b-button
-				:class="{ 'active' : editor.isActive('italic') }"
-				size="sm"
-				variant="light"
-				@click="editor.chain().focus().toggleItalic().run()"
-			>
-				<i class="fas fa-fw fa-italic" />
-			</b-button>
-			<b-button
-				:class="{ 'active': editor.isActive('link') }"
-				size="sm"
-				variant="light"
-				@click="setLink"
-			>
-				<i class="fas fa-fw fa-link" />
-			</b-button>
-			<b-button
-				size="sm"
-				variant="light"
-				@click="addImage"
-			>
-				<i class="fas fa-fw fa-image" />
+				<i class="fas fa-fw fa-remove-format" />
 			</b-button>
 		</div>
 		<div class="form-control tiptap-editor">
