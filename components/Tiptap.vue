@@ -202,4 +202,8 @@ export default {
 	border-top-left-radius: 0.25rem;
 	border-top-right-radius: 0.25rem;
 }
+
+.is-invalid .tiptap-editor {
+	border-color: #dc3545;
+}
 </style>

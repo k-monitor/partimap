@@ -119,6 +119,8 @@
 				<b-form-group
 					label="Adatvédelmi nyilatkozat"
 					description="A látogatóknak az 1. munkalapon kell majd elfogadniuk ezt a továbblépés érdekében."
+					invalid-feedback="Kötelező megadni!"
+					:state="isPrivacyPolicyValid"
 				>
 					<client-only>
 						<tiptap v-model="project.privacyPolicy" />
@@ -128,6 +130,7 @@
 			<template #footer>
 				<div class="d-flex justify-content-end">
 					<b-button
+						:disabled="!isPrivacyPolicyValid"
 						form="projectForm"
 						type="submit"
 						variant="success"
@@ -181,6 +184,15 @@ export default {
 		return {
 			title: `Admin: ${this.project.title}`,
 		};
+	},
+	computed: {
+		isPrivacyPolicyValid() {
+			const len = (this.project.privacyPolicy || '').replace(
+				/(<[^>]*>|\s+)/g,
+				''
+			).length;
+			return len > 10;
+		},
 	},
 	watch: {
 		image(val) {
