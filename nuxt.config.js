@@ -53,6 +53,9 @@ export default {
 	},
 
 	auth: {
+		redirect: {
+			home: '/admin'
+		},
 		strategies: {
 			cookie: {}
 		}
