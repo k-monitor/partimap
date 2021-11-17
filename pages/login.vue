@@ -7,11 +7,18 @@
 						<h5 class="card-header">Partimap Bejelentkezés</h5>
 						<div class="card-body">
 							<b-alert
-								v-if="$route.params.successMessage"
+								v-if="successMessage"
 								show
 								variant="success"
 							>
-								{{ $route.params.successMessage }}
+								{{ successMessage }}
+							</b-alert>
+							<b-alert
+								v-if="errorMessage"
+								show
+								variant="danger"
+							>
+								{{ errorMessage }}
 							</b-alert>
 							<b-form-group>
 								<b-input-group>
@@ -78,12 +85,23 @@ export default {
 				password: '',
 			},
 			loading: true,
+			successMessage: this.$route.params.successMessage,
+			errorMessage: this.$route.params.errorMessage,
 		};
 	},
 	head: {
 		title: 'Bejelentkezés',
 	},
-	mounted() {
+	async mounted() {
+		const at = this.$route.query.a;
+		if (at) {
+			try {
+				await this.$axios.$post('/api/user/activate/' + at);
+				this.successMessage = 'Sikeres aktiválás, most már bejelentkezhetsz!';
+			} catch {
+				this.errorMessage = 'Sikertelen aktiválás, próbálj újra regisztrálni!';
+			}
+		}
 		this.loading = false;
 		this.$refs.email.focus();
 	},

@@ -108,4 +108,17 @@ router.put('/user',
 		}
 	});
 
+router.post('/user/activate/:token',
+	async (req, res) => {
+		const user = await db.findByToken(req.params.token);
+		if (!user || user.tokenExpires < new Date().getTime()) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'TOKEN_INVALID' });
+		}
+		user.active = true;
+		user.token = null;
+		user.tokenExpires = null;
+		await db.update(user);
+		res.end();
+	});
+
 module.exports = router;

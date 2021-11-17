@@ -25,11 +25,19 @@ function findById(id) {
 }
 
 /**
- * @param {Number} email
+ * @param {String} email
  * @returns {User}
  */
 function findByEmail(email) {
 	return db.findBy('user', 'email', email, User);
+}
+
+/**
+ * @param {String} token
+ * @returns {User}
+ */
+function findByToken(token) {
+	return db.findBy('user', 'token', token, User);
 }
 
 /**
@@ -44,5 +52,6 @@ module.exports = {
 	findAll,
 	findById,
 	findByEmail,
+	findByToken,
 	update
 };
