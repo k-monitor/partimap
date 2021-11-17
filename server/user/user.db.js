@@ -1,5 +1,8 @@
 const db = require('../db');
+const mdb = require('../map/map.db');
+const pdb = require('../project/project.db');
 const User = require('../../model/user');
+
 
 /**
  * @param {User} user
@@ -7,6 +10,23 @@ const User = require('../../model/user');
  */
 function create(user) {
 	return db.create('user', user, User);
+}
+
+/**
+ * @param {Number} id
+ */
+async function del(id) {
+	await db.del('user', id);
+
+	const projects = await pdb.findByUserId(id);
+	for (const p of projects) {
+		await pdb.del(p.id);
+	}
+
+	const maps = await mdb.findByUserId(id);
+	for (const m of maps) {
+		await mdb.del(m.id);
+	}
 }
 
 /**
@@ -49,6 +69,7 @@ function update(user) {
 
 module.exports = {
 	create,
+	del,
 	findAll,
 	findById,
 	findByEmail,

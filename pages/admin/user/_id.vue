@@ -162,10 +162,14 @@ export default {
 				});
 				if (this.u.id === this.$auth.user.id) {
 					this.$auth.logout('cookie');
+				} else {
+					this.$router.push('/admin/users');
 				}
 			} catch {
 				this.errorToast('Törlés sikertelen');
 			} finally {
+				this.delConfirm = false;
+				this.delPassword = '';
 				this.loading = false;
 				this.$nextTick(() => {
 					this.$bvModal.hide('delete-user-modal');

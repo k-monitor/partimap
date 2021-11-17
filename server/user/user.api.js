@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const emailValidator = require('email-validator');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
+const rmrf = require('rimraf').sync;
 const { v4: uuid } = require('uuid');
 const User = require('../../model/user');
 const { ensureLoggedIn, ensureAdmin, ensureAdminOr } = require('../auth/middlewares');
@@ -9,6 +10,7 @@ const { hidePasswordField } = require('../common/functions');
 const { resolveRecord } = require('../common/middlewares');
 const conf = require('../conf');
 const { sendEmail } = require('../email');
+const pdb = require('../project/project.db');
 const db = require('./user.db');
 
 router.get('/users',
@@ -164,6 +166,27 @@ router.post('/user/pwch',
 		res.end();
 	});
 
+router.post('/user/delete',
+	resolveRecord(req => req.body.id, db.findById, '_user'),
+	async (req, res) => {
+		const { id, password } = req.body;
+
+		// checking CURRENT user's password (not the selected user's)
+		if (!password || !bcrypt.compareSync(password, req.user.password)) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'PASSWORD_INVALID' });
+		}
+
+		const projects = await pdb.findByUserId(id);
+		for (const p of projects) {
+			rmrf(`./uploads/${p.id}`);
+		}
+		await db.del(id); // deletes all records
+
+		if (req.user && req.user.id === id) {
+			req.logout();
+		}
+		res.end();
+	});
 function addToken(user) {
 	user.token = uuid();
 	user.tokenExpires = new Date().getTime() + (24 * 60 * 60 * 1000);
