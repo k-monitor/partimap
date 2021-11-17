@@ -68,16 +68,63 @@
 		</form>
 
 		<template #footer>
-			<div class="d-flex justify-content-end">
-				<button
-					class="btn btn-primary"
+			<div class="d-flex justify-content-between">
+				<b-button
+					v-b-modal.delete-user-modal
+					variant="outline-danger"
+				>
+					Fiók törlése
+				</b-button>
+				<b-button
 					form="userForm"
 					type="submit"
+					variant="primary"
 				>
 					Mentés
-				</button>
+				</b-button>
 			</div>
 		</template>
+
+		<b-modal
+			id="delete-user-modal"
+			:busy="loading"
+			cancel-title="Mégsem"
+			cancel-variant="success"
+			centered
+			footer-class="d-flex justify-content-between"
+			hide-header
+			no-close-on-backdrop
+			no-close-on-esc
+			no-enforce-focus
+			:ok-disabled="!delConfirm || !delPassword"
+			ok-title="Fiók törlése"
+			ok-variant="danger"
+			@ok="deleteAccount"
+			@shown="$refs.delPassword.focus()"
+		>
+			<b-form-group label="Kérlek add meg a jelszavad:">
+				<b-form-input
+					ref="delPassword"
+					v-model="delPassword"
+					:disabled="loading"
+					type="password"
+					@update="delConfirm = false"
+				/>
+			</b-form-group>
+			<b-alert
+				show
+				variant="danger"
+			>
+				<b-form-checkbox
+					v-model="delConfirm"
+					:disabled="loading || !delPassword"
+					name="confirm"
+				>
+					<strong>Jól meggondoltam,</strong><br>
+					törlöm a <strong>{{ u.email }}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).
+				</b-form-checkbox>
+			</b-alert>
+		</b-modal>
 	</AdminFrame>
 </template>
 
@@ -92,12 +139,39 @@ export default {
 			redirect('/admin/users');
 		}
 	},
+	data() {
+		return {
+			delConfirm: false,
+			delPassword: '',
+			loading: false,
+		};
+	},
 	head() {
 		return {
 			title: 'Admin: ' + (this.u.name || this.u.email),
 		};
 	},
 	methods: {
+		async deleteAccount(e) {
+			e.preventDefault(); // do not close modal automatically, user must wait
+			this.loading = true;
+			try {
+				await this.$axios.$post('/api/user/delete', {
+					id: this.u.id,
+					password: this.delPassword,
+				});
+				if (this.u.id === this.$auth.user.id) {
+					this.$auth.logout('cookie');
+				}
+			} catch {
+				this.errorToast('Törlés sikertelen');
+			} finally {
+				this.loading = false;
+				this.$nextTick(() => {
+					this.$bvModal.hide('delete-user-modal');
+				});
+			}
+		},
 		async update() {
 			try {
 				this.u = await this.$axios.$patch('/api/user', this.m);
