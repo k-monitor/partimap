@@ -70,6 +70,7 @@
 
 <script>
 export default {
+	middleware: ['publicOnly'],
 	data() {
 		return {
 			login: {

@@ -73,6 +73,7 @@
 
 <script>
 export default {
+	middleware: ['publicOnly'],
 	data() {
 		return {
 			reg: {
