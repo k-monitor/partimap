@@ -2,7 +2,10 @@
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
-				<form @submit.prevent="userLogin">
+				<form
+					ref="form"
+					@submit.prevent="submit"
+				>
 					<div class="card shadow-sm">
 						<h5 class="card-header">Partimap Bejelentkezés</h5>
 						<div class="card-body">
@@ -46,25 +49,29 @@
 									<b-form-input
 										v-model="login.password"
 										placeholder="Jelszó"
-										required
 										type="password"
 									/>
 								</b-input-group>
 							</b-form-group>
+							<div class="text-right">
+								<a
+									href="javascript:void(0)"
+									@click="forgot"
+								>Elfelejtettem a jelszavam</a>
+							</div>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button
 								to="/register"
 								variant="link"
 							>
-								Regisztráció
+								Még nincs fiókom
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
 								Bejelentkezés
-								<i class="fas fa-sign-in-alt ml-1" />
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -80,6 +87,7 @@ export default {
 	middleware: ['publicOnly'],
 	data() {
 		return {
+			forgotMode: false,
 			login: {
 				email: '',
 				password: '',
@@ -96,7 +104,7 @@ export default {
 		const at = this.$route.query.a;
 		if (at) {
 			try {
-				await this.$axios.$post('/api/user/activate/' + at);
+				await this.$axios.$post('/api/user/activate', { token: at });
 				this.successMessage = 'Sikeres aktiválás, most már bejelentkezhetsz!';
 			} catch {
 				this.errorMessage = 'Sikertelen aktiválás, próbálj újra regisztrálni!';
@@ -106,15 +114,33 @@ export default {
 		this.$refs.email.focus();
 	},
 	methods: {
-		async userLogin() {
+		forgot() {
+			this.forgotMode = true;
+			this.$refs.form.reportValidity() && this.submit();
+			// for this to work properly, do NOT mark
+			// password field as required in the template
+		},
+		async submit() {
 			this.loading = true;
-			try {
-				await this.$auth.loginWith('cookie', {
-					data: this.login,
-				});
-			} catch (err) {
-				this.errorToast('Bejelentkezés sikertelen');
+			this.errorMessage = '';
+			this.successMessage = '';
+			if (this.forgotMode) {
+				try {
+					await this.$axios.$post('/api/user/forgot', { email: this.login.email });
+					this.successMessage = 'Jelszócseréhez szükséges email kiküldve';
+				} catch {
+					this.errorMessage = 'Érvénytelen email cím';
+				}
+			} else {
+				try {
+					await this.$auth.loginWith('cookie', {
+						data: this.login,
+					});
+				} catch (err) {
+					this.errorMessage = 'Érvénytelen email vagy jelszó';
+				}
 			}
+			this.forgotMode = false;
 			this.loading = false;
 		},
 	},

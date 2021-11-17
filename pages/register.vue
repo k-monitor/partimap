@@ -45,14 +45,13 @@
 								to="/login"
 								variant="link"
 							>
-								Bejelentkezés
+								Már van fiókom
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
 								Regisztráció
-								<i class="fas fa-sign-in-alt ml-1" />
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />

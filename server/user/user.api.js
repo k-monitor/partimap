@@ -82,8 +82,7 @@ router.put('/user',
 
 		newUser.active = false;
 		newUser.registered = new Date().getTime();
-		newUser.token = uuid();
-		newUser.tokenExpires = newUser.registered + (24 * 60 * 60 * 1000);
+		addToken(newUser);
 
 		let user = await db.findByEmail(newUser.email);
 		if (!user) {
@@ -108,9 +107,9 @@ router.put('/user',
 		}
 	});
 
-router.post('/user/activate/:token',
+router.post('/user/activate',
 	async (req, res) => {
-		const user = await db.findByToken(req.params.token);
+		const user = await db.findByToken(req.body.token);
 		if (!user || user.tokenExpires < new Date().getTime()) {
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'TOKEN_INVALID' });
 		}
@@ -120,5 +119,21 @@ router.post('/user/activate/:token',
 		await db.update(user);
 		res.end();
 	});
+
+router.post('/user/forgot',
+	async (req, res) => {
+		const user = await db.findByEmail(req.body.email);
+		if (!user) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'EMAIL_INVALID' });
+		}
+		addToken(user);
+		await db.update(user);
+		res.end();
+	});
+
+function addToken(user) {
+	user.token = uuid();
+	user.tokenExpires = user.registered + (24 * 60 * 60 * 1000);
+}
 
 module.exports = router;
