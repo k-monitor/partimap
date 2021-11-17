@@ -46,6 +46,7 @@
 					<b-form-checkbox
 						v-model="m.active"
 						class="text-danger"
+						:disabled="m.id === $auth.user.id"
 						:value="1"
 						:unchecked-value="0"
 					>
@@ -56,6 +57,7 @@
 					<b-form-checkbox
 						v-model="m.isAdmin"
 						class="text-danger"
+						:disabled="m.id === $auth.user.id"
 						:value="1"
 						:unchecked-value="0"
 					>

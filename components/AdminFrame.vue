@@ -16,13 +16,12 @@
 				<b-navbar-nav>
 					<b-nav-item to="/admin/projects">Projektek</b-nav-item>
 					<b-nav-item to="/admin/maps">Térképek</b-nav-item>
-					<b-nav-item-dropdown
+					<b-nav-item
 						v-if="$auth.user.isAdmin"
-						text="Admin"
-						right
+						to="/admin/users"
 					>
-						<b-dropdown-item to="/admin/users">Felhasználók</b-dropdown-item>
-					</b-nav-item-dropdown>
+						Felhasználók
+					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
 					<b-nav-item-dropdown
