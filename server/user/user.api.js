@@ -131,6 +131,23 @@ router.post('/user/forgot',
 		res.end();
 	});
 
+router.post('/user/pwch',
+	async (req, res) => {
+		const { password, token } = req.body;
+		const user = await db.findByToken(token);
+		if (!user || user.tokenExpires < new Date().getTime()) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'TOKEN_INVALID' });
+		}
+		if (!password) {
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'PASSWOR' });
+		}
+		user.password = bcrypt.hashSync(password, 10);
+		user.token = null;
+		user.tokenExpires = null;
+		await db.update(user);
+		res.end();
+	});
+
 function addToken(user) {
 	user.token = uuid();
 	user.tokenExpires = user.registered + (24 * 60 * 60 * 1000);

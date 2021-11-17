@@ -94,7 +94,7 @@ export default {
 		async userReg() {
 			this.loading = true;
 			try {
-				await this.$axios.put('/api/user', this.reg);
+				await this.$axios.$put('/api/user', this.reg);
 				this.$router.push({
 					name: 'login',
 					params: {

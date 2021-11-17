@@ -101,10 +101,10 @@ export default {
 		title: 'Bejelentkezés',
 	},
 	async mounted() {
-		const at = this.$route.query.a;
-		if (at) {
+		const token = this.$route.query.t;
+		if (token) {
 			try {
-				await this.$axios.$post('/api/user/activate', { token: at });
+				await this.$axios.$post('/api/user/activate', { token });
 				this.successMessage = 'Sikeres aktiválás, most már bejelentkezhetsz!';
 			} catch {
 				this.errorMessage = 'Sikertelen aktiválás, próbálj újra regisztrálni!';
