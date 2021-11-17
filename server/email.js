@@ -23,8 +23,8 @@ function sendEmail(to, subject, html) {
 			from: conf.SMTP_FROM,
 			replyTo: conf.SMTP_REPLY_TO,
 			to,
-			subject,
-			html
+			subject: `[Partimap] ${subject}`,
+			html: `${html}\n<p><b>Partimap</b> by <a href="https://k-monitor.hu/">K-Monitor</a></p>`,
 		};
 		transporter.sendMail(mailOptions, error => {
 			if (error) {
@@ -37,3 +37,9 @@ function sendEmail(to, subject, html) {
 };
 
 module.exports = { sendEmail };
+
+/*
+(async () => {
+	await sendEmail('to', 'subject', 'html');
+})();
+*/

@@ -7,6 +7,8 @@ const User = require('../../model/user');
 const { ensureLoggedIn, ensureAdmin, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
 const { resolveRecord } = require('../common/middlewares');
+const conf = require('../conf');
+const { sendEmail } = require('../email');
 const db = require('./user.db');
 
 router.get('/users',
@@ -96,13 +98,20 @@ router.put('/user',
 
 		user = await db.findByEmail(newUser.email);
 
-		if (!req.user || !req.user.isAdmin) { // public reg
-			// TODO send activation email
-		}
-
 		if (req.user && req.user.isAdmin) {
+			// new user registered by admin
+			// return ID so UI can open user details
 			res.json({ id: user.id });
-		} else { // public reg
+		} else {
+			// new user registered on their own
+			// send activation email
+			const url = `${conf.BASE_URL}/login?t=${user.token}`;
+			await sendEmail(user.email, 'Új fiók aktiválása', `
+				<p><b>Kedves ${user.name}!</p>
+				<p>Kérlek véglegesítsd Partimap regisztrációdat az alábbi hivatkozás megnyitásával:<br>
+				<a href="${url}">${url}</a></p>
+				<p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>
+			`);
 			res.end();
 		}
 	});
@@ -128,6 +137,13 @@ router.post('/user/forgot',
 		}
 		addToken(user);
 		await db.update(user);
+		const url = `${conf.BASE_URL}/pwch?t=${user.token}`;
+		await sendEmail(user.email, 'Elfelejtett jelszó', `
+			<p><b>Kedves ${user.name}!</p>
+			<p>A Partimap fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br>
+			<a href="${url}">${url}</a></p>
+			<p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>
+		`);
 		res.end();
 	});
 
@@ -139,7 +155,7 @@ router.post('/user/pwch',
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'TOKEN_INVALID' });
 		}
 		if (!password) {
-			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'PASSWOR' });
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'PASSWORD_MISSING' });
 		}
 		user.password = bcrypt.hashSync(password, 10);
 		user.token = null;
@@ -150,7 +166,7 @@ router.post('/user/pwch',
 
 function addToken(user) {
 	user.token = uuid();
-	user.tokenExpires = user.registered + (24 * 60 * 60 * 1000);
+	user.tokenExpires = new Date().getTime() + (24 * 60 * 60 * 1000);
 }
 
 module.exports = router;
