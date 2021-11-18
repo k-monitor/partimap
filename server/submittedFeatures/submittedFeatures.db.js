@@ -11,14 +11,11 @@ function create(submittedFeatures) {
 
 /**
  * @param {Number} projectId
- * @returns {{sheetId: Number, features: String}[]}
+ * @returns {SubmittedFeatures[]}
  */
-function findByProjectId(projectId) {
-	return db.query(`
-		select f.sheetId, f.features
-		from submitted_features f
-		inner join sheet s on s.id = f.sheetId
-		where s.projectId = ?`, [projectId]);
+async function findByProjectId(projectId) {
+	const rows = await db.query('SELECT f.* FROM submitted_features f INNER JOIN sheet s ON s.id = f.sheetId AND s.projectId = ?', [projectId]);
+	return rows.map(r => new SubmittedFeatures(r));
 }
 
 /**

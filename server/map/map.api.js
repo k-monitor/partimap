@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const Map = require('../../model/map');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
-const sfdb = require('../submittedFeatues/submittedFeatures.db');
+const sfdb = require('../submittedFeatures/submittedFeatures.db');
 const db = require('./map.db');
 
 router.delete('/map/:id',
