@@ -26,7 +26,7 @@
 						:type="q.type"
 					/>
 					<strong
-						v-if="q.type !== 'range' || !q.minLabel || !q.maxLabel"
+						v-if="q.type == 'range' && (!q.minLabel || !q.maxLabel)"
 						class="ml-2 text-right"
 						style="min-width: 2rem"
 					>{{ answers[q.id] }}</strong>
