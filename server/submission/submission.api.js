@@ -1,3 +1,4 @@
+const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
@@ -111,6 +112,52 @@ router.get('/submission/ratings/:id',
 			frs[featureId] = average;
 		});
 		res.json(frs);
+	}
+);
+
+router.get('/submission/export/:id',
+	ensureLoggedIn,
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+	async (req, res) => {
+		const sheets = await sdb.findByProjectId(req.project.id);
+		const submissions = await smdb.findByProjectId(req.project.id);
+		const answers = await sadb.findByProjectId(req.project.id);
+
+		const questions = [];
+		sheets.forEach(s => {
+			try {
+				const survey = JSON.parse(s.survey);
+				questions.push(...survey.questions);
+			} catch { }
+		});
+
+		const wb = new xl.Workbook({
+			dateFormat: 'YYYY-MM-DD HH:MM:SS',
+		});
+		const sas = wb.addWorksheet('Beküldött válaszok');
+		// const sfs = wb.addWorksheet('Beküldött térkép elemek');
+		// const rs = wb.addWorksheet('Értékelések');
+
+		sas.cell(1, 1).string('Azonosító');
+		sas.cell(1, 2).string('Időbélyeg');
+		questions.forEach((q, i) => {
+			sas.cell(1, i + 3).string(q.label);
+		});
+		submissions.forEach((s, i) => {
+			sas.cell(i + 2, 1).number(s.id);
+			sas.cell(i + 2, 2).date(new Date(s.timestamp));
+			questions.forEach((q, j) => {
+				const ans = answers.filter(a => a.id === s.id && String(a.questionId) === String(q.id))[0];
+				const a = ans ? ans.answer : '';
+				if (Number.isInteger(a)) {
+					sas.cell(i + 2, j + 3).number(a);
+				} else {
+					sas.cell(i + 2, j + 3).string(a);
+				}
+			});
+		});
+
+		wb.write('export.xlsx', res);
 	}
 );
 

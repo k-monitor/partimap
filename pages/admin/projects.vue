@@ -60,6 +60,11 @@
 					>Saját</span>
 					<br>
 					{{ p.views }} megtekintés, {{ p.submissions }} kitöltés
+					<a
+						v-if="p.submissions"
+						:href="'/api/submission/export/' + p.id"
+						target="_blank"
+					>Riport letöltése</a>
 				</div>
 				<span
 					class="ml-auto text-danger"
