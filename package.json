@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/auth-next": "^5.0.0-1622918202.e815752",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/recaptcha": "^1.0.4",
     "@tiptap/extension-image": "^2.0.0-beta.24",
     "@tiptap/extension-link": "^2.0.0-beta.28",
     "@tiptap/starter-kit": "^2.0.0-beta.140",
@@ -34,6 +35,7 @@
     "lodash.orderby": "^4.6.0",
     "multer": "^1.4.3",
     "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.6",
     "nodemailer": "^6.7.1",
     "nodemailer-html-to-text": "^3.2.0",
     "nuxt": "^2.15.3",

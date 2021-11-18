@@ -44,6 +44,7 @@ export default {
 	modules: [
 		'@nuxtjs/axios',
 		'@nuxtjs/auth-next',
+		'@nuxtjs/recaptcha',
 		'bootstrap-vue/nuxt',
 		'vue-social-sharing/nuxt',
 	],
@@ -59,6 +60,12 @@ export default {
 		strategies: {
 			cookie: {}
 		}
+	},
+
+	recaptcha: {
+		hideBadge: true,
+		siteKey: process.env.RECAPTCHA_SITE_KEY,
+		version: 3,
 	},
 
 	publicRuntimeConfig: {

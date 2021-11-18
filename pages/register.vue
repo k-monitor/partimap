@@ -86,15 +86,20 @@ export default {
 	head: {
 		title: 'Regisztráció',
 	},
-	mounted() {
+	async mounted() {
+		await this.$recaptcha.init();
 		this.loading = false;
 		this.$refs.email.focus();
+	},
+	beforeDestroy() {
+		this.$recaptcha.destroy();
 	},
 	methods: {
 		async userReg() {
 			this.loading = true;
+			const captcha = await this.$recaptcha.execute('register');
 			try {
-				await this.$axios.$put('/api/user', this.reg);
+				await this.$axios.$put('/api/user', { ...this.reg, captcha });
 				this.$router.push({
 					name: 'login',
 					params: {

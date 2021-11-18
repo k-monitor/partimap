@@ -6,6 +6,7 @@ const passport = require('passport');
 const { Strategy } = require('passport-local');
 const { StatusCodes } = require('http-status-codes');
 const { hidePasswordField } = require('../common/functions');
+const { validateCaptcha } = require('../common/middlewares');
 const conf = require('../conf');
 const db = require('../user/user.db');
 
@@ -54,17 +55,19 @@ function setup(app) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.post('/auth/login', (req, res, next) => {
-		passport.authenticate('local', function (err, user) {
-			req.logIn(user, function () {
-				if (err) {
-					next(err);
-				} else {
-					res.sendStatus(user ? StatusCodes.OK : StatusCodes.UNAUTHORIZED);
-				}
-			});
-		})(req, res, next);
-	});
+	app.post('/auth/login',
+		validateCaptcha(),
+		(req, res, next) => {
+			passport.authenticate('local', function (err, user) {
+				req.logIn(user, function () {
+					if (err) {
+						next(err);
+					} else {
+						res.sendStatus(user ? StatusCodes.OK : StatusCodes.UNAUTHORIZED);
+					}
+				});
+			})(req, res, next);
+		});
 
 	app.post('/auth/logout', (req, res) => {
 		req.logout();

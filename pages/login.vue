@@ -110,8 +110,12 @@ export default {
 				this.errorMessage = 'Sikertelen aktiválás, próbálj újra regisztrálni!';
 			}
 		}
+		await this.$recaptcha.init();
 		this.loading = false;
 		this.$refs.email.focus();
+	},
+	beforeDestroy() {
+		this.$recaptcha.destroy();
 	},
 	methods: {
 		forgot() {
@@ -124,9 +128,13 @@ export default {
 			this.loading = true;
 			this.errorMessage = '';
 			this.successMessage = '';
+			const captcha = await this.$recaptcha.execute(this.forgotMode ? 'forgot' : 'login');
 			if (this.forgotMode) {
 				try {
-					await this.$axios.$post('/api/user/forgot', { email: this.login.email });
+					await this.$axios.$post('/api/user/forgot', {
+						email: this.login.email,
+						captcha,
+					});
 					this.successMessage = 'Jelszócseréhez szükséges email kiküldve';
 				} catch {
 					this.errorMessage = 'Érvénytelen email cím';
@@ -134,7 +142,7 @@ export default {
 			} else {
 				try {
 					await this.$auth.loginWith('cookie', {
-						data: this.login,
+						data: { ...this.login, captcha },
 					});
 				} catch (err) {
 					this.errorMessage = 'Érvénytelen email vagy jelszó';

@@ -2,7 +2,9 @@ const fs = require('fs');
 const fileType = require('file-type');
 const { StatusCodes } = require('http-status-codes');
 const multer = require('multer');
+const fetch = require('node-fetch');
 const sharp = require('sharp');
+const { RECAPTCHA_SECRET_KEY } = require('../conf');
 
 /**
  * @param {Function} dirFromReq Receives `req`, should return a directory name
@@ -70,7 +72,27 @@ function resolveRecord(idFromReq, findById, field, optional) {
 	};
 }
 
+/**
+ * @param {Function} condition If present it is used to determine if validation is necessary. The request will be passed as an argument.
+ * @returns Captcha validator middleware.
+ */
+function validateCaptcha(condition) {
+	return async (req, res, next) => {
+		const needValidation = !condition || condition(req);
+		if (needValidation) {
+			const u = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${req.body.captcha}`;
+			const crs = await fetch(u);
+			const cr = await crs.json();
+			if (!cr.success) {
+				return res.status(StatusCodes.BAD_REQUEST).json({ error: 'CAPTCHA_INVALID' });
+			}
+		}
+		next();
+	};
+}
+
 module.exports = {
 	acceptImage,
 	resolveRecord,
+	validateCaptcha,
 };

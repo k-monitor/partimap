@@ -51,21 +51,27 @@ export default {
 	head: {
 		title: 'Jelszócsere',
 	},
-	mounted() {
+	async mounted() {
 		if (!this.$route.query.t) {
 			this.$router.push('login');
 		}
+		await this.$recaptcha.init();
 		this.loading = false;
 		this.$refs.password.focus();
+	},
+	beforeDestroy() {
+		this.$recaptcha.destroy();
 	},
 	methods: {
 		async submit() {
 			this.loading = true;
 			try {
 				const token = this.$route.query.t;
+				const captcha = await this.$recaptcha.execute('pwch');
 				await this.$axios.$post('/api/user/pwch', {
 					password: this.password,
 					token,
+					captcha
 				});
 				this.$router.push({
 					name: 'login',

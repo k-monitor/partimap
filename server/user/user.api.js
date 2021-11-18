@@ -7,7 +7,7 @@ const { v4: uuid } = require('uuid');
 const User = require('../../model/user');
 const { ensureLoggedIn, ensureAdmin, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
-const { resolveRecord } = require('../common/middlewares');
+const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const conf = require('../conf');
 const { sendEmail } = require('../email');
 const pdb = require('../project/project.db');
@@ -64,6 +64,7 @@ router.patch('/user',
 	});
 
 router.put('/user',
+	validateCaptcha(req => !req.user || !req.user.isAdmin), // no captcha on admin page
 	async (req, res) => {
 		if (!req.body.consent && (!req.user || !req.user.isAdmin)) { // public reg
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'CONSENT_MISSING' });
@@ -132,6 +133,7 @@ router.post('/user/activate',
 	});
 
 router.post('/user/forgot',
+	validateCaptcha(),
 	async (req, res) => {
 		const user = await db.findByEmail(req.body.email);
 		if (!user) {
@@ -150,6 +152,7 @@ router.post('/user/forgot',
 	});
 
 router.post('/user/pwch',
+	validateCaptcha(),
 	async (req, res) => {
 		const { password, token } = req.body;
 		const user = await db.findByToken(token);
