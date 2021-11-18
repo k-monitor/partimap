@@ -216,11 +216,12 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 	},
-	mounted() {
+	async mounted() {
+		this.registerHit();
 		if (!this.project) {
 			this.$refs.password.focus();
+			await this.$recaptcha.init();
 		}
-		this.registerHit();
 		this.loading = false;
 	},
 	created() {
@@ -233,6 +234,7 @@ export default {
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('featureRatedByVisitor');
+		this.$recaptcha.destroy();
 	},
 	methods: {
 		addVisitorFeature(feature) {
@@ -287,10 +289,12 @@ export default {
 			const projectId = this.$route.params.id;
 			const visitId = this.$store.state.visitId;
 			try {
+				const captcha = await this.$recaptcha.execute('access');
 				this.project = await this.$axios.$post('/api/project/access', {
 					password,
 					projectId,
 					visitId,
+					captcha
 				});
 				this.sheet = this.project.sheets[this.$route.params.sheetord];
 				this.registerHit();

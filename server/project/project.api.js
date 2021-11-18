@@ -8,7 +8,7 @@ const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
-const { acceptImage, resolveRecord } = require('../common/middlewares');
+const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
 const sdb = require('../sheet/sheet.db');
 const pdb = require('./project.db');
@@ -127,6 +127,7 @@ router.put('/project',
 
 router.post('/project/access',
 	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
+	validateCaptcha(req => req.project.password && req.body.password),
 	(req, res, next) => {
 		const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
 		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
