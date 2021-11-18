@@ -122,6 +122,7 @@ router.get('/submission/export/:id',
 		const sheets = await sdb.findByProjectId(req.project.id);
 		const submissions = await smdb.findByProjectId(req.project.id);
 		const answers = await sadb.findByProjectId(req.project.id);
+		const ratings = await rdb.findByProjectId(req.project.id);
 
 		const questions = [];
 		sheets.forEach(s => {
@@ -134,10 +135,8 @@ router.get('/submission/export/:id',
 		const wb = new xl.Workbook({
 			dateFormat: 'YYYY-MM-DD HH:MM:SS',
 		});
-		const sas = wb.addWorksheet('Beküldött válaszok');
-		// const sfs = wb.addWorksheet('Beküldött térkép elemek');
-		// const rs = wb.addWorksheet('Értékelések');
 
+		const sas = wb.addWorksheet('Beküldött válaszok');
 		sas.cell(1, 1).string('Azonosító');
 		sas.cell(1, 2).string('Időbélyeg');
 		questions.forEach((q, i) => {
@@ -156,6 +155,45 @@ router.get('/submission/export/:id',
 				}
 			});
 		});
+
+		const rs = wb.addWorksheet('Értékelések');
+		rs.cell(1, 1).string('Kitöltés azonosító');
+		rs.cell(1, 2).string('Térkép elem');
+		rs.cell(1, 3).string('Értékelés');
+		ratings.forEach((r, i) => {
+			rs.cell(i + 2, 1).number(r.submissionId);
+			rs.cell(i + 2, 2).string(String(r.featureId));
+			rs.cell(i + 2, 3).number(r.rating);
+			const sheet = sheets.filter(sh => sh.id === r.sheetId)[0];
+			if (sheet && sheet.features) {
+				const features = JSON.parse(sheet.features);
+				const feature = features.filter(f => f.id === r.featureId)[0];
+				const name = feature?.properties?.name || feature.id;
+				rs.cell(i + 2, 2).string(String(name));
+			}
+		});
+
+		const ars = wb.addWorksheet('Aggregált értékelések');
+		ars.cell(1, 1).string('Térkép elem');
+		ars.cell(1, 2).string('Értékelések száma');
+		ars.cell(1, 3).string('Átlagos értékelés');
+		let arsi = 1;
+		for (let i = 0; i < sheets.length; i++) {
+			const sheet = sheets[i];
+			const features = JSON.parse(sheet.features);
+			const ar = await rdb.aggregateBySheetId(sheet.id);
+			for (let j = 0; j < ar.length; j++) {
+				const r = ar[j];
+				arsi++;
+				const feature = features.filter(f => f.id === r.featureId)[0];
+				const name = feature?.properties?.name || feature.id;
+				ars.cell(arsi, 1).string(String(name));
+				ars.cell(arsi, 2).number(r.count);
+				ars.cell(arsi, 3).number(Number(r.average));
+			}
+		}
+
+		// const sfs = wb.addWorksheet('Beküldött térkép elemek');
 
 		wb.write('export.xlsx', res);
 	}
