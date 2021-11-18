@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
-const { resolveRecord } = require('../common/middlewares');
+const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('../sheet/sheet.db');
 const rdb = require('../rating/rating.db');
@@ -10,6 +10,7 @@ const sfdb = require('../submittedFeatues/submittedFeatures.db');
 const smdb = require('./submission.db');
 
 router.post('/submission/:projectId',
+	validateCaptcha(),
 	resolveRecord(req => req.params.projectId, pdb.findById, 'project'),
 	async (req, res) => {
 		/*

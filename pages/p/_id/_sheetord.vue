@@ -294,7 +294,7 @@ export default {
 					password,
 					projectId,
 					visitId,
-					captcha
+					captcha,
 				});
 				this.sheet = this.project.sheets[this.$route.params.sheetord];
 				this.registerHit();
@@ -316,7 +316,11 @@ export default {
 			const data = this.getSubmissionData(sheetIds);
 			if (Object.keys(data).length) {
 				try {
-					await this.$axios.$post('/api/submission/' + this.project.id, data);
+					const captcha = await this.$recaptcha.execute('submit');
+					await this.$axios.$post('/api/submission/' + this.project.id, {
+						...data,
+						captcha,
+					});
 					this.$store.commit('setSubmitted');
 					this.success('Beküldés sikeres.');
 				} catch {
