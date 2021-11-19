@@ -17,6 +17,7 @@
 			visible
 		>
 			<SheetContent
+				:project="project"
 				:sheet="sheet"
 				:show-consent="isFirstSheet"
 			/>
@@ -71,6 +72,7 @@
 					A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
 				</b-alert>
 				<SheetContent
+					:project="project"
 					:sheet="sheet"
 					:show-consent="isFirstSheet"
 				/>

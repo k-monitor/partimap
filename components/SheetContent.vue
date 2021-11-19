@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="!submitted">
 		<h1 class="h3">{{ sheet.title }}</h1>
 		<div v-html="sheet.description" />
 		<div v-if="sheet.survey">
@@ -41,6 +41,41 @@
 			</b-form-checkbox>
 		</b-alert>
 	</div>
+	<div v-else>
+		<div
+			class="mb-5"
+			v-html="project.thanks"
+		/>
+		<div
+			v-if="project.thanksUrl"
+			class="text-center mb-5"
+		>
+			<b-button
+				:href="project.thanksUrl"
+				variant="primary"
+			>
+				Tovább
+				<i class="fas fa-chevron-right ml-2" />
+			</b-button>
+		</div>
+		<div
+			v-if="project.thanksSocial"
+			class="d-flex justify-content-around mt-5 mb-4"
+		>
+			<ShareNetwork
+				v-for="s in social"
+				:key="s.network"
+				:network="s.network"
+				:url="projectUrl || ''"
+				title=""
+			>
+				<i
+					class="fa-fw fa-2x"
+					:class="s.icon"
+				/>
+			</ShareNetwork>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -48,6 +83,11 @@ import { mapGetters } from 'vuex';
 
 export default {
 	props: {
+		project: {
+			// for thank you stuff
+			type: Object,
+			default: null,
+		},
 		sheet: {
 			type: Object,
 			default: null,
@@ -73,6 +113,9 @@ export default {
 		...mapGetters({
 			getVisitorAnswers: 'visitordata/getVisitorAnswers',
 		}),
+		submitted() {
+			return this.$store.state.submitted;
+		},
 		consent: {
 			get() {
 				return this.getConsent;

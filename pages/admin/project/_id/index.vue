@@ -26,7 +26,6 @@
 					<b-form-input
 						v-model="project.title"
 						required
-						type="text"
 					/>
 				</b-form-group>
 				<b-form-group
@@ -125,6 +124,28 @@
 					<client-only>
 						<tiptap v-model="project.privacyPolicy" />
 					</client-only>
+				</b-form-group>
+				<b-form-group
+					label="Köszönetnyilvánítás"
+					description="A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után."
+				>
+					<client-only>
+						<tiptap v-model="project.thanks" />
+					</client-only>
+				</b-form-group>
+				<b-form-group
+					label="Tovább URL"
+					description="A köszönetnyilvánítás alatt megjelenő Tovább gomb erre fog linkelni."
+				>
+					<b-form-input v-model="project.thanksUrl" />
+				</b-form-group>
+				<b-form-group>
+					<b-form-checkbox
+						v-model="project.thanksSocial"
+						value="1"
+					>
+						Megosztás gombok a köszönetnyilvánítás alatt.
+					</b-form-checkbox>
 				</b-form-group>
 			</form>
 			<template #footer>

@@ -8,6 +8,9 @@ class Project {
 	 * @param {String} data.description
 	 * @param {String} data.image
 	 * @param {String} data.privacyPolicy
+	 * @param {String} data.thanks,
+	 * @param {String} data.thanksUrl,
+	 * @param {Boolean} data.thanksSocial,
 	 * @param {String} data.password
 	 * @param {Number} data.views
 	 * @param {Number} data.submissions
@@ -20,6 +23,9 @@ class Project {
 		this.description = data.description;
 		this.image = data.image;
 		this.privacyPolicy = data.privacyPolicy;
+		this.thanks = data.thanks;
+		this.thanksUrl = data.thanksUrl;
+		this.thanksSocial = data.thanksSocial;
 		this.password = data.password;
 		this.views = data.views;
 
