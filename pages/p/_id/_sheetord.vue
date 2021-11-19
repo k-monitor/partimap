@@ -148,6 +148,10 @@ export default {
 		Map: () => (process.client ? import('@/components/Map') : null),
 	},
 	async asyncData({ $axios, store, params, redirect }) {
+		if (params.sheetord > 0 && !store.state.visitId) {
+			// before visitId generation, so it's a manual navigation
+			return redirect(`/p/${params.id}/0`);
+		}
 		store.commit('features/clear');
 		store.commit('generateVisitId');
 		try {
