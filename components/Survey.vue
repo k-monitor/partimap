@@ -3,11 +3,15 @@
 		<b-form-group
 			v-for="q in questions"
 			:key="q.id"
-			:label="q.label"
 		>
+			<template #label>
+				<span v-if="q.required" class="text-danger">*</span>
+				{{ q.label }}
+			</template>
 			<b-form-input
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
+				:required="q.required"
 			/>
 			<div v-else-if="'number|range'.includes(q.type)">
 				<div
@@ -23,6 +27,7 @@
 						v-model="answers[q.id]"
 						:min="q.min"
 						:max="q.max"
+						:required="q.required"
 						:type="q.type"
 					/>
 					<strong
@@ -35,13 +40,17 @@
 			<b-form-checkbox-group
 				v-else-if="q.type === 'checkbox'"
 				v-model="answers[q.id]"
+				:name="'q' + q.id"
 				:options="q.options"
+				:required="q.required"
 				stacked
 			/>
 			<b-form-radio-group
 				v-else-if="q.type === 'radiogroup'"
 				v-model="answers[q.id]"
+				:name="'q' + q.id"
 				:options="q.options"
+				:required="q.required"
 				stacked
 			/>
 			<b-form-select
@@ -52,6 +61,7 @@
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
 				v-model="answers[q.id]"
+				:required="q.required"
 				variant="warning"
 			/>
 		</b-form-group>

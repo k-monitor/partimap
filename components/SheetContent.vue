@@ -32,6 +32,8 @@
 			<b-form-checkbox
 				v-model="consent"
 				:disabled="consented"
+				name="consent"
+				required
 			>
 				Elolvastam és elfogadom az <a
 					class="alert-link"

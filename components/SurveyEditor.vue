@@ -126,6 +126,10 @@
 						Új opció
 					</b-button>
 				</b-form-group>
+
+				<b-form-group>
+					<b-form-checkbox v-model="question.required">Kötelező megválaszolni</b-form-checkbox>
+				</b-form-group>
 			</b-form>
 		</b-modal>
 	</div>

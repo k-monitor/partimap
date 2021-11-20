@@ -3,93 +3,95 @@
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
 	>
-		<b-modal
-			v-if="!sheet.features"
-			content-class="shadow-sm"
-			footer-class="d-flex p-0"
-			hide-backdrop
-			hide-header
-			no-close-on-backdrop
-			no-close-on-esc
-			no-fade
-			scrollable
-			static
-			visible
-		>
-			<SheetContent
-				:project="project"
-				:sheet="sheet"
-				:show-consent="isFirstSheet"
-			/>
-			<LoadingOverlay :show="loading" />
-			<template #modal-footer>
-				<FooterButtons
-					:disable-submit="loading || !getConsent || submitted"
-					:show-next="!isLastSheet && getConsent"
-					:show-prev="!isFirstSheet && !submitted"
-					:show-submit="isLastSheet && getConsent"
-					:step="sheet.ord + 1"
-					:steps="project.sheets.length"
-					@next="next"
-					@prev="prev"
-					@submit="submit"
-				/>
-			</template>
-		</b-modal>
-		<div v-else>
-			<client-only>
-				<Map
-					:features="loadInitFeatures()"
-					visitor
-					@visitorFeatureAdded="addVisitorFeature"
-					@visitorFeatureRemoved="delVisitorFeature"
-				/>
-				<template #placeholder>
-					<div class="h-100 position-absolute w-100 map" />
-				</template>
-			</client-only>
-			<MapToolbar
-				:sheet="sheet"
-				visitor
-			/>
-			<Sidebar
-				:content-modified="!submitted"
-				:fixed="!sheet.features"
-				:loading="loading"
-				:show-next="!isLastSheet && getConsent"
-				:show-prev="!submitted"
-				:step="sheet.ord + 1"
-				:steps="project.sheets.length"
-				@next="next"
-				@prev="prev"
-				@submit="submit"
+		<form ref="sheetForm" submit.prevent="">
+			<b-modal
+				v-if="!sheet.features"
+				content-class="shadow-sm"
+				footer-class="d-flex p-0"
+				hide-backdrop
+				hide-header
+				no-close-on-backdrop
+				no-close-on-esc
+				no-fade
+				scrollable
+				static
+				visible
 			>
-				<b-alert
-					class="d-sm-none small"
-					show
-					variant="info"
-				>
-					A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
-				</b-alert>
 				<SheetContent
 					:project="project"
 					:sheet="sheet"
 					:show-consent="isFirstSheet"
 				/>
-				<b-alert
-					class="small"
-					:show="(sheet.interactions || '').replace('Rating', '').length > 5"
-					variant="info"
-				>
-					A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
-				</b-alert>
-				<FeatureList
-					:init-feature-ratings="getVisitorRatings(sheet.id)"
+				<LoadingOverlay :show="loading" />
+				<template #modal-footer>
+					<FooterButtons
+						:disable-submit="loading || !getConsent || submitted"
+						:show-next="!isLastSheet"
+						:show-prev="!isFirstSheet && !submitted"
+						:show-submit="isLastSheet && getConsent"
+						:step="sheet.ord + 1"
+						:steps="project.sheets.length"
+						@next="next"
+						@prev="prev"
+						@submit="submit"
+					/>
+				</template>
+			</b-modal>
+			<div v-else>
+				<client-only>
+					<Map
+						:features="loadInitFeatures()"
+						visitor
+						@visitorFeatureAdded="addVisitorFeature"
+						@visitorFeatureRemoved="delVisitorFeature"
+					/>
+					<template #placeholder>
+						<div class="h-100 position-absolute w-100 map" />
+					</template>
+				</client-only>
+				<MapToolbar
+					:sheet="sheet"
 					visitor
-					:visitor-can-rate="(sheet.interactions || '').includes('Rating')"
 				/>
-			</Sidebar>
-		</div>
+				<Sidebar
+					:content-modified="!submitted"
+					:fixed="!sheet.features"
+					:loading="loading"
+					:show-next="!isLastSheet"
+					:show-prev="!submitted"
+					:step="sheet.ord + 1"
+					:steps="project.sheets.length"
+					@next="next"
+					@prev="prev"
+					@submit="submit"
+				>
+					<b-alert
+						class="d-sm-none small"
+						show
+						variant="info"
+					>
+						A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
+					</b-alert>
+					<SheetContent
+						:project="project"
+						:sheet="sheet"
+						:show-consent="isFirstSheet"
+					/>
+					<b-alert
+						class="small"
+						:show="(sheet.interactions || '').replace('Rating', '').length > 5"
+						variant="info"
+					>
+						A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
+					</b-alert>
+					<FeatureList
+						:init-feature-ratings="getVisitorRatings(sheet.id)"
+						visitor
+						:visitor-can-rate="(sheet.interactions || '').includes('Rating')"
+					/>
+				</Sidebar>
+			</div>
+		</form>
 		<b-modal
 			id="privacy-modal"
 			hide-footer
@@ -274,7 +276,9 @@ export default {
 			return [...visitorFeatures, ...adminFeatures];
 		},
 		next() {
-			this.goToSheetOrd(this.sheet.ord + 1);
+			if (this.$refs.sheetForm.reportValidity()) {
+				this.goToSheetOrd(this.sheet.ord + 1);
+			}
 		},
 		prev() {
 			this.goToSheetOrd(this.sheet.ord - 1);
