@@ -7,7 +7,9 @@
 			variant="white"
 			class="border-bottom shadow-sm"
 		>
-			<b-navbar-brand href="#"><strong>Partimap</strong> Admin</b-navbar-brand>
+			<b-navbar-brand to="/admin">
+				<Logo />
+			</b-navbar-brand>
 			<b-navbar-toggle target="nav-collapse" />
 			<b-collapse
 				id="nav-collapse"

@@ -22,13 +22,20 @@
 					class="border-bottom justify-content-between shadow-sm w-100"
 				>
 					<b-navbar-brand
+						v-if="admin"
 						v-b-tooltip.hover
-						:role="admin ? 'button' : null"
-						:title="admin ? backLabel : null"
+						role="button"
+						:title="backLabel"
 						@click="nav('back')"
 					>
-						<strong>Partimap</strong>
-						<span v-if="admin">Admin</span>
+						<Logo />
+					</b-navbar-brand>
+					<b-navbar-brand
+						v-else
+						href="/"
+						target="_blank"
+					>
+						<Logo class="small" />
 					</b-navbar-brand>
 					<b-navbar-nav>
 						<b-nav-item

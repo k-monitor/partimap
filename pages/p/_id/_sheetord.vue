@@ -3,13 +3,15 @@
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
 	>
-		<form ref="sheetForm" submit.prevent="">
+		<form
+			ref="sheetForm"
+			submit.prevent=""
+		>
 			<b-modal
 				v-if="!sheet.features"
 				content-class="shadow-sm"
 				footer-class="d-flex p-0"
 				hide-backdrop
-				hide-header
 				no-close-on-backdrop
 				no-close-on-esc
 				no-fade
@@ -17,6 +19,14 @@
 				static
 				visible
 			>
+				<template #modal-header>
+					<a
+						href="/"
+						target="_blank"
+					>
+						<Logo />
+					</a>
+				</template>
 				<SheetContent
 					:project="project"
 					:sheet="sheet"
