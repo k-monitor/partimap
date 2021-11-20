@@ -48,7 +48,7 @@
 				/>
 			</b-list-group>
 		</b-form-group>
-		<b-form-group :label="filteredVisitorFeatures.length ? 'Fix elemek' : null">
+		<b-form-group v-if="!hideAdminFeatures" :label="filteredVisitorFeatures.length ? 'Fix elemek' : null">
 			<b-list-group>
 				<FeatureListElement
 					v-for="feature in filteredAdminFeatures"
@@ -80,6 +80,10 @@ export default {
 		VueTypeaheadBootstrap,
 	},
 	props: {
+		hideAdminFeatures: {
+			type: Boolean,
+			default: false,
+		},
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
@@ -136,7 +140,7 @@ export default {
 		},
 		categoryFilter() {
 			this.updateFilteredFeatures();
-		}
+		},
 	},
 	methods: {
 		getFeatureRating(featureId) {

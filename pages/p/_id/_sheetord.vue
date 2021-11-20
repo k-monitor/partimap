@@ -103,13 +103,14 @@
 					/>
 					<b-alert
 						class="small"
-						:show="(sheet.interactions || '').replace('Rating', '').length > 5"
+						:show="isInteractive"
 						variant="info"
 					>
 						A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
 					</b-alert>
 					<FeatureList
 						:init-feature-ratings="getVisitorRatings(sheet.id)"
+						:hide-admin-features="isInteractive"
 						visitor
 						:visitor-can-rate="(sheet.interactions || '').includes('Rating')"
 					/>
@@ -246,6 +247,9 @@ export default {
 		},
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
+		},
+		isInteractive() {
+			return (this.sheet.interactions || '').replace('Rating', '').length > 5;
 		},
 	},
 	async mounted() {
