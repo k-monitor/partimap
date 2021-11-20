@@ -1,3 +1,4 @@
+const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const emailValidator = require('email-validator');
 const router = require('express').Router();
@@ -7,11 +8,33 @@ const { v4: uuid } = require('uuid');
 const User = require('../../model/user');
 const { ensureLoggedIn, ensureAdmin, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
-const { resolveRecord, validateCaptcha } = require('../common/middlewares');
+const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
 const conf = require('../conf');
 const { sendEmail } = require('../email');
 const pdb = require('../project/project.db');
 const db = require('./user.db');
+
+function removeUserLogoFile(user) {
+	if (user.logo) {
+		const fn = `.${user.logo}`; // make it relative for server
+		if (fs.existsSync(fn)) {
+			fs.unlinkSync(fn);
+		}
+	}
+}
+
+router.put('/user/:id/logo',
+	ensureLoggedIn,
+	ensureAdminOr(req => Number(req.params.id) === req.user.id),
+	resolveRecord(req => req.params.id, db.findById, '_user'),
+	acceptImage(_req => 'u', 120, 30, 'image'),
+	async (req, res) => {
+		removeUserLogoFile(req._user);
+		req._user.logo = req.image.replace(/^\./, ''); // make it absolute for client
+		await db.update(req._user);
+		const user = await db.findById(req._user.id);
+		res.json(hidePasswordField(user));
+	});
 
 router.get('/users',
 	ensureLoggedIn,

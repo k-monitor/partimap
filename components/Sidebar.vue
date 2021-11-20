@@ -37,6 +37,22 @@
 					>
 						<Logo class="small" />
 					</b-navbar-brand>
+					<div
+						v-if="!admin && project && project.user"
+						class="mx-auto"
+					>
+						<a
+							:href="project.user.website"
+							target="_blank"
+						>
+							<img
+								v-if="project.user.logo"
+								:src="project.user.logo"
+								:alt="project.user.website"
+								height="30"
+							>
+						</a>
+					</div>
 					<b-navbar-nav>
 						<b-nav-item
 							v-if="!fixed"
@@ -101,6 +117,10 @@ export default {
 		loading: {
 			type: Boolean,
 			default: false,
+		},
+		project: { // needed for logo
+			type: Object,
+			default: null,
 		},
 		showNext: {
 			type: Boolean,

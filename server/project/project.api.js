@@ -11,6 +11,7 @@ const { hidePasswordField } = require('../common/functions');
 const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
 const sdb = require('../sheet/sheet.db');
+const udb = require('../user/user.db');
 const pdb = require('./project.db');
 
 function removeProjectImageFile(project) {
@@ -185,6 +186,11 @@ router.post('/project/access',
 	},
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
+		const user = await udb.findById(req.project.userId);
+		req.project.user = {
+			logo: user.logo,
+			website: user.website,
+		};
 		res.json(hidePasswordField(req.project));
 	}
 );

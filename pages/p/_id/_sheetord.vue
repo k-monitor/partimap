@@ -20,12 +20,25 @@
 				visible
 			>
 				<template #modal-header>
-					<a
-						href="/"
-						target="_blank"
-					>
-						<Logo />
-					</a>
+					<div class="d-flex justify-content-between w-100">
+						<a
+							href="/"
+							target="_blank"
+						>
+							<Logo />
+						</a>
+						<a
+							:href="project.user.website"
+							target="_blank"
+						>
+							<img
+								v-if="project.user.logo"
+								:src="project.user.logo"
+								:alt="project.user.website"
+								height="30"
+							>
+						</a>
+					</div>
 				</template>
 				<SheetContent
 					:project="project"
@@ -67,6 +80,7 @@
 					:content-modified="!submitted"
 					:fixed="!sheet.features"
 					:loading="loading"
+					:project="project"
 					:show-next="!isLastSheet"
 					:show-prev="!submitted"
 					:step="sheet.ord + 1"

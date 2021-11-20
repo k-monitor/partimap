@@ -1,0 +1,3 @@
+ALTER TABLE `user`
+	ADD COLUMN `logo` VARCHAR(255) NULL  AFTER `name`,
+	ADD COLUMN `website` VARCHAR(255) NULL AFTER `logo`;

@@ -92,7 +92,7 @@
 							accept="image/jpeg, image/png, image/webp"
 							class="project-image-input"
 							browse-text=""
-							drop-placeholder="Húzza ide a fájlt!"
+							drop-placeholder="Húzd ide a fájlt!"
 							placeholder="Kép tallózása..."
 							:state="imageState"
 						/>
@@ -106,14 +106,23 @@
 							</b-button>
 						</template>
 					</b-input-group>
-					<b-button
-						v-else
-						class="w-100"
-						variant="outline-danger"
-						@click="removeImage"
-					>
-						Kép törlése
-					</b-button>
+					<div v-else>
+						<figure class="figure">
+							<img
+								:src="project.image"
+								alt="Facebook bélyegkép"
+								class="figure-img rounded"
+								height="120"
+							>
+							<figcaption class="figure-caption">
+								<a
+									class="text-danger"
+									href="javascript:void(0)"
+									@click="removeImage"
+								>Kép törlése</a>
+							</figcaption>
+						</figure>
+					</div>
 				</b-form-group>
 				<b-form-group
 					label="Adatvédelmi nyilatkozat"

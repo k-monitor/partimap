@@ -25,6 +25,56 @@
 					required
 				/>
 			</b-form-group>
+			<b-form-group
+				invalid-feedback="Maximális fájlméret: 5 MB"
+				label="Logó (ajánlott méret: 120x30 pixel)"
+				description="Ez a logó minden projektedben meg fog jelenni."
+				:state="imageState"
+			>
+				<b-input-group v-if="!m.logo">
+					<b-form-file
+						v-model="image"
+						accept="image/jpeg, image/png, image/webp"
+						class="project-image-input"
+						browse-text=""
+						drop-placeholder="Húzd ide a fájlt!"
+						placeholder="Kép tallózása..."
+						:state="imageState"
+					/>
+					<template #append>
+						<b-button
+							:disabled="!image"
+							variant="outline-danger"
+							@click="removeImage"
+						>
+							<i class="fas fa-backspace" />
+						</b-button>
+					</template>
+				</b-input-group>
+				<div v-else>
+					<figure class="figure">
+						<img
+							:src="m.logo"
+							alt="Logó"
+							class="figure-img rounded"
+							height="30"
+						>
+						<figcaption class="figure-caption">
+							<a
+								class="text-danger"
+								href="javascript:void(0)"
+								@click="removeImage"
+							>Kép törlése</a>
+						</figcaption>
+					</figure>
+				</div>
+			</b-form-group>
+			<b-form-group
+				label="Weboldal URL"
+				description="Ha feltöltesz logót, ide fog linkelni."
+			>
+				<b-form-input v-model="m.website" />
+			</b-form-group>
 			<b-form-group label="Új jelszó">
 				<b-form-input
 					v-model="m.newPassword"
@@ -143,6 +193,8 @@ export default {
 		return {
 			delConfirm: false,
 			delPassword: '',
+			image: null,
+			imageState: null,
 			loading: false,
 		};
 	},
@@ -150,6 +202,18 @@ export default {
 		return {
 			title: 'Admin: ' + (this.u.name || this.u.email),
 		};
+	},
+	watch: {
+		image(val) {
+			this.imageData = null;
+			if (!val) {
+				// clear validation error message on file removal
+				this.imageState = null;
+			} else {
+				const valid = this.image.size < 5 * 1024 * 1024;
+				this.imageState = valid;
+			}
+		},
 	},
 	methods: {
 		async deleteAccount(e) {
@@ -176,14 +240,42 @@ export default {
 				});
 			}
 		},
+		removeImage() {
+			this.image = null;
+			this.m.logo = null;
+		},
 		async update() {
 			try {
+				if (this.image) {
+					await this.uploadImage();
+				}
 				this.u = await this.$axios.$patch('/api/user', this.m);
 				this.m = { ...this.u, newPassword: null, oldPassword: null };
 				this.$auth.fetchUser();
 				this.success('Módosítás sikeres');
 			} catch (error) {
 				this.errorToast('Módosítás sikertelen');
+			}
+		},
+		async uploadImage() {
+			if (!this.imageState) {
+				return;
+			}
+			const formData = new FormData();
+			formData.append('image', this.image);
+			try {
+				this.m = await this.$axios.$put(
+					'/api/user/' + this.m.id + '/logo',
+					formData,
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
+					}
+				);
+				this.image = null;
+			} catch (error) {
+				this.errorToast('Kép feltöltése sikertelen.');
 			}
 		},
 	},

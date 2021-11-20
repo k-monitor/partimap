@@ -50,7 +50,7 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="sheet-background-input"
 						browse-text=""
-						drop-placeholder="Húzza ide a fájlt!"
+						drop-placeholder="Húzd ide a fájlt!"
 						placeholder="Kép tallózása..."
 						:state="backgroundImageState"
 					/>
