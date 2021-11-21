@@ -94,7 +94,10 @@
 							:options="dashOptions"
 						/>
 					</b-form-group>
-					<b-form-group label="Név">
+					<b-form-group
+						v-if="!visitor"
+						label="Név"
+					>
 						<b-form-input
 							id="type-text"
 							v-model="form.name"
@@ -116,7 +119,16 @@
 							show-on-focus
 						/>
 					</b-form-group>
-					<b-form-group :label="visitor ? 'Miért rajzoltad ezt fel?' : 'Leírás'">
+					<b-form-group
+						v-if="visitor"
+						label="Miért rajzoltad ezt fel?"
+					>
+						<b-textarea v-model="form.description" />
+					</b-form-group>
+					<b-form-group
+						v-else
+						label="Leírás"
+					>
 						<client-only>
 							<tiptap v-model="form.description" />
 						</client-only>
@@ -247,7 +259,7 @@ export default {
 		this.$emit('categoryEdited');
 
 		// When an element is created, scroll to it
-		// this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
+		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 	},
 	methods: {
 		emitChangeStyle() {
