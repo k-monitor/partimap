@@ -90,7 +90,7 @@
 					@submit="submit"
 				>
 					<b-alert
-						class="d-sm-none small"
+						class="d-sm-none mb-3 small"
 						show
 						variant="info"
 					>
@@ -102,7 +102,7 @@
 						:show-consent="isFirstSheet"
 					/>
 					<b-alert
-						class="small"
+						class="my-3 small"
 						:show="isInteractive"
 						variant="info"
 					>

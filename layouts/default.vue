@@ -26,4 +26,8 @@ div#__nuxt,
 #app {
 	min-height: 100vh;
 }
+
+img {
+	max-width: 100%;
+}
 </style>
