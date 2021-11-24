@@ -49,6 +49,8 @@ async function aggregateByProjectId(projectId) {
 			question: q.label,
 			sheetId: q.sheetId,
 			type: q.type,
+			max: q.max,
+			min: q.min,
 			average,
 			count
 		};
