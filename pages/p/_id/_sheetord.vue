@@ -82,7 +82,7 @@
 					:loading="loading"
 					:project="project"
 					:show-next="!isLastSheet"
-					:show-prev="!submitted"
+					:show-prev="!isFirstSheet && !submitted"
 					:step="sheet.ord + 1"
 					:steps="project.sheets.length"
 					@next="next"
