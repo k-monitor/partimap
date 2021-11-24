@@ -298,7 +298,7 @@ export default {
 		} = {}) {
 			return new Style({
 				fill: polygonColor
-					? new Fill({ color: polygonColor + '33' }) // '33': more opaque color for fill
+					? new Fill({ color: polygonColor + '15' }) // more transparent fill
 					: null,
 				stroke: new Stroke({
 					color: lineColor,
