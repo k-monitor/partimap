@@ -1,14 +1,13 @@
 <template>
-	<div :style="{ 'z-index': highlight ? 9999 : null }">
-		<div
-			v-show="highlight"
-			style="background: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; left: 0; right: 0;"
-		/>
+	<div
+		class="mt-1 rounded"
+		:class="{ highlight: selectedFeature }"
+	>
 		<b-list-group-item
 			ref="feature"
 			button
 			:class="[{ selected: selectedFeature, disabled: onEditMode }]"
-			class="mt-1 px-2 rounded"
+			class="px-2 rounded"
 			:style="{ borderLeftColor: form.color }"
 			@click="featureClicked()"
 		>
@@ -19,13 +18,16 @@
 				/>
 				{{ form.name }}
 			</span>
+			<span v-if="selectedFeature">
+				<i class="fas fa-fw fa-times" />
+			</span>
 			<span
-				v-if="editable"
+				v-else-if="editable"
 				class="ml-auto text-danger"
 				role="button"
 				@click.stop="deleteFeature"
 			>
-				<i class="fas fa-trash" />
+				<i class="fas fa-fw fa-trash" />
 			</span>
 		</b-list-group-item>
 		<b-collapse
@@ -227,7 +229,6 @@ export default {
 				LineString: 'fa-route',
 				Polygon: 'fa-draw-polygon',
 			},
-			highlight: false,
 		};
 	},
 	computed: {
@@ -240,9 +241,6 @@ export default {
 		},
 	},
 	watch: {
-		selectedFeature(s) {
-			this.highlight = s;
-		},
 		'form.category'() {
 			this.feature.set('category', this.form.category);
 			this.$emit('categoryEdited');
@@ -294,7 +292,7 @@ export default {
 			const anon = {
 				Point: 'Pont',
 				LineString: 'Útvonal',
-				Polygon: 'Terület'
+				Polygon: 'Terület',
 			}[this.feature.getGeometry().getType()];
 			return this.feature.get('name') || anon;
 		},
@@ -312,7 +310,6 @@ export default {
 			}
 		},
 		expandFinished() {
-			this.highlight = this.selectedFeature;
 			this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
 			if (this.$refs.description) {
 				this.$refs.description.focus();
@@ -323,6 +320,11 @@ export default {
 </script>
 
 <style scoped>
+.highlight {
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5), 0 0 0 10000px rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+}
+
 .list-group-item {
 	display: flex;
 	justify-content: space-between;
