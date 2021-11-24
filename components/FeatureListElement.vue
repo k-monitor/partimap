@@ -1,5 +1,9 @@
 <template>
-	<div>
+	<div :style="{ 'z-index': highlight ? 9999 : null }">
+		<div
+			v-show="highlight"
+			style="background: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; left: 0; right: 0;"
+		/>
 		<b-list-group-item
 			ref="feature"
 			button
@@ -123,7 +127,10 @@
 						v-if="visitor"
 						label="Miért rajzoltad ezt fel?"
 					>
-						<b-textarea v-model="form.description" />
+						<b-textarea
+							ref="description"
+							v-model="form.description"
+						/>
 					</b-form-group>
 					<b-form-group
 						v-else
@@ -215,6 +222,7 @@ export default {
 				LineString: 'fa-route',
 				Polygon: 'fa-draw-polygon',
 			},
+			highlight: false,
 		};
 	},
 	computed: {
@@ -227,6 +235,9 @@ export default {
 		},
 	},
 	watch: {
+		selectedFeature(s) {
+			this.highlight = s;
+		},
 		'form.category'() {
 			this.feature.set('category', this.form.category);
 			this.$emit('categoryEdited');
@@ -262,7 +273,7 @@ export default {
 		this.$emit('categoryEdited');
 
 		// When an element is created, scroll to it
-		this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
+		this.expandFinished();
 	},
 	methods: {
 		emitChangeStyle() {
@@ -292,7 +303,11 @@ export default {
 			}
 		},
 		expandFinished() {
+			this.highlight = this.selectedFeature;
 			this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
+			if (this.$refs.description) {
+				this.$refs.description.focus();
+			}
 		},
 	},
 };
