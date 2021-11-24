@@ -125,7 +125,7 @@
 					</b-form-group>
 					<b-form-group
 						v-if="visitor"
-						label="Miért rajzoltad ezt fel?"
+						:label="descriptionLabel || 'Miért rajzoltad ezt fel?'"
 					>
 						<b-textarea
 							ref="description"
@@ -134,6 +134,7 @@
 					</b-form-group>
 					<b-form-group
 						v-else
+						class="rich"
 						label="Leírás"
 					>
 						<client-only>
@@ -180,6 +181,10 @@ export default {
 		categories: {
 			type: Array,
 			default: () => [],
+		},
+		descriptionLabel: {
+			type: String,
+			default: null,
 		},
 		feature: {
 			type: Feature,

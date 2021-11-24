@@ -43,6 +43,7 @@
 					v-for="feature in filteredVisitorFeatures"
 					:key="feature.getId()"
 					:categories="categories"
+					:description-label="descriptionLabel"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:visitor="visitor"
@@ -82,6 +83,10 @@ export default {
 		VueTypeaheadBootstrap,
 	},
 	props: {
+		descriptionLabel: {
+			type: String,
+			default: null,
+		},
 		hideAdminFeatures: {
 			type: Boolean,
 			default: false,

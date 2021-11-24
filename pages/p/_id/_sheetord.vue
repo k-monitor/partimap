@@ -110,6 +110,7 @@
 						:show-consent="isFirstSheet"
 					/>
 					<FeatureList
+						:description-label="sheet.descriptionLabel"
 						:init-feature-ratings="getVisitorRatings(sheet.id)"
 						:hide-admin-features="isInteractive"
 						visitor

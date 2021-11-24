@@ -125,6 +125,7 @@
 					</div>
 				</b-form-group>
 				<b-form-group
+					class="rich"
 					label="Adatvédelmi nyilatkozat"
 					description="A látogatóknak az 1. munkalapon kell majd elfogadniuk ezt a továbblépés érdekében."
 					invalid-feedback="Kötelező megadni!"
@@ -135,6 +136,7 @@
 					</client-only>
 				</b-form-group>
 				<b-form-group
+					class="rich"
 					label="Köszönetnyilvánítás"
 					description="A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után."
 				>

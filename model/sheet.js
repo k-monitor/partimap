@@ -10,6 +10,7 @@ class Sheet {
 	 * @param {String} data.survey
 	 * @param {String} data.features If truthy, sheet must display map
 	 * @param {String} data.interactions
+	 * @param {String} data.descriptionLabel
 	 */
 	constructor(data) {
 		this.id = data.id;
@@ -21,6 +22,7 @@ class Sheet {
 		this.survey = data.survey;
 		this.features = data.features;
 		this.interactions = data.interactions;
+		this.descriptionLabel = data.descriptionLabel;
 	}
 };
 

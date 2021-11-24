@@ -31,7 +31,10 @@
 					size="lg"
 				/>
 			</b-form-group>
-			<b-form-group label="Munkalap leírása">
+			<b-form-group
+				class="rich"
+				label="Munkalap leírása"
+			>
 				<client-only>
 					<tiptap v-model="sheet.description" />
 				</client-only>
@@ -87,6 +90,15 @@
 					v-model="selectedInteractions"
 					:options="interactionOptions"
 					stacked
+				/>
+			</b-form-group>
+			<b-form-group
+				v-if="isInteractive"
+				label="Felrajzolt elemekhez rendelt kérdés"
+			>
+				<b-form-input
+					v-model="sheet.descriptionLabel"
+					placeholder="Miért rajzoltad ezt fel?"
 				/>
 			</b-form-group>
 			<FeatureList
@@ -164,6 +176,9 @@ export default {
 		},
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
+		},
+		isInteractive() {
+			return (this.sheet.interactions || '').replace('Rating', '').length > 5;
 		},
 	},
 	watch: {
