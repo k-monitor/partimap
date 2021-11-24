@@ -189,8 +189,13 @@ router.post('/project/access',
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		const user = await udb.findById(req.project.userId);
 		try {
-			req.project.answers = await sadb.aggregateByProjectId(req.project.id);
-		} catch {}
+			const answers = await sadb.aggregateByProjectId(req.project.id);
+			req.project.sheets.forEach(s => {
+				s.answers = answers.filter(a => a.sheetId === s.id);
+			});
+		} catch {
+			req.project.sheets.forEach(s => { s.answers = []; });
+		}
 		req.project.user = {
 			logo: user.logo,
 			website: user.website,

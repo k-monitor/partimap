@@ -42,6 +42,7 @@
 				</template>
 				<SheetContent
 					:project="project"
+					:results="resultsShown"
 					:sheet="sheet"
 					:show-consent="isFirstSheet"
 				/>
@@ -51,7 +52,7 @@
 						:disable-submit="loading || !getConsent || submitted"
 						:show-next="!isLastSheet"
 						:show-prev="!isFirstSheet && !submitted"
-						:show-submit="isLastSheet && getConsent"
+						:show-submit="getConsent && isLastSheet && !needToShowResults"
 						:step="sheet.ord + 1"
 						:steps="project.sheets.length"
 						@next="next"
@@ -83,6 +84,7 @@
 					:project="project"
 					:show-next="!isLastSheet"
 					:show-prev="!isFirstSheet && !submitted"
+					:show-submit="getConsent && isLastSheet && !needToShowResults"
 					:step="sheet.ord + 1"
 					:steps="project.sheets.length"
 					@next="next"
@@ -106,6 +108,7 @@
 					<SheetContent
 						class="mb-3"
 						:project="project"
+						:results="resultsShown"
 						:sheet="sheet"
 						:show-consent="isFirstSheet"
 					/>
@@ -214,6 +217,7 @@ export default {
 			loading: true,
 			password: null,
 			project: null, // do not delete, required by SSR
+			resultsShown: false,
 			sheet: null,
 		};
 	},
@@ -255,6 +259,9 @@ export default {
 		},
 		isInteractive() {
 			return (this.sheet.interactions || '').replace('Rating', '').length > 5;
+		},
+		needToShowResults() {
+			return this.sheet.answers.length && !this.resultsShown;
 		},
 	},
 	async mounted() {
@@ -310,7 +317,11 @@ export default {
 		},
 		next() {
 			if (this.$refs.sheetForm.reportValidity()) {
-				this.goToSheetOrd(this.sheet.ord + 1);
+				if (this.needToShowResults) {
+					this.resultsShown = true;
+				} else {
+					this.goToSheetOrd(this.sheet.ord + 1);
+				}
 			}
 		},
 		prev() {

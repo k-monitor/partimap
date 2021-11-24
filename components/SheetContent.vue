@@ -6,10 +6,15 @@
 			v-html="sheet.description"
 		/>
 		<div v-if="sheet.survey">
-			<Survey
-				v-model="visitorAnswers"
-				:survey="sheet.survey"
-			/>
+			<div v-if="results">
+				results {{ sheet.answers }}
+			</div>
+			<div v-else>
+				<Survey
+					v-model="visitorAnswers"
+					:survey="sheet.survey"
+				/>
+			</div>
 		</div>
 		<div
 			v-if="interactions.includes('SocialSharing')"
@@ -92,6 +97,10 @@ export default {
 			// for thank you stuff
 			type: Object,
 			default: null,
+		},
+		results: {
+			type: Boolean,
+			default: false,
 		},
 		sheet: {
 			type: Object,

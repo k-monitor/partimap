@@ -79,7 +79,7 @@
 						:show-next="showNext"
 						:show-prev="showPrev"
 						:show-save="admin"
-						:show-submit="!admin && step === steps"
+						:show-submit="showSubmit"
 						:step="step"
 						:steps="steps"
 						@next="nav('next')"
@@ -127,6 +127,10 @@ export default {
 			default: false,
 		},
 		showPrev: {
+			type: Boolean,
+			default: false,
+		},
+		showSubmit: {
 			type: Boolean,
 			default: false,
 		},
