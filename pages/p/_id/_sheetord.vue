@@ -96,18 +96,18 @@
 					>
 						A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
 					</b-alert>
-					<SheetContent
-						:project="project"
-						:sheet="sheet"
-						:show-consent="isFirstSheet"
-					/>
 					<b-alert
-						class="my-3 small"
+						class="mb-3 small"
 						:show="isInteractive"
 						variant="info"
 					>
 						A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
 					</b-alert>
+					<SheetContent
+						:project="project"
+						:sheet="sheet"
+						:show-consent="isFirstSheet"
+					/>
 					<FeatureList
 						:init-feature-ratings="getVisitorRatings(sheet.id)"
 						:hide-admin-features="isInteractive"
