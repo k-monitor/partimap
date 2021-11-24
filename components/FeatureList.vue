@@ -4,24 +4,26 @@
 			<template #label>
 				<h6 class="mb-0">Térkép elemei</h6>
 			</template>
-			<vue-typeahead-bootstrap
-				v-model="search"
-				placeholder="Keresés..."
-				:data="categories"
-				:min-matching-chars="0"
-				show-all-results
-				show-on-focus
-			>
-				<template #append>
-					<b-button
-						:disabled="!search"
-						variant="outline-secondary"
-						@click="search=''"
-					>
-						<i class="fas fa-backspace" />
-					</b-button>
-				</template>
-			</vue-typeahead-bootstrap>
+			<div v-if="!hideAdminFeatures">
+				<vue-typeahead-bootstrap
+					v-model="search"
+					placeholder="Keresés..."
+					:data="categories"
+					:min-matching-chars="0"
+					show-all-results
+					show-on-focus
+				>
+					<template #append>
+						<b-button
+							:disabled="!search"
+							variant="outline-secondary"
+							@click="search=''"
+						>
+							<i class="fas fa-backspace" />
+						</b-button>
+					</template>
+				</vue-typeahead-bootstrap>
+			</div>
 			<b-badge
 				v-for="c in categories"
 				:key="c"
