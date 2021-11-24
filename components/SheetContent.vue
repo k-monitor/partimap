@@ -7,7 +7,7 @@
 		/>
 		<div v-if="sheet.survey">
 			<div v-if="results">
-				results {{ sheet.answers }}
+				<SurveyResults :data="sheet.answers" />
 			</div>
 			<div v-else>
 				<Survey
