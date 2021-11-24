@@ -1,4 +1,5 @@
 const db = require('../db');
+const sdb = require('../sheet/sheet.db');
 const SurveyAnswer = require('../../model/surveyAnswer');
 
 /**
@@ -11,6 +12,73 @@ function create(surveyAnswer) {
 
 /**
  * @param {Number} projectId
+ * @return {Object[]}
+ */
+async function aggregateByProjectId(projectId) {
+	const sheets = await sdb.findByProjectId(projectId);
+
+	/** @type {{ questionId: Number, type: String, sheetId: Number }[]} */
+	const questions = [];
+	for (const s of sheets) {
+		const qs = JSON.parse(s.survey || '{}').questions || [];
+		questions.push(...qs.map(q => ({ ...q, sheetId: s.id })));
+	}
+
+	/** @type {{ questionId: Number, count: Number, average: Number }[]} */
+	const averagesByQuestion = await db.query(`
+		SELECT questionId, COUNT(answer) count, avg(answer) average
+		FROM survey_answer a
+		INNER JOIN sheet s ON s.id = a.sheetId AND s.projectId = ?
+		GROUP BY questionId
+	`, [projectId]);
+
+	/** @type {{ questionId: Number, answer: String, count: Number }[]} */
+	const countsByAnswer = await db.query(`
+		SELECT questionId, answer, COUNT(answer) count
+		FROM survey_answer a
+		INNER JOIN sheet s ON s.id = a.sheetId AND s.projectId = ?
+		GROUP BY questionId, answer
+	`, [projectId]);
+
+	const results = [];
+	for (const q of questions) {
+		if ('number|range|rating'.includes(q.type)) {
+			const { average, count } = averagesByQuestion
+				.filter(e => Number(e.questionId) === q.id)[0];
+			results.push({
+				questionId: q.id,
+				sheetId: q.sheetId,
+				average,
+				count
+			});
+		} else if ('radiogroup|dropdown'.includes(q.type)) {
+			results.push({
+				questionId: q.id,
+				sheetId: q.sheetId,
+				options: countsByAnswer
+					.filter(e => Number(e.questionId) === q.id)
+					.map(({ answer, count }) => ({ answer, count }))
+			});
+		} else if (q.type === 'checkbox') {
+			const opts = {};
+			countsByAnswer.filter(e => Number(e.questionId) === q.id)
+				.forEach(e => {
+					JSON.parse(e.answer).forEach(o => {
+						opts[o] = (opts[o] || 0) + 1;
+					});
+				});
+			results.push({
+				questionId: q.id,
+				sheetId: q.sheetId,
+				options: Object.entries(opts).map(([answer, count]) => ({ answer, count }))
+			});
+		}
+	}
+	return results;
+}
+
+/**
+ * @param {Number} projectId
  * @returns {SurveyAnswer[]}
  */
 async function findByProjectId(projectId) {
@@ -19,6 +87,7 @@ async function findByProjectId(projectId) {
 }
 
 module.exports = {
+	aggregateByProjectId,
 	create,
 	findByProjectId,
 };

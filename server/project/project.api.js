@@ -11,6 +11,7 @@ const { hidePasswordField } = require('../common/functions');
 const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
 const sdb = require('../sheet/sheet.db');
+const sadb = require('../surveyAnswer/surveyAnswer.db');
 const udb = require('../user/user.db');
 const pdb = require('./project.db');
 
@@ -187,6 +188,9 @@ router.post('/project/access',
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		const user = await udb.findById(req.project.userId);
+		try {
+			req.project.answers = await sadb.aggregateByProjectId(req.project.id);
+		} catch {}
 		req.project.user = {
 			logo: user.logo,
 			website: user.website,
