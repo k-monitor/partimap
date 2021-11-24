@@ -42,37 +42,33 @@ async function aggregateByProjectId(projectId) {
 
 	const results = [];
 	for (const q of questions) {
-		if ('number|range|rating'.includes(q.type)) {
-			const { average, count } = averagesByQuestion
-				.filter(e => Number(e.questionId) === q.id)[0];
-			results.push({
-				questionId: q.id,
-				sheetId: q.sheetId,
-				average,
-				count
-			});
-		} else if ('radiogroup|dropdown'.includes(q.type)) {
-			results.push({
-				questionId: q.id,
-				sheetId: q.sheetId,
-				options: countsByAnswer
-					.filter(e => Number(e.questionId) === q.id)
-					.map(({ answer, count }) => ({ answer, count }))
-			});
+		const { average, count } = averagesByQuestion
+			.filter(e => Number(e.questionId) === q.id)[0];
+		const result = {
+			questionId: q.id,
+			question: q.label,
+			sheetId: q.sheetId,
+			type: q.type,
+			average,
+			count
+		};
+		if ('radiogroup|dropdown'.includes(q.type)) {
+			result.options = countsByAnswer
+				.filter(e => Number(e.questionId) === q.id)
+				.map(({ answer, count }) => ({ answer, count }))
 		} else if (q.type === 'checkbox') {
 			const opts = {};
-			countsByAnswer.filter(e => Number(e.questionId) === q.id)
+			countsByAnswer
+				.filter(e => Number(e.questionId) === q.id)
 				.forEach(e => {
 					JSON.parse(e.answer).forEach(o => {
 						opts[o] = (opts[o] || 0) + 1;
 					});
 				});
-			results.push({
-				questionId: q.id,
-				sheetId: q.sheetId,
-				options: Object.entries(opts).map(([answer, count]) => ({ answer, count }))
-			});
+			result.options = Object.entries(opts)
+				.map(([answer, count]) => ({ answer, count }));
 		}
+		results.push(result);
 	}
 	return results;
 }
