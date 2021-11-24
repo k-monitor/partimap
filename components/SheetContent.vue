@@ -1,7 +1,10 @@
 <template>
 	<div v-if="!submitted">
 		<h1 class="h3">{{ sheet.title }}</h1>
-		<div v-html="sheet.description" />
+		<div
+			class="rich"
+			v-html="sheet.description"
+		/>
 		<div v-if="sheet.survey">
 			<Survey
 				v-model="visitorAnswers"
@@ -45,7 +48,7 @@
 	</div>
 	<div v-else>
 		<div
-			class="mb-5"
+			class="mb-5 rich"
 			v-html="project.thanks"
 		/>
 		<div

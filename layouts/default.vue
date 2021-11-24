@@ -27,7 +27,7 @@ div#__nuxt,
 	min-height: 100vh;
 }
 
-img {
+.rich img {
 	max-width: 100%;
 }
 </style>

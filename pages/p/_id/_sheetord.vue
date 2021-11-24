@@ -123,7 +123,10 @@
 			scrollable
 			title="Adatvédelmi nyilatkozat"
 		>
-			<div v-html="project.privacyPolicy" />
+			<div
+				class="rich"
+				v-html="project.privacyPolicy"
+			/>
 		</b-modal>
 	</SheetFrame>
 	<div

@@ -141,7 +141,10 @@
 						variant="light"
 						v-text="form.category"
 					/>
-					<div v-html="form.description" />
+					<div
+						class="rich"
+						v-html="form.description"
+					/>
 				</div>
 				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
 					<b-form-rating
