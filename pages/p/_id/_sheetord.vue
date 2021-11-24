@@ -104,6 +104,7 @@
 						A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
 					</b-alert>
 					<SheetContent
+						class="mb-3"
 						:project="project"
 						:sheet="sheet"
 						:show-consent="isFirstSheet"

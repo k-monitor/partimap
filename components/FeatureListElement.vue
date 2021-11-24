@@ -286,8 +286,12 @@ export default {
 			);
 		},
 		getFeatureName() {
-			const idStr = this.feature.getId().toString();
-			return this.feature.get('name') || idStr.substring(idStr.length - 5);
+			const anon = {
+				Point: 'Pont',
+				LineString: 'Útvonal',
+				Polygon: 'Terület'
+			}[this.feature.getGeometry().getType()];
+			return this.feature.get('name') || anon;
 		},
 		featureClicked() {
 			this.selectedFeature
