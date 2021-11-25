@@ -162,6 +162,10 @@ export default {
 		this.$nuxt.$on('changeStyle', (feature, color, dash, width) => {
 			this.changeFeatureStyle(feature, color, dash, width);
 		});
+
+		this.$nuxt.$on('importedFeatures', features => {
+			features.forEach(f => this.vector.getSource().addFeature(f));
+		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
@@ -238,13 +242,17 @@ export default {
 			});
 
 			this.source.on('addfeature', f => {
-				f.feature.setId(new Date().getTime());
-				this.changeFeatureStyle(
-					f.feature,
-					this.defaultColor[this.drawType] || this.defaultColor.drawing,
-					this.defaultStroke.lineDash,
-					this.defaultStroke.width
-				);
+				if (!f.feature.getId()) {
+					// newly drawn feature and not an imported one
+					f.feature.setId(new Date().getTime());
+					this.changeFeatureStyle(
+						f.feature,
+						this.defaultColor[this.drawType] || this.defaultColor.drawing,
+						this.defaultStroke.lineDash,
+						this.defaultStroke.width
+					);
+				}
+
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f.feature);
 				selectedFeatures.push(f.feature);

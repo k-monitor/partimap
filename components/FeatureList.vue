@@ -87,15 +87,15 @@
 				<i class="fas fa-fw mr-2 fa-download" />
 				KML
 			</b-button>
-			<!--<b-button
+			<b-button
 				class="m-2"
-				disabled
 				size="sm"
 				variant="success"
+				@click="importKML"
 			>
 				<i class="fas fa-fw mr-2 fa-upload" />
 				KML
-			</b-button>-->
+			</b-button>
 		</div>
 	</div>
 </template>
@@ -223,12 +223,35 @@ export default {
 		},
 		exportKML() {
 			const kml = new KML().writeFeatures(this.getAllFeatures, {
+				dataProjection: 'EPSG:4326',
 				featureProjection: 'EPSG:3857',
 			});
 			const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>' + kml], {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
 			saveAs(blob, 'partimap.kml');
+		},
+		importKML() {
+			const input = document.createElement('input');
+			input.setAttribute('type', 'file');
+			input.addEventListener('change', e => {
+				const f = e.target.files[0];
+				const reader = new FileReader();
+				reader.onload = (e => {
+					return e => {
+						const content = e.target.result;
+						if (content) {
+							const features = new KML().readFeatures(content, {
+								dataProjection: 'EPSG:4326',
+								featureProjection: 'EPSG:3857',
+							});
+							this.$nuxt.$emit('importedFeatures', features);
+						}
+					};
+				})(f);
+				reader.readAsText(f);
+			});
+			input.click();
 		},
 	},
 };
