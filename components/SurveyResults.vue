@@ -3,7 +3,7 @@
 		<p>{{ data }}</p>
 		<client-only>
 			<highcharts
-				v-for="q in data"
+				v-for="q in data.filter(q => q.options)"
 				:key="q.questionId"
 				class="border mb-3 rounded shadow-sm"
 				:options="chart(q)"
@@ -22,13 +22,6 @@ export default {
 	},
 	methods: {
 		chart(q) {
-			let type = 'pie';
-			if (q.type === 'checkbox') {
-				type = 'bar';
-			} else if (!q.options) {
-				type = 'solidgauge';
-			}
-
 			let data = [q.average];
 			if (q.options) {
 				data = q.options.map(({ answer, count }) => {
@@ -44,20 +37,9 @@ export default {
 			}
 
 			return {
-				chart: { type },
+				chart: { type: q.type === 'checkbox' ? 'bar' : 'pie' },
 				credits: { enabled: false },
 				legend: { enabled: false },
-				pane: {
-					center: ['50%', '85%'],
-					size: '140%',
-					startAngle: -90,
-					endAngle: 90,
-					background: {
-						innerRadius: '60%',
-						outerRadius: '100%',
-						shape: 'arc',
-					},
-				},
 				series: [{ data }],
 				subtitle: { text: `${q.count} beküldött válasz` },
 				title: { text: q.question },
@@ -74,9 +56,7 @@ export default {
 				},
 				yAxis: {
 					gridLineWidth: 0,
-					max: Number(q.max),
-					min: Number(q.min),
-					labels: { enabled: !q.options },
+					labels: { enabled: false },
 					title: { enabled: false },
 				},
 			};
