@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.7",
     "express-session": "^1.17.2",
+    "file-saver": "^2.0.5",
     "file-type": "^16.5.3",
     "highcharts": "^9.3.1",
     "highcharts-vue": "^1.4.0",

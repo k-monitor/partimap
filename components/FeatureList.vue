@@ -51,7 +51,10 @@
 				/>
 			</b-list-group>
 		</b-form-group>
-		<b-form-group v-if="!hideAdminFeatures" :label="filteredVisitorFeatures.length ? 'Fix elemek' : null">
+		<b-form-group
+			v-if="!hideAdminFeatures"
+			:label="filteredVisitorFeatures.length ? 'Fix elemek' : null"
+		>
 			<b-list-group>
 				<FeatureListElement
 					v-for="feature in filteredAdminFeatures"
@@ -71,10 +74,35 @@
 		>
 			Nem található ilyen elem a térképen.
 		</p>
+		<div
+			v-if="!visitor"
+			class="d-flex justify-content-center"
+		>
+			<b-button
+				class="m-2"
+				size="sm"
+				variant="primary"
+				@click="exportKML"
+			>
+				<i class="fas fa-fw mr-2 fa-download" />
+				KML
+			</b-button>
+			<!--<b-button
+				class="m-2"
+				disabled
+				size="sm"
+				variant="success"
+			>
+				<i class="fas fa-fw mr-2 fa-upload" />
+				KML
+			</b-button>-->
+		</div>
 	</div>
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
+import KML from 'ol/format/KML';
 import { mapGetters } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
@@ -192,6 +220,15 @@ export default {
 		},
 		toggleCategoryFilter(c) {
 			this.categoryFilter = this.categoryFilter === c ? '' : c;
+		},
+		exportKML() {
+			const kml = new KML().writeFeatures(this.getAllFeatures, {
+				featureProjection: 'EPSG:3857',
+			});
+			const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>' + kml], {
+				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
+			});
+			saveAs(blob, 'partimap.kml');
 		},
 	},
 };
