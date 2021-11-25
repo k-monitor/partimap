@@ -42,8 +42,16 @@ async function aggregateByProjectId(projectId) {
 
 	const results = [];
 	for (const q of questions) {
+		if (q.type === 'text') {
+			continue;
+		}
+
 		const { average, count } = averagesByQuestion
 			.filter(e => Number(e.questionId) === q.id)[0];
+		if (count < 1) {
+			continue;
+		}
+
 		const result = {
 			questionId: q.id,
 			question: q.label,
@@ -52,11 +60,7 @@ async function aggregateByProjectId(projectId) {
 			average,
 			count
 		};
-		if ('radiogroup|dropdown'.includes(q.type)) {
-			result.options = countsByAnswer
-				.filter(e => Number(e.questionId) === q.id)
-				.map(({ answer, count }) => ({ answer, count }))
-		} else if (q.type === 'checkbox') {
+		if (q.type === 'checkbox') {
 			const opts = {};
 			countsByAnswer
 				.filter(e => Number(e.questionId) === q.id)
@@ -67,7 +71,12 @@ async function aggregateByProjectId(projectId) {
 				});
 			result.options = Object.entries(opts)
 				.map(([answer, count]) => ({ answer, count }));
+		} else {
+			result.options = countsByAnswer
+				.filter(e => Number(e.questionId) === q.id)
+				.map(({ answer, count }) => ({ answer, count }));
 		}
+
 		results.push(result);
 	}
 	return results;
