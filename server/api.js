@@ -11,6 +11,7 @@ const user = require('./user/user.api');
 
 db.init(); // async but no need to wait here
 
+app.use(bodyParser({ limit: '10mb' }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
