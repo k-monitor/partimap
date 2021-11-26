@@ -239,14 +239,30 @@ export default {
 				const reader = new FileReader();
 				reader.onload = (e => {
 					return e => {
-						const content = e.target.result;
-						if (content) {
-							const features = new KML().readFeatures(content, {
-								dataProjection: 'EPSG:4326',
-								featureProjection: 'EPSG:3857',
-							});
-							this.$nuxt.$emit('importedFeatures', features);
-						}
+						const kmlString = e.target.result;
+						/* const kmlParser = new DOMParser().parseFromString(
+							kmlString,
+							'text/xml'
+						); */
+
+						const features = new KML().readFeatures(kmlString, {
+							dataProjection: 'EPSG:4326',
+							featureProjection: 'EPSG:3857',
+						});
+						features.forEach((f, i) => {
+							f.setId(new Date().getTime() % 10000000 * 1000 + i);
+
+							/* const styleId = f.get('styleUrl').split('#')[1];
+							const colorEl =
+								kmlParser.querySelector(`#${styleId}-normal LineStyle color`) ||
+								kmlParser.querySelector(`#${styleId} LineStyle color`) ||
+								kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
+								kmlParser.querySelector(`#${styleId} IconStyle color`) ||
+								{};
+							const color = colorEl ? '#' + colorEl.innerHTML.substring(2) : null;
+							f.set('color', color.innerHTML); */
+						});
+						this.$nuxt.$emit('importedFeatures', features);
 					};
 				})(f);
 				reader.readAsText(f);

@@ -241,27 +241,38 @@ export default {
 				this.$store.commit('selected/remove', f.element);
 			});
 
-			this.source.on('addfeature', f => {
-				if (!f.feature.getId()) {
-					// newly drawn feature and not an imported one
-					f.feature.setId(new Date().getTime());
+			this.source.on('addfeature', e => {
+				const f = e.feature;
+				if (!f.getId()) {
+					f.setId(new Date().getTime());
+				}
+				if (this.drawType) {
+					// drawn feature
 					this.changeFeatureStyle(
-						f.feature,
+						f,
 						this.defaultColor[this.drawType] || this.defaultColor.drawing,
+						this.defaultStroke.lineDash,
+						this.defaultStroke.width
+					);
+				} else {
+					// imported feature
+					this.changeFeatureStyle(
+						f,
+						f.get('color') || this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
 						this.defaultStroke.width
 					);
 				}
 
 				this.$store.commit('setDrawType', '');
-				this.$store.commit('features/add', f.feature);
-				selectedFeatures.push(f.feature);
+				this.$store.commit('features/add', f);
+				selectedFeatures.push(f);
 
 				if (this.visitor) {
-					f.feature.set('visitorFeature', true);
-					this.$emit('visitorFeatureAdded', f.feature);
+					f.set('visitorFeature', true);
+					this.$emit('visitorFeatureAdded', f);
 				} else {
-					f.feature.set('visitorFeature', false);
+					f.set('visitorFeature', false);
 				}
 
 				this.$nuxt.$emit('contentModified');
