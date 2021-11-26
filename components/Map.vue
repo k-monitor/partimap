@@ -260,7 +260,7 @@ export default {
 						f,
 						f.get('color') || this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
-						this.defaultStroke.width
+						f.get('width') || this.defaultStroke.width
 					);
 				}
 

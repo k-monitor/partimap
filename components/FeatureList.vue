@@ -240,27 +240,45 @@ export default {
 				reader.onload = (e => {
 					return e => {
 						const kmlString = e.target.result;
-						/* const kmlParser = new DOMParser().parseFromString(
+						const kmlParser = new DOMParser().parseFromString(
 							kmlString,
 							'text/xml'
-						); */
+						);
 
 						const features = new KML().readFeatures(kmlString, {
 							dataProjection: 'EPSG:4326',
 							featureProjection: 'EPSG:3857',
 						});
 						features.forEach((f, i) => {
-							f.setId(new Date().getTime() % 10000000 * 1000 + i);
+							f.setId((new Date().getTime() % 10000000) * 1000 + i);
 
-							/* const styleId = f.get('styleUrl').split('#')[1];
+							const styleId = f.get('styleUrl').split('#')[1];
 							const colorEl =
 								kmlParser.querySelector(`#${styleId}-normal LineStyle color`) ||
 								kmlParser.querySelector(`#${styleId} LineStyle color`) ||
 								kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
 								kmlParser.querySelector(`#${styleId} IconStyle color`) ||
 								{};
-							const color = colorEl ? '#' + colorEl.innerHTML.substring(2) : null;
-							f.set('color', color.innerHTML); */
+							const abgr = colorEl.innerHTML;
+							if (abgr) {
+								const color =
+									'#' +
+									abgr[6] +
+									abgr[7] +
+									abgr[4] +
+									abgr[5] +
+									abgr[2] +
+									abgr[3];
+								f.set('color', color);
+							}
+							const widthEl =
+								kmlParser.querySelector(`#${styleId}-normal LineStyle width`) ||
+								kmlParser.querySelector(`#${styleId} LineStyle width`) ||
+								{};
+							if (widthEl) {
+								const w = Math.round(Number(widthEl.innerHTML));
+								f.set('width', w);
+							}
 						});
 						this.$nuxt.$emit('importedFeatures', features);
 					};
