@@ -76,6 +76,12 @@ router.patch('/user',
 			changes.password = bcrypt.hashSync(changes.newPassword, 10);
 		}
 
+		if (changes.logo === null || changes.logo === '') {
+			removeUserLogoFile(req._user);
+		} else {
+			delete changes.logo;
+		}
+
 		let user = new User(Object.assign(req._user, changes));
 		if (!emailValidator.validate(user.email)) {
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'EMAIL_INVALID' });
@@ -94,6 +100,7 @@ router.put('/user',
 		}
 		const newUser = new User(req.body);
 		delete newUser.id;
+		delete newUser.logo;
 		delete newUser.token;
 		delete newUser.tokenExpires;
 
@@ -192,7 +199,7 @@ router.post('/user/pwch',
 		res.end();
 	});
 
-router.post('/user/delete',
+router.post('/user/delete', // using POST intentionally because we need req body
 	resolveRecord(req => req.body.id, db.findById, '_user'),
 	async (req, res) => {
 		const { id, password } = req.body;
@@ -201,6 +208,8 @@ router.post('/user/delete',
 		if (!password || !bcrypt.compareSync(password, req.user.password)) {
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'PASSWORD_INVALID' });
 		}
+
+		removeUserLogoFile(req._user);
 
 		const projects = await pdb.findByUserId(id);
 		for (const p of projects) {
