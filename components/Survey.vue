@@ -72,7 +72,6 @@
 				:required="q.required"
 				variant="warning"
 			/>
-			<h1>VALUE: {{ answers[q.id] }}</h1>
 		</b-form-group>
 	</div>
 </template>

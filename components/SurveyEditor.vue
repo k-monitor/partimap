@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<b-list-group>
+		<b-list-group class="mb-3">
 			<draggable
 				v-model="survey.questions"
 				:draggable="readonly ? null : '.item'"
@@ -39,6 +39,11 @@
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
+		<b-form-group>
+			<b-form-checkbox v-model="survey.showResults">
+				Kitöltés után válasz statisztika megjelenítése a látogatónak
+			</b-form-checkbox>
+		</b-form-group>
 		<b-modal
 			id="survey-question-editor"
 			cancel-title="Mégsem"
@@ -157,6 +162,7 @@ export default {
 		if (!survey.questions) {
 			survey.questions = [];
 		}
+		survey.showResults = !!survey.showResults;
 		return {
 			survey,
 			icon: {
@@ -187,6 +193,11 @@ export default {
 	computed: {
 		hasOptions() {
 			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+		},
+	},
+	watch: {
+		'survey.showResults'() {
+			this.emitSurvey();
 		},
 	},
 	methods: {
@@ -231,8 +242,6 @@ export default {
 		},
 		emitSurvey() {
 			if (this.readonly) {
-				// all form controls are disabled so this won't be called
-				// but let's just add this condition just in case :)
 				return true;
 			}
 			this.$emit('input', JSON.stringify(this.survey));

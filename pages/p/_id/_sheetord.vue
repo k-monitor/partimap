@@ -274,7 +274,7 @@ export default {
 			return (this.sheet.interactions || '').replace('Rating', '').length > 5;
 		},
 		needToShowResults() {
-			return this.sheet.answers.length && !this.resultsShown;
+			return this.sheet.answers.length > 0 && !this.resultsShown;
 		},
 	},
 	async mounted() {
@@ -378,6 +378,9 @@ export default {
 			}
 		},
 		async submit() {
+			if (!this.$refs.sheetForm.reportValidity()) {
+				return;
+			}
 			this.loading = true;
 			const sheetIds = this.project.sheets.map(s => s.id);
 			const data = this.getSubmissionData(sheetIds);

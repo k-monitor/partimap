@@ -20,8 +20,15 @@ async function aggregateByProjectId(projectId) {
 	/** @type {{ questionId: Number, type: String, sheetId: Number }[]} */
 	const questions = [];
 	for (const s of sheets) {
-		const qs = JSON.parse(s.survey || '{}').questions || [];
-		questions.push(...qs.map(q => ({ ...q, sheetId: s.id })));
+		const survey = JSON.parse(s.survey || '{}');
+		if (survey.showResults) {
+			const qs = survey.questions || [];
+			questions.push(...qs.map(q => ({ ...q, sheetId: s.id })));
+		}
+	}
+
+	if (!questions.length) {
+		return [];
 	}
 
 	/** @type {{ questionId: Number, count: Number, average: Number }[]} */
@@ -75,6 +82,9 @@ async function aggregateByProjectId(projectId) {
 			result.options = countsByAnswer
 				.filter(e => Number(e.questionId) === q.id)
 				.map(({ answer, count }) => ({ answer, count }));
+			if ('number|range'.includes(q.type) && result.options.length > 10) {
+				continue;
+			}
 		}
 
 		results.push(result);
