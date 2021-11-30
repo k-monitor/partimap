@@ -5,12 +5,16 @@
 			:key="q.id"
 		>
 			<template #label>
-				<span v-if="q.required" class="text-danger">*</span>
+				<span
+					v-if="q.required"
+					class="text-danger"
+				>*</span>
 				{{ q.label }}
 			</template>
 			<b-form-input
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
+				:name="'q' + q.id"
 				:required="q.required"
 			/>
 			<div v-else-if="'number|range'.includes(q.type)">
@@ -27,6 +31,7 @@
 						v-model="answers[q.id]"
 						:min="q.min"
 						:max="q.max"
+						:name="'q' + q.id"
 						:required="q.required"
 						:type="q.type"
 					/>
@@ -56,14 +61,18 @@
 			<b-form-select
 				v-else-if="q.type === 'dropdown'"
 				v-model="answers[q.id]"
+				:name="'q' + q.id"
 				:options="q.options"
+				:required="q.required"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
 				v-model="answers[q.id]"
+				:name="'q' + q.id"
 				:required="q.required"
 				variant="warning"
 			/>
+			<h1>VALUE: {{ answers[q.id] }}</h1>
 		</b-form-group>
 	</div>
 </template>
