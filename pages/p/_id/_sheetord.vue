@@ -92,20 +92,31 @@
 					@submit="submit"
 				>
 					<h1 class="h3">{{ sheet.title }}</h1>
-					<b-alert
-						class="d-sm-none mb-3 small"
-						show
-						variant="info"
-					>
-						A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
-					</b-alert>
-					<b-alert
-						class="mb-3 small"
-						:show="isInteractive"
-						variant="info"
-					>
-						A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
-					</b-alert>
+
+					<div v-if="isInteractive">
+						<b-alert
+							class="my-3 small"
+							show
+							variant="info"
+						>
+							<p class="d-sm-none">
+								A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
+							</p>
+							<p>
+								A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
+							</p>
+						</b-alert>
+					</div>
+					<div v-else>
+						<b-alert
+							class="d-sm-none my-3 small"
+							show
+							variant="info"
+						>
+							A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
+						</b-alert>
+					</div>
+
 					<SheetContent
 						class="mb-3"
 						hide-title
