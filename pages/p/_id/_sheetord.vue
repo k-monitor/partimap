@@ -50,7 +50,7 @@
 				<template #modal-footer>
 					<FooterButtons
 						:disable-submit="loading || !getConsent || submitted"
-						:show-next="!isLastSheet"
+						:show-next="!isLastSheet || needToShowResults"
 						:show-prev="!isFirstSheet && !submitted"
 						:show-submit="getConsent && isLastSheet && !needToShowResults"
 						:step="sheet.ord + 1"
@@ -82,7 +82,7 @@
 					:fixed="!sheet.features"
 					:loading="loading"
 					:project="project"
-					:show-next="!isLastSheet"
+					:show-next="!isLastSheet || needToShowResults"
 					:show-prev="!isFirstSheet && !submitted"
 					:show-submit="getConsent && isLastSheet && !needToShowResults"
 					:step="sheet.ord + 1"
