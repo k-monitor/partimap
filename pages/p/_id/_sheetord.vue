@@ -91,6 +91,7 @@
 					@prev="prev"
 					@submit="submit"
 				>
+					<h1 class="h3">{{ sheet.title }}</h1>
 					<b-alert
 						class="d-sm-none mb-3 small"
 						show
@@ -107,6 +108,7 @@
 					</b-alert>
 					<SheetContent
 						class="mb-3"
+						hide-title
 						:project="project"
 						:results="resultsShown"
 						:sheet="sheet"

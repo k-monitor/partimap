@@ -1,6 +1,9 @@
 <template>
 	<div v-if="!submitted">
-		<h1 class="h3">{{ sheet.title }}</h1>
+		<h1
+			v-if="!hideTitle"
+			class="h3"
+		>{{ sheet.title }}</h1>
 		<div
 			class="rich"
 			v-html="sheet.description"
@@ -93,6 +96,10 @@ import { mapGetters } from 'vuex';
 
 export default {
 	props: {
+		hideTitle: {
+			type: Boolean,
+			default: false,
+		},
 		project: {
 			// for thank you stuff
 			type: Object,
