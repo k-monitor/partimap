@@ -312,7 +312,10 @@ export default {
 			}
 		},
 		expandFinished() {
-			this.$refs.feature.scrollIntoView({ behavior: 'smooth' });
+			// custom scrollIntoView as its more accurate:
+			const t = this.$refs.feature.offsetTop;
+			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = t - 75;
+
 			if (this.$refs.description) {
 				this.$refs.description.focus();
 			}
