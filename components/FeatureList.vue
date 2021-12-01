@@ -222,10 +222,16 @@ export default {
 			this.categoryFilter = this.categoryFilter === c ? '' : c;
 		},
 		exportKML() {
-			const kml = new KML().writeFeatures(this.getAllFeatures, {
+			let kml = new KML().writeFeatures(this.getAllFeatures, {
 				dataProjection: 'EPSG:4326',
 				featureProjection: 'EPSG:3857',
 			});
+
+			// fixing missing IconStyle
+			const search = /<Style\/>(<ExtendedData>.*?>#(\w\w)(\w\w)(\w\w)<.*?<\/ExtendedData>)/g;
+			const replace = '<Style><IconStyle><color>ff$4$3$2</color><scale>1</scale><Icon><href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href></Icon><hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/></IconStyle></Style>$1';
+			kml = kml.replace(search, replace);
+
 			const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>' + kml], {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
