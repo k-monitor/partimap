@@ -82,7 +82,7 @@ export default {
 			},
 			defaultStroke: {
 				lineDash: '0',
-				width: 2,
+				width: 4,
 			},
 			// either be 'Point','LineString', or 'Polygon'
 			// drawType: '',
