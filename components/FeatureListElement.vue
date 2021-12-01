@@ -165,6 +165,17 @@
 						:variant="visitor ? 'warning' : 'info'"
 					/>
 				</b-form-group>
+
+				<b-form-group v-if="editable">
+					<span
+						class="text-danger"
+						role="button"
+						@click.stop="deleteFeature"
+					>
+						<i class="fas fa-fw fa-trash mr-1" />
+						Elem törlése
+					</span>
+				</b-form-group>
 			</b-card>
 		</b-collapse>
 	</div>
