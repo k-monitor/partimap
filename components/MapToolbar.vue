@@ -98,6 +98,7 @@ export default {
 	border-top-right-radius: 0px !important;
 	border-bottom-right-radius: 0px !important;
 	border-right-width: 0px !important;
+	font-size: 1.25rem;
 }
 
 .sidebar-button {
