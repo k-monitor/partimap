@@ -1,6 +1,7 @@
 const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
+const transformation = require('transform-coordinates');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const pdb = require('../project/project.db');
@@ -9,6 +10,12 @@ const rdb = require('../rating/rating.db');
 const sadb = require('../surveyAnswer/surveyAnswer.db');
 const sfdb = require('../submittedFeatures/submittedFeatures.db');
 const smdb = require('./submission.db');
+
+const OL2GM = transformation('EPSG:3857', 'EPSG:4326');
+function ol2gm(coords) {
+	const { x, y } = OL2GM.forward({ x: coords[0], y: coords[1] });
+	return [y, x];
+}
 
 router.post('/submission/:projectId',
 	validateCaptcha(),
@@ -221,6 +228,8 @@ router.get('/submission/export/:id',
 						(index % 2 === 0) && result.push(array.slice(index, index + 2));
 						return result;
 					}, []);
+					// convert coordinate pairs to right projection (used on GM)
+					coords = coords.map(pair => ol2gm(pair));
 					// convert to string, 1 point per line
 					coords = coords.map(c => c.join(';')).join('\n');
 

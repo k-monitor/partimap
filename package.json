@@ -49,6 +49,7 @@
     "rimraf": "^3.0.2",
     "sharp": "^0.29.3",
     "slugify": "^1.6.2",
+    "transform-coordinates": "^1.0.0",
     "uuid": "^8.3.2",
     "vue-social-sharing": "^3.0.8",
     "vue-typeahead-bootstrap": "^2.12.0",
