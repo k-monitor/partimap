@@ -103,7 +103,7 @@
 								A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
 							</p>
 							<p>
-								A jobb szélen található színes ikonokkal lehet a térképre rajzolni. Vonal és terület rajzolásakor dupla kattintással kell az utolsó pontot jelezni.
+								A jobb oldali ikonokkal lehet a térképre rajzolni. A szakaszokat kattintással lehet kijelölni, rajzolás közben az egeret nem kell nyomva tartani. Egy útszakaszt dupla kattintással lehet lezárni. A hibás elem a kuka ikonra kattintva törölhető.
 							</p>
 						</b-alert>
 					</div>
