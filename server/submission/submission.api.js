@@ -154,7 +154,7 @@ router.get('/submission/export/:id',
 			sas.cell(i + 2, 1).number(s.id);
 			sas.cell(i + 2, 2).date(new Date(s.timestamp));
 			questions.forEach((q, j) => {
-				const ans = answers.filter(a => a.id === s.id && String(a.questionId) === String(q.id))[0];
+				const ans = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
 				const a = ans ? ans.answer : '';
 				if (Number.isInteger(a)) {
 					sas.cell(i + 2, j + 3).number(a);
