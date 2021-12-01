@@ -276,7 +276,9 @@ export default {
 		this.$emit('categoryEdited');
 
 		// When an element is created, scroll to it
-		this.expandFinished();
+		if (this.selectedFeature) {
+			this.expandFinished();
+		}
 	},
 	methods: {
 		emitChangeStyle() {
