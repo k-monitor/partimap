@@ -9,7 +9,7 @@
 					v-if="q.required"
 					class="text-danger"
 				>*</span>
-				{{ q.label }}
+				<strong class="text-primary">{{ q.label }}</strong>
 			</template>
 			<b-form-input
 				v-if="q.type === 'text'"

@@ -2,7 +2,7 @@
 	<div v-if="!submitted">
 		<h1
 			v-if="!hideTitle"
-			class="h3"
+			class="h3 mb-3"
 		>{{ sheet.title }}</h1>
 		<div
 			class="rich"
