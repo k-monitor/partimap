@@ -47,7 +47,7 @@
 				v-model="answers[q.id]"
 				:name="'q' + q.id"
 				:options="q.options"
-				:required="q.required"
+				:required="q.required && (answers[q.id] || []).length < 1"
 				stacked
 			/>
 			<b-form-radio-group
