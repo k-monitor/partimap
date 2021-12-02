@@ -28,7 +28,7 @@
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
 	components: {
@@ -58,10 +58,16 @@ export default {
 	computed: {
 		...mapGetters(['getSidebarVisible']),
 		...mapGetters('features', ['getAllFeature']),
+		...mapGetters('selected', ['getSelectedFeature']),
 	},
 	watch: {
 		'mapData.title'() {
 			this.$nuxt.$emit('contentModified');
+		},
+		getSelectedFeature(f) {
+			if (f) {
+				this.$store.commit('setSidebarVisible', true);
+			}
 		},
 	},
 	created() {
@@ -76,7 +82,6 @@ export default {
 		this.loading = false;
 	},
 	methods: {
-		...mapMutations(['setSidebarVisible']),
 		back() {
 			this.$router.push('/admin/maps');
 		},

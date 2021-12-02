@@ -153,6 +153,7 @@ export default {
 	},
 	computed: {
 		...mapGetters('features', ['getAllFeature']),
+		...mapGetters('selected', ['getSelectedFeature']),
 		interactionOptions() {
 			const options = [];
 			if (this.sheet.features) {
@@ -208,6 +209,11 @@ export default {
 		},
 		selectedInteractions(i) {
 			this.sheet.interactions = JSON.stringify(i);
+		},
+		getSelectedFeature(f) {
+			if (f) {
+				this.$store.commit('setSidebarVisible', true);
+			}
 		},
 	},
 	created() {

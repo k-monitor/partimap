@@ -259,6 +259,7 @@ export default {
 		},
 		...mapGetters(['getConsent']),
 		...mapGetters('features', ['getAllFeature']),
+		...mapGetters('selected', ['getSelectedFeature']),
 		...mapGetters('visitordata', [
 			'getVisitorFeatures',
 			'getVisitorRatings',
@@ -275,6 +276,13 @@ export default {
 		},
 		needToShowResults() {
 			return this.sheet.answers.length > 0 && !this.resultsShown;
+		},
+	},
+	watch: {
+		getSelectedFeature(f) {
+			if (f && (f.get('visitorFeature') || !this.isInteractive)) {
+				this.$store.commit('setSidebarVisible', true);
+			}
 		},
 	},
 	async mounted() {
