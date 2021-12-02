@@ -2,13 +2,13 @@
 	<div v-if="!submitted">
 		<h1
 			v-if="!hideTitle"
-			class="h3 mb-3"
+			class="h3 mb-4"
 		>{{ sheet.title }}</h1>
 		<div
-			class="rich"
+			class="my-4 rich"
 			v-html="sheet.description"
 		/>
-		<div v-if="sheet.survey">
+		<div v-if="sheet.survey" class="my-4">
 			<div v-if="results">
 				<SurveyResults :data="sheet.answers" />
 			</div>
@@ -39,6 +39,7 @@
 		<b-alert
 			:show="showConsent"
 			variant="primary"
+			class="mt-5"
 		>
 			<b-form-checkbox
 				v-model="consent"

@@ -3,6 +3,7 @@
 		<b-form-group
 			v-for="q in questions"
 			:key="q.id"
+			class="my-4"
 		>
 			<template #label>
 				<span
