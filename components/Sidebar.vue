@@ -189,6 +189,7 @@ export default {
 	border-bottom-right-radius: 0.5rem;
 	border-top-left-radius: 0px !important;
 	border-bottom-left-radius: 0px !important;
+	font-size: 1.25rem;
 	top: 0.5rem;
 }
 </style>
