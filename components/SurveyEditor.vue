@@ -44,6 +44,11 @@
 				Kitöltés után válasz statisztika megjelenítése a látogatónak
 			</b-form-checkbox>
 		</b-form-group>
+		<b-form-group>
+			<b-form-checkbox v-model="survey.showResultsOnly">
+				Csak az eredmények megjelenítése
+			</b-form-checkbox>
+		</b-form-group>
 		<b-modal
 			id="survey-question-editor"
 			cancel-title="Mégsem"
@@ -163,6 +168,7 @@ export default {
 			survey.questions = [];
 		}
 		survey.showResults = !!survey.showResults;
+		survey.showResultsOnly = !!survey.showResultsOnly;
 		return {
 			survey,
 			icon: {
@@ -197,6 +203,9 @@ export default {
 	},
 	watch: {
 		'survey.showResults'() {
+			this.emitSurvey();
+		},
+		'survey.showResultsOnly'() {
 			this.emitSurvey();
 		},
 	},

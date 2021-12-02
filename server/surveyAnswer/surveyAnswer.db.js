@@ -21,7 +21,7 @@ async function aggregateByProjectId(projectId) {
 	const questions = [];
 	for (const s of sheets) {
 		const survey = JSON.parse(s.survey || '{}');
-		if (survey.showResults) {
+		if (survey.showResults || survey.showResultsOnly) {
 			const qs = survey.questions || [];
 			questions.push(...qs.map(q => ({ ...q, sheetId: s.id })));
 		}

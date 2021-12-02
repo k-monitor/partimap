@@ -282,6 +282,11 @@ export default {
 		if (!this.project) {
 			this.$refs.password.focus();
 			await this.$recaptcha.init();
+		} else {
+			const survey = JSON.parse(this.sheet?.survey || '{}');
+			if (survey.showResultsOnly) {
+				this.resultsShown = true;
+			}
 		}
 		this.loading = false;
 	},
