@@ -1,9 +1,9 @@
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'partimap',
+		title: 'Partimap',
 		htmlAttrs: {
-			lang: 'en'
+			lang: 'hu'
 		},
 		meta: [
 			{ charset: 'utf-8' },
