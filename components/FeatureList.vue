@@ -2,7 +2,12 @@
 	<div>
 		<b-form-group class="mb-4">
 			<template #label>
-				<h6 class="mb-0">Térkép elemei</h6>
+				<h6
+					v-if="!hideAdminFeatures"
+					class="mb-0"
+				>
+					Térkép elemei
+				</h6>
 			</template>
 			<div v-if="!hideAdminFeatures">
 				<vue-typeahead-bootstrap
@@ -228,8 +233,10 @@ export default {
 			});
 
 			// fixing missing IconStyle
-			const search = /<Style\/>(<ExtendedData>.*?>#(\w\w)(\w\w)(\w\w)<.*?<\/ExtendedData>)/g;
-			const replace = '<Style><IconStyle><color>ff$4$3$2</color><scale>1</scale><Icon><href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href></Icon><hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/></IconStyle></Style>$1';
+			const search =
+				/<Style\/>(<ExtendedData>.*?>#(\w\w)(\w\w)(\w\w)<.*?<\/ExtendedData>)/g;
+			const replace =
+				'<Style><IconStyle><color>ff$4$3$2</color><scale>1</scale><Icon><href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href></Icon><hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/></IconStyle></Style>$1';
 			kml = kml.replace(search, replace);
 
 			const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>' + kml], {
