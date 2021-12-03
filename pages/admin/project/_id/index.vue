@@ -126,8 +126,8 @@
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					label="Adatvédelmi nyilatkozat"
-					description="A látogatóknak az 1. munkalapon kell majd elfogadniuk ezt a továbblépés érdekében."
+					label="Adatkezelő elérhetősége"
+					description="Az Adatkezelési tájékoztatóban jelenik meg kapcsolatfelvételi adatként. Ezt a látogatóknak az 1. munkalapon kell majd elfogadniuk."
 					invalid-feedback="Kötelező megadni!"
 					:state="isPrivacyPolicyValid"
 				>

@@ -139,12 +139,10 @@
 			id="privacy-modal"
 			hide-footer
 			scrollable
-			title="Adatvédelmi nyilatkozat"
+			size="lg"
+			title="Felhasználási feltételek és adatvédelmi nyilatkozat"
 		>
-			<div
-				class="rich"
-				v-html="project.privacyPolicy"
-			/>
+			<Terms :project-data-processor="project.privacyPolicy" />
 		</b-modal>
 	</SheetFrame>
 	<div

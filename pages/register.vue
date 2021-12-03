@@ -36,7 +36,7 @@
 									Elolvastam és elfogadom a <a
 										href="javascript:void(0)"
 										@click.stop="$bvModal.show('terms-modal')"
-									>felhasználási feltételeket és az adatvédelmi nyilatkozatot</a>.
+									>felhasználási feltételeket és az adatkezelési tájékoztatót.</a>
 								</b-form-checkbox>
 							</b-form-group>
 						</div>
@@ -62,9 +62,10 @@
 				id="terms-modal"
 				hide-footer
 				scrollable
+				size="lg"
 				title="Felhasználási feltételek és adatvédelmi nyilatkozat"
 			>
-				<h1>...</h1>
+				<Terms />
 			</b-modal>
 		</div>
 	</div>

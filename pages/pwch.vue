@@ -27,14 +27,6 @@
 					</div>
 				</form>
 			</div>
-			<b-modal
-				id="terms-modal"
-				hide-footer
-				scrollable
-				title="Felhasználási feltételek és adatvédelmi nyilatkozat"
-			>
-				<h1>...</h1>
-			</b-modal>
 		</div>
 	</div>
 </template>

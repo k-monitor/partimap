@@ -47,11 +47,11 @@
 				name="consent"
 				required
 			>
-				Elolvastam és elfogadom az <a
+				Elolvastam és elfogadom a <a
 					class="alert-link"
 					href="javascript:void(0)"
 					@click.stop="$bvModal.show('privacy-modal')"
-				>Adatvédelmi nyilatkozatot</a>
+				>felhasználási feltételeket és az adatkezelési tájékoztatót.</a>
 			</b-form-checkbox>
 		</b-alert>
 	</div>
