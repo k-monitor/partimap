@@ -13,8 +13,8 @@
 5. Run database migrations with `npx db-migrate up`.
 6. Add an admin user (password = "123"):
 	```sql
-	INSERT INTO user (email, password, name, registered, isAdmin)
-	VALUES ("admin@partimap.eu", "$2a$12$TwohCgZc1t7.pwX84CXZ..R9a3vIM5qWb5RaqcJZokUCNEjmLxXBq", "Admin", 0, 1);
+	INSERT INTO user (email, password, name, registered, isAdmin, active)
+	VALUES ("admin@partimap.eu", "$2a$12$TwohCgZc1t7.pwX84CXZ..R9a3vIM5qWb5RaqcJZokUCNEjmLxXBq", "Admin", 0, 1, 1);
 	```
 7. Run dev server with `npm run dev`.
 8. Login (`/login`), then change admin password. :)
