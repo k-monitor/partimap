@@ -48,6 +48,7 @@ export default {
 	modules: [
 		'@nuxtjs/axios',
 		'@nuxtjs/auth-next',
+		'@nuxtjs/gtm',
 		'@nuxtjs/recaptcha',
 		'bootstrap-vue/nuxt',
 		'vue-social-sharing/nuxt',
@@ -76,7 +77,10 @@ export default {
 		axios: {
 			browserBaseURL: '/'
 		},
-		baseURL: process.env.BASE_URL
+		baseURL: process.env.BASE_URL,
+		gtm: {
+			id: process.env.GOOGLE_TAG_MANAGER_ID
+		}
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
