@@ -165,8 +165,9 @@ export default {
 						{ value: 'LineString', text: 'Vonal felrajzolása' },
 						{ value: 'Polygon', text: 'Terület felrajzolása' }
 					);
+				} else {
+					options.push({ value: 'Rating', text: 'Fix elemek értékelése' });
 				}
-				options.push({ value: 'Rating', text: 'Fix elemek értékelése' });
 			} else {
 				options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
 			}
@@ -179,7 +180,10 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return (this.sheet.interactions || '').replace('Rating', '').length > 5;
+			return (
+				(this.sheet.interactions || '').replace(/Rating|SocialSharing/, '')
+					.length > 5
+			);
 		},
 	},
 	watch: {

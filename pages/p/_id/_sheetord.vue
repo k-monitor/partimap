@@ -270,7 +270,10 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return (this.sheet.interactions || '').replace('Rating', '').length > 5;
+			return (
+				(this.sheet.interactions || '').replace(/Rating|SocialSharing/, '')
+					.length > 5
+			);
 		},
 		needToShowResults() {
 			return this.sheet.answers.length > 0 && !this.resultsShown;
