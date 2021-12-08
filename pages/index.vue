@@ -26,14 +26,14 @@
 			</div>
 		</b-navbar>
 
-		<section class="bg-primary pt-5 text-white">
+		<header class="bg-primary pt-5 text-white">
 			<div class="my-5 py-lg-3 text-center">
-				<h1 class="display-3 mt-5 mb-3">Partimap</h1>
+				<h1 class="display-3 font-weight-bold mt-5 mb-4 text-uppercase">Partimap</h1>
 				<p class="lead mb-5">
 					<strong>Parti</strong>cipation <strong>map</strong>ping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.
 				</p>
 			</div>
-		</section>
+		</header>
 
 		<section class="py-5">
 			<div class="container">
@@ -44,7 +44,7 @@
 		<section class="bg-white py-5">
 			<div class="container -fluid">
 				<h2 class="mb-5 text-center">Mit tud a program?</h2>
-				<div class="features row row-cols-3">
+				<div class="features row row-cols-1 row-cols-md-3">
 					<div
 						v-for="(f, i) in features"
 						:key="f.title"
@@ -207,6 +207,10 @@ export default {
 </script>
 
 <style scoped>
+strong {
+	font-weight: 700;
+}
+
 .features .feature {
 	transition: all 150ms;
 }
