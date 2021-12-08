@@ -50,7 +50,7 @@
 						:key="f.title"
 						class="col feature"
 						role="button"
-						@click="featureIndex = i; $bvModal.show('feature-modal')"
+						@click="featureIndex = i"
 					>
 						<figure class="figure">
 							<img
@@ -62,37 +62,37 @@
 								<h5 class="text-center">{{ f.title }}</h5>
 							</figcaption>
 						</figure>
+
+						<b-modal
+							:id="`feature-modal-${i}`"
+							centered
+							scrollable
+							:title="f.title"
+						>
+							<div v-html="f.description" />
+							<template #modal-footer>
+								<div class="d-flex w-100">
+									<button
+										v-if="i > 0"
+										class="btn btn-outline-primary"
+										@click="featureIndex = i - 1"
+									>
+										<i class="fas fa-fw fa-angle-left" />
+									</button>
+									<button
+										v-if="i < features.length - 1"
+										class="btn btn-outline-primary ml-auto"
+										@click="featureIndex = i + 1"
+									>
+										<i class="fas fa-fw fa-angle-right" />
+									</button>
+								</div>
+							</template>
+						</b-modal>
 					</div>
 				</div>
 			</div>
 		</section>
-
-		<b-modal
-			id="feature-modal"
-			centered
-			scrollable
-			:title="feature.title"
-		>
-			<div v-html="feature.description" />
-			<template #modal-footer>
-				<div class="d-flex w-100">
-					<button
-						v-if="featureIndex > 0"
-						class="btn btn-outline-primary"
-						@click="featureIndex--"
-					>
-						<i class="fas fa-fw fa-angle-left" />
-					</button>
-					<button
-						v-if="featureIndex < features.length - 1"
-						class="btn btn-outline-primary ml-auto"
-						@click="featureIndex++"
-					>
-						<i class="fas fa-fw fa-angle-right" />
-					</button>
-				</div>
-			</template>
-		</b-modal>
 
 		<footer class="bg-dark mt-auto py-3 text-white">
 			<div class="container d-flex">
@@ -185,12 +185,22 @@ export default {
 						'<p>A Partimap szoftvert a K-Monitor egyesület az Európai Bizottság (DG Regio) támogatásából valósította meg 2021-ben. A jelenlegi verzió publikálásával a projekt azonban korántsem ért véget! Az ingyenes, szabadon felhasználható felületet állami szerveknek, önkormányzatoknak, érdekérvényesítő civil szervezeteknek készítettük azzal a céllal, hogy az eszköz segíti őket a fejlesztésekkel kapcsolatos döntések társadalmasításában, így közös vagyonunkkal takarékosabban gazdálkodhatunk.</p><p>Ha érdekel a projekt, és szeretnél bekapcsolódni a fejlesztésbe, vagy csak megosztanád velünk a gondolataidat a Partimapról, írj nekünk az <a href="mailto:info@k-monitor.hu">info@k-monitor.hu</a>-ra. Ha anyagilag támogatnád a fejlesztést, hogy az ingyenes, szabadon felhasználható szoftver minél többek számára legyen elérhető, <a href="https://tamogatas.k-monitor.hu/" target="_blank">támogasd a K-Monitort!</a></p>',
 				},
 			],
-			featureIndex: 0,
+			featureIndex: -1,
 		};
 	},
 	computed: {
 		feature() {
 			return this.features[this.featureIndex];
+		},
+	},
+	watch: {
+		featureIndex(i, p) {
+			if (p >= 0) {
+				this.$bvModal.hide('feature-modal-' + p);
+			}
+			if (i >= 0) {
+				this.$bvModal.show('feature-modal-' + i);
+			}
 		},
 	},
 };
