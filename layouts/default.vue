@@ -15,6 +15,13 @@ Vue.mixin(toasts);
 export default {
 	head: {
 		titleTemplate: '%s | Partimap',
+		meta: [
+			{
+				hid: 'description',
+				name: 'description',
+				content: 'PARTIcipation MAPping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.'
+			},
+		],
 	},
 };
 </script>
