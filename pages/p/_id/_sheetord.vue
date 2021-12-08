@@ -100,10 +100,19 @@
 							variant="info"
 						>
 							<p class="d-sm-none">
-								A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
+								A térkép megtekintéséhez ezt a panelt be kell csukni a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
 							</p>
-							<p>
-								A jobb oldali ikonokkal lehet a térképre rajzolni. A szakaszokat kattintással lehet kijelölni, rajzolás közben az egeret nem kell nyomva tartani. Egy útszakaszt dupla kattintással lehet lezárni. A hibás elem a kuka ikonra kattintva törölhető.
+							<p v-if="drawingInteractions.length === 1 && drawingInteractions.includes('Point')">
+								A jobb oldali piros gombbal lehet a térképre pontokat elhelyezni. A pontokhoz szöveges megjegyzések fűzhetők, törölni a kuka ikonra kattintva lehet.
+							</p>
+							<p v-else-if="drawingInteractions.length === 1 && drawingInteractions.includes('LineString')">
+								A jobb oldali kék gombbal lehet a térképre vonalat rajzolni. A szakaszokat kattintással kell kijelölni és dupla kattintással lezárni. Rajzolás közben az egeret nem kell nyomva tartani. A felrajzolt vonalhoz szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
+							</p>
+							<p v-else-if="drawingInteractions.length === 1 && drawingInteractions.includes('Polygon')">
+								A jobb oldali zöld gombbal lehet a térképre területet rajzolni. A körvonalat kattintással kell kijelölni és a kezdőpontra való újbóli kattintással lezárni. Rajzolás közben az egeret nem kell nyomva tartani. A felrajzolt területhez szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
+							</p>
+							<p v-else>
+								A jobb oldali színes gombokkal lehet a térképre rajzolni. A vonalakat kattintással kell kijelölni, rajzolás közben az egeret nem kell nyomva tartani. A vonalat dupla kattintással, a területet a kezdőpontra való újbóli kattintással kell lezárni. Az elemekhez szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
 							</p>
 						</b-alert>
 					</div>
@@ -113,7 +122,7 @@
 							show
 							variant="info"
 						>
-							A térkép megtekintéséhez ezt a panelt be kell csukni, a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
+							A térkép megtekintéséhez ezt a panelt be kell csukni a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
 						</b-alert>
 					</div>
 
@@ -269,11 +278,13 @@ export default {
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
-		isInteractive() {
-			return (
-				(this.sheet.interactions || '').replace(/Rating|SocialSharing/, '')
-					.length > 5
+		drawingInteractions() {
+			return ['Point', 'LineString', 'Polygon'].filter(i =>
+				(this.sheet.interactions || '').includes(i)
 			);
+		},
+		isInteractive() {
+			return this.drawingInteractions.length;
 		},
 		needToShowResults() {
 			return this.sheet.answers.length > 0 && !this.resultsShown;

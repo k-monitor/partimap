@@ -179,11 +179,13 @@ export default {
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
-		isInteractive() {
-			return (
-				(this.sheet.interactions || '').replace(/Rating|SocialSharing/, '')
-					.length > 5
+		drawingInteractions() {
+			return ['Point', 'LineString', 'Polygon'].filter(i =>
+				(this.sheet.interactions || '').includes(i)
 			);
+		},
+		isInteractive() {
+			return this.drawingInteractions.length;
 		},
 	},
 	watch: {
