@@ -114,6 +114,13 @@
 							<p v-else>
 								A jobb oldali színes gombokkal lehet a térképre rajzolni. A vonalakat kattintással kell kijelölni, rajzolás közben az egeret nem kell nyomva tartani. A vonalat dupla kattintással, a területet a kezdőpontra való újbóli kattintással kell lezárni. Az elemekhez szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
 							</p>
+							<hr>
+							<p>
+								<i class="fas fa-info-circle mr-1" />
+								<a class="alert-link" href="/hogyan-mukodik" target="_blank">
+									Hogyan működik?
+								</a>
+							</p>
 						</b-alert>
 					</div>
 					<div v-else>
