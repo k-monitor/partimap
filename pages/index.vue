@@ -24,7 +24,7 @@
 						:key="f.title"
 						class="col feature"
 						role="button"
-						@click="featureIndex = i"
+						@click="showFeature(i)"
 					>
 						<figure class="figure">
 							<img
@@ -137,6 +137,12 @@ export default {
 			if (i >= 0) {
 				this.$bvModal.show('feature-modal-' + i);
 			}
+		},
+	},
+	methods: {
+		showFeature(i) {
+			this.featureIndex = -1;
+			this.$nextTick(() => (this.featureIndex = i));
 		},
 	},
 };
