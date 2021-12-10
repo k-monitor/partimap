@@ -21,6 +21,7 @@
 				>
 					<b-navbar-nav class="ml-auto">
 						<b-nav-item to="/hogyan-mukodik">Hogyan működik?</b-nav-item>
+						<b-nav-item to="/admin">Belépés</b-nav-item>
 					</b-navbar-nav>
 				</b-collapse>
 			</div>
