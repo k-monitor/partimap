@@ -2,7 +2,7 @@
 	<PublicFrame>
 		<header class="bg-primary text-white">
 			<div class="my-5 py-lg-3 text-center">
-				<h1 class="display-3 font-weight-bold mt-5 mb-4 text-uppercase">Partimap</h1>
+				<h1 class="display-4 font-weight-bold mt-5 mb-4 text-uppercase">Partimap</h1>
 				<p class="lead mb-5">
 					<strong>Parti</strong>cipation <strong>map</strong>ping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.
 				</p>
@@ -22,7 +22,7 @@
 					<div
 						v-for="(f, i) in features"
 						:key="f.title"
-						class="col feature"
+						class="col feature mb-3"
 						role="button"
 						@click="showFeature(i)"
 					>
@@ -46,25 +46,41 @@
 							<div v-html="f.description" />
 							<template #modal-footer>
 								<div class="d-flex w-100">
-									<button
+									<b-button
 										v-if="i > 0"
-										class="btn btn-outline-primary"
+										variant="outline-primary"
 										@click="featureIndex = i - 1"
 									>
 										<i class="fas fa-fw fa-angle-left" />
-									</button>
-									<button
+									</b-button>
+									<b-button
 										v-if="i < features.length - 1"
-										class="btn btn-outline-primary ml-auto"
+										class="ml-auto"
+										variant="outline-primary"
 										@click="featureIndex = i + 1"
 									>
 										<i class="fas fa-fw fa-angle-right" />
-									</button>
+									</b-button>
 								</div>
 							</template>
 						</b-modal>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<section class="bg-primary py-5">
+			<div class="container-fluid py-lg-3 text-center">
+				<b-button
+					class="rounded-pill shadow text-uppercase"
+					href="https://www.partimap.eu/p/Demo/0"
+					style="padding: 1rem 2.5rem"
+					target="_blank"
+					variant="light"
+				>
+					<strong>Kipróbálom</strong>
+					<i class="fas fa-chevron-right ml-2" />
+				</b-button>
 			</div>
 		</section>
 	</PublicFrame>
