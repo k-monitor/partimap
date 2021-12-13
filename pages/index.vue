@@ -1,17 +1,77 @@
 <template>
 	<PublicFrame>
 		<header class="bg-primary text-white">
-			<div class="my-5 py-lg-3 text-center">
+			<div class="container my-5 py-lg-3 text-center">
 				<h1 class="display-4 font-weight-bold mt-5 mb-4 text-uppercase">Partimap</h1>
 				<p class="lead mb-5">
-					<strong>Parti</strong>cipation <strong>map</strong>ping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.
+					A K-Monitor alkalmazása egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőív azoknak, akik fontosnak tartják, hogy a közpénzből megvalósuló fejlesztésekbe az érintettek is beleszólhassanak.
 				</p>
 			</div>
 		</header>
 
 		<section class="py-5">
-			<div class="container">
-				<p class="lead">Hamarosan...</p>
+			<div class="container text-justify">
+				<div class="row">
+					<div class="col-md-5 mx-auto">
+						<p>
+							Mikor kérték ki legutóbb a véleményed egy olyan fejlesztésről, amit naponta használsz? Hazai és európai uniós milliárdokból sorra újulnak meg városi tereink, közintézményeink és a közlekedési létesítmények. A társadalmi egyeztetés és az érintettek bevonása azonban sokszor csak formalitás. Pedig könnyen belátható, hogy a lebonyolítás szakmai szempontjai mellett a fejlesztéseket napi szinten használók igényeit, elvárásait is számításba kell venni ahhoz, hogy egy projekt sikeres legyen. A cél nem az, hogy modernebb legyen a vasútállomás, hanem az, hogy többen járjanak vonattal. Nem attól kap közösségi funkciót egy tér, okospadokat szerelünk fel, hanem attól, hogy a környékbeliek megkedvelik.
+						</p>
+					</div>
+					<div class="col-md-5 mx-auto">
+						<p>
+							Participatory mapping, azaz részvételi térképezés: így nevezik a folyamatot, amelynek révén az érintettek pótolhatatlan tudása beépül a számukra készülő közösségi fejlesztésekbe. A Partimap térképes kérdőívező felülete ahhoz nyújt segítséget, hogy lakosokkal való kapcsolat gyorsabbá, hatékonyabbá és egyszerűbbé váljon. A program regisztráció után ingyenesen használható, saját arculattal látható el és nyílt forráskódjának köszönhetően szabadon továbbfejleszthető. Legyél állami szerv, önkormányzat, vagy helyi érdekérvényesítő csoport - ha egy okos és átlátható megoldást keresel arra, hogyan ismerd meg a környezeted véleményét, próbáld ki a Partimapot és csatlakozz te is a fejlesztéshez!
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-primary py-5">
+			<div class="container-fluid py-lg-3 text-center">
+				<b-button
+					class="rounded-pill shadow text-uppercase"
+					href="https://www.partimap.eu/p/Demo/0"
+					style="padding: 1rem 2.5rem"
+					target="_blank"
+					variant="light"
+				>
+					<strong>Kipróbálom</strong>
+					<i class="fas fa-chevron-right ml-2" />
+				</b-button>
+			</div>
+		</section>
+
+		<section class="py-5">
+			<div class="container text-justify">
+				<div class="row">
+					<div class="col-md-4 mx-auto text-center">
+						<figure class="figure">
+							<img
+								src="logo.svg"
+								class="figure-img rounded w-75"
+								alt="Részvételi módszertan"
+							>
+							<figcaption class="h4 mt-4">Részvételi módszertan</figcaption>
+						</figure>
+					</div>
+					<div class="col-md-6 mx-auto">
+						<p class="mb-5">
+							Mitől lesz sikeres egy részvételi térképezés? Hogyan kell elkészíteni a kérdőívet, mire kell odafigyelni a terjesztés során és hogyan lehet a legtöbbet kihozni az összegyűjtött adatokból? A K-Monitor összefoglalta a legfontosabb tudnivalókat, hiszen a kérdőívezés csak egy eleme a fejlesztések társadalmasításának. A Partimap részvételi módszertana - a program használói körével együtt - a jövőben folyamatosan bővülni fog!
+						</p>
+						<div class="text-center">
+							<b-button
+								class="rounded-pill shadow text-uppercase"
+								href="https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing"
+								style="padding: 1rem 2.5rem"
+								target="_blank"
+								variant="primary"
+							>
+								<strong>Elolvasom</strong>
+								<i class="fas fa-chevron-right ml-2" />
+							</b-button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -69,18 +129,29 @@
 			</div>
 		</section>
 
-		<section class="bg-primary py-5">
-			<div class="container-fluid py-lg-3 text-center">
-				<b-button
-					class="rounded-pill shadow text-uppercase"
-					href="https://www.partimap.eu/p/Demo/0"
-					style="padding: 1rem 2.5rem"
-					target="_blank"
-					variant="light"
-				>
-					<strong>Kipróbálom</strong>
-					<i class="fas fa-chevron-right ml-2" />
-				</b-button>
+		<section class="bg-light pb-3 pt-4" style="box-shadow: inset 0px 20px 15px -15px rgba(0,0,0,.08)">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-md-5 col-lg-4">
+						<figure class="figure">
+							<img
+								src="eu-commission-logo-hu.svg"
+								class="figure-img w-100"
+								alt="Európai Bizottság"
+							>
+						</figure>
+					</div>
+					<div class="col-12 col-lg-8 d-flex align-items-center">
+						<p class="font-weight-bold mb-0">
+							A fejlesztés az Európai Bizottság (DG Regio) által támogatott
+							<a
+								href="https://k-monitor.hu/tevekenysegek/20210324-partimap"
+								target="_blank"
+							>Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a>
+							elnevezésű projekt keretében valósul meg.
+						</p>
+					</div>
+				</div>
 			</div>
 		</section>
 	</PublicFrame>
