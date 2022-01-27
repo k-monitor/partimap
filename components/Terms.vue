@@ -11,6 +11,7 @@
 		<p><strong>2. A felhasználás feltételei</strong></p>
 		<p>A Felhasználási feltételek elfogadásával a szolgáltatás használója (a továbbiakban: Használó) elfogadja, hogy a Partimap.eu felület célja a fenti célok elérése. Erre tekintettel a Használó a szolgáltatás használata során is ezen célok szem előtt tartásával jár el.</p>
 		<p>A Használó a Felhasználási feltételek elfogadásával tudomásul veszi, hogy a szolgáltatáson keresztül megosztott tartalmai a nyilvánosság számára szabadon felhasználhatóak, valamint hogy a szolgáltatást közvetlen anyagi haszonszerzésre nem használhatja.</p>
+		<p>A K-Monitor Közhasznú Egyesület a Használó által megosztott tartalmakon - a felhasználási feltételek megsértésének esetein kívül - módosításokat nem végez, a keletkező adatokat kutatáshoz nem használja fel és nem hozza nyilvánosságra. A Használó tudomásul veszi, hogy K-Monitor Közhasznú Egyesület a PartiMap Használók létszámára vonatkozó adatokat összesítheti, az aggregált adatokat elemezheti, nyilvánosan közzéteheti.</p>
 		<p>A Használó a Felhasználási feltételek elfogadásával kötelezettséget vállal arra, hogy a szolgáltatás használata során tiszteletben tartja mások jogait, így különösen az emberi méltósághoz, személyes adatok védelméhez, valamint a szellemi alkotásokhoz fűződő jogokat.</p>
 		<p>A Használó a Felhasználási feltételek elfogadásával úgy nyilatkozik, hogy a szolgáltatást személyes adatok gyűjtésére, kezelésére nem használja.</p>
 		<p><strong>3. Felhasználási feltételek megsértése</strong></p>
