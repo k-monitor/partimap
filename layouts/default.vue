@@ -13,15 +13,23 @@ Vue.mixin(modals);
 Vue.mixin(toasts);
 
 export default {
-	head: {
-		titleTemplate: '%s | Partimap',
-		meta: [
-			{
-				hid: 'description',
-				name: 'description',
-				content: 'PARTIcipation MAPping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.'
-			},
-		],
+	head() {
+		return {
+			titleTemplate: '%s | Partimap',
+			meta: [
+				{
+					hid: 'description',
+					name: 'description',
+					content:
+						'PARTIcipation MAPping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.',
+				},
+				{
+					hid: 'og:image',
+					property: 'og:image',
+					content: `${this.$config.baseURL}/ogimage.png`,
+				},
+			],
+		};
 	},
 };
 </script>

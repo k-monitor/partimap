@@ -262,7 +262,7 @@ export default {
 					property: 'og:image',
 					content: this.project.image
 						? `${this.$config.baseURL}${this.project.image}`
-						: null, // TODO use Partimap logo/ogimage otherwise
+						: `${this.$config.baseURL}/ogimage.png`
 				},
 			],
 		};
