@@ -208,6 +208,9 @@ export default {
 			featureIndex: -1,
 		};
 	},
+	head: {
+		title: 'TÉRKÉPES KÉRDŐÍV',
+	},
 	computed: {
 		feature() {
 			return this.features[this.featureIndex];
