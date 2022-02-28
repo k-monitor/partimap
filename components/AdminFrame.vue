@@ -26,6 +26,7 @@
 					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
+					<b-nav-item to="/admin/help">Súgó</b-nav-item>
 					<b-nav-item-dropdown
 						:text="$auth.user.name"
 						right

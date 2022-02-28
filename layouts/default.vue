@@ -45,4 +45,15 @@ div#__nuxt,
 .rich img {
 	max-width: 100%;
 }
+
+.help h2,
+.help h3,
+.help h4 {
+	/* fix for anchors */
+	margin-top: -5rem;
+	padding-top: 5rem;
+}
+.help h4 {
+	font-size: 1.25rem;
+}
 </style>
