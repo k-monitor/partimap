@@ -51,6 +51,7 @@
 					:description-label="descriptionLabel"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:stars="stars"
 					:visitor="visitor"
 					@categoryEdited="updateCategories"
 				/>
@@ -67,6 +68,7 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:stars="stars"
 					:visitor="visitor"
 					:visitor-can-rate="visitorCanRate"
 					@categoryEdited="updateCategories"
@@ -127,6 +129,10 @@ export default {
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
+		},
+		stars: {
+			type: Number,
+			default: 5,
 		},
 		visitor: {
 			type: Boolean,

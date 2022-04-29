@@ -162,6 +162,7 @@
 						precision="1"
 						:readonly="!visitor"
 						:show-value="!visitor"
+						:stars="stars"
 						:variant="visitor ? 'warning' : 'info'"
 					/>
 				</b-form-group>
@@ -206,6 +207,10 @@ export default {
 		initFeatureRating: {
 			type: Number,
 			default: null,
+		},
+		stars: {
+			type: Number,
+			default: 5,
 		},
 		visitor: {
 			type: Boolean,

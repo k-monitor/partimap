@@ -92,6 +92,29 @@
 					stacked
 				/>
 			</b-form-group>
+			<div
+				v-if="selectedInteractions.includes('Rating')"
+				class="ml-4"
+			>
+				<b-form-group
+					label-cols-sm="12"
+					label-cols-lg="6"
+					content-cols-sm
+					content-cols-lg="3"
+					label="Csillagok száma:"
+					label-for="stars"
+					lable-size="sm"
+				>
+					<b-form-input
+						id="stars"
+						v-model="stars"
+						max="10"
+						min="3"
+						size="sm"
+						type="number"
+					/>
+				</b-form-group>
+			</div>
 			<b-form-group
 				v-if="isInteractive"
 				label="Felrajzolt elemekhez rendelt kérdés"
@@ -104,6 +127,7 @@
 			<FeatureList
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
+				:stars="stars"
 			/>
 		</Sidebar>
 	</SheetFrame>
@@ -186,6 +210,22 @@ export default {
 		},
 		isInteractive() {
 			return this.drawingInteractions.length;
+		},
+		stars: {
+			get() {
+				const ints = JSON.parse(this.sheet.interactions || '[]');
+				const def = ints.filter(i => i.startsWith('stars='))[0] || 'stars=5';
+				return Number(def.split('=')[1] || '5');
+			},
+			set(v) {
+				v = Math.max(3, v);
+				v = Math.min(10, v);
+				const ints = JSON.parse(this.sheet.interactions || '[]').filter(
+					i => !i.startsWith('stars=')
+				);
+				ints.push('stars=' + v);
+				this.sheet.interactions = JSON.stringify(ints);
+			},
 		},
 	},
 	watch: {

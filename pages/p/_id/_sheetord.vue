@@ -117,7 +117,11 @@
 							<hr>
 							<p>
 								<i class="fas fa-info-circle mr-1" />
-								<a class="alert-link" href="/hogyan-mukodik" target="_blank">
+								<a
+									class="alert-link"
+									href="/hogyan-mukodik"
+									target="_blank"
+								>
 									Hogyan működik?
 								</a>
 							</p>
@@ -145,6 +149,7 @@
 						:description-label="sheet.descriptionLabel"
 						:init-feature-ratings="getVisitorRatings(sheet.id)"
 						:hide-admin-features="isInteractive"
+						:stars="stars"
 						visitor
 						:visitor-can-rate="(sheet.interactions || '').includes('Rating')"
 					/>
@@ -262,7 +267,7 @@ export default {
 					property: 'og:image',
 					content: this.project.image
 						? `${this.$config.baseURL}${this.project.image}`
-						: `${this.$config.baseURL}/ogimage.png`
+						: `${this.$config.baseURL}/ogimage.png`,
 				},
 			],
 		};
@@ -295,6 +300,11 @@ export default {
 		},
 		needToShowResults() {
 			return this.sheet.answers.length > 0 && !this.resultsShown;
+		},
+		stars() {
+			const ints = JSON.parse(this.sheet.interactions || '[]');
+			const def = ints.filter(i => i.startsWith('stars='))[0] || 'stars=5';
+			return Number(def.split('=')[1] || '5');
 		},
 	},
 	watch: {
