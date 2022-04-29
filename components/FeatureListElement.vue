@@ -157,14 +157,22 @@
 					/>
 				</div>
 				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
-					<b-form-rating
-						v-model="rating"
-						precision="1"
-						:readonly="!visitor"
-						:show-value="!visitor"
-						:stars="stars"
-						:variant="visitor ? 'warning' : 'info'"
-					/>
+					<div class="border d-flex font-weight-bold justify-content-center p-1">
+						<star-rating
+							v-model="rating"
+							:active-color="visitor ? '#ffc107' : '#17a2b8'"
+							:animate="visitor"
+							:border-color="visitor ? '#ffc107' : '#17a2b8'"
+							:border-width="2"
+							clearable
+							:fixed-points="1"
+							inactive-color="#fff"
+							:max-rating="stars"
+							:read-only="!visitor"
+							:show-rating="!visitor"
+							:star-size="16"
+						/>
+					</div>
 				</b-form-group>
 
 				<b-form-group v-if="editable">
@@ -185,10 +193,12 @@
 <script>
 import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
+import StarRating from 'vue-star-rating';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
 export default {
 	components: {
+		StarRating,
 		VueTypeaheadBootstrap,
 	},
 	props: {

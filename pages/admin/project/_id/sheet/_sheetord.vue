@@ -109,7 +109,7 @@
 						id="stars"
 						v-model="stars"
 						max="10"
-						min="3"
+						min="1"
 						size="sm"
 						type="number"
 					/>
@@ -218,7 +218,7 @@ export default {
 				return Number(def.split('=')[1] || '5');
 			},
 			set(v) {
-				v = Math.max(3, v);
+				v = Math.max(1, v);
 				v = Math.min(10, v);
 				const ints = JSON.parse(this.sheet.interactions || '[]').filter(
 					i => !i.startsWith('stars=')

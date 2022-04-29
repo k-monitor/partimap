@@ -53,6 +53,7 @@
     "transform-coordinates": "^1.0.0",
     "uuid": "^8.3.2",
     "vue-social-sharing": "^3.0.8",
+    "vue-star-rating": "^1.7.0",
     "vue-typeahead-bootstrap": "^2.12.0",
     "vuedraggable": "^2.24.3"
   },

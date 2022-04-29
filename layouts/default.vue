@@ -56,4 +56,8 @@ div#__nuxt,
 .help h4 {
 	font-size: 1.25rem;
 }
+
+.vue-star-rating-star {
+	margin-top: -2px;
+}
 </style>

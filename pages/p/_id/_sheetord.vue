@@ -330,7 +330,11 @@ export default {
 	created() {
 		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
 			const ratings = this.getVisitorRatings(this.sheet.id) || {};
-			ratings[featureId] = rating;
+			if (rating) {
+				ratings[featureId] = rating;
+			} else {
+				delete ratings[featureId];
+			}
 			const payload = { ratings, sheetId: this.sheet.id };
 			this.$store.commit('visitordata/addRatings', payload);
 		});
