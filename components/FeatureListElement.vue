@@ -193,12 +193,10 @@
 <script>
 import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
-import StarRating from 'vue-star-rating/src';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
 export default {
 	components: {
-		StarRating,
 		VueTypeaheadBootstrap,
 	},
 	props: {
