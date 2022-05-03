@@ -148,7 +148,7 @@
 					<FeatureList
 						:description-label="sheet.descriptionLabel"
 						:init-feature-ratings="getVisitorRatings(sheet.id)"
-						:hide-admin-features="isInteractive"
+						:hide-admin-features="!!isInteractive"
 						:stars="stars"
 						visitor
 						:visitor-can-rate="(sheet.interactions || '').includes('Rating')"

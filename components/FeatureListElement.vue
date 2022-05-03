@@ -156,24 +156,26 @@
 						v-html="form.description"
 					/>
 				</div>
-				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
-					<div class="border d-flex font-weight-bold justify-content-center p-1">
-						<star-rating
-							v-model="rating"
-							:active-color="visitor ? '#ffc107' : '#17a2b8'"
-							:animate="visitor"
-							:border-color="visitor ? '#ffc107' : '#17a2b8'"
-							:border-width="2"
-							clearable
-							:fixed-points="1"
-							inactive-color="#fff"
-							:max-rating="stars"
-							:read-only="!visitor"
-							:show-rating="!visitor"
-							:star-size="16"
-						/>
-					</div>
-				</b-form-group>
+				<client-only>
+					<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
+						<div class="border d-flex font-weight-bold justify-content-center p-1">
+							<star-rating
+								v-model="rating"
+								:active-color="visitor ? '#ffc107' : '#17a2b8'"
+								:animate="visitor"
+								:border-color="visitor ? '#ffc107' : '#17a2b8'"
+								:border-width="2"
+								clearable
+								:fixed-points="1"
+								inactive-color="#fff"
+								:max-rating="stars"
+								:read-only="!visitor"
+								:show-rating="!visitor"
+								:star-size="16"
+							/>
+						</div>
+					</b-form-group>
+				</client-only>
 
 				<b-form-group v-if="editable">
 					<span
