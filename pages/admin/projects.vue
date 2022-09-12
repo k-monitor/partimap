@@ -5,7 +5,7 @@
 		</template>
 
 		<div class="row">
-			<div class="col-12 col-md-8">
+			<div class="col-12 col-md-7">
 				<form @submit.prevent="add">
 					<div class="input-group mb-3">
 						<input
@@ -35,6 +35,15 @@
 						type="text"
 					>
 				</div>
+			</div>
+			<div v-if="$auth.user.isAdmin" class="col col-mr-0">
+				<form @click="filteredOwn()">
+					<input
+						class="btn btn-outline-success form-control"
+						type="button"
+						value="Saját projektek"
+					>
+				</form>
 			</div>
 		</div>
 		<div class="list-group">
@@ -90,6 +99,7 @@ export default {
 			filter: '',
 			newProjectTitle: null,
 			projects: [],
+			filterOwn: false,
 		};
 	},
 	head: {
@@ -98,12 +108,16 @@ export default {
 	computed: {
 		filteredProjects() {
 			return this.projects.filter(
-				p =>
-					p.title.toLowerCase().includes(this.filter.toLowerCase()) ||
-					(p.description || '')
-						.toLowerCase()
-						.includes(this.filter.toLowerCase())
-			);
+				p => {
+					const f = this.filter.toLowerCase();
+					const t = p.title.toLowerCase();
+					const d = (p.description || '').toLowerCase();
+					if (this.filterOwn && this.$auth.user.id !== p.userId) {
+						return false;
+					}
+					// eslint-disable-next-line no-unreachable
+					return t.includes(f) || d.includes(f);
+				});
 		},
 	},
 	methods: {
@@ -129,6 +143,10 @@ export default {
 				}
 			}
 		},
+		filteredOwn() {
+			this.filterOwn = this.filterOwn ? this.filterOwn = false : this.filterOwn = true;
+		},
 	},
 };
+
 </script>
