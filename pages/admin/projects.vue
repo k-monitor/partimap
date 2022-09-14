@@ -37,13 +37,13 @@
 				</div>
 			</div>
 			<div v-if="$auth.user.isAdmin" class="col col-mr-0">
-				<form @click="filteredOwn()">
-					<input
-						class="btn btn-outline-success form-control"
-						type="button"
-						value="Saját projektek"
-					>
-				</form>
+				<input
+					class="btn btn-outline-primary form-control"
+					:class="{active: filterOwn}"
+					type="button"
+					value="Saját projektek"
+					@click="filteredOwn(filterOwn)"
+				>
 			</div>
 		</div>
 		<div class="list-group">
@@ -143,8 +143,8 @@ export default {
 				}
 			}
 		},
-		filteredOwn() {
-			this.filterOwn = this.filterOwn ? this.filterOwn = false : this.filterOwn = true;
+		filteredOwn(toggle) {
+			this.filterOwn = !toggle;
 		},
 	},
 };
