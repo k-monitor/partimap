@@ -5,7 +5,7 @@
 		</template>
 
 		<div class="row">
-			<div class="col-12 col-md-8">
+			<div class="col-12 col-md-7">
 				<form @submit.prevent="add">
 					<div class="input-group mb-3">
 						<input
@@ -35,6 +35,15 @@
 						type="text"
 					>
 				</div>
+			</div>
+			<div v-if="$auth.user.isAdmin" class="col col-mr-0">
+				<input
+					class="btn btn-outline-primary form-control"
+					:class="{active: filterOwn}"
+					type="button"
+					value="Saját térképek"
+					@click="filteredOwn(filterOwn)"
+				>
 			</div>
 		</div>
 		<div class="list-group">
@@ -85,6 +94,7 @@ export default {
 			filter: '',
 			newMapTitle: null,
 			maps: [],
+			filterOwn: false,
 		};
 	},
 	head: {
@@ -93,12 +103,16 @@ export default {
 	computed: {
 		filteredMaps() {
 			return this.maps.filter(
-				m =>
-					m.title.toLowerCase().includes(this.filter.toLowerCase()) ||
-					(m.description || '')
-						.toLowerCase()
-						.includes(this.filter.toLowerCase())
-			);
+				m => {
+					const f = this.filter.toLowerCase();
+					const t = m.title.toLowerCase();
+					const d = (m.description || '').toLowerCase();
+					if (this.filterOwn && this.$auth.user.id !== m.userId) {
+						return false;
+					}
+					// eslint-disable-next-line no-unreachable
+					return t.includes(f) || d.includes(f);
+				});
 		},
 	},
 	methods: {
@@ -122,6 +136,9 @@ export default {
 					this.errorToast('Sikertelen törlés.');
 				}
 			}
+		},
+		filteredOwn(toggle) {
+			this.filterOwn = !toggle;
 		},
 	},
 };
