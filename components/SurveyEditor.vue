@@ -103,7 +103,13 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
-
+				<b-row v-if="question.type === 'checkbox'">
+					<b-col>
+						<b-form-group label="Maximum érték">
+							<b-form-input v-model=question.max />
+						</b-form-group>
+					</b-col>
+				</b-row>
 				<b-form-group
 					v-if="hasOptions"
 					label="Opciók"

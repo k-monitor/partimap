@@ -12,6 +12,11 @@
 				>*</span>
 				<strong class="text-primary">{{ q.label }}</strong>
 			</template>
+			<CheckDisabled
+				v-if="q.type == 'checkbox'"
+				:questions="q"
+				@inputCheckBox="CheckBoxDisabled"
+				CheckDisabled />
 			<b-form-input
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
@@ -43,14 +48,6 @@
 					>{{ answers[q.id] }}</strong>
 				</div>
 			</div>
-			<b-form-checkbox-group
-				v-else-if="q.type === 'checkbox'"
-				v-model="answers[q.id]"
-				:name="'q' + q.id"
-				:options="q.options"
-				:required="q.required && (answers[q.id] || []).length < 1"
-				stacked
-			/>
 			<b-form-radio-group
 				v-else-if="q.type === 'radiogroup'"
 				v-model="answers[q.id]"
@@ -116,5 +113,10 @@ export default {
 			deep: true,
 		},
 	},
+	methods: {
+		CheckBoxDisabled(questionsId, selected) {
+			this.answers[questionsId] = selected;
+		}
+	}
 };
 </script>
