@@ -176,7 +176,7 @@
 					<div class="card m-3 shadow-sm">
 						<h5 class="card-header">Partimap</h5>
 						<div class="card-body">
-							<p>Ez a projekt jelszóval védett.</p>
+							<p>Ez a kérdőív jelenleg le van zárva.</p>
 							<p>Kérlek írd be a jelszót a megtekintéshez!</p>
 							<div class="form-group">
 								<b-input-group>
