@@ -5,6 +5,7 @@
 			:options="surveyEx"
 			value-field="name"
 			text-field="name"
+			:required="questions.required"
 			stacked
 			@input="maxAssign(questions)"
 		></b-form-checkbox-group>
