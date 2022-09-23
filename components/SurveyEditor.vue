@@ -142,7 +142,13 @@
 						Új opció
 					</b-button>
 				</b-form-group>
-
+				<b-form-group>
+					<b-form-checkbox
+						v-if="question.type === 'dropdown'"
+						v-model=question.other
+					>Egyéb
+					</b-form-checkbox>
+				</b-form-group>
 				<b-form-group>
 					<b-form-checkbox v-model="question.required">Kötelező megválaszolni</b-form-checkbox>
 				</b-form-group>

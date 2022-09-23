@@ -15,7 +15,7 @@
 			<CheckDisabled
 				v-if="q.type == 'checkbox'"
 				:questions="q"
-				@inputCheckBox="CheckBoxDisabled"
+				@inputCheckBox="checkBoxDisabled"
 				CheckDisabled />
 			<b-form-input
 				v-if="q.type === 'text'"
@@ -58,10 +58,20 @@
 			/>
 			<b-form-select
 				v-else-if="q.type === 'dropdown'"
-				v-model="answers[q.id]"
+				:disabled=isDisabled
+				v-model=answers[q.id]
 				:name="'q' + q.id"
 				:options="q.options"
 				:required="q.required"
+			/>
+			<strong
+				v-if="q.type === 'dropdown' && q.other === true"
+				class="text-primary">Egyéb: </strong>
+			<b-form-input
+				v-if="q.type === 'dropdown' && q.other === true"
+				v-model="other"
+				:name="'q' + q.id"
+				@input="otherDropdownOption(q)"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
@@ -89,6 +99,8 @@ export default {
 	data() {
 		return {
 			answers: this.value || {},
+			other: '',
+			disable: false,
 		};
 	},
 	computed: {
@@ -104,6 +116,9 @@ export default {
 			}
 			return s.questions;
 		},
+		isDisabled() {
+			return this.other !== '';
+		},
 	},
 	watch: {
 		answers: {
@@ -114,9 +129,12 @@ export default {
 		},
 	},
 	methods: {
-		CheckBoxDisabled(questionsId, selected) {
+		checkBoxDisabled(questionsId, selected) {
 			this.answers[questionsId] = selected;
-		}
+		},
+		otherDropdownOption(q) {
+			this.answers[q.id] = this.other;
+		},
 	}
 };
 </script>
