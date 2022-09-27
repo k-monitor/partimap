@@ -105,8 +105,10 @@
 				</b-row>
 				<b-row v-if="question.type === 'checkbox'">
 					<b-col>
-						<b-form-group label="Maximum érték">
-							<b-form-input v-model=question.max />
+						<b-form-group label="Maximálisan kiválasztható:">
+							<b-form-input
+								v-model="question.max"
+								type="number" />
 						</b-form-group>
 					</b-col>
 				</b-row>

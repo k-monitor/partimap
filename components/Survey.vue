@@ -12,11 +12,14 @@
 				>*</span>
 				<strong class="text-primary">{{ q.label }}</strong>
 			</template>
-			<CheckDisabled
+			<CheckboxGroup
 				v-if="q.type == 'checkbox'"
-				:questions="q"
+				v-model="checkedList"
+				:answers="answers"
+				:question="q"
+				:selectedProps ="checkedList"
 				@inputCheckBox="checkBoxDisabled"
-				CheckDisabled />
+			/>
 			<b-form-input
 				v-if="q.type === 'text'"
 				v-model="answers[q.id]"
@@ -58,20 +61,20 @@
 			/>
 			<b-form-select
 				v-else-if="q.type === 'dropdown'"
-				:disabled=isDisabled
-				v-model=answers[q.id]
+				v-model="answers[q.id]"
 				:name="'q' + q.id"
 				:options="q.options"
 				:required="q.required"
 			/>
 			<strong
-				v-if="q.type === 'dropdown' && q.other === true"
+				v-if="q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
 				class="text-primary">Egyéb: </strong>
 			<b-form-input
-				v-if="q.type === 'dropdown' && q.other === true"
-				v-model="other"
+				v-if="q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
+				:value="otherString"
+				:required="q.required"
 				:name="'q' + q.id"
-				@input="otherDropdownOption(q)"
+				@input="funct(otherString)"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
@@ -99,8 +102,9 @@ export default {
 	data() {
 		return {
 			answers: this.value || {},
-			other: '',
 			disable: false,
+			otherString: '',
+			checkedList: [],
 		};
 	},
 	computed: {
@@ -114,11 +118,14 @@ export default {
 			if (!s.questions) {
 				s.questions = [];
 			}
+			// eslint-disable-next-line array-callback-return
+			s.questions.map(x => {
+				if (x.other) {
+					x.options.push('Egyéb');
+				}
+			});
 			return s.questions;
-		},
-		isDisabled() {
-			return this.other !== '';
-		},
+		}
 	},
 	watch: {
 		answers: {
@@ -127,14 +134,18 @@ export default {
 			},
 			deep: true,
 		},
+		otherString() {
+			console.log(this.otherString);
+		}
 	},
 	methods: {
-		checkBoxDisabled(questionsId, selected) {
-			this.answers[questionsId] = selected;
+		checkBoxDisabled(selectedProps) {
+			this.checkedList = selectedProps;
+			console.log(this.checkedList);
 		},
-		otherDropdownOption(q) {
-			this.answers[q.id] = this.other;
-		},
+		funct(a) {
+			console.log(a);
+		}
 	}
 };
 </script>

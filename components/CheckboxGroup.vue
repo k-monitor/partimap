@@ -8,7 +8,7 @@
 			:required="question.required && (answers[question.id] || []).length < 1"
 			stacked
 		></b-form-checkbox-group>
-		{{asd()}}
+		<div>{{this.selectedProps}}</div>
 	</div>
 </template>
 
@@ -18,18 +18,20 @@ export default {
 	props: {
 		question: {
 			type: Object,
-			default: () => {
-			},
+			default: () => {},
 		},
 		answers: {
 			type: Object,
-			default: () => {
-			},
-		}
+			default: () => {},
+		},
+		selectedProps: {
+			type: Array,
+			default: () => [],
+		},
 	},
 	data() {
 		return {
-			selected: [],
+			selected: this.selectedProps,
 			checkedList: [],
 		};
 	},
@@ -40,20 +42,19 @@ export default {
 	},
 	methods: {
 		asd() {
-			// console.log(this.answers[this.question.id]);
+			// this.selected = [...this.checkedList];
+			// console.log(this.checkedListProps);
 		}
 	},
 	watch: {
 		selected(answer) {
-			// console.log(this.selected);
-			console.log(this.checkedList);
 			if (this.selected.length >= this.question.max) {
 				const result = this.checkedList.filter(x => !this.selected.includes(x.name));
 				result.map(item => (item.disabled = true));
 			} else {
 				this.checkedList.map(item => (item.disabled = false));
 			}
-			this.$emit('inputCheckBox', this.selected, this.checkedList);
+			this.$emit('inputCheckBox', this.selected);
 		}
 	},
 };
