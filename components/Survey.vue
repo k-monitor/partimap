@@ -14,11 +14,9 @@
 			</template>
 			<CheckboxGroup
 				v-if="q.type == 'checkbox'"
-				v-model="checkedList"
+				v-model="answers[q.id]"
 				:answers="answers"
 				:question="q"
-				:selectedProps ="checkedList"
-				@inputCheckBox="checkBoxDisabled"
 			/>
 			<b-form-input
 				v-if="q.type === 'text'"
@@ -66,15 +64,19 @@
 				:options="q.options"
 				:required="q.required"
 			/>
+			<span
+				v-if="q.required && q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
+				class="text-danger"
+			>*</span>
 			<strong
 				v-if="q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
 				class="text-primary">Egyéb: </strong>
 			<b-form-input
 				v-if="q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
-				:value="otherString"
+				:velue="answers[q.id]"
 				:required="q.required"
 				:name="'q' + q.id"
-				@input="funct(otherString)"
+				@input="otherAnswerFunct(q)"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
@@ -103,8 +105,8 @@ export default {
 		return {
 			answers: this.value || {},
 			disable: false,
-			otherString: '',
-			checkedList: [],
+			otherAnswer: '',
+			otherfill: false,
 		};
 	},
 	computed: {
@@ -124,27 +126,34 @@ export default {
 					x.options.push('Egyéb');
 				}
 			});
+			// console.log(s.questions);
 			return s.questions;
 		}
 	},
 	watch: {
 		answers: {
 			handler(a) {
+				// console.log(this.otherfill);
+				// const st = a.slice(0, 5);
+				// console.log(a);
+				console.log(a);
 				this.$emit('input', a);
 			},
 			deep: true,
 		},
-		otherString() {
-			console.log(this.otherString);
+		otherAnswer() {
+			// console.log(this.otherAnswer);
 		}
 	},
 	methods: {
-		checkBoxDisabled(selectedProps) {
-			this.checkedList = selectedProps;
-			console.log(this.checkedList);
-		},
-		funct(a) {
-			console.log(a);
+		otherAnswerFunct(q) {
+			console.log(this.answers[q.id]);
+			if (this.answers[q.id] === 'Egyéb') {
+				// console.log(this.answers[q.id]);
+			}
+			// console.log(this.answers[q.id]);
+			// console.log(this.otherAnswer);
+			// console.log(this.otherAnswer2);
 		}
 	}
 };

@@ -8,7 +8,6 @@
 			:required="question.required && (answers[question.id] || []).length < 1"
 			stacked
 		></b-form-checkbox-group>
-		<div>{{this.selectedProps}}</div>
 	</div>
 </template>
 
@@ -24,14 +23,14 @@ export default {
 			type: Object,
 			default: () => {},
 		},
-		selectedProps: {
+		value: {
 			type: Array,
 			default: () => [],
 		},
 	},
 	data() {
 		return {
-			selected: this.selectedProps,
+			selected: this.value,
 			checkedList: [],
 		};
 	},
@@ -39,22 +38,22 @@ export default {
 		this.checkedList = Object.assign({}, this.question.options);
 		this.checkedList = Object.keys(this.checkedList).slice(0, this.checkedList.size).map(key => (
 			{ name: this.checkedList[key], disabled: false }));
-	},
-	methods: {
-		asd() {
-			// this.selected = [...this.checkedList];
-			// console.log(this.checkedListProps);
+		if (this.selected.length >= this.question.max) {
+			const result = this.checkedList.filter(x => !this.selected.includes(x.name));
+			result.map(item => (item.disabled = true));
+		} else {
+			this.checkedList.map(item => (item.disabled = false));
 		}
 	},
 	watch: {
-		selected(answer) {
+		selected() {
 			if (this.selected.length >= this.question.max) {
 				const result = this.checkedList.filter(x => !this.selected.includes(x.name));
 				result.map(item => (item.disabled = true));
 			} else {
 				this.checkedList.map(item => (item.disabled = false));
 			}
-			this.$emit('inputCheckBox', this.selected);
+			this.$emit('input', this.selected);
 		}
 	},
 };
