@@ -19,7 +19,7 @@
 				:question="q"
 			/>
 			<b-form-input
-				v-if="q.type === 'text'"
+				v-else-if="q.type === 'text'"
 				v-model="answers[q.id]"
 				:name="'q' + q.id"
 				:required="q.required"
@@ -57,26 +57,11 @@
 				:required="q.required"
 				stacked
 			/>
-			<b-form-select
+			<DropdownGroup
 				v-else-if="q.type === 'dropdown'"
 				v-model="answers[q.id]"
-				:name="'q' + q.id"
-				:options="q.options"
-				:required="q.required"
-			/>
-			<span
-				v-if="q.required && q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
-				class="text-danger"
-			>*</span>
-			<strong
-				v-if="q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
-				class="text-primary">Egyéb: </strong>
-			<b-form-input
-				v-if="q.type === 'dropdown' && answers[q.id] === 'Egyéb'"
-				:velue="answers[q.id]"
-				:required="q.required"
-				:name="'q' + q.id"
-				@input="otherAnswerFunct(q)"
+				:answers="answers"
+				:q="q"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
@@ -104,9 +89,6 @@ export default {
 	data() {
 		return {
 			answers: this.value || {},
-			disable: false,
-			otherAnswer: '',
-			otherfill: false,
 		};
 	},
 	computed: {
@@ -120,41 +102,16 @@ export default {
 			if (!s.questions) {
 				s.questions = [];
 			}
-			// eslint-disable-next-line array-callback-return
-			s.questions.map(x => {
-				if (x.other) {
-					x.options.push('Egyéb');
-				}
-			});
-			// console.log(s.questions);
 			return s.questions;
-		}
+		},
 	},
 	watch: {
 		answers: {
 			handler(a) {
-				// console.log(this.otherfill);
-				// const st = a.slice(0, 5);
-				// console.log(a);
-				console.log(a);
 				this.$emit('input', a);
 			},
 			deep: true,
 		},
-		otherAnswer() {
-			// console.log(this.otherAnswer);
-		}
 	},
-	methods: {
-		otherAnswerFunct(q) {
-			console.log(this.answers[q.id]);
-			if (this.answers[q.id] === 'Egyéb') {
-				// console.log(this.answers[q.id]);
-			}
-			// console.log(this.answers[q.id]);
-			// console.log(this.otherAnswer);
-			// console.log(this.otherAnswer2);
-		}
-	}
 };
 </script>
