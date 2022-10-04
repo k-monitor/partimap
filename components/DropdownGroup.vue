@@ -1,10 +1,5 @@
 <template>
 	<div>
-		<select v-model="selected">
-			<option v-for="item in options" :key="item.text" :value="{value: item.text, text: item.value }">
-				{{ item.name }}
-			</option>
-		</select>
 		<div>{{this.question}}</div>
 		<b-form-select
 			v-model="selected"
@@ -12,15 +7,15 @@
 			:required="q.required"
 		/>
 		<span
-			v-if="q.required && this.selected == 'other'"
+			v-if="q.required && this.selected == 'other: '"
 			class="text-danger"
 		>*</span>
 		<strong
-			v-if="this.selected == 'other'"
+			v-if="this.selected == 'other: '"
 			class="text-primary">Egyéb: </strong>
 		<b-form-input
-			v-if="this.selected == 'other'"
-			v-model="selected2"
+			v-if="this.selected == 'other: '"
+			v-model="otherValue"
 			:required="q.required"
 		/>
 	</div>
@@ -48,23 +43,13 @@ export default {
 		this.options = Object.keys(this.options).slice(0, this.options.size).map(key => (
 			{ text: this.options[key], value: this.options[key] }));
 		if (this.q.other) {
-			this.options.push({ text: 'Egyéb', value: 'other' });
+			this.options.push({ text: 'Egyéb', value: 'other: ' });
 		}
-		// console.log(this.selected);
-		// console.log(this.selected);
-		// if (this.selected.startsWith('other')) {
-		// this.options = Object.assign({}, this.q.options);
-		// this.options = Object.keys(this.options).slice(0, this.options.size).map(key => (
-		// { id: parseInt(key), text: this.options[key], value: this.options[key] }));
-		// if (this.q.other) {
-		// this.options.push({ id: this.options.length, text: 'Egyéb', value: 'other' });
-		// this.question.isSelected = false;
-		// }
 	},
 	data() {
 		return {
-			selected: (this.value === 'other' ? 'other' : this.value),
-			selected2: (this.value.startsWith('other') ? this.value.slice(5) : this.value),
+			selected: (this.value.startsWith('other: ') ? 'other: ' : this.value),
+			otherValue: (this.value.startsWith('other: ') ? this.value.slice(7) : this.value),
 			a: this.answers,
 			options: this.q.options,
 			question: this.q,
@@ -72,18 +57,11 @@ export default {
 	},
 	watch: {
 		selected(a) {
-			console.log(this.selected);
-			if (this.value.startsWith('other')) {
-				this.$emit('input', 'other');
-			}
+			this.otherValue = '';
 			this.$emit('input', a);
 		},
 		selected2(a) {
-			console.log(this.selected2);
-			if (this.value.startsWith('other')) {
-				this.$emit('input', 'other: ' + a);
-			}
-			this.$emit('input', a);
+			this.$emit('input', 'other: ' + a);
 		},
 	},
 };
