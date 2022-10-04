@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<div>{{this.question}}</div>
 		<b-form-select
 			v-model="selected"
 			:options="options"
@@ -60,7 +59,7 @@ export default {
 			this.otherValue = '';
 			this.$emit('input', a);
 		},
-		selected2(a) {
+		otherValue(a) {
 			this.$emit('input', 'other: ' + a);
 		},
 	},
