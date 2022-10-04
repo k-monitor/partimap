@@ -112,6 +112,8 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
+				<b-row v-if="question.type === 'singleChoiceMatrix'">
+				</b-row>
 				<b-form-group
 					v-if="hasOptions"
 					label="Opciók"
@@ -205,6 +207,7 @@ export default {
 					text: 'Opciók lenyíló listában (egyet lehet vál.)',
 				},
 				{ value: 'rating', text: 'Értékelés (5 csillag)' },
+				{ value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
 			],
 			questionIndex: 0,
 			question: {},
@@ -212,7 +215,7 @@ export default {
 	},
 	computed: {
 		hasOptions() {
-			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+			return 'checkbox|radiogroup|dropdown|singleChoiceMatrix'.includes(this.question.type);
 		},
 	},
 	watch: {
