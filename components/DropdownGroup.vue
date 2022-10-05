@@ -6,7 +6,7 @@
 			:required="q.required"
 		/>
 		<span
-			v-if="q.required && this.selected == 'other: '"
+			v-if="this.selected == 'other: '"
 			class="text-danger"
 		>*</span>
 		<strong
@@ -15,7 +15,7 @@
 		<b-form-input
 			v-if="this.selected == 'other: '"
 			v-model="otherValue"
-			:required="q.required"
+			required
 		/>
 	</div>
 </template>
@@ -48,7 +48,7 @@ export default {
 	data() {
 		return {
 			selected: (this.value.startsWith('other: ') ? 'other: ' : this.value),
-			otherValue: (this.value.startsWith('other: ') ? this.value.slice(7) : this.value),
+			otherValue: (this.value.startsWith('other: ') ? this.value.slice(7) : ''),
 			a: this.answers,
 			options: this.q.options,
 			question: this.q,
