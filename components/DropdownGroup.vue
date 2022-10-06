@@ -6,16 +6,18 @@
 			:required="q.required"
 		/>
 		<span
-			v-if="this.selected == 'other: '"
+			v-if="q.required && selected == other"
+			:required="q.required"
 			class="text-danger"
 		>*</span>
 		<strong
-			v-if="this.selected == 'other: '"
+			v-if="selected == other"
+			:required="q.required"
 			class="text-primary">Egyéb: </strong>
 		<b-form-input
-			v-if="this.selected == 'other: '"
+			v-if="selected == other"
+			:required="q.required"
 			v-model="otherValue"
-			required
 		/>
 	</div>
 </template>
@@ -25,10 +27,6 @@ export default {
 	name: 'DropdownOther',
 	props: {
 		q: {
-			type: Object,
-			default: () => {},
-		},
-		answers: {
 			type: Object,
 			default: () => {},
 		},
@@ -49,18 +47,16 @@ export default {
 		return {
 			selected: (this.value.startsWith('other: ') ? 'other: ' : this.value),
 			otherValue: (this.value.startsWith('other: ') ? this.value.slice(7) : ''),
-			a: this.answers,
 			options: this.q.options,
-			question: this.q,
+			other: 'other: ',
 		};
 	},
 	watch: {
 		selected(a) {
-			this.otherValue = '';
 			this.$emit('input', a);
 		},
 		otherValue(a) {
-			this.$emit('input', 'other: ' + a);
+			this.$emit('input', this.other + a);
 		},
 	},
 };

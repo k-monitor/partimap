@@ -112,8 +112,9 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
-				<b-row v-if="question.type === 'singleChoiceMatrix'">
-				</b-row>
+				<SurveySingleMatrix
+					v-if="question.type === 'singleChoiceMatrix'"
+				/>
 				<b-form-group
 					v-if="hasOptions"
 					label="Opciók"
@@ -149,7 +150,7 @@
 				<b-form-group>
 					<b-form-checkbox
 						v-if="question.type === 'dropdown'"
-						v-model=question.other
+						v-model="question.other"
 					>Egyéb
 					</b-form-checkbox>
 				</b-form-group>
@@ -215,7 +216,7 @@ export default {
 	},
 	computed: {
 		hasOptions() {
-			return 'checkbox|radiogroup|dropdown|singleChoiceMatrix'.includes(this.question.type);
+			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
 		},
 	},
 	watch: {
@@ -225,6 +226,10 @@ export default {
 		'survey.showResultsOnly'() {
 			this.emitSurvey();
 		},
+	},
+	mounted() {
+		console.log('mounted: ');
+		this.question.ColumnOption = [];
 	},
 	methods: {
 		addQuestion() {
@@ -254,6 +259,12 @@ export default {
 				this.$set(this.question, 'options', []);
 			}
 			this.question.options.push(`Opció #${this.question.options.length + 1}`);
+		},
+		addColumnOption() {
+			if (!this.question.ColumnOption) {
+				this.$set(this.ColumnOption, 'ColumnOption', []);
+			}
+			this.question.ColumnOption.push(`Opció #${this.question.ColumnOption.length + 1}`);
 		},
 		delOption(i) {
 			this.question.options.splice(i, 1);
