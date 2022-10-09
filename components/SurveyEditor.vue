@@ -107,14 +107,13 @@
 					<b-col>
 						<b-form-group label="Maximálisan kiválasztható:">
 							<b-form-input
-								v-model="question.max"
-								type="number" />
+								v-model.number="question.max"
+								type="number"
+								@change="inputValid"
+							/>
 						</b-form-group>
 					</b-col>
 				</b-row>
-				<SurveySingleMatrix
-					v-if="question.type === 'singleChoiceMatrix'"
-				/>
 				<b-form-group
 					v-if="hasOptions"
 					label="Opciók"
@@ -227,10 +226,6 @@ export default {
 			this.emitSurvey();
 		},
 	},
-	mounted() {
-		console.log('mounted: ');
-		this.question.ColumnOption = [];
-	},
 	methods: {
 		addQuestion() {
 			const id = new Date().getTime();
@@ -260,12 +255,6 @@ export default {
 			}
 			this.question.options.push(`Opció #${this.question.options.length + 1}`);
 		},
-		addColumnOption() {
-			if (!this.question.ColumnOption) {
-				this.$set(this.ColumnOption, 'ColumnOption', []);
-			}
-			this.question.ColumnOption.push(`Opció #${this.question.ColumnOption.length + 1}`);
-		},
 		delOption(i) {
 			this.question.options.splice(i, 1);
 		},
@@ -283,6 +272,9 @@ export default {
 			}
 			this.$emit('input', JSON.stringify(this.survey));
 		},
+		inputValid(max) {
+			this.question.max = !max || max < 1 ? this.question.options.length : max;
+		}
 	},
 };
 </script>

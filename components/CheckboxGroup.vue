@@ -5,7 +5,7 @@
 			:options="checkedList"
 			value-field="name"
 			text-field="name"
-			:required="question.required && (answers[question.id] || []).length < 1"
+			:required="question.required && (selected || []).length < 1"
 			stacked
 		></b-form-checkbox-group>
 	</div>
@@ -16,10 +16,6 @@ export default {
 	name: 'CheckDisabled',
 	props: {
 		question: {
-			type: Object,
-			default: () => {},
-		},
-		answers: {
 			type: Object,
 			default: () => {},
 		},

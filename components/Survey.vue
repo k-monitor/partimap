@@ -15,7 +15,6 @@
 			<CheckboxGroup
 				v-if="q.type == 'checkbox'"
 				v-model="answers[q.id]"
-				:answers="answers"
 				:question="q"
 			/>
 			<b-form-input
