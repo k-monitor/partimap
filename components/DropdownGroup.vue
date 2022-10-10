@@ -46,12 +46,16 @@ export default {
 			other: OTHER_PREFIX,
 		};
 	},
-	watch: {
-		selected(a) {
-			this.$emit('input', a);
+	computed: {
+		answer() {
+			return this.selected === this.other
+				? this.other + this.otherValue
+				: this.selected;
 		},
-		otherValue(a) {
-			this.$emit('input', this.other + a);
+	},
+	watch: {
+		answer() {
+			this.$emit('input', this.answer);
 		},
 	},
 	mounted() {
