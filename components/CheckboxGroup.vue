@@ -7,13 +7,12 @@
 			text-field="name"
 			:required="question.required && (selected || []).length < 1"
 			stacked
-		></b-form-checkbox-group>
+		/>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'CheckDisabled',
 	props: {
 		question: {
 			type: Object,
@@ -30,6 +29,19 @@ export default {
 			checkedList: [],
 		};
 	},
+	watch: {
+		selected() {
+			this.updateCheckboxStates();
+			this.$emit('input', this.selected);
+		},
+	},
+	mounted() {
+		this.checkedList = Object.assign({}, this.question.options);
+		this.checkedList = Object.keys(this.checkedList)
+			.slice(0, this.checkedList.size)
+			.map(key => ({ name: this.checkedList[key], disabled: false }));
+		this.updateCheckboxStates();
+	},
 	methods: {
 		updateCheckboxStates() {
 			const max = this.question.max || this.question.options.length;
@@ -43,21 +55,5 @@ export default {
 			}
 		},
 	},
-	mounted() {
-		this.checkedList = Object.assign({}, this.question.options);
-		this.checkedList = Object.keys(this.checkedList)
-			.slice(0, this.checkedList.size)
-			.map(key => ({ name: this.checkedList[key], disabled: false }));
-		this.updateCheckboxStates();
-	},
-	watch: {
-		selected() {
-			this.updateCheckboxStates();
-			this.$emit('input', this.selected);
-		},
-	},
 };
 </script>
-
-<style scoped>
-</style>
