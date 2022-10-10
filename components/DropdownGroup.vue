@@ -13,7 +13,8 @@
 		<strong
 			v-if="selected == other"
 			:required="q.required"
-			class="text-primary">Egyéb: </strong>
+			class="text-primary"
+		>Egyéb: </strong>
 		<b-form-input
 			v-if="selected == other"
 			:required="q.required"
@@ -37,18 +38,22 @@ export default {
 	},
 	mounted() {
 		this.options = Object.assign({}, this.q.options);
-		this.options = Object.keys(this.options).slice(0, this.options.size).map(key => (
-			{ text: this.options[key], value: this.options[key] }));
+		this.options = Object.keys(this.options)
+			.slice(0, this.options.size)
+			.map(key => ({ text: this.options[key], value: this.options[key] }));
 		if (this.q.other) {
-			this.options.push({ text: 'Egyéb', value: 'other: ' });
+			this.options.push({ text: 'Egyéb', value: this.other });
 		}
 	},
 	data() {
+		const OTHER_PREFIX = 'other: ';
 		return {
-			selected: (this.value.startsWith('other: ') ? 'other: ' : this.value),
-			otherValue: (this.value.startsWith('other: ') ? this.value.slice(7) : ''),
+			selected: this.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : this.value,
+			otherValue: this.value.startsWith(OTHER_PREFIX)
+				? this.value.slice(OTHER_PREFIX.length)
+				: '',
 			options: this.q.options,
-			other: 'other: ',
+			other: OTHER_PREFIX,
 		};
 	},
 	watch: {
@@ -63,5 +68,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
