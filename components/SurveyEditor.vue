@@ -109,6 +109,8 @@
 							<b-form-input
 								v-model.number="question.max"
 								type="number"
+								min="1"
+								:max="question.options.length"
 								@change="inputValid"
 							/>
 						</b-form-group>
@@ -274,7 +276,7 @@ export default {
 		},
 		inputValid(max) {
 			this.question.max = !max || max < 1 ? this.question.options.length : max;
-		}
+		},
 	},
 };
 </script>
