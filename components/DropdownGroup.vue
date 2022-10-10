@@ -25,7 +25,6 @@
 
 <script>
 export default {
-	name: 'DropdownOther',
 	props: {
 		q: {
 			type: Object,
@@ -35,15 +34,6 @@ export default {
 			type: String,
 			default: () => '',
 		},
-	},
-	mounted() {
-		this.options = Object.assign({}, this.q.options);
-		this.options = Object.keys(this.options)
-			.slice(0, this.options.size)
-			.map(key => ({ text: this.options[key], value: this.options[key] }));
-		if (this.q.other) {
-			this.options.push({ text: 'Egyéb', value: this.other });
-		}
 	},
 	data() {
 		const OTHER_PREFIX = 'other: ';
@@ -63,6 +53,15 @@ export default {
 		otherValue(a) {
 			this.$emit('input', this.other + a);
 		},
+	},
+	mounted() {
+		this.options = Object.assign({}, this.q.options);
+		this.options = Object.keys(this.options)
+			.slice(0, this.options.size)
+			.map(key => ({ text: this.options[key], value: this.options[key] }));
+		if (this.q.other) {
+			this.options.push({ text: 'Egyéb', value: this.other });
+		}
 	},
 };
 </script>
