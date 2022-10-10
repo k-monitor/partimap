@@ -32,7 +32,8 @@ export default {
 	},
 	methods: {
 		updateCheckboxStates() {
-			if (this.selected.length >= this.question.max) {
+			const max = this.question.max || this.question.options.length;
+			if (this.selected.length >= max) {
 				const result = this.checkedList.filter(
 					x => !this.selected.includes(x.name)
 				);

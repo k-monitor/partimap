@@ -275,7 +275,9 @@ export default {
 			this.$emit('input', JSON.stringify(this.survey));
 		},
 		inputValid(max) {
-			this.question.max = !max || max < 1 ? this.question.options.length : max;
+			if (!max || max < 1 || max >= this.question.options.length) {
+				this.question.max = '';
+			}
 		},
 	},
 };
