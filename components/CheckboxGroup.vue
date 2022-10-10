@@ -30,31 +30,33 @@ export default {
 			checkedList: [],
 		};
 	},
-	mounted() {
-		this.checkedList = Object.assign({}, this.question.options);
-		this.checkedList = Object.keys(this.checkedList).slice(0, this.checkedList.size).map(key => (
-			{ name: this.checkedList[key], disabled: false }));
-		if (this.selected.length >= this.question.max) {
-			const result = this.checkedList.filter(x => !this.selected.includes(x.name));
-			result.map(item => (item.disabled = true));
-		} else {
-			this.checkedList.map(item => (item.disabled = false));
-		}
-	},
-	watch: {
-		selected() {
+	methods: {
+		updateCheckboxStates() {
 			if (this.selected.length >= this.question.max) {
-				const result = this.checkedList.filter(x => !this.selected.includes(x.name));
+				const result = this.checkedList.filter(
+					x => !this.selected.includes(x.name)
+				);
 				result.map(item => (item.disabled = true));
 			} else {
 				this.checkedList.map(item => (item.disabled = false));
 			}
+		},
+	},
+	mounted() {
+		this.checkedList = Object.assign({}, this.question.options);
+		this.checkedList = Object.keys(this.checkedList)
+			.slice(0, this.checkedList.size)
+			.map(key => ({ name: this.checkedList[key], disabled: false }));
+		this.updateCheckboxStates();
+	},
+	watch: {
+		selected() {
+			this.updateCheckboxStates();
 			this.$emit('input', this.selected);
-		}
+		},
 	},
 };
 </script>
 
 <style scoped>
-
 </style>
