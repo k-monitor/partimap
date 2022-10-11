@@ -176,7 +176,7 @@ router.get('/submission/export/:id',
 			if (sheet && sheet.features) {
 				const features = JSON.parse(sheet.features);
 				const feature = features.filter(f => f.id === r.featureId)[0];
-				const name = feature?.properties?.name || feature.id;
+				const name = feature?.properties?.name || r.featureId;
 				rs.cell(i + 2, 2).string(String(name));
 			}
 		});
