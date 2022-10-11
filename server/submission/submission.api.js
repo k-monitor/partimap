@@ -194,7 +194,7 @@ router.get('/submission/export/:id',
 				const r = ar[j];
 				row++;
 				const feature = features.filter(f => f.id === r.featureId)[0];
-				const name = feature?.properties?.name || feature.id;
+				const name = feature?.properties?.name || r.featureId;
 				ars.cell(row, 1).string(String(name));
 				ars.cell(row, 2).number(r.count);
 				ars.cell(row, 3).number(Number(r.average));
