@@ -64,6 +64,11 @@
 			/>
 			<SingleChoiceMatrix
 				v-else-if="q.type === 'singleChoiceMatrix'"
+				v-model="answers[q.id]"
+				:options="q.options"
+				:required="q.required"
+				:question="q"
+				:answers="answers"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		{{question}}
 		<b-list-group class="mb-3">
 			<draggable
 				v-model="survey.questions"
@@ -116,43 +117,29 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
-				<b-form-group
+				<OptionsEditor
 					v-if="hasOptions"
-					label="Opciók"
-				>
-					<b-input-group
-						v-for="(o,i) in (question.options || [])"
-						:key="i"
-						class="mb-2"
-					>
-						<b-form-input
-							v-model="question.options[i]"
-							:readonly="readonly"
-							:disabled="readonly"
-						/>
-						<template #append>
-							<b-button
-								v-if="!readonly"
-								variant="outline-danger"
-								@click="delOption(i)"
-							>
-								<i class="fas fa-fw fa-trash" />
-							</b-button>
-						</template>
-					</b-input-group>
-					<b-button
-						v-if="!readonly"
-						variant="success"
-						@click="addOption"
-					>
-						Új opció
-					</b-button>
-				</b-form-group>
+					v-model="question.options"
+					:readonly="readonly"
+					labelState="option"
+				/>
+				<OptionsEditor
+					v-if="question.type === 'singleChoiceMatrix'"
+					v-model="question.row"
+					:readonly="readonly"
+					labelState="row"
+				/>
+				<OptionsEditor
+					v-if="question.type === 'singleChoiceMatrix'"
+					v-model="question.column"
+					:readonly="readonly"
+					labelState="column"
+				/>
 				<b-form-group>
 					<b-form-checkbox
 						v-if="question.type === 'dropdown'"
 						v-model="question.other"
-					>Egyéb
+					> Egyéb
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
@@ -197,6 +184,7 @@ export default {
 				radiogroup: 'fa-dot-circle',
 				dropdown: 'fa-caret-square-down',
 				rating: 'fa-star-half-alt',
+				singleChoiceMatrix: 'fa-dot-circle',
 			},
 			questionTypes: [
 				{ value: 'text', text: 'Szöveges válasz' },
@@ -250,15 +238,6 @@ export default {
 				this.survey.questions.splice(i, 1);
 				this.emitSurvey();
 			}
-		},
-		addOption() {
-			if (!this.question.options) {
-				this.$set(this.question, 'options', []);
-			}
-			this.question.options.push(`Opció #${this.question.options.length + 1}`);
-		},
-		delOption(i) {
-			this.question.options.splice(i, 1);
 		},
 		saveQuestion() {
 			this.$bvModal.hide('survey-question-editor');
