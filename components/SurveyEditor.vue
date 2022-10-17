@@ -111,7 +111,7 @@
 								v-model.number="question.max"
 								type="number"
 								min="1"
-								:max="question.options.length"
+								:max="!question.options ? 0 : question.options.length"
 								@change="inputValid"
 							/>
 						</b-form-group>
