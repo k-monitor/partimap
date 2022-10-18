@@ -2,30 +2,18 @@
 	<div>
 		<table>
 			<tr>
-				<td>
-				</td>
+				<td></td>
 				<td v-for="item in question.row" :key="item.id">
 					{{ item }}
 				</td>
 			</tr>
-			<tr>
+			<tr v-for="column in question.column" :key="column.id">
 				<td>
-					{{question.column[0]}}
+					{{column}}
 				</td>
-				<td v-for="item in question.row" :key="item.id">
+				<td v-for="row in question.row" :key="row.id">
 					<b-form-radio
-						:id="item.id"
-						v-model="picked"
-						class="mb-3"
-					></b-form-radio>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{{question.column[1]}}
-				</td>
-				<td v-for="item in question.row" :key="item.id">
-					<b-form-radio
+						:value="row + ' ' + column"
 						v-model="picked"
 						class="mb-3"
 					></b-form-radio>
