@@ -3,23 +3,24 @@
 		<table>
 			<tr>
 				<td></td>
-				<td v-for="item in question.row" :key="item.id">
-					{{ item }}
-				</td>
+				<div>
+					<td v-for="item in question.row" :key="item.id">
+						{{ item }}
+					</td>
+				</div>
 			</tr>
 			<tr v-for="column in question.column" :key="column.id">
 				<td>
 					{{column}}
 				</td>
-				<td v-for="row in question.row" :key="row.id">
-					<b-form-radio
-						:value="row + ' ' + column"
-						v-model="picked"
-						class="mb-3"
-					></b-form-radio>
-				</td>
+				<RadioRows
+					:question="question"
+					:column="column"
+					:row="row"
+				/>
 			</tr>
 		</table>
+		{{picked}}
 	</div>
 </template>
 
