@@ -1,6 +1,5 @@
 <template>
 	<div>
-		{{question}}
 		<b-list-group class="mb-3">
 			<draggable
 				v-model="survey.questions"

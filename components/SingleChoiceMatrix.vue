@@ -20,7 +20,6 @@
 				</td>
 			</tr>
 		</table>
-		{{picked}}
 	</div>
 </template>
 
