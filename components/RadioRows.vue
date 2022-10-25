@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<td v-for="row in question.row" :key="row.id">
+	<tbody>
+		<td v-for="column in question.column" :key="column.id">
 			<b-form-radio
 				:value="row + ' ' + column"
 				v-model="pickedRow"
@@ -8,13 +8,17 @@
 			></b-form-radio>
 		</td>
 		{{pickedRow}}
-	</div>
+	</tbody>
 </template>
 
 <script>
 export default {
 	props: {
 		column: {
+			type: Array,
+			default: () => [],
+		},
+		row: {
 			type: Array,
 			default: () => [],
 		},
