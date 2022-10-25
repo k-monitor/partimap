@@ -3,21 +3,21 @@
 		<table>
 			<tr>
 				<td></td>
-				<div>
-					<td v-for="item in question.row" :key="item.id">
-						{{ item }}
-					</td>
-				</div>
-			</tr>
-			<tr v-for="column in question.column" :key="column.id">
 				<td>
-					{{column}}
+					<b-list-group horizontal>
+						<b-list-group-item v-for="column in question.column" :key="column.id">{{column}}</b-list-group-item>
+					</b-list-group>
 				</td>
-				<RadioRows
-					:question="question"
-					:column="column"
-					:row="row"
-				/>
+			</tr>
+			<tr v-for="row in question.row" :key="row.id">
+				<td>
+					{{row}}
+				</td>
+				<td>
+					<RadioRows
+						:column="question.column"
+					/>
+				</td>
 			</tr>
 		</table>
 		{{picked}}
@@ -45,7 +45,19 @@ export default {
 			a: this.answers,
 			selected: this.value,
 			picked: [],
+			row: this.question.row,
+			column: this.question.column,
 		};
+	},
+	mounted() {
+		this.row = Object.keys(this.question.row)
+			.slice(0, this.question.row.size)
+			.map(key => ({ text: this.row[key], value: this.row[key] }));
+		console.log(this.row);
+		this.column = Object.keys(this.question.column)
+			.slice(0, this.question.column.size)
+			.map(key => ({ text: this.column[key] }));
+		console.log(this.column);
 	},
 };
 </script>
