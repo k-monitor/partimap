@@ -156,11 +156,20 @@ router.get('/submission/export/:id',
 			questions.forEach((q, j) => {
 				const ans = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
 				const a = ans ? ans.answer : '';
+				const cell = sas.cell(i + 2, j + 3);
+
 				if (Number.isInteger(a)) {
-					sas.cell(i + 2, j + 3).number(a);
-				} else {
-					sas.cell(i + 2, j + 3).string(a);
+					return cell.number(a);
 				}
+
+				if (q.type === 'checkbox') {
+					try {
+						return cell.string(JSON.parse(a).join(', '));
+					} catch { }
+				}
+
+				// default case, outputting answer as-is:
+				sas.cell(i + 2, j + 3).string(a);
 			});
 		});
 
