@@ -28,6 +28,8 @@ export default {
 			}));
 			if ('checkbox|dropdown|radiogroup'.includes(q.type)) {
 				data = data.sort((a, b) => b.y - a.y);
+			} else if ('number|range'.includes(q.type)) {
+				data = data.sort((a, b) => Number(a.name) - Number(b.name));
 			}
 			if (q.type === 'rating') {
 				const nd = [];
