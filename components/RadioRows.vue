@@ -14,6 +14,10 @@
 <script>
 export default {
 	props: {
+		value: {
+			type: Array,
+			default: () => [],
+		},
 		column: {
 			type: Array,
 			default: () => [],
@@ -29,11 +33,23 @@ export default {
 	},
 	data() {
 		return {
-			selected: [],
+			selected: this.value,
 		};
 	},
 	watch: {
 		selected() {
+			// eslint-disable-next-line array-callback-return,no-unused-vars
+			let i = 0;
+			let result = 0;
+			// eslint-disable-next-line array-callback-return,no-unused-vars
+			result = this.question.row.map(rowindex => {
+				i++;
+				if (this.row === rowindex) {
+					return i;
+				}
+			});
+			console.log(this.question.row.length);
+			// this.selected.splice(rowIndex, 1, { value: { [row]: column } });
 			this.$emit('input', this.selected);
 		},
 	},
