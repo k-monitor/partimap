@@ -2,12 +2,12 @@
 	<tbody>
 		<td v-for="column in question.column" :key="column.id">
 			<b-form-radio
-				:value="row + ' ' + column"
-				v-model="pickedRow"
+				:value="[{ [row]: column }]"
+				v-model="selected"
 				class="mb-3"
 			></b-form-radio>
 		</td>
-		{{pickedRow}}
+		{{selected}}
 	</tbody>
 </template>
 
@@ -19,8 +19,8 @@ export default {
 			default: () => [],
 		},
 		row: {
-			type: Array,
-			default: () => [],
+			type: String,
+			default: () => '',
 		},
 		question: {
 			type: Object,
@@ -29,8 +29,13 @@ export default {
 	},
 	data() {
 		return {
-			pickedRow: [],
+			selected: [],
 		};
+	},
+	watch: {
+		selected() {
+			this.$emit('input', this.selected);
+		},
 	},
 };
 </script>

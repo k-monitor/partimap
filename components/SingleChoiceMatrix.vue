@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<di class="table table-striped table-bordered table-sm">
+		<div class="table table-striped table-bordered table-sm">
 			<table>
 				<tr>
 					<th></th>
@@ -15,13 +15,13 @@
 						{{row}}
 					</td>
 					<RadioRows
+						v-model="selected"
 						:question="question"
-						:column="column"
 						:row="row"
 					/>
 				</tr>
 			</table>
-		</di>
+		</div>
 	</div>
 </template>
 
@@ -47,6 +47,11 @@ export default {
 			selected: this.value,
 			picked: [],
 		};
+	},
+	watch: {
+		selected() {
+			this.$emit('input', this.selected);
+		},
 	},
 };
 </script>
