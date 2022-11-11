@@ -19,6 +19,7 @@
 						:question="question"
 						:row="row"
 					/>
+					{{asd(row)}}
 				</tr>
 			</table>
 		</div>
@@ -50,9 +51,16 @@ export default {
 	},
 	watch: {
 		selected() {
+			console.log('Coisce: ' + JSON.stringify(this.selected));
 			this.$emit('input', this.selected);
 		},
 	},
+	methods: {
+		asd(row) {
+			console.log('asd: ' + JSON.stringify(this.selected));
+			// this.selected.push(row);
+		},
+	}
 };
 </script>
 

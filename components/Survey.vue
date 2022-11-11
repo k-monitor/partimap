@@ -115,6 +115,7 @@ export default {
 	watch: {
 		answers: {
 			handler(a) {
+				console.log(a);
 				this.$emit('input', a);
 			},
 			deep: true,

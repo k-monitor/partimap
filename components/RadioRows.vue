@@ -2,7 +2,7 @@
 	<tbody>
 		<td v-for="column in question.column" :key="column.id">
 			<b-form-radio
-				:value="[{ [row]: column }]"
+				:value="[{ [row]: column }, {[row]: column }, {[row]: column } ]"
 				v-model="selected"
 				class="mb-3"
 			></b-form-radio>
@@ -34,21 +34,14 @@ export default {
 	data() {
 		return {
 			selected: this.value,
+			picked: [],
 		};
 	},
 	watch: {
-		selected() {
-			// eslint-disable-next-line array-callback-return,no-unused-vars
-			let i = 0;
-			let result = 0;
-			// eslint-disable-next-line array-callback-return,no-unused-vars
-			result = this.question.row.map(rowindex => {
-				i++;
-				if (this.row === rowindex) {
-					return i;
-				}
-			});
-			console.log(this.question.row.length);
+		selected(a) {
+			// console.log(this.picked);
+			this.picked.push(a);
+			// console.log(this.picked);
 			// this.selected.splice(rowIndex, 1, { value: { [row]: column } });
 			this.$emit('input', this.selected);
 		},
