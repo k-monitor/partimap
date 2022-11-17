@@ -40,11 +40,14 @@ export default {
 	watch: {
 		selected(a) {
 			// console.log(this.picked);
-			this.picked.push(a);
+			// this.picked.push(a);
 			// console.log(this.picked);
 			// this.selected.splice(rowIndex, 1, { value: { [row]: column } });
 			this.$emit('input', this.selected);
 		},
 	},
+	mounted() {
+		console.log('mounted: ' + JSON.stringify(this.selected));
+	}
 };
 </script>
