@@ -1,22 +1,24 @@
 <template>
-	<tbody>
-		<td v-for="column in question.column" :key="column.id">
-			<b-form-radio
-				:value="[{ [row]: column }, {[row]: column }, {[row]: column } ]"
-				v-model="selected"
-				class="mb-3"
-			></b-form-radio>
-		</td>
-		{{selected}}
-	</tbody>
+	<div>
+		<tr>
+			<td class="tablerow">{{row}}</td>
+			<td class="radio" v-for="column in question.column" :key="column.id">
+				<b-form-radio
+					:value="{ [row]: column }"
+					v-model="selected"
+					class="mb-3"
+				></b-form-radio>
+			</td>
+		</tr>
+	</div>
 </template>
 
 <script>
 export default {
 	props: {
 		value: {
-			type: Array,
-			default: () => [],
+			type: Object,
+			default: () => {},
 		},
 		column: {
 			type: Array,
@@ -43,11 +45,20 @@ export default {
 			// this.picked.push(a);
 			// console.log(this.picked);
 			// this.selected.splice(rowIndex, 1, { value: { [row]: column } });
+			console.log('radioRow: ' + JSON.stringify(a));
 			this.$emit('input', this.selected);
 		},
 	},
 	mounted() {
-		console.log('mounted: ' + JSON.stringify(this.selected));
+		// console.log('mounted: ' + JSON.stringify(this.selected));
 	}
 };
 </script>
+<style scoped>
+.tablerow{
+	width:200px;
+}
+.radio{
+	width:100px;
+}
+</style>

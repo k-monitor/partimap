@@ -1,28 +1,19 @@
 <template>
 	<div>
-		<div class="table table-striped table-bordered table-sm">
-			<table>
-				<tr>
-					<th></th>
-					<td md="1" offset-md="1" v-for="column in question.column" :key="column.id">
-						{{ column }}
-					</td>
-				</tr>
-			</table>
-			<table>
-				<tr v-for="row in question.row" :key="row.id">
-					<td>
-						{{row}}
-					</td>
-					<RadioRows
-						v-model="selected"
-						:question="question"
-						:row="row"
-					/>
-					{{asd(row)}}
-				</tr>
-			</table>
-		</div>
+		<table class="table table-hover">
+			<tr>
+				<td class="header" v-for="column in question.column" :key="column.id">
+					{{ column }}
+				</td>
+			</tr>
+			<tr v-for="row in question.row" :key="row.id">
+				<RadioRows
+					v-model="selected[row]"
+					:question="question"
+					:row="row"
+				/>
+			</tr>
+		</table>
 	</div>
 </template>
 
@@ -50,22 +41,34 @@ export default {
 		};
 	},
 	watch: {
-		selected() {
-			// console.log('Coisce: ' + JSON.stringify(this.selected));
+		// selected: {
+		// handler(a) {
+		// console.log('SingleChoice: ' + Object.values(JSON.stringify(this.selected)));
+		// console.log('SingleChoice: ' + Object.values(this.selected));
+		// this.$emit('input', this.selected);
+		// },
+		// deep: true,
+		// },
+		selected(a) {
+			console.log('sima SingleChoice: ' + a);
+			console.log('SingleChoice: ' + Object.values(JSON.stringify(this.selected)));
+			console.log('SingleChoice: ' + Object.values(this.selected));
 			this.$emit('input', this.selected);
-		},
+		}
 	},
-	methods: {
-		asd(row) {
-			// console.log('asd: ' + JSON.stringify(this.selected));
-			// this.selected.push(row);
-		},
-	}
 };
 </script>
 
 <style scoped>
 .table{
 	overflow-x:auto;
+	width:auto;
+	vertical-align: inherit;
 }
+.header{
+}
+td.header:first-child {
+	margin-left: 100px;
+}
+tr:hover {background-color: rgb(227, 227, 227);}
 </style>
