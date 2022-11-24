@@ -1,28 +1,22 @@
 <template>
 	<div>
-		<div class="table table-striped table-bordered table-sm">
-			<table>
-				<tr>
-					<th></th>
-					<td md="1" offset-md="1" v-for="column in question.column" :key="column.id">
+		<table class="table table-hover">
+			<th>
+				<div>
+					<div class="header"></div>
+					<div class="header" v-for="column in question.column" :key="column.id">
 						{{ column }}
-					</td>
-				</tr>
-			</table>
-			<table>
-				<tr v-for="row in question.row" :key="row.id">
-					<td>
-						{{row}}
-					</td>
-					<RadioRows
-						v-model="selected"
-						:question="question"
-						:row="row"
-					/>
-					{{asd(row)}}
-				</tr>
-			</table>
-		</div>
+					</div>
+				</div>
+			</th>
+			<tr v-for="row in question.row" :key="row.id">
+				<RadioRows
+					v-model="selected[row]"
+					:question="question"
+					:row="row"
+				/>
+			</tr>
+		</table>
 	</div>
 </template>
 
@@ -50,22 +44,27 @@ export default {
 		};
 	},
 	watch: {
-		selected() {
-			// console.log('Coisce: ' + JSON.stringify(this.selected));
-			this.$emit('input', this.selected);
+		selected: {
+			handler(a) {
+				console.log('SingleChoice: ' + JSON.stringify(a));
+				console.log('SingleChoice: ' + a);
+				this.$emit('input', this.selected);
+			},
+			deep: true,
 		},
 	},
-	methods: {
-		asd(row) {
-			// console.log('asd: ' + JSON.stringify(this.selected));
-			// this.selected.push(row);
-		},
-	}
 };
 </script>
 
 <style scoped>
 .table{
 	overflow-x:auto;
+	width:auto;
 }
+.header{
+	width:150px!important; /* or whatever width you want. */
+	max-width:150px!important; /* or whatever width you want. */
+	display: inline;
+}
+tr:hover {background-color: rgb(227, 227, 227);}
 </style>
