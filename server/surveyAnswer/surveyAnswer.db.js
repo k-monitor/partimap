@@ -2,6 +2,9 @@ const db = require('../db');
 const sdb = require('../sheet/sheet.db');
 const SurveyAnswer = require('../../model/surveyAnswer');
 
+const OTHER_PREFIX = 'other: ';
+const OTHER_LABEL = 'other';
+
 /**
  * @param {SurveyAnswer} surveyAnswer
  * @returns {Number|Boolean}
@@ -73,6 +76,7 @@ async function aggregateByProjectId(projectId) {
 				.filter(e => Number(e.questionId) === q.id)
 				.forEach(e => {
 					JSON.parse(e.answer).forEach(o => {
+						if (o.startsWith(OTHER_PREFIX)) { o = OTHER_LABEL; }
 						opts[o] = (opts[o] || 0) + 1;
 					});
 				});

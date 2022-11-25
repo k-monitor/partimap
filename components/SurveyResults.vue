@@ -25,7 +25,12 @@ export default {
 			let data = (q.options || []).map(({ answer, count }) => ({
 				name: answer,
 				y: count,
-			}));
+			})).map(a => {
+				if (a.name === 'other') {
+					a.name = 'Egyéb'; // TODO i18n
+				}
+				return a;
+			});
 			if ('checkbox|dropdown|radiogroup'.includes(q.type)) {
 				data = data.sort((a, b) => b.y - a.y);
 			} else if ('number|range'.includes(q.type)) {
