@@ -73,10 +73,6 @@
 						<div class="h-100 position-absolute w-100 map" />
 					</template>
 				</client-only>
-				<MapToolbar
-					:sheet="sheet"
-					visitor
-				/>
 				<MapHint />
 				<Sidebar
 					:content-modified="!submitted"

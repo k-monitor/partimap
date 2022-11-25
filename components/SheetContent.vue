@@ -3,7 +3,9 @@
 		<h1
 			v-if="!hideTitle"
 			class="h3 mb-4"
-		>{{ sheet.title }}</h1>
+		>
+			{{ sheet.title }}
+		</h1>
 		<div
 			class="my-4 rich"
 			v-html="sheet.description"
@@ -19,6 +21,10 @@
 				/>
 			</div>
 		</div>
+		<DrawButtons
+			class="my-4"
+			:sheet="sheet"
+		/>
 		<div
 			v-if="interactions.includes('SocialSharing')"
 			class="d-flex justify-content-around mt-5 mb-4"

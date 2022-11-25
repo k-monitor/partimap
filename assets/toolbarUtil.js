@@ -1,7 +1,7 @@
 export const buttons = [
-	db('Point', 'fa-map-marker-alt', 'Pont', 'danger'),
-	db('LineString', 'fa-route', 'Vonal', 'primary'),
-	db('Polygon', 'fa-draw-polygon', 'Terület', 'success'),
+	db('Point', 'fa-map-marker-alt', 'Pont felrajzolása', 'danger'),
+	db('LineString', 'fa-route', 'Vonal felrajzolása', 'primary'),
+	db('Polygon', 'fa-draw-polygon', 'Terület felrajzolása', 'success'),
 	db('', 'fa-times', 'Mégsem', 'warning'),
 ];
 
