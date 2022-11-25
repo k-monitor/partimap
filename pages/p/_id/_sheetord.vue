@@ -93,50 +93,6 @@
 				>
 					<h1 class="h3">{{ sheet.title }}</h1>
 
-					<div v-if="isInteractive">
-						<b-alert
-							class="my-3 small"
-							show
-							variant="info"
-						>
-							<p class="d-sm-none">
-								A térkép megtekintéséhez ezt a panelt be kell csukni a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
-							</p>
-							<p v-if="drawingInteractions.length === 1 && drawingInteractions.includes('Point')">
-								A jobb oldali piros gombbal lehet a térképre pontokat elhelyezni. A pontokhoz szöveges megjegyzések fűzhetők, törölni a kuka ikonra kattintva lehet.
-							</p>
-							<p v-else-if="drawingInteractions.length === 1 && drawingInteractions.includes('LineString')">
-								A jobb oldali kék gombbal lehet a térképre vonalat rajzolni. A szakaszokat kattintással kell kijelölni és dupla kattintással lezárni. Rajzolás közben az egeret nem kell nyomva tartani. A felrajzolt vonalhoz szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
-							</p>
-							<p v-else-if="drawingInteractions.length === 1 && drawingInteractions.includes('Polygon')">
-								A jobb oldali zöld gombbal lehet a térképre területet rajzolni. A körvonalat kattintással kell kijelölni és a kezdőpontra való újbóli kattintással lezárni. Rajzolás közben az egeret nem kell nyomva tartani. A felrajzolt területhez szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
-							</p>
-							<p v-else>
-								A jobb oldali színes gombokkal lehet a térképre rajzolni. A vonalakat kattintással kell kijelölni, rajzolás közben az egeret nem kell nyomva tartani. A vonalat dupla kattintással, a területet a kezdőpontra való újbóli kattintással kell lezárni. Az elemekhez szöveges megjegyzés fűzhető, törölni a kuka ikonra kattintva lehet.
-							</p>
-							<hr>
-							<p>
-								<i class="fas fa-info-circle mr-1" />
-								<a
-									class="alert-link"
-									href="/hogyan-mukodik"
-									target="_blank"
-								>
-									Hogyan működik?
-								</a>
-							</p>
-						</b-alert>
-					</div>
-					<div v-else>
-						<b-alert
-							class="d-sm-none my-3 small"
-							show
-							variant="info"
-						>
-							A térkép megtekintéséhez ezt a panelt be kell csukni a képernyő tetején levő <i class="fas fa-angle-double-left mx-1" /> gombbal.
-						</b-alert>
-					</div>
-
 					<SheetContent
 						class="mb-3"
 						hide-title
