@@ -15,7 +15,7 @@
 			<CheckboxGroup
 				v-if="q.type == 'checkbox'"
 				v-model="answers[q.id]"
-				:question="q"
+				:q="q"
 			/>
 			<b-form-input
 				v-else-if="q.type === 'text'"
@@ -68,7 +68,7 @@
 				:required="q.required"
 				:question="q"
 				:answers="answers"
-				:maxWidth="520"
+				:max-width="520"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
@@ -115,8 +115,6 @@ export default {
 	watch: {
 		answers: {
 			handler(a) {
-				console.log('Survey: ' + a);
-				console.log('Survey: ' + JSON.stringify(a));
 				this.$emit('input', a);
 			},
 			deep: true,

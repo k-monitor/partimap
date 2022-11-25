@@ -134,11 +134,8 @@
 					:readonly="readonly"
 					label-state="column"
 				/>
-				<b-form-group>
-					<b-form-checkbox
-						v-if="question.type === 'dropdown'"
-						v-model="question.other"
-					>
+				<b-form-group v-if="'checkbox|dropdow'.includes(question.type)">
+					<b-form-checkbox v-model="question.other">
 						Egyéb
 					</b-form-checkbox>
 				</b-form-group>

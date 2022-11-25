@@ -5,21 +5,20 @@
 			:options="options"
 			:required="q.required"
 		/>
-		<span
-			v-if="q.required && selected == other"
-			:required="q.required"
-			class="text-danger"
-		>*</span>
-		<strong
-			v-if="selected == other"
-			:required="q.required"
-			class="text-primary"
-		>Egyéb: </strong>
-		<b-form-input
-			v-if="selected == other"
-			:required="q.required"
-			v-model="otherValue"
-		/>
+		<b-form-group v-if="selected == other">
+			<span
+				v-if="q.required"
+				class="text-danger"
+			>*</span>
+			<strong
+				:required="q.required"
+				class="text-primary"
+			>Egyéb: </strong>
+			<b-form-input
+				v-model="otherValue"
+				:required="q.required"
+			/>
+		</b-form-group>
 	</div>
 </template>
 
@@ -36,7 +35,7 @@ export default {
 		},
 	},
 	data() {
-		const OTHER_PREFIX = 'other: ';
+		const OTHER_PREFIX = 'other: '; // TODO move to a common file
 		return {
 			selected: this.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : this.value,
 			otherValue: this.value.startsWith(OTHER_PREFIX)
@@ -69,6 +68,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-</style>

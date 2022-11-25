@@ -2,19 +2,31 @@
 	<div>
 		<b-form-checkbox-group
 			v-model="selected"
-			:options="checkedList"
-			value-field="name"
-			text-field="name"
-			:required="question.required && (selected || []).length < 1"
+			:options="options"
+			:required="q.required && (selected || []).length < 1"
 			stacked
 		/>
+		<b-form-group v-if="otherSelected">
+			<span
+				v-if="q.required"
+				class="text-danger"
+			>*</span>
+			<strong
+				:required="q.required"
+				class="text-primary"
+			>Egyéb: </strong>
+			<b-form-input
+				v-model="otherValue"
+				:required="q.required"
+			/>
+		</b-form-group>
 	</div>
 </template>
 
 <script>
 export default {
 	props: {
-		question: {
+		q: {
 			type: Object,
 			default: () => {},
 		},
@@ -24,34 +36,67 @@ export default {
 		},
 	},
 	data() {
+		const OTHER_PREFIX = 'other: '; // TODO move to a common file
+
+		let otherValue = '';
+		const selected = this.value.map(o => {
+			if (o.startsWith(OTHER_PREFIX)) {
+				otherValue = o.slice(OTHER_PREFIX.length);
+				return OTHER_PREFIX;
+			}
+			return o;
+		});
+
 		return {
-			selected: this.value,
-			checkedList: [],
+			options: [],
+			otherValue,
+			other: OTHER_PREFIX,
+			selected,
 		};
 	},
+	computed: {
+		answer() {
+			return this.selected.map(o => o === this.other
+				? this.other + this.otherValue
+				: o
+			);
+		},
+		otherSelected() {
+			return this.selected.filter(o => o.startsWith(this.other)).length;
+		},
+	},
 	watch: {
-		selected() {
+		answer() {
 			this.updateCheckboxStates();
-			this.$emit('input', this.selected);
+			this.$emit('input', this.answer);
 		},
 	},
 	mounted() {
-		this.checkedList = Object.assign({}, this.question.options);
-		this.checkedList = Object.keys(this.checkedList)
-			.slice(0, this.checkedList.size)
-			.map(key => ({ name: this.checkedList[key], disabled: false }));
+		this.options = this.q.options.map(o => ({
+			text: o,
+			value: o,
+			disabled: false,
+		}));
+		if (this.q.other) {
+			this.options.push({
+				text: 'Egyéb...',
+				value: this.other,
+				disabled: false,
+			});
+		}
 		this.updateCheckboxStates();
 	},
 	methods: {
 		updateCheckboxStates() {
-			const max = this.question.max || this.question.options.length;
+			const max = this.q.max || this.options.length;
 			if (this.selected.length >= max) {
-				const result = this.checkedList.filter(
-					x => !this.selected.includes(x.name)
-				);
-				result.map(item => (item.disabled = true));
+				this.options.forEach(o => {
+					if (!this.selected.includes(o.value)) {
+						o.disabled = true;
+					}
+				});
 			} else {
-				this.checkedList.map(item => (item.disabled = false));
+				this.options.map(item => (item.disabled = false));
 			}
 		},
 	},
