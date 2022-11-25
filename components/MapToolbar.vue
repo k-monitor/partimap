@@ -27,6 +27,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import { buttonFilter, buttons } from '../assets/toolbarUtil';
 
 export default {
 	props: {
@@ -42,15 +43,7 @@ export default {
 	computed: {
 		...mapGetters(['getDrawType']),
 		drawingButtons() {
-			return [
-				this.db('Point', 'fa-map-marker-alt', 'Pont', 'danger'),
-				this.db('LineString', 'fa-route', 'Vonal', 'primary'),
-				this.db('Polygon', 'fa-draw-polygon', 'Terület', 'success'),
-				this.db('', 'fa-times', 'Mégsem', 'warning'),
-			].filter(b => b); // removing hidden buttons
-		},
-		sheetInteractions() {
-			return this.sheet ? JSON.parse(this.sheet.interactions || '[]') : [];
+			return buttons.filter(buttonFilter(this.getDrawType, this.sheet.interactions, this.visitor));
 		},
 	},
 	watch: {
@@ -64,24 +57,6 @@ export default {
 			'setDrawType',
 			'setSidebarVisible',
 		]),
-		db(drawType, icon, tooltip, variant) {
-			const isDrawing = this.getDrawType;
-			const isCancel = !drawType;
-			if ((isDrawing && !isCancel) || (!isDrawing && isCancel)) {
-				// hide cancel if not in drawing mode
-				// hide others if in drawing mode
-				return null;
-			}
-
-			const isAllowed = isCancel || this.sheetInteractions.includes(drawType);
-			if (this.visitor && !isAllowed) {
-				// hide buttons for visitors unless
-				// enabled in sheet interactions
-				return null;
-			}
-
-			return { drawType, icon, tooltip, variant };
-		},
 	},
 };
 </script>
