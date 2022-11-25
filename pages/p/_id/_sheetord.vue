@@ -77,6 +77,7 @@
 					:sheet="sheet"
 					visitor
 				/>
+				<MapHint />
 				<Sidebar
 					:content-modified="!submitted"
 					:fixed="!sheet.features"
