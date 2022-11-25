@@ -83,9 +83,17 @@ async function aggregateByProjectId(projectId) {
 			result.options = Object.entries(opts)
 				.map(([answer, count]) => ({ answer, count }));
 		} else {
-			result.options = countsByAnswer
+			const opts = {};
+			countsByAnswer
 				.filter(e => Number(e.questionId) === q.id)
-				.map(({ answer, count }) => ({ answer, count }));
+				.map(e => {
+					if (`${e.answer}`.startsWith(OTHER_PREFIX)) { e.answer = OTHER_LABEL; }
+					return e;
+				}).forEach(e => {
+					opts[e.answer] = (opts[e.answer] || 0) + e.count;
+				});
+			result.options = Object.entries(opts)
+				.map(([answer, count]) => ({ answer, count }));
 			if ('number|range'.includes(q.type) && result.options.length > 10) {
 				continue;
 			}
