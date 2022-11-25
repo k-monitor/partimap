@@ -32,6 +32,5 @@ export function buttonFilter(currentDrawType, interactions, isVisitor) {
 }
 
 function parseInteractions(interactions) {
-	console.log('parseInteractions', interactions);
 	return JSON.parse(interactions || '[]');
 }
