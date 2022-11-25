@@ -120,25 +120,26 @@
 					v-if="hasOptions"
 					v-model="question.options"
 					:readonly="readonly"
-					labelState="option"
+					label-state="option"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'singleChoiceMatrix'"
 					v-model="question.row"
 					:readonly="readonly"
-					labelState="row"
+					label-state="row"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'singleChoiceMatrix'"
 					v-model="question.column"
 					:readonly="readonly"
-					labelState="column"
+					label-state="column"
 				/>
 				<b-form-group>
 					<b-form-checkbox
 						v-if="question.type === 'dropdown'"
 						v-model="question.other"
-					> Egyéb
+					>
+						Egyéb
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
@@ -196,7 +197,7 @@ export default {
 					text: 'Opciók lenyíló listában (egyet lehet vál.)',
 				},
 				{ value: 'rating', text: 'Értékelés (5 csillag)' },
-				{ value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
+				// { value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
 			],
 			questionIndex: 0,
 			question: {},
