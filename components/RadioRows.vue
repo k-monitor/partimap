@@ -1,12 +1,14 @@
 <template>
 	<div>
-		<b-form-group class="form-check form-check-inline">
-			<b-form-radio-group
-				horizontal
-				v-model="pickedRow"
-				:options="column"
-			></b-form-radio-group>
-		</b-form-group>
+		<td class="tablerow">{{row}}</td>
+		<td class="tablerow" v-for="column in question.column" :key="column.id">
+			<b-form-radio
+				:value="{ [row]: column }"
+				v-model="selected"
+				class="mb-3"
+			></b-form-radio>
+		</td>
+		{{selected}}
 	</div>
 </template>
 
@@ -14,18 +16,45 @@
 export default {
 	props: {
 		value: {
-			type: Array,
-			default: () => [],
+			type: Object,
+			default: () => {},
 		},
 		column: {
 			type: Array,
 			default: () => [],
 		},
+		row: {
+			type: String,
+			default: () => '',
+		},
+		question: {
+			type: Object,
+			default: () => {},
+		},
 	},
 	data() {
 		return {
-			pickedRow: [],
+			selected: this.value,
+			picked: [],
 		};
 	},
+	watch: {
+		selected(a) {
+			// console.log(this.picked);
+			// this.picked.push(a);
+			// console.log(this.picked);
+			// this.selected.splice(rowIndex, 1, { value: { [row]: column } });
+			console.log('radioRow: ' + JSON.stringify(a));
+			this.$emit('input', this.selected);
+		},
+	},
+	mounted() {
+		// console.log('mounted: ' + JSON.stringify(this.selected));
+	}
 };
 </script>
+<style scoped>
+.tablerow{
+	width:100px;
+}
+</style>

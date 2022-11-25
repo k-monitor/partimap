@@ -189,8 +189,8 @@ export default {
 				{ value: 'text', text: 'Szöveges válasz' },
 				{ value: 'number', text: 'Numerikus válasz (bepötyögős)' },
 				{ value: 'range', text: 'Numerikus válasz (csúszkával)' },
-				{ value: 'checkbox', text: 'Opciók (többet lehet vál.)' },
-				{ value: 'radiogroup', text: 'Opciók (egyet lehet vál.)' },
+				{ value: 'checkbox', text: 'Jelölőnégyzetek' },
+				{ value: 'radiogroup', text: 'Feleletválasztós' },
 				{
 					value: 'dropdown',
 					text: 'Opciók lenyíló listában (egyet lehet vál.)',
