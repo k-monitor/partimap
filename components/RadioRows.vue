@@ -1,13 +1,14 @@
 <template>
 	<div>
 		<tr>
-			<td class="tablerow">{{row}}</td>
-			<td class="radio" v-for="column in question.column" :key="column.id">
-				<b-form-radio
-					:value="{ [row]: column }"
-					v-model="selected"
-					class="mb-3"
-				></b-form-radio>
+			<td class="table-row">{{row}}</td>
+			<td class="table-row" v-for="column in question.column" :key="column">
+				<div>
+					<b-form-radio
+						v-model="selected"
+						:value="column"
+					></b-form-radio>
+				</div>
 			</td>
 		</tr>
 	</div>
@@ -17,8 +18,8 @@
 export default {
 	props: {
 		value: {
-			type: Object,
-			default: () => {},
+			type: String,
+			default: () => '',
 		},
 		column: {
 			type: Array,
@@ -41,11 +42,8 @@ export default {
 	},
 	watch: {
 		selected(a) {
-			// console.log(this.picked);
-			// this.picked.push(a);
-			// console.log(this.picked);
-			// this.selected.splice(rowIndex, 1, { value: { [row]: column } });
 			console.log('radioRow: ' + JSON.stringify(a));
+			// console.log('picked: ' + JSON.stringify(this.picked));
 			this.$emit('input', this.selected);
 		},
 	},
@@ -55,10 +53,11 @@ export default {
 };
 </script>
 <style scoped>
-.tablerow{
-	width:200px;
-}
-.radio{
-	width:100px;
+.table-row{
+	min-width:90px;
+	max-width:90px;
+	word-wrap: break-word;
+	text-align: center;
+	vertical-align: middle!important;
 }
 </style>

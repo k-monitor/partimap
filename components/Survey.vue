@@ -115,8 +115,8 @@ export default {
 	watch: {
 		answers: {
 			handler(a) {
-				console.log('Survey: ' + a);
 				console.log('Survey: ' + JSON.stringify(a));
+				console.log('Survey: ' + a);
 				this.$emit('input', a);
 			},
 			deep: true,

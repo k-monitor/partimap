@@ -1,19 +1,24 @@
 <template>
 	<div>
-		<table class="table table-hover">
-			<tr>
-				<td class="header" v-for="column in question.column" :key="column.id">
-					{{ column }}
-				</td>
-			</tr>
-			<tr v-for="row in question.row" :key="row.id">
-				<RadioRows
-					v-model="selected[row]"
-					:question="question"
-					:row="row"
-				/>
-			</tr>
-		</table>
+		<div class="container">
+			<table class="table">
+				<tr>
+					<div style="">
+						<td style="min-width:100px;"></td>
+						<td class="header specifictd" v-for="column in question.column" :key="column">
+							{{ column }}
+						</td>
+					</div>
+				</tr>
+				<tr class="hover-row" v-for="row in question.row" :key="row">
+					<RadioRows
+						v-model="selected[row]"
+						:question="question"
+						:row="row"
+					/>
+				</tr>
+			</table>
+		</div>
 	</div>
 </template>
 
@@ -41,34 +46,30 @@ export default {
 		};
 	},
 	watch: {
-		// selected: {
-		// handler(a) {
-		// console.log('SingleChoice: ' + Object.values(JSON.stringify(this.selected)));
-		// console.log('SingleChoice: ' + Object.values(this.selected));
-		// this.$emit('input', this.selected);
-		// },
-		// deep: true,
-		// },
-		selected(a) {
-			console.log('sima SingleChoice: ' + a);
-			console.log('SingleChoice: ' + Object.values(JSON.stringify(this.selected)));
-			console.log('SingleChoice: ' + Object.values(this.selected));
-			this.$emit('input', this.selected);
-		}
+		selected: {
+			handler(a) {
+				console.log('row: ' + a);
+				console.log('SingleChoice: ' + this.selected);
+				// console.log('SingleChoice: ' + Object.values(JSON.stringify(a)));
+				// console.log('SingleChoice: ' + Object.values(this.selected));
+				this.$emit('input', a);
+			},
+			deep: true,
+		},
 	},
 };
 </script>
 
 <style scoped>
-.table{
-	overflow-x:auto;
-	width:auto;
-	vertical-align: inherit;
+.container{
+	overflow-x: auto;
 }
 .header{
+	min-width:90px;
+	max-width:90px;
+	word-wrap: break-word;
 }
 td.header:first-child {
-	margin-left: 100px;
 }
-tr:hover {background-color: rgb(227, 227, 227);}
+.hover-row:hover {background-color: rgb(227, 227, 227);}
 </style>
