@@ -5,7 +5,7 @@
 				<tr>
 					<div style="">
 						<td style="min-width:100px;"></td>
-						<td class="header specifictd" v-for="column in question.column" :key="column">
+						<td v-for="column in question.column" :key="column">
 							{{ column }}
 						</td>
 					</div>
@@ -43,16 +43,17 @@ export default {
 			a: this.answers,
 			selected: this.value,
 			picked: [],
+			obj: {},
 		};
 	},
 	watch: {
 		selected: {
 			handler(a) {
-				console.log('row: ' + a);
-				console.log('SingleChoice: ' + this.selected);
-				// console.log('SingleChoice: ' + Object.values(JSON.stringify(a)));
-				// console.log('SingleChoice: ' + Object.values(this.selected));
-				this.$emit('input', a);
+				this.picked = [];
+				for (let i = 0; i < Object.keys(a).length; i++) {
+					this.picked.splice(i, 1, { [Object.keys(a)[i]]: Object.values(a)[i] });
+				}
+				this.$emit('input', this.picked);
 			},
 			deep: true,
 		},
