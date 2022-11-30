@@ -4,13 +4,13 @@
 			<table class="table">
 				<tr>
 					<div style="">
-						<td style="min-width:100px;"></td>
+						<td style="min-width:100px;" />
 						<td v-for="column in question.column" :key="column">
 							{{ column }}
 						</td>
 					</div>
 				</tr>
-				<tr class="hover-row" v-for="row in question.row" :key="row">
+				<tr v-for="row in question.row" :key="row" class="hover-row">
 					<RadioRows
 						v-model="selected[row]"
 						:question="question"
@@ -26,8 +26,8 @@
 export default {
 	props: {
 		value: {
-			type: Array,
-			default: () => [],
+			type: Object,
+			default: () => {},
 		},
 		question: {
 			type: Object,
@@ -41,7 +41,7 @@ export default {
 	data() {
 		return {
 			a: this.answers,
-			selected: this.value,
+			selected: this.value || {},
 			picked: [],
 			obj: {},
 		};
@@ -49,11 +49,7 @@ export default {
 	watch: {
 		selected: {
 			handler(a) {
-				this.picked = [];
-				for (let i = 0; i < Object.keys(a).length; i++) {
-					this.picked.splice(i, 1, { [Object.keys(a)[i]]: Object.values(a)[i] });
-				}
-				this.$emit('input', this.picked);
+				this.$emit('input', a);
 			},
 			deep: true,
 		},
