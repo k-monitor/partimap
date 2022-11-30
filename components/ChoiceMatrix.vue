@@ -3,15 +3,15 @@
 		<div class="container">
 			<table class="table">
 				<tr>
-					<div style="">
-						<td style="min-width:100px;"></td>
-						<td v-for="column in question.column" :key="column">
+					<div>
+						<td class="header"/>
+						<td v-for="column in question.column" :key="column" class="header">
 							{{ column }}
 						</td>
 					</div>
 				</tr>
-				<tr class="hover-row" v-for="row in question.row" :key="row">
-					<RadioRows
+				<tr v-for="row in question.row" :key="row" class="hover-row" >
+					<MatrixRows
 						v-model="selected[row]"
 						:question="question"
 						:row="row"
@@ -26,8 +26,8 @@
 export default {
 	props: {
 		value: {
-			type: Array,
-			default: () => [],
+			type: Object,
+			default: () => {},
 		},
 		question: {
 			type: Object,
@@ -41,19 +41,14 @@ export default {
 	data() {
 		return {
 			a: this.answers,
-			selected: this.value,
+			selected: this.value || {},
 			picked: [],
-			obj: {},
 		};
 	},
 	watch: {
 		selected: {
 			handler(a) {
-				this.picked = [];
-				for (let i = 0; i < Object.keys(a).length; i++) {
-					this.picked.splice(i, 1, { [Object.keys(a)[i]]: Object.values(a)[i] });
-				}
-				this.$emit('input', this.picked);
+				this.$emit('input', a);
 			},
 			deep: true,
 		},
@@ -69,8 +64,6 @@ export default {
 	min-width:90px;
 	max-width:90px;
 	word-wrap: break-word;
-}
-td.header:first-child {
 }
 .hover-row:hover {background-color: rgb(227, 227, 227);}
 </style>
