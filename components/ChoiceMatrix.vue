@@ -33,16 +33,10 @@ export default {
 			type: Object,
 			default: () => {},
 		},
-		answers: {
-			type: Object,
-			default: () => {},
-		},
 	},
 	data() {
 		return {
-			a: this.answers,
 			selected: this.value || {},
-			picked: [],
 		};
 	},
 	watch: {

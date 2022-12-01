@@ -65,10 +65,7 @@
 			<ChoiceMatrix
 				v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"
 				v-model="answers[q.id]"
-				:required="q.required"
 				:question="q"
-				:answers="answers"
-				:maxWidth="520"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"
@@ -115,8 +112,6 @@ export default {
 	watch: {
 		answers: {
 			handler(a) {
-				console.log('Survey: ' + JSON.stringify(a));
-				console.log('Survey: ' + a);
 				this.$emit('input', a);
 			},
 			deep: true,

@@ -2,7 +2,7 @@
 	<div>
 		<tr>
 			<td class="table-row">{{row}}</td>
-			<td class="table-row" v-for="column in question.column" :key="column">
+			<td v-for="column in question.column" :key="column" class="table-row" >
 				<div v-if="question.type === 'singleChoiceMatrix'">
 					<b-form-radio
 						v-model="radioSelected"
@@ -48,24 +48,16 @@ export default {
 		return {
 			radioSelected: this.value,
 			checkSelected: this.value || [],
-			picked: [],
 		};
 	},
 	watch: {
-		radioSelected(a) {
-			console.log('radioRow: ' + JSON.stringify(a));
-			// console.log('picked: ' + JSON.stringify(this.picked));
+		radioSelected() {
 			this.$emit('input', this.radioSelected);
 		},
-		checkSelected(a) {
-			console.log('checkRow: ' + JSON.stringify(a));
-			// console.log('picked: ' + JSON.stringify(this.picked));
+		checkSelected() {
 			this.$emit('input', this.checkSelected);
 		},
 	},
-	mounted() {
-		// console.log('mounted: ' + JSON.stringify(this.selected));
-	}
 };
 </script>
 <style scoped>
