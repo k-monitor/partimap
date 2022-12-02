@@ -76,9 +76,10 @@ async function aggregateByProjectId(projectId) {
 
 			// TODO row -> rows
 			(q.rows || []).forEach((row, i) => {
-				const count = 0;
+				let count = 0;
 				const opts = {};
 				answers.map(a => a[row]).filter(a => !!a).forEach(a => {
+					count++;
 					a = Array.isArray(a) ? a : [a];
 					a.forEach(col => {
 						opts[col] = (opts[col] || 0) + 1;
