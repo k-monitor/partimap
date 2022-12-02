@@ -93,7 +93,7 @@
 				/>
 			</b-form-group>
 			<div
-				v-if="selectedInteractions.includes('Rating')"
+				v-if="isRatingSelected"
 				class="ml-4"
 			>
 				<b-form-group
@@ -147,14 +147,10 @@ export default {
 		try {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			const selectedInteractions =
-				sheet && sheet.interactions
-					? sheet.interactions.replace(/[^A-Za-z,]/g, '').split(',') // custom parsing :D
-					: [];
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
-			return { project, sheet, selectedInteractions, submittedRatings };
+			return { project, sheet, submittedRatings };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
@@ -182,7 +178,7 @@ export default {
 			const options = [];
 			if (this.sheet.features) {
 				// map sheet
-				if (!this.sheet.survey) {
+				if (!this.sheet.survey) { // TODO i18n
 					// interactive map sheet
 					options.push(
 						{ value: 'Point', text: 'Pont felrajzolása' },
@@ -197,36 +193,50 @@ export default {
 			}
 			return options;
 		},
+		interactionsMap() {
+			const arr = JSON.parse(this.sheet.interactions || '[]').map(e => {
+				return Array.isArray(e) ? e : [e];
+			});
+			return new Map(arr);
+		},
 		isFirstSheet() {
 			return this.sheet.ord === 0;
 		},
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
-		drawingInteractions() {
-			return ['Point', 'LineString', 'Polygon'].filter(i =>
-				(this.sheet.interactions || '').includes(i)
-			);
-		},
 		isInteractive() {
-			return this.drawingInteractions.length;
+			return this.interactionsMap.has('Point') ||
+			this.interactionsMap.has('LineString') ||
+			this.interactionsMap.has('Polygon');
+		},
+		isRatingSelected() {
+			return this.interactionsMap.has('Rating');
+		},
+		selectedInteractions: {
+			get() {
+				return [...this.interactionsMap.keys()];
+			},
+			set(arr) {
+				[...this.interactionsMap.keys()].forEach(k => {
+					if (!arr.includes(k)) { this.interactionsMap.delete(k); }
+				});
+				arr.forEach(e => {
+					const v = this.interactionsMap.get(e);
+					this.interactionsMap.set(e, v);
+				});
+				this.sheet.interactions = JSON.stringify([...this.interactionsMap.entries()]);
+			},
 		},
 		stars: {
 			get() {
-				const ints = JSON.parse(this.sheet.interactions || '[]');
-				const def = ints.filter(i => i.startsWith('stars='))[0] || 'stars=5';
-				return Number(def.split('=')[1] || '5');
+				return Number(this.interactionsMap.get('Rating')) || 5;
 			},
-			set(v) {
-				v = Math.max(1, v);
-				v = Math.min(10, v);
-				const ints = JSON.parse(this.sheet.interactions || '[]').filter(
-					i => !i.startsWith('stars=')
-				);
-				ints.push('stars=' + v);
-				this.sheet.interactions = JSON.stringify(ints);
-			},
-		},
+			set(s) {
+				this.interactionsMap.set('Rating', s);
+				this.sheet.interactions = JSON.stringify([...this.interactionsMap.entries()]);
+			}
+		}
 	},
 	watch: {
 		backgroundImage(val) {
@@ -250,11 +260,9 @@ export default {
 		sheet: {
 			handler() {
 				this.contentModified = true;
+				console.log('sheet watcher, interactions:', this.sheet.interactions);
 			},
 			deep: true,
-		},
-		selectedInteractions(i) {
-			this.sheet.interactions = JSON.stringify(i);
 		},
 		getSelectedFeature(f) {
 			if (f) {
