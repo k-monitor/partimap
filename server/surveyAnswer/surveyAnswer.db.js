@@ -36,7 +36,7 @@ async function aggregateByProjectId(projectId) {
 
 	/** @type {{ questionId: Number, count: Number, average: Number }[]} */
 	const averagesByQuestion = await db.query(`
-		SELECT questionId, COUNT(answer) count, avg(answer) average
+		SELECT questionId, COUNT(answer) count, AVG(answer) average
 		FROM survey_answer a
 		INNER JOIN sheet s ON s.id = a.sheetId AND s.projectId = ?
 		GROUP BY questionId
@@ -50,9 +50,53 @@ async function aggregateByProjectId(projectId) {
 		GROUP BY questionId, answer
 	`, [projectId]);
 
+	const matrixAnswersByQuestion = new Map();
+	await Promise.all(questions.filter(q => q.type.includes('Matrix')).map(async q => {
+		const answers = await db.query(`
+			SELECT answer FROM survey_answer a
+			INNER JOIN sheet s ON s.id = a.sheetId AND s.projectId = ?
+			AND a.questionId = ?
+		`, [projectId, q.id]);
+		matrixAnswersByQuestion.set(q.id, answers.map(a => a.answer));
+	}));
+
 	const results = [];
 	for (const q of questions) {
 		if (q.type === 'text') {
+			continue;
+		}
+
+		if (q.type.includes('Matrix')) {
+			const answers = (matrixAnswersByQuestion.get(q.id) || []).map(a => {
+				try {
+					return JSON.parse(a);
+				} catch {
+					return false;
+				}
+			}).filter(a => !!a);
+			if (!answers) { continue; }
+
+			// TODO row -> rows
+			(q.rows || []).forEach((row, i) => {
+				const count = 0;
+				const opts = {};
+				answers.map(a => a[row]).filter(a => !!a).forEach(a => {
+					a = Array.isArray(a) ? a : [a];
+					a.forEach(col => {
+						opts[col] = (opts[col] || 0) + 1;
+					});
+				});
+				const result = {
+					questionId: `${q.id}/${i}`,
+					question: `${q.label} [${row}]`,
+					sheetId: q.sheetId,
+					type: q.type,
+					count,
+					options: Object.entries(opts)
+						.map(([answer, count]) => ({ answer, count }))
+				};
+				results.push(result);
+			});
 			continue;
 		}
 

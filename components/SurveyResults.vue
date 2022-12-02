@@ -31,7 +31,7 @@ export default {
 				}
 				return a;
 			});
-			if ('checkbox|dropdown|radiogroup'.includes(q.type)) {
+			if ('checkbox|dropdown|radiogroup'.includes(q.type) || q.type.includes('Matrix')) {
 				data = data.sort((a, b) => b.y - a.y);
 			} else if ('number|range'.includes(q.type)) {
 				data = data.sort((a, b) => Number(a.name) - Number(b.name));

@@ -12,7 +12,9 @@
 		/>
 		<div v-if="sheet.survey" class="my-4">
 			<div v-if="results">
-				<SurveyResults :data="sheet.answers" />
+				<client-only>
+					<SurveyResults :data="sheet.answers" />
+				</client-only>
 			</div>
 			<div v-else>
 				<Survey
