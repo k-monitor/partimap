@@ -107,7 +107,7 @@
 				>
 					<b-form-input
 						id="stars"
-						v-model="stars"
+						v-model.number="stars"
 						max="10"
 						min="1"
 						size="sm"
