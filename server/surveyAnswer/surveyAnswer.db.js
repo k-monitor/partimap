@@ -1,9 +1,7 @@
 const db = require('../db');
 const sdb = require('../sheet/sheet.db');
+const { OTHER_ANSWER, OTHER_PREFIX } = require('../../assets/constants');
 const SurveyAnswer = require('../../model/surveyAnswer');
-
-const OTHER_PREFIX = 'other: ';
-const OTHER_LABEL = 'other';
 
 /**
  * @param {SurveyAnswer} surveyAnswer
@@ -120,7 +118,7 @@ async function aggregateByProjectId(projectId) {
 				.filter(e => Number(e.questionId) === q.id)
 				.forEach(e => {
 					JSON.parse(e.answer).forEach(o => {
-						if (o.startsWith(OTHER_PREFIX)) { o = OTHER_LABEL; }
+						if (o.startsWith(OTHER_PREFIX)) { o = OTHER_ANSWER; }
 						opts[o] = (opts[o] || 0) + 1;
 					});
 				});
@@ -131,7 +129,7 @@ async function aggregateByProjectId(projectId) {
 			countsByAnswer
 				.filter(e => Number(e.questionId) === q.id)
 				.map(e => {
-					if (`${e.answer}`.startsWith(OTHER_PREFIX)) { e.answer = OTHER_LABEL; }
+					if (`${e.answer}`.startsWith(OTHER_PREFIX)) { e.answer = OTHER_ANSWER; }
 					return e;
 				}).forEach(e => {
 					opts[e.answer] = (opts[e.answer] || 0) + e.count;
