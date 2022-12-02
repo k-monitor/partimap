@@ -159,8 +159,11 @@ router.get('/submission/export/:id',
 				a = a || '';
 
 				function writeCell(a) {
+					if (!a) { return; }
 					if (Number.isInteger(a)) {
 						CELL(COL).number(a);
+					} else if (Array.isArray(a)) {
+						CELL(COL).string(a.join('; '));
 					} else {
 						CELL(COL).string(a);
 					}
@@ -168,20 +171,21 @@ router.get('/submission/export/:id',
 
 				if (q.type.includes('Matrix')) {
 					// multiple columns
+					try {
+						a = JSON.parse(a);
+					} catch { }
 
-					/* {"questions":[{"id":1669970463343,"label":"Kérdés #1","type":"text","other":true,"required":false},{"id":1669970476687,"label":"Kérdés #2","type":"singleChoiceMatrix","other":true,"required":false,"row":["Opció #1","Opció #2"],"column":["Opció #1","Opció #2"]},{"id":1669973431024,"label":"Kérdés #3","type":"multipleChoiceMatrix","row":["Opció #1","Opció #2"],"column":["Opció #1","Opció #2"]}],"showResults":false,"showResultsOnly":false} */
-
-					/* q.rows.forEach(row => {
+					(q.rows || []).forEach(row => {
 						sas.cell(1, COL).string(`${q.label} [${row}]`);
-
+						writeCell(a[row]);
 						COL++;
-					}); */
+					});
 				} else {
 					// single column
 					sas.cell(1, COL).string(q.label);
 					if (q.type === 'checkbox') {
 						try {
-							a = JSON.parse(a).join(', ');
+							a = JSON.parse(a);
 						} catch { }
 					}
 					writeCell(a);
