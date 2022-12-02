@@ -1,9 +1,8 @@
 <template>
-	<div
-		v-if="hint"
-		class="map-hint alert alert-success border-success border-left-0 font-weight-bold m-0 shadow-sm"
-	>
-		{{ hint }}
+	<div v-if="hint" class="map-hint-container position-absolute text-center w-100">
+		<div class="alert alert-info border-info d-inline-block font-weight-bold m-0 shadow-sm">
+			{{ hint }}
+		</div>
 	</div>
 </template>
 
@@ -16,8 +15,8 @@ export default {
 		hint() {
 			return {
 				// Point: '',
-				LineString: 'A vonalakat kattintással kell kijelölni, rajzolás közben az egeret nem kell nyomva tartani. A vonalat dupla kattintással kell bezárni.',
-				Polygon: 'A terület pontjait kattintással kell kijelölni, rajzolás közben az egeret nem kell nyomva tartani. A területet a kezdőpontra való újbóli kattintással kell lezárni.'
+				LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
+				Polygon: 'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.'
 			}[this.getDrawType];
 		},
 	},
@@ -25,13 +24,9 @@ export default {
 </script>
 
 <style scoped>
-.map-hint {
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;
+.map-hint-container {
 	bottom: 2rem;
-	max-width: 75%;
-	left: 0;
-	position: absolute;
+	padding: 0 75px;
 }
 
 @media screen and (max-width: 767.98px) {
