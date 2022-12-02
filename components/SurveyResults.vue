@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { OTHER_ANSWER } from '../assets/constants';
+
 export default {
 	props: {
 		data: {
@@ -26,12 +28,12 @@ export default {
 				name: answer,
 				y: count,
 			})).map(a => {
-				if (a.name === 'other') {
+				if (a.name === OTHER_ANSWER) {
 					a.name = 'Egyéb'; // TODO i18n
 				}
 				return a;
 			});
-			if ('checkbox|dropdown|radiogroup'.includes(q.type)) {
+			if ('checkbox|dropdown|radiogroup'.includes(q.type) || q.type.includes('Matrix')) {
 				data = data.sort((a, b) => b.y - a.y);
 			} else if ('number|range'.includes(q.type)) {
 				data = data.sort((a, b) => Number(a.name) - Number(b.name));
@@ -45,7 +47,7 @@ export default {
 				data = nd;
 			}
 			const avgText = 'number|range|rating'.includes(q.type)
-				? ` | Átlagos érték: ${Math.round(q.average * 10) / 10}`
+				? ` | Átlagos érték: ${Math.round(q.average * 10) / 10}` // TODO i18n
 				: '';
 
 			return {
@@ -53,7 +55,7 @@ export default {
 				credits: { enabled: false },
 				legend: { enabled: false },
 				series: [{ data }],
-				subtitle: { text: `Válaszadók száma: ${q.count}${avgText}` },
+				subtitle: { text: `Válaszadók száma: ${q.count}${avgText}` }, // TODO i18n
 				title: { text: q.question },
 				tooltip: {
 					formatter() {

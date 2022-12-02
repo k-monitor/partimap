@@ -147,29 +147,50 @@ router.get('/submission/export/:id',
 		const sas = wb.addWorksheet('Beküldött válaszok');
 		sas.cell(1, 1).string('Azonosító');
 		sas.cell(1, 2).string('Időbélyeg');
-		questions.forEach((q, i) => {
-			sas.cell(1, i + 3).string(q.label);
-		});
-		submissions.forEach((s, i) => {
-			sas.cell(i + 2, 1).number(s.id);
-			sas.cell(i + 2, 2).date(new Date(s.timestamp));
-			questions.forEach((q, j) => {
-				const ans = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
-				const a = ans ? ans.answer : '';
-				const cell = sas.cell(i + 2, j + 3);
+		submissions.forEach((s, row) => {
+			const CELL = col => sas.cell(row + 2, col);
+			CELL(1).number(s.id);
+			CELL(2).date(new Date(s.timestamp));
 
-				if (Number.isInteger(a)) {
-					return cell.number(a);
+			let COL = 3;
+			questions.forEach(q => {
+				let a = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
+				if (a && a.answer) { a = a.answer; }
+				a = a || '';
+
+				function writeCell(a) {
+					if (!a) { return; }
+					if (Number.isInteger(a)) {
+						CELL(COL).number(a);
+					} else if (Array.isArray(a)) {
+						CELL(COL).string(a.join('; '));
+					} else {
+						CELL(COL).string(a);
+					}
 				}
 
-				if (q.type === 'checkbox') {
+				if (q.type.includes('Matrix')) {
+					// multiple columns
 					try {
-						return cell.string(JSON.parse(a).join(', '));
+						a = JSON.parse(a);
 					} catch { }
-				}
 
-				// default case, outputting answer as-is:
-				sas.cell(i + 2, j + 3).string(a);
+					(q.rows || []).forEach(row => {
+						sas.cell(1, COL).string(`${q.label} [${row}]`);
+						writeCell(a[row]);
+						COL++;
+					});
+				} else {
+					// single column
+					sas.cell(1, COL).string(q.label);
+					if (q.type === 'checkbox') {
+						try {
+							a = JSON.parse(a);
+						} catch { }
+					}
+					writeCell(a);
+					COL++;
+				}
 			});
 		});
 

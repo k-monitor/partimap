@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { OTHER_PREFIX } from '../assets/constants';
+
 export default {
 	props: {
 		q: {
@@ -36,7 +38,6 @@ export default {
 		},
 	},
 	data() {
-		const OTHER_PREFIX = 'other: '; // TODO move to a common file
 		return {
 			selected: this.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : this.value,
 			otherValue: this.value.startsWith(OTHER_PREFIX)
