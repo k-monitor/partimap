@@ -137,6 +137,9 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 
+const DEFAULT_STARS = 5;
+// TODO move out constants
+
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
@@ -150,7 +153,31 @@ export default {
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
-			return { project, sheet, submittedRatings };
+
+			const interactionsStr = sheet.interactions || '{}';
+			let interactionsObj;
+			try {
+				interactionsObj = JSON.parse(interactionsStr);
+			} catch {
+				interactionsObj = {};
+			}
+			if (Array.isArray(interactionsObj)) {
+				// backward compatibility
+				const arr = interactionsObj;
+				interactionsObj = {};
+				arr.forEach(e => {
+					if (e.startsWith('stars=')) {
+						const n = Number(e.split('=')[1]);
+						interactionsObj.Rating = n;
+					} else {
+						interactionsObj[e] = true;
+					}
+				});
+			}
+			const selectedInteractions = Object.keys(interactionsObj);
+			const stars = interactionsObj.Rating || DEFAULT_STARS;
+
+			return { project, sheet, selectedInteractions, stars, submittedRatings };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
@@ -193,12 +220,6 @@ export default {
 			}
 			return options;
 		},
-		interactionsMap() {
-			const arr = JSON.parse(this.sheet.interactions || '[]').map(e => {
-				return Array.isArray(e) ? e : [e];
-			});
-			return new Map(arr);
-		},
 		isFirstSheet() {
 			return this.sheet.ord === 0;
 		},
@@ -206,37 +227,19 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return this.interactionsMap.has('Point') ||
-			this.interactionsMap.has('LineString') ||
-			this.interactionsMap.has('Polygon');
+			return this.selectedInteractions.includes('Point') ||
+			this.selectedInteractions.includes('LineString') ||
+			this.selectedInteractions.includes('Polygon');
 		},
 		isRatingSelected() {
-			return this.interactionsMap.has('Rating');
+			return this.selectedInteractions.includes('Rating');
 		},
-		selectedInteractions: {
-			get() {
-				return [...this.interactionsMap.keys()];
-			},
-			set(arr) {
-				[...this.interactionsMap.keys()].forEach(k => {
-					if (!arr.includes(k)) { this.interactionsMap.delete(k); }
-				});
-				arr.forEach(e => {
-					const v = this.interactionsMap.get(e);
-					this.interactionsMap.set(e, v);
-				});
-				this.sheet.interactions = JSON.stringify([...this.interactionsMap.entries()]);
-			},
+		interactionsString() {
+			const obj = {};
+			this.selectedInteractions.forEach(i => { obj[i] = true; });
+			if (this.isRatingSelected) { obj.Rating = this.stars; }
+			return JSON.stringify(obj);
 		},
-		stars: {
-			get() {
-				return Number(this.interactionsMap.get('Rating')) || 5;
-			},
-			set(s) {
-				this.interactionsMap.set('Rating', s);
-				this.sheet.interactions = JSON.stringify([...this.interactionsMap.entries()]);
-			}
-		}
 	},
 	watch: {
 		backgroundImage(val) {
@@ -256,6 +259,9 @@ export default {
 					reader.readAsDataURL(val);
 				}
 			}
+		},
+		interactionsString(s) {
+			this.sheet.interactions = s;
 		},
 		sheet: {
 			handler() {
