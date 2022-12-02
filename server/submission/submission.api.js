@@ -154,27 +154,39 @@ router.get('/submission/export/:id',
 
 			let COL = 3;
 			questions.forEach(q => {
-				// set col header
-				sas.cell(1, COL).string(q.label);
-
-				// set cell
 				let a = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
 				if (a && a.answer) { a = a.answer; }
 				a = a || '';
 
-				if (q.type === 'checkbox') {
-					try {
-						a = JSON.parse(a).join(', ');
-					} catch { }
+				function writeCell(a) {
+					if (Number.isInteger(a)) {
+						CELL(COL).number(a);
+					} else {
+						CELL(COL).string(a);
+					}
 				}
 
-				if (Number.isInteger(a)) {
-					CELL(COL).number(a);
+				if (q.type.includes('Matrix')) {
+					// multiple columns
+
+					/* {"questions":[{"id":1669970463343,"label":"Kérdés #1","type":"text","other":true,"required":false},{"id":1669970476687,"label":"Kérdés #2","type":"singleChoiceMatrix","other":true,"required":false,"row":["Opció #1","Opció #2"],"column":["Opció #1","Opció #2"]},{"id":1669973431024,"label":"Kérdés #3","type":"multipleChoiceMatrix","row":["Opció #1","Opció #2"],"column":["Opció #1","Opció #2"]}],"showResults":false,"showResultsOnly":false} */
+
+					/* q.rows.forEach(row => {
+						sas.cell(1, COL).string(`${q.label} [${row}]`);
+
+						COL++;
+					}); */
 				} else {
-					CELL(COL).string(a);
+					// single column
+					sas.cell(1, COL).string(q.label);
+					if (q.type === 'checkbox') {
+						try {
+							a = JSON.parse(a).join(', ');
+						} catch { }
+					}
+					writeCell(a);
+					COL++;
 				}
-
-				COL++;
 			});
 		});
 
