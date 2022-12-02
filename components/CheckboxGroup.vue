@@ -6,20 +6,21 @@
 			:required="q.required && (selected || []).length < 1"
 			stacked
 		/>
-		<b-form-group v-if="otherSelected">
-			<span
-				v-if="q.required"
-				class="text-danger"
-			>*</span>
-			<strong
-				:required="q.required"
-				class="text-primary"
-			>Egyéb: </strong>
-			<b-form-input
-				v-model="otherValue"
-				:required="q.required"
-			/>
-		</b-form-group>
+		<div
+			v-if="otherSelected"
+			class="mt-2"
+		>
+			<div class="d-flex pl-3">
+				<div class="d-flex flex-column mx-3">
+					<i class="fa fa-level-up-alt fa-rotate-90 m-auto" />
+				</div>
+				<b-form-input
+					ref="otherInput"
+					v-model="otherValue"
+					:required="q.required"
+				/>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -69,6 +70,11 @@ export default {
 		answer() {
 			this.updateCheckboxStates();
 			this.$emit('input', this.answer);
+		},
+		otherSelected(s) {
+			if (s) {
+				this.$nextTick(() => this.$refs.otherInput.focus());
+			}
 		},
 	},
 	mounted() {

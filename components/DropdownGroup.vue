@@ -5,20 +5,21 @@
 			:options="options"
 			:required="q.required"
 		/>
-		<b-form-group v-if="selected == other">
-			<span
-				v-if="q.required"
-				class="text-danger"
-			>*</span>
-			<strong
-				:required="q.required"
-				class="text-primary"
-			>Egyéb: </strong>
-			<b-form-input
-				v-model="otherValue"
-				:required="q.required"
-			/>
-		</b-form-group>
+		<div
+			v-if="selected == other"
+			class="mt-2"
+		>
+			<div class="d-flex">
+				<div class="d-flex flex-column mx-3">
+					<i class="fa fa-level-up-alt fa-rotate-90 m-auto" />
+				</div>
+				<b-form-input
+					ref="otherInput"
+					v-model="otherValue"
+					:required="q.required"
+				/>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -55,6 +56,11 @@ export default {
 	watch: {
 		answer() {
 			this.$emit('input', this.answer);
+		},
+		selected(s) {
+			if (s === this.other) {
+				this.$nextTick(() => this.$refs.otherInput.focus());
+			}
 		},
 	},
 	mounted() {
