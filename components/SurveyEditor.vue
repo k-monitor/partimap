@@ -1,6 +1,5 @@
 <template>
 	<div>
-		{{question}}
 		<b-list-group class="mb-3">
 			<draggable
 				v-model="survey.questions"
@@ -121,37 +120,38 @@
 					v-if="hasOptions"
 					v-model="question.options"
 					:readonly="readonly"
-					labelState="option"
+					label-state="option"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'singleChoiceMatrix'"
 					v-model="question.row"
 					:readonly="readonly"
-					labelState="row"
+					label-state="row"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'singleChoiceMatrix'"
 					v-model="question.column"
 					:readonly="readonly"
-					labelState="column"
+					label-state="column"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'multipleChoiceMatrix'"
 					v-model="question.row"
 					:readonly="readonly"
-					labelState="row"
+					label-state="row"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'multipleChoiceMatrix'"
 					v-model="question.column"
 					:readonly="readonly"
-					labelState="column"
+					label-state="column"
 				/>
 				<b-form-group>
 					<b-form-checkbox
 						v-if="question.type === 'dropdown'"
 						v-model="question.other"
-					> Egyéb
+					>
+						Egyéb
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
