@@ -62,13 +62,10 @@
 				:answers="answers"
 				:q="q"
 			/>
-			<SingleChoiceMatrix
-				v-else-if="q.type === 'singleChoiceMatrix'"
+			<ChoiceMatrix
+				v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"
 				v-model="answers[q.id]"
-				:required="q.required"
 				:question="q"
-				:answers="answers"
-				:max-width="520"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"

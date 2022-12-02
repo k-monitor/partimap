@@ -134,8 +134,23 @@
 					:readonly="readonly"
 					label-state="column"
 				/>
-				<b-form-group v-if="'checkbox|dropdown'.includes(question.type)">
-					<b-form-checkbox v-model="question.other">
+				<OptionsEditor
+					v-if="question.type === 'multipleChoiceMatrix'"
+					v-model="question.row"
+					:readonly="readonly"
+					label-state="row"
+				/>
+				<OptionsEditor
+					v-if="question.type === 'multipleChoiceMatrix'"
+					v-model="question.column"
+					:readonly="readonly"
+					label-state="column"
+				/>
+				<b-form-group>
+					<b-form-checkbox
+						v-if="question.type === 'dropdown'"
+						v-model="question.other"
+					>
 						Egyéb
 					</b-form-checkbox>
 				</b-form-group>
@@ -182,6 +197,7 @@ export default {
 				dropdown: 'fa-caret-square-down',
 				rating: 'fa-star-half-alt',
 				singleChoiceMatrix: 'fa-dot-circle',
+				multipleChoiceMatrix: 'fa-check-square',
 			},
 			questionTypes: [
 				{ value: 'text', text: 'Szöveges válasz' },
@@ -194,7 +210,8 @@ export default {
 					text: 'Opciók lenyíló listában (egyet lehet vál.)',
 				},
 				{ value: 'rating', text: 'Értékelés (5 csillag)' },
-				// { value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
+				{ value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
+				{ value: 'multipleChoiceMatrix', text: 'Jelölőnégyzetrács' },
 			],
 			questionIndex: 0,
 			question: {},
