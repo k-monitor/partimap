@@ -1,22 +1,22 @@
 <template>
 	<div>
-		<div class="d-table-cell font-weight-bold text-left text-break align-middle">{{row}}</div>
-		<div v-for="columns in question.column" :key="columns" class="d-table-cell align-middle py-3">
+		<div class="d-table-cell font-weight-bold text-left text-break align-middle">{{ row }}</div>
+		<div v-for="column in question.columns" :key="column" class="d-table-cell align-middle py-3">
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
 					v-model="radioSelected"
-					:value="columns"
+					:value="column"
 					:name="row"
 					:required="question.required"
-				></b-form-radio>
+				/>
 			</div>
 			<div v-if="question.type === 'multipleChoiceMatrix'">
 				<b-form-checkbox
 					v-model="checkSelected"
-					:value="columns"
+					:value="column"
 					:name="row"
 					:required="question.required && (checkSelected || []).length < 1"
-				></b-form-checkbox>
+				/>
 			</div>
 		</div>
 	</div>
@@ -28,10 +28,6 @@ export default {
 		value: {
 			type: [String, Array],
 			default: () => '',
-		},
-		column: {
-			type: Array,
-			default: () => [],
 		},
 		row: {
 			type: String,

@@ -124,25 +124,25 @@
 				/>
 				<OptionsEditor
 					v-if="question.type === 'singleChoiceMatrix'"
-					v-model="question.row"
+					v-model="question.rows"
 					:readonly="readonly"
 					label-state="row"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'singleChoiceMatrix'"
-					v-model="question.column"
+					v-model="question.columns"
 					:readonly="readonly"
 					label-state="column"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'multipleChoiceMatrix'"
-					v-model="question.row"
+					v-model="question.rows"
 					:readonly="readonly"
 					label-state="row"
 				/>
 				<OptionsEditor
 					v-if="question.type === 'multipleChoiceMatrix'"
-					v-model="question.column"
+					v-model="question.columns"
 					:readonly="readonly"
 					label-state="column"
 				/>

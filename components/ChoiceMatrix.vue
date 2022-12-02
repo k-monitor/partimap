@@ -3,17 +3,17 @@
 		<div class="d-table border-collapse text-center my-table">
 			<div class="d-table-row font-weight-bold">
 				<div>
-					<div class="d-table-cell"></div>
-					<div v-for="columns in question.column" :key="columns" class="d-table-cell text-break">
-						{{ columns }}
+					<div class="d-table-cell" />
+					<div v-for="column in question.columns" :key="column" class="d-table-cell text-break">
+						{{ column }}
 					</div>
 				</div>
 			</div>
-			<div v-for="rows in question.row" :key="rows" class="d-table-row border-top hover-row">
+			<div v-for="row in question.rows" :key="row" class="d-table-row border-top hover-row">
 				<MatrixRows
-					v-model="selected[rows]"
+					v-model="selected[row]"
 					:question="question"
-					:row="rows"
+					:row="row"
 				/>
 			</div>
 		</div>
