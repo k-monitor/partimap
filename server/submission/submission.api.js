@@ -151,26 +151,30 @@ router.get('/submission/export/:id',
 			const CELL = col => sas.cell(row + 2, col);
 			CELL(1).number(s.id);
 			CELL(2).date(new Date(s.timestamp));
-			questions.forEach((q, j) => {
+
+			let COL = 3;
+			questions.forEach(q => {
 				// set col header
-				sas.cell(1, j + 3).string(q.label);
-				const cell = CELL(j + 3);
+				sas.cell(1, COL).string(q.label);
 
-				const ans = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
-				const a = ans ? ans.answer : '';
-
-				if (Number.isInteger(a)) {
-					return cell.number(a);
-				}
+				// set cell
+				let a = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
+				if (a && a.answer) { a = a.answer; }
+				a = a || '';
 
 				if (q.type === 'checkbox') {
 					try {
-						return cell.string(JSON.parse(a).join(', '));
+						a = JSON.parse(a).join(', ');
 					} catch { }
 				}
 
-				// default case, outputting answer as-is:
-				cell.string(a);
+				if (Number.isInteger(a)) {
+					CELL(COL).number(a);
+				} else {
+					CELL(COL).string(a);
+				}
+
+				COL++;
 			});
 		});
 
