@@ -1,26 +1,24 @@
 <template>
-	<div>
-		<tr>
-			<td class="table-row">{{row}}</td>
-			<td v-for="column in question.column" :key="column" class="table-row" >
-				<div v-if="question.type === 'singleChoiceMatrix'">
-					<b-form-radio
-						v-model="radioSelected"
-						:value="column"
-						:name="row"
-						:required="question.required"
-					></b-form-radio>
-				</div>
-				<div v-if="question.type === 'multipleChoiceMatrix'">
-					<b-form-checkbox
-						v-model="checkSelected"
-						:value="column"
-						:name="row"
-						:required="question.required && (checkSelected || []).length < 1"
-					></b-form-checkbox>
-				</div>
-			</td>
-		</tr>
+	<div class="d-table-row border-top hover-row">
+		<div class="d-table-cell font-weight-bold text-left text-break align-middle">{{ row }}</div>
+		<div v-for="column in question.columns" :key="column" class="d-table-cell align-middle py-3">
+			<div v-if="question.type === 'singleChoiceMatrix'">
+				<b-form-radio
+					v-model="radioSelected"
+					:value="column"
+					:name="row"
+					:required="question.required"
+				/>
+			</div>
+			<div v-if="question.type === 'multipleChoiceMatrix'">
+				<b-form-checkbox
+					v-model="checkSelected"
+					:value="column"
+					:name="row"
+					:required="question.required && (checkSelected || []).length < 1"
+				/>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -30,10 +28,6 @@ export default {
 		value: {
 			type: [String, Array],
 			default: () => '',
-		},
-		column: {
-			type: Array,
-			default: () => [],
 		},
 		row: {
 			type: String,
@@ -61,11 +55,7 @@ export default {
 };
 </script>
 <style scoped>
-.table-row{
-	min-width:90px;
-	max-width:90px;
-	word-wrap: break-word;
-	text-align: center;
-	vertical-align: middle!important;
+.hover-row:hover {
+	background-color: rgb(227, 227, 227);
 }
 </style>

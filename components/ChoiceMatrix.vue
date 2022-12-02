@@ -1,23 +1,19 @@
 <template>
-	<div>
-		<div class="container">
-			<table class="table">
-				<tr>
-					<div>
-						<td class="header"/>
-						<td v-for="column in question.column" :key="column" class="header">
-							{{ column }}
-						</td>
-					</div>
-				</tr>
-				<tr v-for="row in question.row" :key="row" class="hover-row" >
-					<MatrixRows
-						v-model="selected[row]"
-						:question="question"
-						:row="row"
-					/>
-				</tr>
-			</table>
+	<div class="overflow-auto">
+		<div class="d-table border-collapse text-center matrix">
+			<div class="d-table-row font-weight-bold">
+				<div class="d-table-cell" />
+				<div v-for="column in question.columns" :key="column" class="d-table-cell text-break">
+					{{ column }}
+				</div>
+			</div>
+			<MatrixRows
+				v-for="row in question.rows"
+				:key="row"
+				v-model="selected[row]"
+				:question="question"
+				:row="row"
+			/>
 		</div>
 	</div>
 </template>
@@ -50,14 +46,9 @@ export default {
 };
 </script>
 
-<style scoped>
-.container{
-	overflow-x: auto;
+<style>
+.matrix .d-table-cell {
+	min-width: 90px;
+	max-width: 90px;
 }
-.header{
-	min-width:90px;
-	max-width:90px;
-	word-wrap: break-word;
-}
-.hover-row:hover {background-color: rgb(227, 227, 227);}
 </style>
