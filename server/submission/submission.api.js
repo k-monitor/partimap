@@ -147,16 +147,17 @@ router.get('/submission/export/:id',
 		const sas = wb.addWorksheet('Beküldött válaszok');
 		sas.cell(1, 1).string('Azonosító');
 		sas.cell(1, 2).string('Időbélyeg');
-		questions.forEach((q, i) => {
-			sas.cell(1, i + 3).string(q.label);
-		});
-		submissions.forEach((s, i) => {
-			sas.cell(i + 2, 1).number(s.id);
-			sas.cell(i + 2, 2).date(new Date(s.timestamp));
+		submissions.forEach((s, row) => {
+			const CELL = col => sas.cell(row + 2, col);
+			CELL(1).number(s.id);
+			CELL(2).date(new Date(s.timestamp));
 			questions.forEach((q, j) => {
+				// set col header
+				sas.cell(1, j + 3).string(q.label);
+				const cell = CELL(j + 3);
+
 				const ans = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
 				const a = ans ? ans.answer : '';
-				const cell = sas.cell(i + 2, j + 3);
 
 				if (Number.isInteger(a)) {
 					return cell.number(a);
@@ -169,7 +170,7 @@ router.get('/submission/export/:id',
 				}
 
 				// default case, outputting answer as-is:
-				sas.cell(i + 2, j + 3).string(a);
+				cell.string(a);
 			});
 		});
 
