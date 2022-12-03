@@ -1,9 +1,9 @@
 <template>
 	<div class="overflow-auto">
-		<div class="d-table border-collapse text-center matrix">
-			<div class="d-table-row font-weight-bold">
+		<div class="matrix border-collapse d-table text-center">
+			<div class="d-table-row">
 				<div class="d-table-cell" />
-				<div v-for="column in question.columns" :key="column" class="d-table-cell text-break">
+				<div v-for="column in question.columns" :key="column" class="align-middle d-table-cell text-break">
 					{{ column }}
 				</div>
 			</div>
@@ -47,6 +47,10 @@ export default {
 </script>
 
 <style>
+.border-collapse {
+	border-collapse: collapse;
+}
+
 .matrix .d-table-cell {
 	min-width: 90px;
 	max-width: 90px;

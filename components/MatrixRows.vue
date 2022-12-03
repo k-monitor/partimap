@@ -1,7 +1,7 @@
 <template>
 	<div class="d-table-row border-top hover-row">
-		<div class="d-table-cell font-weight-bold text-left text-break align-middle">{{ row }}</div>
-		<div v-for="column in question.columns" :key="column" class="d-table-cell align-middle py-3">
+		<div class="align-middle d-table-cell text-left text-break ">{{ row }}</div>
+		<div v-for="column in question.columns" :key="column" class="align-middle d-table-cell py-3">
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
 					v-model="radioSelected"
