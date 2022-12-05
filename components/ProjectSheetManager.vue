@@ -127,6 +127,8 @@
 </template>
 
 <script>
+import { deserializeInteractions } from '~/assets/interactions';
+
 export default {
 	props: {
 		projectId: {
@@ -186,13 +188,15 @@ export default {
 	},
 	methods: {
 		sheetType(sheet) {
+			const interactions = deserializeInteractions(sheet.interactions);
 			if (!sheet) {
 				return null;
 			}
 			if (sheet.features) {
-				return (sheet.interactions || '').replace('Rating', '').length > 5
-					? 'interactiveMap'
-					: 'staticMap';
+				const isInteractive = interactions.enabled.includes('Point') ||
+					interactions.enabled.includes('LineString') ||
+					interactions.enabled.includes('Polygon');
+				return isInteractive ? 'interactiveMap' : 'staticMap';
 			} else if (sheet.survey) {
 				return 'survey';
 			} else {

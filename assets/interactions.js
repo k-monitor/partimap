@@ -1,7 +1,7 @@
 // This file handles the (de)serialization of the sheet.interactions field
 // in a backward-compatible way.
 
-class Interactions {
+export class Interactions {
 	/**
 	 * @param {Object} data Derserialized interactions object
 	 * @param {String[]} data.enabled List of enabled interactions
@@ -17,6 +17,12 @@ class Interactions {
 			Polygon: data.buttonLabels?.Polygon || '',
 		};
 		this.stars = data.stars || 5;
+	}
+
+	isInteractive() {
+		return this.enabled.includes('Point') ||
+		this.enabled.includes('LineString') ||
+		this.enabled.includes('Polygon');
 	}
 }
 

@@ -104,7 +104,7 @@
 						:hide-admin-features="!!isInteractive"
 						:stars="stars"
 						visitor
-						:visitor-can-rate="(sheet.interactions || '').includes('Rating')"
+						:visitor-can-rate="interactions.enabled.includes('Rating')"
 					/>
 				</Sidebar>
 			</div>
@@ -164,6 +164,7 @@
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
+import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
 	components: {
@@ -186,7 +187,8 @@ export default {
 				return redirect(`/p/${project.slug}/${params.sheetord}`);
 			}
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			return { project, sheet };
+			const interactions = deserializeInteractions(sheet?.interactions);
+			return { project, sheet, interactions };
 		} catch (error) {
 			if (error.message && error.message.endsWith('status code 401')) {
 				// displaying password field
@@ -243,21 +245,16 @@ export default {
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
-		drawingInteractions() {
-			return ['Point', 'LineString', 'Polygon'].filter(i =>
-				(this.sheet.interactions || '').includes(i)
-			);
-		},
 		isInteractive() {
-			return this.drawingInteractions.length;
+			return this.interactions.enabled.includes('Point') ||
+				this.interactions.enabled.includes('LineString') ||
+				this.interactions.enabled.includes('Polygon');
 		},
 		needToShowResults() {
 			return this.sheet.answers.length > 0 && !this.resultsShown;
 		},
 		stars() {
-			const ints = JSON.parse(this.sheet.interactions || '[]');
-			const def = ints.filter(i => i.startsWith('stars='))[0] || 'stars=5';
-			return Number(def.split('=')[1] || '5');
+			return this.interactions.stars;
 		},
 	},
 	watch: {
