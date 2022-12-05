@@ -1,6 +1,6 @@
 <template>
 	<div class="d-table-row border-top hover-row">
-		<div class="align-middle d-table-cell text-left text-break ">{{ row }}</div>
+		<div class="align-middle d-table-cell small text-left text-break ">{{ row }}</div>
 		<div v-for="column in question.columns" :key="column" class="align-middle d-table-cell py-3">
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
