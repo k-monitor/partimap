@@ -92,29 +92,38 @@
 					stacked
 				/>
 			</b-form-group>
-			<div
-				v-if="isRatingSelected"
-				class="ml-4"
+			<b-form-group
+				v-if="isPointSelected"
+				label="Instrukció pont felrajzolásához:"
 			>
-				<b-form-group
-					label-cols-sm="12"
-					label-cols-lg="6"
-					content-cols-sm
-					content-cols-lg="3"
-					label="Csillagok száma:"
-					label-for="stars"
-					lable-size="sm"
-				>
-					<b-form-input
-						id="stars"
-						v-model.number="interactions.stars"
-						max="10"
-						min="1"
-						size="sm"
-						type="number"
-					/>
-				</b-form-group>
-			</div>
+				<b-form-input v-model="interactions.buttonLabels.Point" />
+			</b-form-group>
+			<b-form-group
+				v-if="isLineStringSelected"
+				label="Instrukció vonal felrajzolásához:"
+			>
+				<b-form-input v-model="interactions.buttonLabels.LineString" />
+			</b-form-group>
+			<b-form-group
+				v-if="isPolygonSelected"
+				label="Instrukció terület felrajzolásához:"
+			>
+				<b-form-input v-model="interactions.buttonLabels.Polygon" />
+			</b-form-group>
+			<b-form-group
+				v-if="!isRatingSelected"
+				label="Csillagok száma:"
+				label-cols="7"
+				label-for="stars"
+			>
+				<b-form-input
+					id="stars"
+					v-model.number="interactions.stars"
+					max="10"
+					min="1"
+					type="number"
+				/>
+			</b-form-group>
 			<b-form-group
 				v-if="isInteractive"
 				label="Felrajzolt elemekhez rendelt kérdés"
@@ -202,9 +211,16 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return this.interactions.enabled.includes('Point') ||
-			this.interactions.enabled.includes('LineString') ||
-			this.interactions.enabled.includes('Polygon');
+			return this.isPointSelected || this.isLineStringSelected || this.isPolygonSelected;
+		},
+		isPointSelected() {
+			return this.interactions.enabled.includes('Point');
+		},
+		isLineStringSelected() {
+			return this.interactions.enabled.includes('LineString');
+		},
+		isPolygonSelected() {
+			return this.interactions.enabled.includes('Polygon');
 		},
 		isRatingSelected() {
 			return this.interactions.enabled.includes('Rating');
