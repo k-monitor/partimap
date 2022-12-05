@@ -10,7 +10,7 @@ class Interactions {
 	 */
 	constructor(data) {
 		data = data || {};
-		this.enabled = [...data.enabled];
+		this.enabled = data.enabled || [];
 		this.buttonLabels = {
 			Point: data.buttonLabels?.Point || '',
 			LineString: data.buttonLabels?.LineString || '',
@@ -24,24 +24,31 @@ export function serializeInteractions(interactions) {
 	return JSON.stringify(interactions);
 }
 
-export function deserializeInteractions(json) {
-	let parsed;
+function silentParse(json, defaultValue) {
 	try {
-		parsed = JSON.parse(json);
+		return JSON.parse(json);
 	} catch {
-		parsed = [];
+		return defaultValue;
 	}
-	if (Array.isArray(parsed)) { // backward-compatibility for format ['Point', 'stars=5', ...]
-		const arr = parsed;
-		const interactions = new Interactions();
-		arr.forEach(ia => {
+}
+
+/**
+ * @param {String} json
+ * @returns {Interactions}
+ */
+export function deserializeInteractions(json) {
+	const parsed = silentParse(json, []);
+	if (Array.isArray(parsed)) {
+		const enabled = [];
+		let stars = 5;
+		parsed.forEach(ia => {
 			if (ia.startsWith('stars=')) {
-				interactions.stars = Number(ia.split('=')[1]);
+				stars = Number(ia.split('=')[1]);
 			} else {
-				interactions.enabled.push(ia);
+				enabled.push(ia);
 			}
 		});
-		return interactions;
+		return new Interactions({ enabled, stars });
 	}
 	return new Interactions(parsed);
 }

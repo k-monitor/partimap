@@ -87,7 +87,7 @@
 					<h6 class="mb-0">Látogatói interakciók</h6>
 				</template>
 				<b-form-checkbox-group
-					v-model="selectedInteractions"
+					v-model="interactions.enabled"
 					:options="interactionOptions"
 					stacked
 				/>
@@ -107,7 +107,7 @@
 				>
 					<b-form-input
 						id="stars"
-						v-model.number="stars"
+						v-model.number="interactions.stars"
 						max="10"
 						min="1"
 						size="sm"
@@ -127,7 +127,7 @@
 			<FeatureList
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
-				:stars="stars"
+				:stars="interactions.stars"
 			/>
 		</Sidebar>
 	</SheetFrame>
@@ -136,9 +136,7 @@
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
-
-const DEFAULT_STARS = 5;
-// TODO move out constants
+import { deserializeInteractions, serializeInteractions } from '@/assets/interactions';
 
 export default {
 	components: {
@@ -150,34 +148,11 @@ export default {
 		try {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
+			const interactions = deserializeInteractions(sheet?.interactions);
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
-
-			const interactionsStr = sheet.interactions || '{}';
-			let interactionsObj;
-			try {
-				interactionsObj = JSON.parse(interactionsStr);
-			} catch {
-				interactionsObj = {};
-			}
-			if (Array.isArray(interactionsObj)) {
-				// backward compatibility
-				const arr = interactionsObj;
-				interactionsObj = {};
-				arr.forEach(e => {
-					if (e.startsWith('stars=')) {
-						const n = Number(e.split('=')[1]);
-						interactionsObj.Rating = n;
-					} else {
-						interactionsObj[e] = true;
-					}
-				});
-			}
-			const selectedInteractions = Object.keys(interactionsObj);
-			const stars = interactionsObj.Rating || DEFAULT_STARS;
-
-			return { project, sheet, selectedInteractions, stars, submittedRatings };
+			return { project, sheet, interactions, submittedRatings };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
@@ -227,18 +202,12 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return this.selectedInteractions.includes('Point') ||
-			this.selectedInteractions.includes('LineString') ||
-			this.selectedInteractions.includes('Polygon');
+			return this.interactions.enabled.includes('Point') ||
+			this.interactions.enabled.includes('LineString') ||
+			this.interactions.enabled.includes('Polygon');
 		},
 		isRatingSelected() {
-			return this.selectedInteractions.includes('Rating');
-		},
-		interactionsString() {
-			const obj = {};
-			this.selectedInteractions.forEach(i => { obj[i] = true; });
-			if (this.isRatingSelected) { obj.Rating = this.stars; }
-			return JSON.stringify(obj);
+			return this.interactions.enabled.includes('Rating');
 		},
 	},
 	watch: {
@@ -260,13 +229,15 @@ export default {
 				}
 			}
 		},
-		interactionsString(s) {
-			this.sheet.interactions = s;
+		interactions: {
+			handler(interactions) {
+				this.sheet.interactions = serializeInteractions(interactions);
+			},
+			deep: true,
 		},
 		sheet: {
 			handler() {
 				this.contentModified = true;
-				console.log('sheet watcher, interactions:', this.sheet.interactions);
 			},
 			deep: true,
 		},
