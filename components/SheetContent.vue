@@ -28,7 +28,7 @@
 			:sheet="sheet"
 		/>
 		<div
-			v-if="interactions.includes('SocialSharing')"
+			v-if="interactions.enabled.includes('SocialSharing')"
 			class="d-flex justify-content-around mt-5 mb-4"
 		>
 			<ShareNetwork
@@ -102,6 +102,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
 	props: {
@@ -155,8 +156,7 @@ export default {
 			},
 		},
 		interactions() {
-			// no need for JSON parse, String also has `includes()`
-			return this.sheet ? this.sheet.interactions || '' : '';
+			return deserializeInteractions(this.sheet.interactions);
 		},
 		visitorAnswers: {
 			get() {

@@ -25,7 +25,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import { buttonFilter, buttons } from '../assets/toolbarUtil';
+import { buttons } from '../assets/toolbarUtil';
 
 export default {
 	props: {
@@ -42,7 +42,7 @@ export default {
 	computed: {
 		...mapGetters(['getDrawType']),
 		drawingButtons() {
-			return buttons.filter(buttonFilter(this.getDrawType, this.sheet.interactions, this.visitor));
+			return buttons(this.getDrawType, this.sheet?.interactions, this.visitor);
 		},
 	},
 	watch: {

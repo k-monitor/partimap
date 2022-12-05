@@ -186,6 +186,7 @@
 <script>
 import { orderBy } from 'lodash';
 import slugify from 'slugify';
+import { Interactions } from '~/assets/interactions';
 
 export default {
 	middleware: ['auth'],
@@ -307,7 +308,7 @@ export default {
 				sheetData.features = initialFeatures;
 				if (type.startsWith('interactive')) {
 					// interactiveMap
-					sheetData.interactions = ['Point'];
+					sheetData.interactions = new Interactions({ enabled: ['Point'] });
 				} else {
 					// staticMap has optional survey too
 					sheetData.survey = {};
