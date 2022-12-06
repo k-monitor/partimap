@@ -1,6 +1,6 @@
 <template>
 	<div v-if="hint" class="map-hint-container position-absolute text-center w-100">
-		<div class="alert alert-info border-info d-inline-block font-weight-bold m-0 shadow-sm">
+		<div class="bg-dark border border-secondary d-inline-block font-weight-bold m-0 px-3 py-2 rounded shadow-sm text-white">
 			{{ hint }}
 		</div>
 	</div>
