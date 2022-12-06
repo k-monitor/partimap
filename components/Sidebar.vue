@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-button
-			class="border border-secondary position-absolute py-2 shadow-sm sidebar-button"
+			class="bg-dark border border-secondary position-absolute py-2 shadow-sm sidebar-button text-white"
 			variant="light"
 			@click="showSidebarAndCancelDrawing"
 		>
