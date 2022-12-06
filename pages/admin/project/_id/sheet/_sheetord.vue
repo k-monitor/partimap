@@ -111,7 +111,7 @@
 				<b-form-input v-model="interactions.buttonLabels.Polygon" />
 			</b-form-group>
 			<b-form-group
-				v-if="!isRatingSelected"
+				v-if="isRatingSelected"
 				label="Csillagok száma:"
 				label-cols="7"
 				label-for="stars"
