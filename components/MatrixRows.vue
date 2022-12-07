@@ -24,7 +24,6 @@
 					v-model="checkSelected"
 					:value="column"
 					:name="row"
-					__required="question.required && (checkSelected || []).length < 1"
 				/>
 			</div>
 		</div>
