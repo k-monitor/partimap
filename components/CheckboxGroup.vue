@@ -1,11 +1,19 @@
 <template>
 	<div>
-		<b-form-checkbox-group
-			v-model="selected"
-			:options="options"
-			:required="q.required && (selected || []).length < 1"
-			stacked
-		/>
+		<div class="position-relative">
+			<b-form-checkbox-group
+				v-model="selected"
+				:options="options"
+				stacked
+			/>
+			<input
+				v-if="(q.required && (selected || []).length < 1)"
+				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
+				required
+				type="checkbox"
+				style="bottom: 0; opacity: 0; position: absolute;"
+			>
+		</div>
 		<div
 			v-if="otherSelected"
 			class="mt-2"
@@ -21,6 +29,7 @@
 				/>
 			</div>
 		</div>
+	</div>
 	</div>
 </template>
 

@@ -1,6 +1,15 @@
 <template>
 	<div class="d-table-row border-top hover-row">
-		<div class="align-middle d-table-cell small text-left text-break ">{{ row }}</div>
+		<div class="align-middle d-table-cell position-relative small text-left text-break">
+			{{ row }}
+			<input
+				v-if="(question.type === 'multipleChoiceMatrix' && question.required && (checkSelected || []).length < 1)"
+				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
+				required
+				type="checkbox"
+				style="bottom: 0; opacity: 0; position: absolute; right: 0;"
+			>
+		</div>
 		<div v-for="column in question.columns" :key="column" class="align-middle d-table-cell py-3">
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
@@ -15,7 +24,7 @@
 					v-model="checkSelected"
 					:value="column"
 					:name="row"
-					:required="question.required && (checkSelected || []).length < 1"
+					__required="question.required && (checkSelected || []).length < 1"
 				/>
 			</div>
 		</div>
