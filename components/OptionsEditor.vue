@@ -1,10 +1,9 @@
 <template>
 	<div>
 		<label>
-			{{label}}
+			{{ label }}
 		</label>
-		<b-form-group
-		>
+		<b-form-group>
 			<b-input-group
 				v-for="(o,i) in (options || [])"
 				:key="i"
@@ -30,7 +29,7 @@
 				variant="success"
 				@click="addOption"
 			>
-				{{labelButton}}
+				{{ labelButton }}
 			</b-button>
 		</b-form-group>
 	</div>
@@ -69,21 +68,22 @@ export default {
 			return 'Új opció';
 		}
 	},
+	watch: {
+		options() {
+			alert('OPTIONS CHANGED');
+			this.$emit('input', this.options);
+		}
+	},
 	methods: {
 		addOption() {
 			if (!this.options) {
-				this.$set(this.question, 'options', []);
+				this.options = [];
 			}
 			this.options.push(`Opció #${this.options.length + 1}`);
 		},
 		delOption(i) {
 			this.options.splice(i, 1);
 		},
-	},
-	watch: {
-		options() {
-			this.$emit('input', this.options);
-		}
 	}
 };
 </script>
