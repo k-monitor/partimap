@@ -253,7 +253,7 @@ export default {
 			this.$emit('input', JSON.stringify(this.survey));
 		},
 		inputValid(max) {
-			if (!max || max < 1 || max >= this.question.options.length) {
+			if (!this.question.options || !max || max < 1 || max >= this.question.options.length) {
 				this.question.max = '';
 			}
 		},
