@@ -151,7 +151,7 @@
 						variant="light"
 						v-text="form.category"
 					/>
-					<div
+					<p
 						class="rich"
 						v-html="form.description"
 					/>
