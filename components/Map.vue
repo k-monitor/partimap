@@ -349,8 +349,8 @@ export default {
 			feature.setStyle(
 				this.styleFunction({
 					feature,
-					pointFillColor: feature.get('color') + '80', // opacity level
-					lineColor: feature.get('color') + '80',
+					pointFillColor: feature.get('color') + '60', // opacity level
+					lineColor: feature.get('color') + '60',
 					polygonColor: feature.get('color'),
 					lineDash: feature.get('dash'),
 					strokeWidth: feature.get('width'),
