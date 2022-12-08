@@ -70,7 +70,6 @@ export default {
 	},
 	watch: {
 		options() {
-			alert('OPTIONS CHANGED');
 			this.$emit('input', this.options);
 		}
 	},
