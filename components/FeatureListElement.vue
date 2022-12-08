@@ -350,7 +350,7 @@ export default {
 
 <style scoped>
 .highlight {
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5), 0 0 0 10000px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5), 0 0 0 10000px rgba(0, 0, 0, 0.7);
 	z-index: 9999;
 }
 
