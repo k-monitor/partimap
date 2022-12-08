@@ -47,7 +47,7 @@
 		<b-alert
 			:show="showConsent"
 			variant="primary"
-			class="mt-5"
+			class="mt-4"
 		>
 			<b-form-checkbox
 				v-model="consent"
