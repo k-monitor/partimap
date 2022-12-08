@@ -9,9 +9,9 @@
 					style="width: 200px;"
 				>
 				<p class="font-weight-bold lead mb-0">
-					A Partimap egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőív azoknak,
+					{{ $t('landing.tagline1') }}
 					<br class="d-none d-lg-inline">
-					akik szerint a közpénzből megvalósuló fejlesztésekről meg kell kérdezni az érintetteket is.
+					{{ $t('landing.tagline2') }}
 				</p>
 			</div>
 		</header>

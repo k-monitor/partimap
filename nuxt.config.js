@@ -53,6 +53,7 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/auth-next',
 		'@nuxtjs/gtm',
+		'@nuxtjs/i18n',
 		'@nuxtjs/recaptcha',
 		'bootstrap-vue/nuxt',
 		'vue-social-sharing/nuxt',
@@ -69,6 +70,19 @@ export default {
 		strategies: {
 			cookie: {}
 		}
+	},
+
+	i18n: {
+		locales: [
+			{ code: 'hu', iso: 'hu-HU', file: 'hu.js' },
+			{ code: 'en', iso: 'en-GB', file: 'en.js' },
+		],
+		defaultLocale: 'hu',
+		langDir: '~/locales/',
+		strategy: 'prefix',
+		vueI18n: {
+			fallbackLocale: 'hu',
+		},
 	},
 
 	recaptcha: {
