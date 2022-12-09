@@ -14,20 +14,27 @@ Vue.mixin(toasts);
 
 export default {
 	head() {
+		const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 		return {
 			titleTemplate: '%s | Partimap',
+			htmlAttrs: {
+				...i18nHead.htmlAttrs
+			},
 			meta: [
 				{
 					hid: 'description',
 					name: 'description',
-					content:
-						'PARTIcipation MAPping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.',
+					content: this.$t('meta.description'),
 				},
 				{
 					hid: 'og:image',
 					property: 'og:image',
 					content: `${this.$config.baseURL}/ogimage.png`,
 				},
+				...i18nHead.meta,
+			],
+			link: [
+				...i18nHead.link
 			],
 		};
 	},
