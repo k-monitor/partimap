@@ -69,7 +69,8 @@ export default {
 		},
 		strategies: {
 			cookie: {}
-		}
+		},
+		plugins: ['~/plugins/authfix.js'],
 	},
 
 	i18n: {
