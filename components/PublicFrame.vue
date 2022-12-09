@@ -20,8 +20,8 @@
 					is-nav
 				>
 					<b-navbar-nav class="ml-auto">
-						<b-nav-item :to="localePath('/hogyan-mukodik')">Hogyan működik?</b-nav-item>
-						<b-nav-item :to="localePath('/admin')">Belépés</b-nav-item>
+						<b-nav-item :to="localePath('/hogyan-mukodik')">{{ $t('PublicFrame.help') }}</b-nav-item>
+						<b-nav-item :to="localePath('/admin')">{{ $t('PublicFrame.login') }}</b-nav-item>
 					</b-navbar-nav>
 				</b-collapse>
 			</div>
