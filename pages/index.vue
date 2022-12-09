@@ -33,12 +33,12 @@
 			<div class="container-fluid py-lg-3 text-center">
 				<b-button
 					class="text-uppercase"
-					href="https://www.partimap.eu/p/Demo/0"
+					:href="$t('landing.tryLink')"
 					style="padding: 1rem 2.5rem"
 					target="_blank"
 					variant="outline-primary"
 				>
-					<strong>{{ $t('landing.try') }}</strong>
+					<strong>{{ $t('landing.tryButton') }}</strong>
 				</b-button>
 			</div>
 		</section>
@@ -51,7 +51,7 @@
 					<div>
 						<b-button
 							class="text-uppercase"
-							href="https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing"
+							:href="$t('landing.methodLink')"
 							style="padding: 1rem 2.5rem"
 							target="_blank"
 							variant="outline-light"
@@ -128,7 +128,7 @@
 							<img
 								src="eu-commission-logo-hu.svg"
 								class="figure-img w-100"
-								alt="Európai Bizottság"
+								:alt="$t('landing.ec')"
 							>
 						</figure>
 					</div>
