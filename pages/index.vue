@@ -20,14 +20,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5 mx-auto">
-						<p>
-							Mikor kérték ki legutóbb a véleményed egy olyan fejlesztésről, amit naponta használsz? Hazai és európai uniós milliárdokból sorra újulnak meg városi tereink, közintézményeink és a közlekedési létesítmények. A társadalmi egyeztetés és az érintettek bevonása azonban sokszor csak formalitás. Pedig könnyen belátható, hogy a lebonyolítás szakmai szempontjai mellett a fejlesztéseket napi szinten használók igényeit, elvárásait is számításba kell venni ahhoz, hogy egy projekt sikeres legyen. A cél nem az, hogy modernebb legyen a vasútállomás, hanem az, hogy többen járjanak vonattal. Nem attól kap közösségi funkciót egy tér, okospadokat szerelünk fel, hanem attól, hogy a környékbeliek megkedvelik.
-						</p>
+						<p>{{ $t('landing.column1') }}</p>
 					</div>
 					<div class="col-md-5 mx-auto">
-						<p>
-							Participatory mapping, azaz részvételi térképezés: így nevezik a folyamatot, amelynek révén az érintettek pótolhatatlan tudása beépül a számukra készülő közösségi fejlesztésekbe. A Partimap térképes kérdőívező felülete ahhoz nyújt segítséget, hogy lakosokkal való kapcsolat gyorsabbá, hatékonyabbá és egyszerűbbé váljon. A program regisztráció után ingyenesen használható, saját arculattal látható el és nyílt forráskódjának köszönhetően szabadon továbbfejleszthető. Legyél állami szerv, önkormányzat, vagy helyi érdekérvényesítő csoport - ha egy okos és átlátható megoldást keresel arra, hogyan ismerd meg a környezeted véleményét, próbáld ki a Partimapot és csatlakozz te is a fejlesztéshez!
-						</p>
+						<p>{{ $t('landing.column2') }}</p>
 					</div>
 				</div>
 			</div>
@@ -42,18 +38,16 @@
 					target="_blank"
 					variant="outline-primary"
 				>
-					<strong>Kipróbálom</strong>
+					<strong>{{ $t('landing.try') }}</strong>
 				</b-button>
 			</div>
 		</section>
 
 		<section class="bg-white py-5">
 			<div class="bg-primary container p-4 text-justify text-white">
-				<h4 class="mb-4 w-100">PARTIMAP részvételi módszertan</h4>
+				<h4 class="mb-4 w-100">{{ $t('landing.methodTitle') }}</h4>
 				<div class="d-flex flex-column flex-lg-row gap">
-					<p class="mb-0">
-						Mitől lesz sikeres egy részvételi térképezés? Hogyan kell elkészíteni a kérdőívet, mire kell odafigyelni a terjesztés során és hogyan lehet a legtöbbet kihozni az összegyűjtött adatokból? A K-Monitor összefoglalta a legfontosabb tudnivalókat, hiszen a kérdőívezés csak egy eleme a fejlesztések társadalmasításának. A Partimap részvételi módszertana - a program használói körével együtt - a jövőben folyamatosan bővülni fog!
-					</p>
+					<p class="mb-0">{{ $t('landing.methodDesc') }}</p>
 					<div>
 						<b-button
 							class="text-uppercase"
@@ -62,7 +56,7 @@
 							target="_blank"
 							variant="outline-light"
 						>
-							<strong>Elolvasom</strong>
+							<strong>{{ $t('landing.methodButton') }}</strong>
 						</b-button>
 					</div>
 				</div>
