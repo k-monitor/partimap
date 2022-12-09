@@ -7,7 +7,7 @@
 			variant="white"
 			class="border-bottom shadow-sm"
 		>
-			<b-navbar-brand to="/admin">
+			<b-navbar-brand :to="localePath('/admin')">
 				<Logo />
 			</b-navbar-brand>
 			<b-navbar-toggle target="nav-collapse" />
