@@ -3,6 +3,7 @@ export default {
 		description: 'PARTIcipation MAPping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.',
 	},
 	landing: {
+		title: 'TÉRKÉPES KÉRDŐÍV',
 		tagline1: 'A Partimap egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőív azoknak,',
 		tagline2: 'akik szerint a közpénzből megvalósuló fejlesztésekről meg kell kérdezni az érintetteket is.',
 		column1: 'Mikor kérték ki legutóbb a véleményed egy olyan fejlesztésről, amit naponta használsz? Hazai és európai uniós milliárdokból sorra újulnak meg városi tereink, közintézményeink és a közlekedési létesítmények. A társadalmi egyeztetés és az érintettek bevonása azonban sokszor csak formalitás. Pedig könnyen belátható, hogy a lebonyolítás szakmai szempontjai mellett a fejlesztéseket napi szinten használók igényeit, elvárásait is számításba kell venni ahhoz, hogy egy projekt sikeres legyen. A cél nem az, hogy modernebb legyen a vasútállomás, hanem az, hogy többen járjanak vonattal. Nem attól kap közösségi funkciót egy tér, okospadokat szerelünk fel, hanem attól, hogy a környékbeliek megkedvelik.',

@@ -148,8 +148,10 @@ export default {
 			featureIndex: -1,
 		};
 	},
-	head: {
-		title: 'TÉRKÉPES KÉRDŐÍV',
+	head() {
+		return {
+			title: this.$t('landing.title'),
+		};
 	},
 	computed: {
 		features() {
