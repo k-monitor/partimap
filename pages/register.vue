@@ -96,17 +96,12 @@ export default {
 		this.$recaptcha.destroy();
 	},
 	methods: {
-		/* async */ userReg() {
+		async userReg() {
 			this.loading = true;
-			// const captcha = await this.$recaptcha.execute('register');
+			const captcha = await this.$recaptcha.execute('register');
 			try {
-				// await this.$axios.$put('/api/user', { ...this.reg, captcha });
-				this.$router.push(this.localePath({
-					name: 'login',
-					params: {
-						successMessage: 'Aktivációhoz szükséges email kiküldve!',
-					}, // TODO route param not working
-				}));
+				await this.$axios.$put('/api/user', { ...this.reg, captcha });
+				this.$router.push(this.localePath({ path: 'login', query: { registered: null } }));
 			} catch (err) {
 				this.errorToast('Regisztráció sikertelen');
 			}

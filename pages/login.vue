@@ -86,6 +86,20 @@
 export default {
 	middleware: ['publicOnly'],
 	data() {
+		let successMessage = '';
+		let errorMessage = '';
+		const params = Object.keys(this.$route.query);
+		// TODO move param keys to constants from here and from reg/pwch too!
+		if (params.includes('registered')) {
+			successMessage = 'Aktivációhoz szükséges email kiküldve!';
+		}
+		if (params.includes('pwchanged')) {
+			successMessage = 'Jelszó sikeresen cserélve!';
+		}
+		if (params.includes('pwchangefailed')) {
+			errorMessage = 'Jelszócsere sikertelen, próbáld újra!';
+		}
+
 		return {
 			forgotMode: false,
 			login: {
@@ -93,8 +107,8 @@ export default {
 				password: '',
 			},
 			loading: true,
-			successMessage: this.$route.params.successMessage,
-			errorMessage: this.$route.params.errorMessage,
+			successMessage,
+			errorMessage,
 		};
 	},
 	head: {

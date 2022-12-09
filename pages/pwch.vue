@@ -65,19 +65,9 @@ export default {
 					token,
 					captcha
 				});
-				this.$router.push(this.localePath({
-					name: 'login',
-					params: {
-						successMessage: 'Jelszó sikeresen cserélve!',
-					}, // TODO route param not working
-				}));
+				this.$router.push(this.localePath({ path: 'login', query: { pwchanged: null } }));
 			} catch (err) {
-				this.$router.push(this.localePath({
-					name: 'login',
-					params: {
-						errorMessage: 'Jelszócsere sikertelen, próbáld újra!',
-					}, // TODO route param not working
-				}));
+				this.$router.push(this.localePath({ path: 'login', query: { pwchangefailed: null } }));
 			}
 			this.loading = false;
 		},
