@@ -153,8 +153,13 @@ export default {
 	},
 	computed: {
 		features() {
-			const loc = this.$i18n.locale;
-			return this.$i18n.messages[loc].landing.features;
+			try {
+				const loc = this.$i18n.locale;
+				return this.$i18n.messages[loc].landing.features;
+			} catch {
+				const loc = this.$i18n.defaultLocale;
+				return this.$i18n.messages[loc].landing.features || [];
+			}
 		},
 		feature() {
 			return this.features[this.featureIndex];
