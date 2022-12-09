@@ -9,7 +9,7 @@
 						{{ project.title }}
 					</div>
 					<b-button
-						:to="'/p/' + (project.slug || project.id) + '/0'"
+						:to="localePath('/p/' + (project.slug || project.id) + '/0')"
 						class="ml-auto"
 						target="_blank"
 						variant="primary"

@@ -62,7 +62,7 @@
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button
-								to="/register"
+								:to="localePath('/register')"
 								variant="link"
 							>
 								Még nincs fiókom

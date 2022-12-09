@@ -45,7 +45,7 @@ export default {
 	},
 	async mounted() {
 		if (!this.$route.query.t) {
-			this.$router.push('login');
+			this.$router.push(this.localePath('login'));
 		}
 		await this.$recaptcha.init();
 		this.loading = false;
@@ -65,19 +65,19 @@ export default {
 					token,
 					captcha
 				});
-				this.$router.push({
+				this.$router.push(this.localePath({
 					name: 'login',
 					params: {
 						successMessage: 'Jelszó sikeresen cserélve!',
-					},
-				});
+					}, // TODO route param not working
+				}));
 			} catch (err) {
-				this.$router.push({
+				this.$router.push(this.localePath({
 					name: 'login',
 					params: {
 						errorMessage: 'Jelszócsere sikertelen, próbáld újra!',
-					},
-				});
+					}, // TODO route param not working
+				}));
 			}
 			this.loading = false;
 		},

@@ -127,7 +127,7 @@ export default {
 					title: this.newProjectTitle,
 					privacyPolicy: `<p>Név: ${this.$auth.user.name}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${this.$auth.user.email}</a></p>`,
 				});
-				this.$router.push({ path: `/admin/project/${id}` });
+				this.$router.push(this.localePath(`/admin/project/${id}`));
 			} catch (error) {
 				this.errorToast('Létrehozás sikertelen');
 			}

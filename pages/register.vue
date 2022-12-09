@@ -96,17 +96,17 @@ export default {
 		this.$recaptcha.destroy();
 	},
 	methods: {
-		async userReg() {
+		/* async */ userReg() {
 			this.loading = true;
-			const captcha = await this.$recaptcha.execute('register');
+			// const captcha = await this.$recaptcha.execute('register');
 			try {
-				await this.$axios.$put('/api/user', { ...this.reg, captcha });
-				this.$router.push({
+				// await this.$axios.$put('/api/user', { ...this.reg, captcha });
+				this.$router.push(this.localePath({
 					name: 'login',
 					params: {
 						successMessage: 'Aktivációhoz szükséges email kiküldve!',
-					},
-				});
+					}, // TODO route param not working
+				}));
 			} catch (err) {
 				this.errorToast('Regisztráció sikertelen');
 			}

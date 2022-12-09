@@ -121,7 +121,7 @@ export default {
 				const { id } = await this.$axios.$put('/api/map', {
 					title: this.newMapTitle,
 				});
-				this.$router.push({ path: `/admin/map/${id}` });
+				this.$router.push(this.localePath(`/admin/map/${id}`));
 			} catch (error) {
 				this.errorToast('Létrehozás sikertelen');
 			}

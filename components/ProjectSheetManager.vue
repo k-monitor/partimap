@@ -262,7 +262,7 @@ export default {
 				importSubmittedFeatures: sheet.id,
 			};
 			const map = await this.$axios.$put('/api/map', data);
-			this.$router.push('/admin/map/' + map.id);
+			this.$router.push(this.localePath('/admin/map/' + map.id));
 		},
 	},
 };

@@ -97,7 +97,7 @@ export default {
 					email: this.newUserEmail,
 					name: this.newUserEmail.split('@')[0],
 				});
-				this.$router.push({ path: '/admin/user/' + id });
+				this.$router.push(this.localePath('/admin/user/' + id));
 			} catch (error) {
 				this.errorToast('Létrehozás sikertelen');
 			}

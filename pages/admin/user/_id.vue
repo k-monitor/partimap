@@ -227,7 +227,7 @@ export default {
 				if (this.u.id === this.$auth.user.id) {
 					this.$auth.logout('cookie');
 				} else {
-					this.$router.push('/admin/users');
+					this.$router.push(this.localePath('/admin/users'));
 				}
 			} catch {
 				this.errorToast('Törlés sikertelen');
