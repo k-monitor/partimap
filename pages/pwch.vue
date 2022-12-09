@@ -45,7 +45,7 @@ export default {
 	},
 	async mounted() {
 		if (!this.$route.query.t) {
-			this.$router.push('login');
+			this.$router.push(this.localePath('login'));
 		}
 		await this.$recaptcha.init();
 		this.loading = false;
@@ -65,19 +65,9 @@ export default {
 					token,
 					captcha
 				});
-				this.$router.push({
-					name: 'login',
-					params: {
-						successMessage: 'Jelszó sikeresen cserélve!',
-					},
-				});
+				this.$router.push(this.localePath({ path: 'login', query: { pwchanged: null } }));
 			} catch (err) {
-				this.$router.push({
-					name: 'login',
-					params: {
-						errorMessage: 'Jelszócsere sikertelen, próbáld újra!',
-					},
-				});
+				this.$router.push(this.localePath({ path: 'login', query: { pwchangefailed: null } }));
 			}
 			this.loading = false;
 		},

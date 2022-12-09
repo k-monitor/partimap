@@ -1,7 +1,7 @@
 <script>
 export default {
-	middleware({ redirect }) {
-		return redirect('/admin/projects');
+	middleware({ localePath, redirect }) {
+		return redirect(localePath('/admin/projects'));
 	},
 };
 </script>

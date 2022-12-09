@@ -276,7 +276,7 @@ export default {
 	},
 	methods: {
 		back() {
-			this.$router.push(`/admin/project/${this.project.id}`);
+			this.$router.push(this.localePath(`/admin/project/${this.project.id}`));
 		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);

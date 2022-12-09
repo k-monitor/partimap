@@ -81,7 +81,7 @@
 					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
 					<div>
 						<NuxtLink
-							:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
+							:to="localePath('/admin/project/' + projectId + '/sheet/' + sheet.ord)"
 							class="font-weight-bold mr-2"
 						>
 							{{ sheet.title }}
@@ -262,7 +262,7 @@ export default {
 				importSubmittedFeatures: sheet.id,
 			};
 			const map = await this.$axios.$put('/api/map', data);
-			this.$router.push('/admin/map/' + map.id);
+			this.$router.push(this.localePath('/admin/map/' + map.id));
 		},
 	},
 };

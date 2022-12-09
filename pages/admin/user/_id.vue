@@ -2,7 +2,7 @@
 	<AdminFrame>
 		<template #header>
 			<span v-if="$auth.user.isAdmin">
-				<NuxtLink to="/admin/users">Felhasználók</NuxtLink>
+				<NuxtLink :to="localePath('/admin/users')">Felhasználók</NuxtLink>
 				<span class="text-muted">&raquo;</span>
 			</span>
 			{{ u.email }}
@@ -227,7 +227,7 @@ export default {
 				if (this.u.id === this.$auth.user.id) {
 					this.$auth.logout('cookie');
 				} else {
-					this.$router.push('/admin/users');
+					this.$router.push(this.localePath('/admin/users'));
 				}
 			} catch {
 				this.errorToast('Törlés sikertelen');
