@@ -53,7 +53,7 @@
 				class="align-items-center d-flex list-group-item"
 			>
 				<NuxtLink
-					:to="'/admin/map/' + m.id"
+					:to="localePath('/admin/map/' + m.id)"
 					class="font-weight-bold mr-2"
 				>
 					{{ m.title }}

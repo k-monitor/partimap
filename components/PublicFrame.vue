@@ -11,7 +11,7 @@
 			variant="white"
 		>
 			<div class="container">
-				<b-navbar-brand to="/">
+				<b-navbar-brand :to="localePath('/')">
 					<Logo />
 				</b-navbar-brand>
 				<b-navbar-toggle target="nav-collapse" />
@@ -20,8 +20,8 @@
 					is-nav
 				>
 					<b-navbar-nav class="ml-auto">
-						<b-nav-item to="/hogyan-mukodik">Hogyan működik?</b-nav-item>
-						<b-nav-item to="/admin">Belépés</b-nav-item>
+						<b-nav-item :to="localePath('/hogyan-mukodik')">Hogyan működik?</b-nav-item>
+						<b-nav-item :to="localePath('/admin')">Belépés</b-nav-item>
 					</b-navbar-nav>
 				</b-collapse>
 			</div>

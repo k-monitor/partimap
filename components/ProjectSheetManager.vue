@@ -81,7 +81,7 @@
 					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
 					<div>
 						<NuxtLink
-							:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
+							:to="localePath('/admin/project/' + projectId + '/sheet/' + sheet.ord)"
 							class="font-weight-bold mr-2"
 						>
 							{{ sheet.title }}

@@ -2,7 +2,7 @@
 	<AdminFrame>
 		<template #header>
 			<span v-if="$auth.user.isAdmin">
-				<NuxtLink to="/admin/users">Felhasználók</NuxtLink>
+				<NuxtLink :to="localePath('/admin/users')">Felhasználók</NuxtLink>
 				<span class="text-muted">&raquo;</span>
 			</span>
 			{{ u.email }}

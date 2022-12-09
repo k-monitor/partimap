@@ -16,22 +16,22 @@
 				is-nav
 			>
 				<b-navbar-nav>
-					<b-nav-item to="/admin/projects">Projektek</b-nav-item>
-					<b-nav-item to="/admin/maps">Térképek</b-nav-item>
+					<b-nav-item :to="localePath('/admin/projects')">Projektek</b-nav-item>
+					<b-nav-item :to="localePath('/admin/maps')">Térképek</b-nav-item>
 					<b-nav-item
 						v-if="$auth.user.isAdmin"
-						to="/admin/users"
+						:to="localePath('/admin/users')"
 					>
 						Felhasználók
 					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
-					<b-nav-item to="/admin/help">Súgó</b-nav-item>
+					<b-nav-item :to="localePath('/admin/help')">Súgó</b-nav-item>
 					<b-nav-item-dropdown
 						:text="$auth.user.name"
 						right
 					>
-						<b-dropdown-item :to="'/admin/user/' + $auth.user.id">Adataim</b-dropdown-item>
+						<b-dropdown-item :to="localePath('/admin/user/' + $auth.user.id)">Adataim</b-dropdown-item>
 						<b-dropdown-item @click="$auth.logout('cookie')">Kijelentkezés</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>

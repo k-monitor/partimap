@@ -41,11 +41,8 @@
 			<NuxtLink
 				v-for="u in filteredUsers"
 				:key="u.id"
-				:to="'/admin/user/' + u.id"
-				class="
-							align-items-center
-							list-group-item list-group-item-action
-						"
+				:to="localePath('/admin/user/' + u.id)"
+				class="align-items-center list-group-item list-group-item-action"
 			>
 				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
 				<b-badge

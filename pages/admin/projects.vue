@@ -54,7 +54,7 @@
 			>
 				<div>
 					<NuxtLink
-						:to="'/admin/project/' + p.id"
+						:to="localePath('/admin/project/' + p.id)"
 						class="font-weight-bold mr-2"
 					>
 						{{ p.title }}
