@@ -34,6 +34,7 @@
 						<b-dropdown-item :to="localePath('/admin/user/' + $auth.user.id)">Adataim</b-dropdown-item>
 						<b-dropdown-item @click="$auth.logout('cookie')">Kijelentkezés</b-dropdown-item>
 					</b-nav-item-dropdown>
+					<LangSwitcher />
 				</b-navbar-nav>
 			</b-collapse>
 		</b-navbar>

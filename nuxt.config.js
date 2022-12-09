@@ -75,8 +75,8 @@ export default {
 		defaultLocale: 'hu',
 		langDir: '~/locales/',
 		locales: [
-			{ code: 'hu', iso: 'hu-HU', file: 'hu.js' },
-			{ code: 'en', iso: 'en-GB', file: 'en.js' },
+			{ code: 'hu', iso: 'hu-HU', file: 'hu.js', name: 'Magyar' },
+			{ code: 'en', iso: 'en-GB', file: 'en.js', name: 'English' },
 		],
 		strategy: 'prefix',
 		vueI18n: {
