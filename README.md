@@ -4,6 +4,7 @@
 ## Setup
 
 1. Install MySQL and Node v12+.
+	- It is recommended that you install [NVM](https://github.com/nvm-sh/nvm) and install Node v12 exactly. Then at the beginning of every terminal session in the project directory, use `nvm use` command to switch to Node v12.
 2. Create a new project in [Google reCAPTCHA](https://www.google.com/recaptcha/admin).
 3. Create a MySQL database and a user for it:
 	```sql
