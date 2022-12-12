@@ -8,7 +8,7 @@
 					variant="success"
 					type="button"
 				>
-					Munkalap hozzáadása
+					{{ $t('ProjectSheetManager.addSheet') }}
 				</b-button>
 				<b-modal
 					id="create-sheet-modal"
@@ -38,7 +38,7 @@
 							/>
 						</b-form-group>
 
-						<p class="pb-3">Munkalap típusa</p>
+						<p class="pb-3">{{ $t('ProjectSheetManager.sheetType') }}</p>
 						<div class="d-flex justify-content-between">
 							<span
 								v-for="t in sheetTypes"
@@ -58,7 +58,7 @@
 						</div>
 
 						<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
-							<label for="sourceMap">Térkép elemek másolása innen</label>
+							<label for="sourceMap">{{ $t('ProjectSheetManager.copySheet') }}</label>
 							<b-form-select
 								id="sourceMap"
 								v-model="sourceMap"
@@ -88,11 +88,11 @@
 						</NuxtLink>
 						<span v-if="sheet.submittedFeatureCount">
 							<br>
-							{{ sheet.submittedFeatureCount }} beküldött térkép elem
+							{{ sheet.submittedFeatureCount }} {{ $t('ProjectSheetManager.submitMap') }}
 							<a
 								href="javascript:void(0)"
 								@click.prevent="submittedFeaturesToMap(sheet)"
-							>Új saját térképre küldés</a>
+							>{{ $t('ProjectSheetManager.sendMap') }}</a>
 						</span>
 					</div>
 					<div class="ml-auto">

@@ -35,18 +35,18 @@
 					@click="addQuestion"
 				>
 					<i class="fas fa-fw fa-plus mr-2" />
-					Új kérdés hozzáadása
+					{{ $t('SurveyEditor.newQuestion') }}
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
 		<b-form-group>
 			<b-form-checkbox v-model="survey.showResults">
-				Kitöltés után válasz statisztika megjelenítése a látogatónak
+				{{ $t('SurveyEditor.statistics') }}
 			</b-form-checkbox>
 		</b-form-group>
 		<b-form-group>
 			<b-form-checkbox v-model="survey.showResultsOnly">
-				Csak az eredmények megjelenítése
+				{{ $t('SurveyEditor.resultDisplay') }}
 			</b-form-checkbox>
 		</b-form-group>
 		<b-modal
@@ -136,11 +136,11 @@
 				/>
 				<b-form-group v-if="'checkbox|dropdown'.includes(question.type)">
 					<b-form-checkbox v-model="question.other">
-						Egyéb
+						{{ $t('SurveyEditor.other') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
-					<b-form-checkbox v-model="question.required">Kötelező megválaszolni</b-form-checkbox>
+					<b-form-checkbox v-model="question.required">{{ $t('SurveyEditor.requiredAnswer') }}</b-form-checkbox>
 				</b-form-group>
 			</b-form>
 		</b-modal>

@@ -6,7 +6,7 @@
 					v-if="!hideAdminFeatures"
 					class="mb-0"
 				>
-					Térkép elemei
+					{{ $t('FeatureList.maps_elements') }}
 				</h6>
 			</template>
 			<div v-if="!hideAdminFeatures">
@@ -79,7 +79,7 @@
 			v-if="search && !filteredFeatures.length"
 			class="font-italic text-muted"
 		>
-			Nem található ilyen elem a térképen.
+			{{ $t('FeatureList.notFound') }}
 		</p>
 		<div
 			v-if="!visitor"

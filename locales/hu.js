@@ -69,4 +69,38 @@ export default {
 		help: 'Hogyan működik?',
 		login: 'Belépés',
 	},
+	AdminFrame: {
+		projects: 'Projektek',
+		maps: 'Térképek',
+		users: 'Felhasználók',
+		help: 'Súgó',
+		myDatas: 'Adataim',
+		logout: 'Kijelentkezés',
+	},
+	FeatureList: {
+		maps_elements: 'Térkép elemei',
+		notFound: 'Nem található ilyen elem a térképen.',
+	},
+	FeatureListElement: {
+		deleteElement: 'Elem törlése',
+	},
+	ProjectSheetManager: {
+		addSheet: 'Munkalap hozzáadása',
+		sheetType: 'Munkalap típusa',
+		copySheet: 'Térkép elemek másolása innen',
+		submitMap: 'beküldött térkép elem',
+		sendMap: 'Új saját térképre küldés',
+	},
+	SheetContent: {
+		readContract: 'Elolvastam és elfogadom a ',
+		readInfo: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
+		next: 'Tovább',
+	},
+	SurveyEditor: {
+		newQuestion: 'Új kérdés hozzáadása',
+		statistics: 'Kitöltés után válasz statisztika megjelenítése a látogatónak',
+		resultDisplay: 'Csak az eredmények megjelenítése',
+		other: 'Egyéb',
+		requiredAnswer: 'Kötelező megválaszolni',
+	}
 };

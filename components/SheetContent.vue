@@ -55,11 +55,11 @@
 				name="consent"
 				required
 			>
-				Elolvastam és elfogadom a <a
+				{{ $t('SheetContent.readContract') }}<a
 					class="alert-link"
 					href="javascript:void(0)"
 					@click.stop="$bvModal.show('privacy-modal')"
-				>felhasználási feltételeket és az adatkezelési tájékoztatót.</a>
+				>{{ $t('SheetContent.readInfo') }}</a>
 			</b-form-checkbox>
 		</b-alert>
 	</div>
@@ -76,7 +76,7 @@
 				:href="project.thanksUrl"
 				variant="primary"
 			>
-				Tovább
+				{{ $t('SheetContent.next') }}
 				<i class="fas fa-chevron-right ml-2" />
 			</b-button>
 		</div>
