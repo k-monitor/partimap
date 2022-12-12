@@ -44,6 +44,7 @@
 				:to="localePath('/admin/user/' + u.id)"
 				class="align-items-center list-group-item list-group-item-action"
 			>
+				<small class="text-muted"> #{{ u.id }} </small>
 				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
 				<b-badge
 					v-if="u.isAdmin"
@@ -83,11 +84,21 @@ export default {
 	},
 	computed: {
 		filteredUsers() {
-			return this.users.filter(
-				u =>
+			const result2 = this.users.filter(
+				u => (
 					(u.name || '').toLowerCase().includes(this.filter.toLowerCase()) ||
 					u.email.toLowerCase().includes(this.filter.toLowerCase())
+				)
 			);
+			let bool;
+			// eslint-disable-next-line array-callback-return
+			const result = this.users.filter(u => {
+				if (u.id === parseInt(this.filter)) {
+					bool = true;
+					return u;
+				}
+			});
+			return bool ? result : result2;
 		},
 	},
 	methods: {
