@@ -84,21 +84,16 @@ export default {
 	},
 	computed: {
 		filteredUsers() {
-			const result2 = this.users.filter(
+			let userById = null;
+			const id = Number(this.filter);
+			if (id) { userById = this.users.find(u => u.id === id); }
+			if (userById) { return [userById]; }
+			return this.users.filter(
 				u => (
 					(u.name || '').toLowerCase().includes(this.filter.toLowerCase()) ||
 					u.email.toLowerCase().includes(this.filter.toLowerCase())
 				)
 			);
-			let bool;
-			// eslint-disable-next-line array-callback-return
-			const result = this.users.filter(u => {
-				if (u.id === parseInt(this.filter)) {
-					bool = true;
-					return u;
-				}
-			});
-			return bool ? result : result2;
 		},
 	},
 	methods: {
