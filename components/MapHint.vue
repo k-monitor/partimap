@@ -15,8 +15,8 @@ export default {
 		hint() {
 			return {
 				// Point: '',
-				LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
-				Polygon: 'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.'
+				LineString: this.$t('MapHint.LineString'),
+				Polygon: this.$t('MapHint.Polygon'),
 			}[this.getDrawType];
 		},
 	},

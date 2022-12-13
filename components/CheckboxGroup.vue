@@ -55,12 +55,12 @@ export default {
 			}
 			return o;
 		});
-
 		return {
 			options: [],
 			otherValue,
 			other: OTHER_PREFIX,
 			selected,
+			// valid: this.$t('CheckboxGroup.valid'),
 		};
 	},
 	computed: {
@@ -93,7 +93,7 @@ export default {
 		}));
 		if (this.q.other) {
 			this.options.push({
-				text: 'Egyéb...',
+				text: this.$t('CheckboxGroup.other'),
 				value: this.other,
 				disabled: false,
 			});

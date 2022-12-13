@@ -13,8 +13,8 @@
 				<b-modal
 					id="create-sheet-modal"
 					ref="modal"
-					title="Új munkalap"
-					cancel-title="Mégsem"
+					:title="$t('ProjectSheetManager.title')"
+					:cancel-title="$t('ProjectSheetManager.cancel')"
 					ok-variant="success"
 					@show="resetModal"
 					@shown="$refs.sheetNameInput.focus()"
@@ -26,8 +26,8 @@
 						@submit.stop.prevent="handleSubmit"
 					>
 						<b-form-group
-							label="Munkalap elnevezése"
-							invalid-feedback="Név megadása kötelező"
+							:label="$t('ProjectSheetManager.sheetLabelName')"
+							:invalid-feedback="$t('ProjectSheetManager.nameRequired')"
 							:state="nameState"
 						>
 							<b-form-input
@@ -62,7 +62,7 @@
 							<b-form-select
 								id="sourceMap"
 								v-model="sourceMap"
-								:options="[{value: null, text: 'Nincs másolás'}].concat(maps)"
+								:options="[{value: null, text: $t('ProjectSheetManager.noCopy')}].concat(maps)"
 							/>
 						</b-form-group>
 					</form>
@@ -154,22 +154,22 @@ export default {
 				{
 					name: 'text',
 					icon: 'fa-paragraph',
-					tooltip: 'Szöveg',
+					tooltip: this.$t('ProjectSheetManager.tooltipText'),
 				},
 				{
 					name: 'survey',
 					icon: 'fa-poll',
-					tooltip: 'Kérdőív',
+					tooltip: this.$t('ProjectSheetManager.tooltipSurvey'),
 				},
 				{
 					name: 'staticMap',
 					icon: 'fa-map',
-					tooltip: 'Térkép',
+					tooltip: this.$t('ProjectSheetManager.tooltipMap'),
 				},
 				{
 					name: 'interactiveMap',
 					icon: 'fa-map-marker-alt',
-					tooltip: 'Interaktív térkép',
+					tooltip: this.$t('ProjectSheetManager.tooltipInteractiveMap'),
 				},
 			],
 			nameState: null,

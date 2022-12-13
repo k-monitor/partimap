@@ -12,7 +12,7 @@
 			<div v-if="!hideAdminFeatures">
 				<vue-typeahead-bootstrap
 					v-model="search"
-					placeholder="Keresés..."
+					:placeholder="$t('FeatureList.search')"
 					:data="categories"
 					:min-matching-chars="0"
 					show-all-results
@@ -41,7 +41,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="filteredVisitorFeatures.length"
-			label="Saját elemeid"
+			:label="$t('FeatureList.ownElements')"
 		>
 			<b-list-group>
 				<FeatureListElement
@@ -59,7 +59,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="!hideAdminFeatures"
-			:label="filteredVisitorFeatures.length ? 'Fix elemek' : null"
+			:label="filteredVisitorFeatures.length ? $t('FeatureList.fixElements') : null"
 		>
 			<b-list-group>
 				<FeatureListElement

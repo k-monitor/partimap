@@ -28,7 +28,7 @@
 					class="fas fa-fw mr-1"
 					:class="disableSave ? 'fa-check' : 'fa-save'"
 				/>
-				<span>{{ disableSave ? 'Mentve' : 'Mentés' }}</span>
+				<span>{{ disableSave ? $t('FooterButtons.saved') : $t('FooterButtons.save') }}</span>
 			</b-button>
 			<div v-else-if="step && steps && !showSubmit">{{ step }} / {{ steps }}</div>
 			<b-button
@@ -41,7 +41,7 @@
 					class="fas fa-fw mr-1"
 					:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
 				/>
-				<span>{{ disableSubmit ? 'Beküldve' : 'Beküldés' }}</span>
+				<span>{{ disableSubmit ? $t('FooterButtons.sent') : $t('FooterButtons.send') }}</span>
 			</b-button>
 			<div
 				v-else

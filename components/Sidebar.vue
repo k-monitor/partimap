@@ -57,7 +57,7 @@
 						<b-nav-item
 							v-if="!fixed"
 							v-b-tooltip.hover
-							title="Oldalsáv elrejtése"
+							:title="$t('Sidebar.hideSidebar')"
 							@click="hide"
 						>
 							<i class="fas fa-fw fa-angle-double-left" />

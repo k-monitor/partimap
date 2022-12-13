@@ -51,14 +51,14 @@
 		</b-form-group>
 		<b-modal
 			id="survey-question-editor"
-			cancel-title="Mégsem"
+			:cancel-title="this.$t('SurveyEditor.cancel')"
 			:ok-disabled="readonly"
-			:title="`Kérdés #${questionIndex + 1}`"
+			:title="$t('SurveyEditor.question') + `${questionIndex + 1}`"
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
 			<b-form @submit.prevent="saveQuestion">
-				<b-form-group label="Kérdés szövege">
+				<b-form-group :label="$t('SurveyEditor.questionText')">
 					<b-form-input
 						ref="questionLabelInput"
 						v-model="question.label"
@@ -66,7 +66,7 @@
 						:disabled="readonly"
 					/>
 				</b-form-group>
-				<b-form-group label="Kérdés típusa">
+				<b-form-group :label="$t('SurveyEditor.questionType')">
 					<b-form-select
 						v-model="question.type"
 						:options="questionTypes"
@@ -75,7 +75,7 @@
 				</b-form-group>
 				<b-row v-if="'number|range'.includes(question.type)">
 					<b-col>
-						<b-form-group label="Minimum érték">
+						<b-form-group :label="$t('SurveyEditor.minValue')">
 							<b-form-input
 								v-model="question.min"
 								type="number"
@@ -83,7 +83,7 @@
 						</b-form-group>
 					</b-col>
 					<b-col>
-						<b-form-group label="Maximum érték">
+						<b-form-group :label="$t('SurveyEditor.maxValue')">
 							<b-form-input
 								v-model="question.max"
 								type="number"
@@ -93,19 +93,19 @@
 				</b-row>
 				<b-row v-if="question.type === 'range'">
 					<b-col>
-						<b-form-group label="Minimum elnevezése">
+						<b-form-group :label="$t('SurveyEditor.minName')">
 							<b-form-input v-model="question.minLabel" />
 						</b-form-group>
 					</b-col>
 					<b-col>
-						<b-form-group label="Maximum elnevezése">
+						<b-form-group :label="$t('SurveyEditor.maxName')">
 							<b-form-input v-model="question.maxLabel" />
 						</b-form-group>
 					</b-col>
 				</b-row>
 				<b-row v-if="question.type === 'checkbox'">
 					<b-col>
-						<b-form-group label="Maximálisan kiválasztható:">
+						<b-form-group :label="$t('SurveyEditor.maxSelect')">
 							<b-form-input
 								v-model.number="question.max"
 								type="number"
@@ -185,18 +185,18 @@ export default {
 				multipleChoiceMatrix: 'fa-check-square',
 			},
 			questionTypes: [
-				{ value: 'text', text: 'Szöveges válasz' },
-				{ value: 'number', text: 'Numerikus válasz (bepötyögős)' },
-				{ value: 'range', text: 'Numerikus válasz (csúszkával)' },
-				{ value: 'checkbox', text: 'Jelölőnégyzetek' },
-				{ value: 'radiogroup', text: 'Feleletválasztós' },
+				{ value: 'text', text: this.$t('SurveyEditor.text') },
+				{ value: 'number', text: this.$t('SurveyEditor.number') },
+				{ value: 'range', text: this.$t('SurveyEditor.range') },
+				{ value: 'checkbox', text: this.$t('SurveyEditor.checkbox') },
+				{ value: 'radiogroup', text: this.$t('SurveyEditor.radiogroup') },
 				{
 					value: 'dropdown',
-					text: 'Opciók lenyíló listában (egyet lehet vál.)',
+					text: this.$t('SurveyEditor.dropdown'),
 				},
-				{ value: 'rating', text: 'Értékelés (5 csillag)' },
-				{ value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
-				{ value: 'multipleChoiceMatrix', text: 'Jelölőnégyzetrács' },
+				{ value: 'rating', text: this.$t('SurveyEditor.rating') },
+				{ value: 'singleChoiceMatrix', text: this.$t('SurveyEditor.singleChoiceMatrix') },
+				{ value: 'multipleChoiceMatrix', text: this.$t('SurveyEditor.multipleChoiceMatrix') },
 			],
 			questionIndex: 0,
 			question: {},
@@ -218,7 +218,7 @@ export default {
 	methods: {
 		addQuestion() {
 			const id = new Date().getTime();
-			const label = `Kérdés #${this.survey.questions.length + 1}`;
+			const label = this.$t('SurveyEditor.question') + `${this.survey.questions.length + 1}`;
 			const q = { id, label, type: 'text' };
 			this.survey.questions.push(q);
 			this.emitSurvey();

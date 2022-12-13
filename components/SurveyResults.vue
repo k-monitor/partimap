@@ -29,7 +29,7 @@ export default {
 				y: count,
 			})).map(a => {
 				if (a.name === OTHER_ANSWER) {
-					a.name = 'Egyéb'; // TODO i18n
+					a.name = this.$t('SurveyResult.other'); // TODO i18n
 				}
 				return a;
 			});
@@ -47,7 +47,8 @@ export default {
 				data = nd;
 			}
 			const avgText = 'number|range|rating'.includes(q.type)
-				? ` | Átlagos érték: ${Math.round(q.average * 10) / 10}` // TODO i18n
+				? ' | ' + this.$t('SurveyResult.averageValue') + `: ${Math.round(q.average * 10) / 10}` // TODO i18n
+				// ? ` | Átlagos érték: ${Math.round(q.average * 10) / 10}` // TODO i18n
 				: '';
 
 			return {
@@ -55,7 +56,7 @@ export default {
 				credits: { enabled: false },
 				legend: { enabled: false },
 				series: [{ data }],
-				subtitle: { text: `Válaszadók száma: ${q.count}${avgText}` }, // TODO i18n
+				subtitle: { text: this.$t('SurveyResult.numberOfRespondents') + `: ${q.count}${avgText}` }, // TODO i18n
 				title: { text: q.question },
 				tooltip: {
 					formatter() {
