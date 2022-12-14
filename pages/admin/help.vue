@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			Súgó
+			{{ $t('help.help') }}
 		</template>
 
 		<AdminHelpContent />

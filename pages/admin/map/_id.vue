@@ -6,7 +6,7 @@
 		<MapToolbar />
 		<Sidebar
 			admin
-			back-label="Vissza a térképekhez"
+			:back-label="$t('map.backToMap')"
 			:content-modified="contentModified"
 			:loading="loading"
 			@back="back"
@@ -14,7 +14,7 @@
 		>
 			<b-form-group class="mb-4">
 				<template #label>
-					<h6 class="mb-0">Térkép neve</h6>
+					<h6 class="mb-0">{{$t('map.mapName')}}</h6>
 				</template>
 				<b-form-input
 					v-model="mapData.title"
@@ -108,9 +108,9 @@ export default {
 			try {
 				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
 				this.contentModified = false;
-				this.success('A módosítások mentése sikeres.');
+				this.success(this.$t('map.success'));
 			} catch (error) {
-				this.errorToast('A módosítások mentése sikertelen.');
+				this.errorToast(this.$t('map.errorToast'));
 			}
 			this.loading = false;
 		},

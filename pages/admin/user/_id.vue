@@ -2,7 +2,7 @@
 	<AdminFrame>
 		<template #header>
 			<span v-if="$auth.user.isAdmin">
-				<NuxtLink :to="localePath('/admin/users')">Felhasználók</NuxtLink>
+				<NuxtLink :to="localePath('/admin/users')">{{$t('user.users')}}</NuxtLink>
 				<span class="text-muted">&raquo;</span>
 			</span>
 			{{ u.email }}
@@ -19,16 +19,16 @@
 					type="email"
 				/>
 			</b-form-group>
-			<b-form-group label="Név">
+			<b-form-group :label="$t('user.name')">
 				<b-form-input
 					v-model="m.name"
 					required
 				/>
 			</b-form-group>
 			<b-form-group
-				invalid-feedback="Maximális fájlméret: 5 MB"
-				label="Logó (ajánlott méret: 120x30 pixel)"
-				description="Ez a logó minden projektedben meg fog jelenni."
+				:invalid-feedback="$t('user.maxFileSize')"
+				:label="$t('user.logo')"
+				:description="$t('user.logoAllProject')"
 				:state="imageState"
 			>
 				<b-input-group v-if="!m.logo">
@@ -37,8 +37,8 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="project-image-input"
 						browse-text=""
-						drop-placeholder="Húzd ide a fájlt!"
-						placeholder="Kép tallózása..."
+						:drop-placeholder="$t('user.dragAndDrop')"
+						:placeholder="$t('user.browsePicture')"
 						:state="imageState"
 					/>
 					<template #append>
@@ -55,7 +55,7 @@
 					<figure class="figure">
 						<img
 							:src="m.logo"
-							alt="Logó"
+							:alt="$t('user.altLogo')"
 							class="figure-img rounded"
 							height="30"
 						>
@@ -64,18 +64,18 @@
 								class="text-danger"
 								href="javascript:void(0)"
 								@click="removeImage"
-							>Kép törlése</a>
+							>{{$t('user.deletePicture')}}</a>
 						</figcaption>
 					</figure>
 				</div>
 			</b-form-group>
 			<b-form-group
-				label="Weboldal URL"
-				description="Ha feltöltesz logót, ide fog linkelni."
+				:label="$t('user.WebURL')"
+				:description="$t('user.uploadPicture')"
 			>
 				<b-form-input v-model="m.website" />
 			</b-form-group>
-			<b-form-group label="Új jelszó">
+			<b-form-group :label="$t('user.newPassword')">
 				<b-form-input
 					v-model="m.newPassword"
 					type="password"
@@ -83,7 +83,7 @@
 			</b-form-group>
 			<b-form-group
 				v-if="!$auth.user.isAdmin"
-				label="Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)"
+				:label="$t('user.currentPassword')"
 			>
 				<b-form-input
 					v-model="m.oldPassword"
@@ -100,7 +100,7 @@
 						:value="1"
 						:unchecked-value="0"
 					>
-						Aktiválva
+						{{$t('user.activated')}}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
@@ -111,7 +111,7 @@
 						:value="1"
 						:unchecked-value="0"
 					>
-						Adminisztrátor
+						{{$t('user.administrator')}}
 					</b-form-checkbox>
 				</b-form-group>
 			</div>
@@ -123,14 +123,14 @@
 					v-b-modal.delete-user-modal
 					variant="outline-danger"
 				>
-					Fiók törlése
+					{{$t('user.deleteAccount')}}
 				</b-button>
 				<b-button
 					form="userForm"
 					type="submit"
 					variant="primary"
 				>
-					Mentés
+					{{$t('user.save')}}
 				</b-button>
 			</div>
 		</template>
@@ -138,7 +138,7 @@
 		<b-modal
 			id="delete-user-modal"
 			:busy="loading"
-			cancel-title="Mégsem"
+			:cancel-title="$t('user.cancel')"
 			cancel-variant="success"
 			centered
 			footer-class="d-flex justify-content-between"
@@ -147,12 +147,12 @@
 			no-close-on-esc
 			no-enforce-focus
 			:ok-disabled="!delConfirm || !delPassword"
-			ok-title="Fiók törlése"
+			:ok-title="$t('user.accountDelete')"
 			ok-variant="danger"
 			@ok="deleteAccount"
 			@shown="$refs.delPassword.focus()"
 		>
-			<b-form-group label="Kérlek add meg a jelszavad:">
+			<b-form-group :label="$t('user.enterPassword')">
 				<b-form-input
 					ref="delPassword"
 					v-model="delPassword"
@@ -170,8 +170,8 @@
 					:disabled="loading || !delPassword"
 					name="confirm"
 				>
-					<strong>Jól meggondoltam,</strong><br>
-					törlöm a <strong>{{ u.email }}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).
+					<strong>{{$t('user.confirmation')}}</strong><br>
+					{{$t('user.deleteThe')}}<strong>{{ u.email }}</strong>{{$t('user.alert')}}
 				</b-form-checkbox>
 			</b-alert>
 		</b-modal>
@@ -230,7 +230,7 @@ export default {
 					this.$router.push(this.localePath('/admin/users'));
 				}
 			} catch {
-				this.errorToast('Törlés sikertelen');
+				this.errorToast(this.$t('user.errorDelete'));
 			} finally {
 				this.delConfirm = false;
 				this.delPassword = '';
@@ -252,9 +252,9 @@ export default {
 				this.u = await this.$axios.$patch('/api/user', this.m);
 				this.m = { ...this.u, newPassword: null, oldPassword: null };
 				this.$auth.fetchUser();
-				this.success('Módosítás sikeres');
+				this.success(this.$t('user.changeSuccessful'));
 			} catch (error) {
-				this.errorToast('Módosítás sikertelen');
+				this.errorToast(this.$t('user.changeFailed'));
 			}
 		},
 		async uploadImage() {
@@ -275,7 +275,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast('Kép feltöltése sikertelen.');
+				this.errorToast(this.$t('user.uploadFailedPicture'));
 			}
 		},
 	},
