@@ -81,7 +81,7 @@
 					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
 					<div>
 						<NuxtLink
-							:to="'/admin/project/' + projectId + '/sheet/' + sheet.ord"
+							:to="localePath('/admin/project/' + projectId + '/sheet/' + sheet.ord)"
 							class="font-weight-bold mr-2"
 						>
 							{{ sheet.title }}
@@ -127,6 +127,8 @@
 </template>
 
 <script>
+import { deserializeInteractions } from '~/assets/interactions';
+
 export default {
 	props: {
 		projectId: {
@@ -186,13 +188,15 @@ export default {
 	},
 	methods: {
 		sheetType(sheet) {
+			const interactions = deserializeInteractions(sheet.interactions);
 			if (!sheet) {
 				return null;
 			}
 			if (sheet.features) {
-				return (sheet.interactions || '').replace('Rating', '').length > 5
-					? 'interactiveMap'
-					: 'staticMap';
+				const isInteractive = interactions.enabled.includes('Point') ||
+					interactions.enabled.includes('LineString') ||
+					interactions.enabled.includes('Polygon');
+				return isInteractive ? 'interactiveMap' : 'staticMap';
 			} else if (sheet.survey) {
 				return 'survey';
 			} else {
@@ -258,7 +262,7 @@ export default {
 				importSubmittedFeatures: sheet.id,
 			};
 			const map = await this.$axios.$put('/api/map', data);
-			this.$router.push('/admin/map/' + map.id);
+			this.$router.push(this.localePath('/admin/map/' + map.id));
 		},
 	},
 };

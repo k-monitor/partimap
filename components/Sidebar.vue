@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<b-button
-			class="border border-secondary position-absolute py-2 shadow-sm sidebar-button"
+			class="bg-dark border border-secondary position-absolute py-2 shadow-sm sidebar-button text-white"
 			variant="light"
-			@click="setSidebarVisible(true)"
+			@click="showSidebarAndCancelDrawing"
 		>
 			<i class="fas fa-fw fa-angle-double-right" />
 		</b-button>
@@ -157,7 +157,10 @@ export default {
 		},
 	},
 	methods: {
-		...mapMutations(['setSidebarVisible']),
+		...mapMutations([
+			'setDrawType',
+			'setSidebarVisible',
+		]),
 		confirmIfNeeded() {
 			if (this.contentModified) {
 				return this.confirmLeavingUnsaved();
@@ -174,6 +177,10 @@ export default {
 				this.$emit(eventName);
 			}
 		},
+		showSidebarAndCancelDrawing() {
+			this.setDrawType('');
+			this.setSidebarVisible(true);
+		}
 	},
 };
 </script>

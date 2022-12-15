@@ -83,7 +83,7 @@ export default {
 	},
 	methods: {
 		back() {
-			this.$router.push('/admin/maps');
+			this.$router.push(this.localePath('/admin/maps'));
 		},
 		featuresFromRaw(featuresRaw) {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...

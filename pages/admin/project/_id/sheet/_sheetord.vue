@@ -87,34 +87,43 @@
 					<h6 class="mb-0">Látogatói interakciók</h6>
 				</template>
 				<b-form-checkbox-group
-					v-model="selectedInteractions"
+					v-model="interactions.enabled"
 					:options="interactionOptions"
 					stacked
 				/>
 			</b-form-group>
-			<div
-				v-if="selectedInteractions.includes('Rating')"
-				class="ml-4"
+			<b-form-group
+				v-if="isPointSelected"
+				label="Instrukció pont felrajzolásához:"
 			>
-				<b-form-group
-					label-cols-sm="12"
-					label-cols-lg="6"
-					content-cols-sm
-					content-cols-lg="3"
-					label="Csillagok száma:"
-					label-for="stars"
-					lable-size="sm"
-				>
-					<b-form-input
-						id="stars"
-						v-model="stars"
-						max="10"
-						min="1"
-						size="sm"
-						type="number"
-					/>
-				</b-form-group>
-			</div>
+				<b-form-input v-model="interactions.buttonLabels.Point" />
+			</b-form-group>
+			<b-form-group
+				v-if="isLineStringSelected"
+				label="Instrukció vonal felrajzolásához:"
+			>
+				<b-form-input v-model="interactions.buttonLabels.LineString" />
+			</b-form-group>
+			<b-form-group
+				v-if="isPolygonSelected"
+				label="Instrukció terület felrajzolásához:"
+			>
+				<b-form-input v-model="interactions.buttonLabels.Polygon" />
+			</b-form-group>
+			<b-form-group
+				v-if="isRatingSelected"
+				label="Csillagok száma:"
+				label-cols="7"
+				label-for="stars"
+			>
+				<b-form-input
+					id="stars"
+					v-model.number="interactions.stars"
+					max="10"
+					min="1"
+					type="number"
+				/>
+			</b-form-group>
 			<b-form-group
 				v-if="isInteractive"
 				label="Felrajzolt elemekhez rendelt kérdés"
@@ -127,7 +136,7 @@
 			<FeatureList
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
-				:stars="stars"
+				:stars="interactions.stars"
 			/>
 		</Sidebar>
 	</SheetFrame>
@@ -136,6 +145,7 @@
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
+import { deserializeInteractions, serializeInteractions } from '@/assets/interactions';
 
 export default {
 	components: {
@@ -147,14 +157,11 @@ export default {
 		try {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
-			const selectedInteractions =
-				sheet && sheet.interactions
-					? sheet.interactions.replace(/[^A-Za-z,]/g, '').split(',') // custom parsing :D
-					: [];
+			const interactions = deserializeInteractions(sheet?.interactions);
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
-			return { project, sheet, selectedInteractions, submittedRatings };
+			return { project, sheet, interactions, submittedRatings };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
@@ -182,7 +189,7 @@ export default {
 			const options = [];
 			if (this.sheet.features) {
 				// map sheet
-				if (!this.sheet.survey) {
+				if (!this.sheet.survey) { // TODO i18n
 					// interactive map sheet
 					options.push(
 						{ value: 'Point', text: 'Pont felrajzolása' },
@@ -203,29 +210,20 @@ export default {
 		isLastSheet() {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
-		drawingInteractions() {
-			return ['Point', 'LineString', 'Polygon'].filter(i =>
-				(this.sheet.interactions || '').includes(i)
-			);
-		},
 		isInteractive() {
-			return this.drawingInteractions.length;
+			return this.isPointSelected || this.isLineStringSelected || this.isPolygonSelected;
 		},
-		stars: {
-			get() {
-				const ints = JSON.parse(this.sheet.interactions || '[]');
-				const def = ints.filter(i => i.startsWith('stars='))[0] || 'stars=5';
-				return Number(def.split('=')[1] || '5');
-			},
-			set(v) {
-				v = Math.max(1, v);
-				v = Math.min(10, v);
-				const ints = JSON.parse(this.sheet.interactions || '[]').filter(
-					i => !i.startsWith('stars=')
-				);
-				ints.push('stars=' + v);
-				this.sheet.interactions = JSON.stringify(ints);
-			},
+		isPointSelected() {
+			return this.interactions.enabled.includes('Point');
+		},
+		isLineStringSelected() {
+			return this.interactions.enabled.includes('LineString');
+		},
+		isPolygonSelected() {
+			return this.interactions.enabled.includes('Polygon');
+		},
+		isRatingSelected() {
+			return this.interactions.enabled.includes('Rating');
 		},
 	},
 	watch: {
@@ -247,14 +245,17 @@ export default {
 				}
 			}
 		},
+		interactions: {
+			handler(interactions) {
+				this.sheet.interactions = serializeInteractions(interactions);
+			},
+			deep: true,
+		},
 		sheet: {
 			handler() {
 				this.contentModified = true;
 			},
 			deep: true,
-		},
-		selectedInteractions(i) {
-			this.sheet.interactions = JSON.stringify(i);
 		},
 		getSelectedFeature(f) {
 			if (f) {
@@ -275,7 +276,7 @@ export default {
 	},
 	methods: {
 		back() {
-			this.$router.push(`/admin/project/${this.project.id}`);
+			this.$router.push(this.localePath(`/admin/project/${this.project.id}`));
 		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);

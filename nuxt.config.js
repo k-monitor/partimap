@@ -2,9 +2,6 @@ export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'Partimap',
-		htmlAttrs: {
-			lang: 'hu'
-		},
 		meta: [
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -53,6 +50,7 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/auth-next',
 		'@nuxtjs/gtm',
+		'@nuxtjs/i18n',
 		'@nuxtjs/recaptcha',
 		'bootstrap-vue/nuxt',
 		'vue-social-sharing/nuxt',
@@ -68,7 +66,22 @@ export default {
 		},
 		strategies: {
 			cookie: {}
-		}
+		},
+		plugins: ['~/plugins/authfix.js'],
+	},
+
+	i18n: {
+		baseUrl: process.env.BASE_URL,
+		defaultLocale: 'hu',
+		langDir: '~/locales/',
+		locales: [
+			{ code: 'hu', iso: 'hu-HU', file: 'hu.js', name: 'Magyar' },
+			{ code: 'en', iso: 'en-GB', file: 'en.js', name: 'English' },
+		],
+		strategy: 'prefix',
+		vueI18n: {
+			fallbackLocale: 'hu',
+		},
 	},
 
 	recaptcha: {

@@ -41,12 +41,10 @@
 			<NuxtLink
 				v-for="u in filteredUsers"
 				:key="u.id"
-				:to="'/admin/user/' + u.id"
-				class="
-							align-items-center
-							list-group-item list-group-item-action
-						"
+				:to="localePath('/admin/user/' + u.id)"
+				class="align-items-center list-group-item list-group-item-action"
 			>
+				<small class="text-muted"> #{{ u.id }} </small>
 				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
 				<b-badge
 					v-if="u.isAdmin"
@@ -86,10 +84,15 @@ export default {
 	},
 	computed: {
 		filteredUsers() {
+			let userById = null;
+			const id = Number(this.filter);
+			if (id) { userById = this.users.find(u => u.id === id); }
+			if (userById) { return [userById]; }
 			return this.users.filter(
-				u =>
+				u => (
 					(u.name || '').toLowerCase().includes(this.filter.toLowerCase()) ||
 					u.email.toLowerCase().includes(this.filter.toLowerCase())
+				)
 			);
 		},
 	},
@@ -100,7 +103,7 @@ export default {
 					email: this.newUserEmail,
 					name: this.newUserEmail.split('@')[0],
 				});
-				this.$router.push({ path: '/admin/user/' + id });
+				this.$router.push(this.localePath('/admin/user/' + id));
 			} catch (error) {
 				this.errorToast('Létrehozás sikertelen');
 			}

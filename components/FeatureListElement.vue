@@ -152,7 +152,7 @@
 						v-text="form.category"
 					/>
 					<div
-						class="rich"
+						class="mb-3 rich"
 						v-html="form.description"
 					/>
 				</div>

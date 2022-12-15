@@ -103,40 +103,42 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
-
-				<b-form-group
+				<b-row v-if="question.type === 'checkbox'">
+					<b-col>
+						<b-form-group label="Maximálisan kiválasztható:">
+							<b-form-input
+								v-model.number="question.max"
+								type="number"
+								min="1"
+								:max="!question.options ? 0 : question.options.length"
+								@change="inputValid"
+							/>
+						</b-form-group>
+					</b-col>
+				</b-row>
+				<OptionsEditor
 					v-if="hasOptions"
-					label="Opciók"
-				>
-					<b-input-group
-						v-for="(o,i) in (question.options || [])"
-						:key="i"
-						class="mb-2"
-					>
-						<b-form-input
-							v-model="question.options[i]"
-							:readonly="readonly"
-							:disabled="readonly"
-						/>
-						<template #append>
-							<b-button
-								v-if="!readonly"
-								variant="outline-danger"
-								@click="delOption(i)"
-							>
-								<i class="fas fa-fw fa-trash" />
-							</b-button>
-						</template>
-					</b-input-group>
-					<b-button
-						v-if="!readonly"
-						variant="success"
-						@click="addOption"
-					>
-						Új opció
-					</b-button>
+					v-model="question.options"
+					:readonly="readonly"
+					label-state="option"
+				/>
+				<OptionsEditor
+					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-model="question.rows"
+					:readonly="readonly"
+					label-state="row"
+				/>
+				<OptionsEditor
+					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-model="question.columns"
+					:readonly="readonly"
+					label-state="column"
+				/>
+				<b-form-group v-if="'checkbox|dropdown'.includes(question.type)">
+					<b-form-checkbox v-model="question.other">
+						Egyéb
+					</b-form-checkbox>
 				</b-form-group>
-
 				<b-form-group>
 					<b-form-checkbox v-model="question.required">Kötelező megválaszolni</b-form-checkbox>
 				</b-form-group>
@@ -179,18 +181,22 @@ export default {
 				radiogroup: 'fa-dot-circle',
 				dropdown: 'fa-caret-square-down',
 				rating: 'fa-star-half-alt',
+				singleChoiceMatrix: 'fa-dot-circle',
+				multipleChoiceMatrix: 'fa-check-square',
 			},
 			questionTypes: [
 				{ value: 'text', text: 'Szöveges válasz' },
 				{ value: 'number', text: 'Numerikus válasz (bepötyögős)' },
 				{ value: 'range', text: 'Numerikus válasz (csúszkával)' },
-				{ value: 'checkbox', text: 'Opciók (többet lehet vál.)' },
-				{ value: 'radiogroup', text: 'Opciók (egyet lehet vál.)' },
+				{ value: 'checkbox', text: 'Jelölőnégyzetek' },
+				{ value: 'radiogroup', text: 'Feleletválasztós' },
 				{
 					value: 'dropdown',
 					text: 'Opciók lenyíló listában (egyet lehet vál.)',
 				},
 				{ value: 'rating', text: 'Értékelés (5 csillag)' },
+				{ value: 'singleChoiceMatrix', text: 'Feleletválasztós rács' },
+				{ value: 'multipleChoiceMatrix', text: 'Jelölőnégyzetrács' },
 			],
 			questionIndex: 0,
 			question: {},
@@ -232,15 +238,6 @@ export default {
 				this.emitSurvey();
 			}
 		},
-		addOption() {
-			if (!this.question.options) {
-				this.$set(this.question, 'options', []);
-			}
-			this.question.options.push(`Opció #${this.question.options.length + 1}`);
-		},
-		delOption(i) {
-			this.question.options.splice(i, 1);
-		},
 		saveQuestion() {
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
@@ -254,6 +251,11 @@ export default {
 				return true;
 			}
 			this.$emit('input', JSON.stringify(this.survey));
+		},
+		inputValid(max) {
+			if (!this.question.options || !max || max < 1 || max >= this.question.options.length) {
+				this.question.max = '';
+			}
 		},
 	},
 };

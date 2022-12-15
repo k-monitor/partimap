@@ -3,14 +3,18 @@
 		<h1
 			v-if="!hideTitle"
 			class="h3 mb-4"
-		>{{ sheet.title }}</h1>
+		>
+			{{ sheet.title }}
+		</h1>
 		<div
 			class="my-4 rich"
 			v-html="sheet.description"
 		/>
 		<div v-if="sheet.survey" class="my-4">
 			<div v-if="results">
-				<SurveyResults :data="sheet.answers" />
+				<client-only>
+					<SurveyResults :data="sheet.answers" />
+				</client-only>
 			</div>
 			<div v-else>
 				<Survey
@@ -19,8 +23,12 @@
 				/>
 			</div>
 		</div>
+		<DrawButtons
+			class="my-4"
+			:sheet="sheet"
+		/>
 		<div
-			v-if="interactions.includes('SocialSharing')"
+			v-if="interactions.enabled.includes('SocialSharing')"
 			class="d-flex justify-content-around mt-5 mb-4"
 		>
 			<ShareNetwork
@@ -39,7 +47,7 @@
 		<b-alert
 			:show="showConsent"
 			variant="primary"
-			class="mt-5"
+			class="mt-4"
 		>
 			<b-form-checkbox
 				v-model="consent"
@@ -94,6 +102,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
 	props: {
@@ -147,8 +156,7 @@ export default {
 			},
 		},
 		interactions() {
-			// no need for JSON parse, String also has `includes()`
-			return this.sheet ? this.sheet.interactions || '' : '';
+			return deserializeInteractions(this.sheet.interactions);
 		},
 		visitorAnswers: {
 			get() {

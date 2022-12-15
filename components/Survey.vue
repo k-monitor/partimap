@@ -12,8 +12,13 @@
 				>*</span>
 				<strong class="text-primary">{{ q.label }}</strong>
 			</template>
+			<CheckboxGroup
+				v-if="q.type == 'checkbox'"
+				v-model="answers[q.id]"
+				:q="q"
+			/>
 			<b-form-input
-				v-if="q.type === 'text'"
+				v-else-if="q.type === 'text'"
 				v-model="answers[q.id]"
 				:name="'q' + q.id"
 				:required="q.required"
@@ -43,14 +48,6 @@
 					>{{ answers[q.id] }}</strong>
 				</div>
 			</div>
-			<b-form-checkbox-group
-				v-else-if="q.type === 'checkbox'"
-				v-model="answers[q.id]"
-				:name="'q' + q.id"
-				:options="q.options"
-				:required="q.required && (answers[q.id] || []).length < 1"
-				stacked
-			/>
 			<b-form-radio-group
 				v-else-if="q.type === 'radiogroup'"
 				v-model="answers[q.id]"
@@ -59,12 +56,16 @@
 				:required="q.required"
 				stacked
 			/>
-			<b-form-select
+			<DropdownGroup
 				v-else-if="q.type === 'dropdown'"
 				v-model="answers[q.id]"
-				:name="'q' + q.id"
-				:options="q.options"
-				:required="q.required"
+				:answers="answers"
+				:q="q"
+			/>
+			<ChoiceMatrix
+				v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"
+				v-model="answers[q.id]"
+				:question="q"
 			/>
 			<b-form-rating
 				v-else-if="q.type === 'rating'"

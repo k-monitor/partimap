@@ -4,12 +4,12 @@
 			<template #header>
 				<div class="d-flex">
 					<div>
-						<NuxtLink to="/admin/projects">Projektek</NuxtLink>
+						<NuxtLink :to="localePath('/admin/projects')">Projektek</NuxtLink>
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
 					<b-button
-						:to="'/p/' + (project.slug || project.id) + '/0'"
+						:to="localePath('/p/' + (project.slug || project.id) + '/0')"
 						class="ml-auto"
 						target="_blank"
 						variant="primary"
@@ -186,6 +186,7 @@
 <script>
 import { orderBy } from 'lodash';
 import slugify from 'slugify';
+import { Interactions } from '~/assets/interactions';
 
 export default {
 	middleware: ['auth'],
@@ -307,7 +308,7 @@ export default {
 				sheetData.features = initialFeatures;
 				if (type.startsWith('interactive')) {
 					// interactiveMap
-					sheetData.interactions = ['Point'];
+					sheetData.interactions = new Interactions({ enabled: ['Point'] });
 				} else {
 					// staticMap has optional survey too
 					sheetData.survey = {};

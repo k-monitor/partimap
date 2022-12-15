@@ -101,12 +101,7 @@ export default {
 			const captcha = await this.$recaptcha.execute('register');
 			try {
 				await this.$axios.$put('/api/user', { ...this.reg, captcha });
-				this.$router.push({
-					name: 'login',
-					params: {
-						successMessage: 'Aktivációhoz szükséges email kiküldve!',
-					},
-				});
+				this.$router.push(this.localePath({ path: 'login', query: { registered: null } }));
 			} catch (err) {
 				this.errorToast('Regisztráció sikertelen');
 			}
