@@ -46,19 +46,17 @@
 		<section class="bg-white py-5">
 			<div class="bg-primary container p-4 text-justify text-white">
 				<h4 class="mb-4 w-100">{{ $t('landing.methodTitle') }}</h4>
-				<div class="d-flex flex-column flex-lg-row gap">
-					<p class="mb-0">{{ $t('landing.methodDesc') }}</p>
-					<div>
-						<b-button
-							class="text-uppercase"
-							:href="$t('landing.methodLink')"
-							style="padding: 1rem 2.5rem"
-							target="_blank"
-							variant="outline-light"
-						>
-							<strong>{{ $t('landing.methodButton') }}</strong>
-						</b-button>
-					</div>
+				<p class="mb-4">{{ $t('landing.methodDesc') }}</p>
+				<div class="text-center">
+					<b-button
+						class="text-uppercase"
+						:href="$t('landing.methodLink')"
+						style="padding: 1rem 2.5rem"
+						target="_blank"
+						variant="outline-light"
+					>
+						<strong>{{ $t('landing.methodButton') }}</strong>
+					</b-button>
 				</div>
 			</div>
 		</section>
