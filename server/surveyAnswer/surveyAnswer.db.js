@@ -74,7 +74,6 @@ async function aggregateByProjectId(projectId) {
 			}).filter(a => !!a);
 			if (!answers) { continue; }
 
-			// TODO row -> rows
 			(q.rows || []).forEach((row, i) => {
 				let count = 0;
 				const opts = {};

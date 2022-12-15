@@ -1,6 +1,6 @@
 export default {
 	meta: {
-		description: 'PARTIcipation MAPping, azaz részvételi térképezés - közösség erejének bevonása az infrastrukturális fejlesztési irányokba.',
+		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',
@@ -62,7 +62,7 @@ export default {
 					'<p>A Partimap szoftvert a K-Monitor egyesület az Európai Bizottság (DG Regio) támogatásából valósította meg 2021-ben. A jelenlegi verzió publikálásával a projekt azonban korántsem ért véget! Az ingyenes, szabadon felhasználható felületet állami szerveknek, önkormányzatoknak, érdekérvényesítő civil szervezeteknek készítettük azzal a céllal, hogy az eszköz segíti őket a fejlesztésekkel kapcsolatos döntések társadalmasításában, így közös vagyonunkkal takarékosabban gazdálkodhatunk.</p><p>Ha érdekel a projekt, és szeretnél bekapcsolódni a fejlesztésbe, vagy csak megosztanád velünk a gondolataidat a Partimapról, írj nekünk az <a href="mailto:info@k-monitor.hu">info@k-monitor.hu</a>-ra. Ha anyagilag támogatnád a fejlesztést, hogy az ingyenes, szabadon felhasználható szoftver minél többek számára legyen elérhető, <a href="https://tamogatas.k-monitor.hu/" target="_blank">támogasd a K-Monitort!</a></p>',
 			},
 		],
-		funding: 'A fejlesztés az Európai Bizottság (DG Regio) által támogatott <a href="https://k-monitor.hu/tevekenysegek/20210324-partimap" target="_blank">Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a> elnevezésű projekt keretében valósul meg.',
+		funding: 'A fejlesztés az Európai Bizottság (DG Regio) által támogatott <a href="https://k-monitor.hu/tevekenysegek/20210324-partimap" target="_blank">Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a> elnevezésű projekt keretében valósul meg. Az eszköz továbbfejlesztését a Heinrich Böll Alapítvány prágai irodája támogatta.',
 		ec: 'Európai Bizottság',
 	},
 	PublicFrame: {
