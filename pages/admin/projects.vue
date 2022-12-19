@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			Projektek
+			{{$t('Projects.projects')}}
 		</template>
 
 		<div class="row">
@@ -11,7 +11,7 @@
 						<input
 							v-model="newProjectTitle"
 							class="form-control"
-							placeholder="Új projekt elnevezése"
+							:placeholder="$t('Projects.newProjectName')"
 							required
 							type="text"
 						>
@@ -20,7 +20,7 @@
 								class="btn btn-outline-success"
 								type="submit"
 							>
-								Hozzáadás
+								{{$t('Projects.add')}}
 							</button>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 					<input
 						v-model="filter"
 						class="form-control"
-						placeholder="Szűrés"
+						:placeholder="$t('Projects.filter')"
 						type="text"
 					>
 				</div>
@@ -41,7 +41,7 @@
 					class="btn btn-outline-primary form-control"
 					:class="{active: filterOwn}"
 					type="button"
-					value="Saját projektek"
+					:value="$t('Projects.ownProjects')"
 					@click="filteredOwn(filterOwn)"
 				>
 			</div>
@@ -62,18 +62,18 @@
 					<span
 						v-if="p.userId != $auth.user.id"
 						class="badge badge-warning"
-					>Tulajdonos: #{{ p.userId }}</span>
+					>{{$t('Projects.owner')}}: #{{ p.userId }}</span>
 					<span
 						v-else-if="$auth.user.isAdmin"
 						class="badge badge-info"
 					>Saját</span>
 					<br>
-					{{ p.views }} megtekintés, {{ p.submissions }} kitöltés
+					{{ p.views }} {{$t('Projects.view')}}, {{ p.submissions }} {{$t('Projects.view')}}
 					<a
 						v-if="p.submissions"
 						:href="'/api/submission/export/' + p.id"
 						target="_blank"
-					>Riport letöltése</a>
+					>{{$t('Projects.riportsDownload')}}</a>
 				</div>
 				<span
 					class="ml-auto text-danger"
@@ -102,8 +102,10 @@ export default {
 			filterOwn: false,
 		};
 	},
-	head: {
-		title: 'Admin: Projektek',
+	head() {
+		return {
+			title: this.$t('Projects.adminProjects')
+		};
 	},
 	computed: {
 		filteredProjects() {
@@ -125,11 +127,11 @@ export default {
 			try {
 				const { id } = await this.$axios.$put('/api/project', {
 					title: this.newProjectTitle,
-					privacyPolicy: `<p>Név: ${this.$auth.user.name}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${this.$auth.user.email}</a></p>`,
+					privacyPolicy: `<p>${this.$t('Projects.name')}: ${this.$auth.user.name}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${this.$auth.user.email}</a></p>`,
 				});
 				this.$router.push(this.localePath(`/admin/project/${id}`));
 			} catch (error) {
-				this.errorToast('Létrehozás sikertelen');
+				this.errorToast(this.$t('Projects.creationFailed'));
 			}
 		},
 		async del(project) {
@@ -139,7 +141,7 @@ export default {
 					await this.$axios.$delete('/api/project/' + project.id);
 					this.projects = await this.$axios.$get('/api/projects');
 				} catch (error) {
-					this.errorToast('Sikertelen törlés.');
+					this.errorToast(this.$t('Projects.deleteFailed'));
 				}
 			}
 		},

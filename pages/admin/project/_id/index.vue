@@ -4,7 +4,7 @@
 			<template #header>
 				<div class="d-flex">
 					<div>
-						<NuxtLink :to="localePath('/admin/projects')">{{$t('sheet.projects')}}</NuxtLink>
+						<NuxtLink :to="localePath('/admin/projects')">{{$t('sheetCreat.projects')}}</NuxtLink>
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
@@ -14,7 +14,7 @@
 						target="_blank"
 						variant="primary"
 					>
-						{{$t('sheet.view')}}
+						{{$t('sheetCreat.view')}}
 					</b-button>
 				</div>
 			</template>
@@ -22,15 +22,15 @@
 				id="projectForm"
 				@submit.prevent="update"
 			>
-				<b-form-group :label="$t('sheet.projectName')">
+				<b-form-group :label="$t('sheetCreat.projectName')">
 					<b-form-input
 						v-model="project.title"
 						required
 					/>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheet.path')"
-					:description="$t('sheet.changeRoute')"
+					:label="$t('sheetCreat.path')"
+					:description="$t('sheetCreat.changeRoute')"
 				>
 					<b-input-group prepend="/p/">
 						<b-form-input
@@ -40,7 +40,7 @@
 						<template #append>
 							<b-button
 								v-b-tooltip.hover
-								:title="$t('sheet.projectTitle')"
+								:title="$t('sheetCreat.projectTitle')"
 								variant="outline-primary"
 								@click="project.slug = generateSlug()"
 							>
@@ -50,8 +50,8 @@
 					</b-input-group>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheet.password')"
-					:description="$t('sheet.passwordDescription')"
+					:label="$t('sheetCreat.password')"
+					:description="$t('sheetCreat.passwordDescription')"
 				>
 					<b-input-group>
 						<template #append>
@@ -65,7 +65,7 @@
 						</template>
 						<b-form-input
 							v-model="newPassword"
-							:placeholder="project.password ? $t('sheet.passwordSet') : $t('sheet.newPassword')"
+							:placeholder="project.password ? $t('sheetCreat.passwordSet') : $t('sheetCreat.newPassword')"
 							:readonly="project.password"
 							type="password"
 							@change="passwordModified = true"
@@ -73,7 +73,7 @@
 					</b-input-group>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheet.facebookPreviewText')"
+					:label="$t('sheetCreat.facebookPreviewText')"
 					:description="(project.description || '').length + '/200'"
 				>
 					<b-textarea
@@ -82,8 +82,8 @@
 					/>
 				</b-form-group>
 				<b-form-group
-					:invalid-feedback="$t('sheet.maxFileSize')"
-					:label="$t('sheet.thumbnail')"
+					:invalid-feedback="$t('sheetCreat.maxFileSize')"
+					:label="$t('sheetCreat.thumbnail')"
 					:state="imageState"
 				>
 					<b-input-group v-if="!project.image">
@@ -92,8 +92,8 @@
 							accept="image/jpeg, image/png, image/webp"
 							class="project-image-input"
 							browse-text=""
-							:drop-placeholder="$t('sheet.dragAndDrop')"
-							:placeholder="$t('sheet.browsePicture')"
+							:drop-placeholder="$t('sheetCreat.dragAndDrop')"
+							:placeholder="$t('sheetCreat.browsePicture')"
 							:state="imageState"
 						/>
 						<template #append>
@@ -110,7 +110,7 @@
 						<figure class="figure">
 							<img
 								:src="project.image"
-								:alt="$t('sheet.altThumbnail')"
+								:alt="$t('sheetCreat.altThumbnail')"
 								class="figure-img rounded"
 								height="120"
 							>
@@ -119,16 +119,16 @@
 									class="text-danger"
 									href="javascript:void(0)"
 									@click="removeImage"
-								>{{$t('sheet.deletePicture')}}</a>
+								>{{$t('sheetCreat.deletePicture')}}</a>
 							</figcaption>
 						</figure>
 					</div>
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					:label="$t('sheet.dataController')"
-					:description="$t('sheet.privacyPolicy')"
-					:invalid-feedback="$t('sheet.privacyPolicyRequired')"
+					:label="$t('sheetCreat.dataController')"
+					:description="$t('sheetCreat.privacyPolicy')"
+					:invalid-feedback="$t('sheetCreat.privacyPolicyRequired')"
 					:state="isPrivacyPolicyValid"
 				>
 					<client-only>
@@ -137,16 +137,16 @@
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					:label="$t('sheet.acknowledgment')"
-					:description="$t('sheet.onLastSheetForVisitors')"
+					:label="$t('sheetCreat.acknowledgment')"
+					:description="$t('sheetCreat.onLastSheetForVisitors')"
 				>
 					<client-only>
 						<tiptap v-model="project.thanks" />
 					</client-only>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheet.nextURL')"
-					:description="$t('sheet.nextURLlink')"
+					:label="$t('sheetCreat.nextURL')"
+					:description="$t('sheetCreat.nextURLlink')"
 				>
 					<b-form-input v-model="project.thanksUrl" />
 				</b-form-group>
@@ -155,7 +155,7 @@
 						v-model="project.thanksSocial"
 						value="1"
 					>
-						{{$t('sheet.share')}}
+						{{$t('sheetCreat.share')}}
 					</b-form-checkbox>
 				</b-form-group>
 			</form>
@@ -167,7 +167,7 @@
 						type="submit"
 						variant="success"
 					>
-						{{$t('sheet.save')}}
+						{{$t('sheetCreat.save')}}
 					</b-button>
 				</div>
 			</template>
@@ -266,9 +266,9 @@ export default {
 				this.project = await this.$axios.$patch('/api/project', p);
 				this.newPassword = '';
 				this.passwordModified = false;
-				this.success(this.$t('sheet.changeSuccessful'));
+				this.success(this.$t('sheetCreat.changeSuccessful'));
 			} catch (error) {
-				this.errorToast(this.$t('sheet.changeFailed'));
+				this.errorToast(this.$t('sheetCreat.changeFailed'));
 			}
 		},
 		async uploadImage() {
@@ -289,7 +289,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast(this.$t('sheet.uploadPictureFailed'));
+				this.errorToast(this.$t('sheetCreat.uploadPictureFailed'));
 			}
 		},
 		async addSheet(title, type, sourceMap) {
@@ -322,14 +322,14 @@ export default {
 				);
 				this.project.sheets.push(newSheet);
 			} catch (error) {
-				this.errorToast(this.$t('sheet.errorAddSheet'));
+				this.errorToast(this.$t('sheetCreat.errorAddSheet'));
 			}
 		},
 		async delSheet(sheet) {
 			try {
 				await this.$axios.$delete('/api/sheet/' + sheet.id);
 			} catch (error) {
-				this.errorToast(this.$t('sheet.errorDeleteSheet'));
+				this.errorToast(this.$t('sheetCreat.errorDeleteSheet'));
 			}
 			this.project.sheets = this.project.sheets.filter(function (s) {
 				if (s.id !== sheet.id) {
@@ -369,7 +369,7 @@ export default {
 					ord: sheet.ord,
 				});
 			} catch (error) {
-				this.errorToast(this.$t('sheet.errorMoveSheet'));
+				this.errorToast(this.$t('sheetCreat.errorMoveSheet'));
 			}
 		},
 	},

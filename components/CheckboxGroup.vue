@@ -8,9 +8,9 @@
 			/>
 			<input
 				v-if="(q.required && (selected || []).length < 1)"
-				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
 				required
 				type="checkbox"
+				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
 				style="bottom: 0; opacity: 0; position: absolute;"
 			>
 		</div>
@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import { OTHER_PREFIX } from '../assets/constants';
 
+import { OTHER_PREFIX } from '../assets/constants';
 export default {
 	props: {
 		q: {
@@ -60,7 +60,7 @@ export default {
 			otherValue,
 			other: OTHER_PREFIX,
 			selected,
-			// valid: this.$t('CheckboxGroup.valid'),
+			valid: this.$t('CheckboxGroup.valid'),
 		};
 	},
 	computed: {
@@ -112,6 +112,9 @@ export default {
 			} else {
 				this.options.map(item => (item.disabled = false));
 			}
+		},
+		asd() {
+			console.log('asd');
 		},
 	},
 };

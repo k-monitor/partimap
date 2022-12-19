@@ -4,9 +4,9 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="submit">
 					<div class="card shadow-sm">
-						<h5 class="card-header">Partimap Jelszócsere</h5>
+						<h5 class="card-header">{{$t('passwordChange.passwordChange')}}</h5>
 						<div class="card-body">
-							<b-form-group label="Új jelszó">
+							<b-form-group :label="$t('passwordChange.newPassword')">
 								<b-form-input
 									ref="password"
 									v-model="password"
@@ -20,7 +20,7 @@
 								type="submit"
 								variant="primary"
 							>
-								Mentés
+								{{$t('passwordChange.save')}}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -40,8 +40,10 @@ export default {
 			loading: true,
 		};
 	},
-	head: {
-		title: 'Jelszócsere',
+	head() {
+		return {
+			title: this.$t('passwordChange.changePassOnHead'),
+		};
 	},
 	async mounted() {
 		if (!this.$route.query.t) {

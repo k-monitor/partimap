@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			Térképek
+			{{ $t('maps.maps') }}
 		</template>
 
 		<div class="row">
@@ -11,7 +11,7 @@
 						<input
 							v-model="newMapTitle"
 							class="form-control"
-							placeholder="Új térkép elnevezése"
+							:placeholder="$t('maps.newMapsName')"
 							required
 							type="text"
 						>
@@ -20,7 +20,7 @@
 								class="btn btn-success"
 								type="submit"
 							>
-								Hozzáadás
+								{{ $t('maps.add') }}
 							</button>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 					<input
 						v-model="filter"
 						class="form-control"
-						placeholder="Szűrés"
+						:placeholder="$t('maps.filter')"
 						type="text"
 					>
 				</div>
@@ -41,7 +41,7 @@
 					class="btn btn-outline-primary form-control"
 					:class="{active: filterOwn}"
 					type="button"
-					value="Saját térképek"
+					:value="$t('maps.ownMaps')"
 					@click="filteredOwn(filterOwn)"
 				>
 			</div>
@@ -62,13 +62,13 @@
 					v-if="m.userId != $auth.user.id"
 					class="badge badge-warning"
 				>
-					Tulajdonos: #{{ m.userId }}
+					{{$t('maps.owner')}} #{{ m.userId }}
 				</span>
 				<span
 					v-else-if="$auth.user.isAdmin"
 					class="badge badge-info"
 				>
-					Saját
+					{{$t('maps.own')}}
 				</span>
 				<span
 					class="ml-auto text-danger"
@@ -97,8 +97,10 @@ export default {
 			filterOwn: false,
 		};
 	},
-	head: {
-		title: 'Admin: Térképek',
+	head() {
+		return {
+			title: this.$t('maps.adminMaps'),
+		};
 	},
 	computed: {
 		filteredMaps() {
@@ -123,7 +125,7 @@ export default {
 				});
 				this.$router.push(this.localePath(`/admin/map/${id}`));
 			} catch (error) {
-				this.errorToast('Létrehozás sikertelen');
+				this.errorToast(this.$t('maps.creationFailed'));
 			}
 		},
 		async del(map) {
@@ -133,7 +135,7 @@ export default {
 					await this.$axios.$delete('/api/map/' + map.id);
 					this.maps = await this.$axios.$get('/api/maps');
 				} catch (error) {
-					this.errorToast('Sikertelen törlés.');
+					this.errorToast(this.$t('maps.deleteFailed'));
 				}
 			}
 		},

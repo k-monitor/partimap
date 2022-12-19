@@ -114,7 +114,7 @@
 			hide-footer
 			scrollable
 			size="lg"
-			title="Felhasználási feltételek és adatvédelmi nyilatkozat"
+			:title="$t('sheet.privacyStatement')"
 		>
 			<Terms :project-data-processor="project.privacyPolicy" />
 		</b-modal>
@@ -129,8 +129,8 @@
 					<div class="card m-3 shadow-sm">
 						<h5 class="card-header">Partimap</h5>
 						<div class="card-body">
-							<p>Ez a kérdőív jelenleg le van zárva.</p>
-							<p>Kérlek írd be a jelszót a megtekintéshez!</p>
+							<p>{{$t('sheet.closedSurvey')}}</p>
+							<p>{{$t('sheet.passwordRequired')}}</p>
 							<div class="form-group">
 								<b-input-group>
 									<template #prepend>
@@ -141,7 +141,7 @@
 									<b-form-input
 										ref="password"
 										v-model="password"
-										placeholder="Jelszó"
+										:placeholder="$t('sheet.password')"
 										type="password"
 									/>
 								</b-input-group>
@@ -149,7 +149,7 @@
 						</div>
 						<div class="card-footer text-right">
 							<button class="btn btn-primary">
-								Megtekintés
+								{{$t('sheet.view')}}
 								<i class="fas fa-sign-in-alt ml-1" />
 							</button>
 						</div>
@@ -210,7 +210,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.project ? this.project.title : 'Jelszóval védett projekt',
+			title: this.project ? this.project.title : this.$t('sheet.passwordProtected'),
 			meta: [
 				{
 					hid: 'description',
@@ -363,7 +363,7 @@ export default {
 				this.registerHit();
 			} catch (error) {
 				if (error.message && error.message.endsWith('status code 401')) {
-					this.errorToast('Érvénytelen jelszó!');
+					this.errorToast(this.$t('sheet.errorPassword'));
 				} else {
 					throw error; // let Nuxt handle it
 				}
@@ -388,9 +388,9 @@ export default {
 						captcha,
 					});
 					this.$store.commit('setSubmitted');
-					this.success('Beküldés sikeres.');
+					this.success(this.$t('sheet.submitSuccess'));
 				} catch {
-					this.errorToast('Beküldés sikertelen.');
+					this.errorToast(this.$t('sheet.submitError'));
 				}
 			}
 			this.loading = false;

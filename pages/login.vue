@@ -7,7 +7,7 @@
 					@submit.prevent="submit"
 				>
 					<div class="card shadow-sm">
-						<h5 class="card-header">Partimap Bejelentkezés</h5>
+						<h5 class="card-header">{{$t('login.login')}}</h5>
 						<div class="card-body">
 							<b-alert
 								v-if="successMessage"
@@ -33,7 +33,7 @@
 									<b-form-input
 										ref="email"
 										v-model="login.email"
-										placeholder="Email cím"
+										:placeholder="$t('login.email')"
 										required
 										type="email"
 									/>
@@ -48,7 +48,7 @@
 									</template>
 									<b-form-input
 										v-model="login.password"
-										placeholder="Jelszó"
+										:placeholder="$t('login.password')"
 										type="password"
 									/>
 								</b-input-group>
@@ -57,7 +57,7 @@
 								<a
 									href="javascript:void(0)"
 									@click="forgot"
-								>Elfelejtettem a jelszavam</a>
+								>{{$t('login.forgotPassword')}}</a>
 							</div>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
@@ -65,13 +65,13 @@
 								:to="localePath('/register')"
 								variant="link"
 							>
-								Még nincs fiókom
+								{{$t('login.dontHaveAccount')}}
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
-								Bejelentkezés
+								{{$t('login.checkIn')}}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -91,13 +91,13 @@ export default {
 		const params = Object.keys(this.$route.query);
 		// TODO move param keys to constants from here and from reg/pwch too!
 		if (params.includes('registered')) {
-			successMessage = 'Aktivációhoz szükséges email kiküldve!';
+			successMessage = this.$t('login.sendEmail');
 		}
 		if (params.includes('pwchanged')) {
-			successMessage = 'Jelszó sikeresen cserélve!';
+			successMessage = this.$t('login.pwchanged');
 		}
 		if (params.includes('pwchangefailed')) {
-			errorMessage = 'Jelszócsere sikertelen, próbáld újra!';
+			errorMessage = this.$t('login.pwchangefailed');
 		}
 
 		return {
@@ -111,17 +111,19 @@ export default {
 			errorMessage,
 		};
 	},
-	head: {
-		title: 'Bejelentkezés',
+	head() {
+		return {
+			title: this.$t('login.lgn'),
+		};
 	},
 	async mounted() {
 		const token = this.$route.query.t;
 		if (token) {
 			try {
 				await this.$axios.$post('/api/user/activate', { token });
-				this.successMessage = 'Sikeres aktiválás, most már bejelentkezhetsz!';
+				this.successMessage = this.$t('login.successActive');
 			} catch {
-				this.errorMessage = 'Sikertelen aktiválás, próbálj újra regisztrálni!';
+				this.errorMessage = this.$t('login.errorActive');
 			}
 		}
 		await this.$recaptcha.init();
@@ -149,9 +151,9 @@ export default {
 						email: this.login.email,
 						captcha,
 					});
-					this.successMessage = 'Jelszócseréhez szükséges email kiküldve';
+					this.successMessage = this.$t('login.changePassword');
 				} catch {
-					this.errorMessage = 'Érvénytelen email cím';
+					this.errorMessage = this.$t('login.badEmail');
 				}
 			} else {
 				try {
@@ -159,7 +161,7 @@ export default {
 						data: { ...this.login, captcha },
 					});
 				} catch (err) {
-					this.errorMessage = 'Érvénytelen email vagy jelszó';
+					this.errorMessage = this.$t('login.badEmailOrPass');
 				}
 			}
 			this.forgotMode = false;

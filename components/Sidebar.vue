@@ -104,7 +104,9 @@ export default {
 		},
 		backLabel: {
 			type: String,
-			default: 'Vissza',
+			default () {
+				return this.$t('Sidebar.back');
+			}
 		},
 		contentModified: {
 			type: Boolean,

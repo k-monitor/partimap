@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			Felhasználók
+			{{$t('users.users')}}
 		</template>
 
 		<div class="row">
@@ -11,7 +11,7 @@
 						<input
 							v-model="newUserEmail"
 							class="form-control"
-							placeholder="Új felh. email címe"
+							:placeholder="$t('users.email')"
 							required
 							type="email"
 						>
@@ -20,7 +20,7 @@
 								class="btn btn-success"
 								type="submit"
 							>
-								Hozzáadás
+								{{$t('users.add')}}
 							</button>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 					<input
 						v-model="filter"
 						class="form-control"
-						placeholder="Szűrés"
+						:placeholder="$t('users.filter')"
 						type="text"
 					>
 				</div>
@@ -56,10 +56,10 @@
 					v-if="!u.active"
 					variant="warning"
 				>
-					Még nem aktivált
+					{{$t('users.notActive')}}
 				</b-badge>
 				<br>
-				<small class="text-muted">Regisztrálva: {{ new Date(u.registered).toLocaleString() }}</small>
+				<small class="text-muted">{{$t('users.registered')}}: {{ new Date(u.registered).toLocaleString() }}</small>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
@@ -79,8 +79,10 @@ export default {
 			users: [],
 		};
 	},
-	head: {
-		title: 'Admin: Felhasználók',
+	head() {
+		return {
+			title: this.$t('users.adminUsers'),
+		};
 	},
 	computed: {
 		filteredUsers() {
@@ -105,7 +107,7 @@ export default {
 				});
 				this.$router.push(this.localePath('/admin/user/' + id));
 			} catch (error) {
-				this.errorToast('Létrehozás sikertelen');
+				this.errorToast(this.$t('users.createFailed'));
 			}
 		},
 	},
