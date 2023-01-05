@@ -292,6 +292,9 @@ export default {
 		LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
 		Polygon: 'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
 	},
+	MapToolbar: {
+		cancel: 'Mégsem',
+	},
 	OptionsEditor: {
 		addColumn: 'Új Oszlop',
 		addOption: 'Új Opció',
