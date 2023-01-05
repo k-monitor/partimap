@@ -4,7 +4,7 @@
 			{{ row }}
 			<input
 				v-if="(question.type === 'multipleChoiceMatrix' && question.required && (checkSelected || []).length < 1)"
-				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
+				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
 				required
 				type="checkbox"
 				style="bottom: 0; opacity: 0; position: absolute; right: 0;"

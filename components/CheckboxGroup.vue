@@ -8,9 +8,9 @@
 			/>
 			<input
 				v-if="(q.required && (selected || []).length < 1)"
-				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
 				required
 				type="checkbox"
+				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
 				style="bottom: 0; opacity: 0; position: absolute;"
 			>
 		</div>
@@ -55,7 +55,6 @@ export default {
 			}
 			return o;
 		});
-
 		return {
 			options: [],
 			otherValue,
@@ -93,7 +92,7 @@ export default {
 		}));
 		if (this.q.other) {
 			this.options.push({
-				text: 'Egyéb...',
+				text: this.$t('CheckboxGroup.other'),
 				value: this.other,
 				disabled: false,
 			});

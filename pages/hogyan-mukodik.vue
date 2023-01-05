@@ -77,6 +77,7 @@
 </template>
 
 <script>
+// TODO i18n
 export default {
 	head: {
 		title: 'Hogyan működik az oldal?',

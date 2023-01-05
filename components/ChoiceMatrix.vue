@@ -7,7 +7,7 @@
 					{{ column }}
 				</div>
 			</div>
-			<MatrixRows
+			<MatrixRow
 				v-for="row in question.rows"
 				:key="row"
 				v-model="selected[row]"

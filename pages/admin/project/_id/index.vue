@@ -4,7 +4,7 @@
 			<template #header>
 				<div class="d-flex">
 					<div>
-						<NuxtLink :to="localePath('/admin/projects')">Projektek</NuxtLink>
+						<NuxtLink :to="localePath('/admin/projects')">{{ $t('projectEditor.back') }}</NuxtLink>
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
@@ -14,7 +14,7 @@
 						target="_blank"
 						variant="primary"
 					>
-						Megtekintés
+						{{ $t('projectEditor.view') }}
 					</b-button>
 				</div>
 			</template>
@@ -22,15 +22,15 @@
 				id="projectForm"
 				@submit.prevent="update"
 			>
-				<b-form-group label="Projekt címe">
+				<b-form-group :label="$t('projectEditor.projectTitle')">
 					<b-form-input
 						v-model="project.title"
 						required
 					/>
 				</b-form-group>
 				<b-form-group
-					label="Elérési útvonal"
-					description="Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal."
+					:label="$t('projectEditor.slug')"
+					:description="$t('projectEditor.slugDescription')"
 				>
 					<b-input-group prepend="/p/">
 						<b-form-input
@@ -40,7 +40,7 @@
 						<template #append>
 							<b-button
 								v-b-tooltip.hover
-								title="Generálás projekt címéből"
+								:title="$t('projectEditor.generateSlug')"
 								variant="outline-primary"
 								@click="project.slug = generateSlug()"
 							>
@@ -50,8 +50,8 @@
 					</b-input-group>
 				</b-form-group>
 				<b-form-group
-					label="Jelszavas védelem"
-					description="Ha be vagy jelentkezve, a saját projektjeid nem fognak jelszót kérni. Inkognitó/privát módban tudod tesztelni a védelmet."
+					:label="$t('projectEditor.password')"
+					:description="$t('projectEditor.passwordDescription')"
 				>
 					<b-input-group>
 						<template #append>
@@ -65,7 +65,7 @@
 						</template>
 						<b-form-input
 							v-model="newPassword"
-							:placeholder="project.password ? 'Be van állítva' : 'Új jelszó'"
+							:placeholder="project.password ? $t('projectEditor.passwordSet') : $t('projectEditor.newPassword')"
 							:readonly="project.password"
 							type="password"
 							@change="passwordModified = true"
@@ -73,7 +73,7 @@
 					</b-input-group>
 				</b-form-group>
 				<b-form-group
-					label="Meta leírás (Facebook előnézeti szöveg)"
+					:label="$t('projectEditor.projectDescription')"
 					:description="(project.description || '').length + '/200'"
 				>
 					<b-textarea
@@ -82,8 +82,8 @@
 					/>
 				</b-form-group>
 				<b-form-group
-					invalid-feedback="Maximális fájlméret: 5 MB"
-					label="Facebook bélyegkép (ajánlott méret: 1200x630 pixel)"
+					:invalid-feedback="$t('projectEditor.maxFileSize')"
+					:label="$t('projectEditor.thumbnail')"
 					:state="imageState"
 				>
 					<b-input-group v-if="!project.image">
@@ -92,8 +92,8 @@
 							accept="image/jpeg, image/png, image/webp"
 							class="project-image-input"
 							browse-text=""
-							drop-placeholder="Húzd ide a fájlt!"
-							placeholder="Kép tallózása..."
+							:drop-placeholder="$t('projectEditor.dragAndDrop')"
+							:placeholder="$t('projectEditor.browseImageFile')"
 							:state="imageState"
 						/>
 						<template #append>
@@ -110,7 +110,7 @@
 						<figure class="figure">
 							<img
 								:src="project.image"
-								alt="Facebook bélyegkép"
+								:alt="$t('projectEditor.altThumbnail')"
 								class="figure-img rounded"
 								height="120"
 							>
@@ -119,16 +119,16 @@
 									class="text-danger"
 									href="javascript:void(0)"
 									@click="removeImage"
-								>Kép törlése</a>
+								>{{ $t('projectEditor.removeImage') }}</a>
 							</figcaption>
 						</figure>
 					</div>
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					label="Adatkezelő elérhetősége"
-					description="Az Adatkezelési tájékoztatóban jelenik meg kapcsolatfelvételi adatként. Ezt a látogatóknak az 1. munkalapon kell majd elfogadniuk."
-					invalid-feedback="Kötelező megadni!"
+					:label="$t('projectEditor.privacyPolicy')"
+					:description="$t('projectEditor.privacyPolicyDescription')"
+					:invalid-feedback="$t('projectEditor.privacyPolicyRequired')"
 					:state="isPrivacyPolicyValid"
 				>
 					<client-only>
@@ -137,16 +137,16 @@
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					label="Köszönetnyilvánítás"
-					description="A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után."
+					:label="$t('projectEditor.thanks')"
+					:description="$t('projectEditor.thanksDescription')"
 				>
 					<client-only>
 						<tiptap v-model="project.thanks" />
 					</client-only>
 				</b-form-group>
 				<b-form-group
-					label="Tovább URL"
-					description="A köszönetnyilvánítás alatt megjelenő Tovább gomb erre fog linkelni."
+					:label="$t('projectEditor.thanksUrl')"
+					:description="$t('projectEditor.thanksUrlDescription')"
 				>
 					<b-form-input v-model="project.thanksUrl" />
 				</b-form-group>
@@ -155,7 +155,7 @@
 						v-model="project.thanksSocial"
 						value="1"
 					>
-						Megosztás gombok a köszönetnyilvánítás alatt.
+						{{ $t('projectEditor.thanksSocial') }}
 					</b-form-checkbox>
 				</b-form-group>
 			</form>
@@ -167,7 +167,7 @@
 						type="submit"
 						variant="success"
 					>
-						Mentés
+						{{ $t('projectEditor.save') }}
 					</b-button>
 				</div>
 			</template>
@@ -266,9 +266,9 @@ export default {
 				this.project = await this.$axios.$patch('/api/project', p);
 				this.newPassword = '';
 				this.passwordModified = false;
-				this.success('Módosítás sikeres.');
+				this.success(this.$t('projectEditor.changeSuccessful'));
 			} catch (error) {
-				this.errorToast('Módosítás sikertelen.');
+				this.errorToast(this.$t('projectEditor.changeFailed'));
 			}
 		},
 		async uploadImage() {
@@ -289,7 +289,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast('Kép feltöltése sikertelen.');
+				this.errorToast(this.$t('projectEditor.uploadFailed'));
 			}
 		},
 		async addSheet(title, type, sourceMap) {
@@ -322,14 +322,14 @@ export default {
 				);
 				this.project.sheets.push(newSheet);
 			} catch (error) {
-				this.errorToast('Munkalap hozzáadása sikertelen.');
+				this.errorToast(this.$t('projectEditor.sheetCreationFailed'));
 			}
 		},
 		async delSheet(sheet) {
 			try {
 				await this.$axios.$delete('/api/sheet/' + sheet.id);
 			} catch (error) {
-				this.errorToast('Munkalap törlése sikertelen.');
+				this.errorToast(this.$t('projectEditor.sheetDeletionFailed'));
 			}
 			this.project.sheets = this.project.sheets.filter(function (s) {
 				if (s.id !== sheet.id) {
@@ -369,7 +369,7 @@ export default {
 					ord: sheet.ord,
 				});
 			} catch (error) {
-				this.errorToast('Munkalap mozgatása sikertelen.');
+				this.errorToast(this.$t('projectEditor.sheetMovingFailed'));
 			}
 		},
 	},

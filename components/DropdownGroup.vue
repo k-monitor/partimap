@@ -70,7 +70,7 @@ export default {
 			.slice(0, this.options.size)
 			.map(key => ({ text: this.options[key], value: this.options[key] }));
 		if (this.q.other) {
-			this.options.push({ text: 'Egyéb...', value: this.other });
+			this.options.push({ text: this.$t('DropdownGroup.other'), value: this.other });
 		}
 	},
 };

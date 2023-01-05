@@ -11,7 +11,7 @@
 		</template>
 		<Sidebar
 			admin
-			back-label="Vissza a projekthez"
+			:back-label="$t('sheetEditor.back')"
 			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
@@ -24,7 +24,7 @@
 		>
 			<b-form-group>
 				<template #label>
-					<h6 class="mb-0">Munkalap címe</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.sheetName') }}</h6>
 				</template>
 				<b-form-input
 					v-model="sheet.title"
@@ -33,7 +33,7 @@
 			</b-form-group>
 			<b-form-group
 				class="rich"
-				label="Munkalap leírása"
+				:label="$t('sheetEditor.sheetDescription')"
 			>
 				<client-only>
 					<tiptap v-model="sheet.description" />
@@ -41,11 +41,11 @@
 			</b-form-group>
 			<b-form-group
 				v-if="!sheet.features"
-				invalid-feedback="Maximális fájlméret: 5 MB"
+				:invalid-feedback="$t('sheetEditor.maxFileSize')"
 				:state="backgroundImageState"
 			>
 				<template #label>
-					<h6 class="mb-0">Háttérkép</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.backgroundImage') }}</h6>
 				</template>
 				<b-input-group v-if="!sheet.image">
 					<b-form-file
@@ -53,8 +53,8 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="sheet-background-input"
 						browse-text=""
-						drop-placeholder="Húzd ide a fájlt!"
-						placeholder="Kép tallózása..."
+						:drop-placeholder="$t('sheetEditor.dragAndDrop')"
+						:placeholder="$t('sheetEditor.browseImageFile')"
 						:state="backgroundImageState"
 					/>
 					<template #append>
@@ -73,18 +73,18 @@
 					variant="outline-danger"
 					@click="removeBackground"
 				>
-					Kép törlése
+					{{ $t('sheetEditor.removeBackground') }}
 				</b-button>
 			</b-form-group>
 			<b-form-group v-if="sheet.survey">
 				<template #label>
-					<h6 class="mb-0">Kérdőív</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.survey') }}</h6>
 				</template>
 				<SurveyEditor v-model="sheet.survey" />
 			</b-form-group>
 			<b-form-group v-if="interactionOptions.length">
 				<template #label>
-					<h6 class="mb-0">Látogatói interakciók</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.visitorInteractions') }}</h6>
 				</template>
 				<b-form-checkbox-group
 					v-model="interactions.enabled"
@@ -94,25 +94,25 @@
 			</b-form-group>
 			<b-form-group
 				v-if="isPointSelected"
-				label="Instrukció pont felrajzolásához:"
+				:label="$t('sheetEditor.instructions.toDrawPoint')"
 			>
 				<b-form-input v-model="interactions.buttonLabels.Point" />
 			</b-form-group>
 			<b-form-group
 				v-if="isLineStringSelected"
-				label="Instrukció vonal felrajzolásához:"
+				:label="$t('sheetEditor.instructions.toDrawLine')"
 			>
 				<b-form-input v-model="interactions.buttonLabels.LineString" />
 			</b-form-group>
 			<b-form-group
 				v-if="isPolygonSelected"
-				label="Instrukció terület felrajzolásához:"
+				:label="$t('sheetEditor.instructions.toDrawArea')"
 			>
 				<b-form-input v-model="interactions.buttonLabels.Polygon" />
 			</b-form-group>
 			<b-form-group
 				v-if="isRatingSelected"
-				label="Csillagok száma:"
+				:label="$t('sheetEditor.numberOfStars')"
 				label-cols="7"
 				label-for="stars"
 			>
@@ -126,11 +126,11 @@
 			</b-form-group>
 			<b-form-group
 				v-if="isInteractive"
-				label="Felrajzolt elemekhez rendelt kérdés"
+				:label="$t('sheetEditor.featureQuestion')"
 			>
 				<b-form-input
 					v-model="sheet.descriptionLabel"
-					placeholder="Miért rajzoltad ezt fel?"
+					:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
 				/>
 			</b-form-group>
 			<FeatureList
@@ -192,15 +192,15 @@ export default {
 				if (!this.sheet.survey) { // TODO i18n
 					// interactive map sheet
 					options.push(
-						{ value: 'Point', text: 'Pont felrajzolása' },
-						{ value: 'LineString', text: 'Vonal felrajzolása' },
-						{ value: 'Polygon', text: 'Terület felrajzolása' }
+						{ value: 'Point', text: this.$t('sheetEditor.interactions.Point') },
+						{ value: 'LineString', text: this.$t('sheetEditor.interactions.LineString') },
+						{ value: 'Polygon', text: this.$t('sheetEditor.interactions.Polygon') }
 					);
 				} else {
-					options.push({ value: 'Rating', text: 'Fix elemek értékelése' });
+					options.push({ value: 'Rating', text: this.$t('sheetEditor.interactions.Rating') });
 				}
 			} else {
-				options.push({ value: 'SocialSharing', text: 'Megosztás gombok' });
+				options.push({ value: 'SocialSharing', text: this.$t('sheetEditor.interactions.SocialSharing') });
 			}
 			return options;
 		},
@@ -326,9 +326,9 @@ export default {
 				this.$nextTick(() => {
 					this.contentModified = false;
 				});
-				this.success('Módosítás sikeres.');
+				this.success(this.$t('sheetEditor.success'));
 			} catch {
-				this.errorToast('Módosítás sikertelen.');
+				this.errorToast(this.$t('sheetEditor.saveFailed'));
 			}
 			this.loading = false;
 		},
@@ -350,7 +350,7 @@ export default {
 				);
 				this.backgroundImage = null;
 			} catch (error) {
-				this.errorToast('Kép feltöltése sikertelen.');
+				this.errorToast(this.$t('sheetEditor.uploadFailed'));
 			}
 		},
 	},

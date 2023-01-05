@@ -182,7 +182,7 @@
 						@click.stop="deleteFeature"
 					>
 						<i class="fas fa-fw fa-trash mr-1" />
-						Elem törlése
+						{{ $t('FeatureListElement.deleteFeature') }}
 					</span>
 				</b-form-group>
 			</b-card>

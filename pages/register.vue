@@ -4,9 +4,9 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="userReg">
 					<div class="card shadow-sm">
-						<h5 class="card-header">Partimap Regisztráció</h5>
+						<h5 class="card-header">{{ $t('register.title') }}</h5>
 						<div class="card-body">
-							<b-form-group label="Email cím">
+							<b-form-group :label="$t('register.email')">
 								<b-form-input
 									ref="email"
 									v-model="reg.email"
@@ -14,13 +14,13 @@
 									type="email"
 								/>
 							</b-form-group>
-							<b-form-group label="Név">
+							<b-form-group :label="$t('register.name')">
 								<b-form-input
 									v-model="reg.name"
 									required
 								/>
 							</b-form-group>
-							<b-form-group label="Jelszó">
+							<b-form-group :label="$t('register.password')">
 								<b-form-input
 									v-model="reg.password"
 									required
@@ -33,10 +33,11 @@
 									name="consent"
 									required
 								>
-									Elolvastam és elfogadom a <a
+									{{ $t('register.iHaveRead') }}
+									<a
 										href="javascript:void(0)"
 										@click.stop="$bvModal.show('terms-modal')"
-									>felhasználási feltételeket és az adatkezelési tájékoztatót.</a>
+									>{{ $t('register.terms') }}</a>
 								</b-form-checkbox>
 							</b-form-group>
 						</div>
@@ -45,13 +46,13 @@
 								to="/login"
 								variant="link"
 							>
-								Már van fiókom
+								{{ $t('register.login') }}
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
-								Regisztráció
+								{{ $t('register.submit') }}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -63,7 +64,7 @@
 				hide-footer
 				scrollable
 				size="lg"
-				title="Felhasználási feltételek és adatvédelmi nyilatkozat"
+				:title="$t('register.termsTitle')"
 			>
 				<Terms />
 			</b-modal>
@@ -84,8 +85,10 @@ export default {
 			loading: true,
 		};
 	},
-	head: {
-		title: 'Regisztráció',
+	head() {
+		return {
+			title: this.$t('register.title'),
+		};
 	},
 	async mounted() {
 		await this.$recaptcha.init();
@@ -103,7 +106,7 @@ export default {
 				await this.$axios.$put('/api/user', { ...this.reg, captcha });
 				this.$router.push(this.localePath({ path: 'login', query: { registered: null } }));
 			} catch (err) {
-				this.errorToast('Regisztráció sikertelen');
+				this.errorToast(this.$t('register.registrationFailed'));
 			}
 			this.loading = false;
 		},

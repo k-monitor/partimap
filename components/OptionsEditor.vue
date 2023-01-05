@@ -58,14 +58,14 @@ export default {
 	},
 	computed: {
 		label () {
-			if (this.labelState === 'row') { return 'Sor'; }
-			if (this.labelState === 'column') { return 'Oszlop'; }
-			return 'Opciók';
+			if (this.labelState === 'row') { return this.$t('OptionsEditor.rows'); }
+			if (this.labelState === 'column') { return this.$t('OptionsEditor.columns'); }
+			return this.$t('OptionsEditor.options');
 		},
 		labelButton () {
-			if (this.labelState === 'row') { return 'Új sor'; }
-			if (this.labelState === 'column') { return 'Új oszlop'; }
-			return 'Új opció';
+			if (this.labelState === 'row') { return this.$t('OptionsEditor.addRow'); }
+			if (this.labelState === 'column') { return this.$t('OptionsEditor.addColumn'); }
+			return this.$t('OptionsEditor.addOption');
 		}
 	},
 	watch: {
@@ -78,7 +78,7 @@ export default {
 			if (!this.options) {
 				this.options = [];
 			}
-			this.options.push(`Opció #${this.options.length + 1}`);
+			this.options.push(this.$t('OptionsEditor.optionPrefix') + ` #${this.options.length + 1}`);
 		},
 		delOption(i) {
 			this.options.splice(i, 1);

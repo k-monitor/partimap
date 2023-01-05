@@ -6,13 +6,13 @@
 					v-if="!hideAdminFeatures"
 					class="mb-0"
 				>
-					Térkép elemei
+					{{ $t('FeatureList.features') }}
 				</h6>
 			</template>
 			<div v-if="!hideAdminFeatures">
 				<vue-typeahead-bootstrap
 					v-model="search"
-					placeholder="Keresés..."
+					:placeholder="$t('FeatureList.search')"
 					:data="categories"
 					:min-matching-chars="0"
 					show-all-results
@@ -41,7 +41,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="filteredVisitorFeatures.length"
-			label="Saját elemeid"
+			:label="$t('FeatureList.ownFeatures')"
 		>
 			<b-list-group>
 				<FeatureListElement
@@ -59,7 +59,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="!hideAdminFeatures"
-			:label="filteredVisitorFeatures.length ? 'Fix elemek' : null"
+			:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
 		>
 			<b-list-group>
 				<FeatureListElement
@@ -79,7 +79,7 @@
 			v-if="search && !filteredFeatures.length"
 			class="font-italic text-muted"
 		>
-			Nem található ilyen elem a térképen.
+			{{ $t('FeatureList.notFound') }}
 		</p>
 		<div
 			v-if="!visitor"

@@ -57,7 +57,7 @@
 						<b-nav-item
 							v-if="!fixed"
 							v-b-tooltip.hover
-							title="Oldalsáv elrejtése"
+							:title="$t('Sidebar.hide')"
 							@click="hide"
 						>
 							<i class="fas fa-fw fa-angle-double-left" />
@@ -104,7 +104,9 @@ export default {
 		},
 		backLabel: {
 			type: String,
-			default: 'Vissza',
+			default () {
+				return this.$t('Sidebar.back');
+			}
 		},
 		contentModified: {
 			type: Boolean,
