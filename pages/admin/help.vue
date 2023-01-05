@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			{{ $t('help.help') }}
+			{{ $t('adminHelp.header') }}
 		</template>
 
 		<AdminHelpContent />

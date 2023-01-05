@@ -29,7 +29,7 @@ export default {
 				y: count,
 			})).map(a => {
 				if (a.name === OTHER_ANSWER) {
-					a.name = this.$t('SurveyResult.other'); // TODO i18n
+					a.name = this.$t('SurveyResult.other');
 				}
 				return a;
 			});
@@ -56,7 +56,7 @@ export default {
 				credits: { enabled: false },
 				legend: { enabled: false },
 				series: [{ data }],
-				subtitle: { text: this.$t('SurveyResult.numberOfRespondents') + `: ${q.count}${avgText}` }, // TODO i18n
+				subtitle: { text: this.$t('SurveyResult.numberOfSubmissions') + `: ${q.count}${avgText}` },
 				title: { text: q.question },
 				tooltip: {
 					formatter() {

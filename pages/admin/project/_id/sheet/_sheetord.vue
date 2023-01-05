@@ -11,7 +11,7 @@
 		</template>
 		<Sidebar
 			admin
-			:back-label="$t('sheetEditor.backProject')"
+			:back-label="$t('sheetEditor.back')"
 			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
@@ -41,11 +41,11 @@
 			</b-form-group>
 			<b-form-group
 				v-if="!sheet.features"
-				:invalid-feedback="$t('sheetEditor.fileSize')"
+				:invalid-feedback="$t('sheetEditor.maxFileSize')"
 				:state="backgroundImageState"
 			>
 				<template #label>
-					<h6 class="mb-0">{{ $t('sheetEditor.background') }}</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.backgroundImage') }}</h6>
 				</template>
 				<b-input-group v-if="!sheet.image">
 					<b-form-file
@@ -54,7 +54,7 @@
 						class="sheet-background-input"
 						browse-text=""
 						:drop-placeholder="$t('sheetEditor.dragAndDrop')"
-						:placeholder="$t('sheetEditor.pictureBrowse')"
+						:placeholder="$t('sheetEditor.browseImageFile')"
 						:state="backgroundImageState"
 					/>
 					<template #append>
@@ -73,18 +73,18 @@
 					variant="outline-danger"
 					@click="removeBackground"
 				>
-					{{$t('sheetEditor.deletePicture')}}
+					{{ $t('sheetEditor.removeBackground') }}
 				</b-button>
 			</b-form-group>
 			<b-form-group v-if="sheet.survey">
 				<template #label>
-					<h6 class="mb-0">{{$t('sheetEditor.survey')}}</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.survey') }}</h6>
 				</template>
 				<SurveyEditor v-model="sheet.survey" />
 			</b-form-group>
 			<b-form-group v-if="interactionOptions.length">
 				<template #label>
-					<h6 class="mb-0">{{$t('sheetEditor.visitorInteractions')}}</h6>
+					<h6 class="mb-0">{{ $t('sheetEditor.visitorInteractions') }}</h6>
 				</template>
 				<b-form-checkbox-group
 					v-model="interactions.enabled"
@@ -94,25 +94,25 @@
 			</b-form-group>
 			<b-form-group
 				v-if="isPointSelected"
-				:label="$t('sheetEditor.drawPoint')"
+				:label="$t('sheetEditor.instructions.toDrawPoint')"
 			>
 				<b-form-input v-model="interactions.buttonLabels.Point" />
 			</b-form-group>
 			<b-form-group
 				v-if="isLineStringSelected"
-				:label="$t('sheetEditor.drawLine')"
+				:label="$t('sheetEditor.instructions.toDrawLine')"
 			>
 				<b-form-input v-model="interactions.buttonLabels.LineString" />
 			</b-form-group>
 			<b-form-group
 				v-if="isPolygonSelected"
-				:label="$t('sheetEditor.drawArea')"
+				:label="$t('sheetEditor.instructions.toDrawArea')"
 			>
 				<b-form-input v-model="interactions.buttonLabels.Polygon" />
 			</b-form-group>
 			<b-form-group
 				v-if="isRatingSelected"
-				:label="$t('sheetEditor.NumberOfStars')"
+				:label="$t('sheetEditor.numberOfStars')"
 				label-cols="7"
 				label-for="stars"
 			>
@@ -126,11 +126,11 @@
 			</b-form-group>
 			<b-form-group
 				v-if="isInteractive"
-				:label="$t('sheetEditor.drawQuestion')"
+				:label="$t('sheetEditor.featureQuestion')"
 			>
 				<b-form-input
 					v-model="sheet.descriptionLabel"
-					:placeholder="$t('sheetEditor.drawWhy')"
+					:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
 				/>
 			</b-form-group>
 			<FeatureList
@@ -192,15 +192,15 @@ export default {
 				if (!this.sheet.survey) { // TODO i18n
 					// interactive map sheet
 					options.push(
-						{ value: 'Point', text: this.$t('sheetEditor.Point') },
-						{ value: 'LineString', text: this.$t('sheetEditor.LineString') },
-						{ value: 'Polygon', text: this.$t('sheetEditor.Polygon') }
+						{ value: 'Point', text: this.$t('sheetEditor.interactions.Point') },
+						{ value: 'LineString', text: this.$t('sheetEditor.interactions.LineString') },
+						{ value: 'Polygon', text: this.$t('sheetEditor.interactions.Polygon') }
 					);
 				} else {
-					options.push({ value: 'Rating', text: this.$t('sheetEditor.Rating') });
+					options.push({ value: 'Rating', text: this.$t('sheetEditor.interactions.Rating') });
 				}
 			} else {
-				options.push({ value: 'SocialSharing', text: this.$t('sheetEditor.SocialSharing') });
+				options.push({ value: 'SocialSharing', text: this.$t('sheetEditor.interactions.SocialSharing') });
 			}
 			return options;
 		},
@@ -328,7 +328,7 @@ export default {
 				});
 				this.success(this.$t('sheetEditor.success'));
 			} catch {
-				this.errorToast(this.$t('sheetEditor.errorToast'));
+				this.errorToast(this.$t('sheetEditor.saveFailed'));
 			}
 			this.loading = false;
 		},
@@ -350,7 +350,7 @@ export default {
 				);
 				this.backgroundImage = null;
 			} catch (error) {
-				this.errorToast(this.$t('sheetEditor.errorToastPicture'));
+				this.errorToast(this.$t('sheetEditor.uploadFailed'));
 			}
 		},
 	},

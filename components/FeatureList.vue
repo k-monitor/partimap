@@ -6,7 +6,7 @@
 					v-if="!hideAdminFeatures"
 					class="mb-0"
 				>
-					{{ $t('FeatureList.maps_elements') }}
+					{{ $t('FeatureList.features') }}
 				</h6>
 			</template>
 			<div v-if="!hideAdminFeatures">
@@ -41,7 +41,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="filteredVisitorFeatures.length"
-			:label="$t('FeatureList.ownElements')"
+			:label="$t('FeatureList.ownFeatures')"
 		>
 			<b-list-group>
 				<FeatureListElement
@@ -59,7 +59,7 @@
 		</b-form-group>
 		<b-form-group
 			v-if="!hideAdminFeatures"
-			:label="filteredVisitorFeatures.length ? $t('FeatureList.fixElements') : null"
+			:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
 		>
 			<b-list-group>
 				<FeatureListElement

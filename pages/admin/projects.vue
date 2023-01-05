@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			{{$t('Projects.projects')}}
+			{{ $t('projects.title') }}
 		</template>
 
 		<div class="row">
@@ -11,7 +11,7 @@
 						<input
 							v-model="newProjectTitle"
 							class="form-control"
-							:placeholder="$t('Projects.newProjectName')"
+							:placeholder="$t('projects.newProjectName')"
 							required
 							type="text"
 						>
@@ -20,7 +20,7 @@
 								class="btn btn-outline-success"
 								type="submit"
 							>
-								{{$t('Projects.add')}}
+								{{ $t('projects.add') }}
 							</button>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 					<input
 						v-model="filter"
 						class="form-control"
-						:placeholder="$t('Projects.filter')"
+						:placeholder="$t('projects.filter')"
 						type="text"
 					>
 				</div>
@@ -41,7 +41,7 @@
 					class="btn btn-outline-primary form-control"
 					:class="{active: filterOwn}"
 					type="button"
-					:value="$t('Projects.ownProjects')"
+					:value="$t('projects.ownProjects')"
 					@click="filteredOwn(filterOwn)"
 				>
 			</div>
@@ -62,18 +62,19 @@
 					<span
 						v-if="p.userId != $auth.user.id"
 						class="badge badge-warning"
-					>{{$t('Projects.owner')}}: #{{ p.userId }}</span>
+					>{{ $t('projects.owner') }}: #{{ p.userId }}</span>
 					<span
 						v-else-if="$auth.user.isAdmin"
 						class="badge badge-info"
 					>Saját</span>
 					<br>
-					{{ p.views }} {{$t('Projects.view')}}, {{ p.submissions }} {{$t('Projects.view')}}
+					{{ $t('projects.views') }}: {{ p.views }},
+					{{ $t('projects.submissions') }}: {{ p.submissions }}
 					<a
 						v-if="p.submissions"
 						:href="'/api/submission/export/' + p.id"
 						target="_blank"
-					>{{$t('Projects.riportsDownload')}}</a>
+					>{{ $t('projects.export') }}</a>
 				</div>
 				<span
 					class="ml-auto text-danger"
@@ -104,7 +105,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.$t('Projects.adminProjects')
+			title: `Admin: ${this.$t('projects.title')}`,
 		};
 	},
 	computed: {
@@ -127,11 +128,11 @@ export default {
 			try {
 				const { id } = await this.$axios.$put('/api/project', {
 					title: this.newProjectTitle,
-					privacyPolicy: `<p>${this.$t('Projects.name')}: ${this.$auth.user.name}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${this.$auth.user.email}</a></p>`,
+					privacyPolicy: `<p>${this.$t('projects.userName')}: ${this.$auth.user.name}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${this.$auth.user.email}</a></p>`,
 				});
 				this.$router.push(this.localePath(`/admin/project/${id}`));
 			} catch (error) {
-				this.errorToast(this.$t('Projects.creationFailed'));
+				this.errorToast(this.$t('projects.creationFailed'));
 			}
 		},
 		async del(project) {
@@ -141,7 +142,7 @@ export default {
 					await this.$axios.$delete('/api/project/' + project.id);
 					this.projects = await this.$axios.$get('/api/projects');
 				} catch (error) {
-					this.errorToast(this.$t('Projects.deleteFailed'));
+					this.errorToast(this.$t('projects.deletionFailed'));
 				}
 			}
 		},

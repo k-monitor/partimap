@@ -4,7 +4,7 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="submit">
 					<div class="card shadow-sm">
-						<h5 class="card-header">{{$t('passwordChange.passwordChange')}}</h5>
+						<h5 class="card-header">{{ $t('passwordChange.title') }}</h5>
 						<div class="card-body">
 							<b-form-group :label="$t('passwordChange.newPassword')">
 								<b-form-input
@@ -20,7 +20,7 @@
 								type="submit"
 								variant="primary"
 							>
-								{{$t('passwordChange.save')}}
+								{{ $t('passwordChange.submit') }}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -42,7 +42,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.$t('passwordChange.changePassOnHead'),
+			title: this.$t('passwordChange.title'),
 		};
 	},
 	async mounted() {

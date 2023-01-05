@@ -2,7 +2,7 @@
 	<AdminFrame>
 		<template #header>
 			<span v-if="$auth.user.isAdmin">
-				<NuxtLink :to="localePath('/admin/users')">{{$t('user.users')}}</NuxtLink>
+				<NuxtLink :to="localePath('/admin/users')">{{ $t('userEditor.back') }}</NuxtLink>
 				<span class="text-muted">&raquo;</span>
 			</span>
 			{{ u.email }}
@@ -19,16 +19,16 @@
 					type="email"
 				/>
 			</b-form-group>
-			<b-form-group :label="$t('user.name')">
+			<b-form-group :label="$t('userEditor.name')">
 				<b-form-input
 					v-model="m.name"
 					required
 				/>
 			</b-form-group>
 			<b-form-group
-				:invalid-feedback="$t('user.maxFileSize')"
-				:label="$t('user.logo')"
-				:description="$t('user.logoAllProject')"
+				:invalid-feedback="$t('userEditor.maxFileSize')"
+				:label="$t('userEditor.logo')"
+				:description="$t('userEditor.logoDescription')"
 				:state="imageState"
 			>
 				<b-input-group v-if="!m.logo">
@@ -37,8 +37,8 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="project-image-input"
 						browse-text=""
-						:drop-placeholder="$t('user.dragAndDrop')"
-						:placeholder="$t('user.browsePicture')"
+						:drop-placeholder="$t('userEditor.dragAndDrop')"
+						:placeholder="$t('userEditor.browseImageFile')"
 						:state="imageState"
 					/>
 					<template #append>
@@ -55,7 +55,7 @@
 					<figure class="figure">
 						<img
 							:src="m.logo"
-							:alt="$t('user.altLogo')"
+							:alt="$t('userEditor.altLogo')"
 							class="figure-img rounded"
 							height="30"
 						>
@@ -64,18 +64,18 @@
 								class="text-danger"
 								href="javascript:void(0)"
 								@click="removeImage"
-							>{{$t('user.deletePicture')}}</a>
+							>{{ $t('userEditor.removeImage') }}</a>
 						</figcaption>
 					</figure>
 				</div>
 			</b-form-group>
 			<b-form-group
-				:label="$t('user.WebURL')"
-				:description="$t('user.uploadPicture')"
+				:label="$t('userEditor.website')"
+				:description="$t('userEditor.websiteDescription')"
 			>
 				<b-form-input v-model="m.website" />
 			</b-form-group>
-			<b-form-group :label="$t('user.newPassword')">
+			<b-form-group :label="$t('userEditor.newPassword')">
 				<b-form-input
 					v-model="m.newPassword"
 					type="password"
@@ -83,7 +83,7 @@
 			</b-form-group>
 			<b-form-group
 				v-if="!$auth.user.isAdmin"
-				:label="$t('user.currentPassword')"
+				:label="$t('userEditor.oldPassword')"
 			>
 				<b-form-input
 					v-model="m.oldPassword"
@@ -100,7 +100,7 @@
 						:value="1"
 						:unchecked-value="0"
 					>
-						{{$t('user.activated')}}
+						{{ $t('userEditor.activated') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
@@ -111,7 +111,7 @@
 						:value="1"
 						:unchecked-value="0"
 					>
-						{{$t('user.administrator')}}
+						{{ $t('userEditor.administrator') }}
 					</b-form-checkbox>
 				</b-form-group>
 			</div>
@@ -123,14 +123,14 @@
 					v-b-modal.delete-user-modal
 					variant="outline-danger"
 				>
-					{{$t('user.deleteAccount')}}
+					{{ $t('userEditor.deleteUser') }}
 				</b-button>
 				<b-button
 					form="userForm"
 					type="submit"
 					variant="primary"
 				>
-					{{$t('user.save')}}
+					{{ $t('userEditor.save') }}
 				</b-button>
 			</div>
 		</template>
@@ -138,7 +138,7 @@
 		<b-modal
 			id="delete-user-modal"
 			:busy="loading"
-			:cancel-title="$t('user.cancel')"
+			:cancel-title="$t('userEditor.cancel')"
 			cancel-variant="success"
 			centered
 			footer-class="d-flex justify-content-between"
@@ -147,12 +147,12 @@
 			no-close-on-esc
 			no-enforce-focus
 			:ok-disabled="!delConfirm || !delPassword"
-			:ok-title="$t('user.accountDelete')"
+			:ok-title="$t('userEditor.confirmDeleteUser')"
 			ok-variant="danger"
 			@ok="deleteAccount"
 			@shown="$refs.delPassword.focus()"
 		>
-			<b-form-group :label="$t('user.enterPassword')">
+			<b-form-group :label="$t('userEditor.enterPassword')">
 				<b-form-input
 					ref="delPassword"
 					v-model="delPassword"
@@ -170,8 +170,8 @@
 					:disabled="loading || !delPassword"
 					name="confirm"
 				>
-					<strong>{{$t('user.confirmation')}}</strong><br>
-					{{$t('user.deleteThe')}}<strong>{{ u.email }}</strong>{{$t('user.alert')}}
+					<strong>{{ $t('userEditor.confirmation') }}</strong><br>
+					{{ $t('userEditor.deleteThe') }}<strong>{{ u.email }}</strong>{{ $t('userEditor.alert') }}
 				</b-form-checkbox>
 			</b-alert>
 		</b-modal>
@@ -179,6 +179,7 @@
 </template>
 
 <script>
+// TODO confirm checkbox i18n with argument
 export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
@@ -230,7 +231,7 @@ export default {
 					this.$router.push(this.localePath('/admin/users'));
 				}
 			} catch {
-				this.errorToast(this.$t('user.errorDelete'));
+				this.errorToast(this.$t('userEditor.deletionFailed'));
 			} finally {
 				this.delConfirm = false;
 				this.delPassword = '';
@@ -252,9 +253,9 @@ export default {
 				this.u = await this.$axios.$patch('/api/user', this.m);
 				this.m = { ...this.u, newPassword: null, oldPassword: null };
 				this.$auth.fetchUser();
-				this.success(this.$t('user.changeSuccessful'));
+				this.success(this.$t('userEditor.changeSuccessful'));
 			} catch (error) {
-				this.errorToast(this.$t('user.changeFailed'));
+				this.errorToast(this.$t('userEditor.changeFailed'));
 			}
 		},
 		async uploadImage() {
@@ -275,7 +276,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast(this.$t('user.uploadFailedPicture'));
+				this.errorToast(this.$t('userEditor.uploadFailed'));
 			}
 		},
 	},

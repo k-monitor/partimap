@@ -114,7 +114,7 @@
 			hide-footer
 			scrollable
 			size="lg"
-			:title="$t('sheet.privacyStatement')"
+			:title="$t('sheet.privacyPolicy')"
 		>
 			<Terms :project-data-processor="project.privacyPolicy" />
 		</b-modal>
@@ -129,8 +129,8 @@
 					<div class="card m-3 shadow-sm">
 						<h5 class="card-header">Partimap</h5>
 						<div class="card-body">
-							<p>{{$t('sheet.closedSurvey')}}</p>
-							<p>{{$t('sheet.passwordRequired')}}</p>
+							<p>{{ $t('sheet.restricted') }}</p>
+							<p>{{ $t('sheet.passwordRequired') }}</p>
 							<div class="form-group">
 								<b-input-group>
 									<template #prepend>
@@ -149,7 +149,7 @@
 						</div>
 						<div class="card-footer text-right">
 							<button class="btn btn-primary">
-								{{$t('sheet.view')}}
+								{{ $t('sheet.view') }}
 								<i class="fas fa-sign-in-alt ml-1" />
 							</button>
 						</div>
@@ -210,7 +210,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.project ? this.project.title : this.$t('sheet.passwordProtected'),
+			title: this.project ? this.project.title : this.$t('sheet.restrictedTitle'),
 			meta: [
 				{
 					hid: 'description',
@@ -363,7 +363,7 @@ export default {
 				this.registerHit();
 			} catch (error) {
 				if (error.message && error.message.endsWith('status code 401')) {
-					this.errorToast(this.$t('sheet.errorPassword'));
+					this.errorToast(this.$t('sheet.invalidPassword'));
 				} else {
 					throw error; // let Nuxt handle it
 				}
@@ -390,7 +390,7 @@ export default {
 					this.$store.commit('setSubmitted');
 					this.success(this.$t('sheet.submitSuccess'));
 				} catch {
-					this.errorToast(this.$t('sheet.submitError'));
+					this.errorToast(this.$t('sheet.submitFailed'));
 				}
 			}
 			this.loading = false;

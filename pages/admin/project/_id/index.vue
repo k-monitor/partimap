@@ -4,7 +4,7 @@
 			<template #header>
 				<div class="d-flex">
 					<div>
-						<NuxtLink :to="localePath('/admin/projects')">{{$t('sheetCreat.projects')}}</NuxtLink>
+						<NuxtLink :to="localePath('/admin/projects')">{{ $t('projectEditor.back') }}</NuxtLink>
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
@@ -14,7 +14,7 @@
 						target="_blank"
 						variant="primary"
 					>
-						{{$t('sheetCreat.view')}}
+						{{ $t('projectEditor.view') }}
 					</b-button>
 				</div>
 			</template>
@@ -22,15 +22,15 @@
 				id="projectForm"
 				@submit.prevent="update"
 			>
-				<b-form-group :label="$t('sheetCreat.projectName')">
+				<b-form-group :label="$t('projectEditor.projectTitle')">
 					<b-form-input
 						v-model="project.title"
 						required
 					/>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheetCreat.path')"
-					:description="$t('sheetCreat.changeRoute')"
+					:label="$t('projectEditor.slug')"
+					:description="$t('projectEditor.slugDescription')"
 				>
 					<b-input-group prepend="/p/">
 						<b-form-input
@@ -40,7 +40,7 @@
 						<template #append>
 							<b-button
 								v-b-tooltip.hover
-								:title="$t('sheetCreat.projectTitle')"
+								:title="$t('projectEditor.generateSlug')"
 								variant="outline-primary"
 								@click="project.slug = generateSlug()"
 							>
@@ -50,8 +50,8 @@
 					</b-input-group>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheetCreat.password')"
-					:description="$t('sheetCreat.passwordDescription')"
+					:label="$t('projectEditor.password')"
+					:description="$t('projectEditor.passwordDescription')"
 				>
 					<b-input-group>
 						<template #append>
@@ -65,7 +65,7 @@
 						</template>
 						<b-form-input
 							v-model="newPassword"
-							:placeholder="project.password ? $t('sheetCreat.passwordSet') : $t('sheetCreat.newPassword')"
+							:placeholder="project.password ? $t('projectEditor.passwordSet') : $t('projectEditor.newPassword')"
 							:readonly="project.password"
 							type="password"
 							@change="passwordModified = true"
@@ -73,7 +73,7 @@
 					</b-input-group>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheetCreat.facebookPreviewText')"
+					:label="$t('projectEditor.projectDescription')"
 					:description="(project.description || '').length + '/200'"
 				>
 					<b-textarea
@@ -82,8 +82,8 @@
 					/>
 				</b-form-group>
 				<b-form-group
-					:invalid-feedback="$t('sheetCreat.maxFileSize')"
-					:label="$t('sheetCreat.thumbnail')"
+					:invalid-feedback="$t('projectEditor.maxFileSize')"
+					:label="$t('projectEditor.thumbnail')"
 					:state="imageState"
 				>
 					<b-input-group v-if="!project.image">
@@ -92,8 +92,8 @@
 							accept="image/jpeg, image/png, image/webp"
 							class="project-image-input"
 							browse-text=""
-							:drop-placeholder="$t('sheetCreat.dragAndDrop')"
-							:placeholder="$t('sheetCreat.browsePicture')"
+							:drop-placeholder="$t('projectEditor.dragAndDrop')"
+							:placeholder="$t('projectEditor.browseImageFile')"
 							:state="imageState"
 						/>
 						<template #append>
@@ -110,7 +110,7 @@
 						<figure class="figure">
 							<img
 								:src="project.image"
-								:alt="$t('sheetCreat.altThumbnail')"
+								:alt="$t('projectEditor.altThumbnail')"
 								class="figure-img rounded"
 								height="120"
 							>
@@ -119,16 +119,16 @@
 									class="text-danger"
 									href="javascript:void(0)"
 									@click="removeImage"
-								>{{$t('sheetCreat.deletePicture')}}</a>
+								>{{ $t('projectEditor.removeImage') }}</a>
 							</figcaption>
 						</figure>
 					</div>
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					:label="$t('sheetCreat.dataController')"
-					:description="$t('sheetCreat.privacyPolicy')"
-					:invalid-feedback="$t('sheetCreat.privacyPolicyRequired')"
+					:label="$t('projectEditor.privacyPolicy')"
+					:description="$t('projectEditor.privacyPolicyDescription')"
+					:invalid-feedback="$t('projectEditor.privacyPolicyRequired')"
 					:state="isPrivacyPolicyValid"
 				>
 					<client-only>
@@ -137,16 +137,16 @@
 				</b-form-group>
 				<b-form-group
 					class="rich"
-					:label="$t('sheetCreat.acknowledgment')"
-					:description="$t('sheetCreat.onLastSheetForVisitors')"
+					:label="$t('projectEditor.thanks')"
+					:description="$t('projectEditor.thanksDescription')"
 				>
 					<client-only>
 						<tiptap v-model="project.thanks" />
 					</client-only>
 				</b-form-group>
 				<b-form-group
-					:label="$t('sheetCreat.nextURL')"
-					:description="$t('sheetCreat.nextURLlink')"
+					:label="$t('projectEditor.thanksUrl')"
+					:description="$t('projectEditor.thanksUrlDescription')"
 				>
 					<b-form-input v-model="project.thanksUrl" />
 				</b-form-group>
@@ -155,7 +155,7 @@
 						v-model="project.thanksSocial"
 						value="1"
 					>
-						{{$t('sheetCreat.share')}}
+						{{ $t('projectEditor.thanksSocial') }}
 					</b-form-checkbox>
 				</b-form-group>
 			</form>
@@ -167,7 +167,7 @@
 						type="submit"
 						variant="success"
 					>
-						{{$t('sheetCreat.save')}}
+						{{ $t('projectEditor.save') }}
 					</b-button>
 				</div>
 			</template>
@@ -266,9 +266,9 @@ export default {
 				this.project = await this.$axios.$patch('/api/project', p);
 				this.newPassword = '';
 				this.passwordModified = false;
-				this.success(this.$t('sheetCreat.changeSuccessful'));
+				this.success(this.$t('projectEditor.changeSuccessful'));
 			} catch (error) {
-				this.errorToast(this.$t('sheetCreat.changeFailed'));
+				this.errorToast(this.$t('projectEditor.changeFailed'));
 			}
 		},
 		async uploadImage() {
@@ -289,7 +289,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast(this.$t('sheetCreat.uploadPictureFailed'));
+				this.errorToast(this.$t('projectEditor.uploadFailed'));
 			}
 		},
 		async addSheet(title, type, sourceMap) {
@@ -322,14 +322,14 @@ export default {
 				);
 				this.project.sheets.push(newSheet);
 			} catch (error) {
-				this.errorToast(this.$t('sheetCreat.errorAddSheet'));
+				this.errorToast(this.$t('projectEditor.sheetCreationFailed'));
 			}
 		},
 		async delSheet(sheet) {
 			try {
 				await this.$axios.$delete('/api/sheet/' + sheet.id);
 			} catch (error) {
-				this.errorToast(this.$t('sheetCreat.errorDeleteSheet'));
+				this.errorToast(this.$t('projectEditor.sheetDeletionFailed'));
 			}
 			this.project.sheets = this.project.sheets.filter(function (s) {
 				if (s.id !== sheet.id) {
@@ -369,7 +369,7 @@ export default {
 					ord: sheet.ord,
 				});
 			} catch (error) {
-				this.errorToast(this.$t('sheetCreat.errorMoveSheet'));
+				this.errorToast(this.$t('projectEditor.sheetMovingFailed'));
 			}
 		},
 	},

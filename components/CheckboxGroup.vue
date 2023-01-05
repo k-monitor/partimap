@@ -60,7 +60,6 @@ export default {
 			otherValue,
 			other: OTHER_PREFIX,
 			selected,
-			valid: this.$t('CheckboxGroup.valid'),
 		};
 	},
 	computed: {
@@ -112,9 +111,6 @@ export default {
 			} else {
 				this.options.map(item => (item.disabled = false));
 			}
-		},
-		asd() {
-			console.log('asd');
 		},
 	},
 };

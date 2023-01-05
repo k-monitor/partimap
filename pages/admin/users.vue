@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			{{$t('users.users')}}
+			{{ $t('users.title') }}
 		</template>
 
 		<div class="row">
@@ -11,7 +11,7 @@
 						<input
 							v-model="newUserEmail"
 							class="form-control"
-							:placeholder="$t('users.email')"
+							:placeholder="$t('users.newUsersEmail')"
 							required
 							type="email"
 						>
@@ -20,7 +20,7 @@
 								class="btn btn-success"
 								type="submit"
 							>
-								{{$t('users.add')}}
+								{{ $t('users.add') }}
 							</button>
 						</div>
 					</div>
@@ -50,16 +50,16 @@
 					v-if="u.isAdmin"
 					variant="danger"
 				>
-					Admin
+					{{ $t('users.admin') }}
 				</b-badge>
 				<b-badge
 					v-if="!u.active"
 					variant="warning"
 				>
-					{{$t('users.notActive')}}
+					{{ $t('users.inactive') }}
 				</b-badge>
 				<br>
-				<small class="text-muted">{{$t('users.registered')}}: {{ new Date(u.registered).toLocaleString() }}</small>
+				<small class="text-muted">{{ $t('users.registered') }}: {{ new Date(u.registered).toLocaleString() }}</small>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
@@ -81,7 +81,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.$t('users.adminUsers'),
+			title: `Admin: ${this.$t('users.title')}`,
 		};
 	},
 	computed: {
@@ -107,7 +107,7 @@ export default {
 				});
 				this.$router.push(this.localePath('/admin/user/' + id));
 			} catch (error) {
-				this.errorToast(this.$t('users.createFailed'));
+				this.errorToast(this.$t('users.creationFailed'));
 			}
 		},
 	},

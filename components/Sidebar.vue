@@ -57,7 +57,7 @@
 						<b-nav-item
 							v-if="!fixed"
 							v-b-tooltip.hover
-							:title="$t('Sidebar.hideSidebar')"
+							:title="$t('Sidebar.hide')"
 							@click="hide"
 						>
 							<i class="fas fa-fw fa-angle-double-left" />

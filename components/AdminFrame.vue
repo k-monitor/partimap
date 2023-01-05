@@ -31,7 +31,7 @@
 						:text="$auth.user.name"
 						right
 					>
-						<b-dropdown-item :to="localePath('/admin/user/' + $auth.user.id)">{{ $t('AdminFrame.myDatas') }}</b-dropdown-item>
+						<b-dropdown-item :to="localePath('/admin/user/' + $auth.user.id)">{{ $t('AdminFrame.profile') }}</b-dropdown-item>
 						<b-dropdown-item @click="$auth.logout('cookie')">{{ $t('AdminFrame.logout') }}</b-dropdown-item>
 					</b-nav-item-dropdown>
 					<LangSwitcher />

@@ -41,7 +41,7 @@
 					class="fas fa-fw mr-1"
 					:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
 				/>
-				<span>{{ disableSubmit ? $t('FooterButtons.sent') : $t('FooterButtons.send') }}</span>
+				<span>{{ disableSubmit ? $t('FooterButtons.submitted') : $t('FooterButtons.submit') }}</span>
 			</b-button>
 			<div
 				v-else

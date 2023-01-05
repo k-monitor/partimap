@@ -7,7 +7,7 @@
 					@submit.prevent="submit"
 				>
 					<div class="card shadow-sm">
-						<h5 class="card-header">{{$t('login.login')}}</h5>
+						<h5 class="card-header">{{ $t('login.title') }}</h5>
 						<div class="card-body">
 							<b-alert
 								v-if="successMessage"
@@ -57,7 +57,7 @@
 								<a
 									href="javascript:void(0)"
 									@click="forgot"
-								>{{$t('login.forgotPassword')}}</a>
+								>{{ $t('login.forgotPassword') }}</a>
 							</div>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
@@ -65,13 +65,13 @@
 								:to="localePath('/register')"
 								variant="link"
 							>
-								{{$t('login.dontHaveAccount')}}
+								{{ $t('login.register') }}
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
-								{{$t('login.checkIn')}}
+								{{ $t('login.submit') }}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -91,7 +91,7 @@ export default {
 		const params = Object.keys(this.$route.query);
 		// TODO move param keys to constants from here and from reg/pwch too!
 		if (params.includes('registered')) {
-			successMessage = this.$t('login.sendEmail');
+			successMessage = this.$t('login.registered');
 		}
 		if (params.includes('pwchanged')) {
 			successMessage = this.$t('login.pwchanged');
@@ -113,7 +113,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.$t('login.lgn'),
+			title: this.$t('login.title'),
 		};
 	},
 	async mounted() {
@@ -121,9 +121,9 @@ export default {
 		if (token) {
 			try {
 				await this.$axios.$post('/api/user/activate', { token });
-				this.successMessage = this.$t('login.successActive');
+				this.successMessage = this.$t('login.activated');
 			} catch {
-				this.errorMessage = this.$t('login.errorActive');
+				this.errorMessage = this.$t('login.activationFailed');
 			}
 		}
 		await this.$recaptcha.init();
@@ -151,9 +151,9 @@ export default {
 						email: this.login.email,
 						captcha,
 					});
-					this.successMessage = this.$t('login.changePassword');
+					this.successMessage = this.$t('login.passwordChangeRequested');
 				} catch {
-					this.errorMessage = this.$t('login.badEmail');
+					this.errorMessage = this.$t('login.invalidEmail');
 				}
 			} else {
 				try {
@@ -161,7 +161,7 @@ export default {
 						data: { ...this.login, captcha },
 					});
 				} catch (err) {
-					this.errorMessage = this.$t('login.badEmailOrPass');
+					this.errorMessage = this.$t('login.invalidEmailOrPassword');
 				}
 			}
 			this.forgotMode = false;

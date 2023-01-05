@@ -35,25 +35,25 @@
 					@click="addQuestion"
 				>
 					<i class="fas fa-fw fa-plus mr-2" />
-					{{ $t('SurveyEditor.newQuestion') }}
+					{{ $t('SurveyEditor.addQuestion') }}
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
 		<b-form-group>
 			<b-form-checkbox v-model="survey.showResults">
-				{{ $t('SurveyEditor.statistics') }}
+				{{ $t('SurveyEditor.showStatsToVisitors') }}
 			</b-form-checkbox>
 		</b-form-group>
 		<b-form-group>
 			<b-form-checkbox v-model="survey.showResultsOnly">
-				{{ $t('SurveyEditor.resultDisplay') }}
+				{{ $t('SurveyEditor.showOnlyStatsToVisitors') }}
 			</b-form-checkbox>
 		</b-form-group>
 		<b-modal
 			id="survey-question-editor"
-			:cancel-title="this.$t('SurveyEditor.cancel')"
+			:cancel-title="$t('SurveyEditor.cancel')"
 			:ok-disabled="readonly"
-			:title="$t('SurveyEditor.question') + `${questionIndex + 1}`"
+			:title="$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
@@ -140,7 +140,7 @@
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
-					<b-form-checkbox v-model="question.required">{{ $t('SurveyEditor.requiredAnswer') }}</b-form-checkbox>
+					<b-form-checkbox v-model="question.required">{{ $t('SurveyEditor.required') }}</b-form-checkbox>
 				</b-form-group>
 			</b-form>
 		</b-modal>
@@ -185,18 +185,18 @@ export default {
 				multipleChoiceMatrix: 'fa-check-square',
 			},
 			questionTypes: [
-				{ value: 'text', text: this.$t('SurveyEditor.text') },
-				{ value: 'number', text: this.$t('SurveyEditor.number') },
-				{ value: 'range', text: this.$t('SurveyEditor.range') },
-				{ value: 'checkbox', text: this.$t('SurveyEditor.checkbox') },
-				{ value: 'radiogroup', text: this.$t('SurveyEditor.radiogroup') },
+				{ value: 'text', text: this.$t('SurveyEditor.questionTypes.text') },
+				{ value: 'number', text: this.$t('SurveyEditor.questionTypes.number') },
+				{ value: 'range', text: this.$t('SurveyEditor.questionTypes.range') },
+				{ value: 'checkbox', text: this.$t('SurveyEditor.questionTypes.checkbox') },
+				{ value: 'radiogroup', text: this.$t('SurveyEditor.questionTypes.radiogroup') },
 				{
 					value: 'dropdown',
 					text: this.$t('SurveyEditor.dropdown'),
 				},
-				{ value: 'rating', text: this.$t('SurveyEditor.rating') },
-				{ value: 'singleChoiceMatrix', text: this.$t('SurveyEditor.singleChoiceMatrix') },
-				{ value: 'multipleChoiceMatrix', text: this.$t('SurveyEditor.multipleChoiceMatrix') },
+				{ value: 'rating', text: this.$t('SurveyEditor.questionTypes.rating') },
+				{ value: 'singleChoiceMatrix', text: this.$t('SurveyEditor.questionTypes.singleChoiceMatrix') },
+				{ value: 'multipleChoiceMatrix', text: this.$t('SurveyEditor.questionTypes.multipleChoiceMatrix') },
 			],
 			questionIndex: 0,
 			question: {},
@@ -218,7 +218,7 @@ export default {
 	methods: {
 		addQuestion() {
 			const id = new Date().getTime();
-			const label = this.$t('SurveyEditor.question') + `${this.survey.questions.length + 1}`;
+			const label = this.$t('SurveyEditor.questionPrefix') + ` #${this.survey.questions.length + 1}`;
 			const q = { id, label, type: 'text' };
 			this.survey.questions.push(q);
 			this.emitSurvey();

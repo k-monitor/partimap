@@ -58,14 +58,14 @@ export default {
 	},
 	computed: {
 		label () {
-			if (this.labelState === 'row') { return this.$t('OptionsEditor.row'); }
-			if (this.labelState === 'column') { return this.$t('OptionsEditor.column'); }
+			if (this.labelState === 'row') { return this.$t('OptionsEditor.rows'); }
+			if (this.labelState === 'column') { return this.$t('OptionsEditor.columns'); }
 			return this.$t('OptionsEditor.options');
 		},
 		labelButton () {
-			if (this.labelState === 'row') { return this.$t('OptionsEditor.newRow'); }
-			if (this.labelState === 'column') { return this.$t('OptionsEditor.newColumn'); }
-			return this.$t('OptionsEditor.newOption');
+			if (this.labelState === 'row') { return this.$t('OptionsEditor.addRow'); }
+			if (this.labelState === 'column') { return this.$t('OptionsEditor.addColumn'); }
+			return this.$t('OptionsEditor.addOption');
 		}
 	},
 	watch: {
@@ -78,7 +78,7 @@ export default {
 			if (!this.options) {
 				this.options = [];
 			}
-			this.options.push(this.$t('OptionsEditor.option') + `${this.options.length + 1}`);
+			this.options.push(this.$t('OptionsEditor.optionPrefix') + ` #${this.options.length + 1}`);
 		},
 		delOption(i) {
 			this.options.splice(i, 1);

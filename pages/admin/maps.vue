@@ -1,7 +1,7 @@
 <template>
 	<AdminFrame>
 		<template #header>
-			{{ $t('maps.maps') }}
+			{{ $t('maps.title') }}
 		</template>
 
 		<div class="row">
@@ -62,13 +62,13 @@
 					v-if="m.userId != $auth.user.id"
 					class="badge badge-warning"
 				>
-					{{$t('maps.owner')}} #{{ m.userId }}
+					{{ $t('maps.owner') }} #{{ m.userId }}
 				</span>
 				<span
 					v-else-if="$auth.user.isAdmin"
 					class="badge badge-info"
 				>
-					{{$t('maps.own')}}
+					{{ $t('maps.own') }}
 				</span>
 				<span
 					class="ml-auto text-danger"
@@ -99,7 +99,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.$t('maps.adminMaps'),
+			title: `Admin: ${this.$t('maps.title')}`,
 		};
 	},
 	computed: {

@@ -4,7 +4,7 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="userReg">
 					<div class="card shadow-sm">
-						<h5 class="card-header">{{$t('register.register')}}</h5>
+						<h5 class="card-header">{{ $t('register.title') }}</h5>
 						<div class="card-body">
 							<b-form-group :label="$t('register.email')">
 								<b-form-input
@@ -33,10 +33,11 @@
 									name="consent"
 									required
 								>
-									{{$t('register.readAndAccept')}} <a
+									{{ $t('register.iHaveRead') }}
+									<a
 										href="javascript:void(0)"
 										@click.stop="$bvModal.show('terms-modal')"
-									>{{$t('register.terms')}}</a>
+									>{{ $t('register.terms') }}</a>
 								</b-form-checkbox>
 							</b-form-group>
 						</div>
@@ -45,13 +46,13 @@
 								to="/login"
 								variant="link"
 							>
-								{{$t('register.haveAccount')}}
+								{{ $t('register.login') }}
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
-								{{$t('register.registration')}}
+								{{ $t('register.submit') }}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="loading" />
@@ -86,7 +87,7 @@ export default {
 	},
 	head() {
 		return {
-			title: this.$t('register.haveRegistration'),
+			title: this.$t('register.title'),
 		};
 	},
 	async mounted() {
@@ -105,7 +106,7 @@ export default {
 				await this.$axios.$put('/api/user', { ...this.reg, captcha });
 				this.$router.push(this.localePath({ path: 'login', query: { registered: null } }));
 			} catch (err) {
-				this.errorToast(this.$t('register.failRegistration'));
+				this.errorToast(this.$t('register.registrationFailed'));
 			}
 			this.loading = false;
 		},

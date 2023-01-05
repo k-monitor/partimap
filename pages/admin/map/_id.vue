@@ -6,7 +6,7 @@
 		<MapToolbar />
 		<Sidebar
 			admin
-			:back-label="$t('map.backToMap')"
+			:back-label="$t('mapEditor.back')"
 			:content-modified="contentModified"
 			:loading="loading"
 			@back="back"
@@ -14,7 +14,7 @@
 		>
 			<b-form-group class="mb-4">
 				<template #label>
-					<h6 class="mb-0">{{$t('map.mapName')}}</h6>
+					<h6 class="mb-0">{{ $t('mapEditor.name') }}</h6>
 				</template>
 				<b-form-input
 					v-model="mapData.title"
@@ -108,9 +108,9 @@ export default {
 			try {
 				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
 				this.contentModified = false;
-				this.success(this.$t('map.success'));
+				this.success(this.$t('mapEditor.success'));
 			} catch (error) {
-				this.errorToast(this.$t('map.errorToast'));
+				this.errorToast(this.$t('mapEditor.error'));
 			}
 			this.loading = false;
 		},

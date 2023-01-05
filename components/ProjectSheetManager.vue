@@ -26,8 +26,8 @@
 						@submit.stop.prevent="handleSubmit"
 					>
 						<b-form-group
-							:label="$t('ProjectSheetManager.sheetLabelName')"
-							:invalid-feedback="$t('ProjectSheetManager.nameRequired')"
+							:label="$t('ProjectSheetManager.sheetName')"
+							:invalid-feedback="$t('ProjectSheetManager.sheetNameRequired')"
 							:state="nameState"
 						>
 							<b-form-input
@@ -58,11 +58,11 @@
 						</div>
 
 						<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
-							<label for="sourceMap">{{ $t('ProjectSheetManager.copySheet') }}</label>
+							<label for="sourceMap">{{ $t('ProjectSheetManager.copyFeaturesFrom') }}</label>
 							<b-form-select
 								id="sourceMap"
 								v-model="sourceMap"
-								:options="[{value: null, text: $t('ProjectSheetManager.noCopy')}].concat(maps)"
+								:options="[{value: null, text: $t('ProjectSheetManager.withoutCopying')}].concat(maps)"
 							/>
 						</b-form-group>
 					</form>
@@ -88,11 +88,12 @@
 						</NuxtLink>
 						<span v-if="sheet.submittedFeatureCount">
 							<br>
-							{{ sheet.submittedFeatureCount }} {{ $t('ProjectSheetManager.submitMap') }}
+							{{ $t('ProjectSheetManager.submittedFeatures') }}:
+							{{ sheet.submittedFeatureCount }}
 							<a
 								href="javascript:void(0)"
 								@click.prevent="submittedFeaturesToMap(sheet)"
-							>{{ $t('ProjectSheetManager.sendMap') }}</a>
+							>{{ $t('ProjectSheetManager.sendToMap') }}</a>
 						</span>
 					</div>
 					<div class="ml-auto">
@@ -154,22 +155,22 @@ export default {
 				{
 					name: 'text',
 					icon: 'fa-paragraph',
-					tooltip: this.$t('ProjectSheetManager.tooltipText'),
+					tooltip: this.$t('ProjectSheetManager.sheetTypes.text'),
 				},
 				{
 					name: 'survey',
 					icon: 'fa-poll',
-					tooltip: this.$t('ProjectSheetManager.tooltipSurvey'),
+					tooltip: this.$t('ProjectSheetManager.sheetTypes.survey'),
 				},
 				{
 					name: 'staticMap',
 					icon: 'fa-map',
-					tooltip: this.$t('ProjectSheetManager.tooltipMap'),
+					tooltip: this.$t('ProjectSheetManager.sheetTypes.staticMap'),
 				},
 				{
 					name: 'interactiveMap',
 					icon: 'fa-map-marker-alt',
-					tooltip: this.$t('ProjectSheetManager.tooltipInteractiveMap'),
+					tooltip: this.$t('ProjectSheetManager.sheetTypes.interactiveMap'),
 				},
 			],
 			nameState: null,
