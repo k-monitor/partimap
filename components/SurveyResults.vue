@@ -47,8 +47,7 @@ export default {
 				data = nd;
 			}
 			const avgText = 'number|range|rating'.includes(q.type)
-				? ' | ' + this.$t('SurveyResult.averageValue') + `: ${Math.round(q.average * 10) / 10}` // TODO i18n
-				// ? ` | Átlagos érték: ${Math.round(q.average * 10) / 10}` // TODO i18n
+				? ` | ${this.$t('SurveyResult.averageValue')}: ${Math.round(q.average * 10) / 10}`
 				: '';
 
 			return {

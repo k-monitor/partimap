@@ -6,7 +6,10 @@ export default {
 	// pages
 
 	adminHelp: {
-		header: 'Súgó',
+		title: 'Súgó',
+	},
+	help: {
+		title: 'Hogyan működik az oldal?',
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',

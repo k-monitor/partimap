@@ -77,10 +77,12 @@
 </template>
 
 <script>
-// TODO i18n
+// TODO i18n for template
 export default {
-	head: {
-		title: 'Hogyan működik az oldal?',
+	head() {
+		return {
+			title: this.$t('help.title'),
+		};
 	},
 };
 </script>
