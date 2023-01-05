@@ -170,8 +170,8 @@
 					:disabled="loading || !delPassword"
 					name="confirm"
 				>
-					<strong>{{ $t('userEditor.confirmation') }}</strong><br>
-					{{ $t('userEditor.deleteThe') }}<strong>{{ u.email }}</strong>{{ $t('userEditor.alert') }}
+					<!-- eslint-disable-next-line vue/no-v-html -->
+					<span v-html="$t('userEditor.deleteConfirmation', { email: u.email })" />
 				</b-form-checkbox>
 			</b-alert>
 		</b-modal>
