@@ -184,9 +184,9 @@ export default {
 		defaultFeatureQuestion: 'Miért rajzoltad ezt fel?',
 		featureQuestion: 'Felrajzolt elemekhez rendelt kérdés',
 		instructions: {
-			toDrawPoint: 'Instrukció pont felrajzolásához',
-			toDrawLine: 'Instrukció vonal felrajzolásához',
-			toDrawArea: 'Instrukció terület felrajzolásához',
+			Point: 'Instrukció pont felrajzolásához',
+			LineString: 'Instrukció vonal felrajzolásához',
+			Polygon: 'Instrukció terület felrajzolásához',
 		},
 		interactions: {
 			Point: 'Pont felrajzolása',
@@ -288,6 +288,7 @@ export default {
 		submitted: 'Beküldve',
 	},
 	MapHint: {
+		Point: '',
 		LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
 		Polygon: 'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
 	},
