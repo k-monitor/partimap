@@ -10,7 +10,7 @@
 				v-if="(q.required && (selected || []).length < 1)"
 				required
 				type="checkbox"
-				oninvalid="this.setCustomValidity('Kérjük, jelölje be valamelyik jelölőnégyzetet!')"
+				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
 				style="bottom: 0; opacity: 0; position: absolute;"
 			>
 		</div>

@@ -262,6 +262,7 @@ export default {
 	},
 	CheckboxGroup: {
 		other: 'Egyéb...',
+		required: 'Kérjük, jelölje be valamelyik jelölőnégyzetet!',
 	},
 	DropdownGroup: {
 		other: 'Egyéb...',
