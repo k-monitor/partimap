@@ -84,6 +84,10 @@ export default {
 		},
 	},
 
+	router: {
+		middleware: ['redirects'],
+	},
+
 	recaptcha: {
 		hideBadge: true,
 		siteKey: process.env.RECAPTCHA_SITE_KEY,

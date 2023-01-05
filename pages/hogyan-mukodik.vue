@@ -84,5 +84,10 @@ export default {
 			title: this.$t('help.title'),
 		};
 	},
+	nuxtI18n: {
+		paths: {
+			en: '/how-does-it-work',
+		},
+	},
 };
 </script>
