@@ -41,7 +41,7 @@
 			</b-form-group>
 			<b-form-group
 				v-if="!sheet.features"
-				:invalid-feedback="$t('sheetEditor.maxFileSize')"
+				:invalid-feedback="$t('imageUpload.maxFileSize')"
 				:state="backgroundImageState"
 			>
 				<template #label>
@@ -53,8 +53,8 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="sheet-background-input"
 						browse-text=""
-						:drop-placeholder="$t('sheetEditor.dragAndDrop')"
-						:placeholder="$t('sheetEditor.browseImageFile')"
+						:drop-placeholder="$t('imageUpload.dropzone')"
+						:placeholder="$t('imageUpload.browse')"
 						:state="backgroundImageState"
 					/>
 					<template #append>
@@ -73,7 +73,7 @@
 					variant="outline-danger"
 					@click="removeBackground"
 				>
-					{{ $t('sheetEditor.removeBackground') }}
+					{{ $t('imageUpload.remove') }}
 				</b-button>
 			</b-form-group>
 			<b-form-group v-if="sheet.survey">
@@ -350,7 +350,7 @@ export default {
 				);
 				this.backgroundImage = null;
 			} catch (error) {
-				this.errorToast(this.$t('sheetEditor.uploadFailed'));
+				this.errorToast(this.$t('imageUpload.failed'));
 			}
 		},
 	},

@@ -82,7 +82,7 @@
 					/>
 				</b-form-group>
 				<b-form-group
-					:invalid-feedback="$t('projectEditor.maxFileSize')"
+					:invalid-feedback="$t('imageUpload.maxFileSize')"
 					:label="$t('projectEditor.thumbnail')"
 					:state="imageState"
 				>
@@ -92,8 +92,8 @@
 							accept="image/jpeg, image/png, image/webp"
 							class="project-image-input"
 							browse-text=""
-							:drop-placeholder="$t('projectEditor.dragAndDrop')"
-							:placeholder="$t('projectEditor.browseImageFile')"
+							:drop-placeholder="$t('imageUpload.dropzone')"
+							:placeholder="$t('imageUpload.browse')"
 							:state="imageState"
 						/>
 						<template #append>
@@ -119,7 +119,7 @@
 									class="text-danger"
 									href="javascript:void(0)"
 									@click="removeImage"
-								>{{ $t('projectEditor.removeImage') }}</a>
+								>{{ $t('imageUpload.remove') }}</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -289,7 +289,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast(this.$t('projectEditor.uploadFailed'));
+				this.errorToast(this.$t('imageUpload.failed'));
 			}
 		},
 		async addSheet(title, type, sourceMap) {
