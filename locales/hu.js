@@ -261,7 +261,25 @@ export default {
 		search: 'Keresés...',
 	},
 	FeatureListElement: {
+		category: 'Kategória',
+		color: 'Szín',
+		dashType: 'Vonal',
+		dashTypes: {
+			p0: 'Folytonos',
+			p11: 'Pontozott',
+			p21: 'Szaggatott',
+			p41: 'Hosszan szagg.',
+			p1131: 'Pont-vonal',
+		},
+		defaultName: {
+			Point: 'Pont',
+			LineString: 'Útvonal',
+			Polygon: 'Terület',
+		},
 		deleteFeature: 'Elem törlése',
+		description: 'Leírás',
+		name: 'Név',
+		size: 'Méret',
 	},
 	FooterButtons: {
 		save: 'Mentés',
