@@ -156,14 +156,14 @@ export default {
 		views: 'megtekintések',
 	},
 	register: {
+		consent1: 'Elolvastam és elfogadom a',
+		consent2: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
 		email: 'Email cím',
-		iHaveRead: 'Elolvastam és elfogadom a',
 		login: 'Már van fiókom',
 		name: 'Név',
 		password: 'Jelszó',
 		registrationFailed: 'Regisztráció sikertelen',
 		submit: 'Regisztráció',
-		terms: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
 		termsTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
 		title: 'Partimap Regisztráció',
 	},
@@ -305,8 +305,8 @@ export default {
 		withoutCopying: 'Nincs másolás',
 	},
 	SheetContent: {
-		iHaveRead: 'Elolvastam és elfogadom a ',
-		policies: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
+		consent1: 'Elolvastam és elfogadom a ',
+		consent2: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
 		next: 'Tovább',
 	},
 	Sidebar: {
@@ -351,8 +351,8 @@ export default {
 	imageUpload: {
 		browse: 'Kép tallózása...',
 		dropzone: 'Húzd ide a fájlt!',
+		failed: 'Kép feltöltése sikertelen.',
 		maxFileSize: 'Maximális fájlméret: 5 MB',
 		remove: 'Kép törlése',
-		failed: 'Kép feltöltése sikertelen.',
 	},
 };

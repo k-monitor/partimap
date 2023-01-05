@@ -189,7 +189,7 @@ export default {
 			const options = [];
 			if (this.sheet.features) {
 				// map sheet
-				if (!this.sheet.survey) { // TODO i18n
+				if (!this.sheet.survey) {
 					// interactive map sheet
 					options.push(
 						{ value: 'Point', text: this.$t('sheetEditor.interactions.Point') },

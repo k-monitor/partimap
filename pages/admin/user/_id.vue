@@ -179,7 +179,6 @@
 </template>
 
 <script>
-// TODO confirm checkbox i18n with argument
 export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {

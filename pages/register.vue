@@ -33,11 +33,11 @@
 									name="consent"
 									required
 								>
-									{{ $t('register.iHaveRead') }}
+									{{ $t('register.consent1') }}
 									<a
 										href="javascript:void(0)"
 										@click.stop="$bvModal.show('terms-modal')"
-									>{{ $t('register.terms') }}</a>
+									>{{ $t('register.consent2') }}</a>
 								</b-form-checkbox>
 							</b-form-group>
 						</div>
