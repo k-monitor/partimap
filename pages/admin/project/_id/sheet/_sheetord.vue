@@ -41,7 +41,7 @@
 			</b-form-group>
 			<b-form-group
 				v-if="!sheet.features"
-				:invalid-feedback="$t('sheetEditor.maxFileSize')"
+				:invalid-feedback="$t('imageUpload.maxFileSize')"
 				:state="backgroundImageState"
 			>
 				<template #label>
@@ -53,8 +53,8 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="sheet-background-input"
 						browse-text=""
-						:drop-placeholder="$t('sheetEditor.dragAndDrop')"
-						:placeholder="$t('sheetEditor.browseImageFile')"
+						:drop-placeholder="$t('imageUpload.dropzone')"
+						:placeholder="$t('imageUpload.browse')"
 						:state="backgroundImageState"
 					/>
 					<template #append>
@@ -73,7 +73,7 @@
 					variant="outline-danger"
 					@click="removeBackground"
 				>
-					{{ $t('sheetEditor.removeBackground') }}
+					{{ $t('imageUpload.remove') }}
 				</b-button>
 			</b-form-group>
 			<b-form-group v-if="sheet.survey">
@@ -93,22 +93,11 @@
 				/>
 			</b-form-group>
 			<b-form-group
-				v-if="isPointSelected"
-				:label="$t('sheetEditor.instructions.toDrawPoint')"
+				v-for="dt in ['Point', 'LineString', 'Polygon'].filter(dt => interactions.enabled.includes(dt))"
+				:key="dt"
+				:label="$t('sheetEditor.instructions')[dt]"
 			>
-				<b-form-input v-model="interactions.buttonLabels.Point" />
-			</b-form-group>
-			<b-form-group
-				v-if="isLineStringSelected"
-				:label="$t('sheetEditor.instructions.toDrawLine')"
-			>
-				<b-form-input v-model="interactions.buttonLabels.LineString" />
-			</b-form-group>
-			<b-form-group
-				v-if="isPolygonSelected"
-				:label="$t('sheetEditor.instructions.toDrawArea')"
-			>
-				<b-form-input v-model="interactions.buttonLabels.Polygon" />
+				<b-form-input v-model="interactions.buttonLabels[dt]" />
 			</b-form-group>
 			<b-form-group
 				v-if="isRatingSelected"
@@ -187,20 +176,17 @@ export default {
 		...mapGetters('selected', ['getSelectedFeature']),
 		interactionOptions() {
 			const options = [];
+			const ia = n => ({ value: n, text: this.$t('sheetEditor.interactions')[n] });
 			if (this.sheet.features) {
 				// map sheet
-				if (!this.sheet.survey) { // TODO i18n
+				if (!this.sheet.survey) {
 					// interactive map sheet
-					options.push(
-						{ value: 'Point', text: this.$t('sheetEditor.interactions.Point') },
-						{ value: 'LineString', text: this.$t('sheetEditor.interactions.LineString') },
-						{ value: 'Polygon', text: this.$t('sheetEditor.interactions.Polygon') }
-					);
+					options.push(ia('Point'), ia('LineString'), ia('Polygon'));
 				} else {
-					options.push({ value: 'Rating', text: this.$t('sheetEditor.interactions.Rating') });
+					options.push(ia('Rating'));
 				}
 			} else {
-				options.push({ value: 'SocialSharing', text: this.$t('sheetEditor.interactions.SocialSharing') });
+				options.push(ia('SocialSharing'));
 			}
 			return options;
 		},
@@ -350,7 +336,7 @@ export default {
 				);
 				this.backgroundImage = null;
 			} catch (error) {
-				this.errorToast(this.$t('sheetEditor.uploadFailed'));
+				this.errorToast(this.$t('imageUpload.failed'));
 			}
 		},
 	},

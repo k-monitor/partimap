@@ -48,7 +48,7 @@
 						align-v="center"
 					>
 						<b-col>
-							<b-form-group label="Szín">
+							<b-form-group :label="$t('FeatureListElement.color')">
 								<b-form-input
 									id="type-color"
 									v-model="form.color"
@@ -81,7 +81,7 @@
 							</b-form-group>
 						</b-col>
 						<b-col>
-							<b-form-group label="Méret">
+							<b-form-group :label="$t('FeatureListElement.size')">
 								<b-form-input
 									v-model="form.width"
 									size="sm"
@@ -92,7 +92,7 @@
 					</b-row>
 					<b-form-group
 						v-if="!visitor && feature.getGeometry().getType() !== 'Point'"
-						label="Vonal"
+						:label="$t('FeatureListElement.dashType')"
 					>
 						<b-form-select
 							v-model="form.dash"
@@ -102,7 +102,7 @@
 					</b-form-group>
 					<b-form-group
 						v-if="!visitor"
-						label="Név"
+						:label="$t('FeatureListElement.name')"
 					>
 						<b-form-input
 							id="type-text"
@@ -113,11 +113,11 @@
 					</b-form-group>
 					<b-form-group
 						v-if="!visitor"
-						label="Kategória"
+						:label="$t('FeatureListElement.category')"
 					>
 						<vue-typeahead-bootstrap
 							v-model="form.category"
-							placeholder="Kategória"
+							:placeholder="$t('FeatureListElement.category')"
 							size="sm"
 							:data="categories"
 							:min-matching-chars="0"
@@ -127,7 +127,7 @@
 					</b-form-group>
 					<b-form-group
 						v-if="visitor"
-						:label="descriptionLabel || 'Miért rajzoltad ezt fel?'"
+						:label="descriptionLabel || $t('sheetEditor.defaultFeatureQuestion')"
 					>
 						<b-textarea
 							ref="description"
@@ -137,7 +137,7 @@
 					<b-form-group
 						v-else
 						class="rich"
-						label="Leírás"
+						:label="$t('FeatureListElement.description')"
 					>
 						<client-only>
 							<tiptap v-model="form.description" />
@@ -241,11 +241,11 @@ export default {
 			},
 			rating: this.initFeatureRating,
 			dashOptions: [
-				{ text: 'Folytonos', value: '0' },
-				{ text: 'Pontozott', value: '1,1' },
-				{ text: 'Szaggatott', value: '2,1' },
-				{ text: 'Hosszan szagg.', value: '4,1' },
-				{ text: 'Pont-vonal', value: '1,1,3,1' },
+				{ text: this.$t('FeatureListElement.dashTypes.p0'), value: '0' },
+				{ text: this.$t('FeatureListElement.dashTypes.p11'), value: '1,1' },
+				{ text: this.$t('FeatureListElement.dashTypes.p21'), value: '2,1' },
+				{ text: this.$t('FeatureListElement.dashTypes.p41'), value: '4,1' },
+				{ text: this.$t('FeatureListElement.dashTypes.p1131'), value: '1,1,3,1' },
 			],
 			editable: !this.visitor || this.feature.get('visitorFeature'),
 			icons: {
@@ -315,11 +315,7 @@ export default {
 			);
 		},
 		getFeatureName() {
-			const anon = {
-				Point: 'Pont',
-				LineString: 'Útvonal',
-				Polygon: 'Terület',
-			}[this.feature.getGeometry().getType()];
+			const anon = this.$t('FeatureListElement.defaultName')[this.feature.getGeometry().getType()];
 			return this.feature.get('name') || anon;
 		},
 		featureClicked() {
@@ -337,7 +333,7 @@ export default {
 		},
 		expandFinished() {
 			// custom scrollIntoView as its more accurate:
-			const t = this.$refs.feature.offsetTop;
+			const t = this.$refs.feature?.offsetTop || 0;
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = t - 75;
 
 			if (this.$refs.description) {

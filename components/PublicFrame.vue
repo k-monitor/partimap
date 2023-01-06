@@ -20,7 +20,7 @@
 					is-nav
 				>
 					<b-navbar-nav class="ml-auto">
-						<b-nav-item :to="localePath('/hogyan-mukodik')">{{ $t('PublicFrame.help') }}</b-nav-item>
+						<b-nav-item :to="localePath({ name: 'hogyan-mukodik' })">{{ $t('PublicFrame.help') }}</b-nav-item>
 						<b-nav-item :to="localePath('/admin')">{{ $t('PublicFrame.login') }}</b-nav-item>
 						<LangSwitcher />
 					</b-navbar-nav>
@@ -39,7 +39,7 @@
 						target="_blank"
 					>
 						<img
-							src="k-monitor-logo.png"
+							src="/k-monitor-logo.png"
 							alt="K-Monitor"
 							height="31"
 						>
@@ -50,7 +50,7 @@
 						target="_blank"
 					>
 						<img
-							src="deepdata-logo.png"
+							src="/deepdata-logo.png"
 							alt="DeepData"
 							height="31"
 						>

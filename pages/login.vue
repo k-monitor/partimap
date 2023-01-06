@@ -7,7 +7,7 @@
 					@submit.prevent="submit"
 				>
 					<div class="card shadow-sm">
-						<h5 class="card-header">{{ $t('login.title') }}</h5>
+						<CardHeader :text="$t('login.title')" />
 						<div class="card-body">
 							<b-alert
 								v-if="successMessage"

@@ -84,6 +84,10 @@ export default {
 		},
 	},
 
+	router: {
+		middleware: ['redirects'],
+	},
+
 	recaptcha: {
 		hideBadge: true,
 		siteKey: process.env.RECAPTCHA_SITE_KEY,
@@ -108,6 +112,12 @@ export default {
 					useBuiltIns: 'entry',
 				}]
 			],
+		},
+		extend(config) {
+			config.module.rules.push({
+				test: /\.md$/,
+				loader: 'raw-loader'
+			});
 		},
 		transpile: [
 			'ol',

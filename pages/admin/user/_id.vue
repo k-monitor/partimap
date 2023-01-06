@@ -26,7 +26,7 @@
 				/>
 			</b-form-group>
 			<b-form-group
-				:invalid-feedback="$t('userEditor.maxFileSize')"
+				:invalid-feedback="$t('imageUpload.maxFileSize')"
 				:label="$t('userEditor.logo')"
 				:description="$t('userEditor.logoDescription')"
 				:state="imageState"
@@ -37,8 +37,8 @@
 						accept="image/jpeg, image/png, image/webp"
 						class="project-image-input"
 						browse-text=""
-						:drop-placeholder="$t('userEditor.dragAndDrop')"
-						:placeholder="$t('userEditor.browseImageFile')"
+						:drop-placeholder="$t('imageUpload.dropzone')"
+						:placeholder="$t('imageUpload.browse')"
 						:state="imageState"
 					/>
 					<template #append>
@@ -64,7 +64,7 @@
 								class="text-danger"
 								href="javascript:void(0)"
 								@click="removeImage"
-							>{{ $t('userEditor.removeImage') }}</a>
+							>{{ $t('imageUpload.remove') }}</a>
 						</figcaption>
 					</figure>
 				</div>
@@ -170,8 +170,8 @@
 					:disabled="loading || !delPassword"
 					name="confirm"
 				>
-					<strong>{{ $t('userEditor.confirmation') }}</strong><br>
-					{{ $t('userEditor.deleteThe') }}<strong>{{ u.email }}</strong>{{ $t('userEditor.alert') }}
+					<!-- eslint-disable-next-line vue/no-v-html -->
+					<span v-html="$t('userEditor.deleteConfirmation', { email: u.email })" />
 				</b-form-checkbox>
 			</b-alert>
 		</b-modal>
@@ -179,7 +179,6 @@
 </template>
 
 <script>
-// TODO confirm checkbox i18n with argument
 export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
@@ -276,7 +275,7 @@ export default {
 				);
 				this.image = null;
 			} catch (error) {
-				this.errorToast(this.$t('userEditor.uploadFailed'));
+				this.errorToast(this.$t('imageUpload.failed'));
 			}
 		},
 	},

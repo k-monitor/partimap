@@ -55,12 +55,12 @@
 				name="consent"
 				required
 			>
-				{{ $t('SheetContent.iHaveRead') }}
+				{{ $t('SheetContent.consent1') }}
 				<a
 					class="alert-link"
 					href="javascript:void(0)"
 					@click.stop="$bvModal.show('privacy-modal')"
-				>{{ $t('SheetContent.policies') }}</a>
+				>{{ $t('SheetContent.consent2') }}</a>
 			</b-form-checkbox>
 		</b-alert>
 	</div>

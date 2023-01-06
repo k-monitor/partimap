@@ -62,7 +62,7 @@
 					v-if="m.userId != $auth.user.id"
 					class="badge badge-warning"
 				>
-					{{ $t('maps.owner') }} #{{ m.userId }}
+					{{ $t('maps.owner') }}: #{{ m.userId }}
 				</span>
 				<span
 					v-else-if="$auth.user.isAdmin"

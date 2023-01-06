@@ -13,11 +13,7 @@ export default {
 	computed: {
 		...mapGetters(['getDrawType']),
 		hint() {
-			return {
-				// Point: '',
-				LineString: this.$t('MapHint.LineString'),
-				Polygon: this.$t('MapHint.Polygon'),
-			}[this.getDrawType];
+			return this.$t('MapHint')[this.getDrawType] || '';
 		},
 	},
 };

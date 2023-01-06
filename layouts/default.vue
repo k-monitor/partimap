@@ -58,7 +58,7 @@ div#__nuxt,
 .help h4 {
 	/* fix for anchors */
 	margin-top: -5rem;
-	padding-top: 5rem;
+	padding-top: 6rem;
 }
 .help h4 {
 	font-size: 1.25rem;

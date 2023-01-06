@@ -4,7 +4,7 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="submit">
 					<div class="card shadow-sm">
-						<h5 class="card-header">{{ $t('passwordChange.title') }}</h5>
+						<CardHeader :text="$t('passwordChange.title')" />
 						<div class="card-body">
 							<b-form-group :label="$t('passwordChange.newPassword')">
 								<b-form-input
