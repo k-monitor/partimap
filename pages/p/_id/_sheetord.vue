@@ -88,7 +88,17 @@
 					@prev="prev"
 					@submit="submit"
 				>
-					<h1 class="h3">{{ sheet.title }}</h1>
+					<b-navbar class="m-0 mb-4 p-0">
+						<h1
+							v-if="!hideTitle"
+							class="h3 m-0"
+						>
+							{{ sheet.title }}
+						</h1>
+						<b-navbar-nav class="ml-auto">
+							<LangSwitcher />
+						</b-navbar-nav>
+					</b-navbar>
 
 					<SheetContent
 						class="mb-3"

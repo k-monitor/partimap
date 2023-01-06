@@ -1,12 +1,7 @@
 <template>
 	<div v-if="!submitted">
-		<b-navbar class="m-0 mb-4 p-0">
-			<h1
-				v-if="!hideTitle"
-				class="h3 m-0"
-			>
-				{{ sheet.title }}
-			</h1>
+		<b-navbar v-if="!hideTitle" class="m-0 mb-4 p-0">
+			<h1 class="h3 m-0">{{ sheet.title }}</h1>
 			<b-navbar-nav class="ml-auto">
 				<LangSwitcher />
 			</b-navbar-nav>
