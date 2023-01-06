@@ -1,4 +1,5 @@
-import help from './hu-help-visitors.md';
+import editorHelp from './hu-help-editors.md';
+import visitorHelp from './hu-help-visitors.md';
 
 export default {
 	meta: {
@@ -9,10 +10,11 @@ export default {
 
 	adminHelp: {
 		title: 'Súgó',
+		content: editorHelp,
 	},
 	help: {
 		title: 'Hogyan működik az oldal?',
-		content: help,
+		content: visitorHelp,
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',
