@@ -1,6 +1,18 @@
+import help from './en-help-visitors.md';
+
 export default {
 	meta: {
 		description: 'Engaging the power of community in urban development planning.',
+	},
+
+	// pages
+
+	adminHelp: {
+		title: 'Súgó',
+	},
+	help: {
+		title: 'Hogyan működik az oldal?',
+		content: help,
 	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',

@@ -1,3 +1,5 @@
+import help from './hu-help-visitors.md';
+
 export default {
 	meta: {
 		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
@@ -10,6 +12,7 @@ export default {
 	},
 	help: {
 		title: 'Hogyan működik az oldal?',
+		content: help,
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',

@@ -113,6 +113,12 @@ export default {
 				}]
 			],
 		},
+		extend(config) {
+			config.module.rules.push({
+				test: /\.md$/,
+				loader: 'raw-loader'
+			});
+		},
 		transpile: [
 			'ol',
 			({ isServer }) => 'vue-typeahead-bootstrap'
