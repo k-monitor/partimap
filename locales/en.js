@@ -171,7 +171,7 @@ export default {
 		registrationFailed: 'Regisztráció sikertelen',
 		submit: 'Regisztráció',
 		termsTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
-		title: 'Partimap Regisztráció',
+		title: 'Regisztráció',
 	},
 	sheet: {
 		invalidPassword: 'Érvénytelen jelszó!',
