@@ -39,7 +39,7 @@
 						target="_blank"
 					>
 						<img
-							src="k-monitor-logo.png"
+							src="/k-monitor-logo.png"
 							alt="K-Monitor"
 							height="31"
 						>
@@ -50,7 +50,7 @@
 						target="_blank"
 					>
 						<img
-							src="deepdata-logo.png"
+							src="/deepdata-logo.png"
 							alt="DeepData"
 							height="31"
 						>
