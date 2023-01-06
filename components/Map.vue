@@ -135,12 +135,7 @@ export default {
 				this.select.getFeatures().pop();
 			} else {
 				this.source.getFeatures().forEach(feature => {
-					if (feature !== selFeature) {
-						this.blurFeature(feature);
-					}
-					if (feature === selFeature && prevFeature) {
-						this.removeBlur(selFeature);
-					}
+					this.updateFeatureStyle(feature, selFeature);
 				});
 			}
 
@@ -309,6 +304,40 @@ export default {
 			}
 			return new Collection(features);
 		},
+		changeFeatureStyle(feature, color, lineDash, strokeWidth) {
+			feature.set('color', color);
+			feature.set('dash', lineDash);
+			feature.set('width', strokeWidth);
+			this.updateFeatureStyle(feature, feature); // treating feature as selected
+		},
+		removeBlur(feature = null) {
+			if (feature) {
+				this.updateFeatureStyle(feature);
+			} else {
+				this.source.getFeatures().forEach(feature => {
+					this.updateFeatureStyle(feature);
+				});
+			}
+		},
+		updateFeatureStyle(feature, selFeature) {
+			const r = feature.get('rating');
+			const rated = Number.isInteger(r) && r !== 0;
+			const color = rated ? '#666666' : feature.get('color');
+
+			// lower opacity of unselected features, IF there's a selected feature
+			const opacity = selFeature && selFeature.getId() !== feature.getId() ? '60' : '';
+
+			feature.setStyle(
+				this.styleFunction({
+					feature,
+					pointFillColor: color + opacity,
+					lineColor: color + opacity,
+					polygonColor: color, // opacity is constant and handled in styleFunction
+					lineDash: feature.get('dash'),
+					strokeWidth: feature.get('width'),
+				})
+			);
+		},
 		styleFunction({
 			pointFillColor = this.defaultColor.drawing,
 			lineColor = this.defaultColor.drawing,
@@ -331,54 +360,6 @@ export default {
 					fill: pointFillColor ? new Fill({ color: pointFillColor }) : null,
 				}),
 			});
-		},
-		changeFeatureStyle(feature, color, lineDash, strokeWidth) {
-			// console.log('changeFeatureStyle', color, lineDash, strokeWidth);
-			feature.setStyle(
-				this.styleFunction({
-					pointFillColor: color,
-					lineColor: color,
-					polygonColor: color,
-					lineDash,
-					strokeWidth,
-				})
-			);
-			feature.set('color', color);
-			feature.set('dash', lineDash);
-			feature.set('width', strokeWidth);
-		},
-		blurFeature(feature) {
-			const r = feature.get('rating');
-			const rated = Number.isInteger(r) && r !== 0;
-			const color = rated ? '#666666' : feature.get('color');
-			feature.setStyle(
-				this.styleFunction({
-					feature,
-					pointFillColor: color + '60', // opacity level
-					lineColor: color + '60',
-					polygonColor: color,
-					lineDash: feature.get('dash'),
-					strokeWidth: feature.get('width'),
-				})
-			);
-		},
-		removeBlur(feature = null) {
-			const rb = feature => {
-				const r = feature.get('rating');
-				const rated = Number.isInteger(r) && r !== 0;
-				const color = rated ? '#666666' : feature.get('color');
-				this.changeFeatureStyle(
-					feature,
-					color,
-					feature.get('dash'),
-					feature.get('width')
-				);
-			};
-			if (feature) {
-				rb(feature);
-			} else {
-				this.source.getFeatures().forEach(rb);
-			}
 		},
 	},
 };

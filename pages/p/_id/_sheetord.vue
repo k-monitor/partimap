@@ -89,12 +89,7 @@
 					@submit="submit"
 				>
 					<b-navbar class="m-0 mb-4 p-0">
-						<h1
-							v-if="!hideTitle"
-							class="h3 m-0"
-						>
-							{{ sheet.title }}
-						</h1>
+						<h1 class="h3 m-0">{{ sheet.title }}</h1>
 						<b-navbar-nav class="ml-auto">
 							<LangSwitcher />
 						</b-navbar-nav>
@@ -332,6 +327,14 @@ export default {
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.sheet.features);
 			const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
+
+			// adding "rating" to feature objects for map graying effect
+			const visitorRatings = this.getVisitorRatings(this.sheet.id) || {};
+			adminFeatures.forEach(f => {
+				const r = visitorRatings[f.getId()];
+				if (r) { f.set('rating', r); }
+			});
+
 			return [...visitorFeatures, ...adminFeatures];
 		},
 		next() {
