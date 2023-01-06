@@ -4,7 +4,7 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="userReg">
 					<div class="card shadow-sm">
-						<h5 class="card-header">{{ $t('register.title') }}</h5>
+						<CardHeader :text="$t('register.title')" />
 						<div class="card-body">
 							<b-form-group :label="$t('register.email')">
 								<b-form-input
@@ -43,7 +43,7 @@
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button
-								to="/login"
+								:to="localePath('/login')"
 								variant="link"
 							>
 								{{ $t('register.login') }}
