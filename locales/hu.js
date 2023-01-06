@@ -1,5 +1,6 @@
 import editorHelp from './hu-help-editors.md';
 import visitorHelp from './hu-help-visitors.md';
+import terms from './hu-terms.md';
 
 export default {
 	meta: {
@@ -371,6 +372,9 @@ export default {
 		averageValue: 'Átlagos érték',
 		numberOfSubmissions: 'Válaszadók száma',
 		other: 'Egyéb',
+	},
+	Terms: {
+		content: terms,
 	},
 
 	// general
