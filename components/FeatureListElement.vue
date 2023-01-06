@@ -29,6 +29,9 @@
 			>
 				<i class="fas fa-fw fa-trash" />
 			</span>
+			<span v-else-if="rating > 0">
+				<i class="fas fa-fw fa-check" />
+			</span>
 		</b-list-group-item>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
