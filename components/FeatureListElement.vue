@@ -289,6 +289,7 @@ export default {
 			this.emitChangeStyle();
 		},
 		rating(rating) {
+			this.feature.set('rating', rating);
 			this.$nuxt.$emit('featureRatedByVisitor', this.feature.getId(), rating);
 		},
 		form: {

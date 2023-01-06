@@ -348,34 +348,36 @@ export default {
 			feature.set('width', strokeWidth);
 		},
 		blurFeature(feature) {
+			const r = feature.get('rating');
+			const rated = Number.isInteger(r) && r !== 0;
+			const color = rated ? '#666666' : feature.get('color');
 			feature.setStyle(
 				this.styleFunction({
 					feature,
-					pointFillColor: feature.get('color') + '60', // opacity level
-					lineColor: feature.get('color') + '60',
-					polygonColor: feature.get('color'),
+					pointFillColor: color + '60', // opacity level
+					lineColor: color + '60',
+					polygonColor: color,
 					lineDash: feature.get('dash'),
 					strokeWidth: feature.get('width'),
 				})
 			);
 		},
 		removeBlur(feature = null) {
-			if (feature) {
+			const rb = feature => {
+				const r = feature.get('rating');
+				const rated = Number.isInteger(r) && r !== 0;
+				const color = rated ? '#666666' : feature.get('color');
 				this.changeFeatureStyle(
 					feature,
-					feature.get('color'),
+					color,
 					feature.get('dash'),
 					feature.get('width')
 				);
+			};
+			if (feature) {
+				rb(feature);
 			} else {
-				this.source.getFeatures().forEach(feature => {
-					this.changeFeatureStyle(
-						feature,
-						feature.get('color'),
-						feature.get('dash'),
-						feature.get('width')
-					);
-				});
+				this.source.getFeatures().forEach(rb);
 			}
 		},
 	},
