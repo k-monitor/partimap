@@ -223,9 +223,11 @@ export default {
 					? this.getSelectedFeature.getGeometry().getExtent()
 					: this.source.getExtent();
 
+				const leftPadding = (window.innerWidth > 576) ? 400 : 0;
+
 				this.map.getView().fit(extent, {
 					duration: 200,
-					padding: [100, 100, 100, 100],
+					padding: [0, 0, 0, leftPadding],
 				});
 			}
 		},
