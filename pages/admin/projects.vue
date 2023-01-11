@@ -112,6 +112,8 @@ export default {
 		filteredProjects() {
 			return this.projects.filter(
 				p => {
+					if (p.lang !== this.$i18n.locale) { return false; }
+
 					const f = this.filter.toLowerCase();
 					const t = p.title.toLowerCase();
 					const d = (p.description || '').toLowerCase();

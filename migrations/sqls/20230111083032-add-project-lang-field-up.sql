@@ -1,0 +1,1 @@
+ALTER TABLE `project` ADD COLUMN `lang` VARCHAR(2) NOT NULL DEFAULT "hu" AFTER `userId`;
