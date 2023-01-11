@@ -32,7 +32,16 @@
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"
 				>
-					<b-input-group prepend="/p/">
+					<b-input-group :prepend="projectBaseURL">
+						<template #prepend>
+							<b-button
+								variant="primary"
+								@click="copyURL"
+							>
+								<i class="fas fa-copy fa-fw" />
+							</b-button>
+							<b-input-group-text>{{ projectBaseURL }}</b-input-group-text>
+						</template>
 						<b-form-input
 							v-model="project.slug"
 							:placeholder="generateSlug()"
@@ -41,7 +50,7 @@
 							<b-button
 								v-b-tooltip.hover
 								:title="$t('projectEditor.generateSlug')"
-								variant="outline-primary"
+								variant="secondary"
 								@click="project.slug = generateSlug()"
 							>
 								<i class="fas fa-magic fa-fw" />
@@ -49,25 +58,6 @@
 						</template>
 					</b-input-group>
 				</b-form-group>
-				<div class="alert alert-info m-4">
-					<p>Ez lesz a projekt publikus URL-je:</p>
-					<h5 class="alert-heading d-flex align-items-center justify-content-between">
-						<div>
-							<i class="fas fa-external-link-alt mr-2" />
-							<a
-								class="alert-link"
-								:href="fullProjectPath"
-								target="_blank"
-							>{{ fullProjectPath }}</a>
-						</div>
-						<button
-							class="btn btn-link btn-lg alert-link"
-							@click="copyURL"
-						>
-							<i class="fas fa-copy" />
-						</button>
-					</h5>
-				</div>
 				<b-form-group
 					:label="$t('projectEditor.password')"
 					:description="$t('projectEditor.passwordDescription')"
@@ -252,6 +242,9 @@ export default {
 		fullProjectPath() {
 			return this.$config.baseURL + this.projectPath;
 		},
+		projectBaseURL() {
+			return this.$config.baseURL + '/' + this.$i18n.locale + '/p/';
+		}
 	},
 	watch: {
 		image(val) {
@@ -271,7 +264,7 @@ export default {
 		},
 		copyURL() {
 			copy(this.fullProjectPath);
-			alert('URL vágólapra másolva!');
+			alert(this.$t('projectEditor.copiedURL'));
 		},
 		resetPassword() {
 			this.project.password = false;

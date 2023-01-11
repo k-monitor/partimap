@@ -123,6 +123,7 @@ export default {
 		back: 'Projektek',
 		changeFailed: 'Módosítás sikertelen',
 		changeSuccessful: 'Módosítás sikeres',
+		copiedURL: 'Projekt URL vágólapra másolva!',
 		generateSlug: 'Generálás a projekt címéből',
 		newPassword: 'Új jelszó',
 		password: 'Jelszavas védelem',
