@@ -6,7 +6,7 @@
 			class="d-flex mb-3"
 		>
 			<div class="d-flex flex-grow-1">
-				<span class="my-auto">{{ b.tooltip }}</span>
+				<span class="font-weight-bold my-auto">{{ b.tooltip }}</span>
 			</div>
 			<b-button
 				:variant="b.variant"

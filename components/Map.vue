@@ -155,7 +155,7 @@ export default {
 		});
 		// handles feature style change, performed in the feature-sidebar
 		this.$nuxt.$on('changeStyle', (feature, color, dash, width) => {
-			this.changeFeatureStyle(feature, color, dash, width);
+			this.changeFeatureStyle(feature, color, dash, width, true);
 		});
 
 		this.$nuxt.$on('importedFeatures', features => {
@@ -248,7 +248,8 @@ export default {
 						f,
 						this.defaultColor[this.drawType] || this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
-						this.defaultStroke.width
+						this.defaultStroke.width,
+						true
 					);
 				} else {
 					// imported feature
@@ -256,7 +257,8 @@ export default {
 						f,
 						f.get('color') || this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
-						f.get('width') || this.defaultStroke.width
+						f.get('width') || this.defaultStroke.width,
+						true
 					);
 				}
 
@@ -299,16 +301,17 @@ export default {
 					f,
 					f.get('color'),
 					f.get('dash'),
-					f.get('width')
+					f.get('width'),
+					false
 				); // apply stored style
 			}
 			return new Collection(features);
 		},
-		changeFeatureStyle(feature, color, lineDash, strokeWidth) {
+		changeFeatureStyle(feature, color, lineDash, strokeWidth, select) {
 			feature.set('color', color);
 			feature.set('dash', lineDash);
 			feature.set('width', strokeWidth);
-			this.updateFeatureStyle(feature, feature); // treating feature as selected
+			this.updateFeatureStyle(feature, select ? feature : null);
 		},
 		removeBlur(feature = null) {
 			if (feature) {
@@ -324,8 +327,14 @@ export default {
 			const rated = Number.isInteger(r) && r !== 0;
 			const color = rated ? '#666666' : feature.get('color');
 
-			// lower opacity of unselected features, IF there's a selected feature
-			const opacity = selFeature && selFeature.getId() !== feature.getId() ? '60' : '';
+			// lower opacity of unselected features
+			const isUnselected = selFeature && selFeature.getId() !== feature.getId();
+			const opacity = isUnselected ? '60' : '';
+
+			// raise width of selected features
+			const isPoint = feature.getGeometry().constructor.name === 'Point';
+			const isSelected = selFeature && selFeature.getId() === feature.getId();
+			const addWidth = isSelected && !isPoint && this.visitor ? 5 : 0;
 
 			feature.setStyle(
 				this.styleFunction({
@@ -334,7 +343,7 @@ export default {
 					lineColor: color + opacity,
 					polygonColor: color, // opacity is constant and handled in styleFunction
 					lineDash: feature.get('dash'),
-					strokeWidth: feature.get('width'),
+					strokeWidth: Number(feature.get('width')) + addWidth,
 				})
 			);
 		},

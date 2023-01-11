@@ -6,7 +6,7 @@
 		<b-list-group-item
 			ref="feature"
 			button
-			:class="[{ selected: selectedFeature, disabled: onEditMode }]"
+			:class="[{ selected: selectedFeature, disabled: onEditMode, rated: !selectedFeature && !editable && rating > 0 }]"
 			class="px-2 rounded"
 			:style="{ borderLeftColor: form.color }"
 			@click="featureClicked()"
@@ -352,6 +352,10 @@ export default {
 .highlight {
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5), 0 0 0 10000px rgba(0, 0, 0, 0.5);
 	z-index: 9999;
+}
+
+.rated {
+	opacity: .6;
 }
 
 .list-group-item {
