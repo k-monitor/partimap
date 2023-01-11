@@ -25,6 +25,7 @@
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.21.2",
     "cookie-parser": "^1.4.6",
+    "copy-to-clipboard": "^3.3.3",
     "core-js": "^3.9.1",
     "dotenv": "^10.0.0",
     "email-validator": "^2.0.4",

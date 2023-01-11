@@ -9,7 +9,7 @@
 						{{ project.title }}
 					</div>
 					<b-button
-						:to="localePath('/p/' + (project.slug || project.id) + '/0')"
+						:to="projectPath"
 						class="ml-auto"
 						target="_blank"
 						variant="primary"
@@ -49,6 +49,25 @@
 						</template>
 					</b-input-group>
 				</b-form-group>
+				<div class="alert alert-info m-4">
+					<p>Ez lesz a projekt publikus URL-je:</p>
+					<h5 class="alert-heading d-flex align-items-center justify-content-between">
+						<div>
+							<i class="fas fa-external-link-alt mr-2" />
+							<a
+								class="alert-link"
+								:href="fullProjectPath"
+								target="_blank"
+							>{{ fullProjectPath }}</a>
+						</div>
+						<button
+							class="btn btn-link btn-lg alert-link"
+							@click="copyURL"
+						>
+							<i class="fas fa-copy" />
+						</button>
+					</h5>
+				</div>
 				<b-form-group
 					:label="$t('projectEditor.password')"
 					:description="$t('projectEditor.passwordDescription')"
@@ -184,6 +203,7 @@
 </template>
 
 <script>
+import copy from 'copy-to-clipboard';
 import { orderBy } from 'lodash';
 import slugify from 'slugify';
 import { Interactions } from '~/assets/interactions';
@@ -226,6 +246,12 @@ export default {
 			).length;
 			return len > 10;
 		},
+		projectPath() {
+			return this.localePath('/p/' + (this.project.slug || this.project.id) + '/0');
+		},
+		fullProjectPath() {
+			return this.$config.baseURL + this.projectPath;
+		},
 	},
 	watch: {
 		image(val) {
@@ -242,6 +268,10 @@ export default {
 	methods: {
 		generateSlug() {
 			return slugify(this.project.title);
+		},
+		copyURL() {
+			copy(this.fullProjectPath);
+			alert('URL vágólapra másolva!');
 		},
 		resetPassword() {
 			this.project.password = false;
