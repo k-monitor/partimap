@@ -51,7 +51,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { Draw, Select, Snap } from 'ol/interaction';
-import { OSM, Vector as VectorSource } from 'ol/source';
+import { OSM, Stamen, Vector as VectorSource } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
@@ -183,7 +183,9 @@ export default {
 	},
 	methods: {
 		changeBaseMap() {
-
+			this.baseMapIndex = (this.baseMapIndex + 1) % this.baseMaps.length;
+			this.map.getLayers().removeAt(0);
+			this.map.getLayers().insertAt(0, this.baseMaps[this.baseMapIndex]);
 		},
 		changeZoom(delta) {
 			const view = this.map.getView();
@@ -193,10 +195,10 @@ export default {
 			});
 		},
 		initMapComponents() {
-			const raster = new TileLayer({
-				source: new OSM(),
-			});
-			this.baseMaps = [raster];
+			this.baseMaps = [
+				new TileLayer({ source: new OSM() }),
+				new TileLayer({ source: new Stamen({ layer: 'toner' }) }),
+			];
 
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
