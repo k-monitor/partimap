@@ -54,15 +54,16 @@ import View from 'ol/View';
 import { Attribution, defaults as defaultControls } from 'ol/control';
 import { click } from 'ol/events/condition';
 import { Draw, Select, Snap } from 'ol/interaction';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import { OSM, Stamen, Vector as VectorSource, XYZ } from 'ol/source';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import BASEMAPS from '~/assets/basemaps';
 
 export default {
 	props: {
 		initialBaseMapIndex: {
-			type: Number,
-			default: 0,
+			type: String,
+			default: '',
 		},
 		initialCenter: {
 			type: Array,
@@ -88,8 +89,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-			baseMapIndex: this.initialBaseMapIndex,
-			baseMaps: [],
+			baseMapKey: this.initialBaseMapKey || 'osm',
 
 			// default color for drawn features
 			defaultColor: {
@@ -102,7 +102,6 @@ export default {
 				lineDash: '0',
 				width: 4,
 			},
-
 		};
 	},
 	computed: {
@@ -185,9 +184,16 @@ export default {
 	},
 	methods: {
 		changeBaseMap() {
-			this.baseMapIndex = (this.baseMapIndex + 1) % this.baseMaps.length;
-			this.map.getLayers().removeAt(0);
-			this.map.getLayers().insertAt(0, this.baseMaps[this.baseMapIndex]);
+			const keys = Object.keys(BASEMAPS);
+			const index = (keys.indexOf(this.baseMapKey) + 1) % keys.length;
+			this.baseMapKey = keys[index];
+			this.updateLayers();
+		},
+		updateLayers() {
+			this.map.setLayers([
+				BASEMAPS[this.baseMapKey] || BASEMAPS.osm,
+				this.vector, // features
+			]);
 		},
 		changeZoom(delta) {
 			const view = this.map.getView();
@@ -197,22 +203,6 @@ export default {
 			});
 		},
 		initMapComponents() {
-			const cycleOsmAttribution = 'Map tiles by <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a>; Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-			const stamenAttribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-			this.baseMaps = [
-				new TileLayer({ source: new OSM() }),
-				new TileLayer({
-					source: new XYZ({
-						attributions: cycleOsmAttribution,
-						url: 'https://c.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
-					}),
-				}),
-				new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'toner' }) }),
-				new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'terrain' }) }),
-			];
-
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
 			});
@@ -235,10 +225,6 @@ export default {
 				controls: defaultControls({ attribution: false }).extend([
 					new Attribution({ collapsible: false })
 				]),
-				layers: [
-					this.baseMaps[this.baseMapIndex],
-					this.vector
-				],
 				target: this.$refs['map-root'],
 				view: new View({
 					center: this.center,
@@ -247,7 +233,7 @@ export default {
 					zoom: this.zoom,
 				}),
 			});
-
+			this.updateLayers();
 			this.map.addInteraction(this.select);
 		},
 		fitViewToFeatures() {
