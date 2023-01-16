@@ -14,6 +14,16 @@
 				vertical
 			>
 				<b-button
+					v-b-tooltip.hover.left
+					class="border border-secondary py-2"
+					variant="dark"
+					title="Alaptérkép váltás"
+					@click="changeBaseMap()"
+				>
+					<i class="fas fa-map" />
+					<!-- TODO i18n -->
+				</b-button>
+				<b-button
 					class="border border-secondary py-2"
 					variant="dark"
 					@click="changeZoom(1)"
@@ -49,6 +59,10 @@ import { click } from 'ol/events/condition';
 
 export default {
 	props: {
+		initialBaseMapIndex: {
+			type: Number,
+			default: 0,
+		},
 		initialCenter: {
 			type: Array,
 			default: () => [2129152.791287463, 6017729.508627875],
@@ -73,6 +87,8 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
+			baseMapIndex: this.initialBaseMapIndex,
+			baseMaps: [],
 			// default color for drawn features
 			defaultColor: {
 				drawing: '#607D8B',
@@ -84,8 +100,7 @@ export default {
 				lineDash: '0',
 				width: 4,
 			},
-			// either be 'Point','LineString', or 'Polygon'
-			// drawType: '',
+
 		};
 	},
 	computed: {
@@ -167,6 +182,9 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		changeBaseMap() {
+
+		},
 		changeZoom(delta) {
 			const view = this.map.getView();
 			view.animate({
@@ -178,6 +196,7 @@ export default {
 			const raster = new TileLayer({
 				source: new OSM(),
 			});
+			this.baseMaps = [raster];
 
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
@@ -199,7 +218,10 @@ export default {
 
 			this.map = new Map({
 				target: this.$refs['map-root'],
-				layers: [raster, this.vector],
+				layers: [
+					this.baseMaps[this.baseMapIndex],
+					this.vector
+				],
 				view: new View({
 					center: this.center,
 					constrainResolution: true,
