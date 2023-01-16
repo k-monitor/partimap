@@ -269,7 +269,8 @@ export default {
 							featureProjection: 'EPSG:3857',
 						});
 						features.forEach((f, i) => {
-							f.setId((new Date().getTime() % 10000000) * 1000 + i);
+							const fid = f.getId() || ((new Date().getTime() % 10000000) * 1000 + i);
+							f.setId(fid);
 
 							const styleId = f.get('styleUrl')?.split('#')[1];
 							const colorEl =
@@ -277,6 +278,7 @@ export default {
 								kmlParser.querySelector(`#${styleId} LineStyle color`) ||
 								kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
 								kmlParser.querySelector(`#${styleId} IconStyle color`) ||
+								kmlParser.querySelector(`[id="${fid}"] color`) ||
 								{};
 							const abgr = colorEl.innerHTML;
 							if (abgr) {
@@ -293,6 +295,7 @@ export default {
 							const widthEl =
 								kmlParser.querySelector(`#${styleId}-normal LineStyle width`) ||
 								kmlParser.querySelector(`#${styleId} LineStyle width`) ||
+								kmlParser.querySelector(`[id="${fid}"] width`) ||
 								{};
 							if (widthEl) {
 								const w = Math.round(Number(widthEl.innerHTML));
