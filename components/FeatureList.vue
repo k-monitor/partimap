@@ -278,7 +278,7 @@ export default {
 								kmlParser.querySelector(`#${styleId} LineStyle color`) ||
 								kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
 								kmlParser.querySelector(`#${styleId} IconStyle color`) ||
-								kmlParser.querySelector(`[id="${fid}"] color`) ||
+								kmlParser.querySelector(`Placemark[id="${fid}"] color`) ||
 								{};
 							const abgr = colorEl.innerHTML;
 							if (abgr) {
@@ -292,14 +292,24 @@ export default {
 									abgr[3];
 								f.set('color', color);
 							}
+
 							const widthEl =
 								kmlParser.querySelector(`#${styleId}-normal LineStyle width`) ||
 								kmlParser.querySelector(`#${styleId} LineStyle width`) ||
-								kmlParser.querySelector(`[id="${fid}"] width`) ||
+								kmlParser.querySelector(`Placemark[id="${fid}"] width`) ||
 								{};
-							if (widthEl) {
+							if (widthEl.innerHTML) {
 								const w = Math.round(Number(widthEl.innerHTML));
 								f.set('width', w);
+							}
+
+							const dashEl =
+								// TODO read value from Google MyMaps KMLs too
+								kmlParser.querySelector(`Placemark[id="${fid}"] [name="dash"] value`) ||
+								{};
+							if (dashEl.innerHTML) {
+								// TODO reads correct value for Partimap KMLs, but not sets it (WHY?)
+								f.set('dash', dashEl.innerHTML);
 							}
 						});
 						this.$nuxt.$emit('importedFeatures', features);
