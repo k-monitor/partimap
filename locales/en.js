@@ -294,6 +294,9 @@ export default {
 		submit: 'Beküldés',
 		submitted: 'Beküldve',
 	},
+	Map: {
+		changeBaseMap: 'Change base map',
+	},
 	MapHint: {
 		Point: '',
 		LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',

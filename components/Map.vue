@@ -17,11 +17,10 @@
 					v-b-tooltip.hover.left
 					class="border border-secondary py-2"
 					variant="dark"
-					title="Alaptérkép váltás"
+					:title="$t('Map.changeBaseMap')"
 					@click="changeBaseMap()"
 				>
 					<i class="fas fa-map" />
-					<!-- TODO i18n -->
 				</b-button>
 				<b-button
 					class="border border-secondary py-2"
