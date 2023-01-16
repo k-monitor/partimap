@@ -271,7 +271,7 @@ export default {
 						features.forEach((f, i) => {
 							f.setId((new Date().getTime() % 10000000) * 1000 + i);
 
-							const styleId = f.get('styleUrl').split('#')[1];
+							const styleId = f.get('styleUrl')?.split('#')[1];
 							const colorEl =
 								kmlParser.querySelector(`#${styleId}-normal LineStyle color`) ||
 								kmlParser.querySelector(`#${styleId} LineStyle color`) ||
