@@ -2,7 +2,10 @@
 	<SheetFrame :background-image-url="backgroundImageData || sheet.image">
 		<template v-if="sheet.features">
 			<client-only>
-				<Map :features="loadInitFeatures()" />
+				<Map
+					:features="loadInitFeatures()"
+					:initial-base-map-key="interactions.baseMap"
+				/>
 				<template #placeholder>
 					<div class="h-100 position-absolute w-100 map" />
 				</template>
@@ -114,6 +117,16 @@
 				/>
 			</b-form-group>
 			<b-form-group
+				v-if="isInteractive || sheet.features"
+				:label="$t('sheetEditor.defaultBaseMap')"
+			>
+				<b-form-select
+					v-model="interactions.baseMap"
+					:options="baseMaps"
+				/>
+			</b-form-group>
+
+			<b-form-group
 				v-if="isInteractive"
 				:label="$t('sheetEditor.featureQuestion')"
 			>
@@ -133,8 +146,9 @@
 
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { deserializeInteractions, serializeInteractions } from '@/assets/interactions';
+import BASEMAPS from '@/assets/basemaps';
 
 export default {
 	components: {
@@ -160,6 +174,7 @@ export default {
 			backgroundImage: null,
 			backgroundImageData: null,
 			backgroundImageState: null,
+			baseMaps: Object.keys(BASEMAPS),
 			contentModified: false,
 			loading: true,
 		};
@@ -234,6 +249,9 @@ export default {
 		interactions: {
 			handler(interactions) {
 				this.sheet.interactions = serializeInteractions(interactions);
+				if (interactions.baseMap) {
+					this.setBaseMap(interactions.baseMap);
+				}
 			},
 			deep: true,
 		},
@@ -261,6 +279,7 @@ export default {
 		this.loading = false;
 	},
 	methods: {
+		...mapMutations(['setBaseMap']),
 		back() {
 			this.$router.push(this.localePath(`/admin/project/${this.project.id}`));
 		},

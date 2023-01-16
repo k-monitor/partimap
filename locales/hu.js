@@ -189,6 +189,7 @@ export default {
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
 		defaultFeatureQuestion: 'Miért rajzoltad ezt fel?',
+		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		featureQuestion: 'Felrajzolt elemekhez rendelt kérdés',
 		instructions: {
 			Point: 'Instrukció pont felrajzolásához',

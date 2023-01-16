@@ -42,10 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
-import 'ol/ol.css';
-
+import { mapGetters, mapMutations } from 'vuex';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
@@ -56,11 +53,13 @@ import { Draw, Select, Snap } from 'ol/interaction';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import BASEMAPS from '~/assets/basemaps';
+import BASEMAPS from '@/assets/basemaps';
+
+import 'ol/ol.css';
 
 export default {
 	props: {
-		initialBaseMapIndex: {
+		initialBaseMapKey: {
 			type: String,
 			default: '',
 		},
@@ -88,7 +87,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
-			baseMapKey: this.initialBaseMapKey || 'osm',
+			baseMapKey: this.initialBaseMapKey,
 
 			// default color for drawn features
 			defaultColor: {
@@ -104,6 +103,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(['getBaseMap']),
 		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 	},
@@ -128,6 +128,9 @@ export default {
 				});
 				this.map.addInteraction(this.snap);
 			}
+		},
+		getBaseMap() {
+			this.updateLayers();
 		},
 		/**
 		 * @param selFeature Is null if the map is clicked
@@ -182,14 +185,15 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		...mapMutations(['setBaseMap']),
 		changeBaseMap() {
 			const keys = Object.keys(BASEMAPS);
-			const index = (keys.indexOf(this.baseMapKey) + 1) % keys.length;
-			this.baseMapKey = keys[index];
+			const index = (keys.indexOf(this.getBaseMap) + 1) % keys.length;
+			this.setBaseMap(keys[index]);
 			this.updateLayers();
 		},
 		updateLayers() {
-			const base = BASEMAPS[this.baseMapKey] || BASEMAPS.osm;
+			const base = BASEMAPS[this.getBaseMap] || BASEMAPS.osm;
 			this.map.setLayers([
 				...base,
 				this.vector, // features
@@ -203,6 +207,10 @@ export default {
 			});
 		},
 		initMapComponents() {
+			if (this.initialBaseMapKey) {
+				this.setBaseMap(this.initialBaseMapKey);
+			}
+
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
 			});
