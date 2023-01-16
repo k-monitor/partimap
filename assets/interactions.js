@@ -11,6 +11,7 @@ export class Interactions {
 	constructor(data) {
 		data = data || {};
 		this.enabled = data.enabled || [];
+		this.baseMap = data.baseMap || 'osm';
 		this.buttonLabels = {
 			Point: data.buttonLabels?.Point || '',
 			LineString: data.buttonLabels?.LineString || '',
@@ -21,8 +22,8 @@ export class Interactions {
 
 	isInteractive() {
 		return this.enabled.includes('Point') ||
-		this.enabled.includes('LineString') ||
-		this.enabled.includes('Polygon');
+			this.enabled.includes('LineString') ||
+			this.enabled.includes('Polygon');
 	}
 }
 

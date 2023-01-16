@@ -65,6 +65,7 @@
 				<client-only>
 					<Map
 						:features="loadInitFeatures()"
+						:initial-base-map-key="interactions.baseMap"
 						visitor
 						@visitorFeatureAdded="addVisitorFeature"
 						@visitorFeatureRemoved="delVisitorFeature"

@@ -14,6 +14,15 @@
 				vertical
 			>
 				<b-button
+					v-b-tooltip.hover.left
+					class="border border-secondary py-2"
+					variant="dark"
+					:title="$t('Map.changeBaseMap')"
+					@click="changeBaseMap()"
+				>
+					<i class="fas fa-map" />
+				</b-button>
+				<b-button
 					class="border border-secondary py-2"
 					variant="dark"
 					@click="changeZoom(1)"
@@ -33,22 +42,27 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import Collection from 'ol/Collection';
+import Feature from 'ol/Feature';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import { Attribution, defaults as defaultControls } from 'ol/control';
+import { click } from 'ol/events/condition';
+import { Draw, Select, Snap } from 'ol/interaction';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import BASEMAPS from '@/assets/basemaps';
 
 import 'ol/ol.css';
 
-import Map from 'ol/Map';
-import View from 'ol/View';
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import { Draw, Select, Snap } from 'ol/interaction';
-import { OSM, Vector as VectorSource } from 'ol/source';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import Collection from 'ol/Collection';
-import Feature from 'ol/Feature';
-import { click } from 'ol/events/condition';
-
 export default {
 	props: {
+		initialBaseMapKey: {
+			type: String,
+			default: '',
+		},
 		initialCenter: {
 			type: Array,
 			default: () => [2129152.791287463, 6017729.508627875],
@@ -73,6 +87,8 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
+			baseMapKey: this.initialBaseMapKey,
+
 			// default color for drawn features
 			defaultColor: {
 				drawing: '#607D8B',
@@ -84,11 +100,10 @@ export default {
 				lineDash: '0',
 				width: 4,
 			},
-			// either be 'Point','LineString', or 'Polygon'
-			// drawType: '',
 		};
 	},
 	computed: {
+		...mapGetters(['getBaseMap']),
 		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 	},
@@ -113,6 +128,9 @@ export default {
 				});
 				this.map.addInteraction(this.snap);
 			}
+		},
+		getBaseMap() {
+			this.updateLayers();
 		},
 		/**
 		 * @param selFeature Is null if the map is clicked
@@ -167,6 +185,20 @@ export default {
 		this.$nuxt.$off('changeStyle');
 	},
 	methods: {
+		...mapMutations(['setBaseMap']),
+		changeBaseMap() {
+			const keys = Object.keys(BASEMAPS);
+			const index = (keys.indexOf(this.getBaseMap) + 1) % keys.length;
+			this.setBaseMap(keys[index]);
+			this.updateLayers();
+		},
+		updateLayers() {
+			const base = BASEMAPS[this.getBaseMap] || BASEMAPS.osm;
+			this.map.setLayers([
+				...base,
+				this.vector, // features
+			]);
+		},
 		changeZoom(delta) {
 			const view = this.map.getView();
 			view.animate({
@@ -175,9 +207,9 @@ export default {
 			});
 		},
 		initMapComponents() {
-			const raster = new TileLayer({
-				source: new OSM(),
-			});
+			if (this.initialBaseMapKey) {
+				this.setBaseMap(this.initialBaseMapKey);
+			}
 
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
@@ -198,8 +230,10 @@ export default {
 			});
 
 			this.map = new Map({
+				controls: defaultControls({ attribution: false }).extend([
+					new Attribution({ collapsible: false })
+				]),
 				target: this.$refs['map-root'],
-				layers: [raster, this.vector],
 				view: new View({
 					center: this.center,
 					constrainResolution: true,
@@ -207,7 +241,7 @@ export default {
 					zoom: this.zoom,
 				}),
 			});
-
+			this.updateLayers();
 			this.map.addInteraction(this.select);
 		},
 		fitViewToFeatures() {
