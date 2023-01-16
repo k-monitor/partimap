@@ -190,8 +190,9 @@ export default {
 			this.updateLayers();
 		},
 		updateLayers() {
+			const base = BASEMAPS[this.baseMapKey] || BASEMAPS.osm;
 			this.map.setLayers([
-				BASEMAPS[this.baseMapKey] || BASEMAPS.osm,
+				...base,
 				this.vector, // features
 			]);
 		},
