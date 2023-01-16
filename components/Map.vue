@@ -47,15 +47,16 @@ import { mapGetters } from 'vuex';
 
 import 'ol/ol.css';
 
-import Map from 'ol/Map';
-import View from 'ol/View';
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import { Draw, Select, Snap } from 'ol/interaction';
-import { OSM, Stamen, Vector as VectorSource, XYZ } from 'ol/source';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import { Attribution, defaults as defaultControls } from 'ol/control';
 import { click } from 'ol/events/condition';
+import { Draw, Select, Snap } from 'ol/interaction';
+import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
+import { OSM, Stamen, Vector as VectorSource, XYZ } from 'ol/source';
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 
 export default {
 	props: {
@@ -89,6 +90,7 @@ export default {
 			zoom: this.initialZoom,
 			baseMapIndex: this.initialBaseMapIndex,
 			baseMaps: [],
+
 			// default color for drawn features
 			defaultColor: {
 				drawing: '#607D8B',
@@ -195,19 +197,21 @@ export default {
 			});
 		},
 		initMapComponents() {
+			const cycleOsmAttribution = 'Map tiles by <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a>; Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+			const stamenAttribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
 			this.baseMaps = [
 				new TileLayer({ source: new OSM() }),
 				new TileLayer({
 					source: new XYZ({
+						attributions: cycleOsmAttribution,
 						url: 'https://c.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
 					}),
 				}),
-				new TileLayer({ source: new Stamen({ layer: 'toner' }) }),
-				new TileLayer({ source: new Stamen({ layer: 'terrain' }) }),
+				new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'toner' }) }),
+				new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'terrain' }) }),
 			];
-			// TODO attributions
-			// CycleOSM: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			// Stamen: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
@@ -228,11 +232,14 @@ export default {
 			});
 
 			this.map = new Map({
-				target: this.$refs['map-root'],
+				controls: defaultControls({ attribution: false }).extend([
+					new Attribution({ collapsible: false })
+				]),
 				layers: [
 					this.baseMaps[this.baseMapIndex],
 					this.vector
 				],
+				target: this.$refs['map-root'],
 				view: new View({
 					center: this.center,
 					constrainResolution: true,
