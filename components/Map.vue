@@ -51,7 +51,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { Draw, Select, Snap } from 'ol/interaction';
-import { OSM, Stamen, Vector as VectorSource } from 'ol/source';
+import { OSM, Stamen, Vector as VectorSource, XYZ } from 'ol/source';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
@@ -197,8 +197,17 @@ export default {
 		initMapComponents() {
 			this.baseMaps = [
 				new TileLayer({ source: new OSM() }),
+				new TileLayer({
+					source: new XYZ({
+						url: 'https://c.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
+					}),
+				}),
 				new TileLayer({ source: new Stamen({ layer: 'toner' }) }),
+				new TileLayer({ source: new Stamen({ layer: 'terrain' }) }),
 			];
+			// TODO attributions
+			// CycleOSM: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			// Stamen: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
 			this.source = new VectorSource({
 				features: this.loadInitFeatures(this.features),
