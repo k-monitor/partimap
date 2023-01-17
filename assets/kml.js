@@ -19,7 +19,25 @@ export function featuresToKML(features) {
 
 export function KMLToFeatures(kml) {
 	const preparedKml = prepareKmlForImport(kml);
-	return new KML().readFeatures(preparedKml, options);
+	const features = new KML().readFeatures(preparedKml, options);
+	cleanDescriptions(features);
+	return features;
+}
+
+function cleanDescriptions(features) {
+	// so when we export our features from Partimap
+	// and import them into Google MyMaps
+	// and export them from Google MyMaps
+	// ExtendedData is duplicated into the "description" field
+	// which is annoying, so we try to remove them.
+	// problem is, that the real description also receives a
+	// prefix, like "leírás:", which will be language specific in GM...
+	const p = /<br>(color|dash|visitorFeature|width):[^<]*/g;
+	return features.map(f => {
+		const d = f.get('description');
+		f.set('description', (d || '').replace(p, ''));
+		return f;
+	});
 }
 
 function prepareKmlForImport(kmlString) {
