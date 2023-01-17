@@ -17,13 +17,15 @@ export function featuresToKML(features) {
 	return '<?xml version="1.0" encoding="UTF-8"?>' + kml;
 }
 
-export function KMLToFeatures(kmlString) {
-	const kmlParser = new DOMParser().parseFromString(kmlString, 'text/xml');
+export function KMLToFeatures(kml) {
+	const kmlParser = new DOMParser().parseFromString(kml, 'text/xml');
 
-	const features = new KML().readFeatures(kmlString, options);
+	const features = new KML().readFeatures(kml, options);
+
+	const idBase = new Date().getTime() - features.length;
 
 	features.forEach((f, i) => {
-		const fid = f.getId() || ((new Date().getTime() % 10000000) * 1000 + i);
+		const fid = f.getId() || idBase + i;
 		f.setId(fid);
 
 		const styleId = f.get('styleUrl')?.split('#')[1];
@@ -32,7 +34,8 @@ export function KMLToFeatures(kmlString) {
 			kmlParser.querySelector(`#${styleId} LineStyle color`) ||
 			kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
 			kmlParser.querySelector(`#${styleId} IconStyle color`) ||
-			kmlParser.querySelector(`Placemark[id="${fid}"] color`) ||
+			kmlParser.querySelector(`Placemark[id="${fid}"] LineStyle color`) ||
+			kmlParser.querySelector(`Placemark[id="${fid}"] IconStyle color`) ||
 			{};
 		const abgr = colorEl.innerHTML;
 		if (abgr) {
@@ -42,7 +45,7 @@ export function KMLToFeatures(kmlString) {
 		const widthEl =
 			kmlParser.querySelector(`#${styleId}-normal LineStyle width`) ||
 			kmlParser.querySelector(`#${styleId} LineStyle width`) ||
-			kmlParser.querySelector(`Placemark[id="${fid}"] width`) ||
+			kmlParser.querySelector(`Placemark[id="${fid}"] LineStyle width`) ||
 			{};
 		if (widthEl.innerHTML) {
 			const w = Math.round(Number(widthEl.innerHTML));
