@@ -177,6 +177,7 @@ export default {
 		});
 
 		this.$nuxt.$on('importedFeatures', features => {
+			// TODO would be nice to remove/overwrite already existing feature by ID
 			features.forEach(f => this.vector.getSource().addFeature(f));
 		});
 	},
