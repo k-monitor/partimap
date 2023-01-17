@@ -1,10 +1,12 @@
 import KML from 'ol/format/KML';
 
+const options = {
+	dataProjection: 'EPSG:4326',
+	featureProjection: 'EPSG:3857',
+};
+
 export function featuresToKML(features) {
-	let kml = new KML().writeFeatures(features, {
-		dataProjection: 'EPSG:4326',
-		featureProjection: 'EPSG:3857',
-	});
+	let kml = new KML().writeFeatures(features, options);
 
 	// fixing missing IconStyle
 	const search = /<Style\/>(<ExtendedData>.*?>#(\w\w)(\w\w)(\w\w)<.*?<\/ExtendedData>)/g;
@@ -16,15 +18,10 @@ export function featuresToKML(features) {
 }
 
 export function KMLToFeatures(kmlString) {
-	const kmlParser = new DOMParser().parseFromString(
-		kmlString,
-		'text/xml'
-	);
+	const kmlParser = new DOMParser().parseFromString(kmlString, 'text/xml');
 
-	const features = new KML().readFeatures(kmlString, {
-		dataProjection: 'EPSG:4326',
-		featureProjection: 'EPSG:3857',
-	});
+	const features = new KML().readFeatures(kmlString, options);
+
 	features.forEach((f, i) => {
 		const fid = f.getId() || ((new Date().getTime() % 10000000) * 1000 + i);
 		f.setId(fid);
@@ -39,15 +36,7 @@ export function KMLToFeatures(kmlString) {
 			{};
 		const abgr = colorEl.innerHTML;
 		if (abgr) {
-			const color =
-				'#' +
-				abgr[6] +
-				abgr[7] +
-				abgr[4] +
-				abgr[5] +
-				abgr[2] +
-				abgr[3];
-			f.set('color', color);
+			f.set('color', abgrToRgb(abgr));
 		}
 
 		const widthEl =
@@ -60,15 +49,13 @@ export function KMLToFeatures(kmlString) {
 			f.set('width', w);
 		}
 
-		const dashEl =
-			// TODO read value from Google MyMaps KMLs too
-			kmlParser.querySelector(`Placemark[id="${fid}"] [name="dash"] value`) ||
-			{};
-		if (dashEl.innerHTML) {
-			// TODO reads correct value for Partimap KMLs, but not sets it (WHY?)
-			f.set('dash', dashEl.innerHTML);
-		}
+		// TODO f.get('dash') holds correct value, but style not set
 	});
 
 	return features;
+}
+
+function abgrToRgb(abgr) {
+	// we omit alpha value as it is used dynamically in Partimap
+	return `#${abgr[6]}${abgr[7]}${abgr[4]}${abgr[5]}${abgr[2]}${abgr[3]}`;
 }
