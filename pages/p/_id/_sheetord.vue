@@ -278,6 +278,7 @@ export default {
 				this.resultsShown = true;
 			}
 		}
+		this.$store.commit('selected/clear');
 		this.loading = false;
 	},
 	created() {

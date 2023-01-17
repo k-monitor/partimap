@@ -276,6 +276,7 @@ export default {
 		this.$nuxt.$off('contentModified');
 	},
 	mounted() {
+		this.$store.commit('selected/clear');
 		this.loading = false;
 	},
 	methods: {

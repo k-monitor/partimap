@@ -110,6 +110,7 @@ export default {
 	watch: {
 		drawType(type) {
 			// when drawing, feature selection is disabled
+			if (type) { this.$store.commit('selected/clear'); }
 			type
 				? this.map.removeInteraction(this.select)
 				: this.map.addInteraction(this.select);
@@ -177,8 +178,10 @@ export default {
 		});
 
 		this.$nuxt.$on('importedFeatures', features => {
+			this.$store.commit('selected/clear');
 			// TODO would be nice to remove/overwrite already existing feature by ID
 			features.forEach(f => this.vector.getSource().addFeature(f));
+			this.fitViewToFeatures();
 		});
 	},
 	beforeDestroy() {
@@ -277,7 +280,9 @@ export default {
 				if (!f.getId()) {
 					f.setId(new Date().getTime());
 				}
-				if (this.drawType) {
+
+				const drawing = !!this.drawType; // otherwise importing
+				if (drawing) {
 					// drawn feature
 					this.changeFeatureStyle(
 						f,
@@ -293,13 +298,13 @@ export default {
 						f.get('color') || this.defaultColor.drawing,
 						f.get('dash') || this.defaultStroke.lineDash,
 						f.get('width') || this.defaultStroke.width,
-						true
+						false
 					);
 				}
 
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f);
-				selectedFeatures.push(f);
+				if (drawing) { selectedFeatures.push(f); }
 
 				if (this.visitor) {
 					f.set('visitorFeature', true);
