@@ -290,7 +290,7 @@ export default {
 					this.changeFeatureStyle(
 						f,
 						f.get('color') || this.defaultColor.drawing,
-						this.defaultStroke.lineDash,
+						f.get('dash') || this.defaultStroke.lineDash,
 						f.get('width') || this.defaultStroke.width,
 						true
 					);

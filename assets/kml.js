@@ -19,9 +19,7 @@ export function featuresToKML(features) {
 
 export function KMLToFeatures(kml) {
 	const preparedKml = prepareKmlForImport(kml);
-	const features = new KML().readFeatures(preparedKml, options);
-	// TODO f.get('dash') holds correct value, but style not set
-	return features;
+	return new KML().readFeatures(preparedKml, options);
 }
 
 function prepareKmlForImport(kmlString) {
