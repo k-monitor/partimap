@@ -72,7 +72,8 @@ function prepareKmlForImport(kmlString) {
 		p.setAttribute('id', pId);
 
 		// parse style parameters
-		const sId = p.querySelector('styleUrl')?.innerHTML?.substring(1);
+		const sId = (p.querySelector('styleUrl')?.innerHTML || '').split('#')[1];
+		// we need that split thing, sometimes it's a full URL
 		const color = parseStyleColor(kml, pId, sId);
 		const width = parseStyleWidth(kml, pId, sId);
 
@@ -98,10 +99,10 @@ function prepareKmlForImport(kmlString) {
 
 function parseStyleColor(kml, pId, sId) {
 	const el =
-		kml.querySelector(`#${sId}-normal LineStyle color`) ||
-		kml.querySelector(`#${sId} LineStyle color`) ||
-		kml.querySelector(`#${sId}-normal IconStyle color`) ||
-		kml.querySelector(`#${sId} IconStyle color`) ||
+		kml.querySelector(`Style[id="${sId}-normal"] LineStyle color`) ||
+		kml.querySelector(`Style[id="${sId}"] LineStyle color`) ||
+		kml.querySelector(`Style[id="${sId}-normal"] IconStyle color`) ||
+		kml.querySelector(`Style[id="${sId}"] IconStyle color`) ||
 		kml.querySelector(`Placemark[id="${pId}"] LineStyle color`) ||
 		kml.querySelector(`Placemark[id="${pId}"] IconStyle color`);
 	const val = el?.innerHTML;
@@ -110,8 +111,8 @@ function parseStyleColor(kml, pId, sId) {
 
 function parseStyleWidth(kml, pId, sId) {
 	const el =
-		kml.querySelector(`#${sId}-normal LineStyle width`) ||
-		kml.querySelector(`#${sId} LineStyle width`) ||
+		kml.querySelector(`Style[id="${sId}-normal"] LineStyle width`) ||
+		kml.querySelector(`Style[id="${sId}"] LineStyle width`) ||
 		kml.querySelector(`Placemark[id="${pId}"] LineStyle width`);
 	const val = Number(el?.innerHTML);
 	return Math.round(Number(val)); // parsing error will yield NaN which is falsy
