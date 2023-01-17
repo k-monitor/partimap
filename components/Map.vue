@@ -177,6 +177,7 @@ export default {
 		});
 
 		this.$nuxt.$on('importedFeatures', features => {
+			// TODO would be nice to remove/overwrite already existing feature by ID
 			features.forEach(f => this.vector.getSource().addFeature(f));
 		});
 	},
@@ -290,7 +291,7 @@ export default {
 					this.changeFeatureStyle(
 						f,
 						f.get('color') || this.defaultColor.drawing,
-						this.defaultStroke.lineDash,
+						f.get('dash') || this.defaultStroke.lineDash,
 						f.get('width') || this.defaultStroke.width,
 						true
 					);

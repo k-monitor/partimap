@@ -109,9 +109,9 @@
 
 <script>
 import { saveAs } from 'file-saver';
-import KML from 'ol/format/KML';
 import { mapGetters } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
+import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 
 export default {
 	components: {
@@ -233,19 +233,8 @@ export default {
 			this.categoryFilter = this.categoryFilter === c ? '' : c;
 		},
 		exportKML() {
-			let kml = new KML().writeFeatures(this.getAllFeatures, {
-				dataProjection: 'EPSG:4326',
-				featureProjection: 'EPSG:3857',
-			});
-
-			// fixing missing IconStyle
-			const search =
-				/<Style\/>(<ExtendedData>.*?>#(\w\w)(\w\w)(\w\w)<.*?<\/ExtendedData>)/g;
-			const replace =
-				'<Style><IconStyle><color>ff$4$3$2</color><scale>1</scale><Icon><href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href></Icon><hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/></IconStyle></Style>$1';
-			kml = kml.replace(search, replace);
-
-			const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>' + kml], {
+			const kml = featuresToKML(this.getAllFeatures);
+			const blob = new Blob([kml], {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
 			saveAs(blob, 'partimap.kml');
@@ -259,46 +248,7 @@ export default {
 				reader.onload = (e => {
 					return e => {
 						const kmlString = e.target.result;
-						const kmlParser = new DOMParser().parseFromString(
-							kmlString,
-							'text/xml'
-						);
-
-						const features = new KML().readFeatures(kmlString, {
-							dataProjection: 'EPSG:4326',
-							featureProjection: 'EPSG:3857',
-						});
-						features.forEach((f, i) => {
-							f.setId((new Date().getTime() % 10000000) * 1000 + i);
-
-							const styleId = f.get('styleUrl').split('#')[1];
-							const colorEl =
-								kmlParser.querySelector(`#${styleId}-normal LineStyle color`) ||
-								kmlParser.querySelector(`#${styleId} LineStyle color`) ||
-								kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
-								kmlParser.querySelector(`#${styleId} IconStyle color`) ||
-								{};
-							const abgr = colorEl.innerHTML;
-							if (abgr) {
-								const color =
-									'#' +
-									abgr[6] +
-									abgr[7] +
-									abgr[4] +
-									abgr[5] +
-									abgr[2] +
-									abgr[3];
-								f.set('color', color);
-							}
-							const widthEl =
-								kmlParser.querySelector(`#${styleId}-normal LineStyle width`) ||
-								kmlParser.querySelector(`#${styleId} LineStyle width`) ||
-								{};
-							if (widthEl) {
-								const w = Math.round(Number(widthEl.innerHTML));
-								f.set('width', w);
-							}
-						});
+						const features = KMLToFeatures(kmlString);
 						this.$nuxt.$emit('importedFeatures', features);
 					};
 				})(f);
