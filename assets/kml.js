@@ -18,44 +18,71 @@ export function featuresToKML(features) {
 }
 
 export function KMLToFeatures(kml) {
-	const kmlParser = new DOMParser().parseFromString(kml, 'text/xml');
+	const preparedKml = prepareKmlForImport(kml);
+	const features = new KML().readFeatures(preparedKml, options);
+	// TODO f.get('dash') holds correct value, but style not set
+	return features;
+}
 
-	const features = new KML().readFeatures(kml, options);
+function prepareKmlForImport(kmlString) {
+	const kml = new DOMParser().parseFromString(kmlString, 'text/xml');
+	const placemarks = kml.querySelectorAll('Placemark');
 
-	const idBase = new Date().getTime() - features.length;
+	const idBase = new Date().getTime() - placemarks.length;
+	placemarks.forEach((p, i) => {
+		// ensure ID
+		const pId = p.getAttribute('id') || idBase + i;
+		p.setAttribute('id', pId);
 
-	features.forEach((f, i) => {
-		const fid = f.getId() || idBase + i;
-		f.setId(fid);
+		// parse style parameters
+		const sId = p.querySelector('styleUrl')?.innerHTML?.substring(1);
+		const color = parseStyleColor(kml, pId, sId);
+		const width = parseStyleWidth(kml, pId, sId);
 
-		const styleId = f.get('styleUrl')?.split('#')[1];
-		const colorEl =
-			kmlParser.querySelector(`#${styleId}-normal LineStyle color`) ||
-			kmlParser.querySelector(`#${styleId} LineStyle color`) ||
-			kmlParser.querySelector(`#${styleId}-normal IconStyle color`) ||
-			kmlParser.querySelector(`#${styleId} IconStyle color`) ||
-			kmlParser.querySelector(`Placemark[id="${fid}"] LineStyle color`) ||
-			kmlParser.querySelector(`Placemark[id="${fid}"] IconStyle color`) ||
-			{};
-		const abgr = colorEl.innerHTML;
-		if (abgr) {
-			f.set('color', abgrToRgb(abgr));
-		}
+		// ensure ExtendedData
+		const ed = p.querySelector('ExtendedData') || p.appendChild(kml.createElement('ExtendedData'));
 
-		const widthEl =
-			kmlParser.querySelector(`#${styleId}-normal LineStyle width`) ||
-			kmlParser.querySelector(`#${styleId} LineStyle width`) ||
-			kmlParser.querySelector(`Placemark[id="${fid}"] LineStyle width`) ||
-			{};
-		if (widthEl.innerHTML) {
-			const w = Math.round(Number(widthEl.innerHTML));
-			f.set('width', w);
-		}
-
-		// TODO f.get('dash') holds correct value, but style not set
+		// update ExtendedData
+		ensureData(kml, ed, 'color', color);
+		ensureData(kml, ed, 'width', width);
 	});
 
-	return features;
+	return new XMLSerializer().serializeToString(kml);
+}
+
+function parseStyleColor(kml, pId, sId) {
+	const el =
+		kml.querySelector(`#${sId}-normal LineStyle color`) ||
+		kml.querySelector(`#${sId} LineStyle color`) ||
+		kml.querySelector(`#${sId}-normal IconStyle color`) ||
+		kml.querySelector(`#${sId} IconStyle color`) ||
+		kml.querySelector(`Placemark[id="${pId}"] LineStyle color`) ||
+		kml.querySelector(`Placemark[id="${pId}"] IconStyle color`);
+	const val = el?.innerHTML;
+	return val ? abgrToRgb(val) : null;
+}
+
+function parseStyleWidth(kml, pId, sId) {
+	const el =
+		kml.querySelector(`#${sId}-normal LineStyle width`) ||
+		kml.querySelector(`#${sId} LineStyle width`) ||
+		kml.querySelector(`Placemark[id="${pId}"] LineStyle width`);
+	const val = Number(el?.innerHTML);
+	return Math.round(Number(val)); // parsing error will yield NaN which is falsy
+}
+
+function ensureData(kml, ed, key, value) {
+	if (!value) { return; }
+
+	let d = ed.querySelector(`Data[name="${key}"]`);
+	if (!d) {
+		d = kml.createElement('Data');
+		d.setAttribute('name', key);
+		ed.appendChild(d);
+	}
+
+	const v = d.querySelector('value') || d.appendChild(kml.createElement('value'));
+	v.innerHTML = value;
 }
 
 function abgrToRgb(abgr) {
