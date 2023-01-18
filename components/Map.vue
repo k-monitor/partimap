@@ -187,6 +187,7 @@ export default {
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('changeStyle');
+		this.$nuxt.$off('importedFeatures');
 	},
 	methods: {
 		...mapMutations(['setBaseMap']),
@@ -253,19 +254,19 @@ export default {
 		},
 		fitViewToFeatures() {
 			// no need to fit view if no feature is present
-			if (this.source.getFeatures().length) {
-				// fit to selected feature or all features
-				const extent = this.getSelectedFeature
-					? this.getSelectedFeature.getGeometry().getExtent()
-					: this.source.getExtent();
+			if (!this.source.getFeatures().length) { return; }
 
-				const leftPadding = (window.innerWidth > 576) ? 400 : 0;
+			// fit to selected feature or all features
+			const extent = this.getSelectedFeature
+				? this.getSelectedFeature.getGeometry().getExtent()
+				: this.source.getExtent();
 
-				this.map.getView().fit(extent, {
-					duration: 200,
-					padding: [0, 0, 0, leftPadding],
-				});
-			}
+			const leftPadding = (window.innerWidth > 576) ? 400 : 0;
+
+			this.map.getView().fit(extent, {
+				duration: 200,
+				padding: [0, 0, 0, leftPadding],
+			});
 		},
 		addEventListeners() {
 			const selectedFeatures = this.select.getFeatures();
