@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<client-only>
-			<Map :features="loadInitFeatures()" />
+			<Map
+				:key="$route.path"
+				:features="loadInitFeatures()"
+			/>
 		</client-only>
 		<MapToolbar />
 		<Sidebar

@@ -3,6 +3,7 @@
 		<template v-if="sheet.features">
 			<client-only>
 				<Map
+					:key="$route.path"
 					:features="loadInitFeatures()"
 					:initial-base-map-key="interactions.baseMap"
 				/>

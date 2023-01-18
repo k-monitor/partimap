@@ -64,6 +64,7 @@
 			<div v-else>
 				<client-only>
 					<Map
+						:key="$route.path"
 						:features="loadInitFeatures()"
 						:initial-base-map-key="interactions.baseMap"
 						visitor
