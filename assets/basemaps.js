@@ -11,7 +11,9 @@ function tl(attributions, url) {
 	return new TileLayer({ source: new XYZ({ attributions, url }) });
 }
 
-const BASEMAPS = {
+// Yes, it needs to be a function, so layers will be created for every Map instance.
+// If we use it as a singleton object, map flickers as hell...
+const createBaseMaps = () => ({
 	osm: [new TileLayer({ source: new OSM() })],
 	cycleosm: [tl(cycleOsmAttribution, 'https://c.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png')],
 	toner: [new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'toner' }) })],
@@ -20,6 +22,6 @@ const BASEMAPS = {
 		tl(esriAttribution, 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
 		tl('', 'https://stamen-tiles-c.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png'),
 	],
-};
+});
 
-export default BASEMAPS;
+export default createBaseMaps;

@@ -53,7 +53,7 @@ import { Draw, Select, Snap } from 'ol/interaction';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import BASEMAPS from '@/assets/basemaps';
+import createBaseMaps from '@/assets/basemaps';
 
 import 'ol/ol.css';
 
@@ -87,6 +87,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
+			baseMaps: createBaseMaps(),
 			baseMapKey: this.initialBaseMapKey,
 
 			// default color for drawn features
@@ -192,15 +193,15 @@ export default {
 	methods: {
 		...mapMutations(['setBaseMap']),
 		changeBaseMap() {
-			const keys = Object.keys(BASEMAPS);
+			const keys = Object.keys(this.baseMaps);
 			const index = (keys.indexOf(this.getBaseMap) + 1) % keys.length;
 			this.setBaseMap(keys[index]);
 			// watcher will call updateLayers
 		},
 		updateLayers() {
-			const key = BASEMAPS[this.getBaseMap] ? this.getBaseMap : 'osm';
-			Object.keys(BASEMAPS).forEach(k => {
-				BASEMAPS[k].forEach(l => l.setVisible(k === key));
+			const key = this.baseMaps[this.getBaseMap] ? this.getBaseMap : 'osm';
+			Object.keys(this.baseMaps).forEach(k => {
+				this.baseMaps[k].forEach(l => l.setVisible(k === key));
 			});
 		},
 		changeZoom(delta) {
@@ -238,7 +239,7 @@ export default {
 					new Attribution({ collapsible: false })
 				]),
 				layers: [
-					...Object.values(BASEMAPS).flat(),
+					...Object.values(this.baseMaps).flat(),
 					this.vector,
 				],
 				target: this.$refs['map-root'],
