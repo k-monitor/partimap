@@ -53,7 +53,7 @@ import { Draw, Select, Snap } from 'ol/interaction';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import BASEMAPS from '@/assets/basemaps';
+import createBaseMaps from '@/assets/basemaps';
 
 import 'ol/ol.css';
 
@@ -87,6 +87,7 @@ export default {
 			map: null,
 			center: this.initialCenter,
 			zoom: this.initialZoom,
+			baseMaps: createBaseMaps(),
 			baseMapKey: this.initialBaseMapKey,
 
 			// default color for drawn features
@@ -110,6 +111,7 @@ export default {
 	watch: {
 		drawType(type) {
 			// when drawing, feature selection is disabled
+			if (type) { this.$store.commit('selected/clear'); }
 			type
 				? this.map.removeInteraction(this.select)
 				: this.map.addInteraction(this.select);
@@ -177,28 +179,30 @@ export default {
 		});
 
 		this.$nuxt.$on('importedFeatures', features => {
+			this.$store.commit('selected/clear');
 			// TODO would be nice to remove/overwrite already existing feature by ID
 			features.forEach(f => this.vector.getSource().addFeature(f));
+			this.fitViewToFeatures();
 		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('changeStyle');
+		this.$nuxt.$off('importedFeatures');
 	},
 	methods: {
 		...mapMutations(['setBaseMap']),
 		changeBaseMap() {
-			const keys = Object.keys(BASEMAPS);
+			const keys = Object.keys(this.baseMaps);
 			const index = (keys.indexOf(this.getBaseMap) + 1) % keys.length;
 			this.setBaseMap(keys[index]);
-			this.updateLayers();
+			// watcher will call updateLayers
 		},
 		updateLayers() {
-			const base = BASEMAPS[this.getBaseMap] || BASEMAPS.osm;
-			this.map.setLayers([
-				...base,
-				this.vector, // features
-			]);
+			const key = this.baseMaps[this.getBaseMap] ? this.getBaseMap : 'osm';
+			Object.keys(this.baseMaps).forEach(k => {
+				this.baseMaps[k].forEach(l => l.setVisible(k === key));
+			});
 		},
 		changeZoom(delta) {
 			const view = this.map.getView();
@@ -234,6 +238,10 @@ export default {
 				controls: defaultControls({ attribution: false }).extend([
 					new Attribution({ collapsible: false })
 				]),
+				layers: [
+					...Object.values(this.baseMaps).flat(),
+					this.vector,
+				],
 				target: this.$refs['map-root'],
 				view: new View({
 					center: this.center,
@@ -247,19 +255,19 @@ export default {
 		},
 		fitViewToFeatures() {
 			// no need to fit view if no feature is present
-			if (this.source.getFeatures().length) {
-				// fit to selected feature or all features
-				const extent = this.getSelectedFeature
-					? this.getSelectedFeature.getGeometry().getExtent()
-					: this.source.getExtent();
+			if (!this.source.getFeatures().length) { return; }
 
-				const leftPadding = (window.innerWidth > 576) ? 400 : 0;
+			// fit to selected feature or all features
+			const extent = this.getSelectedFeature
+				? this.getSelectedFeature.getGeometry().getExtent()
+				: this.source.getExtent();
 
-				this.map.getView().fit(extent, {
-					duration: 200,
-					padding: [0, 0, 0, leftPadding],
-				});
-			}
+			const leftPadding = (window.innerWidth > 576) ? 400 : 0;
+
+			this.map.getView().fit(extent, {
+				duration: 200,
+				padding: [0, 0, 0, leftPadding],
+			});
 		},
 		addEventListeners() {
 			const selectedFeatures = this.select.getFeatures();
@@ -277,7 +285,9 @@ export default {
 				if (!f.getId()) {
 					f.setId(new Date().getTime());
 				}
-				if (this.drawType) {
+
+				const drawing = !!this.drawType; // otherwise importing
+				if (drawing) {
 					// drawn feature
 					this.changeFeatureStyle(
 						f,
@@ -293,13 +303,13 @@ export default {
 						f.get('color') || this.defaultColor.drawing,
 						f.get('dash') || this.defaultStroke.lineDash,
 						f.get('width') || this.defaultStroke.width,
-						true
+						false
 					);
 				}
 
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f);
-				selectedFeatures.push(f);
+				if (drawing) { selectedFeatures.push(f); }
 
 				if (this.visitor) {
 					f.set('visitorFeature', true);
