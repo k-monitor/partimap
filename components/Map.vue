@@ -194,14 +194,13 @@ export default {
 			const keys = Object.keys(BASEMAPS);
 			const index = (keys.indexOf(this.getBaseMap) + 1) % keys.length;
 			this.setBaseMap(keys[index]);
-			this.updateLayers();
+			// watcher will call updateLayers
 		},
 		updateLayers() {
-			const base = BASEMAPS[this.getBaseMap] || BASEMAPS.osm;
-			this.map.setLayers([
-				...base,
-				this.vector, // features
-			]);
+			const key = BASEMAPS[this.getBaseMap] ? this.getBaseMap : 'osm';
+			Object.keys(BASEMAPS).forEach(k => {
+				BASEMAPS[k].forEach(l => l.setVisible(k === key));
+			});
 		},
 		changeZoom(delta) {
 			const view = this.map.getView();
@@ -237,6 +236,10 @@ export default {
 				controls: defaultControls({ attribution: false }).extend([
 					new Attribution({ collapsible: false })
 				]),
+				layers: [
+					...Object.values(BASEMAPS).flat(),
+					this.vector,
+				],
 				target: this.$refs['map-root'],
 				view: new View({
 					center: this.center,
