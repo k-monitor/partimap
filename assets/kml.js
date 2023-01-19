@@ -1,6 +1,6 @@
 import KML from 'ol/format/KML';
 
-const DESCR_NAME = 'partimapDescription';
+const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
 
 const options = {
 	dataProjection: 'EPSG:4326',
@@ -29,15 +29,7 @@ function prepareKmlForExport(kmlString) {
 		if (descEl) {
 			const desc = descEl.innerHTML;
 			p.removeChild(descEl);
-
-			const v = kml.createElement('value');
-			v.innerHTML = desc;
-
-			const d = kml.createElement('Data');
-			d.setAttribute('name', DESCR_NAME);
-			d.appendChild(v);
-
-			ed.appendChild(d);
+			ensureData(kml, ed, EXPORTED_DESCRIPTION_NAME, desc);
 		}
 
 		// fix missing IconStyle
@@ -85,7 +77,7 @@ function prepareKmlForImport(kmlString) {
 		ensureData(kml, ed, 'width', width);
 
 		// move back `description` from `ExtendedData` (see exporter)
-		const descValueEl = ed.querySelector(`Data[name="${DESCR_NAME}"] value`);
+		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
 		const desc = descValueEl?.innerHTML;
 		if (desc) {
 			descValueEl.parentElement.remove();
