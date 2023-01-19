@@ -89,10 +89,14 @@ function prepareKmlForImport(kmlString) {
 		p.setAttribute('id', pId);
 
 		// parse style parameters
-		const sId = (p.querySelector('styleUrl')?.innerHTML || '').split('#')[1];
+		const styleUrlEl = p.querySelector('styleUrl');
+		const sId = (styleUrlEl?.innerHTML || '').split('#')[1];
 		// we need that split thing, sometimes it's a full URL
 		const color = parseStyleColor(kml, pId, sId);
 		const width = parseStyleWidth(kml, pId, sId);
+
+		// remove styleUrl as it is unnecessary now and creates bugs later on
+		styleUrlEl?.remove();
 
 		// ensure ExtendedData
 		const ed = p.querySelector('ExtendedData') || p.appendChild(kml.createElement('ExtendedData'));
