@@ -1,6 +1,13 @@
 import KML from 'ol/format/KML';
 
-const DESCR_NAME = 'partimapDescription';
+const EXPORTED_DASH_NAME = 'partimapLineStyle';
+const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
+const EXPORTED_POINT_SIZE = 'partimapPointSize';
+const ALLOWED_DATA = [
+	EXPORTED_DASH_NAME,
+	EXPORTED_DESCRIPTION_NAME,
+	EXPORTED_POINT_SIZE,
+];
 
 const options = {
 	dataProjection: 'EPSG:4326',
@@ -23,25 +30,9 @@ function prepareKmlForExport(kmlString) {
 		// ensure ExtendedData
 		const ed = p.querySelector('ExtendedData') || p.appendChild(kml.createElement('ExtendedData'));
 
-		// move `description` into `ExtendedData` with custom key
-		// (because Google MyMaps messes up `description` on export)
-		const descEl = p.querySelector('description');
-		if (descEl) {
-			const desc = descEl.innerHTML;
-			p.removeChild(descEl);
-
-			const v = kml.createElement('value');
-			v.innerHTML = desc;
-
-			const d = kml.createElement('Data');
-			d.setAttribute('name', DESCR_NAME);
-			d.appendChild(v);
-
-			ed.appendChild(d);
-		}
-
-		// fix missing IconStyle
 		if (p.querySelector('Point')) {
+			// fix missing IconStyle
+			const width = p.querySelector('ExtendedData Data[name="width"] value')?.innerHTML || '4';
 			const rgb = p.querySelector('ExtendedData Data[name="color"] value')?.innerHTML || '#000000';
 			const argb = rgbToAbgr(rgb);
 			const style = p.querySelector('Style') || p.appendChild(kml.createElement('Style'));
@@ -55,7 +46,33 @@ function prepareKmlForExport(kmlString) {
 					<hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
 				</IconStyle>
 			`;
+
+			// save point size in a dedicated data entry
+			ensureData(kml, ed, EXPORTED_POINT_SIZE, width);
+			// other geometry types will have their
+			// line widths in Style due to `writeFeatures`
 		}
+
+		// move `description` into `ExtendedData` with custom key
+		// (because Google MyMaps messes up `description` on export)
+		const descEl = p.querySelector('description');
+		if (descEl) {
+			const desc = descEl.innerHTML;
+			p.removeChild(descEl);
+			ensureData(kml, ed, EXPORTED_DESCRIPTION_NAME, desc);
+		}
+
+		// rename "dash" data entry to less confusing name
+		const dashEl = ed.querySelector('Data[name="dash"]');
+		if (dashEl && !p.querySelector('Point')) {
+			dashEl.setAttribute('name', EXPORTED_DASH_NAME);
+		}
+
+		// cleanup ExtendedData
+		ed.querySelectorAll('Data').forEach(d => {
+			const name = d.getAttribute('name');
+			if (!ALLOWED_DATA.includes(name)) { d.remove(); }
+		});
 	});
 
 	return serializeXML(kml);
@@ -85,13 +102,17 @@ function prepareKmlForImport(kmlString) {
 		ensureData(kml, ed, 'width', width);
 
 		// move back `description` from `ExtendedData` (see exporter)
-		const descValueEl = ed.querySelector(`Data[name="${DESCR_NAME}"] value`);
+		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
 		const desc = descValueEl?.innerHTML;
 		if (desc) {
 			descValueEl.parentElement.remove();
 			const descEl = p.querySelector('description') || p.appendChild(kml.createElement('description'));
 			descEl.innerHTML = desc;
 		}
+
+		// rename "dash" data entry back to original name (see exporter)
+		const dashEl = ed.querySelector(`Data[name="${EXPORTED_DASH_NAME}"]`);
+		if (dashEl) { dashEl.setAttribute('name', 'dash'); }
 	});
 
 	return serializeXML(kml);
@@ -113,7 +134,8 @@ function parseStyleWidth(kml, pId, sId) {
 	const el =
 		kml.querySelector(`Style[id="${sId}-normal"] LineStyle width`) ||
 		kml.querySelector(`Style[id="${sId}"] LineStyle width`) ||
-		kml.querySelector(`Placemark[id="${pId}"] LineStyle width`);
+		kml.querySelector(`Placemark[id="${pId}"] LineStyle width`) ||
+		kml.querySelector(`Placemark[id="${pId}"] Data[name="${EXPORTED_POINT_SIZE}"] value`);
 	const val = Number(el?.innerHTML);
 	return Math.round(Number(val)); // parsing error will yield NaN which is falsy
 }

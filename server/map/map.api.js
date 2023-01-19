@@ -65,6 +65,7 @@ router.put('/map',
 			const features = [];
 			const sfs = await sfdb.findBySheetId(req.body.importSubmittedFeatures);
 			(sfs || []).forEach(sf => features.push(...JSON.parse(sf.features)));
+			features.forEach(f => { f.properties.category = f.geometry.type; });
 			map.features = JSON.stringify(features);
 		}
 
