@@ -64,7 +64,9 @@ function prepareKmlForExport(kmlString) {
 
 		// rename "dash" data entry to less confusing name
 		const dashEl = ed.querySelector('Data[name="dash"]');
-		if (dashEl) { dashEl.setAttribute('name', EXPORTED_DASH_NAME); }
+		if (dashEl && !p.querySelector('Point')) {
+			dashEl.setAttribute('name', EXPORTED_DASH_NAME);
+		}
 
 		// cleanup ExtendedData
 		ed.querySelectorAll('Data').forEach(d => {
