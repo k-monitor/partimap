@@ -9,6 +9,29 @@
 					{{ $t('FeatureList.features') }}
 				</h6>
 			</template>
+			<div
+				v-if="!visitor"
+				class="d-flex justify-content-center mb-3"
+			>
+				<b-button
+					class="m-2"
+					size="sm"
+					variant="primary"
+					@click="exportKML"
+				>
+					<i class="fas fa-fw mr-2 fa-download" />
+					KML
+				</b-button>
+				<b-button
+					class="m-2"
+					size="sm"
+					variant="success"
+					@click="importKML"
+				>
+					<i class="fas fa-fw mr-2 fa-upload" />
+					KML
+				</b-button>
+			</div>
 			<div v-if="!hideAdminFeatures">
 				<vue-typeahead-bootstrap
 					v-model="search"
@@ -81,29 +104,6 @@
 		>
 			{{ $t('FeatureList.notFound') }}
 		</p>
-		<div
-			v-if="!visitor"
-			class="d-flex justify-content-center"
-		>
-			<b-button
-				class="m-2"
-				size="sm"
-				variant="primary"
-				@click="exportKML"
-			>
-				<i class="fas fa-fw mr-2 fa-download" />
-				KML
-			</b-button>
-			<b-button
-				class="m-2"
-				size="sm"
-				variant="success"
-				@click="importKML"
-			>
-				<i class="fas fa-fw mr-2 fa-upload" />
-				KML
-			</b-button>
-		</div>
 	</div>
 </template>
 
