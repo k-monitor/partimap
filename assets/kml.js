@@ -112,11 +112,15 @@ function prepareKmlForImport(kmlString) {
 			descEl.innerHTML = descValueEl.innerHTML;
 		} else {
 			// no partimapDescription, using <description>
-			// but trying to clean it up, by removing:
-			// A) the leading "description:" part
-			// B) every "<br>partimapKey: value" pair
+			// but trying to clean it up
 			const desc = descEl.innerHTML
-				.replace(/^.*?:|<br>partimap[^ :]+:.*?(?=<br>[^ :]+:|$)/g, '');
+				.replace(/^<!\[CDATA\[/, '') // remove CDATA header
+				.replace(/\]\]>$/, '') // remove CDATA footer
+				.trim()
+				.replace(/^[^ :<]+: /, '') // remove leading "desc:" part (can be any language...)
+				.replace(/<br>partimap\w+:.*?(?=<br>\w+:|$)/g, '') // remove Partimap data fields
+				.replace(/<br>\w+:\s*(?=<br>\w+:|$)/g, '') // remove empty key-value pairs
+				;
 			descEl.innerHTML = desc.trim();
 		}
 	});
