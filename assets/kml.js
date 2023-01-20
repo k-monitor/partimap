@@ -105,12 +105,19 @@ function prepareKmlForImport(kmlString) {
 		ensureData(kml, ed, 'width', width || DEFAULT_WIDTH);
 
 		// move back `description` from `ExtendedData` (see exporter)
+		const descEl = ensureElement(kml, p, 'description');
 		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
-		const desc = descValueEl?.innerHTML;
-		if (desc) {
+		if (descValueEl && descValueEl.innerHTML) {
 			descValueEl.parentElement.remove();
-			const descEl = ensureElement(kml, p, 'description');
-			descEl.innerHTML = desc;
+			descEl.innerHTML = descValueEl.innerHTML;
+		} else {
+			// no partimapDescription, using <description>
+			// but trying to clean it up, by removing:
+			// A) the leading "description:" part
+			// B) every "<br>partimapKey: value" pair
+			const desc = descEl.innerHTML
+				.replace(/^.*?:|<br>partimap[^ :]+:.*?(?=<br>[^ :]+:|$)/g, '');
+			descEl.innerHTML = desc.trim();
 		}
 	});
 
