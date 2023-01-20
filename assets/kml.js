@@ -123,6 +123,13 @@ function prepareKmlForImport(kmlString) {
 				;
 			descEl.innerHTML = desc.trim();
 		}
+
+		// auto linking
+		descEl.innerHTML = descEl.innerHTML
+			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
+			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
+			.replace(/(?<!"|<a[^<>]+>\s*)(https?:[^ <>"]+)/g, '<a href="$1" target="_blank">$1</a>');
+		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
 	});
 
 	return serializeXML(kml);
