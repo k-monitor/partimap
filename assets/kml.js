@@ -1,13 +1,11 @@
 import KML from 'ol/format/KML';
 
+const DEFAULT_COLOR = '#000000';
+const DEFAULT_WIDTH = '4';
+const EXPORTED_CATEGORY_NAME = 'partimapCategory';
 const EXPORTED_DASH_NAME = 'partimapLineStyle';
 const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
 const EXPORTED_POINT_SIZE = 'partimapPointSize';
-const ALLOWED_DATA = [
-	EXPORTED_DASH_NAME,
-	EXPORTED_DESCRIPTION_NAME,
-	EXPORTED_POINT_SIZE,
-];
 
 const options = {
 	dataProjection: 'EPSG:4326',
@@ -27,15 +25,14 @@ export function KMLToFeatures(kml) {
 function prepareKmlForExport(kmlString) {
 	const kml = deserializeXML(kmlString);
 	kml.querySelectorAll('Placemark').forEach(p => {
-		// ensure ExtendedData
-		const ed = p.querySelector('ExtendedData') || p.appendChild(kml.createElement('ExtendedData'));
+		const ed = ensureElement(kml, p, 'ExtendedData');
 
 		if (p.querySelector('Point')) {
 			// fix missing IconStyle
-			const width = p.querySelector('ExtendedData Data[name="width"] value')?.innerHTML || '4';
-			const rgb = p.querySelector('ExtendedData Data[name="color"] value')?.innerHTML || '#000000';
+			const width = p.querySelector('ExtendedData Data[name="width"] value')?.innerHTML || DEFAULT_WIDTH;
+			const rgb = p.querySelector('ExtendedData Data[name="color"] value')?.innerHTML || DEFAULT_COLOR;
 			const argb = rgbToAbgr(rgb);
-			const style = p.querySelector('Style') || p.appendChild(kml.createElement('Style'));
+			const style = ensureElement(kml, p, 'Style');
 			style.innerHTML = `
 				<IconStyle>
 					<color>${argb}</color>
@@ -56,22 +53,20 @@ function prepareKmlForExport(kmlString) {
 		// move `description` into `ExtendedData` with custom key
 		// (because Google MyMaps messes up `description` on export)
 		const descEl = p.querySelector('description');
-		if (descEl) {
-			const desc = descEl.innerHTML;
-			p.removeChild(descEl);
-			ensureData(kml, ed, EXPORTED_DESCRIPTION_NAME, desc);
-		}
+		if (descEl) { p.removeChild(descEl); }
+		ensureData(kml, ed, EXPORTED_DESCRIPTION_NAME, descEl?.innerHTML || '');
 
-		// rename "dash" data entry to less confusing name
-		const dashEl = ed.querySelector('Data[name="dash"]');
-		if (dashEl && !p.querySelector('Point')) {
-			dashEl.setAttribute('name', EXPORTED_DASH_NAME);
+		// rename "category" and "dash" data entries to less confusing names
+		renameData(ed, 'category', EXPORTED_CATEGORY_NAME);
+		if (!p.querySelector('Point')) {
+			// points don't need dash, cleanup below will delete it
+			renameData(ed, 'dash', EXPORTED_DASH_NAME);
 		}
 
 		// cleanup ExtendedData
 		ed.querySelectorAll('Data').forEach(d => {
 			const name = d.getAttribute('name');
-			if (!ALLOWED_DATA.includes(name)) { d.remove(); }
+			if (!name.startsWith('partimap')) { d.remove(); }
 		});
 	});
 
@@ -88,6 +83,13 @@ function prepareKmlForImport(kmlString) {
 		const pId = p.getAttribute('id') || idBase + i;
 		p.setAttribute('id', pId);
 
+		const ed = ensureElement(kml, p, 'ExtendedData');
+
+		// rename back data entries
+		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
+		renameData(ed, EXPORTED_DASH_NAME, 'dash');
+		renameData(ed, EXPORTED_POINT_SIZE, 'width'); // needed for width parsing
+
 		// parse style parameters
 		const styleUrlEl = p.querySelector('styleUrl');
 		const sId = (styleUrlEl?.innerHTML || '').split('#')[1];
@@ -98,25 +100,18 @@ function prepareKmlForImport(kmlString) {
 		// remove styleUrl as it is unnecessary now and creates bugs later on
 		styleUrlEl?.remove();
 
-		// ensure ExtendedData
-		const ed = p.querySelector('ExtendedData') || p.appendChild(kml.createElement('ExtendedData'));
-
 		// update ExtendedData
-		ensureData(kml, ed, 'color', color);
-		ensureData(kml, ed, 'width', width);
+		ensureData(kml, ed, 'color', color || DEFAULT_COLOR);
+		ensureData(kml, ed, 'width', width || DEFAULT_WIDTH);
 
 		// move back `description` from `ExtendedData` (see exporter)
 		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
 		const desc = descValueEl?.innerHTML;
 		if (desc) {
 			descValueEl.parentElement.remove();
-			const descEl = p.querySelector('description') || p.appendChild(kml.createElement('description'));
+			const descEl = ensureElement(kml, p, 'description');
 			descEl.innerHTML = desc;
 		}
-
-		// rename "dash" data entry back to original name (see exporter)
-		const dashEl = ed.querySelector(`Data[name="${EXPORTED_DASH_NAME}"]`);
-		if (dashEl) { dashEl.setAttribute('name', 'dash'); }
 	});
 
 	return serializeXML(kml);
@@ -139,14 +134,12 @@ function parseStyleWidth(kml, pId, sId) {
 		kml.querySelector(`Style[id="${sId}-normal"] LineStyle width`) ||
 		kml.querySelector(`Style[id="${sId}"] LineStyle width`) ||
 		kml.querySelector(`Placemark[id="${pId}"] LineStyle width`) ||
-		kml.querySelector(`Placemark[id="${pId}"] Data[name="${EXPORTED_POINT_SIZE}"] value`);
+		kml.querySelector(`Placemark[id="${pId}"] Data[name="width"] value`);
 	const val = Number(el?.innerHTML);
 	return Math.round(Number(val)); // parsing error will yield NaN which is falsy
 }
 
 function ensureData(kml, ed, key, value) {
-	if (!value) { return; }
-
 	let d = ed.querySelector(`Data[name="${key}"]`);
 	if (!d) {
 		d = kml.createElement('Data');
@@ -154,8 +147,18 @@ function ensureData(kml, ed, key, value) {
 		ed.appendChild(d);
 	}
 
-	const v = d.querySelector('value') || d.appendChild(kml.createElement('value'));
+	const v = ensureElement(kml, d, 'value');
 	v.innerHTML = value;
+}
+
+function ensureElement(doc, parent, tagName) {
+	return parent.querySelector(tagName) ||
+		parent.appendChild(doc.createElement(tagName));
+}
+
+function renameData(ed, oldKey, newKey) {
+	const dataEl = ed.querySelector(`Data[name="${oldKey}"]`);
+	if (dataEl) { dataEl.setAttribute('name', newKey); }
 }
 
 function abgrToRgb(abgr) {

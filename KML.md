@@ -34,6 +34,7 @@ Partimap, before calling OpenLayers' `readFeatures` function, applies the follow
 - Feature description is read from the following locations (first non-empty value will be read):
 	- `ExtendedData > Data[name="partimapDescription"] > value`
 	- `description`
+- Feature category is read from `ExtendedData > Data[name="partimapCategory"] > value`.
 - Feature color and width are read from the following locations (first non-empty value will be read):
 	- `Document > Style[id="x"] > ...`, linked with `Placemark > styleUrl` (`styleUrl` must contain `#x`)
 	- `Style > ...`
