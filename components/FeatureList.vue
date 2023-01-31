@@ -190,7 +190,16 @@ export default {
 	},
 	methods: {
 		getFeatureRating(featureId) {
-			return (this.initFeatureRatings || {})[featureId.toString()] || {};
+			const dict = this.initFeatureRatings || {};
+			const rating = dict[featureId.toString()];
+			if (Number.isInteger(rating)) {
+				// public sheet gets rating from store
+				// which is a pure integer value
+				return { average: rating, count: 1, sum: rating };
+			} else {
+				// admin sheet gets AggregatedRating object
+				return rating || {};
+			}
 		},
 		updateCategories() {
 			const cats = new Set(
