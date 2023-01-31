@@ -157,7 +157,10 @@ export default {
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
 		filteredAdminFeatures() {
-			return this.filteredFeatures.filter(f => !f.get('visitorFeature'));
+			return this.filteredFeatures.filter(f =>
+				!f.get('visitorFeature') &&
+				(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
+			);
 		},
 		filteredVisitorFeatures() {
 			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
