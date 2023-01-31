@@ -2,7 +2,7 @@
 	<div>
 		<AdminFrame>
 			<template #header>
-				<div class="d-flex">
+				<div class="d-flex flex-wrap">
 					<div>
 						<NuxtLink :to="localePath('/admin/projects')">{{ $t('projectEditor.back') }}</NuxtLink>
 						<span class="text-muted">&raquo;</span>
@@ -32,7 +32,10 @@
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"
 				>
-					<b-input-group :prepend="projectBaseURL">
+					<b-input-group
+						class="flex-nowrap"
+						:prepend="projectBaseURL"
+					>
 						<template #prepend>
 							<b-button
 								variant="primary"
