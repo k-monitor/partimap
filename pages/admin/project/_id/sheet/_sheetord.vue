@@ -104,20 +104,30 @@
 			>
 				<b-form-input v-model="interactions.buttonLabels[dt]" />
 			</b-form-group>
-			<b-form-group
-				v-if="isRatingSelected"
-				:label="$t('sheetEditor.numberOfStars')"
-				label-cols="7"
-				label-for="stars"
-			>
-				<b-form-input
-					id="stars"
-					v-model.number="interactions.stars"
-					max="10"
-					min="1"
-					type="number"
-				/>
-			</b-form-group>
+
+			<div v-if="isRatingSelected">
+				<b-form-group :label="$t('sheetEditor.ratingType')">
+					<b-form-radio-group
+						v-model="ratingType"
+						:options="ratingTypes"
+						stacked
+					/>
+				</b-form-group>
+				<b-form-group
+					v-if="interactions.stars !== -2"
+					:label="$t('sheetEditor.numberOfStars')"
+					label-cols="7"
+					label-for="stars"
+				>
+					<b-form-input
+						id="stars"
+						v-model.number="interactions.stars"
+						max="10"
+						min="1"
+						type="number"
+					/>
+				</b-form-group>
+			</div>
 			<b-form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
@@ -163,15 +173,20 @@ export default {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
 			const interactions = deserializeInteractions(sheet?.interactions);
+			const ratingType = interactions.stars === -2 ? 1 : 0;
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
-			return { project, sheet, interactions, submittedRatings };
+			return { project, sheet, interactions, submittedRatings, ratingType };
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
 	},
 	data() {
+		const ratingTypes = [
+			{ value: 0, text: this.$t('sheetEditor.ratingTypes.stars'), },
+			{ value: 1, text: this.$t('sheetEditor.ratingTypes.likeDislike'), },
+		];
 		return {
 			backgroundImage: null,
 			backgroundImageData: null,
@@ -179,6 +194,7 @@ export default {
 			baseMaps: Object.keys(BASEMAPS),
 			contentModified: false,
 			loading: true,
+			ratingTypes,
 		};
 	},
 	head() {
@@ -256,6 +272,9 @@ export default {
 				}
 			},
 			deep: true,
+		},
+		ratingType(v) {
+			this.interactions.stars = v === 1 ? -2 : 5;
 		},
 		sheet: {
 			handler() {
