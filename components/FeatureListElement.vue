@@ -172,6 +172,7 @@
 							inactive-color="#fff"
 							:max-rating="stars"
 							:read-only="!visitor"
+							:round-start-rating="false"
 							:show-rating="!visitor"
 							:star-size="16"
 						/>
