@@ -159,7 +159,7 @@
 						v-html="form.description"
 					/>
 				</div>
-				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
+				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && ratingStats.count)">
 					<b-button-group v-if="stars === -2" class="w-100">
 						<b-button
 							:disabled="!visitor"

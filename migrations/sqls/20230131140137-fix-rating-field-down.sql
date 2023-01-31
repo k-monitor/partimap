@@ -1,0 +1,1 @@
+ALTER TABLE `rating` CHANGE COLUMN `rating` `rating` TINYINT(3) UNSIGNED NOT NULL AFTER `featureId`;
