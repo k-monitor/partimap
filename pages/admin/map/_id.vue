@@ -7,6 +7,7 @@
 			/>
 		</client-only>
 		<MapToolbar />
+		<MapHint />
 		<Sidebar
 			admin
 			:back-label="$t('mapEditor.back')"

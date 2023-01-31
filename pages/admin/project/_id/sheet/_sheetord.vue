@@ -12,6 +12,7 @@
 				</template>
 			</client-only>
 			<MapToolbar />
+			<MapHint />
 		</template>
 		<Sidebar
 			admin
