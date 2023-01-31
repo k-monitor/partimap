@@ -15,7 +15,7 @@
 				<b-form-radio
 					v-model="radioSelected"
 					:value="column"
-					:name="row"
+					:name="`${question.id}/${row}`"
 					:required="question.required"
 				/>
 			</div>
@@ -23,7 +23,7 @@
 				<b-form-checkbox
 					v-model="checkSelected"
 					:value="column"
-					:name="row"
+					:name="`${question.id}/${row}`"
 				/>
 			</div>
 		</div>

@@ -59,7 +59,6 @@
 			<DropdownGroup
 				v-else-if="q.type === 'dropdown'"
 				v-model="answers[q.id]"
-				:answers="answers"
 				:q="q"
 			/>
 			<ChoiceMatrix
