@@ -204,6 +204,11 @@ export default {
 			SocialSharing: 'Megosztás gombok',
 		},
 		numberOfStars: 'Csillagok száma',
+		ratingType: 'Értékelés típusa',
+		ratingTypes: {
+			stars: 'Csillagok',
+			likeDislike: 'Like/dislike',
+		},
 		saveFailed: 'Módosítás sikertelen',
 		sheetDescription: 'Munkalap leírása',
 		sheetName: 'Munkalap címe',

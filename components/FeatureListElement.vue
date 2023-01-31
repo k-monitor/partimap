@@ -6,7 +6,7 @@
 		<b-list-group-item
 			ref="feature"
 			button
-			:class="[{ selected: selectedFeature, disabled: onEditMode, rated: !selectedFeature && !editable && rating > 0 }]"
+			:class="[{ selected: selectedFeature, disabled: onEditMode, rated: !selectedFeature && !editable && rated }]"
 			class="px-2 rounded"
 			:style="{ borderLeftColor: form.color }"
 			@click="featureClicked()"
@@ -29,7 +29,7 @@
 			>
 				<i class="fas fa-fw fa-trash" />
 			</span>
-			<span v-else-if="rating > 0">
+			<span v-else-if="rated">
 				<i class="fas fa-fw fa-check" />
 			</span>
 		</b-list-group-item>
@@ -159,8 +159,38 @@
 						v-html="form.description"
 					/>
 				</div>
-				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && rating)">
-					<div class="border d-flex font-weight-bold justify-content-center p-1">
+				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && ratingStats.count)">
+					<b-button-group v-if="stars === -2" class="w-100">
+						<b-button
+							:disabled="!visitor"
+							:variant="rating === -1 ? 'danger' : 'outline-danger'"
+							@click="rating === -1 ? rating = 0 : rating = -1"
+						>
+							<i class="fas fa-thumbs-up fa-flip-both" />
+							<span
+								v-if="!visitor"
+								class="ml-2"
+							>{{ -ratingStats.dislikeCount }}</span>
+						</b-button>
+						<div class="align-items-center d-flex flex-grow-1 font-weight-bold justify-content-center">
+							{{ ratingStats.sum }}
+						</div>
+						<b-button
+							:disabled="!visitor"
+							:variant="rating === 1 ? 'success' : 'outline-success'"
+							@click="rating === 1 ? rating = 0 : rating = 1"
+						>
+							<i class="fas fa-thumbs-up" />
+							<span
+								v-if="!visitor"
+								class="ml-2"
+							>{{ ratingStats.likeCount }}</span>
+						</b-button>
+					</b-button-group>
+					<div
+						v-else
+						class="border d-flex font-weight-bold justify-content-center p-1"
+					>
 						<star-rating
 							v-model="rating"
 							:active-color="visitor ? '#ffc107' : '#17a2b8'"
@@ -172,6 +202,7 @@
 							inactive-color="#fff"
 							:max-rating="stars"
 							:read-only="!visitor"
+							:round-start-rating="false"
 							:show-rating="!visitor"
 							:star-size="16"
 						/>
@@ -216,8 +247,8 @@ export default {
 			default: new Feature(),
 		},
 		initFeatureRating: {
-			type: Number,
-			default: null,
+			type: Object,
+			default: () => {}, // { average, count, ... }
 		},
 		stars: {
 			type: Number,
@@ -242,7 +273,8 @@ export default {
 				description: this.feature.get('description'),
 				width: this.feature.get('width'),
 			},
-			rating: this.initFeatureRating,
+			rating: Number(this.initFeatureRating.average || 0),
+			ratingStats: this.initFeatureRating,
 			dashOptions: [
 				{ text: this.$t('FeatureListElement.dashTypes.p0'), value: '0' },
 				{ text: this.$t('FeatureListElement.dashTypes.p11'), value: '1,1' },
@@ -265,6 +297,10 @@ export default {
 		},
 		onEditMode() {
 			return this.$store.getters.getEditState;
+		},
+		rated() {
+			const r = this.rating;
+			return Number.isInteger(r) && r !== 0;
 		},
 	},
 	watch: {

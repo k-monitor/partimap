@@ -287,7 +287,8 @@ export default {
 			const ratings = this.getVisitorRatings(this.sheet.id) || {};
 			if (rating) {
 				ratings[featureId] = rating;
-			} else {
+			} else { // zero or empty
+				console.log('Removing rating for', featureId);
 				delete ratings[featureId];
 			}
 			const payload = { ratings, sheetId: this.sheet.id };

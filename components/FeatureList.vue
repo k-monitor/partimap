@@ -191,7 +191,15 @@ export default {
 	methods: {
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};
-			return Number(dict[featureId.toString()] || 0);
+			const rating = dict[featureId.toString()];
+			if (Number.isInteger(rating)) {
+				// public sheet gets rating from store
+				// which is a pure integer value
+				return { average: rating, count: 1, sum: rating };
+			} else {
+				// admin sheet gets AggregatedRating object
+				return rating || {};
+			}
 		},
 		updateCategories() {
 			const cats = new Set(

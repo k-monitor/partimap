@@ -19,12 +19,6 @@ export class Interactions {
 		};
 		this.stars = data.stars || 5;
 	}
-
-	isInteractive() {
-		return this.enabled.includes('Point') ||
-			this.enabled.includes('LineString') ||
-			this.enabled.includes('Polygon');
-	}
 }
 
 export function serializeInteractions(interactions) {

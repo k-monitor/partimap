@@ -2,6 +2,7 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const transformation = require('transform-coordinates');
+const AggregatedRating = require('../../model/aggregatedRating');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const pdb = require('../project/project.db');
@@ -113,10 +114,12 @@ router.get('/submission/ratings/:id',
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
+		/** @type {AggregatedRating[]} */
 		const ars = await rdb.aggregateBySheetId(req.sheet.id);
 		const frs = {};
-		ars.forEach(({ featureId, average }) => {
-			frs[featureId] = average;
+		ars.forEach(ar => {
+			frs[ar.featureId] = { ...ar };
+			delete frs[ar.featureId].featureId;
 		});
 		res.json(frs);
 	}
@@ -214,11 +217,19 @@ router.get('/submission/export/:id',
 		const ars = wb.addWorksheet('Aggregált értékelések');
 		ars.cell(1, 1).string('Térkép elem');
 		ars.cell(1, 2).string('Értékelések száma');
-		ars.cell(1, 3).string('Átlagos értékelés');
+		ars.cell(1, 3).string('Összesített értékelés');
+		ars.cell(1, 4).string('Like-ok száma');
+		ars.cell(1, 5).string('Dislike-ok száma');
 		let row = 1;
 		for (let i = 0; i < sheets.length; i++) {
 			const sheet = sheets[i];
 			const features = JSON.parse(sheet.features);
+			let stars = 0;
+			try {
+				stars = JSON.parse(sheet.interactions).stars;
+			} catch { }
+
+			/** @type {AggregatedRating[]} */
 			const ar = await rdb.aggregateBySheetId(sheet.id);
 			for (let j = 0; j < ar.length; j++) {
 				const r = ar[j];
@@ -227,7 +238,13 @@ router.get('/submission/export/:id',
 				const name = feature?.properties?.name || r.featureId;
 				ars.cell(row, 1).string(String(name));
 				ars.cell(row, 2).number(r.count);
-				ars.cell(row, 3).number(Number(r.average));
+				if (stars === -2) {
+					ars.cell(row, 3).number(Number(r.sum));
+					ars.cell(row, 4).number(Number(r.likeCount));
+					ars.cell(row, 5).number(Number(r.dislikeCount));
+				} else {
+					ars.cell(row, 3).number(Number(r.average));
+				}
 			}
 		}
 
