@@ -16,6 +16,10 @@
 					class="fas fa-fw mr-1"
 					:class="icons[feature.getGeometry().getType()]"
 				/>
+				<i
+					v-if="form.hidden"
+					class="fas fa-eye-slash fa-fw mr-1"
+				/>
 				{{ form.name }}
 			</span>
 			<span v-if="selectedFeature">
@@ -214,7 +218,7 @@
 						v-model="form.hidden"
 						name="hidden"
 					>
-						Elem elrejtése a listában
+						{{ $t('FeatureListElement.hidden') }}
 					</b-form-checkbox>
 				</b-form-group>
 
