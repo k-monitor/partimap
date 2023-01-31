@@ -2,6 +2,7 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const transformation = require('transform-coordinates');
+const AggregatedRating = require('../../model/aggregatedRating');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const pdb = require('../project/project.db');
@@ -113,10 +114,12 @@ router.get('/submission/ratings/:id',
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
+		/** @type {AggregatedRating[]} */
 		const ars = await rdb.aggregateBySheetId(req.sheet.id);
 		const frs = {};
-		ars.forEach(({ featureId, average }) => {
-			frs[featureId] = average;
+		ars.forEach(ar => {
+			frs[ar.featureId] = { ...ar };
+			delete frs[ar.featureId].featureId;
 		});
 		res.json(frs);
 	}

@@ -190,8 +190,7 @@ export default {
 	},
 	methods: {
 		getFeatureRating(featureId) {
-			const dict = this.initFeatureRatings || {};
-			return Number(dict[featureId.toString()] || 0);
+			return (this.initFeatureRatings || {})[featureId.toString()] || {};
 		},
 		updateCategories() {
 			const cats = new Set(

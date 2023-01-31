@@ -217,8 +217,8 @@ export default {
 			default: new Feature(),
 		},
 		initFeatureRating: {
-			type: Number,
-			default: null,
+			type: Object,
+			default: () => {}, // { average, count, ... }
 		},
 		stars: {
 			type: Number,
@@ -243,7 +243,8 @@ export default {
 				description: this.feature.get('description'),
 				width: this.feature.get('width'),
 			},
-			rating: this.initFeatureRating,
+			rating: Number(this.initFeatureRating.average || 0),
+			ratingStats: this.initFeatureRating,
 			dashOptions: [
 				{ text: this.$t('FeatureListElement.dashTypes.p0'), value: '0' },
 				{ text: this.$t('FeatureListElement.dashTypes.p11'), value: '1,1' },
