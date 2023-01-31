@@ -291,6 +291,7 @@ export default {
 		},
 		deleteFeature: 'Elem törlése',
 		description: 'Leírás',
+		hidden: 'Elem elrejtése a listában',
 		name: 'Név',
 		size: 'Méret',
 	},

@@ -151,6 +151,7 @@
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
 				:stars="interactions.stars"
+				:visitor-can-rate="isRatingSelected"
 			/>
 		</Sidebar>
 	</SheetFrame>

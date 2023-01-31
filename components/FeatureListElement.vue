@@ -16,6 +16,10 @@
 					class="fas fa-fw mr-1"
 					:class="icons[feature.getGeometry().getType()]"
 				/>
+				<i
+					v-if="form.hidden"
+					class="fas fa-eye-slash fa-fw mr-1"
+				/>
 				{{ form.name }}
 			</span>
 			<span v-if="selectedFeature">
@@ -209,6 +213,15 @@
 					</div>
 				</b-form-group>
 
+				<b-form-group v-if="editable && visitorCanRate">
+					<b-form-checkbox
+						v-model="form.hidden"
+						name="hidden"
+					>
+						{{ $t('FeatureListElement.hidden') }}
+					</b-form-checkbox>
+				</b-form-group>
+
 				<b-form-group v-if="editable">
 					<span
 						class="text-danger"
@@ -271,6 +284,7 @@ export default {
 				color: this.feature.get('color'),
 				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
+				hidden: this.feature.get('hidden') || false,
 				width: this.feature.get('width'),
 			},
 			rating: Number(this.initFeatureRating.average || 0),
@@ -315,6 +329,13 @@ export default {
 		'form.dash'() {
 			this.emitChangeStyle();
 		},
+		'form.hidden'(h) {
+			if (h) {
+				this.feature.set('hidden', true);
+			} else {
+				this.feature.unset('hidden');
+			}
+		},
 		'form.name'() {
 			this.feature.set('name', this.form.name);
 		},
@@ -324,15 +345,15 @@ export default {
 		'form.width'() {
 			this.emitChangeStyle();
 		},
-		rating(rating) {
-			this.feature.set('rating', rating);
-			this.$nuxt.$emit('featureRatedByVisitor', this.feature.getId(), rating);
-		},
 		form: {
 			handler(val) {
 				this.$nuxt.$emit('contentModified');
 			},
 			deep: true,
+		},
+		rating(rating) {
+			this.feature.set('rating', rating);
+			this.$nuxt.$emit('featureRatedByVisitor', this.feature.getId(), rating);
 		},
 	},
 	mounted() {

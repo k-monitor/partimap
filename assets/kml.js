@@ -5,6 +5,7 @@ const DEFAULT_WIDTH = '4';
 const EXPORTED_CATEGORY_NAME = 'partimapCategory';
 const EXPORTED_DASH_NAME = 'partimapLineStyle';
 const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
+const EXPORTED_HIDDEN_NAME = 'partimapHidden';
 const EXPORTED_POINT_SIZE = 'partimapPointSize';
 
 const options = {
@@ -63,6 +64,8 @@ function prepareKmlForExport(kmlString) {
 			renameData(ed, 'dash', EXPORTED_DASH_NAME);
 		}
 
+		renameData(ed, 'hidden', EXPORTED_HIDDEN_NAME);
+
 		// cleanup ExtendedData
 		ed.querySelectorAll('Data').forEach(d => {
 			const name = d.getAttribute('name');
@@ -88,6 +91,7 @@ function prepareKmlForImport(kmlString) {
 		// rename back data entries
 		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
 		renameData(ed, EXPORTED_DASH_NAME, 'dash');
+		renameData(ed, EXPORTED_HIDDEN_NAME, 'hidden');
 		renameData(ed, EXPORTED_POINT_SIZE, 'width'); // needed for width parsing
 
 		// parse style parameters
