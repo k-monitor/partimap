@@ -1,18 +1,12 @@
-/*
-	Use only inside <client-only> </client-only> tags!
-*/
+/* Use only inside
+<client-only> </client-only>
+tags! */
 
 <template>
 	<div>
-		<div
-			ref="map-root"
-			class="h-100 position-absolute w-100 map"
-		/>
+		<div ref="map-root" class="h-100 position-absolute w-100 map" />
 		<div class="map-zoom-toolbar">
-			<b-button-group
-				class="shadow-sm"
-				vertical
-			>
+			<b-button-group class="shadow-sm" vertical>
 				<b-button
 					v-b-tooltip.hover.left
 					class="border border-secondary py-2"
@@ -51,25 +45,20 @@ import { Attribution, defaults as defaultControls } from 'ol/control';
 import { click } from 'ol/events/condition';
 import { Draw, Select, Snap } from 'ol/interaction';
 import { Vector as VectorLayer } from 'ol/layer';
+import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import createBaseMaps from '@/assets/basemaps';
 
 import 'ol/ol.css';
 
+const gm2ol = get('EPSG:4326', 'EPSG:3857');
+
 export default {
 	props: {
 		initialBaseMapKey: {
 			type: String,
 			default: '',
-		},
-		initialCenter: {
-			type: Array,
-			default: () => [2129152.791287463, 6017729.508627875],
-		},
-		initialZoom: {
-			type: Number,
-			default: 10,
 		},
 		features: {
 			type: Array,
@@ -85,8 +74,6 @@ export default {
 		return {
 			// ol/Map object
 			map: null,
-			center: this.initialCenter,
-			zoom: this.initialZoom,
 			baseMaps: createBaseMaps(),
 			baseMapKey: this.initialBaseMapKey,
 
@@ -111,7 +98,9 @@ export default {
 	watch: {
 		drawType(type) {
 			// when drawing, feature selection is disabled
-			if (type) { this.$store.commit('selected/clear'); }
+			if (type) {
+				this.$store.commit('selected/clear');
+			}
 			type
 				? this.map.removeInteraction(this.select)
 				: this.map.addInteraction(this.select);
@@ -199,7 +188,9 @@ export default {
 			// watcher will call updateLayers
 		},
 		updateLayers() {
-			const key = this.baseMaps[this.getBaseMap] ? this.getBaseMap : 'osm';
+			const key = this.baseMaps[this.getBaseMap]
+				? this.getBaseMap
+				: 'osm';
 			Object.keys(this.baseMaps).forEach(k => {
 				this.baseMaps[k].forEach(l => l.setVisible(k === key));
 			});
@@ -234,20 +225,22 @@ export default {
 				condition: click,
 			});
 
+			// localized map init
+			const coords = this.$t('Map.initialCenter').split(',');
+			const center = gm2ol(coords.reverse());
+			const zoom = Number(this.$t('Map.initialZoom')) || 10;
+
 			this.map = new Map({
 				controls: defaultControls({ attribution: false }).extend([
-					new Attribution({ collapsible: false })
+					new Attribution({ collapsible: false }),
 				]),
-				layers: [
-					...Object.values(this.baseMaps).flat(),
-					this.vector,
-				],
+				layers: [...Object.values(this.baseMaps).flat(), this.vector],
 				target: this.$refs['map-root'],
 				view: new View({
-					center: this.center,
+					center,
 					constrainResolution: true,
 					maxZoom: 19,
-					zoom: this.zoom,
+					zoom,
 				}),
 			});
 			this.updateLayers();
@@ -255,14 +248,16 @@ export default {
 		},
 		fitViewToFeatures() {
 			// no need to fit view if no feature is present
-			if (!this.source.getFeatures().length) { return; }
+			if (!this.source.getFeatures().length) {
+				return;
+			}
 
 			// fit to selected feature or all features
 			const extent = this.getSelectedFeature
 				? this.getSelectedFeature.getGeometry().getExtent()
 				: this.source.getExtent();
 
-			const leftPadding = (window.innerWidth > 576) ? 400 : 0;
+			const leftPadding = window.innerWidth > 576 ? 400 : 0;
 
 			this.map.getView().fit(extent, {
 				duration: 200,
@@ -291,7 +286,8 @@ export default {
 					// drawn feature
 					this.changeFeatureStyle(
 						f,
-						this.defaultColor[this.drawType] || this.defaultColor.drawing,
+						this.defaultColor[this.drawType] ||
+							this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
 						this.defaultStroke.width,
 						true
@@ -309,7 +305,9 @@ export default {
 
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f);
-				if (drawing) { selectedFeatures.push(f); }
+				if (drawing) {
+					selectedFeatures.push(f);
+				}
 
 				if (this.visitor) {
 					f.set('visitorFeature', true);
@@ -373,12 +371,14 @@ export default {
 			const color = rated ? '#666666' : feature.get('color');
 
 			// lower opacity of unselected features
-			const isUnselected = selFeature && selFeature.getId() !== feature.getId();
+			const isUnselected =
+				selFeature && selFeature.getId() !== feature.getId();
 			const opacity = isUnselected ? '60' : '';
 
 			// raise width of selected features
 			const isPoint = feature.getGeometry().constructor.name === 'Point';
-			const isSelected = selFeature && selFeature.getId() === feature.getId();
+			const isSelected =
+				selFeature && selFeature.getId() === feature.getId();
 			const addWidth = isSelected && !isPoint && this.visitor ? 5 : 0;
 
 			feature.setStyle(
@@ -406,12 +406,16 @@ export default {
 				stroke: new Stroke({
 					color: lineColor,
 					lineCap: 'butt',
-					lineDash: lineDash.split(',').map(w => Number(w) * strokeWidth),
+					lineDash: lineDash
+						.split(',')
+						.map(w => Number(w) * strokeWidth),
 					width: strokeWidth,
 				}),
 				image: new CircleStyle({
 					radius: strokeWidth * 3,
-					fill: pointFillColor ? new Fill({ color: pointFillColor }) : null,
+					fill: pointFillColor
+						? new Fill({ color: pointFillColor })
+						: null,
 				}),
 			});
 		},

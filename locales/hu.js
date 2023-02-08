@@ -303,6 +303,8 @@ export default {
 	},
 	Map: {
 		changeBaseMap: 'Alaptérkép váltás',
+		initialCenter: '47.4811281,18.9902211', // Budapest
+		initialZoom: '10',
 	},
 	MapHint: {
 		Point: 'Pont jelölő elhelyezéséhez közelíts a szükséges léptékig és kattints a megjelölni kívánt helyre.',
