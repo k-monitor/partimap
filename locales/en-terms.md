@@ -1,196 +1,194 @@
-# I. Felhasználási feltételek
+# I. Terms of Use
 
-## 1\. A Partmap célja
+## 1\. The purpose of PartiMap
 
-A közpénzek átlátható felhasználásáért küzdő [K-Monitor Közhasznú Egyesület](http://www.k-monitor.hu/) által kifejlesztett PartiMap egy olyan ingyenes, nyílt forráskódú szoftver, ami könnyen kezelhető digitális kérdőíves felületet biztosít, különösen település- és közlekedés-fejlesztéssel kapcsolatos témákban. Célja, hogy a lakosság mindennapi életét érintő közösségi fejlesztések tervezésébe és értékelésébe könnyebben lehessen bevonni az érintetteket, érdemben megjelenítve az igényeiket, hogy ezzel a közpénzeket hatékonyabban, ezen igényekre figyelemmel használhassák fel.
+PartiMap, developed by the watchdog for public funds [K-Monitor Public Benefit Association](http://www.k-monitor.hu/), is a free, open-source software that provides an easy-to-use digital questionnaire platform, especially for issues related to urban and transport development. Its aim is to facilitate the involvement of stakeholders in the planning and evaluation of public development projects that affect the daily life of the population, allowing them to express their needs in a meaningful way, so that public funds can be used more efficiently and in a way that takes these needs into account.
 
-## 2\. A felhasználás feltételei
+## 2\. Terms of Use
 
-A Felhasználási feltételek elfogadásával a szolgáltatás használója (a továbbiakban: Használó) elfogadja, hogy a Partimap.eu felület célja a fenti célok elérése. Erre tekintettel a Használó a szolgáltatás használata során is ezen célok szem előtt tartásával jár el.
+By accepting the Terms of Use, the user of the service (hereinafter referred to as the User) accepts that the Partimap.eu platform is intended to achieve the above purposes. To this end, the User shall act with these purposes in mind when using the service.
 
-A Használó a Felhasználási feltételek elfogadásával tudomásul veszi, hogy a szolgáltatáson keresztül megosztott tartalmai a nyilvánosság számára szabadon felhasználhatóak, valamint hogy a szolgáltatást közvetlen anyagi haszonszerzésre nem használhatja.
+By accepting the Terms of Use, the User acknowledges that the content shared through the service is freely available for public use and that the User may not use the service for direct financial gain.
 
-A K-Monitor Közhasznú Egyesület a Használó által megosztott tartalmakon - a felhasználási feltételek megsértésének esetein kívül - módosításokat nem végez, a keletkező adatokat kutatáshoz nem használja fel és nem hozza nyilvánosságra. A Használó tudomásul veszi, hogy K-Monitor Közhasznú Egyesület a PartiMap Használók létszámára vonatkozó adatokat összesítheti, az aggregált adatokat elemezheti, nyilvánosan közzéteheti.
+K-Monitor Public Benefit Association will not make any changes to the content shared by the User, except in cases of violation of the Terms of Use, nor will it use the resulting data for research or make it public. The User acknowledges that K-Monitor Public Benefit Association may aggregate data on the number of PartiMap users, analyse the aggregated data and publish it publicly.
 
-A Használó a Felhasználási feltételek elfogadásával kötelezettséget vállal arra, hogy a szolgáltatás használata során tiszteletben tartja mások jogait, így különösen az emberi méltósághoz, személyes adatok védelméhez, valamint a szellemi alkotásokhoz fűződő jogokat.
+By accepting the Terms of Use, the User undertakes to respect the rights of others, in particular their right to human dignity, the protection of personal data and intellectual property rights, when using the Service.
 
-A Használó a Felhasználási feltételek elfogadásával úgy nyilatkozik, hogy a szolgáltatást személyes adatok gyűjtésére, kezelésére nem használja.
+By accepting the Terms of Use, the User declares that he/she will not use the Service to collect or process personal data.
 
-## 3\. Felhasználási feltételek megsértése
+## 3\. Violation of Terms of Use
 
-A K-Monitor Közhasznú Egyesületet harmadik személyekkel szemben nem terheli felelősség a Használó által létrehozott és nyilvánossá tett tartalmakkal kapcsolatban.
+K-Monitor Public Benefit Association is not liable to third parties in connection with the content created and made public by the User.
 
-Ugyanakkor ha a Használó a fenti feltételeket megszegi, a K-Monitor Közhasznú Egyesület a Használó előzetes felszólítása nélkül jogosult a Használó vonatkozásában a szolgáltatás biztosítását megszüntetni. A K-Monitor Közhasznú Egyesület a jogellenesnek vagy a fenti feltételeket sértőnek tartalmat a felületről a Használó előzetes felszólítása nélkül is eltávolíthatja.
+However, if the User breaches the above conditions, K-Monitor Public Benefit Association shall be entitled to terminate the provision of the service to the User without prior notice. K-Monitor Public Benefit Association may remove content from the platform that is deemed to be illegal or in breach of the above conditions without prior notice to the User.
 
-# II. Adatkezelési tájékoztató
+# II. Privacy Policy
 
-## 1\. A tájékoztató célja
+## 1\. Purpose of the Privacy Policy
 
-Az adatkezelési tájékoztató a K-Monitor Közhasznú Egyesület (székhely: 1077 Budapest, Rózsa u. 8., a továbbiakban Adatkezelő) által üzemeltetett www.partmap.eu oldalon elérhető szolgáltatás (a továbbiakban: Szolgáltatás) európai uniós szabályokkal összhangban álló adatkezelési gyakorlatát ismerteti.
+This Privacy Policy describes the data management practices of the service (hereinafter referred to as the "Service") available on the website www.partimap.eu operated by K-Monitor Public Benefit Association (headquarters: 1077 Budapest, Rózsa u. 8., hereinafter referred to as the "Data Controller") in accordance with the EU rules.
 
-Az adatvédelmi tájékoztató célja azon adatvédelmi-, adatfeldolgozási és adatkezelési szabályok meghatározása, amelyek betartását az Adatkezelő és a felületen regisztrált felhasználó (a továbbiakban: Felhasználó) mint Egyedi adatkezelő vállalja és magára nézve kötelezőnek ismeri el.
+The purpose of this Privacy Policy is to set out the data protection, data processing and data management rules that the Data Controller and the user registered on the platform (hereinafter referred to as the "Registered User"), as a Specific Data Controller, undertake to comply with and accept as binding upon them.
 
-## 2\. Az adatkezelő
+## 2\. The Data Controller
 
-Általános adatkezelő: K-Monitor Közhasznú Egyesület
+General Data Controller: K-Monitor Public Benefit Association
 
-Székhely: 1077 Budapest, Rózsa u. 8.
+Headquarters: 1077 Budapest, Rózsa u. 8.
 
-Iroda és levelezési cím: 1062 Budapest, Bajza utca 23.
+Office and mailing address: 1062 Budapest, Bajza utca 23.
 
-Tel.: +36 1 789 5005
+Phone: +36 1 789 5005
 
 E-mail: <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;">&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;</a>
 
-Honlap: [k-monitor.hu](http://www.k-monitor.hu/)
+Website: [k-monitor.hu](http://www.k-monitor.hu/)
 
-Ha jelen adatkezelési tájékoztatóval kapcsolatban kérdései vannak, kérjük a fenti elérhetőségek valamelyikén vegye fel velünk a kapcsolatot!
+If you have any questions about this privacy notice, please contact us using one of the contact details above.
 
-Egyedi adatkezelő:
-
-Az adott Projekt vonatkozásában adatkezelőnek minősül a Projektet létrehozó és működtető Felhasználó is:
+Specific data controller: the Registered User creating and operating a Project is also a data controller in the context of that Project.
 
 $_PROJECT_DATA_PROCESSOR_$
 
-## 3\. Fogalom-meghatározások
+## 3\. Definitions
 
-Személyes adat: azonosított vagy azonosítható természetes személyre („érintett") vonatkozó bármely információ; azonosítható az a természetes személy, aki közvetlen vagy közvetett módon, különösen valamely azonosító, például név, szám, helymeghatározó adat, online azonosító vagy a természetes személy testi, fiziológiai, genetikai, szellemi, gazdasági, kulturális vagy szociális azonosságára vonatkozó egy vagy több tényező alapján azonosítható.
+Personal data: any information relating to an identified or identifiable natural person ('data subject'); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person.
 
-Adatkezelés: az adaton végzett bármely művelet vagy a műveletek összessége, így különösen gyűjtése, felvétele, rögzítése, rendszerezése, tárolása, megváltoztatása, felhasználása, lekérdezése, továbbítása, nyilvánosságra hozatala, összehangolása vagy összekapcsolása, zárolása, törlése és megsemmisítése, valamint az adat további felhasználásának megakadályozása, fénykép-, hang- vagy képfelvétel készítése, valamint a személy azonosítására alkalmas fizikai jellemzők rögzítése.
+Data handling: any operation or set of operations which is performed upon data, in particular collection, recording, registration, organisation, storage, alteration, use, retrieval, transmission, disclosure, interlinking or combining, blocking, disposal and erasure, prevention of further use of data, taking of photographs, sound or image recordings and recording of physical characteristics which permit identification of a person.
 
-Adatkezelő: az adatkezelést az Adatkezelő és az egyedileg a Felhasználó által egyedileg létrehozott "Projekt" vonatkozásában a Felhasználó végzi.
+Data Controller: the data handling is carried out by the Data Controller and the Registered User in relation to the specific "Project" created by the Registered User.
 
-Adatfeldolgozás: az adatkezelési műveletekhez kapcsolódó technikai feladatok elvégzése, függetlenül a műveletek végrehajtásához alkalmazott módszertől és eszköztől, valamint az alkalmazás helyétől, feltéve hogy a technikai feladatot az adaton végzik.
+Data Processing: the performance of technical tasks related to the data handling operations, irrespective of the method and means used to perform the operations and the place of application, provided that the technical task is performed on the data.
 
-Felhasználó: az a természetes személy, aki az Adatkezelő www.partmap.eu felületén keresztüli szolgáltatásait regisztrált felhasználóként igénybe veszi, ennek keretében az Adatkezelő tudomására hozhatja személyes adatát, és a Látogató által kitöltendő kérdőívet hoz létre.
+Registered User: a natural person who uses the services of the Data Controller through the www.partimap.eu platform as a registered user, in the context of which he/she may disclose his/her personal data to the Data Controller and creates a questionnaire to be completed by the Visitor.
 
-Harmadik fél: az a természetes vagy jogi személy, közhatalmi szerv, ügynökség vagy bármely egyéb szerv, amely nem azonos az érintettel, az adatkezelővel, az adatfeldolgozóval vagy azokkal a személyekkel, akik az adatkezelő vagy adatfeldolgozó közvetlen irányítása alatt a személyes adatok kezelésére felhatalmazást kaptak.
+Third party: a natural or legal person, public authority, agency or any other body other than the data subject, the data controller, the processor or the persons who, under the direct authority of the controller or the processor, are authorised to handle personal data.
 
-Használó: a Felhasználó és a Látogató együttesen.
+User: the Registered User and the Visitor together.
 
-Az érintett hozzájárulása: az érintett akaratának önkéntes, konkrét és megfelelő tájékoztatáson alapuló és egyértelmű kinyilvánítása, amellyel az érintett nyilatkozat vagy a megerősítést félreérthetetlenül kifejező cselekedet útján jelzi, hogy beleegyezését adja az őt érintő személyes adatok kezeléséhez.
+Consent of the data subject: a freely given, specific, informed and unambiguous indication of the data subject's wishes by which he or she signifies, by means of a statement or an unambiguous act of confirmation, his or her agreement to the handling of personal data concerning him or her.
 
-Különleges adat: A faji vagy etnikai származásra, politikai véleményre, vallási vagy világnézeti meggyőződésre vagy szakszervezeti tagságra utaló személyes adatok, valamint a természetes személyek egyedi azonosítását célzó genetikai és biometrikus adatok, az egészségügyi adatok és a természetes személyek szexuális életére vagy szexuális irányultságára vonatkozó személyes adatok.
+Sensitive data: personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs or trade-union membership, genetic data or biometric data revealing the identity of natural persons, health data and personal data concerning the sex life or sexual orientation of natural persons.
 
-Látogató: az a természetes személy, aki az Adatkezelő www.partmap.eu felületén keresztüli szolgáltatásait nem regisztrált felhasználóként igénybe veszi, és ennek keretében az Adatkezelő és a Felhasználó tudomására hozza személyes adatnak nem minősülő adatait.
+Visitor: a natural person who uses the services of the Data Controller through www.partimap.eu as a non-registered user and, in this context, discloses non-personal data to the Data Controller and the Registered User.
 
-Projekt: a Felhasználó által a regisztrációt követően egyedileg létrehozott, egyedi URL címen megjelenő felület, amely Kérdőívet tartalmaz, melyet a Látogatók regisztráció nélkül kitölthetnek.
+Project: an interface created specifically by the Registered User after registration, accessible at a unique URL, featuring a questionnaire which Visitors can complete without registration.
 
-Regisztráció: az az elektronikus művelet, melynek elvégzésével a Felhasználó elfogadja az Adatkezelő által meghatározott Felhasználási feltételeket, valamint az Adatkezelési tájékoztatót.
+Registration: the electronic operation by which the Registered User accepts the Terms of Use and the Privacy Policy set out by the Data Controller.
 
-## 4\. A kezelt és feldolgozott adatok köre, valamint az adatkezelés célja
+## 4\. The scope of the data handled and processed and the purpose of the data handling
 
-4.1. A Szolgáltatással végezhető tevékenységek szerinti bontásban az **Adatkezelő** az alábbi adatokat kezeli:
+4.1. The **Data Controller** handles the following data, broken down by the activities that may be carried out using the Service:
 
-**Regisztráció elvégzésekor megadott személyes adatok**
+**Personal data provided upon registration**
 
-A regisztrációkor rögzítésre és tárolásra kerül a Felhasználó neve, email-címe, valamint az általa megadott jelszó. A Felhasználó neve és e-mail címe a Projekt részét képező kérdőív adatkezelési tájékoztatójában a Látogatók számára hozzférhetően feltüntetésre kerül. A Szolgáltatás használatához profilkép feltöltése nem szükséges. Az adatkezelési tájékoztató elfogadása előre ki nem töltött, kötelező jelölőnégyzet elfogadásával történik.
+When registering, the Registered User's name, email address and password are recorded and stored. The name and email address of the Registered User will be indicated in the privacy notice of the questionnaire that is part of the Project, in a way accessible to the Visitors. It is not necessary to upload a profile picture to use the Service. Acceptance of the Privacy Policy is done by checking a mandatory checkbox that has not been completed in advance.
 
-Cél: A Felhasználó által megadott személyes adatok kezelése az Adatkezelő által a rendszerben történő azonosításhoz, esetlegesen az Adatkezelő által kezdeményezett kapcsolat-felvételhez, illetve a Projekt részét képező kérdőívet kitöltő Látogatók tájékoztatásához szükséges.
+Purpose: the handling of the personal data provided by the Registered User is necessary for his/her identification by the Data Controller in the system, for possible contact initiated by the Data Controller and for informing the Visitors who fill in the questionnaire that is part of the Project.
 
-Az adatkezelés jogalapja: a Felhasználó önkéntes hozzájárulása.
+Legal basis for data handling: voluntary consent of the Registered User (data subject).
 
-Az adatkezelés időtartama: a Felhasználó általi visszavonásig, de legfeljebb 5 évig.
+Duration of data handling: until revoked by the Registered User, but not longer than 5 years.
 
-Jogellenes, megtévesztő személyes adat használata esetén vagy a Felhasználó által elkövetett, az Adatkezelő működését, tevékenységét és céljai megvalósítását veszélyeztető cselekménye esetén az Adatkezelő jogosult a Felhasználó adatait haladéktalanul törölni, ugyanakkor -- bűncselekmény gyanúja vagy polgári jogi felelősség gyanúja esetén -- jogosult az adatokat a lefolytatandó eljárás időtartamára megőrizni is.
+In case of unlawful or misleading use of personal data or in case of an act committed by the Registered User that endangers the operation, activity and achievement of the purposes of the Data Controller, the Data Controller is entitled to delete the Registered User's data without delay, however, in case of suspicion of criminal offence or civil liability, the Data Controller is also entitled to retain the data for the duration of the proceedings.
 
-**A Projekt és Kérdőív létrehozása során megadott adatok**
+**Data provided when creating a Project and Questionnaire**
 
-A Felhasználó regisztrációt követően űrlap szerkesztése útján kérdőívet hozhat létre, melyek tartalmát a Felhasználó saját maga határozza meg az Adatkezelő által meghatározott Felhasználási feltételek tiszteletben tartásával. A Felhasználó által a Projektekhez tartozó űrlapon és a nyilvánosság számára hozzáférhető kérdőíven elérhető tartalom lehet szöveges és vizuális tartalom. A Felhasználó az általa létrehozott kérdőívben - a Felhasználási feltételekkel egyezően - a Látogatóktól személyes adataik megadását nem kérheti.
+After registration, the Registered User may create a questionnaire by editing a form, the content of which the Registered User determines himself/herself, in compliance with the Terms of Use defined by the Data Controller. The content available to the Registered User on the form associated to the Projects and on the questionnaire accessible to the public may be textual and visual content. The Registered User may not ask the Visitors to provide personal data in the questionnaire created by him/her, in accordance with the Terms of Use.
 
-**A szolgáltatás használatának technikai adatai**
+**Technical details of using the service**
 
-**Naplózás**
+**Logging**
 
-A Szolgáltatás használata során a rendszer rögzíti a Felhasználó számítógépének IP-címét, a látogatás kezdő és befejező időpontját, illetve egyes esetekben --- a Felhasználó számítógépének beállításától függően --- a böngésző és az operációs rendszer típusát. Ezen adatokat a rendszer automatikusan naplózza.
+During the use of the Service, the system records the IP address of the Registered User's computer, the start and end time of the visit, and in some cases --- depending on the Registered User's computer settings --- the type of browser and operating system. These data are automatically logged by the system.
 
-**Beágyazott szolgáltatások által rögzített adatok**
+**Data recorded by embedded services**
 
-A Szolgáltatás használatakor - a Felhasználó böngészőjének és számítógépének beállításaitól függően - különböző beágyazott szolgáltatások vannak jelen. Ezek az oldal optimális használatához szükséges szolgáltatások:
+Depending on the settings of the Registered User's browser and computer, different embedded services are present when using the Service. These services are necessary for the optimal use of the site:
 
-*   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (egyedi betűtípus megjelenítése)
-*   [Google reCAPTCHA v3](https://policies.google.com/privacy) (a spam és a visszaélésszerű üzenetek csökkentésére )
+*   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (custom font display)
+*   [Google reCAPTCHA v3](https://policies.google.com/privacy) (reduce spam and fraudulent messages)
 
-A beágyazott szolgáltatásokat nyújtó szervezetek a fenti link-eken elérhető saját adatkezelési tájékoztatóval és privacy policy-val rendelkeznek a szolgáltatás nyújtása közben rögzített és kezelt adatok tekintetében, de ezekhez az Adatkezelő nem fér hozzá és az adatokat nem használja fel. Ezek a szolgáltatások továbbá - a Felhasználó döntése szerint - a böngésző megfelelő beállításaival kikapcsolhatóak, de az oldal használatának minőségi romlásához vezetnek.
+The organisations providing embedded services have their own privacy notice and privacy policy, available at the links above, regarding the data collected and processed in the course of providing the service, but the Data Controller does not have access to or use the data. Furthermore, these services can be deactivated, at the Registered User's discretion, by means of the appropriate browser settings, but they will lead to a deterioration in the quality of the use of the site.
 
 **Tracking**
 
-Az oldal használata során használunk az oldalon folytatott forgalom és tevékenység követésére (tracking) is eszközöket azért, hogy a látogatottsági adatok statisztikáit anonimizáltan megismerjük:
+When you use the site, we also use tracking tools to track traffic and activity on the site so that we can collect anonymised statistics on the number of visitors:
 
-* [Google Analytics](https://analytics.google.com/analytics/web/) az IP címek titkosított és részleges rögzítésével az oldal látogatottsági statisztikáit generál. Az alkalmazással rögzíthető és tárolható adatokból egyebet nem használunk fel. Az anonimizált statisztikákat 1 évig tároljuk.
+* [Google Analytics](https://analytics.google.com/analytics/web/) generates site traffic statistics by encrypting and partially capturing IP addresses. No other data that can be recorded and stored by the application is used. The anonymised statistics are stored for 1 year.
 
-A tracking adatokat Adatkezelőként nem kapcsoljuk össze személyes adatokkal, ám az esetleges további felhasználásukra vonatkozóan nem rendelkezünk döntési jogosultsággal. Ezekkel az adatokkal kapcsolatban a beágyazott alkalmazások fejlesztői \[Google LLC ("Google"); székhelye: 1600 Amphitheatre Parkway, Mountain View, CA 94043, Amerikai Egyesült Államok) adatvédelmi elvei és szabályzatai irányadók. Amennyiben a Felhasználó tracker nélkül akarja használni az oldalt, lehetősége van kifejezett [opt out](https://tools.google.com/dlpage/gaoptout) -ra.
+As the Data Controller, we do not link tracking data to personal data, but we do not have the right to decide on their possible further use. This data is governed by the privacy principles and policies of Google LLC ("Google", 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States of America), the embedded application developer. If the Registered User wishes to use the site without a tracker, the Registered User may explicitly [opt out](https://tools.google.com/dlpage/gaoptout).
 
-**Sütik**
+**Cookies**
 
-Sütiket az oldal kizárólag a Felhasználó általi belépés eltárolására használ és azokat 30 nap elteltével automatikusan törli.
+Cookies are only used by the site to store the Registered User's login and are automatically deleted after 30 days.
 
-4.2. A Szolgáltatással végezhető tevékenységek szerinti bontásban az **Adatkezelő és a regisztrációt követően Felhasználó** az alábbi adatokat kezeli:
+4.2. The following data is handled by the **Data Controller and, after registration, by the Registered User**, broken down by the activities that may be carried out with the Service:
 
-A Látogató által a kérdőív kitöltése során megadott adatok
+Data provided by the Visitor when filling in the questionnaire.
 
-Az Adatkezelő és a Felhasználó a Felhasználó által egyedileg létrehozott kérdőíven keresztül a Látogatók által válasz formájában megadott adatokat megismeri és kezeli. A válaszok a Felhasználási feltételeknek megfelelően nem tartalmazhatnak személyes adatokat.
+The Data Controller and the Registered User will know and handle the data provided by the Visitor in the form of a response to the questionnaire created specifically by the Registered User. The answers may not contain personal data in accordance with the Terms of Use.
 
-4.3. A **nyilvánosság** által megismerhető adatok
+4.3. Data available to the **public**
 
-A Látogatók által a Felhasználó által létrehozott kérdőív kitöltésén keresztül megadott adatok aggregált módon, összesítő formában a www.partimap.eu felületen a nyilvánosság számára megismerhetőek. Ezen adatokat a nyilvánosság bármely tagja szabadon használhatja fel.
+The data provided by the Visitors through the completion of a questionnaire created by the Registered User is available to the public in aggregate form on www.partimap.eu. This data can be freely used by any member of the public.
 
-## 5\. Az adatkezelő által igénybe vett adatfeldolgozók
+## 5\. Data processors employed by the Data Controller
 
-Név: Haluska György
+Name: György Haluska
 
-Elérhetőség: +36-20-9465935
+Contact: +36-20-9465935
 
-A Linux Hungary Kft. biztosít tárhelyszolgáltatást a [www.partimap.eu](http://www.partimap.eu/) üzemeltetéséhez.
+Linux Hungary Kft. provides hosting services for [www.partimap.eu](http://www.partimap.eu/).
 
-## 6\. Az adatkezeléssel kapcsolatos jogok
+## 6\. Rights in relation to data handling
 
-A Felhasználót az adatok kezelésének ideje alatt az alábbi jogok illetik meg:
+The Registered User has the following rights during the period of data handling:
 
-*   tájékoztatás és hozzáférés joga: a Felhasználó a vele kapcsolatban tárolt személyes adatokról tájékoztatást kérhet, valamint kérheti azok másolatának átadását;
+*   the right to information and access: the Registered User may request information about the personal data stored in relation to him or her and may request a copy of such data;
 
-*   helyesbítéshez való jog: a Felhasználó kérheti a vele kapcsolatban tárolt személyes adatok helyesbítését, ha azok nem pontosak vagy nem teljesek. Amennyiben a Felhasználó az Adatkezelő részére olyan személyes adatot is a rendelkezésére bocsát, amely az adatkezelés céljához nem szükséges, azt az Adatkezelő törli.
+*   the right to rectification: the Registered User may request the rectification of personal data stored about him/her if they are inaccurate or incomplete. If the Registered User also provides the Data Controller with personal data which is not necessary for the purposes of the processing, the Data Controller shall delete it.
 
-*   elfeledtetéshez való jog: Felhasználó kérheti, hogy az Adatkezelő törölje a róla tárolt adatokat az adatbázisából, különösen ha az adatkezeléshez adott korábbi hozzájárulását visszavonja vagy az adatok kezelése jogellenes módon történik.
+*   right to be forgotten: the Registered User may request the Data Controller to delete the data stored about him/her from the database, in particular if he/she withdraws his/her previous consent to the processing or if the processing is unlawful.
 
-*   adatkezelés korlátozásának joga: a Felhasználó kérheti az adatkezelés korlátozását, ha a) vitatja a személyes adatok pontosságát és az Adatkezelés korlátozását kéri arra az időre, amíg az Adatkezelő ellenőrzi a személyes adatok pontosságát; b) az adatkezelés jogellenes, de a Felhasználó ellenzi az adatok törlését, és ehelyett kéri azok felhasználásának korlátozását; c) az Adatkezelőnek már nincs szüksége a személyes adatokra adatkezelés céljából, de a Felhasználó igényli azokat jogi igények előterjesztéséhez, érvényesítéséhez vagy védelméhez;
+*   right to restriction of handling: the Registered User may request the restriction of handling if a) he/she contests the accuracy of the personal data and requests the restriction of handling for the period of time necessary for the Data Controller to verify the accuracy of the personal data; b) the handling is unlawful but the Registered User opposes the erasure of the data and requests instead the restriction of their use; c) the Data Controller no longer needs the personal data for the purposes of the handling but the Registered User requires them for the establishment, exercise or defence of legal claims;
 
-*   adathordozhatósághoz való jog: személyes adatok automatizált kezelése esetén Felhasználó kérheti, hogy a tárolt személyes adatokat az Adatkezelő tagolt, géppel olvasható (interoperábilis) formátumban a Felhasználó részére átadja, illetve technikai megvalósíthatóság esetén egy másik Adatkezelőnek továbbítsa. Az adathordozhatósághoz való jog nem érintheti hátrányosan mások jogait és szabadságait.
+*   right to data portability: in the case of automated processing of personal data, the Registered User may request that the Data Controller transfers the stored personal data to the Registered User in a structured, machine-readable (interoperable) format or, if technically feasible, to another data controller. The right to data portability must not adversely affect the rights and freedoms of others.
 
-*   tiltakozáshoz való jog: a Felhasználó saját helyzetével kapcsolatos okokból tiltakozhat személyes adatai kezelése ellen, ha az adatkezelés közérdekű, közhatalmi jogosítvány gyakorlása keretében végzett feladat ellátásához, vagy az adatkezelő illetve harmadik fél jogos érdekeinek érvényesítéséhez szükséges. A Szolgáltatás nyújtásakor Adatkezelő a Felhasználó hozzájárulásával kezeli annak adatait, ezért tiltakozásra csak a hozzájárulás hiányában is elvégzendő kötelező adatkezelés (például eseti adattovábbítás) esetén van mód.
+*   the right to object: the Registered User may object to the handling of his or her personal data on grounds relating to his or her particular situation, if the handling is necessary for the performance of a task carried out in the public interest, in the exercise of official authority, or for the legitimate interests of the controller or a third party. When providing the Service, the Data Controller handles the Registered User's data with the Registered User's consent, and therefore objections may only be raised in the case of mandatory data handling (e.g. ad hoc data transfers) that must be carried out even without consent.
 
-*   jogorvoslathoz való jog: lásd 7. pont
+*   right to redress: see point 7.
 
-## 7\. Jogorvoslati lehetőségek
+## 7\. Redress possibilities
 
-**Együttműködés az Adatkezelővel**
+**Collaboration with the Data Controller**
 
-Ha a Felhasználó jogellenes adatkezelést tapasztal, hivatalos eljárás kezdeményezése előtt a célszerű panaszát először az Adatkezelőnek elküldenie, mivel így lehetőség nyílik arra, hogy az Adatkezelő a jogszerű állapotot helyreállítsa.
+If the Registered User experiences unlawful data handling, it is advisable to send the complaint to the Data Controller first before initiating a formal procedure, as this will allow the Data Controller to restore the lawful situation.
 
-**Panasz**
+**Complaint**
 
-A Felhasználó panasszal fordulhat a Nemzeti Adatvédelmi és Információszabadság Hatósághoz (NAIH), ha a rá vonatkozó személyes adatok kezelésével kapcsolatban jogsértés következett be.
+The Registered User may lodge a complaint with the National Authority for Data Protection and Freedom of Information (NAIH) in case of a breach of the handling of personal data concerning him/her.
 
-Cím: 1055 Budapest, Falk Miksa utca 9-11. (Levelezési cím: 1363 Budapest, Pf.: 9. )
+Address: 1055 Budapest, Falk Miksa utca 9-11. (Postal address: 1363 Budapest, Pf.: 9. )
 
-Hivatali kapu NAIH
+Authority Portal NAIH
 
 E-mail: <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#111;&#x6c;&#x67;&#x61;&#x6c;&#97;&#x74;&#64;&#110;&#97;&#x69;&#104;&#x2e;&#x68;&#x75;">&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#111;&#x6c;&#x67;&#x61;&#x6c;&#97;&#x74;&#64;&#110;&#97;&#x69;&#104;&#x2e;&#x68;&#x75;</a>
 
-		**Bíróság előtti jogérvényesítés**
+**Enforcement in court**
 
-A Felhasználót megilleti a hatékony bírósági jogorvoslat is, ha a NAIH a panasz alapján nem jár el, azt elutasítja vagy megalapozatlannak minősíti. A felügyeleti hatósághoz címzett panasz mellett a Felhasználó az Adatkezelővel szemben közvetlenül a bírósághoz is fordulhat, ha a személyes adatainak kezelése során az Adatkezelő (vagy Harmadik személy) megsértette a személyes adatok védelmével kapcsolatos jogait. Az Adatkezelő elleni pert az Adatkezelő székhelye - vagy az érintett választásának megfelelően az érintett lakó- vagy tartózkodási helye - szerint illetékes törvényszék előtt kell megindítani. A törvényszék az ügyben soron kívül jár el.
+The Registered User shall also have the right to an effective judicial remedy if the NAIH does not act on the basis of the complaint, rejects it or deems it unfounded. In addition to a complaint to the supervisory authority, the Registered User may also bring a claim directly to court against the Data Controller if the Data Controller (or a third party) has infringed his/her rights regarding the protection of personal data in the handling of his/her personal data. Proceedings against the Data Controller shall be brought before the competent court of the place where the Data Controller is established or, at the choice of the data subject, of the place of residence or domicile of the data subject. The court shall decide the case on a fast-track basis.
 
-## 8\. Az adatvédelmi tájékoztató módosítása
+## 8\. Amendments to the privacy policy
 
-Az Adatkezelő bármikor dönthet arról, hogy a folyamatban levő adatkezelését új adatkezelési céllal egészíti ki, ezért az Adatkezelő fenntartja magának a jogot, hogy a tájékoztatót módosítsa. Az Adatkezelő a tájékoztató módosításáról a Felhasználót e-mail útján értesíti.
+The Data Controller may at any time decide to add a new handling purpose to its ongoing data handling, and therefore the Data Controller reserves the right to amend this policy. The Data Controller will notify the Registered User by e-mail of the modification of the policy.
 
-## 9\. Az adatkezelésre vonatkozó jogszabályok
+## 9\. Legislation on data management
 
-Az EURÓPAI PARLAMENT ÉS A TANÁCS (EU) 2016/679 RENDELETE (2016. április 27.) a természetes személyeknek a személyes adatok kezelése tekintetében történő védelméről és az ilyen adatok szabad áramlásáról, valamint a 95/46/EK rendelet hatályon kívül helyezéséről (általános adatvédelmi rendelet) („GDPR") amelynek hatályos szövege [itt tekinthető meg.](http://eur-lex.europa.eu/legal-content/HU/TXT/PDF/?uri=CELEX:32016R0679&rid=1)
+REGULATION (EU) No 2016/679 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive (EC) No 95/46/EC (General Data Protection Regulation) ("GDPR"), in its current version [available here](http://eur-lex.europa.eu/legal-content/HU/TXT/PDF/?uri=CELEX:32016R0679&rid=1)
 
-Az információs önrendelkezési jogról és az információszabadságról szóló 2011. évi CXII. törvény, amelynek hatályos szövege a [következő linken keresztül érhető el.](https://njt.hu/jogszabaly/2011-112-00-00)
+Act CXII of 2011 on the Right to Informational Self-Determination and Freedom of Information, the current text of which is available at [available via the following link](https://njt.hu/jogszabaly/2011-112-00-00)
 
-## 10\. Hatálybalépés
+## 10\. Entry into force
 
-A jelen adatvédelmi tájékoztató 2021. december 1. napján lép hatályba.
+This privacy notice shall enter into force on 1 December 2021.
