@@ -21,7 +21,7 @@ export default {
 	},
 	nuxtI18n: {
 		paths: {
-			en: '/how-does-it-work',
+			en: '/how-it-works',
 		},
 	},
 };

@@ -13,11 +13,10 @@
 					class="d-flex align-items-center item"
 					@click="editQuestion(i)"
 				>
-					<i
-						class="fas fa-fw mr-2"
-						:class="icon[q.type]"
-					/>
-					<strong class="flex-grow-1 text-truncate">{{ q.label }}</strong>
+					<i class="fas fa-fw mr-2" :class="icon[q.type]" />
+					<strong class="flex-grow-1 text-truncate">{{
+						q.label
+					}}</strong>
 					<span
 						v-if="!readonly"
 						class="text-danger"
@@ -53,7 +52,9 @@
 			id="survey-question-editor"
 			:cancel-title="$t('SurveyEditor.cancel')"
 			:ok-disabled="readonly"
-			:title="$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
+			:title="
+				$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`
+			"
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
@@ -110,7 +111,11 @@
 								v-model.number="question.max"
 								type="number"
 								min="1"
-								:max="!question.options ? 0 : question.options.length"
+								:max="
+									!question.options
+										? 0
+										: question.options.length
+								"
 								@change="inputValid"
 							/>
 						</b-form-group>
@@ -123,24 +128,36 @@
 					label-state="option"
 				/>
 				<OptionsEditor
-					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-if="
+						'singleChoiceMatrix|multipleChoiceMatrix'.includes(
+							question.type
+						)
+					"
 					v-model="question.rows"
 					:readonly="readonly"
 					label-state="row"
 				/>
 				<OptionsEditor
-					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-if="
+						'singleChoiceMatrix|multipleChoiceMatrix'.includes(
+							question.type
+						)
+					"
 					v-model="question.columns"
 					:readonly="readonly"
 					label-state="column"
 				/>
-				<b-form-group v-if="'checkbox|dropdown'.includes(question.type)">
+				<b-form-group
+					v-if="'checkbox|dropdown'.includes(question.type)"
+				>
 					<b-form-checkbox v-model="question.other">
 						{{ $t('SurveyEditor.other') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
-					<b-form-checkbox v-model="question.required">{{ $t('SurveyEditor.required') }}</b-form-checkbox>
+					<b-form-checkbox v-model="question.required">{{
+						$t('SurveyEditor.required')
+					}}</b-form-checkbox>
 				</b-form-group>
 			</b-form>
 		</b-modal>
@@ -185,18 +202,46 @@ export default {
 				multipleChoiceMatrix: 'fa-check-square',
 			},
 			questionTypes: [
-				{ value: 'text', text: this.$t('SurveyEditor.questionTypes.text') },
-				{ value: 'number', text: this.$t('SurveyEditor.questionTypes.number') },
-				{ value: 'range', text: this.$t('SurveyEditor.questionTypes.range') },
-				{ value: 'checkbox', text: this.$t('SurveyEditor.questionTypes.checkbox') },
-				{ value: 'radiogroup', text: this.$t('SurveyEditor.questionTypes.radiogroup') },
+				{
+					value: 'text',
+					text: this.$t('SurveyEditor.questionTypes.text'),
+				},
+				{
+					value: 'number',
+					text: this.$t('SurveyEditor.questionTypes.number'),
+				},
+				{
+					value: 'range',
+					text: this.$t('SurveyEditor.questionTypes.range'),
+				},
+				{
+					value: 'checkbox',
+					text: this.$t('SurveyEditor.questionTypes.checkbox'),
+				},
+				{
+					value: 'radiogroup',
+					text: this.$t('SurveyEditor.questionTypes.radiogroup'),
+				},
 				{
 					value: 'dropdown',
-					text: this.$t('SurveyEditor.dropdown'),
+					text: this.$t('SurveyEditor.questionTypes.dropdown'),
 				},
-				{ value: 'rating', text: this.$t('SurveyEditor.questionTypes.rating') },
-				{ value: 'singleChoiceMatrix', text: this.$t('SurveyEditor.questionTypes.singleChoiceMatrix') },
-				{ value: 'multipleChoiceMatrix', text: this.$t('SurveyEditor.questionTypes.multipleChoiceMatrix') },
+				{
+					value: 'rating',
+					text: this.$t('SurveyEditor.questionTypes.rating'),
+				},
+				{
+					value: 'singleChoiceMatrix',
+					text: this.$t(
+						'SurveyEditor.questionTypes.singleChoiceMatrix'
+					),
+				},
+				{
+					value: 'multipleChoiceMatrix',
+					text: this.$t(
+						'SurveyEditor.questionTypes.multipleChoiceMatrix'
+					),
+				},
 			],
 			questionIndex: 0,
 			question: {},
@@ -218,7 +263,9 @@ export default {
 	methods: {
 		addQuestion() {
 			const id = new Date().getTime();
-			const label = this.$t('SurveyEditor.questionPrefix') + ` #${this.survey.questions.length + 1}`;
+			const label =
+				this.$t('SurveyEditor.questionPrefix') +
+				` #${this.survey.questions.length + 1}`;
 			const q = { id, label, type: 'text' };
 			this.survey.questions.push(q);
 			this.emitSurvey();
@@ -253,7 +300,12 @@ export default {
 			this.$emit('input', JSON.stringify(this.survey));
 		},
 		inputValid(max) {
-			if (!this.question.options || !max || max < 1 || max >= this.question.options.length) {
+			if (
+				!this.question.options ||
+				!max ||
+				max < 1 ||
+				max >= this.question.options.length
+			) {
 				this.question.max = '';
 			}
 		},

@@ -203,7 +203,7 @@ export default {
 			Rating: 'Fix elemek értékelése',
 			SocialSharing: 'Megosztás gombok',
 		},
-		numberOfStars: 'Csillagok száma',
+		numberOfStars: 'Csillagok száma (1-10)',
 		ratingType: 'Értékelés típusa',
 		ratingTypes: {
 			stars: 'Csillagok',
@@ -305,7 +305,7 @@ export default {
 		changeBaseMap: 'Alaptérkép váltás',
 	},
 	MapHint: {
-		Point: '',
+		Point: 'Pont jelölő elhelyezéséhez közelíts a szükséges léptékig és kattints a megjelölni kívánt helyre.',
 		LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
 		Polygon: 'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
 	},
