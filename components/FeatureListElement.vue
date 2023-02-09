@@ -46,10 +46,10 @@
 			<b-card
 				v-if="
 					selectedFeature &&
-					(editable ||
-						form.category ||
-						form.description ||
-						visitorCanRate)
+						(editable ||
+							form.category ||
+							form.description ||
+							visitorCanRate)
 				"
 				body-class="pb-0"
 				class="collapse-content"
@@ -106,7 +106,7 @@
 					<b-form-group
 						v-if="
 							!visitor &&
-							feature.getGeometry().getType() !== 'Point'
+								feature.getGeometry().getType() !== 'Point'
 						"
 						:label="$t('FeatureListElement.dashType')"
 					>
@@ -145,7 +145,7 @@
 						v-if="visitor"
 						:label="
 							descriptionLabel ||
-							$t('sheetEditor.defaultFeatureQuestion')
+								$t('sheetEditor.defaultFeatureQuestion')
 						"
 					>
 						<b-textarea
@@ -175,12 +175,12 @@
 				<b-form-group
 					v-if="
 						(visitor && !editable && visitorCanRate) ||
-						(!visitor && initFeatureRating.count)
+							(!visitor && initFeatureRating.count)
 					"
 				>
 					<b-button-group v-if="stars === -2" class="w-100">
 						<b-button
-							:disabled="!visitor"
+							:disabled="!visitor || showResults"
 							:variant="
 								rating === -1 ? 'danger' : 'outline-danger'
 							"
@@ -190,9 +190,7 @@
 						>
 							<i class="fas fa-thumbs-up fa-flip-both" />
 							<span
-								v-if="
-									initFeatureRating.dislikeCount !== undefined
-								"
+								v-if="!visitor || showResults"
 								class="ml-2"
 							>
 								{{ -initFeatureRating.dislikeCount }}
@@ -204,7 +202,7 @@
 							{{ initFeatureRating.sum }}
 						</div>
 						<b-button
-							:disabled="!visitor"
+							:disabled="!visitor || showResults"
 							:variant="
 								rating === 1 ? 'success' : 'outline-success'
 							"
@@ -212,7 +210,7 @@
 						>
 							<i class="fas fa-thumbs-up" />
 							<span
-								v-if="initFeatureRating.likeCount !== undefined"
+								v-if="!visitor || showResults"
 								class="ml-2"
 							>
 								{{ initFeatureRating.likeCount }}
@@ -233,9 +231,9 @@
 							:fixed-points="1"
 							inactive-color="#fff"
 							:max-rating="stars"
-							:read-only="!visitor"
+							:read-only="!visitor || showResults"
 							:round-start-rating="false"
-							:show-rating="!visitor"
+							:show-rating="!visitor || showResults"
 							:star-size="16"
 						/>
 					</div>
@@ -287,6 +285,10 @@ export default {
 		initFeatureRating: {
 			type: Object,
 			default: () => {}, // { average, count, ... }
+		},
+		showResults: {
+			type: Boolean,
+			default: false,
 		},
 		stars: {
 			type: Number,
@@ -390,7 +392,14 @@ export default {
 			},
 			deep: true,
 		},
+		initFeatureRating: {
+			handler() {
+				// reinitialize when switching to results
+				this.rating = Number(this.initFeatureRating.average || 0);
+			},
+		},
 		rating(rating) {
+			if (this.showResults) { return; }
 			this.feature.set('rating', rating);
 			this.$nuxt.$emit(
 				'featureRatedByVisitor',

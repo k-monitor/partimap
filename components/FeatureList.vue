@@ -91,6 +91,7 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:show-results="showResults"
 					:stars="stars"
 					:visitor="visitor"
 					:visitor-can-rate="visitorCanRate"
@@ -129,6 +130,10 @@ export default {
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
+		},
+		showResults: {
+			type: Boolean,
+			default: false,
 		},
 		stars: {
 			type: Number,

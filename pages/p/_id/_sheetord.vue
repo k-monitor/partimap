@@ -29,7 +29,7 @@
 								:src="project.user.logo"
 								:alt="project.user.website"
 								height="30"
-							/>
+							>
 						</a>
 					</div>
 				</template>
@@ -103,6 +103,7 @@
 						:description-label="sheet.descriptionLabel"
 						:init-feature-ratings="featureRatings"
 						:hide-admin-features="!!isInteractive"
+						:show-results="resultsShown"
 						:stars="stars"
 						visitor
 						:visitor-can-rate="
