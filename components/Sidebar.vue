@@ -32,8 +32,10 @@
 					</b-navbar-brand>
 					<b-navbar-brand
 						v-else
-						href="/"
+						v-b-tooltip.hover.bottom
+						:href="localePath({ name: 'hogyan-mukodik' })"
 						target="_blank"
+						:title="$t('PublicFrame.help')"
 					>
 						<Logo class="small" />
 					</b-navbar-brand>
@@ -41,16 +43,13 @@
 						v-if="!admin && project && project.user"
 						class="mx-auto"
 					>
-						<a
-							:href="project.user.website"
-							target="_blank"
-						>
+						<a :href="project.user.website" target="_blank">
 							<img
 								v-if="project.user.logo"
 								:src="project.user.logo"
 								:alt="project.user.website"
 								height="30"
-							>
+							/>
 						</a>
 					</div>
 					<b-navbar-nav>
@@ -104,9 +103,9 @@ export default {
 		},
 		backLabel: {
 			type: String,
-			default () {
+			default() {
 				return this.$t('Sidebar.back');
-			}
+			},
 		},
 		contentModified: {
 			type: Boolean,
@@ -120,7 +119,8 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		project: { // needed for logo
+		project: {
+			// needed for logo
 			type: Object,
 			default: null,
 		},
@@ -159,10 +159,7 @@ export default {
 		},
 	},
 	methods: {
-		...mapMutations([
-			'setDrawType',
-			'setSidebarVisible',
-		]),
+		...mapMutations(['setDrawType', 'setSidebarVisible']),
 		confirmIfNeeded() {
 			if (this.contentModified) {
 				return this.confirmLeavingUnsaved();
@@ -182,7 +179,7 @@ export default {
 		showSidebarAndCancelDrawing() {
 			this.setDrawType('');
 			this.setSidebarVisible(true);
-		}
+		},
 	},
 };
 </script>

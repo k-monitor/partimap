@@ -1,12 +1,6 @@
 <template>
-	<SheetFrame
-		v-if="project && sheet"
-		:background-image-url="sheet.image"
-	>
-		<form
-			ref="sheetForm"
-			submit.prevent=""
-		>
+	<SheetFrame v-if="project && sheet" :background-image-url="sheet.image">
+		<form ref="sheetForm" submit.prevent="">
 			<b-modal
 				v-if="!sheet.features"
 				content-class="shadow-sm"
@@ -22,15 +16,14 @@
 				<template #modal-header>
 					<div class="d-flex justify-content-between w-100">
 						<a
-							href="/"
+							v-b-tooltip.hover.bottom
+							:href="localePath({ name: 'hogyan-mukodik' })"
 							target="_blank"
+							:title="$t('PublicFrame.help')"
 						>
 							<Logo />
 						</a>
-						<a
-							:href="project.user.website"
-							target="_blank"
-						>
+						<a :href="project.user.website" target="_blank">
 							<img
 								v-if="project.user.logo"
 								:src="project.user.logo"
@@ -52,7 +45,9 @@
 						:disable-submit="loading || !getConsent || submitted"
 						:show-next="!isLastSheet || needToShowResults"
 						:show-prev="!isFirstSheet && !submitted"
-						:show-submit="getConsent && isLastSheet && !needToShowResults"
+						:show-submit="
+							getConsent && isLastSheet && !needToShowResults
+						"
 						:step="sheet.ord + 1"
 						:steps="project.sheets.length"
 						@next="next"
@@ -83,7 +78,9 @@
 					:project="project"
 					:show-next="!isLastSheet || needToShowResults"
 					:show-prev="!isFirstSheet && !submitted"
-					:show-submit="getConsent && isLastSheet && !needToShowResults"
+					:show-submit="
+						getConsent && isLastSheet && !needToShowResults
+					"
 					:step="sheet.ord + 1"
 					:steps="project.sheets.length"
 					@next="next"
@@ -108,7 +105,9 @@
 						:hide-admin-features="!!isInteractive"
 						:stars="stars"
 						visitor
-						:visitor-can-rate="interactions.enabled.includes('Rating')"
+						:visitor-can-rate="
+							interactions.enabled.includes('Rating')
+						"
 					/>
 				</Sidebar>
 			</div>
@@ -123,10 +122,7 @@
 			<Terms :project-data-processor="project.privacyPolicy" />
 		</b-modal>
 	</SheetFrame>
-	<div
-		v-else
-		class="container d-flex flex-column flex-grow-1"
-	>
+	<div v-else class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="sendPassword">
@@ -214,7 +210,9 @@ export default {
 	},
 	head() {
 		return {
-			title: this.project ? this.project.title : this.$t('sheet.restrictedTitle'),
+			title: this.project
+				? this.project.title
+				: this.$t('sheet.restrictedTitle'),
 			meta: [
 				{
 					hid: 'description',
@@ -250,9 +248,11 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return this.interactions.enabled.includes('Point') ||
+			return (
+				this.interactions.enabled.includes('Point') ||
 				this.interactions.enabled.includes('LineString') ||
-				this.interactions.enabled.includes('Polygon');
+				this.interactions.enabled.includes('Polygon')
+			);
 		},
 		needToShowResults() {
 			return this.sheet.answers.length > 0 && !this.resultsShown;
@@ -287,7 +287,8 @@ export default {
 			const ratings = this.getVisitorRatings(this.sheet.id) || {};
 			if (rating) {
 				ratings[featureId] = rating;
-			} else { // zero or empty
+			} else {
+				// zero or empty
 				console.log('Removing rating for', featureId);
 				delete ratings[featureId];
 			}
@@ -318,7 +319,9 @@ export default {
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
-			return features ? new GeoJSON().readFeatures(featureCollection) : [];
+			return features
+				? new GeoJSON().readFeatures(featureCollection)
+				: [];
 		},
 		goToSheetOrd(ord) {
 			this.$router.push(
@@ -327,13 +330,16 @@ export default {
 		},
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.sheet.features);
-			const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
+			const visitorFeatures =
+				this.getVisitorFeatures(this.sheet.id) || [];
 
 			// adding "rating" to feature objects for map graying effect
 			const visitorRatings = this.getVisitorRatings(this.sheet.id) || {};
 			adminFeatures.forEach(f => {
 				const r = visitorRatings[f.getId()];
-				if (r) { f.set('rating', r); }
+				if (r) {
+					f.set('rating', r);
+				}
 			});
 
 			return [...visitorFeatures, ...adminFeatures];
@@ -376,7 +382,10 @@ export default {
 				this.sheet = this.project.sheets[this.$route.params.sheetord];
 				this.registerHit();
 			} catch (error) {
-				if (error.message && error.message.endsWith('status code 401')) {
+				if (
+					error.message &&
+					error.message.endsWith('status code 401')
+				) {
 					this.errorToast(this.$t('sheet.invalidPassword'));
 				} else {
 					throw error; // let Nuxt handle it
@@ -397,10 +406,13 @@ export default {
 			if (Object.keys(data).length) {
 				try {
 					const captcha = await this.$recaptcha.execute('submit');
-					await this.$axios.$post('/api/submission/' + this.project.id, {
-						...data,
-						captcha,
-					});
+					await this.$axios.$post(
+						'/api/submission/' + this.project.id,
+						{
+							...data,
+							captcha,
+						}
+					);
 					this.$store.commit('setSubmitted');
 					this.success(this.$t('sheet.submitSuccess'));
 				} catch {

@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="d-flex flex-column"
-		style="min-height: 100vh; padding-top: 3.75rem;"
+		style="min-height: 100vh; padding-top: 3.75rem"
 	>
 		<b-navbar
 			class="border-bottom shadow-sm"
@@ -15,13 +15,16 @@
 					<Logo />
 				</b-navbar-brand>
 				<b-navbar-toggle target="nav-collapse" />
-				<b-collapse
-					id="nav-collapse"
-					is-nav
-				>
+				<b-collapse id="nav-collapse" is-nav>
 					<b-navbar-nav class="ml-auto">
-						<b-nav-item :to="localePath({ name: 'hogyan-mukodik' })">{{ $t('PublicFrame.help') }}</b-nav-item>
-						<b-nav-item :to="localePath('/admin')">{{ $t('PublicFrame.login') }}</b-nav-item>
+						<b-nav-item
+							:to="localePath({ name: 'hogyan-mukodik' })"
+						>
+							{{ $t('PublicFrame.help') }}
+						</b-nav-item>
+						<b-nav-item :to="localePath('/admin')">
+							{{ $t('PublicFrame.login') }}
+						</b-nav-item>
 						<LangSwitcher />
 					</b-navbar-nav>
 				</b-collapse>
@@ -42,7 +45,7 @@
 							src="/k-monitor-logo.png"
 							alt="K-Monitor"
 							height="31"
-						>
+						/>
 					</a>
 					<a
 						class="mr-3"
@@ -53,7 +56,7 @@
 							src="/deepdata-logo.png"
 							alt="DeepData"
 							height="31"
-						>
+						/>
 					</a>
 				</div>
 				<div class="ml-auto">
