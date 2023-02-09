@@ -10,6 +10,7 @@ const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
 const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
+const rdb = require('../rating/rating.db');
 const sdb = require('../sheet/sheet.db');
 const sadb = require('../surveyAnswer/surveyAnswer.db');
 const udb = require('../user/user.db');
@@ -193,6 +194,14 @@ router.post('/project/access',
 			req.project.sheets.forEach(s => {
 				s.answers = answers.filter(a => a.sheetId === s.id);
 			});
+
+			const promises = req.project.sheets.map(async s => {
+				const arr = await rdb.aggregateBySheetId(s.id);
+				const dict = {};
+				arr.forEach(ar => { dict[ar.featureId] = ar; });
+				s.ratings = dict;
+			});
+			await Promise.all(promises);
 		} catch {
 			req.project.sheets.forEach(s => { s.answers = []; });
 		}
