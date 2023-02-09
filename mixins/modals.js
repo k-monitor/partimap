@@ -1,25 +1,26 @@
 export default {
 	methods: {
 		confirmDeletion(item) {
-			return this.$bvModal.msgBoxConfirm(`Biztosan törlöd ezt: ${item}?`, {
-				cancelTitle: 'Mégsem',
+			const msg = `${this.$t('modals.confirmDeletion')}: ${item}`;
+			return this.$bvModal.msgBoxConfirm(msg, {
+				cancelTitle: this.$t('modals.cancel'),
 				cancelVariant: 'success',
 				centered: true,
 				footerClass: 'p-2',
-				okTitle: 'Igen',
+				okTitle: this.$t('modals.yes'),
 				okVariant: 'danger',
-				title: 'Törlés',
+				title: this.$t('modals.delete'),
 			});
 		},
 		confirmLeavingUnsaved() {
-			return this.$bvModal.msgBoxConfirm('Még nem mentetted el a módosításokat. Biztosan kilépsz?', {
-				cancelTitle: 'Mégsem',
+			return this.$bvModal.msgBoxConfirm(this.$t('modals.confirmUnsaved'), {
+				cancelTitle: this.$t('modals.cancel'),
 				cancelVariant: 'success',
 				centered: true,
 				footerClass: 'p-2',
-				okTitle: 'Igen',
+				okTitle: this.$t('modals.yes'),
 				okVariant: 'danger',
-				title: 'Nem mentett módosítások',
+				title: this.$t('modals.unsaved'),
 			});
 		},
 	}

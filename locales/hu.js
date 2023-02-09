@@ -399,4 +399,12 @@ export default {
 		maxFileSize: 'Maximális fájlméret: 5 MB',
 		remove: 'Kép törlése',
 	},
+	modals: {
+		cancel: 'Mégsem',
+		confirmDeletion: 'Biztosan törlöd ezt',
+		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
+		delete: 'Törlés',
+		unsaved: 'Nem mentett módosítások',
+		yes: 'Igen',
+	},
 };

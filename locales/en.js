@@ -399,4 +399,12 @@ export default {
 		maxFileSize: 'Maximum size: 5 MB',
 		remove: 'Remove image',
 	},
+	modals: {
+		cancel: 'Cancel',
+		confirmDeletion: 'Are you sure you wish to delete this',
+		confirmUnsaved: 'There are unsaved changes on this page. Are you sure you want to continue?',
+		delete: 'Delete',
+		unsaved: 'Warning: Unsaved changes',
+		yes: 'Yes',
+	},
 };
