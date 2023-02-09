@@ -29,7 +29,7 @@
 								:src="project.user.logo"
 								:alt="project.user.website"
 								height="30"
-							>
+							/>
 						</a>
 					</div>
 				</template>
@@ -101,7 +101,7 @@
 					/>
 					<FeatureList
 						:description-label="sheet.descriptionLabel"
-						:init-feature-ratings="getVisitorRatings(sheet.id)"
+						:init-feature-ratings="featureRatings"
 						:hide-admin-features="!!isInteractive"
 						:stars="stars"
 						visitor
@@ -241,6 +241,11 @@ export default {
 			'getVisitorRatings',
 			'getSubmissionData',
 		]),
+		featureRatings() {
+			return this.resultsShown
+				? this.sheet.ratings
+				: this.getVisitorRatings(this.sheet.id);
+		},
 		isFirstSheet() {
 			return this.sheet.ord === 0;
 		},
@@ -255,7 +260,12 @@ export default {
 			);
 		},
 		needToShowResults() {
-			return this.sheet.answers.length > 0 && !this.resultsShown;
+			const haveAnswers = this.sheet.answers.length > 0;
+			const haveRatings =
+				this.sheet.ratings &&
+				Object.keys(this.sheet.ratings).length > 0;
+			const haveResults = haveAnswers || haveRatings;
+			return haveResults && !this.resultsShown;
 		},
 		stars() {
 			return this.interactions.stars;

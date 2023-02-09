@@ -45,7 +45,7 @@
 						<b-button
 							:disabled="!search"
 							variant="outline-secondary"
-							@click="search=''"
+							@click="search = ''"
 						>
 							<i class="fas fa-backspace" />
 						</b-button>
@@ -214,8 +214,8 @@ export default {
 		},
 		updateFilteredFeatures() {
 			this.filteredFeatures = this.getAllFeatures
-				.filter(
-					f => !this.categoryFilter || f.get('category') === this.categoryFilter
+				.filter(f => !this.categoryFilter ||
+					f.get('category') === this.categoryFilter
 				)
 				.filter(
 					f =>

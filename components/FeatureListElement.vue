@@ -1,12 +1,15 @@
 <template>
-	<div
-		class="mt-1 rounded"
-		:class="{ highlight: selectedFeature }"
-	>
+	<div class="mt-1 rounded" :class="{ highlight: selectedFeature }">
 		<b-list-group-item
 			ref="feature"
 			button
-			:class="[{ selected: selectedFeature, disabled: onEditMode, rated: !selectedFeature && !editable && rated }]"
+			:class="[
+				{
+					selected: selectedFeature,
+					disabled: onEditMode,
+					rated: !selectedFeature && !editable && rated,
+				},
+			]"
 			class="px-2 rounded"
 			:style="{ borderLeftColor: form.color }"
 			@click="featureClicked()"
@@ -16,10 +19,7 @@
 					class="fas fa-fw mr-1"
 					:class="icons[feature.getGeometry().getType()]"
 				/>
-				<i
-					v-if="form.hidden"
-					class="fas fa-eye-slash fa-fw mr-1"
-				/>
+				<i v-if="form.hidden" class="fas fa-eye-slash fa-fw mr-1" />
 				{{ form.name }}
 			</span>
 			<span v-if="selectedFeature">
@@ -44,18 +44,22 @@
 			@shown="expandFinished()"
 		>
 			<b-card
-				v-if="selectedFeature && (editable || (form.category || form.description || visitorCanRate))"
+				v-if="
+					selectedFeature &&
+					(editable ||
+						form.category ||
+						form.description ||
+						visitorCanRate)
+				"
 				body-class="pb-0"
 				class="collapse-content"
 			>
 				<div v-if="editable">
-					<b-row
-						v-if="!visitor"
-						align-h="between"
-						align-v="center"
-					>
+					<b-row v-if="!visitor" align-h="between" align-v="center">
 						<b-col>
-							<b-form-group :label="$t('FeatureListElement.color')">
+							<b-form-group
+								:label="$t('FeatureListElement.color')"
+							>
 								<b-form-input
 									id="type-color"
 									v-model="form.color"
@@ -88,7 +92,9 @@
 							</b-form-group>
 						</b-col>
 						<b-col>
-							<b-form-group :label="$t('FeatureListElement.size')">
+							<b-form-group
+								:label="$t('FeatureListElement.size')"
+							>
 								<b-form-input
 									v-model="form.width"
 									size="sm"
@@ -98,7 +104,10 @@
 						</b-col>
 					</b-row>
 					<b-form-group
-						v-if="!visitor && feature.getGeometry().getType() !== 'Point'"
+						v-if="
+							!visitor &&
+							feature.getGeometry().getType() !== 'Point'
+						"
 						:label="$t('FeatureListElement.dashType')"
 					>
 						<b-form-select
@@ -134,7 +143,10 @@
 					</b-form-group>
 					<b-form-group
 						v-if="visitor"
-						:label="descriptionLabel || $t('sheetEditor.defaultFeatureQuestion')"
+						:label="
+							descriptionLabel ||
+							$t('sheetEditor.defaultFeatureQuestion')
+						"
 					>
 						<b-textarea
 							ref="description"
@@ -158,37 +170,53 @@
 						variant="light"
 						v-text="form.category"
 					/>
-					<div
-						class="mb-3 rich"
-						v-html="form.description"
-					/>
+					<div class="mb-3 rich" v-html="form.description" />
 				</div>
-				<b-form-group v-if="(visitor && !editable && visitorCanRate) || (!visitor && ratingStats.count)">
+				<b-form-group
+					v-if="
+						(visitor && !editable && visitorCanRate) ||
+						(!visitor && initFeatureRating.count)
+					"
+				>
 					<b-button-group v-if="stars === -2" class="w-100">
 						<b-button
 							:disabled="!visitor"
-							:variant="rating === -1 ? 'danger' : 'outline-danger'"
-							@click="rating === -1 ? rating = 0 : rating = -1"
+							:variant="
+								rating === -1 ? 'danger' : 'outline-danger'
+							"
+							@click="
+								rating === -1 ? (rating = 0) : (rating = -1)
+							"
 						>
 							<i class="fas fa-thumbs-up fa-flip-both" />
 							<span
-								v-if="!visitor"
+								v-if="
+									initFeatureRating.dislikeCount !== undefined
+								"
 								class="ml-2"
-							>{{ -ratingStats.dislikeCount }}</span>
+							>
+								{{ -initFeatureRating.dislikeCount }}
+							</span>
 						</b-button>
-						<div class="align-items-center d-flex flex-grow-1 font-weight-bold justify-content-center">
-							{{ ratingStats.sum }}
+						<div
+							class="align-items-center d-flex flex-grow-1 font-weight-bold justify-content-center"
+						>
+							{{ initFeatureRating.sum }}
 						</div>
 						<b-button
 							:disabled="!visitor"
-							:variant="rating === 1 ? 'success' : 'outline-success'"
-							@click="rating === 1 ? rating = 0 : rating = 1"
+							:variant="
+								rating === 1 ? 'success' : 'outline-success'
+							"
+							@click="rating === 1 ? (rating = 0) : (rating = 1)"
 						>
 							<i class="fas fa-thumbs-up" />
 							<span
-								v-if="!visitor"
+								v-if="initFeatureRating.likeCount !== undefined"
 								class="ml-2"
-							>{{ ratingStats.likeCount }}</span>
+							>
+								{{ initFeatureRating.likeCount }}
+							</span>
 						</b-button>
 					</b-button-group>
 					<div
@@ -214,10 +242,7 @@
 				</b-form-group>
 
 				<b-form-group v-if="editable && visitorCanRate">
-					<b-form-checkbox
-						v-model="form.hidden"
-						name="hidden"
-					>
+					<b-form-checkbox v-model="form.hidden" name="hidden">
 						{{ $t('FeatureListElement.hidden') }}
 					</b-form-checkbox>
 				</b-form-group>
@@ -288,13 +313,27 @@ export default {
 				width: this.feature.get('width'),
 			},
 			rating: Number(this.initFeatureRating.average || 0),
-			ratingStats: this.initFeatureRating,
 			dashOptions: [
-				{ text: this.$t('FeatureListElement.dashTypes.p0'), value: '0' },
-				{ text: this.$t('FeatureListElement.dashTypes.p11'), value: '1,1' },
-				{ text: this.$t('FeatureListElement.dashTypes.p21'), value: '2,1' },
-				{ text: this.$t('FeatureListElement.dashTypes.p41'), value: '4,1' },
-				{ text: this.$t('FeatureListElement.dashTypes.p1131'), value: '1,1,3,1' },
+				{
+					text: this.$t('FeatureListElement.dashTypes.p0'),
+					value: '0',
+				},
+				{
+					text: this.$t('FeatureListElement.dashTypes.p11'),
+					value: '1,1',
+				},
+				{
+					text: this.$t('FeatureListElement.dashTypes.p21'),
+					value: '2,1',
+				},
+				{
+					text: this.$t('FeatureListElement.dashTypes.p41'),
+					value: '4,1',
+				},
+				{
+					text: this.$t('FeatureListElement.dashTypes.p1131'),
+					value: '1,1,3,1',
+				},
 			],
 			editable: !this.visitor || this.feature.get('visitorFeature'),
 			icons: {
@@ -353,7 +392,11 @@ export default {
 		},
 		rating(rating) {
 			this.feature.set('rating', rating);
-			this.$nuxt.$emit('featureRatedByVisitor', this.feature.getId(), rating);
+			this.$nuxt.$emit(
+				'featureRatedByVisitor',
+				this.feature.getId(),
+				rating
+			);
 		},
 	},
 	mounted() {
@@ -376,7 +419,9 @@ export default {
 			);
 		},
 		getFeatureName() {
-			const anon = this.$t('FeatureListElement.defaultName')[this.feature.getGeometry().getType()];
+			const anon = this.$t('FeatureListElement.defaultName')[
+				this.feature.getGeometry().getType()
+			];
 			return this.feature.get('name') || anon;
 		},
 		featureClicked() {
@@ -395,7 +440,8 @@ export default {
 		expandFinished() {
 			// custom scrollIntoView as its more accurate:
 			const t = this.$refs.feature?.offsetTop || 0;
-			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = t - 75;
+			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =
+				t - 75;
 
 			if (this.$refs.description) {
 				this.$refs.description.focus();
@@ -412,7 +458,7 @@ export default {
 }
 
 .rated {
-	opacity: .6;
+	opacity: 0.6;
 }
 
 .list-group-item {
