@@ -14,9 +14,9 @@
 					@click="editQuestion(i)"
 				>
 					<i class="fas fa-fw mr-2" :class="icon[q.type]" />
-					<strong class="flex-grow-1 text-truncate">{{
-						q.label
-					}}</strong>
+					<strong class="flex-grow-1 text-truncate">
+						{{ q.label }}
+					</strong>
 					<span
 						v-if="!readonly"
 						class="text-danger"
@@ -155,9 +155,9 @@
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
-					<b-form-checkbox v-model="question.required">{{
-						$t('SurveyEditor.required')
-					}}</b-form-checkbox>
+					<b-form-checkbox v-model="question.required">
+						{{ $t('SurveyEditor.required') }}
+					</b-form-checkbox>
 				</b-form-group>
 			</b-form>
 		</b-modal>
