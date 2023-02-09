@@ -2,6 +2,8 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const transformation = require('transform-coordinates');
+const enReportMessages = require('../../locales/en-report');
+const huReportMessages = require('../../locales/hu-report');
 const AggregatedRating = require('../../model/aggregatedRating');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');
@@ -11,6 +13,14 @@ const rdb = require('../rating/rating.db');
 const sadb = require('../surveyAnswer/surveyAnswer.db');
 const sfdb = require('../submittedFeatures/submittedFeatures.db');
 const smdb = require('./submission.db');
+
+// custom, primitive, ugly i18n solution
+// better solution would be to move Excel workbook generation to client
+// and just send data from here, then we could use nuxt-i18n there
+function reportMessages(locale) {
+	if (locale === 'en') { return enReportMessages; }
+	return huReportMessages;
+}
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326');
 function ol2gm(coords) {
@@ -125,10 +135,12 @@ router.get('/submission/ratings/:id',
 	}
 );
 
-router.get('/submission/export/:id',
+// TODO would be nice to just send back the data to client and generate Excel there
+router.get('/submission/export/:lang/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	async (req, res) => {
+		const m = reportMessages(req.params.lang);
 		const sheets = await sdb.findByProjectId(req.project.id);
 		const submissions = await smdb.findByProjectId(req.project.id);
 		const answers = await sadb.findByProjectId(req.project.id);
@@ -144,12 +156,12 @@ router.get('/submission/export/:id',
 		});
 
 		const wb = new xl.Workbook({
-			dateFormat: 'YYYY-MM-DD HH:MM:SS',
+			dateFormat: m.dateFormat,
 		});
 
-		const sas = wb.addWorksheet('Beküldött válaszok');
-		sas.cell(1, 1).string('Azonosító');
-		sas.cell(1, 2).string('Időbélyeg');
+		const sas = wb.addWorksheet(m.submittedAnswers);
+		sas.cell(1, 1).string(m.submissionId);
+		sas.cell(1, 2).string(m.timestamp);
 		submissions.forEach((s, row) => {
 			const CELL = col => sas.cell(row + 2, col);
 			CELL(1).number(s.id);
@@ -197,10 +209,10 @@ router.get('/submission/export/:id',
 			});
 		});
 
-		const rs = wb.addWorksheet('Értékelések');
-		rs.cell(1, 1).string('Kitöltés azonosító');
-		rs.cell(1, 2).string('Térkép elem');
-		rs.cell(1, 3).string('Értékelés');
+		const rs = wb.addWorksheet(m.ratings);
+		rs.cell(1, 1).string(m.submissionId);
+		rs.cell(1, 2).string(m.feature);
+		rs.cell(1, 3).string(m.rating);
 		ratings.forEach((r, i) => {
 			rs.cell(i + 2, 1).number(r.submissionId);
 			rs.cell(i + 2, 2).string(String(r.featureId));
@@ -214,12 +226,12 @@ router.get('/submission/export/:id',
 			}
 		});
 
-		const ars = wb.addWorksheet('Aggregált értékelések');
-		ars.cell(1, 1).string('Térkép elem');
-		ars.cell(1, 2).string('Értékelések száma');
-		ars.cell(1, 3).string('Összesített értékelés');
-		ars.cell(1, 4).string('Like-ok száma');
-		ars.cell(1, 5).string('Dislike-ok száma');
+		const ars = wb.addWorksheet(m.aggregatedRatings);
+		ars.cell(1, 1).string(m.feature);
+		ars.cell(1, 2).string(m.ratingCount);
+		ars.cell(1, 3).string(m.aggregatedRating);
+		ars.cell(1, 4).string(m.likeCount);
+		ars.cell(1, 5).string(m.dislikeCount);
 		let row = 1;
 		for (let i = 0; i < sheets.length; i++) {
 			const sheet = sheets[i];
@@ -248,13 +260,13 @@ router.get('/submission/export/:id',
 			}
 		}
 
-		const sfs = wb.addWorksheet('Beküldött térkép elemek');
-		sfs.cell(1, 1).string('Kitöltés azonosító');
-		sfs.cell(1, 2).string('Munkalap neve');
-		sfs.cell(1, 3).string('Elem típusa');
-		sfs.cell(1, 4).string('Koordináták');
-		sfs.cell(1, 5).string('Elnevezés');
-		sfs.cell(1, 6).string('Leírás');
+		const sfs = wb.addWorksheet(m.submittedFeatures);
+		sfs.cell(1, 1).string(m.submissionId);
+		sfs.cell(1, 2).string(m.sheetTitle);
+		sfs.cell(1, 3).string(m.featureType);
+		sfs.cell(1, 4).string(m.coords);
+		sfs.cell(1, 5).string(m.featureName);
+		sfs.cell(1, 6).string(m.featureDesc);
 		row = 1;
 		for (let i = 0; i < submittedFeatures.length; i++) {
 			const sf = submittedFeatures[i];
@@ -291,7 +303,7 @@ router.get('/submission/export/:id',
 			}
 		}
 
-		wb.write('export.xlsx', res);
+		wb.write(m.filename, res);
 	}
 );
 

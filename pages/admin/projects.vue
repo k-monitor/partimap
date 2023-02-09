@@ -74,7 +74,7 @@
 					{{ $t('projects.submissions') }}: {{ p.submissions }}
 					<a
 						v-if="p.submissions"
-						:href="'/api/submission/export/' + p.id"
+						:href="`/api/submission/export/${$i18n.locale}/${p.id}`"
 						target="_blank"
 					>{{ $t('projects.export') }}</a>
 				</div>
