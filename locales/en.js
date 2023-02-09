@@ -164,7 +164,7 @@ export default {
 	},
 	register: {
 		consent1: 'I acknowledge that I have read and understand',
-		consent2: 'the Terms of Use and the Privacy Policy.',
+		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
 		email: 'Enter a vaild email',
 		login: 'Already have an account?',
 		name: 'Name',
@@ -347,7 +347,7 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'I acknowledge that I have read and understand',
-		consent2: 'the Terms of Use and the Privacy Policy.',
+		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
 		next: 'Next',
 	},
 	Sidebar: {

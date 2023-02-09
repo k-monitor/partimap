@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
@@ -15,10 +16,7 @@
 								/>
 							</b-form-group>
 							<b-form-group :label="$t('register.name')">
-								<b-form-input
-									v-model="reg.name"
-									required
-								/>
+								<b-form-input v-model="reg.name" required />
 							</b-form-group>
 							<b-form-group :label="$t('register.password')">
 								<b-form-input
@@ -36,22 +34,19 @@
 									{{ $t('register.consent1') }}
 									<a
 										href="javascript:void(0)"
-										@click.stop="$bvModal.show('terms-modal')"
-									>{{ $t('register.consent2') }}</a>
+										@click.stop="
+											$bvModal.show('terms-modal')
+										"
+										v-html="$t('register.consent2')"
+									/>
 								</b-form-checkbox>
 							</b-form-group>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
-							<b-button
-								:to="localePath('/login')"
-								variant="link"
-							>
+							<b-button :to="localePath('/login')" variant="link">
 								{{ $t('register.login') }}
 							</b-button>
-							<b-button
-								type="submit"
-								variant="primary"
-							>
+							<b-button type="submit" variant="primary">
 								{{ $t('register.submit') }}
 							</b-button>
 						</div>
@@ -104,7 +99,12 @@ export default {
 			const captcha = await this.$recaptcha.execute('register');
 			try {
 				await this.$axios.$put('/api/user', { ...this.reg, captcha });
-				this.$router.push(this.localePath({ path: 'login', query: { registered: null } }));
+				this.$router.push(
+					this.localePath({
+						path: 'login',
+						query: { registered: null },
+					})
+				);
 			} catch (err) {
 				this.errorToast(this.$t('register.registrationFailed'));
 			}

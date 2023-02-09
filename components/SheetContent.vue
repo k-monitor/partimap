@@ -3,10 +3,7 @@
 		<b-navbar v-if="!hideTitle" class="m-0 mb-4 p-0">
 			<h1 class="h3 m-0">{{ sheet.title }}</h1>
 		</b-navbar>
-		<div
-			class="my-4 rich"
-			v-html="sheet.description"
-		/>
+		<div class="my-4 rich" v-html="sheet.description" />
 		<div v-if="sheet.survey" class="my-4">
 			<div v-if="results">
 				<client-only>
@@ -14,16 +11,10 @@
 				</client-only>
 			</div>
 			<div v-else>
-				<Survey
-					v-model="visitorAnswers"
-					:survey="sheet.survey"
-				/>
+				<Survey v-model="visitorAnswers" :survey="sheet.survey" />
 			</div>
 		</div>
-		<DrawButtons
-			class="my-4"
-			:sheet="sheet"
-		/>
+		<DrawButtons class="my-4" :sheet="sheet" />
 		<div
 			v-if="interactions.enabled.includes('SocialSharing')"
 			class="d-flex justify-content-around mt-5 mb-4"
@@ -35,17 +26,10 @@
 				:url="projectUrl || ''"
 				title=""
 			>
-				<i
-					class="fa-fw fa-2x"
-					:class="s.icon"
-				/>
+				<i class="fa-fw fa-2x" :class="s.icon" />
 			</ShareNetwork>
 		</div>
-		<b-alert
-			:show="showConsent"
-			variant="primary"
-			class="mt-4"
-		>
+		<b-alert :show="showConsent" variant="primary" class="mt-4">
 			<b-form-checkbox
 				v-model="consent"
 				:disabled="consented"
@@ -57,23 +41,15 @@
 					class="alert-link"
 					href="javascript:void(0)"
 					@click.stop="$bvModal.show('privacy-modal')"
-				>{{ $t('SheetContent.consent2') }}</a>
+					v-html="$t('SheetContent.consent2')"
+				/>
 			</b-form-checkbox>
 		</b-alert>
 	</div>
 	<div v-else>
-		<div
-			class="mb-5 rich"
-			v-html="project.thanks"
-		/>
-		<div
-			v-if="project.thanksUrl"
-			class="text-center mb-5"
-		>
-			<b-button
-				:href="project.thanksUrl"
-				variant="primary"
-			>
+		<div class="mb-5 rich" v-html="project.thanks" />
+		<div v-if="project.thanksUrl" class="text-center mb-5">
+			<b-button :href="project.thanksUrl" variant="primary">
 				{{ $t('SheetContent.next') }}
 				<i class="fas fa-chevron-right ml-2" />
 			</b-button>
@@ -89,10 +65,7 @@
 				:url="projectUrl || ''"
 				title=""
 			>
-				<i
-					class="fa-fw fa-2x"
-					:class="s.icon"
-				/>
+				<i class="fa-fw fa-2x" :class="s.icon" />
 			</ShareNetwork>
 		</div>
 	</div>

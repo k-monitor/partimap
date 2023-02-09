@@ -164,7 +164,7 @@ export default {
 	},
 	register: {
 		consent1: 'Elolvastam és elfogadom a',
-		consent2: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
+		consent2: 'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		email: 'Email cím',
 		login: 'Már van fiókom',
 		name: 'Név',
@@ -346,8 +346,8 @@ export default {
 		withoutCopying: 'Nincs másolás',
 	},
 	SheetContent: {
-		consent1: 'Elolvastam és elfogadom a ',
-		consent2: 'felhasználási feltételeket és az adatkezelési tájékoztatót.',
+		consent1: 'Elolvastam és elfogadom a',
+		consent2: 'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		next: 'Tovább',
 	},
 	Sidebar: {
