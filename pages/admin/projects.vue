@@ -39,7 +39,7 @@
 			<div v-if="$auth.user.isAdmin" class="col col-mr-0">
 				<input
 					class="btn btn-outline-primary form-control"
-					:class="{active: filterOwn}"
+					:class="{ active: filterOwn }"
 					type="button"
 					:value="$t('projects.ownProjects')"
 					@click="filteredOwn(filterOwn)"
@@ -62,7 +62,9 @@
 					<span
 						v-if="p.userId != $auth.user.id"
 						class="badge badge-warning"
-					>{{ $t('projects.owner') }}: #{{ p.userId }}</span>
+					>
+						{{ $t('projects.owner') }}: #{{ p.userId }}
+					</span>
 					<span
 						v-else-if="$auth.user.isAdmin"
 						class="badge badge-info"
@@ -110,27 +112,33 @@ export default {
 	},
 	computed: {
 		filteredProjects() {
-			return this.projects.filter(
-				p => {
-					if (p.lang !== this.$i18n.locale) { return false; }
+			return this.projects.filter(p => {
+				if (p.lang !== this.$i18n.locale) {
+					return false;
+				}
 
-					const f = this.filter.toLowerCase();
-					const t = p.title.toLowerCase();
-					const d = (p.description || '').toLowerCase();
-					if (this.filterOwn && this.$auth.user.id !== p.userId) {
-						return false;
-					}
-					// eslint-disable-next-line no-unreachable
-					return t.includes(f) || d.includes(f);
-				});
+				const f = this.filter.toLowerCase();
+				const t = p.title.toLowerCase();
+				const d = (p.description || '').toLowerCase();
+				if (this.filterOwn && this.$auth.user.id !== p.userId) {
+					return false;
+				}
+				// eslint-disable-next-line no-unreachable
+				return t.includes(f) || d.includes(f);
+			});
 		},
 	},
 	methods: {
 		async add() {
 			try {
 				const { id } = await this.$axios.$put('/api/project', {
+					lang: this.$i18n.locale,
 					title: this.newProjectTitle,
-					privacyPolicy: `<p>${this.$t('projects.userName')}: ${this.$auth.user.name}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${this.$auth.user.email}</a></p>`,
+					privacyPolicy: `<p>${this.$t('projects.userName')}: ${
+						this.$auth.user.name
+					}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${
+						this.$auth.user.email
+					}</a></p>`,
 				});
 				this.$router.push(this.localePath(`/admin/project/${id}`));
 			} catch (error) {
@@ -153,5 +161,4 @@ export default {
 		},
 	},
 };
-
 </script>
