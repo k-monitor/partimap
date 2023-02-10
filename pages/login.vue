@@ -150,6 +150,7 @@ export default {
 					await this.$axios.$post('/api/user/forgot', {
 						email: this.login.email,
 						captcha,
+						locale: this.$i18n.locale,
 					});
 					this.successMessage = this.$t('login.passwordChangeRequested');
 				} catch {

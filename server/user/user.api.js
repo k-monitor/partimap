@@ -8,6 +8,7 @@ const { v4: uuid } = require('uuid');
 const User = require('../../model/user');
 const { ensureLoggedIn, ensureAdmin, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
+const i18n = require('../common/i18n');
 const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
 const conf = require('../conf');
 const { sendEmail } = require('../email');
@@ -95,6 +96,7 @@ router.patch('/user',
 router.put('/user',
 	validateCaptcha(req => !req.user || !req.user.isAdmin), // no captcha on admin page
 	async (req, res) => {
+		const m = i18n(req.body.locale || 'hu').activationEmail;
 		if (!req.body.consent && (!req.user || !req.user.isAdmin)) { // public reg
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'CONSENT_MISSING' });
 		}
@@ -138,13 +140,9 @@ router.put('/user',
 		} else {
 			// new user registered on their own
 			// send activation email
-			const url = `${conf.BASE_URL}/login?t=${user.token}`;
-			await sendEmail(user.email, 'Új fiók aktiválása', `
-				<p><b>Kedves ${user.name}!</p>
-				<p>Kérlek véglegesítsd Partimap regisztrációdat az alábbi hivatkozás megnyitásával:<br>
-				<a href="${url}">${url}</a></p>
-				<p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>
-			`);
+			const url = `${conf.BASE_URL}/${req.body.locale}/login?t=${user.token}`;
+			const body = m.body.replace(/\{user\}/g, user.name).replace(/\{url\}/g, url);
+			await sendEmail(user.email, m.subject, body);
 			res.end();
 		}
 	});
@@ -165,19 +163,16 @@ router.post('/user/activate',
 router.post('/user/forgot',
 	validateCaptcha(),
 	async (req, res) => {
+		const m = i18n(req.body.locale || 'hu').forgotEmail;
 		const user = await db.findByEmail(req.body.email);
 		if (!user) {
 			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'EMAIL_INVALID' });
 		}
 		addToken(user);
 		await db.update(user);
-		const url = `${conf.BASE_URL}/pwch?t=${user.token}`;
-		await sendEmail(user.email, 'Elfelejtett jelszó', `
-			<p><b>Kedves ${user.name}!</p>
-			<p>A Partimap fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br>
-			<a href="${url}">${url}</a></p>
-			<p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>
-		`);
+		const url = `${conf.BASE_URL}/${req.body.locale}/pwch?t=${user.token}`;
+		const body = m.body.replace(/\{user\}/g, user.name).replace(/\{url\}/g, url);
+		await sendEmail(user.email, m.subject, body);
 		res.end();
 	});
 

@@ -98,7 +98,11 @@ export default {
 			this.loading = true;
 			const captcha = await this.$recaptcha.execute('register');
 			try {
-				await this.$axios.$put('/api/user', { ...this.reg, captcha });
+				await this.$axios.$put('/api/user', {
+					...this.reg,
+					captcha,
+					locale: this.$i18n.locale,
+				});
 				this.$router.push(
 					this.localePath({
 						path: 'login',

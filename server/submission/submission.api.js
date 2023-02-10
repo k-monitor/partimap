@@ -2,10 +2,9 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const transformation = require('transform-coordinates');
-const enReportMessages = require('../../locales/en-report');
-const huReportMessages = require('../../locales/hu-report');
 const AggregatedRating = require('../../model/aggregatedRating');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
+const i18n = require('../common/i18n');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('../sheet/sheet.db');
@@ -13,14 +12,6 @@ const rdb = require('../rating/rating.db');
 const sadb = require('../surveyAnswer/surveyAnswer.db');
 const sfdb = require('../submittedFeatures/submittedFeatures.db');
 const smdb = require('./submission.db');
-
-// custom, primitive, ugly i18n solution
-// better solution would be to move Excel workbook generation to client
-// and just send data from here, then we could use nuxt-i18n there
-function reportMessages(locale) {
-	if (locale === 'en') { return enReportMessages; }
-	return huReportMessages;
-}
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326');
 function ol2gm(coords) {
@@ -135,12 +126,11 @@ router.get('/submission/ratings/:id',
 	}
 );
 
-// TODO would be nice to just send back the data to client and generate Excel there
 router.get('/submission/export/:lang/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	async (req, res) => {
-		const m = reportMessages(req.params.lang);
+		const m = i18n(req.params.lang).report;
 		const sheets = await sdb.findByProjectId(req.project.id);
 		const submissions = await smdb.findByProjectId(req.project.id);
 		const answers = await sadb.findByProjectId(req.project.id);
