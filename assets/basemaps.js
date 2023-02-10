@@ -11,17 +11,27 @@ function tl(attributions, url) {
 	return new TileLayer({ source: new XYZ({ attributions, url }) });
 }
 
-// Yes, it needs to be a function, so layers will be created for every Map instance.
-// If we use it as a singleton object, map flickers as hell...
-const createBaseMaps = () => ({
-	osm: [new TileLayer({ source: new OSM() })],
-	cycleosm: [tl(cycleOsmAttribution, 'https://c.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png')],
-	toner: [new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'toner' }) })],
-	terrain: [new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'terrain' }) })],
-	'esri-wi': [
+const baseMapCreators = {
+	osm: () => ([new TileLayer({ source: new OSM() })]),
+	cycleosm: () => ([tl(cycleOsmAttribution, 'https://c.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png')]),
+	toner: () => ([new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'toner' }) })]),
+	terrain: () => ([new TileLayer({ source: new Stamen({ attribution: stamenAttribution, layer: 'terrain' }) })]),
+	'esri-wi': () => ([
 		tl(esriAttribution, 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'),
 		tl('', 'https://stamen-tiles-c.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png'),
-	],
-});
+	]),
+};
+
+export const baseMapList = Object.keys(baseMapCreators);
+
+// Yes, it needs to be a function, so layers will be created for every Map instance.
+// If we use it as a singleton object, map flickers as hell...
+const createBaseMaps = () => {
+	const maps = {};
+	Object.keys(baseMapCreators).forEach(key => {
+		maps[key] = baseMapCreators[key]();
+	});
+	return maps;
+};
 
 export default createBaseMaps;

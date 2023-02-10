@@ -161,7 +161,7 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters, mapMutations } from 'vuex';
 import { deserializeInteractions, serializeInteractions } from '@/assets/interactions';
-import BASEMAPS from '@/assets/basemaps';
+import { baseMapList } from '@/assets/basemaps';
 
 export default {
 	components: {
@@ -192,7 +192,7 @@ export default {
 			backgroundImage: null,
 			backgroundImageData: null,
 			backgroundImageState: null,
-			baseMaps: Object.keys(BASEMAPS),
+			baseMaps: baseMapList,
 			contentModified: false,
 			loading: true,
 			ratingTypes,
