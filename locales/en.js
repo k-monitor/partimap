@@ -355,6 +355,9 @@ export default {
 		back: 'Back',
 		hide: 'Hide side panel',
 	},
+	Survey: {
+		removeAnswer: 'Remove my answer',
+	},
 	SurveyEditor: {
 		addQuestion: 'Add question',
 		cancel: 'Cancel',

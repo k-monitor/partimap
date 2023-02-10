@@ -6,11 +6,20 @@
 			class="my-4"
 		>
 			<template #label>
-				<span
-					v-if="q.required"
-					class="text-danger"
-				>*</span>
-				<strong class="text-primary">{{ q.label }}</strong>
+				<div class="d-flex">
+					<span
+						v-if="q.required"
+						class="text-danger"
+					>*</span>
+					<strong class="text-primary">{{ q.label }}</strong>
+					<span class="text-danger">{{ answers[q.id] }}</span>
+					<span
+						v-if="answers[q.id] && 'dropdown|radiogroup|range|singleChoiceMatrix'.includes(q.type)"
+						class="ml-auto text-primary"
+						role="button"
+						@click="removeAnswer(q.id)"
+					>{{ $t('Survey.removeAnswer') }}</span>
+				</div>
 			</template>
 			<CheckboxGroup
 				v-if="q.type == 'checkbox'"
@@ -114,6 +123,11 @@ export default {
 				this.$emit('input', a);
 			},
 			deep: true,
+		},
+	},
+	methods: {
+		removeAnswer(questionId) {
+			this.$delete(this.answers, questionId);
 		},
 	},
 };

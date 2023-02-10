@@ -355,6 +355,9 @@ export default {
 		back: 'Vissza',
 		hide: 'Oldalsáv elrejtése',
 	},
+	Survey: {
+		removeAnswer: 'Törlöm a válaszom',
+	},
 	SurveyEditor: {
 		addQuestion: 'Új kérdés hozzáadása',
 		cancel: 'Mégsem',
