@@ -376,10 +376,11 @@ export default {
 			const opacity = isUnselected ? '60' : '';
 
 			// raise width of selected features
+			const isHidden = feature.get('hidden');
 			const isPoint = feature.getGeometry().constructor.name === 'Point';
 			const isSelected =
 				selFeature && selFeature.getId() === feature.getId();
-			const addWidth = isSelected && !isPoint && this.visitor ? 5 : 0;
+			const addWidth = isSelected && !isHidden && !isPoint && this.visitor ? 5 : 0;
 
 			feature.setStyle(
 				this.styleFunction({
