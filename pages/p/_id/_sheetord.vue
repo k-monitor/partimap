@@ -1,6 +1,6 @@
 <template>
 	<SheetFrame v-if="project && sheet" :background-image-url="sheet.image">
-		<form ref="sheetForm" submit.prevent="">
+		<form ref="sheetForm" @submit.prevent="">
 			<b-modal
 				v-if="!sheet.features"
 				content-class="shadow-sm"
