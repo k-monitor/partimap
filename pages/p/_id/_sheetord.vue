@@ -300,7 +300,6 @@ export default {
 				ratings[featureId] = rating;
 			} else {
 				// zero or empty
-				console.log('Removing rating for', featureId);
 				delete ratings[featureId];
 			}
 			const payload = { ratings, sheetId: this.sheet.id };

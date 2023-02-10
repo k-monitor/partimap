@@ -193,13 +193,13 @@
 								v-if="!visitor || showResults"
 								class="ml-2"
 							>
-								{{ -initFeatureRating.dislikeCount }}
+								{{ -(initFeatureRating.dislikeCount || 0) }}
 							</span>
 						</b-button>
 						<div
 							class="align-items-center d-flex flex-grow-1 font-weight-bold justify-content-center"
 						>
-							{{ initFeatureRating.sum }}
+							{{ showResults ? (initFeatureRating.sum || 0) : '' }}
 						</div>
 						<b-button
 							:disabled="!visitor || showResults"
@@ -213,7 +213,7 @@
 								v-if="!visitor || showResults"
 								class="ml-2"
 							>
-								{{ initFeatureRating.likeCount }}
+								{{ (initFeatureRating.likeCount || 0) }}
 							</span>
 						</b-button>
 					</b-button-group>
@@ -392,11 +392,11 @@ export default {
 			},
 			deep: true,
 		},
-		initFeatureRating: {
-			handler() {
-				// reinitialize when switching to results
+		showResults(v) {
+			if (v) {
+				// need reinitialization...
 				this.rating = Number(this.initFeatureRating.average || 0);
-			},
+			}
 		},
 		rating(rating) {
 			if (this.showResults) { return; }
