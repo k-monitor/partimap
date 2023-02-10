@@ -24,7 +24,7 @@ export default {
 		column1: 'When was the last time you were asked for your opinion on a development project that would impact your everyday life? Billions of euros are being used to renovate our urban spaces, public buildings and transport facilities. But public consultation and stakeholder involvement is often reduced to a formality. It is clear however that in order for a project to be successful, the needs and concerns of the people who use the new infrastructure on a daily basis must be taken into account alongside professional considerations. The modernization of a station is not the goal in itself, but rather to increase the number of people travelling by train. Smart benches don\'t make a public square a community place, only locals, if they grow to like it.',
 		column2: 'Participatory mapping is a process by which the invaluable knowledge of stakeholders is incorporated into community developments designed for their benefit. PARTIMAP\'s map-based survey application makes engaging with local stakeholders quicker, simpler and more efficient. It is free to use after registration, has customizable design features, and can also be freely developed as it is an open source platform. Whether you represent a public body, a municipality or a local advocacy group, if you\'re looking for a smart and transparent way to get to know the views of your community, try PARTIMAP and join its development!',
 		tryButton: 'Let\'s try it out',
-		tryLink: 'https://www.partimap.eu/p/DEMO-in-English/0',
+		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
 		methodTitle: 'PARTIMAP Participatory Methods Toolkit',
 		methodDesc: 'What makes a participatory mapping process successful? How to prepare the questionnaire, what to look out for during dissemination and how to get the most out of the data collected? K-Monitor has summarised the most important methodological know-hows, as surveys comprise only one element of participatory processes. The PARTIMAP participatory toolkit will continue to expand in the future, together with the number of users of the application!',
 		methodButton: 'I want to know more',
@@ -74,10 +74,10 @@ export default {
 			{
 				title: 'How to contribute',
 				description:
-					'<p>PARTIMAP software was developed by K-Monitor with the support of the European Commission (DG Regio) in 2021. Further developments were made in 2022, in cooperation with the Prague office of the Heinrich-Böll-Stiftung. But the project is far from over with the launch of the current version! The free and open platform was created for public authorities, municipalities and NGOs with the aim of helping them enhance participation in their development decisions, so that we can manage our public assets more efficiently.</p><p>If you\'re interested in the project and would like to get involved in its development, or just want to share your thoughts on Partimap with us, please contact us at <a href="mailto:info@k-monitor.hu">info@k-monitor.hu</a>. If you would like to support the development financially to make the free, open source software available to as many people as possible, please <a href="https://tamogatas.k-monitor.hu/" target="_blank">support K-Monitor!</a></p>',
+					'<p>PARTIMAP software was developed by K-Monitor with the support of the European Commission (DG Regio) in 2021. Further developments were made in 2022, in cooperation with the Prague office of the Heinrich-Böll-Stiftung. But the project is far from over with the launch of the current version! The free and open platform was created for public authorities, municipalities and NGOs with the aim of helping them enhance participation in their development decisions, so that we can manage our public assets more efficiently.</p><p>If you\'re interested in the project and would like to get involved in its development, or just want to share your thoughts on Partimap with us, please contact us at <a href="mailto:info@k-monitor.hu">info@k-monitor.hu</a>. If you would like to support the development financially to make the free, open source software available to as many people as possible, please <a href="https://k-monitor.hu/support" target="_blank">support K-Monitor!</a></p>',
 			},
 		],
-		funding: 'The development is supported by the European Commission (DG Regio) in the framework of the <a href="https://k-monitor.hu/tevekenysegek/20210324-partimap" target="_blank">Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a> project. Further development of the tool was supported by The Prague Office of the Heinrich Böll Foundation.',
+		funding: 'The development is supported by the European Commission (DG Regio) in the framework of the <a href="https://k-monitor.hu/activities/20230201-partimap-hu-en" target="_blank">Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a> project. Further development of the tool was supported by The Prague Office of the Heinrich Böll Foundation.',
 		ec: 'European Commission',
 	},
 	login: {
@@ -93,8 +93,8 @@ export default {
 		pwchanged: 'Password changed successfully!',
 		pwchangefailed: 'Password change failed. Please try again or contact the administrator',
 		register: 'Create new account',
-		submit: 'Login',
-		title: 'Login or Sign Up',
+		submit: 'Log In',
+		title: 'Log In or Sign Up',
 	},
 	mapEditor: {
 		back: 'Back to map menu',
@@ -326,6 +326,7 @@ export default {
 	PublicFrame: {
 		help: 'How it works?',
 		login: 'Login',
+		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
 	ProjectSheetManager: {
 		addSheet: 'Add new sheet',

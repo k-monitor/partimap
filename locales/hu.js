@@ -326,6 +326,7 @@ export default {
 	PublicFrame: {
 		help: 'Hogyan működik?',
 		login: 'Belépés',
+		kmonitorUrl: 'https://k-monitor.hu/hu',
 	},
 	ProjectSheetManager: {
 		addSheet: 'Munkalap hozzáadása',

@@ -38,14 +38,14 @@
 				<div>
 					<a
 						class="mr-3"
-						href="https://k-monitor.hu/"
+						:href="$t('PublicFrame.kmonitorUrl')"
 						target="_blank"
 					>
 						<img
 							src="/k-monitor-logo.png"
 							alt="K-Monitor"
 							height="31"
-						/>
+						>
 					</a>
 					<a
 						class="mr-3"
@@ -56,7 +56,7 @@
 							src="/deepdata-logo.png"
 							alt="DeepData"
 							height="31"
-						/>
+						>
 					</a>
 				</div>
 				<div class="ml-auto">
