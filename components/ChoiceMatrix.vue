@@ -36,9 +36,14 @@ export default {
 		};
 	},
 	watch: {
+		value(v) {
+			this.selected = v || {};
+		},
 		selected: {
 			handler(a) {
-				this.$emit('input', a);
+				if (Object.keys(a).length) {
+					this.$emit('input', a);
+				}
 			},
 			deep: true,
 		},

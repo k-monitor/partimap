@@ -35,7 +35,7 @@ export default {
 	props: {
 		value: {
 			type: [String, Array],
-			default: () => '',
+			default: () => null,
 		},
 		row: {
 			type: String,
@@ -48,16 +48,27 @@ export default {
 	},
 	data() {
 		return {
-			radioSelected: this.value,
 			checkSelected: this.value || [],
+			radioSelected: this.value,
 		};
 	},
 	watch: {
-		radioSelected() {
-			this.$emit('input', this.radioSelected);
+		value(v) {
+			console.log('MatrixRow incoming value', JSON.stringify(v));
+			if (this.question.type === 'singleChoiceMatrix') {
+				this.radioSelected = v;
+			} else { // multipleChoiceMatrix
+				this.checkSelected = v || [];
+			}
 		},
-		checkSelected() {
-			this.$emit('input', this.checkSelected);
+		radioSelected(v) {
+			if (v) {
+				console.log('MatrixRow emitting value', JSON.stringify(v));
+				this.$emit('input', v);
+			}
+		},
+		checkSelected(v) {
+			this.$emit('input', v);
 		},
 	},
 };
