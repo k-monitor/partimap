@@ -169,7 +169,7 @@ export default {
 		login: 'Already have an account?',
 		name: 'Name',
 		password: 'Password',
-		registrationFailed: 'Registration failed. Try again or contact the administrator',
+		registrationFailed: 'Registration failed. The email address provided may be registered already. Try again or contact the administrator.',
 		submit: 'Register',
 		termsTitle: 'Terms of Use and Privacy Policy',
 		title: 'Registration',
@@ -325,7 +325,7 @@ export default {
 	},
 	PublicFrame: {
 		help: 'How it works?',
-		login: 'Login',
+		login: 'Log In',
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
 	ProjectSheetManager: {
