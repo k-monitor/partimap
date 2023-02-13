@@ -12,7 +12,7 @@
 						class="text-danger"
 					>*</span>
 					<strong class="text-primary">{{ q.label }}</strong>
-					<span class="text-danger">{{ answers[q.id] }}</span>
+					<span class="text-danger">{{ JSON.stringify(answers[q.id]) }}</span>
 					<span
 						v-if="answers[q.id] && 'dropdown|radiogroup|range|singleChoiceMatrix'.includes(q.type)"
 						class="ml-auto text-primary"
@@ -43,12 +43,14 @@
 				</div>
 				<div class="align-items-center d-flex">
 					<b-form-input
-						v-model="answers[q.id]"
+						____v-model="answers[q.id]"
 						:min="q.min"
 						:max="q.max"
 						:name="'q' + q.id"
 						:required="q.required"
 						:type="q.type"
+						:value="answers[q.id]"
+						@input="numberInput(q.id, $event)"
 					/>
 					<strong
 						v-if="q.type == 'range' && (!q.minLabel || !q.maxLabel)"
@@ -128,6 +130,12 @@ export default {
 	methods: {
 		removeAnswer(questionId) {
 			this.$delete(this.answers, questionId);
+		},
+		numberInput(qId, ans) {
+			// Intentionally NOT using v-model, because that way
+			// removed answer comes back to range input when another
+			// question is modified...
+			this.$set(this.answers, qId, ans);
 		},
 	},
 };
