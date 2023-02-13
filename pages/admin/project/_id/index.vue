@@ -32,6 +32,7 @@
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"
 				>
+					<p class="d-md-none font-weight-bold mb-1 small text-muted">{{ projectBaseURL }}</p>
 					<b-input-group
 						class="flex-nowrap"
 						:prepend="projectBaseURL"
@@ -43,7 +44,7 @@
 							>
 								<i class="fas fa-copy fa-fw" />
 							</b-button>
-							<b-input-group-text>{{ projectBaseURL }}</b-input-group-text>
+							<b-input-group-text class="d-none d-md-block">{{ projectBaseURL }}</b-input-group-text>
 						</template>
 						<b-form-input
 							v-model="project.slug"
