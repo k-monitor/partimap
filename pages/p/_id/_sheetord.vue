@@ -340,6 +340,11 @@ export default {
 		},
 		loadInitFeatures() {
 			const adminFeatures = this.featuresFromRaw(this.sheet.features);
+			if (this.isInteractive) {
+				// on interactive sheets, admin features cannot be selected
+				adminFeatures.forEach(f => f.set('hidden', true));
+			}
+
 			const visitorFeatures =
 				this.getVisitorFeatures(this.sheet.id) || [];
 
