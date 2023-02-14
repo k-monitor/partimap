@@ -49,7 +49,7 @@
 								:src="project.user.logo"
 								:alt="project.user.website"
 								height="30"
-							/>
+							>
 						</a>
 					</div>
 					<b-navbar-nav>

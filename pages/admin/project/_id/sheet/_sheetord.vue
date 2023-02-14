@@ -285,7 +285,7 @@ export default {
 		},
 		getSelectedFeature(f) {
 			if (f) {
-				this.$store.commit('setSidebarVisible', true);
+				this.setSidebarVisible(true);
 			}
 		},
 	},
@@ -302,7 +302,10 @@ export default {
 		this.loading = false;
 	},
 	methods: {
-		...mapMutations(['setBaseMap']),
+		...mapMutations([
+			'setBaseMap',
+			'setSidebarVisible',
+		]),
 		back() {
 			this.$router.push(this.localePath(`/admin/project/${this.project.id}`));
 		},

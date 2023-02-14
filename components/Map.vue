@@ -54,6 +54,10 @@ import 'ol/ol.css';
 
 const gm2ol = get('EPSG:4326', 'EPSG:3857');
 
+function isMobile() {
+	return window.innerWidth < 576;
+}
+
 export default {
 	props: {
 		initialBaseMapKey: {
@@ -257,7 +261,7 @@ export default {
 				? this.getSelectedFeature.getGeometry().getExtent()
 				: this.source.getExtent();
 
-			const leftPadding = window.innerWidth > 576 ? 400 : 0;
+			const leftPadding = isMobile() ? 0 : 400;
 
 			this.map.getView().fit(extent, {
 				duration: 200,
@@ -304,20 +308,23 @@ export default {
 					);
 				}
 
-				this.$store.commit('setDrawType', '');
-				this.$store.commit('features/add', f);
-				if (drawing) {
-					selectedFeatures.push(f);
-				}
+				const delay = isMobile() ? 1000 : 0;
+				window.setTimeout(() => {
+					this.$store.commit('setDrawType', '');
+					this.$store.commit('features/add', f);
+					if (drawing) {
+						selectedFeatures.push(f);
+					}
 
-				if (this.visitor) {
-					f.set('visitorFeature', true);
-					this.$emit('visitorFeatureAdded', f);
-				} else {
-					f.set('visitorFeature', false);
-				}
+					if (this.visitor) {
+						f.set('visitorFeature', true);
+						this.$emit('visitorFeatureAdded', f);
+					} else {
+						f.set('visitorFeature', false);
+					}
 
-				this.$nuxt.$emit('contentModified');
+					this.$nuxt.$emit('contentModified');
+				}, delay);
 			});
 
 			this.source.on('removefeature', f => {
