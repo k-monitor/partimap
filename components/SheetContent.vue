@@ -134,7 +134,6 @@ export default {
 				return this.getVisitorAnswers(this.sheet.id);
 			},
 			set(answers) {
-				console.log('SheetContent visitorAnswers set', answers);
 				const payload = {
 					answers,
 					sheetId: this.sheet.id,

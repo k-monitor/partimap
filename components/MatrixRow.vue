@@ -54,7 +54,6 @@ export default {
 	},
 	watch: {
 		value(v) {
-			console.log('MatrixRow incoming value', JSON.stringify(v));
 			if (this.question.type === 'singleChoiceMatrix') {
 				this.radioSelected = v;
 			} else { // multipleChoiceMatrix
@@ -63,7 +62,6 @@ export default {
 		},
 		radioSelected(v) {
 			if (v) {
-				console.log('MatrixRow emitting value', JSON.stringify(v));
 				this.$emit('input', v);
 			}
 		},

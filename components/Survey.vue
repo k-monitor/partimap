@@ -12,7 +12,6 @@
 						class="text-danger"
 					>*</span>
 					<strong class="text-primary">{{ q.label }}</strong>
-					<span class="text-danger">{{ JSON.stringify(answers[q.id]) }}</span>
 					<span
 						v-if="answers[q.id] && 'dropdown|radiogroup|range|singleChoiceMatrix'.includes(q.type)"
 						class="ml-auto text-primary"
