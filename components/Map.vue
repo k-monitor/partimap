@@ -266,9 +266,10 @@ export default {
 		},
 		addEventListeners() {
 			const selectedFeatures = this.select.getFeatures();
-			selectedFeatures.on('add', f => {
-				if (f !== this.getSelectedFeature) {
-					this.$store.commit('selected/change', f.element);
+			selectedFeatures.on('add', e => {
+				const f = e.element;
+				if (!f.get('hidden')) {
+					this.$store.commit('selected/change', f);
 				}
 			});
 			selectedFeatures.on('remove', f => {
