@@ -197,10 +197,8 @@
 							</span>
 						</b-button>
 						<div
-							class="align-items-center d-flex flex-grow-1 font-weight-bold justify-content-center"
-						>
-							{{ showResults ? (initFeatureRating.sum || 0) : '' }}
-						</div>
+							class="flex-grow-1"
+						/>
 						<b-button
 							:disabled="!visitor || showResults"
 							:variant="
@@ -223,9 +221,9 @@
 					>
 						<star-rating
 							v-model="rating"
-							:active-color="visitor ? '#ffc107' : '#17a2b8'"
+							:active-color="visitor && !showResults ? '#ffc107' : '#17a2b8'"
 							:animate="visitor"
-							:border-color="visitor ? '#ffc107' : '#17a2b8'"
+							:border-color="visitor && !showResults ? '#ffc107' : '#17a2b8'"
 							:border-width="2"
 							clearable
 							:fixed-points="1"
@@ -236,6 +234,12 @@
 							:show-rating="!visitor || showResults"
 							:star-size="16"
 						/>
+						<span
+							v-if="!visitor || showResults"
+							class="ml-1"
+						>
+							(<small class="fas fa-user fa-fw" /> {{ initFeatureRating.count || 0 }})
+						</span>
 					</div>
 				</b-form-group>
 
@@ -355,7 +359,7 @@ export default {
 		},
 		rated() {
 			const r = this.rating;
-			return Number.isInteger(r) && r !== 0;
+			return Number.isInteger(r) && r !== 0 && !this.showResults;
 		},
 	},
 	watch: {
