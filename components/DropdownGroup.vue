@@ -39,10 +39,8 @@ export default {
 	},
 	data() {
 		return {
-			selected: this.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : this.value,
-			otherValue: this.value.startsWith(OTHER_PREFIX)
-				? this.value.slice(OTHER_PREFIX.length)
-				: '',
+			selected: null,
+			otherValue: null,
 			options: this.q.options,
 			other: OTHER_PREFIX,
 		};
@@ -55,6 +53,9 @@ export default {
 		},
 	},
 	watch: {
+		value() {
+			this.init();
+		},
 		answer() {
 			this.$emit('input', this.answer);
 		},
@@ -65,6 +66,7 @@ export default {
 		},
 	},
 	mounted() {
+		this.init();
 		this.options = Object.assign({}, this.q.options);
 		this.options = Object.keys(this.options)
 			.slice(0, this.options.size)
@@ -72,6 +74,14 @@ export default {
 		if (this.q.other) {
 			this.options.push({ text: this.$t('DropdownGroup.other'), value: this.other });
 		}
+	},
+	methods: {
+		init() {
+			this.selected = this.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : this.value;
+			this.otherValue = this.value.startsWith(OTHER_PREFIX)
+				? this.value.slice(OTHER_PREFIX.length)
+				: '';
+		},
 	},
 };
 </script>
