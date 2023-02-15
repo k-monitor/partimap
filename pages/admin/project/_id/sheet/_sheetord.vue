@@ -207,7 +207,6 @@ export default {
 	},
 	computed: {
 		...mapGetters('features', ['getAllFeature']),
-		...mapGetters('selected', ['getSelectedFeature']),
 		interactionOptions() {
 			const options = [];
 			const ia = n => ({ value: n, text: this.$t('sheetEditor.interactions')[n] });
@@ -283,11 +282,6 @@ export default {
 			},
 			deep: true,
 		},
-		getSelectedFeature(f) {
-			if (f) {
-				this.setSidebarVisible(true);
-			}
-		},
 	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
@@ -302,10 +296,7 @@ export default {
 		this.loading = false;
 	},
 	methods: {
-		...mapMutations([
-			'setBaseMap',
-			'setSidebarVisible',
-		]),
+		...mapMutations(['setBaseMap']),
 		back() {
 			this.$router.push(this.localePath(`/admin/project/${this.project.id}`));
 		},

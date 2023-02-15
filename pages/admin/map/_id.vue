@@ -60,18 +60,11 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['getSidebarVisible']),
 		...mapGetters('features', ['getAllFeature']),
-		...mapGetters('selected', ['getSelectedFeature']),
 	},
 	watch: {
 		'mapData.title'() {
 			this.$nuxt.$emit('contentModified');
-		},
-		getSelectedFeature(f) {
-			if (f) {
-				this.$store.commit('setSidebarVisible', true);
-			}
 		},
 	},
 	created() {

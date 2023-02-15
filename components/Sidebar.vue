@@ -94,6 +94,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import { isMobile } from '@/assets/constants';
 
 export default {
 	props: {
@@ -146,7 +147,8 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(['getSidebarVisible']),
+		...mapGetters(['getDrawType', 'getSidebarVisible']),
+		...mapGetters('selected', ['getSelectedFeature']),
 		visible: {
 			get() {
 				return this.fixed ? true : this.getSidebarVisible;
@@ -156,6 +158,20 @@ export default {
 					this.setSidebarVisible(v);
 				}
 			},
+		},
+	},
+	watch: {
+		getDrawType(t) {
+			if (t) {
+				this.hide();
+			} else {
+				this.show();
+			}
+		},
+		getSelectedFeature(f) {
+			if (f) {
+				this.show();
+			}
 		},
 	},
 	methods: {
@@ -175,6 +191,15 @@ export default {
 			} else {
 				this.$emit(eventName);
 			}
+		},
+		hide() {
+			this.setSidebarVisible(false);
+		},
+		show() {
+			const delay = isMobile() ? 1000 : 0;
+			window.setTimeout(() => {
+				this.setSidebarVisible(true);
+			}, delay);
 		},
 		showSidebarAndCancelDrawing() {
 			this.setDrawType('');

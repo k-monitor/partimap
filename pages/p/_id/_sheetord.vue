@@ -236,7 +236,6 @@ export default {
 		},
 		...mapGetters(['getConsent']),
 		...mapGetters('features', ['getAllFeature']),
-		...mapGetters('selected', ['getSelectedFeature']),
 		...mapGetters('visitordata', [
 			'getVisitorFeatures',
 			'getVisitorRatings',
@@ -270,13 +269,6 @@ export default {
 		},
 		stars() {
 			return this.interactions.stars;
-		},
-	},
-	watch: {
-		getSelectedFeature(f) {
-			if (f && (f.get('visitorFeature') || !this.isInteractive)) {
-				this.$store.commit('setSidebarVisible', true);
-			}
 		},
 	},
 	async mounted() {

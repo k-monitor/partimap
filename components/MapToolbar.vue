@@ -46,17 +46,8 @@ export default {
 			return buttons(this.getDrawType, this.sheet?.interactions, this.visitor, this);
 		},
 	},
-	watch: {
-		getDrawType(type) {
-			const isDrawing = !!type;
-			this.setSidebarVisible(!isDrawing);
-		},
-	},
 	methods: {
-		...mapMutations([
-			'setDrawType',
-			'setSidebarVisible',
-		]),
+		...mapMutations(['setDrawType']),
 	},
 };
 </script>

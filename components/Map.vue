@@ -49,14 +49,10 @@ import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import createBaseMaps from '@/assets/basemaps';
-
+import { isMobile } from '@/assets/constants';
 import 'ol/ol.css';
 
 const gm2ol = get('EPSG:4326', 'EPSG:3857');
-
-function isMobile() {
-	return window.innerWidth < 576;
-}
 
 export default {
 	props: {
@@ -308,23 +304,20 @@ export default {
 					);
 				}
 
-				const delay = isMobile() ? 1000 : 0;
-				window.setTimeout(() => {
-					this.$store.commit('setDrawType', '');
-					this.$store.commit('features/add', f);
-					if (drawing) {
-						selectedFeatures.push(f);
-					}
+				this.$store.commit('setDrawType', '');
+				this.$store.commit('features/add', f);
+				if (drawing) {
+					selectedFeatures.push(f);
+				}
 
-					if (this.visitor) {
-						f.set('visitorFeature', true);
-						this.$emit('visitorFeatureAdded', f);
-					} else {
-						f.set('visitorFeature', false);
-					}
+				if (this.visitor) {
+					f.set('visitorFeature', true);
+					this.$emit('visitorFeatureAdded', f);
+				} else {
+					f.set('visitorFeature', false);
+				}
 
-					this.$nuxt.$emit('contentModified');
-				}, delay);
+				this.$nuxt.$emit('contentModified');
 			});
 
 			this.source.on('removefeature', f => {

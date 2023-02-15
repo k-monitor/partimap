@@ -16,4 +16,7 @@ module.exports = {
 	 */
 	OTHER_PREFIX: 'other: ',
 
+	isMobile() {
+		return window.innerWidth < 576;
+	},
 };
