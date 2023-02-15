@@ -250,14 +250,22 @@
 				</b-form-group>
 
 				<b-form-group v-if="editable">
-					<span
-						class="text-danger"
-						role="button"
-						@click.stop="deleteFeature"
-					>
-						<i class="fas fa-fw fa-trash mr-1" />
-						{{ $t('FeatureListElement.deleteFeature') }}
-					</span>
+					<div class="align-items-center d-flex justify-content-between">
+						<span
+							class="mr-auto text-danger"
+							role="button"
+							@click.stop="deleteFeature"
+						>
+							<i class="fas fa-fw fa-trash mr-1" />
+							{{ $t('FeatureListElement.deleteFeature') }}
+						</span>
+						<b-button
+							variant="success"
+							@click="featureClicked"
+						>
+							{{ $t('FooterButtons.save') }}
+						</b-button>
+					</div>
 				</b-form-group>
 			</b-card>
 		</b-collapse>
@@ -438,9 +446,12 @@ export default {
 			return this.feature.get('name') || anon;
 		},
 		featureClicked() {
-			this.selectedFeature
-				? this.$store.commit('selected/remove', this.feature)
-				: this.$store.commit('selected/change', this.feature);
+			if (this.selectedFeature) {
+				this.$store.commit('selected/remove', this.feature);
+				document.querySelector('.b-sidebar-body').scrollTo(0, 0);
+			} else {
+				this.$store.commit('selected/change', this.feature);
+			}
 		},
 		async deleteFeature() {
 			const confirmed = await this.confirmDeletion(
