@@ -356,7 +356,7 @@ export default {
 		hide: 'Oldalsáv elrejtése',
 	},
 	Survey: {
-		removeAnswer: 'Törlöm a válaszom',
+		removeAnswer: 'Válasz törlése',
 	},
 	SurveyEditor: {
 		addQuestion: 'Új kérdés hozzáadása',

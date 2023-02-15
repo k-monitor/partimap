@@ -25,7 +25,7 @@ module.exports = {
 		ratingCount: 'Értékelések száma',
 		ratings: 'Értékelések',
 		sheetTitle: 'Munkalap elnevezése',
-		submissionId: 'Kitölzés azon.',
+		submissionId: 'Kitöltés azon.',
 		submittedAnswers: 'Beküldött válaszok',
 		submittedFeatures: 'Beküldött térkép elemek',
 		timestamp: 'Időbélyeg',
