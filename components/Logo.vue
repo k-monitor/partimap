@@ -4,7 +4,7 @@
 			src="/logo.svg"
 			alt="Partimap"
 			height="30"
-		>
+		/>
 	</div>
 </template>
 

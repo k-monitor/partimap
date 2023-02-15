@@ -82,7 +82,11 @@
 		</b-form-group>
 		<b-form-group
 			v-if="!hideAdminFeatures"
-			:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
+			:label="
+				filteredVisitorFeatures.length
+					? $t('FeatureList.fixedFeatures')
+					: null
+			"
 		>
 			<b-list-group>
 				<FeatureListElement
@@ -162,9 +166,10 @@ export default {
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
 		filteredAdminFeatures() {
-			return this.filteredFeatures.filter(f =>
-				!f.get('visitorFeature') &&
-				(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
+			return this.filteredFeatures.filter(
+				f =>
+					!f.get('visitorFeature') &&
+					(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
 			);
 		},
 		filteredVisitorFeatures() {
@@ -219,8 +224,10 @@ export default {
 		},
 		updateFilteredFeatures() {
 			this.filteredFeatures = this.getAllFeatures
-				.filter(f => !this.categoryFilter ||
-					f.get('category') === this.categoryFilter
+				.filter(
+					f =>
+						!this.categoryFilter ||
+						f.get('category') === this.categoryFilter
 				)
 				.filter(
 					f =>

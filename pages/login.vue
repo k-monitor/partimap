@@ -57,7 +57,8 @@
 								<a
 									href="javascript:void(0)"
 									@click="forgot"
-								>{{ $t('login.forgotPassword') }}</a>
+									>{{ $t('login.forgotPassword') }}</a
+								>
 							</div>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
@@ -144,7 +145,9 @@ export default {
 			this.loading = true;
 			this.errorMessage = '';
 			this.successMessage = '';
-			const captcha = await this.$recaptcha.execute(this.forgotMode ? 'forgot' : 'login');
+			const captcha = await this.$recaptcha.execute(
+				this.forgotMode ? 'forgot' : 'login'
+			);
 			if (this.forgotMode) {
 				try {
 					await this.$axios.$post('/api/user/forgot', {
@@ -152,7 +155,9 @@ export default {
 						captcha,
 						locale: this.$i18n.locale,
 					});
-					this.successMessage = this.$t('login.passwordChangeRequested');
+					this.successMessage = this.$t(
+						'login.passwordChangeRequested'
+					);
 				} catch {
 					this.errorMessage = this.$t('login.invalidEmail');
 				}

@@ -4,7 +4,10 @@
 			{{ $t('adminHelp.title') }}
 		</template>
 
-		<Markdown class="help mb-5" :md="$t('adminHelp.content')" />
+		<Markdown
+			class="help mb-5"
+			:md="$t('adminHelp.content')"
+		/>
 	</AdminFrame>
 </template>
 

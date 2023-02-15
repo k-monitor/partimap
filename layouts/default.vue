@@ -18,7 +18,7 @@ export default {
 		return {
 			titleTemplate: '%s | Partimap',
 			htmlAttrs: {
-				...i18nHead.htmlAttrs
+				...i18nHead.htmlAttrs,
 			},
 			meta: [
 				{
@@ -33,9 +33,7 @@ export default {
 				},
 				...i18nHead.meta,
 			],
-			link: [
-				...i18nHead.link
-			],
+			link: [...i18nHead.link],
 		};
 	},
 };

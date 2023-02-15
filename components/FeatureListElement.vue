@@ -1,5 +1,8 @@
 <template>
-	<div class="mt-1 rounded" :class="{ highlight: selectedFeature }">
+	<div
+		class="mt-1 rounded"
+		:class="{ highlight: selectedFeature }"
+	>
 		<b-list-group-item
 			ref="feature"
 			button
@@ -19,7 +22,10 @@
 					class="fas fa-fw mr-1"
 					:class="icons[feature.getGeometry().getType()]"
 				/>
-				<i v-if="form.hidden" class="fas fa-eye-slash fa-fw mr-1" />
+				<i
+					v-if="form.hidden"
+					class="fas fa-eye-slash fa-fw mr-1"
+				/>
 				{{ form.name }}
 			</span>
 			<span v-if="selectedFeature">
@@ -46,16 +52,20 @@
 			<b-card
 				v-if="
 					selectedFeature &&
-						(editable ||
-							form.category ||
-							form.description ||
-							visitorCanRate)
+					(editable ||
+						form.category ||
+						form.description ||
+						visitorCanRate)
 				"
 				body-class="pb-0"
 				class="collapse-content"
 			>
 				<div v-if="editable">
-					<b-row v-if="!visitor" align-h="between" align-v="center">
+					<b-row
+						v-if="!visitor"
+						align-h="between"
+						align-v="center"
+					>
 						<b-col>
 							<b-form-group
 								:label="$t('FeatureListElement.color')"
@@ -106,7 +116,7 @@
 					<b-form-group
 						v-if="
 							!visitor &&
-								feature.getGeometry().getType() !== 'Point'
+							feature.getGeometry().getType() !== 'Point'
 						"
 						:label="$t('FeatureListElement.dashType')"
 					>
@@ -145,7 +155,7 @@
 						v-if="visitor"
 						:label="
 							descriptionLabel ||
-								$t('sheetEditor.defaultFeatureQuestion')
+							$t('sheetEditor.defaultFeatureQuestion')
 						"
 					>
 						<b-textarea
@@ -170,15 +180,21 @@
 						variant="light"
 						v-text="form.category"
 					/>
-					<div class="mb-3 rich" v-html="form.description" />
+					<div
+						class="mb-3 rich"
+						v-html="form.description"
+					/>
 				</div>
 				<b-form-group
 					v-if="
 						(visitor && !editable && visitorCanRate) ||
-							(!visitor && initFeatureRating.count)
+						(!visitor && initFeatureRating.count)
 					"
 				>
-					<b-button-group v-if="stars === -2" class="w-100">
+					<b-button-group
+						v-if="stars === -2"
+						class="w-100"
+					>
 						<b-button
 							:disabled="!visitor || showResults"
 							:variant="
@@ -196,9 +212,7 @@
 								{{ -(initFeatureRating.dislikeCount || 0) }}
 							</span>
 						</b-button>
-						<div
-							class="flex-grow-1"
-						/>
+						<div class="flex-grow-1" />
 						<b-button
 							:disabled="!visitor || showResults"
 							:variant="
@@ -211,7 +225,7 @@
 								v-if="!visitor || showResults"
 								class="ml-2"
 							>
-								{{ (initFeatureRating.likeCount || 0) }}
+								{{ initFeatureRating.likeCount || 0 }}
 							</span>
 						</b-button>
 					</b-button-group>
@@ -219,11 +233,15 @@
 						v-else
 						class="border d-flex font-weight-bold justify-content-center p-1"
 					>
-						<star-rating
+						<StarRating
 							v-model="rating"
-							:active-color="visitor && !showResults ? '#ffc107' : '#17a2b8'"
+							:active-color="
+								visitor && !showResults ? '#ffc107' : '#17a2b8'
+							"
 							:animate="visitor"
-							:border-color="visitor && !showResults ? '#ffc107' : '#17a2b8'"
+							:border-color="
+								visitor && !showResults ? '#ffc107' : '#17a2b8'
+							"
 							:border-width="2"
 							clearable
 							:fixed-points="1"
@@ -238,19 +256,25 @@
 							v-if="!visitor || showResults"
 							class="ml-1"
 						>
-							(<small class="fas fa-user fa-fw" /> {{ initFeatureRating.count || 0 }})
+							(<small class="fas fa-user fa-fw" />
+							{{ initFeatureRating.count || 0 }})
 						</span>
 					</div>
 				</b-form-group>
 
 				<b-form-group v-if="editable && visitorCanRate">
-					<b-form-checkbox v-model="form.hidden" name="hidden">
+					<b-form-checkbox
+						v-model="form.hidden"
+						name="hidden"
+					>
 						{{ $t('FeatureListElement.hidden') }}
 					</b-form-checkbox>
 				</b-form-group>
 
 				<b-form-group v-if="editable">
-					<div class="align-items-center d-flex justify-content-between">
+					<div
+						class="align-items-center d-flex justify-content-between"
+					>
 						<span
 							class="mr-auto text-danger"
 							role="button"
@@ -417,7 +441,9 @@ export default {
 			}
 		},
 		rating(rating) {
-			if (this.showResults) { return; }
+			if (this.showResults) {
+				return;
+			}
 			this.feature.set('rating', rating);
 			this.$nuxt.$emit(
 				'featureRatedByVisitor',

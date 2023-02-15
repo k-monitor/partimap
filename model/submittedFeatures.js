@@ -12,6 +12,6 @@ class SubmittedFeatures {
 		this.sheetId = data.sheetId;
 		this.features = data.features;
 	}
-};
+}
 
 module.exports = SubmittedFeatures;

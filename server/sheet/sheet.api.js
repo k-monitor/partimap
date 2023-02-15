@@ -16,7 +16,8 @@ function removeSheetImageFile(sheet) {
 	}
 }
 
-router.put('/sheet/:id/image',
+router.put(
+	'/sheet/:id/image',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
@@ -28,9 +29,11 @@ router.put('/sheet/:id/image',
 		await sdb.update(req.sheet);
 		const sheet = await sdb.findById(req.sheet.id);
 		res.json(sheet);
-	});
+	}
+);
 
-router.delete('/sheet/:id',
+router.delete(
+	'/sheet/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
@@ -39,30 +42,41 @@ router.delete('/sheet/:id',
 		removeSheetImageFile(req.sheet);
 		await sdb.del(req.params.id);
 		res.json({});
-	});
+	}
+);
 
-router.get('/project/:id/sheets',
+router.get(
+	'/project/:id/sheets',
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	async (req, res) => {
 		const sheets = await sdb.findByProjectId(req.params.id);
 		res.json(sheets);
-	});
+	}
+);
 
-router.get('/project/:id/sheet/:ord',
+router.get(
+	'/project/:id/sheet/:ord',
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	async (req, res) => {
-		const sheet = await sdb.findByProjectIdAndOrder(req.params.id, req.params.ord);
+		const sheet = await sdb.findByProjectIdAndOrder(
+			req.params.id,
+			req.params.ord
+		);
 		if (!sheet) {
 			return res.sendStatus(StatusCodes.NOT_FOUND);
 		}
 		res.json(sheet);
-	});
+	}
+);
 
-router.get('/sheet/:id',
+router.get(
+	'/sheet/:id',
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
-	(req, res) => res.json(req.sheet));
+	(req, res) => res.json(req.sheet)
+);
 
-router.patch('/sheet',
+router.patch(
+	'/sheet',
 	ensureLoggedIn,
 	resolveRecord(req => req.body.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
@@ -85,9 +99,11 @@ router.patch('/sheet',
 
 		sheet = await sdb.findById(sheet.id);
 		res.json(sheet);
-	});
+	}
+);
 
-router.put('/project/:id/sheet',
+router.put(
+	'/project/:id/sheet',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
@@ -103,6 +119,7 @@ router.put('/project/:id/sheet',
 		sheet = await sdb.findById(id);
 
 		res.json(sheet);
-	});
+	}
+);
 
 module.exports = router;

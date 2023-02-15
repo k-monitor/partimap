@@ -5,9 +5,15 @@
 				<h1 class="border-bottom">{{ $t('help.title') }}</h1>
 			</header>
 
-			<Markdown class="help mb-5" :md="$t('help.content')" />
+			<Markdown
+				class="help mb-5"
+				:md="$t('help.content')"
+			/>
 
-			<Markdown class="help mb-5" :md="$t('adminHelp.content')" />
+			<Markdown
+				class="help mb-5"
+				:md="$t('adminHelp.content')"
+			/>
 		</div>
 	</PublicFrame>
 </template>

@@ -16,7 +16,10 @@
 								/>
 							</b-form-group>
 							<b-form-group :label="$t('register.name')">
-								<b-form-input v-model="reg.name" required />
+								<b-form-input
+									v-model="reg.name"
+									required
+								/>
 							</b-form-group>
 							<b-form-group :label="$t('register.password')">
 								<b-form-input
@@ -43,10 +46,16 @@
 							</b-form-group>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
-							<b-button :to="localePath('/login')" variant="link">
+							<b-button
+								:to="localePath('/login')"
+								variant="link"
+							>
 								{{ $t('register.login') }}
 							</b-button>
-							<b-button type="submit" variant="primary">
+							<b-button
+								type="submit"
+								variant="primary"
+							>
 								{{ $t('register.submit') }}
 							</b-button>
 						</div>

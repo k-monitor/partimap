@@ -4,7 +4,8 @@ import terms from './hu-terms.md';
 
 export default {
 	meta: {
-		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
+		description:
+			'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
 	},
 
 	// pages
@@ -19,16 +20,22 @@ export default {
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',
-		tagline1: 'A Partimap egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőív azoknak,',
-		tagline2: 'akik szerint a közpénzből megvalósuló fejlesztésekről meg kell kérdezni az érintetteket is.',
-		column1: 'Mikor kérték ki legutóbb a véleményed egy olyan fejlesztésről, amit naponta használsz? Hazai és európai uniós milliárdokból sorra újulnak meg városi tereink, közintézményeink és a közlekedési létesítmények. A társadalmi egyeztetés és az érintettek bevonása azonban sokszor csak formalitás. Pedig könnyen belátható, hogy a lebonyolítás szakmai szempontjai mellett a fejlesztéseket napi szinten használók igényeit, elvárásait is számításba kell venni ahhoz, hogy egy projekt sikeres legyen. A cél nem az, hogy modernebb legyen a vasútállomás, hanem az, hogy többen járjanak vonattal. Nem attól kap közösségi funkciót egy tér, okospadokat szerelünk fel, hanem attól, hogy a környékbeliek megkedvelik.',
-		column2: 'Participatory mapping, azaz részvételi térképezés: így nevezik a folyamatot, amelynek révén az érintettek pótolhatatlan tudása beépül a számukra készülő közösségi fejlesztésekbe. A Partimap térképes kérdőívező felülete ahhoz nyújt segítséget, hogy lakosokkal való kapcsolat gyorsabbá, hatékonyabbá és egyszerűbbé váljon. A program regisztráció után ingyenesen használható, saját arculattal látható el és nyílt forráskódjának köszönhetően szabadon továbbfejleszthető. Legyél állami szerv, önkormányzat, vagy helyi érdekérvényesítő csoport - ha egy okos és átlátható megoldást keresel arra, hogyan ismerd meg a környezeted véleményét, próbáld ki a Partimapot és csatlakozz te is a fejlesztéshez!',
+		tagline1:
+			'A Partimap egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőív azoknak,',
+		tagline2:
+			'akik szerint a közpénzből megvalósuló fejlesztésekről meg kell kérdezni az érintetteket is.',
+		column1:
+			'Mikor kérték ki legutóbb a véleményed egy olyan fejlesztésről, amit naponta használsz? Hazai és európai uniós milliárdokból sorra újulnak meg városi tereink, közintézményeink és a közlekedési létesítmények. A társadalmi egyeztetés és az érintettek bevonása azonban sokszor csak formalitás. Pedig könnyen belátható, hogy a lebonyolítás szakmai szempontjai mellett a fejlesztéseket napi szinten használók igényeit, elvárásait is számításba kell venni ahhoz, hogy egy projekt sikeres legyen. A cél nem az, hogy modernebb legyen a vasútállomás, hanem az, hogy többen járjanak vonattal. Nem attól kap közösségi funkciót egy tér, okospadokat szerelünk fel, hanem attól, hogy a környékbeliek megkedvelik.',
+		column2:
+			'Participatory mapping, azaz részvételi térképezés: így nevezik a folyamatot, amelynek révén az érintettek pótolhatatlan tudása beépül a számukra készülő közösségi fejlesztésekbe. A Partimap térképes kérdőívező felülete ahhoz nyújt segítséget, hogy lakosokkal való kapcsolat gyorsabbá, hatékonyabbá és egyszerűbbé váljon. A program regisztráció után ingyenesen használható, saját arculattal látható el és nyílt forráskódjának köszönhetően szabadon továbbfejleszthető. Legyél állami szerv, önkormányzat, vagy helyi érdekérvényesítő csoport - ha egy okos és átlátható megoldást keresel arra, hogyan ismerd meg a környezeted véleményét, próbáld ki a Partimapot és csatlakozz te is a fejlesztéshez!',
 		tryButton: 'Kipróbálom',
 		tryLink: 'https://www.partimap.eu/p/Demo/0',
 		methodTitle: 'PARTIMAP részvételi módszertan',
-		methodDesc: 'Mitől lesz sikeres egy részvételi térképezés? Hogyan kell elkészíteni a kérdőívet, mire kell odafigyelni a terjesztés során és hogyan lehet a legtöbbet kihozni az összegyűjtött adatokból? A K-Monitor összefoglalta a legfontosabb tudnivalókat, hiszen a kérdőívezés csak egy eleme a fejlesztések társadalmasításának. A Partimap részvételi módszertana - a program használói körével együtt - a jövőben folyamatosan bővülni fog!',
+		methodDesc:
+			'Mitől lesz sikeres egy részvételi térképezés? Hogyan kell elkészíteni a kérdőívet, mire kell odafigyelni a terjesztés során és hogyan lehet a legtöbbet kihozni az összegyűjtött adatokból? A K-Monitor összefoglalta a legfontosabb tudnivalókat, hiszen a kérdőívezés csak egy eleme a fejlesztések társadalmasításának. A Partimap részvételi módszertana - a program használói körével együtt - a jövőben folyamatosan bővülni fog!',
 		methodButton: 'Elolvasom',
-		methodLink: 'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
+		methodLink:
+			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
 		featuresTitle: 'Mit tud a program?',
 		features: [
 			{
@@ -77,7 +84,8 @@ export default {
 					'<p>A Partimap szoftvert a K-Monitor egyesület az Európai Bizottság (DG Regio) támogatásából valósította meg 2021-ben. A jelenlegi verzió publikálásával a projekt azonban korántsem ért véget! Az ingyenes, szabadon felhasználható felületet állami szerveknek, önkormányzatoknak, érdekérvényesítő civil szervezeteknek készítettük azzal a céllal, hogy az eszköz segíti őket a fejlesztésekkel kapcsolatos döntések társadalmasításában, így közös vagyonunkkal takarékosabban gazdálkodhatunk.</p><p>Ha érdekel a projekt, és szeretnél bekapcsolódni a fejlesztésbe, vagy csak megosztanád velünk a gondolataidat a Partimapról, írj nekünk az <a href="mailto:info@k-monitor.hu">info@k-monitor.hu</a>-ra. Ha anyagilag támogatnád a fejlesztést, hogy az ingyenes, szabadon felhasználható szoftver minél többek számára legyen elérhető, <a href="https://tamogatas.k-monitor.hu/" target="_blank">támogasd a K-Monitort!</a></p>',
 			},
 		],
-		funding: 'A fejlesztés az Európai Bizottság (DG Regio) által támogatott <a href="https://k-monitor.hu/tevekenysegek/20210324-partimap" target="_blank">Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a> elnevezésű projekt keretében valósul meg. Az eszköz továbbfejlesztését a Heinrich Böll Alapítvány prágai irodája támogatta.',
+		funding:
+			'A fejlesztés az Európai Bizottság (DG Regio) által támogatott <a href="https://k-monitor.hu/tevekenysegek/20210324-partimap" target="_blank">Participatory Mapping in Cohesion Policy in Hungary (PartiMap)</a> elnevezésű projekt keretében valósul meg. Az eszköz továbbfejlesztését a Heinrich Böll Alapítvány prágai irodája támogatta.',
 		ec: 'Európai Bizottság',
 	},
 	login: {
@@ -127,10 +135,12 @@ export default {
 		generateSlug: 'Generálás a projekt címéből',
 		newPassword: 'Új jelszó',
 		password: 'Jelszavas védelem',
-		passwordDescription: 'Ha be vagy jelentkezve, a saját projektjeid nem fognak jelszót kérni. Inkognitó/privát módban tudod tesztelni a védelmet.',
+		passwordDescription:
+			'Ha be vagy jelentkezve, a saját projektjeid nem fognak jelszót kérni. Inkognitó/privát módban tudod tesztelni a védelmet.',
 		passwordSet: 'Be van állítva',
 		privacyPolicy: 'Adatkezelő elérhetősége',
-		privacyPolicyDescription: 'Az Adatkezelési tájékoztatóban jelenik meg kapcsolatfelvételi adatként. Ezt a látogatóknak az 1. munkalapon kell majd elfogadniuk.',
+		privacyPolicyDescription:
+			'Az Adatkezelési tájékoztatóban jelenik meg kapcsolatfelvételi adatként. Ezt a látogatóknak az 1. munkalapon kell majd elfogadniuk.',
 		privacyPolicyRequired: 'Kötelező megadni!',
 		projectDescription: 'Meta leírás (Facebook előnézeti szöveg)',
 		projectTitle: 'Projekt címe',
@@ -139,12 +149,15 @@ export default {
 		sheetDeletionFailed: 'Munkalap törlése sikertelen',
 		sheetMovingFailed: 'Munkalap mozgatása sikertelen',
 		slug: 'Elérési útvonal',
-		slugDescription: 'Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal.',
+		slugDescription:
+			'Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal.',
 		thanks: 'Köszönetnyilvánítás',
-		thanksDescription: 'A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után.',
+		thanksDescription:
+			'A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után.',
 		thanksSocial: 'Megosztás gombok a köszönetnyilvánítás alatt.',
 		thanksUrl: 'Tovább URL',
-		thanksUrlDescription: 'A köszönetnyilvánítás alatt megjelenő Tovább gomb erre fog linkelni.',
+		thanksUrlDescription:
+			'A köszönetnyilvánítás alatt megjelenő Tovább gomb erre fog linkelni.',
 		thumbnail: 'Facebook bélyegkép (ajánlott méret: 1200x630 pixel)',
 		view: 'Megtekintés',
 	},
@@ -164,7 +177,8 @@ export default {
 	},
 	register: {
 		consent1: 'Elolvastam és elfogadom a',
-		consent2: 'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
+		consent2:
+			'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		email: 'Email cím',
 		login: 'Már van fiókom',
 		name: 'Név',
@@ -225,7 +239,8 @@ export default {
 		changeFailed: 'Módosítás sikertelen',
 		changeSuccessful: 'Módosítás sikeres',
 		confirmDeleteUser: 'Fiók törlése',
-		deleteConfirmation: '<strong>Jól meggondoltam,</strong> törlöm a(z) <strong>{email}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).',
+		deleteConfirmation:
+			'<strong>Jól meggondoltam,</strong> törlöm a(z) <strong>{email}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).',
 		deleteUser: 'Fiók törlése',
 		deletionFailed: 'Törlés sikertelen',
 		enterPassword: 'Kérlek add meg a jelszavad',
@@ -233,7 +248,8 @@ export default {
 		logoDescription: 'Ez a logó minden projektedben meg fog jelenni.',
 		name: 'Név',
 		newPassword: 'Új jelszó',
-		oldPassword: 'Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)',
+		oldPassword:
+			'Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)',
 		save: 'Mentés',
 		website: 'Weboldal URL',
 		websiteDescription: 'Ha feltöltesz logót, ide fog linkelni.',
@@ -308,8 +324,10 @@ export default {
 	},
 	MapHint: {
 		Point: 'Pont jelölő elhelyezéséhez közelíts a szükséges léptékig és kattints a megjelölni kívánt helyre.',
-		LineString: 'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
-		Polygon: 'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
+		LineString:
+			'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
+		Polygon:
+			'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
 	},
 	MapToolbar: {
 		cancel: 'Mégsem',
@@ -348,7 +366,8 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'Elolvastam és elfogadom a',
-		consent2: 'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
+		consent2:
+			'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		next: 'Tovább',
 	},
 	Sidebar: {
@@ -383,7 +402,8 @@ export default {
 		},
 		required: 'Kötelező megválaszolni',
 		showOnlyStatsToVisitors: 'Csak az eredmények megjelenítése',
-		showStatsToVisitors: 'Kitöltés után válasz statisztika megjelenítése a látogatónak',
+		showStatsToVisitors:
+			'Kitöltés után válasz statisztika megjelenítése a látogatónak',
 	},
 	SurveyResult: {
 		averageValue: 'Átlagos érték',
@@ -406,7 +426,8 @@ export default {
 	modals: {
 		cancel: 'Mégsem',
 		confirmDeletion: 'Biztosan törlöd ezt',
-		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
+		confirmUnsaved:
+			'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',
 		yes: 'Igen',

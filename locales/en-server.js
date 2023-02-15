@@ -2,7 +2,7 @@
 
 module.exports = {
 	activationEmail: {
-		subject: 'You\'re Almost In!',
+		subject: "You're Almost In!",
 		body: '<p><b>Hey there, {user}!</p><p>Please complete your Partimap registration by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, register again.</p>',
 	},
 	forgotEmail: {

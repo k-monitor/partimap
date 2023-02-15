@@ -17,7 +17,9 @@ export default {
 	},
 	computed: {
 		backgroundImage() {
-			return this.backgroundImageUrl ? `url(${this.backgroundImageUrl})` : null;
+			return this.backgroundImageUrl
+				? `url(${this.backgroundImageUrl})`
+				: null;
 		},
 	},
 };

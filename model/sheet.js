@@ -24,6 +24,6 @@ class Sheet {
 		this.interactions = data.interactions;
 		this.descriptionLabel = data.descriptionLabel;
 	}
-};
+}
 
 module.exports = Sheet;

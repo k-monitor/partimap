@@ -34,6 +34,6 @@ class Project {
 		// calculated:
 		this.submissions = data.submissions;
 	}
-};
+}
 
 module.exports = Project;

@@ -14,6 +14,6 @@ class Rating {
 		this.featureId = data.featureId;
 		this.rating = data.rating;
 	}
-};
+}
 
 module.exports = Rating;

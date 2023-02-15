@@ -1,6 +1,6 @@
 <template>
 	<b-container class="mb-5">
-		<b-card class="shadow-sm ">
+		<b-card class="shadow-sm">
 			<template #header>
 				<b-button
 					v-b-modal.create-sheet-modal
@@ -27,7 +27,9 @@
 					>
 						<b-form-group
 							:label="$t('ProjectSheetManager.sheetName')"
-							:invalid-feedback="$t('ProjectSheetManager.sheetNameRequired')"
+							:invalid-feedback="
+								$t('ProjectSheetManager.sheetNameRequired')
+							"
 							:state="nameState"
 						>
 							<b-form-input
@@ -38,14 +40,20 @@
 							/>
 						</b-form-group>
 
-						<p class="pb-3">{{ $t('ProjectSheetManager.sheetType') }}</p>
+						<p class="pb-3">
+							{{ $t('ProjectSheetManager.sheetType') }}
+						</p>
 						<div class="d-flex justify-content-between">
 							<span
 								v-for="t in sheetTypes"
 								:key="t.name"
 								v-b-tooltip.hover
 								:title="t.tooltip"
-								:class="newSheetType === t.name ? 'text-success border border-success': 'text-muted'"
+								:class="
+									newSheetType === t.name
+										? 'text-success border border-success'
+										: 'text-muted'
+								"
 								class="btn btn-link"
 								role="button"
 								@click="toggleSheetType(t.name)"
@@ -57,12 +65,29 @@
 							</span>
 						</div>
 
-						<b-form-group v-if="'staticMap;interactiveMap'.includes(newSheetType)">
-							<label for="sourceMap">{{ $t('ProjectSheetManager.copyFeaturesFrom') }}</label>
+						<b-form-group
+							v-if="
+								'staticMap;interactiveMap'.includes(
+									newSheetType
+								)
+							"
+						>
+							<label for="sourceMap">{{
+								$t('ProjectSheetManager.copyFeaturesFrom')
+							}}</label>
 							<b-form-select
 								id="sourceMap"
 								v-model="sourceMap"
-								:options="[{value: null, text: $t('ProjectSheetManager.withoutCopying')}].concat(maps)"
+								:options="
+									[
+										{
+											value: null,
+											text: $t(
+												'ProjectSheetManager.withoutCopying'
+											),
+										},
+									].concat(maps)
+								"
 							/>
 						</b-form-group>
 					</form>
@@ -81,19 +106,27 @@
 					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
 					<div>
 						<NuxtLink
-							:to="localePath('/admin/project/' + projectId + '/sheet/' + sheet.ord)"
+							:to="
+								localePath(
+									'/admin/project/' +
+										projectId +
+										'/sheet/' +
+										sheet.ord
+								)
+							"
 							class="font-weight-bold mr-2"
 						>
 							{{ sheet.title }}
 						</NuxtLink>
 						<span v-if="sheet.submittedFeatureCount">
-							<br>
+							<br />
 							{{ $t('ProjectSheetManager.submittedFeatures') }}:
 							{{ sheet.submittedFeatureCount }}
 							<a
 								href="javascript:void(0)"
 								@click.prevent="submittedFeaturesToMap(sheet)"
-							>{{ $t('ProjectSheetManager.sendToMap') }}</a>
+								>{{ $t('ProjectSheetManager.sendToMap') }}</a
+							>
 						</span>
 					</div>
 					<div class="ml-auto">
@@ -101,7 +134,7 @@
 							v-if="sheet.ord"
 							class="mr-3"
 							role="button"
-							@click.prevent="$emit('moveSheet','up',sheet)"
+							@click.prevent="$emit('moveSheet', 'up', sheet)"
 						>
 							<i class="fas fa-fw fa-arrow-up" />
 						</span>
@@ -109,7 +142,7 @@
 							v-if="(sheet.ord || 0) < sheets.length - 1"
 							class="mr-3"
 							role="button"
-							@click.prevent="$emit('moveSheet','down',sheet)"
+							@click.prevent="$emit('moveSheet', 'down', sheet)"
 						>
 							<i class="fas fa-fw fa-arrow-down" />
 						</span>
@@ -165,12 +198,16 @@ export default {
 				{
 					name: 'staticMap',
 					icon: 'fa-map',
-					tooltip: this.$t('ProjectSheetManager.sheetTypes.staticMap'),
+					tooltip: this.$t(
+						'ProjectSheetManager.sheetTypes.staticMap'
+					),
 				},
 				{
 					name: 'interactiveMap',
 					icon: 'fa-map-marker-alt',
-					tooltip: this.$t('ProjectSheetManager.sheetTypes.interactiveMap'),
+					tooltip: this.$t(
+						'ProjectSheetManager.sheetTypes.interactiveMap'
+					),
 				},
 			],
 			nameState: null,
@@ -180,7 +217,10 @@ export default {
 	async fetch() {
 		const maps = await this.$axios.$get('/api/maps');
 		this.maps = maps
-			.map(m => ({ ...m, featureCount: JSON.parse(m.features || '[]').length }))
+			.map(m => ({
+				...m,
+				featureCount: JSON.parse(m.features || '[]').length,
+			}))
 			.filter(m => m.featureCount > 0)
 			.map(m => ({
 				value: m.id,
@@ -194,7 +234,8 @@ export default {
 				return null;
 			}
 			if (sheet.features) {
-				const isInteractive = interactions.enabled.includes('Point') ||
+				const isInteractive =
+					interactions.enabled.includes('Point') ||
 					interactions.enabled.includes('LineString') ||
 					interactions.enabled.includes('Polygon');
 				return isInteractive ? 'interactiveMap' : 'staticMap';

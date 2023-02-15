@@ -4,7 +4,9 @@
 			<template #header>
 				<div class="d-flex flex-wrap">
 					<div>
-						<NuxtLink :to="localePath('/admin/projects')">{{ $t('projectEditor.back') }}</NuxtLink>
+						<NuxtLink :to="localePath('/admin/projects')">{{
+							$t('projectEditor.back')
+						}}</NuxtLink>
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
@@ -32,7 +34,9 @@
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"
 				>
-					<p class="d-md-none font-weight-bold mb-1 small text-muted">{{ projectBaseURL }}</p>
+					<p class="d-md-none font-weight-bold mb-1 small text-muted">
+						{{ projectBaseURL }}
+					</p>
 					<b-input-group
 						class="flex-nowrap"
 						:prepend="projectBaseURL"
@@ -44,7 +48,9 @@
 							>
 								<i class="fas fa-copy fa-fw" />
 							</b-button>
-							<b-input-group-text class="d-none d-md-block">{{ projectBaseURL }}</b-input-group-text>
+							<b-input-group-text class="d-none d-md-block">{{
+								projectBaseURL
+							}}</b-input-group-text>
 						</template>
 						<b-form-input
 							v-model="project.slug"
@@ -78,7 +84,11 @@
 						</template>
 						<b-form-input
 							v-model="newPassword"
-							:placeholder="project.password ? $t('projectEditor.passwordSet') : $t('projectEditor.newPassword')"
+							:placeholder="
+								project.password
+									? $t('projectEditor.passwordSet')
+									: $t('projectEditor.newPassword')
+							"
 							:readonly="project.password"
 							type="password"
 							@change="passwordModified = true"
@@ -126,13 +136,14 @@
 								:alt="$t('projectEditor.altThumbnail')"
 								class="figure-img rounded"
 								height="120"
-							>
+							/>
 							<figcaption class="figure-caption">
 								<a
 									class="text-danger"
 									href="javascript:void(0)"
 									@click="removeImage"
-								>{{ $t('imageUpload.remove') }}</a>
+									>{{ $t('imageUpload.remove') }}</a
+								>
 							</figcaption>
 						</figure>
 					</div>
@@ -141,7 +152,9 @@
 					class="rich"
 					:label="$t('projectEditor.privacyPolicy')"
 					:description="$t('projectEditor.privacyPolicyDescription')"
-					:invalid-feedback="$t('projectEditor.privacyPolicyRequired')"
+					:invalid-feedback="
+						$t('projectEditor.privacyPolicyRequired')
+					"
 					:state="isPrivacyPolicyValid"
 				>
 					<client-only>
@@ -211,7 +224,9 @@ export default {
 				'/api/submission/feature-counts/' + params.id
 			);
 			project.sheets.forEach((s, i) => {
-				project.sheets[i].submittedFeatureCount = Number(sfcs[s.id] || 0);
+				project.sheets[i].submittedFeatureCount = Number(
+					sfcs[s.id] || 0
+				);
 			});
 			return { project };
 		} catch (err) {
@@ -241,14 +256,16 @@ export default {
 			return len > 10;
 		},
 		projectPath() {
-			return this.localePath('/p/' + (this.project.slug || this.project.id) + '/0');
+			return this.localePath(
+				'/p/' + (this.project.slug || this.project.id) + '/0'
+			);
 		},
 		fullProjectPath() {
 			return this.$config.baseURL + this.projectPath;
 		},
 		projectBaseURL() {
 			return this.$config.baseURL + '/' + this.$i18n.locale + '/p/';
-		}
+		},
 	},
 	watch: {
 		image(val) {
@@ -335,7 +352,9 @@ export default {
 				sheetData.features = initialFeatures;
 				if (type.startsWith('interactive')) {
 					// interactiveMap
-					sheetData.interactions = new Interactions({ enabled: ['Point'] });
+					sheetData.interactions = new Interactions({
+						enabled: ['Point'],
+					});
 				} else {
 					// staticMap has optional survey too
 					sheetData.survey = {};
@@ -379,7 +398,11 @@ export default {
 				});
 				otherSheet.ord--;
 				sheet.ord++;
-				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
+				this.project.sheets = orderBy(
+					this.project.sheets,
+					'ord',
+					'asc'
+				);
 			} else if (dir === 'up') {
 				this.project.sheets.forEach(element => {
 					if (element.ord === sheet.ord - 1) {
@@ -388,7 +411,11 @@ export default {
 				});
 				otherSheet.ord++;
 				sheet.ord--;
-				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
+				this.project.sheets = orderBy(
+					this.project.sheets,
+					'ord',
+					'asc'
+				);
 			}
 			try {
 				await this.$axios.$patch('/api/sheet/', {

@@ -7,12 +7,14 @@
 				stacked
 			/>
 			<input
-				v-if="(q.required && (selected || []).length < 1)"
+				v-if="q.required && (selected || []).length < 1"
 				required
 				type="checkbox"
-				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
-				style="bottom: 0; opacity: 0; position: absolute;"
-			>
+				:oninvalid="`this.setCustomValidity('${$t(
+					'CheckboxGroup.required'
+				)}')`"
+				style="bottom: 0; opacity: 0; position: absolute"
+			/>
 		</div>
 		<div
 			v-if="otherSelected"
@@ -64,9 +66,8 @@ export default {
 	},
 	computed: {
 		answer() {
-			return this.selected.map(o => o === this.other
-				? this.other + this.otherValue
-				: o
+			return this.selected.map(o =>
+				o === this.other ? this.other + this.otherValue : o
 			);
 		},
 		otherSelected() {

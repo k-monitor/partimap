@@ -14,7 +14,7 @@
 							:placeholder="$t('maps.newMapsName')"
 							required
 							type="text"
-						>
+						/>
 						<div class="input-group-append">
 							<button
 								class="btn btn-success"
@@ -33,17 +33,20 @@
 						class="form-control"
 						:placeholder="$t('maps.filter')"
 						type="text"
-					>
+					/>
 				</div>
 			</div>
-			<div v-if="$auth.user.isAdmin" class="col col-mr-0">
+			<div
+				v-if="$auth.user.isAdmin"
+				class="col col-mr-0"
+			>
 				<input
 					class="btn btn-outline-primary form-control"
-					:class="{active: filterOwn}"
+					:class="{ active: filterOwn }"
 					type="button"
 					:value="$t('maps.ownMaps')"
 					@click="filteredOwn(filterOwn)"
-				>
+				/>
 			</div>
 		</div>
 		<div class="list-group">
@@ -104,17 +107,16 @@ export default {
 	},
 	computed: {
 		filteredMaps() {
-			return this.maps.filter(
-				m => {
-					const f = this.filter.toLowerCase();
-					const t = m.title.toLowerCase();
-					const d = (m.description || '').toLowerCase();
-					if (this.filterOwn && this.$auth.user.id !== m.userId) {
-						return false;
-					}
-					// eslint-disable-next-line no-unreachable
-					return t.includes(f) || d.includes(f);
-				});
+			return this.maps.filter(m => {
+				const f = this.filter.toLowerCase();
+				const t = m.title.toLowerCase();
+				const d = (m.description || '').toLowerCase();
+				if (this.filterOwn && this.$auth.user.id !== m.userId) {
+					return false;
+				}
+				// eslint-disable-next-line no-unreachable
+				return t.includes(f) || d.includes(f);
+			});
 		},
 	},
 	methods: {

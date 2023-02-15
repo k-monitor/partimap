@@ -13,7 +13,10 @@
 					class="d-flex align-items-center item"
 					@click="editQuestion(i)"
 				>
-					<i class="fas fa-fw mr-2" :class="icon[q.type]" />
+					<i
+						class="fas fa-fw mr-2"
+						:class="icon[q.type]"
+					/>
 					<strong class="flex-grow-1 text-truncate">
 						{{ q.label }}
 					</strong>

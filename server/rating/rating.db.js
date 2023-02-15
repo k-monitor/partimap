@@ -35,7 +35,10 @@ async function aggregateBySheetId(sheetId) {
  * @returns {Rating[]}
  */
 async function findByProjectId(projectId) {
-	const rows = await db.query('SELECT r.* FROM rating r INNER JOIN sheet s ON s.id = r.sheetId AND s.projectId = ?', [projectId]);
+	const rows = await db.query(
+		'SELECT r.* FROM rating r INNER JOIN sheet s ON s.id = r.sheetId AND s.projectId = ?',
+		[projectId]
+	);
 	return rows.map(r => new Rating(r));
 }
 

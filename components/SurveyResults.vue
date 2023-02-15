@@ -24,16 +24,21 @@ export default {
 	},
 	methods: {
 		chart(q) {
-			let data = (q.options || []).map(({ answer, count }) => ({
-				name: answer,
-				y: count,
-			})).map(a => {
-				if (a.name === OTHER_ANSWER) {
-					a.name = this.$t('SurveyResult.other');
-				}
-				return a;
-			});
-			if ('checkbox|dropdown|radiogroup'.includes(q.type) || q.type.includes('Matrix')) {
+			let data = (q.options || [])
+				.map(({ answer, count }) => ({
+					name: answer,
+					y: count,
+				}))
+				.map(a => {
+					if (a.name === OTHER_ANSWER) {
+						a.name = this.$t('SurveyResult.other');
+					}
+					return a;
+				});
+			if (
+				'checkbox|dropdown|radiogroup'.includes(q.type) ||
+				q.type.includes('Matrix')
+			) {
 				data = data.sort((a, b) => b.y - a.y);
 			} else if ('number|range'.includes(q.type)) {
 				data = data.sort((a, b) => Number(a.name) - Number(b.name));
@@ -47,15 +52,23 @@ export default {
 				data = nd;
 			}
 			const avgText = 'number|range|rating'.includes(q.type)
-				? ` | ${this.$t('SurveyResult.averageValue')}: ${Math.round(q.average * 10) / 10}`
+				? ` | ${this.$t('SurveyResult.averageValue')}: ${
+						Math.round(q.average * 10) / 10
+				  }`
 				: '';
 
 			return {
-				chart: { type: 'number|range'.includes(q.type) ? 'column' : 'bar' },
+				chart: {
+					type: 'number|range'.includes(q.type) ? 'column' : 'bar',
+				},
 				credits: { enabled: false },
 				legend: { enabled: false },
 				series: [{ data }],
-				subtitle: { text: this.$t('SurveyResult.numberOfSubmissions') + `: ${q.count}${avgText}` },
+				subtitle: {
+					text:
+						this.$t('SurveyResult.numberOfSubmissions') +
+						`: ${q.count}${avgText}`,
+				},
 				title: { text: q.question },
 				tooltip: {
 					formatter() {

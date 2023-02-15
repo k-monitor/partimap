@@ -19,7 +19,7 @@ function acceptImage(dirFromReq, width, height, field) {
 		'image/jpeg',
 		'image/jpg',
 		'image/png',
-		'image/webp'
+		'image/webp',
 	];
 	return [
 		// accept uploaded image
@@ -52,7 +52,7 @@ function acceptImage(dirFromReq, width, height, field) {
 			await image.jpeg({ mozjpeg: true }).toFile(fn);
 			req[field] = fn;
 			next();
-		}
+		},
 	];
 }
 
@@ -84,7 +84,9 @@ function validateCaptcha(condition) {
 			const crs = await fetch(u);
 			const cr = await crs.json();
 			if (!cr.success) {
-				return res.status(StatusCodes.BAD_REQUEST).json({ error: 'CAPTCHA_INVALID' });
+				return res
+					.status(StatusCodes.BAD_REQUEST)
+					.json({ error: 'CAPTCHA_INVALID' });
 			}
 		}
 		next();

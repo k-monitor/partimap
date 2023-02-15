@@ -11,9 +11,9 @@
 		>
 			<i
 				class="fas fa-check mr-1"
-				:class="{invisible: locale.code !== $i18n.locale}"
+				:class="{ invisible: locale.code !== $i18n.locale }"
 			/>
-			<span :class="{ 'font-weight-bold':locale.code === $i18n.locale}">
+			<span :class="{ 'font-weight-bold': locale.code === $i18n.locale }">
 				{{ locale.name }}
 			</span>
 		</b-dropdown-item>

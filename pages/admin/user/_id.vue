@@ -2,7 +2,9 @@
 	<AdminFrame>
 		<template #header>
 			<span v-if="$auth.user.isAdmin">
-				<NuxtLink :to="localePath('/admin/users')">{{ $t('userEditor.back') }}</NuxtLink>
+				<NuxtLink :to="localePath('/admin/users')">{{
+					$t('userEditor.back')
+				}}</NuxtLink>
 				<span class="text-muted">&raquo;</span>
 			</span>
 			{{ u.email }}
@@ -58,13 +60,14 @@
 							:alt="$t('userEditor.altLogo')"
 							class="figure-img rounded"
 							height="30"
-						>
+						/>
 						<figcaption class="figure-caption">
 							<a
 								class="text-danger"
 								href="javascript:void(0)"
 								@click="removeImage"
-							>{{ $t('imageUpload.remove') }}</a>
+								>{{ $t('imageUpload.remove') }}</a
+							>
 						</figcaption>
 					</figure>
 				</div>
@@ -171,7 +174,13 @@
 					name="confirm"
 				>
 					<!-- eslint-disable-next-line vue/no-v-html -->
-					<span v-html="$t('userEditor.deleteConfirmation', { email: u.email })" />
+					<span
+						v-html="
+							$t('userEditor.deleteConfirmation', {
+								email: u.email,
+							})
+						"
+					/>
 				</b-form-checkbox>
 			</b-alert>
 		</b-modal>

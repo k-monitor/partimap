@@ -3,7 +3,6 @@ const mdb = require('../map/map.db');
 const pdb = require('../project/project.db');
 const User = require('../../model/user');
 
-
 /**
  * @param {User} user
  * @returns {Number|Boolean}
@@ -74,5 +73,5 @@ module.exports = {
 	findById,
 	findByEmail,
 	findByToken,
-	update
+	update,
 };

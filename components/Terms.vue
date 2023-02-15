@@ -1,5 +1,8 @@
 <template>
-	<Markdown class="terms" :md="md" />
+	<Markdown
+		class="terms"
+		:md="md"
+	/>
 </template>
 
 <script>
@@ -12,7 +15,10 @@ export default {
 	},
 	computed: {
 		md() {
-			return this.$t('Terms.content').replace('$_PROJECT_DATA_PROCESSOR_$', this.projectDataProcessor);
+			return this.$t('Terms.content').replace(
+				'$_PROJECT_DATA_PROCESSOR_$',
+				this.projectDataProcessor
+			);
 		},
 	},
 };

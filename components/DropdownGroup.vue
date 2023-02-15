@@ -70,14 +70,22 @@ export default {
 		this.options = Object.assign({}, this.q.options);
 		this.options = Object.keys(this.options)
 			.slice(0, this.options.size)
-			.map(key => ({ text: this.options[key], value: this.options[key] }));
+			.map(key => ({
+				text: this.options[key],
+				value: this.options[key],
+			}));
 		if (this.q.other) {
-			this.options.push({ text: this.$t('DropdownGroup.other'), value: this.other });
+			this.options.push({
+				text: this.$t('DropdownGroup.other'),
+				value: this.other,
+			});
 		}
 	},
 	methods: {
 		init() {
-			this.selected = this.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : this.value;
+			this.selected = this.value.startsWith(OTHER_PREFIX)
+				? OTHER_PREFIX
+				: this.value;
 			this.otherValue = this.value.startsWith(OTHER_PREFIX)
 				? this.value.slice(OTHER_PREFIX.length)
 				: '';

@@ -15,7 +15,10 @@
 					<Logo />
 				</b-navbar-brand>
 				<b-navbar-toggle target="nav-collapse" />
-				<b-collapse id="nav-collapse" is-nav>
+				<b-collapse
+					id="nav-collapse"
+					is-nav
+				>
 					<b-navbar-nav class="ml-auto">
 						<b-nav-item
 							:to="localePath({ name: 'hogyan-mukodik' })"
@@ -45,7 +48,7 @@
 							src="/k-monitor-logo.png"
 							alt="K-Monitor"
 							height="31"
-						>
+						/>
 					</a>
 					<a
 						class="mr-3"
@@ -56,7 +59,7 @@
 							src="/deepdata-logo.png"
 							alt="DeepData"
 							height="31"
-						>
+						/>
 					</a>
 				</div>
 				<div class="ml-auto">

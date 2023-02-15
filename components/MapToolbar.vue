@@ -43,7 +43,12 @@ export default {
 	computed: {
 		...mapGetters(['getDrawType']),
 		drawingButtons() {
-			return buttons(this.getDrawType, this.sheet?.interactions, this.visitor, this);
+			return buttons(
+				this.getDrawType,
+				this.sheet?.interactions,
+				this.visitor,
+				this
+			);
 		},
 	},
 	methods: {

@@ -27,12 +27,16 @@ function ensureAdminOr(cond) {
 }
 
 function isAdminAuthenticated(req) {
-	return req.isAuthenticated && req.isAuthenticated() &&
-		req.user && req.user.isAdmin;
+	return (
+		req.isAuthenticated &&
+		req.isAuthenticated() &&
+		req.user &&
+		req.user.isAdmin
+	);
 }
 
 module.exports = {
 	ensureLoggedIn,
 	ensureAdmin,
-	ensureAdminOr
+	ensureAdminOr,
 };

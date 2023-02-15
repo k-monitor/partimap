@@ -1,6 +1,5 @@
-
 export const state = () => ({
-	selectedFeature: null
+	selectedFeature: null,
 });
 
 export const mutations = {
@@ -17,9 +16,9 @@ export const mutations = {
 	// less secure than remove
 	clear(state) {
 		state.selectedFeature = null;
-	}
+	},
 };
 
 export const getters = {
-	getSelectedFeature: state => state.selectedFeature
+	getSelectedFeature: state => state.selectedFeature,
 };

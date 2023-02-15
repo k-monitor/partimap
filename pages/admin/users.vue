@@ -14,7 +14,7 @@
 							:placeholder="$t('users.newUsersEmail')"
 							required
 							type="email"
-						>
+						/>
 						<div class="input-group-append">
 							<button
 								class="btn btn-success"
@@ -33,7 +33,7 @@
 						class="form-control"
 						:placeholder="$t('users.filter')"
 						type="text"
-					>
+					/>
 				</div>
 			</div>
 		</div>
@@ -58,8 +58,11 @@
 				>
 					{{ $t('users.inactive') }}
 				</b-badge>
-				<br>
-				<small class="text-muted">{{ $t('users.registered') }}: {{ new Date(u.registered).toLocaleString() }}</small>
+				<br />
+				<small class="text-muted"
+					>{{ $t('users.registered') }}:
+					{{ new Date(u.registered).toLocaleString() }}</small
+				>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
@@ -88,13 +91,18 @@ export default {
 		filteredUsers() {
 			let userById = null;
 			const id = Number(this.filter);
-			if (id) { userById = this.users.find(u => u.id === id); }
-			if (userById) { return [userById]; }
+			if (id) {
+				userById = this.users.find(u => u.id === id);
+			}
+			if (userById) {
+				return [userById];
+			}
 			return this.users.filter(
-				u => (
-					(u.name || '').toLowerCase().includes(this.filter.toLowerCase()) ||
+				u =>
+					(u.name || '')
+						.toLowerCase()
+						.includes(this.filter.toLowerCase()) ||
 					u.email.toLowerCase().includes(this.filter.toLowerCase())
-				)
 			);
 		},
 	},

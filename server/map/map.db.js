@@ -53,5 +53,5 @@ module.exports = {
 	findAll,
 	findById,
 	findByUserId,
-	update
+	update,
 };

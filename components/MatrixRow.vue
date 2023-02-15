@@ -1,16 +1,28 @@
 <template>
 	<div class="d-table-row border-top hover-row">
-		<div class="align-middle d-table-cell position-relative small text-left text-break">
+		<div
+			class="align-middle d-table-cell position-relative small text-left text-break"
+		>
 			{{ row }}
 			<input
-				v-if="(question.type === 'multipleChoiceMatrix' && question.required && (checkSelected || []).length < 1)"
-				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
+				v-if="
+					question.type === 'multipleChoiceMatrix' &&
+					question.required &&
+					(checkSelected || []).length < 1
+				"
+				:oninvalid="`this.setCustomValidity('${$t(
+					'CheckboxGroup.required'
+				)}')`"
 				required
 				type="checkbox"
-				style="bottom: 0; opacity: 0; position: absolute; right: 0;"
-			>
+				style="bottom: 0; opacity: 0; position: absolute; right: 0"
+			/>
 		</div>
-		<div v-for="column in question.columns" :key="column" class="align-middle d-table-cell py-3">
+		<div
+			v-for="column in question.columns"
+			:key="column"
+			class="align-middle d-table-cell py-3"
+		>
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
 					v-model="radioSelected"
@@ -56,7 +68,8 @@ export default {
 		value(v) {
 			if (this.question.type === 'singleChoiceMatrix') {
 				this.radioSelected = v;
-			} else { // multipleChoiceMatrix
+			} else {
+				// multipleChoiceMatrix
 				this.checkSelected = v || [];
 			}
 		},

@@ -8,7 +8,9 @@
 			:max="steps"
 			:variant="showSubmit && disableSubmit ? 'success' : 'primary'"
 		/>
-		<div class="align-items-center d-flex justify-content-between p-2 w-100">
+		<div
+			class="align-items-center d-flex justify-content-between p-2 w-100"
+		>
 			<div class="fixed-width">
 				<b-button
 					v-if="showPrev"
@@ -28,9 +30,15 @@
 					class="fas fa-fw mr-1"
 					:class="disableSave ? 'fa-check' : 'fa-save'"
 				/>
-				<span>{{ disableSave ? $t('FooterButtons.saved') : $t('FooterButtons.save') }}</span>
+				<span>{{
+					disableSave
+						? $t('FooterButtons.saved')
+						: $t('FooterButtons.save')
+				}}</span>
 			</b-button>
-			<div v-else-if="step && steps && !showSubmit">{{ step }} / {{ steps }}</div>
+			<div v-else-if="step && steps && !showSubmit">
+				{{ step }} / {{ steps }}
+			</div>
 			<b-button
 				v-if="showSubmit"
 				:disabled="disableSubmit"
@@ -41,7 +49,11 @@
 					class="fas fa-fw mr-1"
 					:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
 				/>
-				<span>{{ disableSubmit ? $t('FooterButtons.submitted') : $t('FooterButtons.submit') }}</span>
+				<span>{{
+					disableSubmit
+						? $t('FooterButtons.submitted')
+						: $t('FooterButtons.submit')
+				}}</span>
 			</b-button>
 			<div
 				v-else

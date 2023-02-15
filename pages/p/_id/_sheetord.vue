@@ -1,6 +1,12 @@
 <template>
-	<SheetFrame v-if="project && sheet" :background-image-url="sheet.image">
-		<form ref="sheetForm" @submit.prevent="">
+	<SheetFrame
+		v-if="project && sheet"
+		:background-image-url="sheet.image"
+	>
+		<form
+			ref="sheetForm"
+			@submit.prevent=""
+		>
 			<b-modal
 				v-if="!sheet.features"
 				content-class="shadow-sm"
@@ -23,13 +29,16 @@
 						>
 							<Logo />
 						</a>
-						<a :href="project.user.website" target="_blank">
+						<a
+							:href="project.user.website"
+							target="_blank"
+						>
 							<img
 								v-if="project.user.logo"
 								:src="project.user.logo"
 								:alt="project.user.website"
 								height="30"
-							>
+							/>
 						</a>
 					</div>
 				</template>
@@ -123,7 +132,10 @@
 			<Terms :project-data-processor="project.privacyPolicy" />
 		</b-modal>
 	</SheetFrame>
-	<div v-else class="container d-flex flex-column flex-grow-1">
+	<div
+		v-else
+		class="container d-flex flex-column flex-grow-1"
+	>
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="sendPassword">

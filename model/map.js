@@ -12,6 +12,6 @@ class Map {
 		this.title = data.title;
 		this.features = data.features;
 	}
-};
+}
 
 module.exports = Map;

@@ -10,14 +10,21 @@
 					<span
 						v-if="q.required"
 						class="text-danger"
-					>*</span>
+						>*</span
+					>
 					<strong class="text-primary">{{ q.label }}</strong>
 					<span
-						v-if="answers[q.id] && 'dropdown|radiogroup|range|singleChoiceMatrix'.includes(q.type)"
+						v-if="
+							answers[q.id] &&
+							'dropdown|radiogroup|range|singleChoiceMatrix'.includes(
+								q.type
+							)
+						"
 						class="ml-auto small text-muted"
 						role="button"
 						@click="removeAnswer(q.id)"
-					>{{ $t('Survey.removeAnswer') }}</span>
+						>{{ $t('Survey.removeAnswer') }}</span
+					>
 				</div>
 			</template>
 			<CheckboxGroup
@@ -55,7 +62,8 @@
 						v-if="q.type == 'range' && (!q.minLabel || !q.maxLabel)"
 						class="ml-2 text-right"
 						style="min-width: 2rem"
-					>{{ answers[q.id] }}</strong>
+						>{{ answers[q.id] }}</strong
+					>
 				</div>
 			</div>
 			<b-form-radio-group
@@ -72,7 +80,10 @@
 				:q="q"
 			/>
 			<ChoiceMatrix
-				v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"
+				v-else-if="
+					q.type === 'singleChoiceMatrix' ||
+					q.type === 'multipleChoiceMatrix'
+				"
 				v-model="answers[q.id]"
 				:question="q"
 			/>

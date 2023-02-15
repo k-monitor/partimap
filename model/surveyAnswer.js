@@ -14,6 +14,6 @@ class SurveyAnswer {
 		this.questionId = data.questionId;
 		this.answer = data.answer;
 	}
-};
+}
 
 module.exports = SurveyAnswer;

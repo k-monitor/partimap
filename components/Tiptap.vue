@@ -1,6 +1,8 @@
 <template>
 	<div v-if="editor">
-		<div class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar">
+		<div
+			class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar"
+		>
 			<div class="border-bottom border-right px-1">
 				<b-button
 					size="sm"
@@ -19,25 +21,33 @@
 			</div>
 			<div class="border-bottom border-right px-1">
 				<b-button
-					:class="{ 'active': editor.isActive('heading', { level: 4 }) }"
+					:class="{
+						active: editor.isActive('heading', { level: 4 }),
+					}"
 					size="sm"
 					variant="light"
-					@click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
+					@click="
+						editor.chain().focus().toggleHeading({ level: 4 }).run()
+					"
 				>
 					<i class="fas _fa-fw fa-heading" />
 					<strong>1</strong>
 				</b-button>
 				<b-button
-					:class="{ 'active': editor.isActive('heading', { level: 5 }) }"
+					:class="{
+						active: editor.isActive('heading', { level: 5 }),
+					}"
 					size="sm"
 					variant="light"
-					@click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
+					@click="
+						editor.chain().focus().toggleHeading({ level: 5 }).run()
+					"
 				>
 					<i class="fas _fa-fw fa-heading" />
 					<strong>2</strong>
 				</b-button>
 				<b-button
-					:class="{ 'active': editor.isActive('paragraph') }"
+					:class="{ active: editor.isActive('paragraph') }"
 					size="sm"
 					variant="light"
 					@click="editor.chain().focus().setParagraph().run()"
@@ -45,7 +55,7 @@
 					<i class="fas fa-fw fa-paragraph" />
 				</b-button>
 				<b-button
-					:class="{ 'active': editor.isActive('bulletList') }"
+					:class="{ active: editor.isActive('bulletList') }"
 					size="sm"
 					variant="light"
 					@click="editor.chain().focus().toggleBulletList().run()"
@@ -55,7 +65,7 @@
 			</div>
 			<div class="border-bottom border-right px-1 flex-grow-1">
 				<b-button
-					:class="{ 'active' : editor.isActive('bold') }"
+					:class="{ active: editor.isActive('bold') }"
 					size="sm"
 					variant="light"
 					@click="editor.chain().focus().toggleBold().run()"
@@ -63,7 +73,7 @@
 					<i class="fas fa-fw fa-bold" />
 				</b-button>
 				<b-button
-					:class="{ 'active' : editor.isActive('italic') }"
+					:class="{ active: editor.isActive('italic') }"
 					size="sm"
 					variant="light"
 					@click="editor.chain().focus().toggleItalic().run()"
@@ -71,7 +81,7 @@
 					<i class="fas fa-fw fa-italic" />
 				</b-button>
 				<b-button
-					:class="{ 'active': editor.isActive('link') }"
+					:class="{ active: editor.isActive('link') }"
 					size="sm"
 					variant="light"
 					@click="setLink"
@@ -90,7 +100,14 @@
 				<b-button
 					size="sm"
 					variant="light"
-					@click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
+					@click="
+						editor
+							.chain()
+							.focus()
+							.clearNodes()
+							.unsetAllMarks()
+							.run()
+					"
 				>
 					<i class="fas fa-fw fa-remove-format" />
 				</b-button>
@@ -175,7 +192,12 @@ export default {
 				return;
 			}
 			if (url === '') {
-				this.editor.chain().focus().extendMarkRange('link').unsetLink().run();
+				this.editor
+					.chain()
+					.focus()
+					.extendMarkRange('link')
+					.unsetLink()
+					.run();
 				return;
 			}
 			this.editor

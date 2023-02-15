@@ -15,9 +15,18 @@ function create(project) {
 async function del(id) {
 	await db.query('DELETE FROM project WHERE id = ?', [id]);
 	await db.query('DELETE FROM sheet WHERE projectId = ?', [id]);
-	await db.query('DELETE a FROM submitted_features a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?', [id]);
-	await db.query('DELETE a FROM survey_answer a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?', [id]);
-	await db.query('DELETE a FROM rating a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?', [id]);
+	await db.query(
+		'DELETE a FROM submitted_features a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
+		[id]
+	);
+	await db.query(
+		'DELETE a FROM survey_answer a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
+		[id]
+	);
+	await db.query(
+		'DELETE a FROM rating a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
+		[id]
+	);
 	await db.query('DELETE FROM submission WHERE projectId = ?', [id]);
 }
 
@@ -25,11 +34,12 @@ async function del(id) {
  * @returns {Project[]}
  */
 async function findAll() {
-	const rows = await db.query(`
-		SELECT p.*, COUNT(s.id) submissions
+	const rows = await db.query(
+		`SELECT p.*, COUNT(s.id) submissions
 		FROM project p
 		LEFT JOIN submission s ON s.projectId = p.id
-		GROUP BY p.id`);
+		GROUP BY p.id`
+	);
 	return rows.map(r => new Project(r));
 }
 
@@ -50,7 +60,8 @@ async function findByIdOrSlug(idOrSlug) {
 	if (Number(idOrSlug) > 0) {
 		project = await findById(idOrSlug);
 	}
-	if (!project) { // we got slug OR no match for ID
+	if (!project) {
+		// we got slug OR no match for ID
 		project = await findBySlug(idOrSlug);
 	}
 	return project;
@@ -69,12 +80,14 @@ function findBySlug(slug) {
  * @returns {Project[]}
  */
 async function findByUserId(userId) {
-	const rows = await db.query(`
-		SELECT p.*, COUNT(s.id) submissions
+	const rows = await db.query(
+		`SELECT p.*, COUNT(s.id) submissions
 		FROM project p
 		LEFT JOIN submission s ON s.projectId = p.id
 		WHERE p.userId = ?
-		GROUP BY p.id`, [userId]);
+		GROUP BY p.id`,
+		[userId]
+	);
 	return rows.map(r => new Project(r));
 }
 
@@ -98,5 +111,5 @@ module.exports = {
 	findBySlug,
 	findByUserId,
 	incrementViewsById,
-	update
+	update,
 };

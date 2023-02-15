@@ -36,7 +36,7 @@ export const mutations = {
 	},
 	toggleSidebarVisible(state) {
 		state.sidebarVisible = !state.sidebarVisible;
-	}
+	},
 };
 
 export const getters = {

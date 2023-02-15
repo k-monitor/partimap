@@ -39,7 +39,10 @@ function findById(id) {
  * @returns {Sheet[]}
  */
 async function findByProjectId(projectId) {
-	const rows = await db.query('SELECT * FROM sheet WHERE projectId = ? ORDER BY ord, id', [projectId]);
+	const rows = await db.query(
+		'SELECT * FROM sheet WHERE projectId = ? ORDER BY ord, id',
+		[projectId]
+	);
 	return rows.map(r => new Sheet(r));
 }
 
@@ -49,7 +52,10 @@ async function findByProjectId(projectId) {
  * @returns {Sheet}
  */
 async function findByProjectIdAndOrder(projectId, ord) {
-	const rows = await db.query('SELECT * FROM sheet WHERE project = ? AND ord = ?', [projectId, ord]);
+	const rows = await db.query(
+		'SELECT * FROM sheet WHERE project = ? AND ord = ?',
+		[projectId, ord]
+	);
 	return rows.map(r => new Sheet(r))[0];
 }
 
@@ -58,12 +64,17 @@ async function findByProjectIdAndOrder(projectId, ord) {
  */
 async function update(sheet) {
 	const oldSheet = await findById(sheet.id);
-	if (oldSheet.ord < sheet.ord) { // so we increase ord
-		await db.query('UPDATE sheet SET ord = ord - 1 WHERE projectId = ? AND ord BETWEEN ? AND ?',
-			[sheet.projectId, oldSheet.ord + 1, sheet.ord]);
+	if (oldSheet.ord < sheet.ord) {
+		// so we increase ord
+		await db.query(
+			'UPDATE sheet SET ord = ord - 1 WHERE projectId = ? AND ord BETWEEN ? AND ?',
+			[sheet.projectId, oldSheet.ord + 1, sheet.ord]
+		);
 	} else if (oldSheet.ord > sheet.ord) {
-		await db.query('UPDATE sheet SET ord = ord + 1 WHERE projectId = ? AND ord BETWEEN ? AND ?',
-			[sheet.projectId, sheet.ord, oldSheet.ord - 1]);
+		await db.query(
+			'UPDATE sheet SET ord = ord + 1 WHERE projectId = ? AND ord BETWEEN ? AND ?',
+			[sheet.projectId, sheet.ord, oldSheet.ord - 1]
+		);
 	}
 	await db.update('sheet', sheet, Sheet);
 	await reorderSheets(sheet.projectId);
@@ -73,7 +84,10 @@ async function reorderSheets(projectId) {
 	const sheets = await findByProjectId(projectId);
 	for (let i = 0; i < sheets.length; i++) {
 		if (sheets[i].ord !== i) {
-			await db.query('UPDATE sheet SET ord = ? WHERE id = ?', [i, sheets[i].id]);
+			await db.query('UPDATE sheet SET ord = ? WHERE id = ?', [
+				i,
+				sheets[i].id,
+			]);
 		}
 	}
 }
@@ -84,5 +98,5 @@ module.exports = {
 	findById,
 	findByProjectId,
 	findByProjectIdAndOrder,
-	update
+	update,
 };

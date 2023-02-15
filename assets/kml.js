@@ -30,8 +30,12 @@ function prepareKmlForExport(kmlString) {
 
 		if (p.querySelector('Point')) {
 			// fix missing IconStyle
-			const width = p.querySelector('ExtendedData Data[name="width"] value')?.innerHTML || DEFAULT_WIDTH;
-			const rgb = p.querySelector('ExtendedData Data[name="color"] value')?.innerHTML || DEFAULT_COLOR;
+			const width =
+				p.querySelector('ExtendedData Data[name="width"] value')
+					?.innerHTML || DEFAULT_WIDTH;
+			const rgb =
+				p.querySelector('ExtendedData Data[name="color"] value')
+					?.innerHTML || DEFAULT_COLOR;
 			const argb = rgbToAbgr(rgb);
 			const style = ensureElement(kml, p, 'Style');
 			style.innerHTML = `
@@ -54,7 +58,9 @@ function prepareKmlForExport(kmlString) {
 		// move `description` into `ExtendedData` with custom key
 		// (because Google MyMaps messes up `description` on export)
 		const descEl = p.querySelector('description');
-		if (descEl) { p.removeChild(descEl); }
+		if (descEl) {
+			p.removeChild(descEl);
+		}
 		ensureData(kml, ed, EXPORTED_DESCRIPTION_NAME, descEl?.innerHTML || '');
 
 		// rename "category" and "dash" data entries to less confusing names
@@ -69,7 +75,9 @@ function prepareKmlForExport(kmlString) {
 		// cleanup ExtendedData
 		ed.querySelectorAll('Data').forEach(d => {
 			const name = d.getAttribute('name');
-			if (!name.startsWith('partimap')) { d.remove(); }
+			if (!name.startsWith('partimap')) {
+				d.remove();
+			}
 		});
 	});
 
@@ -110,7 +118,9 @@ function prepareKmlForImport(kmlString) {
 
 		// move back `description` from `ExtendedData` (see exporter)
 		const descEl = ensureElement(kml, p, 'description');
-		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
+		const descValueEl = ed.querySelector(
+			`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`
+		);
 		if (descValueEl && descValueEl.innerHTML) {
 			descValueEl.parentElement.remove();
 			descEl.innerHTML = descValueEl.innerHTML;
@@ -123,8 +133,7 @@ function prepareKmlForImport(kmlString) {
 				.trim()
 				.replace(/^[^ :<]+: /, '') // remove leading "desc:" part (can be any language...)
 				.replace(/<br>partimap\w+:.*?(?=<br>\w+:|$)/g, '') // remove Partimap data fields
-				.replace(/<br>\w+:\s*(?=<br>\w+:|$)/g, '') // remove empty key-value pairs
-				;
+				.replace(/<br>\w+:\s*(?=<br>\w+:|$)/g, ''); // remove empty key-value pairs
 			descEl.innerHTML = desc.trim();
 		}
 
@@ -132,7 +141,10 @@ function prepareKmlForImport(kmlString) {
 		descEl.innerHTML = descEl.innerHTML
 			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
 			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
-			.replace(/(?<!"|<a[^<>]+>\s*)(https?:[^ <>"]+)/g, '<a href="$1" target="_blank">$1</a>');
+			.replace(
+				/(?<!"|<a[^<>]+>\s*)(https?:[^ <>"]+)/g,
+				'<a href="$1" target="_blank">$1</a>'
+			);
 		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
 	});
 
@@ -174,13 +186,17 @@ function ensureData(kml, ed, key, value) {
 }
 
 function ensureElement(doc, parent, tagName) {
-	return parent.querySelector(tagName) ||
-		parent.appendChild(doc.createElement(tagName));
+	return (
+		parent.querySelector(tagName) ||
+		parent.appendChild(doc.createElement(tagName))
+	);
 }
 
 function renameData(ed, oldKey, newKey) {
 	const dataEl = ed.querySelector(`Data[name="${oldKey}"]`);
-	if (dataEl) { dataEl.setAttribute('name', newKey); }
+	if (dataEl) {
+		dataEl.setAttribute('name', newKey);
+	}
 }
 
 function abgrToRgb(abgr) {

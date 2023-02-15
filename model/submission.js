@@ -14,6 +14,6 @@ class Submission {
 		this.ip = data.ip;
 		this.ua = data.ua;
 	}
-};
+}
 
 module.exports = Submission;

@@ -10,8 +10,10 @@ module.exports = {
 	DB_PASS: process.env.DB_PASS,
 	DB_NAME: process.env.DB_NAME,
 
-	SESSION_SECRET: process.env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
-	JWT_SECRET: process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex'),
+	SESSION_SECRET:
+		process.env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
+	JWT_SECRET:
+		process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex'),
 
 	BASE_URL: process.env.BASE_URL || '',
 

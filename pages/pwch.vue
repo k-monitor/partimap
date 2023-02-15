@@ -6,7 +6,9 @@
 					<div class="card shadow-sm">
 						<CardHeader :text="$t('passwordChange.title')" />
 						<div class="card-body">
-							<b-form-group :label="$t('passwordChange.newPassword')">
+							<b-form-group
+								:label="$t('passwordChange.newPassword')"
+							>
 								<b-form-input
 									ref="password"
 									v-model="password"
@@ -65,11 +67,21 @@ export default {
 				await this.$axios.$post('/api/user/pwch', {
 					password: this.password,
 					token,
-					captcha
+					captcha,
 				});
-				this.$router.push(this.localePath({ path: 'login', query: { pwchanged: null } }));
+				this.$router.push(
+					this.localePath({
+						path: 'login',
+						query: { pwchanged: null },
+					})
+				);
 			} catch (err) {
-				this.$router.push(this.localePath({ path: 'login', query: { pwchangefailed: null } }));
+				this.$router.push(
+					this.localePath({
+						path: 'login',
+						query: { pwchangefailed: null },
+					})
+				);
 			}
 			this.loading = false;
 		},

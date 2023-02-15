@@ -4,9 +4,15 @@ tags! */
 
 <template>
 	<div>
-		<div ref="map-root" class="h-100 position-absolute w-100 map" />
+		<div
+			ref="map-root"
+			class="h-100 position-absolute w-100 map"
+		/>
 		<div class="map-zoom-toolbar">
-			<b-button-group class="shadow-sm" vertical>
+			<b-button-group
+				class="shadow-sm"
+				vertical
+			>
 				<b-button
 					v-b-tooltip.hover.left
 					class="border border-secondary py-2"
@@ -381,7 +387,8 @@ export default {
 			const isPoint = feature.getGeometry().constructor.name === 'Point';
 			const isSelected =
 				selFeature && selFeature.getId() === feature.getId();
-			const addWidth = isSelected && !isHidden && !isPoint && this.visitor ? 5 : 0;
+			const addWidth =
+				isSelected && !isHidden && !isPoint && this.visitor ? 5 : 0;
 
 			feature.setStyle(
 				this.styleFunction({

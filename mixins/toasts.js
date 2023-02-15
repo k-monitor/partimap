@@ -1,9 +1,10 @@
 export default {
 	methods: {
 		toast(message, variant) {
-			const colorClasses = variant === 'danger'
-				? 'bg-danger border-danger text-white'
-				: 'bg-dark border-secondary text-white';
+			const colorClasses =
+				variant === 'danger'
+					? 'bg-danger border-danger text-white'
+					: 'bg-dark border-secondary text-white';
 
 			this.$bvToast.toast(message, {
 				autoHideDelay: 2500,
@@ -18,6 +19,6 @@ export default {
 		},
 		success(message) {
 			this.toast(message, 'success');
-		}
-	}
+		},
+	},
 };

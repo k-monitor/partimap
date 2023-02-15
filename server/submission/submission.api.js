@@ -19,7 +19,8 @@ function ol2gm(coords) {
 	return [y, x];
 }
 
-router.post('/submission/:projectId',
+router.post(
+	'/submission/:projectId',
 	validateCaptcha(),
 	resolveRecord(req => req.params.projectId, pdb.findById, 'project'),
 	async (req, res) => {
@@ -41,8 +42,12 @@ router.post('/submission/:projectId',
 		*/
 		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 		const ua = req.headers['user-agent'];
-		const projectSheetIds = (await sdb.findByProjectId(req.project.id)).map(s => s.id);
-		const submittedSheetIds = Object.keys(req.body).map(id => Number(id)).filter(id => projectSheetIds.includes(id));
+		const projectSheetIds = (await sdb.findByProjectId(req.project.id)).map(
+			s => s.id
+		);
+		const submittedSheetIds = Object.keys(req.body)
+			.map(id => Number(id))
+			.filter(id => projectSheetIds.includes(id));
 		if (!submittedSheetIds.length) {
 			return res.sendStatus(StatusCodes.BAD_REQUEST);
 		}
@@ -64,7 +69,7 @@ router.post('/submission/:projectId',
 						submissionId,
 						sheetId,
 						questionId,
-						answer: s.answers[questionId]
+						answer: s.answers[questionId],
 					});
 				}
 			}
@@ -72,18 +77,20 @@ router.post('/submission/:projectId',
 				await sfdb.create({
 					submissionId,
 					sheetId,
-					features: s.features
+					features: s.features,
 				});
 			}
 			if (s.ratings) {
 				for (const fid in s.ratings) {
 					const featureId = Number(fid);
-					if (!featureId) { continue; }
+					if (!featureId) {
+						continue;
+					}
 					await rdb.create({
 						submissionId,
 						sheetId,
 						featureId,
-						rating: s.ratings[featureId]
+						rating: s.ratings[featureId],
 					});
 				}
 			}
@@ -94,7 +101,8 @@ router.post('/submission/:projectId',
 	}
 );
 
-router.get('/submission/feature-counts/:id',
+router.get(
+	'/submission/feature-counts/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
@@ -109,7 +117,8 @@ router.get('/submission/feature-counts/:id',
 	}
 );
 
-router.get('/submission/ratings/:id',
+router.get(
+	'/submission/ratings/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
@@ -126,7 +135,8 @@ router.get('/submission/ratings/:id',
 	}
 );
 
-router.get('/submission/export/:lang/:id',
+router.get(
+	'/submission/export/:lang/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	async (req, res) => {
@@ -142,7 +152,7 @@ router.get('/submission/export/:lang/:id',
 			try {
 				const survey = JSON.parse(s.survey);
 				questions.push(...survey.questions);
-			} catch { }
+			} catch {}
 		});
 
 		const wb = new xl.Workbook({
@@ -159,12 +169,20 @@ router.get('/submission/export/:lang/:id',
 
 			let COL = 3;
 			questions.forEach(q => {
-				let a = answers.filter(a => a.submissionId === s.id && String(a.questionId) === String(q.id))[0];
-				if (a && a.answer) { a = a.answer; }
+				let a = answers.filter(
+					a =>
+						a.submissionId === s.id &&
+						String(a.questionId) === String(q.id)
+				)[0];
+				if (a && a.answer) {
+					a = a.answer;
+				}
 				a = a || '';
 
 				function writeCell(a) {
-					if (!a) { return; }
+					if (!a) {
+						return;
+					}
 					if (Number.isInteger(a)) {
 						CELL(COL).number(a);
 					} else if (Array.isArray(a)) {
@@ -178,7 +196,7 @@ router.get('/submission/export/:lang/:id',
 					// multiple columns
 					try {
 						a = JSON.parse(a);
-					} catch { }
+					} catch {}
 
 					(q.rows || []).forEach(row => {
 						sas.cell(1, COL).string(`${q.label} [${row}]`);
@@ -191,7 +209,7 @@ router.get('/submission/export/:lang/:id',
 					if (q.type === 'checkbox') {
 						try {
 							a = JSON.parse(a);
-						} catch { }
+						} catch {}
 					}
 					writeCell(a);
 					COL++;
@@ -229,7 +247,7 @@ router.get('/submission/export/:lang/:id',
 			let stars = 0;
 			try {
 				stars = JSON.parse(sheet.interactions).stars;
-			} catch { }
+			} catch {}
 
 			/** @type {AggregatedRating[]} */
 			const ar = await rdb.aggregateBySheetId(sheet.id);
@@ -274,7 +292,8 @@ router.get('/submission/export/:lang/:id',
 					}
 					// make pairs
 					coords = coords.reduce((result, value, index, array) => {
-						(index % 2 === 0) && result.push(array.slice(index, index + 2));
+						index % 2 === 0 &&
+							result.push(array.slice(index, index + 2));
 						return result;
 					}, []);
 					// convert coordinate pairs to right projection (used on GM)

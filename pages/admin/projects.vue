@@ -14,7 +14,7 @@
 							:placeholder="$t('projects.newProjectName')"
 							required
 							type="text"
-						>
+						/>
 						<div class="input-group-append">
 							<button
 								class="btn btn-outline-success"
@@ -33,17 +33,20 @@
 						class="form-control"
 						:placeholder="$t('projects.filter')"
 						type="text"
-					>
+					/>
 				</div>
 			</div>
-			<div v-if="$auth.user.isAdmin" class="col col-mr-0">
+			<div
+				v-if="$auth.user.isAdmin"
+				class="col col-mr-0"
+			>
 				<input
 					class="btn btn-outline-primary form-control"
 					:class="{ active: filterOwn }"
 					type="button"
 					:value="$t('projects.ownProjects')"
 					@click="filteredOwn(filterOwn)"
-				>
+				/>
 			</div>
 		</div>
 		<div class="list-group">
@@ -68,15 +71,17 @@
 					<span
 						v-else-if="$auth.user.isAdmin"
 						class="badge badge-info"
-					>Saját</span>
-					<br>
+						>Saját</span
+					>
+					<br />
 					{{ $t('projects.views') }}: {{ p.views }},
 					{{ $t('projects.submissions') }}: {{ p.submissions }}
 					<a
 						v-if="p.submissions"
 						:href="`/api/submission/export/${$i18n.locale}/${p.id}`"
 						target="_blank"
-					>{{ $t('projects.export') }}</a>
+						>{{ $t('projects.export') }}</a
+					>
 				</div>
 				<span
 					class="ml-auto text-danger"

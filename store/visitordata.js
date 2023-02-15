@@ -24,13 +24,16 @@ export const mutations = {
 		const sheetIdKey = payload.sheetId.toString();
 		const ratings = payload.ratings;
 		state.visitorRatings[sheetIdKey] = ratings;
-	}
+	},
 };
 
 export const getters = {
-	getVisitorAnswers: state => sheetId => state.visitorAnswers[sheetId.toString()],
-	getVisitorFeatures: state => sheetId => state.visitorFeatures[sheetId.toString()],
-	getVisitorRatings: state => sheetId => state.visitorRatings[sheetId.toString()],
+	getVisitorAnswers: state => sheetId =>
+		state.visitorAnswers[sheetId.toString()],
+	getVisitorFeatures: state => sheetId =>
+		state.visitorFeatures[sheetId.toString()],
+	getVisitorRatings: state => sheetId =>
+		state.visitorRatings[sheetId.toString()],
 	getSubmissionData: state => sheetIds => {
 		const data = {};
 		sheetIds.forEach(id => {
@@ -58,5 +61,5 @@ export const getters = {
 			}
 		});
 		return data;
-	}
+	},
 };

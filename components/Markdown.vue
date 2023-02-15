@@ -1,6 +1,9 @@
 <template>
 	<!-- eslint-disable-next-line vue/no-v-html -->
-	<div class="md" v-html="html" />
+	<div
+		class="md"
+		v-html="html"
+	/>
 </template>
 
 <script>

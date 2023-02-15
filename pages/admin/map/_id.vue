@@ -87,7 +87,9 @@ export default {
 			// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
-			return features ? new GeoJSON().readFeatures(featureCollection) : null;
+			return features
+				? new GeoJSON().readFeatures(featureCollection)
+				: null;
 		},
 		loadFeaturesFromStore() {
 			const features = [];
@@ -104,7 +106,10 @@ export default {
 			this.loading = true;
 			this.loadFeaturesFromStore();
 			try {
-				this.mapData = await this.$axios.$patch('/api/map', this.mapData);
+				this.mapData = await this.$axios.$patch(
+					'/api/map',
+					this.mapData
+				);
 				this.contentModified = false;
 				this.success(this.$t('mapEditor.success'));
 			} catch (error) {

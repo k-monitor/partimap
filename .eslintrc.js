@@ -2,26 +2,29 @@ module.exports = {
 	root: true,
 	env: {
 		browser: true,
-		node: true
-	},
-	parserOptions: {
-		parser: 'babel-eslint'
+		node: true,
 	},
 	extends: [
+		'plugin:vue/recommended',
 		'@nuxtjs',
-		'plugin:nuxt/recommended'
+		'plugin:nuxt/recommended',
+		'plugin:prettier-vue/recommended',
 	],
-	plugins: [
-	],
-	// add your custom rules here
+	parserOptions: {
+		parser: 'babel-eslint',
+	},
+	plugins: ['vue'],
 	rules: {
-		'arrow-parens': ['error', 'as-needed'],
-		'comma-dangle': 0,
-		indent: ['error', 'tab'],
-		'no-tabs': ['error', { allowIndentationTabs: true }],
-		semi: ['error', 'always'],
-		'space-before-function-paren': 0,
-		'vue/html-indent': ['error', 'tab'],
-		'vue/singleline-html-element-content-newline': 0
-	}
+		indent: ['error', 'tab', { SwitchCase: 1 }],
+		'prettier-vue/prettier': [
+			'error',
+			{
+				semi: true,
+				singleAttributePerLine: true,
+				singleQuote: true,
+				tabWidth: 4,
+				useTabs: true,
+			},
+		],
+	},
 };

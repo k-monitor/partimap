@@ -6,11 +6,11 @@
 					alt="Partimap"
 					class="mb-5"
 					src="logo-white.png"
-					style="width: 200px;"
-				>
+					style="width: 200px"
+				/>
 				<p class="font-weight-bold lead mb-0">
 					{{ $t('landing.tagline1') }}
-					<br class="d-none d-lg-inline">
+					<br class="d-none d-lg-inline" />
 					{{ $t('landing.tagline2') }}
 				</p>
 			</div>
@@ -63,7 +63,9 @@
 
 		<section class="bg-white py-5">
 			<div class="container -fluid">
-				<h2 class="mb-5 text-center">{{ $t('landing.featuresTitle') }}</h2>
+				<h2 class="mb-5 text-center">
+					{{ $t('landing.featuresTitle') }}
+				</h2>
 				<div class="features row row-cols-1 row-cols-md-3">
 					<div
 						v-for="(f, i) in features"
@@ -77,7 +79,7 @@
 								:alt="f.title"
 								class="figure-img img-fluid rounded shadow-sm"
 								:src="`landing/${i}.jpg`"
-							>
+							/>
 							<figcaption class="figure-caption">
 								<h5 class="text-center">{{ f.title }}</h5>
 							</figcaption>
@@ -117,7 +119,7 @@
 
 		<section
 			class="bg-light pb-3 pt-4"
-			style="box-shadow: inset 0px 20px 15px -15px rgba(0,0,0,.08)"
+			style="box-shadow: inset 0px 20px 15px -15px rgba(0, 0, 0, 0.08)"
 		>
 			<div class="container">
 				<div class="row">
@@ -127,18 +129,21 @@
 								src="eu-commission-logo-en.svg"
 								class="figure-img w-100"
 								:alt="$t('landing.ec')"
-							>
+							/>
 						</figure>
 						<figure class="figure d-flex align-items-center">
 							<img
 								src="heinrich-boll-logo.svg"
 								class="figure-img w-100"
 								:alt="$t('landing.ec')"
-							>
+							/>
 						</figure>
 					</div>
 					<div class="col d-flex align-items-center">
-						<p class="font-weight-bold mb-0" v-html="$t('landing.funding')" />
+						<p
+							class="font-weight-bold mb-0"
+							v-html="$t('landing.funding')"
+						/>
 					</div>
 				</div>
 			</div>

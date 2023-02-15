@@ -3,5 +3,5 @@ export default function ({ redirect, route }) {
 		// since we set localized routes, the old route is not working
 		// so we need to set a redirect manually
 		redirect(301, '/hu/hogyan-mukodik');
-	};
+	}
 }

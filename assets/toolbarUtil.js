@@ -11,7 +11,12 @@ const _buttons = [
 	db('', 'fa-times', 'Mégsem', 'warning'),
 ];
 
-export function buttons(currentDrawType, sheetInteractions, isVisitor, $context) {
+export function buttons(
+	currentDrawType,
+	sheetInteractions,
+	isVisitor,
+	$context
+) {
 	const interactions = deserializeInteractions(sheetInteractions);
 	return _buttons
 		.filter(button => {
@@ -24,7 +29,8 @@ export function buttons(currentDrawType, sheetInteractions, isVisitor, $context)
 				return false;
 			}
 
-			const isAllowed = isCancel || interactions.enabled.includes(drawType);
+			const isAllowed =
+				isCancel || interactions.enabled.includes(drawType);
 			if (isVisitor && !isAllowed) {
 				// hide buttons for visitors unless
 				// enabled in sheet interactions
@@ -35,7 +41,8 @@ export function buttons(currentDrawType, sheetInteractions, isVisitor, $context)
 		})
 		.map(button => {
 			if (button.drawType) {
-				button.tooltip = interactions.buttonLabels[button.drawType] ||
+				button.tooltip =
+					interactions.buttonLabels[button.drawType] ||
 					$context.$t('sheetEditor.interactions')[button.drawType];
 			} else {
 				button.tooltip = $context.$t('MapToolbar.cancel');

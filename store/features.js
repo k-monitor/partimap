@@ -16,7 +16,7 @@ export const mutations = {
 	},
 	clear(state) {
 		state.features = [];
-	}
+	},
 };
 
 export const getters = {

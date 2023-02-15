@@ -50,7 +50,9 @@
 				:state="backgroundImageState"
 			>
 				<template #label>
-					<h6 class="mb-0">{{ $t('sheetEditor.backgroundImage') }}</h6>
+					<h6 class="mb-0">
+						{{ $t('sheetEditor.backgroundImage') }}
+					</h6>
 				</template>
 				<b-input-group v-if="!sheet.image">
 					<b-form-file
@@ -89,7 +91,9 @@
 			</b-form-group>
 			<b-form-group v-if="interactionOptions.length">
 				<template #label>
-					<h6 class="mb-0">{{ $t('sheetEditor.visitorInteractions') }}</h6>
+					<h6 class="mb-0">
+						{{ $t('sheetEditor.visitorInteractions') }}
+					</h6>
 				</template>
 				<b-form-checkbox-group
 					v-model="interactions.enabled"
@@ -98,7 +102,9 @@
 				/>
 			</b-form-group>
 			<b-form-group
-				v-for="dt in ['Point', 'LineString', 'Polygon'].filter(dt => interactions.enabled.includes(dt))"
+				v-for="dt in ['Point', 'LineString', 'Polygon'].filter(dt =>
+					interactions.enabled.includes(dt)
+				)"
 				:key="dt"
 				:label="$t('sheetEditor.instructions')[dt]"
 			>
@@ -160,7 +166,10 @@
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters, mapMutations } from 'vuex';
-import { deserializeInteractions, serializeInteractions } from '@/assets/interactions';
+import {
+	deserializeInteractions,
+	serializeInteractions,
+} from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
 
 export default {
@@ -178,15 +187,21 @@ export default {
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
-			return { project, sheet, interactions, submittedRatings, ratingType };
+			return {
+				project,
+				sheet,
+				interactions,
+				submittedRatings,
+				ratingType,
+			};
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
 	},
 	data() {
 		const ratingTypes = [
-			{ value: 0, text: this.$t('sheetEditor.ratingTypes.stars'), },
-			{ value: 1, text: this.$t('sheetEditor.ratingTypes.likeDislike'), },
+			{ value: 0, text: this.$t('sheetEditor.ratingTypes.stars') },
+			{ value: 1, text: this.$t('sheetEditor.ratingTypes.likeDislike') },
 		];
 		return {
 			backgroundImage: null,
@@ -209,7 +224,10 @@ export default {
 		...mapGetters('features', ['getAllFeature']),
 		interactionOptions() {
 			const options = [];
-			const ia = n => ({ value: n, text: this.$t('sheetEditor.interactions')[n] });
+			const ia = n => ({
+				value: n,
+				text: this.$t('sheetEditor.interactions')[n],
+			});
 			if (this.sheet.features) {
 				// map sheet
 				if (!this.sheet.survey) {
@@ -230,7 +248,11 @@ export default {
 			return this.sheet.ord === this.project.sheets.length - 1;
 		},
 		isInteractive() {
-			return this.isPointSelected || this.isLineStringSelected || this.isPolygonSelected;
+			return (
+				this.isPointSelected ||
+				this.isLineStringSelected ||
+				this.isPolygonSelected
+			);
 		},
 		isPointSelected() {
 			return this.interactions.enabled.includes('Point');
@@ -298,12 +320,16 @@ export default {
 	methods: {
 		...mapMutations(['setBaseMap']),
 		back() {
-			this.$router.push(this.localePath(`/admin/project/${this.project.id}`));
+			this.$router.push(
+				this.localePath(`/admin/project/${this.project.id}`)
+			);
 		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
-			return features ? new GeoJSON().readFeatures(featureCollection) : null;
+			return features
+				? new GeoJSON().readFeatures(featureCollection)
+				: null;
 		},
 		goToSheetOrd(ord) {
 			this.$router.push(

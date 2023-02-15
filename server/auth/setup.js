@@ -18,7 +18,7 @@ const sessionStore = new MySQLStore({
 	user: conf.DB_USER,
 	password: conf.DB_PASS,
 	database: conf.DB_NAME,
-	expiration: SESSION_AGE
+	expiration: SESSION_AGE,
 });
 
 const sessionOpts = {
@@ -29,24 +29,34 @@ const sessionOpts = {
 	resave: false,
 	saveUninitialized: false,
 	secret: conf.SESSION_SECRET,
-	store: sessionStore
+	store: sessionStore,
 };
 
-passport.use(new Strategy({ usernameField: 'email' }, (email, password, callback) => {
-	db.findByEmail(email).then(user => {
-		if (!user || !user.active || !bcrypt.compareSync(password, user.password)) {
-			return callback(null, false);
-		}
-		callback(null, user);
-	}).catch(callback);
-}));
+passport.use(
+	new Strategy({ usernameField: 'email' }, (email, password, callback) => {
+		db.findByEmail(email)
+			.then(user => {
+				if (
+					!user ||
+					!user.active ||
+					!bcrypt.compareSync(password, user.password)
+				) {
+					return callback(null, false);
+				}
+				callback(null, user);
+			})
+			.catch(callback);
+	})
+);
 
 passport.serializeUser((user, callback) => {
 	callback(null, user.id);
 });
 
 passport.deserializeUser((id, callback) => {
-	db.findById(id).then(user => callback(null, user)).catch(callback);
+	db.findById(id)
+		.then(user => callback(null, user))
+		.catch(callback);
 });
 
 function setup(app) {
@@ -55,19 +65,19 @@ function setup(app) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.post('/auth/login',
-		validateCaptcha(),
-		(req, res, next) => {
-			passport.authenticate('local', function (err, user) {
-				req.logIn(user, function () {
-					if (err) {
-						next(err);
-					} else {
-						res.sendStatus(user ? StatusCodes.OK : StatusCodes.UNAUTHORIZED);
-					}
-				});
-			})(req, res, next);
-		});
+	app.post('/auth/login', validateCaptcha(), (req, res, next) => {
+		passport.authenticate('local', function (err, user) {
+			req.logIn(user, function () {
+				if (err) {
+					next(err);
+				} else {
+					res.sendStatus(
+						user ? StatusCodes.OK : StatusCodes.UNAUTHORIZED
+					);
+				}
+			});
+		})(req, res, next);
+	});
 
 	app.post('/auth/logout', (req, res) => {
 		req.logout();
@@ -79,5 +89,5 @@ function setup(app) {
 }
 
 module.exports = {
-	setup
+	setup,
 };

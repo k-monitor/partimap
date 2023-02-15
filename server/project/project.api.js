@@ -8,7 +8,11 @@ const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
-const { acceptImage, resolveRecord, validateCaptcha } = require('../common/middlewares');
+const {
+	acceptImage,
+	resolveRecord,
+	validateCaptcha,
+} = require('../common/middlewares');
 const { JWT_SECRET } = require('../conf');
 const rdb = require('../rating/rating.db');
 const sdb = require('../sheet/sheet.db');
@@ -25,7 +29,8 @@ function removeProjectImageFile(project) {
 	}
 }
 
-router.put('/project/:id/image',
+router.put(
+	'/project/:id/image',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
@@ -36,9 +41,11 @@ router.put('/project/:id/image',
 		await pdb.update(req.project);
 		const project = await pdb.findById(req.project.id);
 		res.json(hidePasswordField(project));
-	});
+	}
+);
 
-router.delete('/project/:id',
+router.delete(
+	'/project/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
@@ -46,27 +53,29 @@ router.delete('/project/:id',
 		await pdb.del(req.params.id);
 		rmrf(`./uploads/${req.project.id}`);
 		res.json({});
-	});
+	}
+);
 
-router.get('/projects',
-	ensureLoggedIn,
-	async (req, res) => {
-		const projects = req.user.isAdmin
-			? await pdb.findAll()
-			: await pdb.findByUserId(req.user.id);
-		res.json(hidePasswordField(projects));
-	});
+router.get('/projects', ensureLoggedIn, async (req, res) => {
+	const projects = req.user.isAdmin
+		? await pdb.findAll()
+		: await pdb.findByUserId(req.user.id);
+	res.json(hidePasswordField(projects));
+});
 
-router.get('/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
+router.get(
+	'/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
 	ensureLoggedIn,
 	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(hidePasswordField(req.project));
-	});
+	}
+);
 
-router.patch('/project',
+router.patch(
+	'/project',
 	ensureLoggedIn,
 	resolveRecord(req => req.body.id, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
@@ -78,15 +87,23 @@ router.patch('/project',
 
 		delete changes.password;
 		if (changes.newPassword !== undefined) {
-			changes.password = changes.newPassword ? bcrypt.hashSync(changes.newPassword, 10) : null;
+			changes.password = changes.newPassword
+				? bcrypt.hashSync(changes.newPassword, 10)
+				: null;
 		}
 
 		if (changes.slug === null || changes.slug === '') {
 			// request removes custom slug, generate based on title
-			changes.slug = await generateValidSlug(changes.title || req.project.title, req.project.id);
+			changes.slug = await generateValidSlug(
+				changes.title || req.project.title,
+				req.project.id
+			);
 		} else if (changes.slug) {
 			// request modifies slug, just validate
-			changes.slug = await generateValidSlug(changes.slug, req.project.id);
+			changes.slug = await generateValidSlug(
+				changes.slug,
+				req.project.id
+			);
 		}
 
 		if (changes.image === null || changes.image === '') {
@@ -104,31 +121,31 @@ router.patch('/project',
 		project = await pdb.findById(project.id);
 		project.sheets = await sdb.findByProjectId(project.id);
 		res.json(hidePasswordField(project));
-	});
+	}
+);
 
-router.put('/project',
-	ensureLoggedIn,
-	async (req, res) => {
-		delete req.body.image;
-		let project = new Project(req.body);
-		if (!project.title) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
-		}
-		if (!project.userId || !req.user.isAdmin) {
-			project.userId = req.user.id;
-		}
-		if (project.password) {
-			project.password = bcrypt.hashSync(project.password, 10);
-		}
-		project.slug = await generateValidSlug(project.slug || project.title);
+router.put('/project', ensureLoggedIn, async (req, res) => {
+	delete req.body.image;
+	let project = new Project(req.body);
+	if (!project.title) {
+		return res.sendStatus(StatusCodes.BAD_REQUEST);
+	}
+	if (!project.userId || !req.user.isAdmin) {
+		project.userId = req.user.id;
+	}
+	if (project.password) {
+		project.password = bcrypt.hashSync(project.password, 10);
+	}
+	project.slug = await generateValidSlug(project.slug || project.title);
 
-		const id = await pdb.create(project);
-		project = await pdb.findById(id);
+	const id = await pdb.create(project);
+	project = await pdb.findById(id);
 
-		res.json(hidePasswordField(project));
-	});
+	res.json(hidePasswordField(project));
+});
 
-router.post('/project/access',
+router.post(
+	'/project/access',
 	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
 	validateCaptcha(req => req.project.password && req.body.password),
 	(req, res, next) => {
@@ -145,20 +162,29 @@ router.post('/project/access',
 		}
 
 		// logged in admin or project owner can bypass password protection:
-		if (req.isAuthenticated && req.isAuthenticated() &&
-			req.user && (req.user.isAdmin || req.project.userId === req.user.id)) {
+		if (
+			req.isAuthenticated &&
+			req.isAuthenticated() &&
+			req.user &&
+			(req.user.isAdmin || req.project.userId === req.user.id)
+		) {
 			return next();
 		}
 
 		// check received password if any
-		if (req.body.password && bcrypt.compareSync(req.body.password, req.project.password)) {
+		if (
+			req.body.password &&
+			bcrypt.compareSync(req.body.password, req.project.password)
+		) {
 			const data = {
 				projectId: req.project.id,
 				visitId: req.body.visitId,
 				ip,
 			};
 			const expSeconds = 60 * 60; // 1 hour
-			const token = jwt.sign(data, JWT_SECRET, { expiresIn: `${expSeconds}s` });
+			const token = jwt.sign(data, JWT_SECRET, {
+				expiresIn: `${expSeconds}s`,
+			});
 			res.cookie(COOKIE_NAME, token, { maxAge: expSeconds * 1000 });
 			return next();
 		}
@@ -168,9 +194,11 @@ router.post('/project/access',
 		if (token) {
 			try {
 				const decoded = jwt.verify(token, JWT_SECRET);
-				if (decoded.projectId === req.project.id &&
+				if (
+					decoded.projectId === req.project.id &&
 					decoded.visitId === req.body.visitId &&
-					decoded.ip === ip) {
+					decoded.ip === ip
+				) {
 					// token is valid
 					return next();
 				}
@@ -198,12 +226,16 @@ router.post('/project/access',
 			const promises = req.project.sheets.map(async s => {
 				const arr = await rdb.aggregateBySheetId(s.id);
 				const dict = {};
-				arr.forEach(ar => { dict[ar.featureId] = ar; });
+				arr.forEach(ar => {
+					dict[ar.featureId] = ar;
+				});
 				s.ratings = dict;
 			});
 			await Promise.all(promises);
 		} catch {
-			req.project.sheets.forEach(s => { s.answers = []; });
+			req.project.sheets.forEach(s => {
+				s.answers = [];
+			});
 		}
 		req.project.user = {
 			logo: user.logo,
@@ -213,7 +245,8 @@ router.post('/project/access',
 	}
 );
 
-router.post('/view/:idOrSlug',
+router.post(
+	'/view/:idOrSlug',
 	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
 	async (req, res) => {
 		const exp = `/p/${req.params.idOrSlug}/0`;
@@ -225,12 +258,15 @@ router.post('/view/:idOrSlug',
 		}
 		await pdb.incrementViewsById(req.project.id);
 		res.end();
-	});
+	}
+);
 
 async function generateValidSlug(seed, currentId) {
 	const slug = slugify(seed);
 	const ep = await pdb.findBySlug(slug);
-	if (!ep || ep.id === currentId) { return slug; }
+	if (!ep || ep.id === currentId) {
+		return slug;
+	}
 	return generateValidSlug(slug + '-1', currentId);
 }
 

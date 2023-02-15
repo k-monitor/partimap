@@ -26,6 +26,6 @@ class User {
 		this.token = data.token;
 		this.tokenExpires = data.tokenExpires;
 	}
-};
+}
 
 module.exports = User;

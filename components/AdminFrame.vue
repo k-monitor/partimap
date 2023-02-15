@@ -16,8 +16,12 @@
 				is-nav
 			>
 				<b-navbar-nav>
-					<b-nav-item :to="localePath('/admin/projects')">{{ $t('AdminFrame.projects') }}</b-nav-item>
-					<b-nav-item :to="localePath('/admin/maps')">{{ $t('AdminFrame.maps') }}</b-nav-item>
+					<b-nav-item :to="localePath('/admin/projects')">
+						{{ $t('AdminFrame.projects') }}
+					</b-nav-item>
+					<b-nav-item :to="localePath('/admin/maps')">
+						{{ $t('AdminFrame.maps') }}
+					</b-nav-item>
 					<b-nav-item
 						v-if="$auth.user.isAdmin"
 						:to="localePath('/admin/users')"
@@ -26,13 +30,21 @@
 					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
-					<b-nav-item :to="localePath('/admin/help')">{{ $t('AdminFrame.help') }}</b-nav-item>
+					<b-nav-item :to="localePath('/admin/help')">
+						{{ $t('AdminFrame.help') }}
+					</b-nav-item>
 					<b-nav-item-dropdown
 						:text="$auth.user.name"
 						right
 					>
-						<b-dropdown-item :to="localePath('/admin/user/' + $auth.user.id)">{{ $t('AdminFrame.profile') }}</b-dropdown-item>
-						<b-dropdown-item @click="$auth.logout('cookie')">{{ $t('AdminFrame.logout') }}</b-dropdown-item>
+						<b-dropdown-item
+							:to="localePath('/admin/user/' + $auth.user.id)"
+						>
+							{{ $t('AdminFrame.profile') }}
+						</b-dropdown-item>
+						<b-dropdown-item @click="$auth.logout('cookie')">
+							{{ $t('AdminFrame.logout') }}
+						</b-dropdown-item>
 					</b-nav-item-dropdown>
 					<LangSwitcher />
 				</b-navbar-nav>

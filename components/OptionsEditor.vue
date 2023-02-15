@@ -5,7 +5,7 @@
 		</label>
 		<b-form-group>
 			<b-input-group
-				v-for="(o,i) in (options || [])"
+				v-for="(o, i) in options || []"
 				:key="i"
 				class="mb-2"
 			>
@@ -48,7 +48,7 @@ export default {
 		},
 		labelState: {
 			type: String,
-			default: () => ''
+			default: () => '',
 		},
 	},
 	data() {
@@ -57,33 +57,44 @@ export default {
 		};
 	},
 	computed: {
-		label () {
-			if (this.labelState === 'row') { return this.$t('OptionsEditor.rows'); }
-			if (this.labelState === 'column') { return this.$t('OptionsEditor.columns'); }
+		label() {
+			if (this.labelState === 'row') {
+				return this.$t('OptionsEditor.rows');
+			}
+			if (this.labelState === 'column') {
+				return this.$t('OptionsEditor.columns');
+			}
 			return this.$t('OptionsEditor.options');
 		},
-		labelButton () {
-			if (this.labelState === 'row') { return this.$t('OptionsEditor.addRow'); }
-			if (this.labelState === 'column') { return this.$t('OptionsEditor.addColumn'); }
+		labelButton() {
+			if (this.labelState === 'row') {
+				return this.$t('OptionsEditor.addRow');
+			}
+			if (this.labelState === 'column') {
+				return this.$t('OptionsEditor.addColumn');
+			}
 			return this.$t('OptionsEditor.addOption');
-		}
+		},
 	},
 	watch: {
 		options() {
 			this.$emit('input', this.options);
-		}
+		},
 	},
 	methods: {
 		addOption() {
 			if (!this.options) {
 				this.options = [];
 			}
-			this.options.push(this.$t('OptionsEditor.optionPrefix') + ` #${this.options.length + 1}`);
+			this.options.push(
+				this.$t('OptionsEditor.optionPrefix') +
+					` #${this.options.length + 1}`
+			);
 		},
 		delOption(i) {
 			this.options.splice(i, 1);
 		},
-	}
+	},
 };
 </script>
 

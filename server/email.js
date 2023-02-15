@@ -7,12 +7,12 @@ const transporter = nodemailer.createTransport({
 	port: conf.SMTP_PORT,
 	auth: {
 		user: conf.SMTP_USER,
-		pass: conf.SMTP_PASS
+		pass: conf.SMTP_PASS,
 	},
 	secure: false,
 	tls: {
-		rejectUnauthorized: false
-	}
+		rejectUnauthorized: false,
+	},
 });
 
 transporter.use('compile', htmlToText());
@@ -34,7 +34,7 @@ function sendEmail(to, subject, html) {
 			}
 		});
 	});
-};
+}
 
 module.exports = { sendEmail };
 

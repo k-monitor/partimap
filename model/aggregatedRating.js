@@ -17,6 +17,6 @@ class AggregatedRating {
 		this.likeCount = data.likeCount;
 		this.sum = data.sum;
 	}
-};
+}
 
 module.exports = AggregatedRating;

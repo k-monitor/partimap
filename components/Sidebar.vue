@@ -43,13 +43,16 @@
 						v-if="!admin && project && project.user"
 						class="mx-auto"
 					>
-						<a :href="project.user.website" target="_blank">
+						<a
+							:href="project.user.website"
+							target="_blank"
+						>
 							<img
 								v-if="project.user.logo"
 								:src="project.user.logo"
 								:alt="project.user.website"
 								height="30"
-							>
+							/>
 						</a>
 					</div>
 					<b-navbar-nav>

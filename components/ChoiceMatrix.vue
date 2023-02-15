@@ -3,7 +3,11 @@
 		<div class="matrix border-collapse d-table text-center">
 			<div class="d-table-row">
 				<div class="d-table-cell" />
-				<div v-for="column in question.columns" :key="column" class="align-middle d-table-cell p-1 small text-break">
+				<div
+					v-for="column in question.columns"
+					:key="column"
+					class="align-middle d-table-cell p-1 small text-break"
+				>
 					{{ column }}
 				</div>
 			</div>
