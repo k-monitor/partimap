@@ -358,6 +358,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(['getSidebarVisible']),
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		selectedFeature() {
 			return this.getSelectedFeature === this.feature;
@@ -371,6 +372,11 @@ export default {
 		},
 	},
 	watch: {
+		getSidebarVisible(v) {
+			if (v && this.selectedFeature) {
+				this.expandFinished();
+			}
+		},
 		'form.category'() {
 			this.feature.set('category', this.form.category);
 			this.$emit('categoryEdited');
@@ -462,6 +468,7 @@ export default {
 			}
 		},
 		expandFinished() {
+			console.log('expandFinished');
 			// custom scrollIntoView as its more accurate:
 			const t = this.$refs.feature?.offsetTop || 0;
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =
