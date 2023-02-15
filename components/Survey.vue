@@ -14,7 +14,7 @@
 					<strong class="text-primary">{{ q.label }}</strong>
 					<span
 						v-if="answers[q.id] && 'dropdown|radiogroup|range|singleChoiceMatrix'.includes(q.type)"
-						class="ml-auto text-primary"
+						class="ml-auto small text-muted"
 						role="button"
 						@click="removeAnswer(q.id)"
 					>{{ $t('Survey.removeAnswer') }}</span>
