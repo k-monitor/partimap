@@ -124,6 +124,7 @@ export default {
 				loader: 'raw-loader',
 			});
 		},
+		postcss: null,
 		transpile: ['ol', ({ isServer }) => 'vue-typeahead-bootstrap'],
 	},
 
