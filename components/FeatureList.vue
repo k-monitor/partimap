@@ -33,14 +33,11 @@
 				</b-button>
 			</div>
 			<div v-if="!hideAdminFeatures">
-				<vue-typeahead-bootstrap
-					v-model="search"
-					:placeholder="$t('FeatureList.search')"
-					:data="categories"
-					:min-matching-chars="0"
-					show-all-results
-					show-on-focus
-				>
+				<b-input-group class="mt-3">
+					<b-form-input
+						v-model="search"
+						:placeholder="$t('FeatureList.search')"
+					/>
 					<template #append>
 						<b-button
 							:disabled="!search"
@@ -50,7 +47,7 @@
 							<i class="fas fa-backspace" />
 						</b-button>
 					</template>
-				</vue-typeahead-bootstrap>
+				</b-input-group>
 				<b-badge
 					v-for="c in categories"
 					:key="c"
@@ -115,13 +112,9 @@
 <script>
 import { saveAs } from 'file-saver';
 import { mapGetters } from 'vuex';
-import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 
 export default {
-	components: {
-		VueTypeaheadBootstrap,
-	},
 	props: {
 		descriptionLabel: {
 			type: String,
@@ -167,20 +160,20 @@ export default {
 		}),
 		filteredAdminFeatures() {
 			return this.filteredFeatures.filter(
-				f =>
+				(f) =>
 					!f.get('visitorFeature') &&
 					(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
 			);
 		},
 		filteredVisitorFeatures() {
-			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
+			return this.filteredFeatures.filter((f) => f.get('visitorFeature'));
 		},
 	},
 	watch: {
 		getSelectedFeature(f) {
 			if (f) {
 				const id = f.getId();
-				const ids = this.filteredFeatures.map(f => f.getId());
+				const ids = this.filteredFeatures.map((f) => f.getId());
 				if (!ids.includes(id)) {
 					// selected feature doesn't match current search filter
 					// it means that click was on the map, we must show the
@@ -217,20 +210,20 @@ export default {
 		updateCategories() {
 			const cats = new Set(
 				this.getAllFeatures
-					.map(f => (f.get('category') || '').trim())
-					.filter(f => f.length)
+					.map((f) => (f.get('category') || '').trim())
+					.filter((f) => f.length)
 			);
 			this.categories = Array.from(cats);
 		},
 		updateFilteredFeatures() {
 			this.filteredFeatures = this.getAllFeatures
 				.filter(
-					f =>
+					(f) =>
 						!this.categoryFilter ||
 						f.get('category') === this.categoryFilter
 				)
 				.filter(
-					f =>
+					(f) =>
 						String(f.getId() || '')
 							.toLowerCase()
 							.includes(this.search.toLowerCase()) ||
@@ -265,11 +258,11 @@ export default {
 		importKML() {
 			const input = document.createElement('input');
 			input.setAttribute('type', 'file');
-			input.addEventListener('change', e => {
+			input.addEventListener('change', (e) => {
 				const f = e.target.files[0];
 				const reader = new FileReader();
-				reader.onload = (e => {
-					return e => {
+				reader.onload = ((e) => {
+					return (e) => {
 						const kmlString = e.target.result;
 						const features = KMLToFeatures(kmlString);
 						this.$nuxt.$emit('importedFeatures', features);
