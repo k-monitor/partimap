@@ -32,9 +32,9 @@ function removeProjectImageFile(project) {
 router.put(
 	'/project/:id/image',
 	ensureLoggedIn,
-	resolveRecord(req => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	acceptImage(req => req.project.id, 1200, 1200, 'image'),
+	resolveRecord((req) => req.params.id, pdb.findById, 'project'),
+	ensureAdminOr((req) => req.project.userId === req.user.id),
+	acceptImage((req) => req.project.id, 1200, 1200, 'image'),
 	async (req, res) => {
 		removeProjectImageFile(req.project);
 		req.project.image = req.image.replace(/^\./, ''); // make it absolute for client
@@ -47,8 +47,8 @@ router.put(
 router.delete(
 	'/project/:id',
 	ensureLoggedIn,
-	resolveRecord(req => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
+	resolveRecord((req) => req.params.id, pdb.findById, 'project'),
+	ensureAdminOr((req) => req.project.userId === req.user.id),
 	async (req, res) => {
 		await pdb.del(req.params.id);
 		rmrf(`./uploads/${req.project.id}`);
@@ -66,8 +66,8 @@ router.get('/projects', ensureLoggedIn, async (req, res) => {
 router.get(
 	'/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
 	ensureLoggedIn,
-	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
+	resolveRecord((req) => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
+	ensureAdminOr((req) => req.project.userId === req.user.id),
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(hidePasswordField(req.project));
@@ -77,8 +77,8 @@ router.get(
 router.patch(
 	'/project',
 	ensureLoggedIn,
-	resolveRecord(req => req.body.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
+	resolveRecord((req) => req.body.id, pdb.findById, 'project'),
+	ensureAdminOr((req) => req.project.userId === req.user.id),
 	async (req, res) => {
 		const changes = req.body;
 		if (!req.user.isAdmin) {
@@ -144,10 +144,57 @@ router.put('/project', ensureLoggedIn, async (req, res) => {
 	res.json(hidePasswordField(project));
 });
 
+function doesSheetNeedResults(sheet) {
+	try {
+		// Yeah... showing results was a survey-specific thing, so it is stored
+		// in the `survey` JSON. But we are using it for feature ratings too
+		// now... see `addResultsToProject` below.
+		const survey = JSON.parse(sheet.survey);
+		return survey.showResults || survey.showResultsOnly;
+		// Would be nice to move up these fields up to sheet level, but we'd
+		// need to do this in a backward-compatible way. (Still need to check)
+		// the `survey` field.
+	} catch {
+		return false;
+	}
+}
+
+async function addResultsToProject(project) {
+	project.sheets.forEach((s) => {
+		s.answers = [];
+		s.ratings = {};
+	});
+
+	try {
+		const answers = await sadb.aggregateByProjectId(project.id);
+		project.sheets.filter(doesSheetNeedResults).forEach((s) => {
+			s.answers = answers.filter((a) => a.sheetId === s.id);
+		});
+	} catch (error) {
+		console.error(error);
+	}
+
+	try {
+		const promises = project.sheets
+			.filter(doesSheetNeedResults)
+			.map(async (s) => {
+				const arr = await rdb.aggregateBySheetId(s.id);
+				const dict = {};
+				arr.forEach((ar) => {
+					dict[ar.featureId] = ar;
+				});
+				s.ratings = dict;
+			});
+		await Promise.all(promises);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 router.post(
 	'/project/access',
-	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
-	validateCaptcha(req => req.project.password && req.body.password),
+	resolveRecord((req) => req.body.projectId, pdb.findByIdOrSlug, 'project'),
+	validateCaptcha((req) => req.project.password && req.body.password),
 	(req, res, next) => {
 		const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
 		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -217,26 +264,9 @@ router.post(
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		const user = await udb.findById(req.project.userId);
-		try {
-			const answers = await sadb.aggregateByProjectId(req.project.id);
-			req.project.sheets.forEach(s => {
-				s.answers = answers.filter(a => a.sheetId === s.id);
-			});
 
-			const promises = req.project.sheets.map(async s => {
-				const arr = await rdb.aggregateBySheetId(s.id);
-				const dict = {};
-				arr.forEach(ar => {
-					dict[ar.featureId] = ar;
-				});
-				s.ratings = dict;
-			});
-			await Promise.all(promises);
-		} catch {
-			req.project.sheets.forEach(s => {
-				s.answers = [];
-			});
-		}
+		await addResultsToProject(req.project);
+
 		req.project.user = {
 			logo: user.logo,
 			website: user.website,
@@ -247,7 +277,7 @@ router.post(
 
 router.post(
 	'/view/:idOrSlug',
-	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
+	resolveRecord((req) => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
 	async (req, res) => {
 		const exp = `/p/${req.params.idOrSlug}/0`;
 		if (!req.headers.referer.endsWith(exp)) {

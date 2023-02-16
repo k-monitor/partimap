@@ -272,6 +272,9 @@ export default {
 			);
 		},
 		needToShowResults() {
+			// We will show results if we got results from server.
+			// Server will know when to include results, based on
+			// showResults and showResultsOnly survey attributes.
 			const haveAnswers = this.sheet.answers.length > 0;
 			const haveRatings =
 				this.sheet.ratings &&
@@ -346,7 +349,7 @@ export default {
 			const adminFeatures = this.featuresFromRaw(this.sheet.features);
 			if (this.isInteractive) {
 				// on interactive sheets, admin features cannot be selected
-				adminFeatures.forEach(f => f.set('hidden', true));
+				adminFeatures.forEach((f) => f.set('hidden', true));
 			}
 
 			const visitorFeatures =
@@ -354,7 +357,7 @@ export default {
 
 			// adding "rating" to feature objects for map graying effect
 			const visitorRatings = this.getVisitorRatings(this.sheet.id) || {};
-			adminFeatures.forEach(f => {
+			adminFeatures.forEach((f) => {
 				const r = visitorRatings[f.getId()];
 				if (r) {
 					f.set('rating', r);
@@ -420,7 +423,7 @@ export default {
 				return;
 			}
 			this.loading = true;
-			const sheetIds = this.project.sheets.map(s => s.id);
+			const sheetIds = this.project.sheets.map((s) => s.id);
 			const data = this.getSubmissionData(sheetIds);
 			if (Object.keys(data).length) {
 				try {
