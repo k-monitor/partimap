@@ -82,7 +82,7 @@ A munkalap típusát (*Szöveg, Kérdőív, Térkép* vagy *Interaktív térk�
 			<img
 				alt="Új munkalap hozzáadása"
 				class="figure-img img-fluid rounded shadow-sm"
-				src="/help/newsheet.gif"
+				src="/help/newsheet.png"
 			>
 			<figcaption class="figure-caption text-center">
 				Új munkalap hozzáadása
@@ -179,7 +179,16 @@ A statikus térkép munkalap szerkesztőfelületén a jobb felső sarokban talá
 
 *Vonal felrajzolása (kék):* a kék alapon fehér vonalra kattintva lehet vonalat rajzolni. Egyszeri kattintással helyezze le a vonal kezdőpontját a térképen, további kattintásokkal jelölje be a vonal köztes pontjait, majd dupla kattintással a végpontot.
 
-TODO: kép
+<div class="row mb-5">
+	<div class="col-12 col-lg-10 mx-auto mt-4">
+		<figure class="figure">
+			<img alt="Vonal felrajzolása" class="figure-img img-fluid rounded shadow-sm" src="/help/line.png">
+			<figcaption class="figure-caption text-center">
+				Vonal felrajzolása
+			</figcaption>
+		</figure>
+	</div>
+</div>
 
 *Terület felrajzolása (zöld):* a zöld alapon fehér körbezárt alakzatra kattintva lehet területet (poligont) felrajzolni. Egyszeri kattintással helyezze el az alakzat kezdőpontját a térképen, majd további kattintásokkal jelölje ki a határokat, végül a kezdőpontba történő újbóli kattintással fejezze be a rajzolást.
 

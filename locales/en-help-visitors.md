@@ -50,16 +50,6 @@ kattintva tudja megtenni. Ezt követően kattintson a térképen arra a helyre, 
 
 A jelölést a Mentés gombra kattintva eltárolhatja, vagy az Elem törlése gombra kattintva törölheti. Ezt követően újabb jelölést adhat a térképhez.
 
-<div class="row mb-5">
-	<div class="col-12 col-lg-10 mx-auto mt-4">
-		<figure class="figure">
-			<img alt="Pont felrajzolása" class="figure-img img-fluid rounded shadow-sm" src="/help/point.gif">
-			<figcaption class="figure-caption text-center">
-				Pont felrajzolása
-			</figcaption>
-		</figure>
-	</div>
-</div>
 
 #### Vonal felrajzolása {#vonal}
 
@@ -70,7 +60,7 @@ Ezt az oldalsávban az erre vonatkozó utasítás mellett található, kék alap
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
-			<img alt="Vonal felrajzolása" class="figure-img img-fluid rounded shadow-sm" src="/help/line.gif">
+			<img alt="Vonal felrajzolása" class="figure-img img-fluid rounded shadow-sm" src="/help/line.png">
 			<figcaption class="figure-caption text-center">
 				Vonal felrajzolása
 			</figcaption>
@@ -93,7 +83,7 @@ kattintva tudja megtenni. A térképen egyszeri kattintással helyezze le az ala
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
 			<img alt="Poligon felrajzolása" class="figure-img img-fluid rounded shadow-sm"
-				src="/help/polygon.gif">
+				src="/help/polygon.png">
 			<figcaption class="figure-caption text-center">
 				Poligon felrajzolása
 			</figcaption>
