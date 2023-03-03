@@ -79,6 +79,7 @@
 						<div class="h-100 position-absolute w-100 map" />
 					</template>
 				</client-only>
+				<MapToolbar v-if="!!getDrawType" />
 				<MapHint />
 				<Sidebar
 					:content-modified="!submitted"
@@ -246,7 +247,7 @@ export default {
 		submitted() {
 			return this.$store.state.submitted;
 		},
-		...mapGetters(['getConsent']),
+		...mapGetters(['getConsent', 'getDrawType']),
 		...mapGetters('features', ['getAllFeature']),
 		...mapGetters('visitordata', [
 			'getVisitorFeatures',
