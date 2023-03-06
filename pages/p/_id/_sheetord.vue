@@ -80,6 +80,7 @@
 					</template>
 				</client-only>
 				<MapToolbar v-if="!!getDrawType" />
+				<MapTask :interactions="interactions" />
 				<MapHint />
 				<Sidebar
 					:content-modified="!submitted"
