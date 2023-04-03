@@ -342,7 +342,8 @@ export default {
 		rows: 'Sorok',
 	},
 	PublicFrame: {
-		help: 'Hogyan működik?',
+		help: 'Hogyan működik',
+		helpTooltip: 'Hogyan működik?',
 		login: 'Belépés',
 		kmonitorUrl: 'https://k-monitor.hu/hu',
 	},

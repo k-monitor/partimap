@@ -274,7 +274,7 @@ export default {
 	// components
 
 	AdminFrame: {
-		help: 'How it works?',
+		help: 'How it works',
 		logout: 'Log Out',
 		maps: 'Maps',
 		profile: 'Edit account',
@@ -348,7 +348,8 @@ export default {
 		rows: 'Rows',
 	},
 	PublicFrame: {
-		help: 'How it works?',
+		help: 'How it works',
+		helpTooltip: 'How does it work?',
 		login: 'Log In',
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
