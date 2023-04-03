@@ -1,96 +1,92 @@
-## Segítség a felmérések kitöltéséhez {.mb-5}
+## Help for filling in surveys {.mb-5}
 
-A PARTIMAP térképes kérdőívvel a hagyományos kérdőívkérdések mellett térképes jelölésekkel is elmondja véleményét. Az alábbi leírás ehhez nyújt segítséget.
+With the PARTIMAP map-based survey tool you can give your opinion by using map markers in addition to the traditional questionnaire questions. The following description will help you in how to do this.
 
-A kérdőív első lapján a továbblépéshez el kell fogadnia a felhasználási feltételeket és az adatkezelési tájékoztatót. A munkalapok között az alul lévő, kék tovább és vissza gombokkal (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-left"></i></span><span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-right"></i></span>) navigálhat.
-A hagyományos kérdőívkérdéseket tartalmazó munkalapok kitöltése megfelel a hasonló felületeknek. Kövesse az útmutatást és válaszoljon szöveggel, számmal, vagy a megadott számú válasz bejelölésével, illetve saját egyéb válasz megadásával!
+To proceed, you must accept the terms of use and the privacy policy on the landing page of the questionnaire. You can navigate between the worksheets by using the blue forward and back buttons at the bottom (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-left"></i></span><span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-right"></i></span>).
+The completion of worksheets containing traditional questionnaire questions corresponds to similar interfaces. Follow the instructions and answer with text, number, or by ticking the number of checkboxes required or by entering your own answer.
 
-A csillaggal jelölt kérdésekre kötelező a válaszadás, enélkül nem lehet továbblépni a következő munkalapra, vagy beküldeni a válaszokat.
+All questions marked with an asterisk must be answered, otherwise you cannot move on to the next worksheet or submit your answers.
 
-Ha a kérdőív gazdája engedélyezte, hogy lássuk a korábbi válaszok statisztikáit, a továbblépés után a munkalapon a kérdések helyett az összegyűjtött válaszok adatai lesznek láthatóak. Újból a tovább gombra kattintva léphetünk a következő oldalra.
-
-
-### Térképes elemek böngészése, értékelése
-
-Egyes munkalapokon a térképre felrajzolt elemek között böngészhetünk. A térkép jobb alsó sarkában a szürke térkép gombra (<span class="bg-dark rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map"></i></span>) kattintva válthatunk az alaptérképek között (pl. fekete-fehér, szatellit, topográfiai vagy útvonalakat tartalmazó hátteret állíthatunk be). A nagyítás és kicsinyítés ikonra (<span class="bg-dark rounded text-white mx-1 p-1"><i class="fas fa-fw fa-plus"></i></span><span class="bg-dark rounded text-white mx-1 p-1"><i class="fas fa-fw fa-minus"></i></span>) kattintva, vagy két ujjal zoomolva beállíthatjuk a megfelelő léptéket.
-
-Az elemekhez leírás tartozhat, amit a térképen az elemre kattintva, vagy az oldalsávban a Térkép elemei fiókjaira kattintva lehet elolvasni.
-
-Ha a kérdőív azt kéri, hogy értékeljük a térkép elemeit, ezt is az oldalsáv fiókjaiban tehetjük meg.
-
-- Értékelés csillagokkal: az utasításokat követve az elemet a megadott számú csillagok meghatározta skálán tudjuk értékelni.
-- Like/dislike értékelés: pozitív (<i class="fas fa-fw fa-thumbs-up text-success"></i>) vagy negatív (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) értékelést adhatunk az elemekhez.
-
-Ha a kérdőív gazdája engedélyezte, hogy lássuk a korábbi válaszok statisztikáit, a továbblépés után a munkalapon a fiókokban az összegyűjtött válaszok adatai lesznek láthatóak. Újból a tovább gombra kattintva léphetünk a következő oldalra.
+If the owner of the questionnaire has allowed everyone to see statistics on the responses, then after providing your answers, the worksheet will show the results so far for those given questions. Click on the next button again to go to the next page.
 
 
-### Mobilnézet
+### Browsing and rating map items
 
-Amennyiben táblagépen vagy mobiltelefonon tölti ki a felmérést, a kérdéseket és utasításokat tartalmazó oldalsáv és a térképes nézet között az elrejt
+In some worksheets, you can browse through the elements drawn on the map. Click on the grey map button (<span class="bg-dark rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map"></i></span>) in the bottom right corner of the map to switch between base maps (e.g. black and white, satellite, topographic or route backgrounds). Click on the zoom in and zoom out icon (<span class="bg-dark rounded text-white mx-1 p-1"><i class="fas fa-fw fa-plus"></i></span><span class="bg-dark rounded text-white mx-1 p-1"><i class="fas fa-fw fa-minus"></i></span>) or zoom in and out with two fingers to set the appropriate scale.
+
+Items may have a description, which can be read by clicking on the item on the map or by clicking on the Map items drawer in the sidebar.
+
+If the questionnaire asks you to rate elements of the map, you can do this in the sidebar's drawers.
+
+- Rating with stars: following the instructions, you can rate the item on a scale defined by the number of stars.
+- Like/dislike rating: you can give the item a positive (<i class="fas fa-fw fa-thumbs-up text-success"></i>) or negative (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) rating.
+
+If the owner of the questionnaire has allowed everyone to see statistics on the responses, then after providing your answers, the worksheet will show the results so far for those given questions. Click on the next button again to go to the next page.
+
+
+### Mobile view
+
+If you are completing the survey on a tablet or mobile phone, you can switch between the sidebar with questions and instructions and the map view with the hide
 (<span class="bg-white rounded mx-1 p-1"><i class="fas fa-fw fa-angle-double-left"></i></span>)
-és a kinyit
+and unlock
 (<span class="bg-dark rounded mx-1 p-1 text-white"><i class="fas fa-fw fa-angle-double-right"></i></span>)
-gombokkal lehet váltani. A térképen a jelzett elemekre kattintva, némi késleltetéssel megjelenik az elemhez tartozó leírás és értékelési lehetőség.
+buttons. Clicking on the highlighted items on the map will, after a slight delay, display the description and rating option for that item.
 
-A következő oldalra továbblépni a kinyitott oldalsáv alján van lehetőség.
-
-
-### Rajzolás a térképre
-
-Mindig törekedjen arra, hogy minél pontosabban helyezze el a kért jelölést. Szükség esetén egere görgőjével, a +/- gombok segítségével vagy két ujjal zoomolva közelítsen a térképre!
+You can go to the next page at the bottom of the open sidebar.
 
 
-#### Pont felrajzolása {#pont}
+### Drawing on the map
 
-A projekt gazdája azt várja Öntől, hogy konkrét helyeket jelöljön meg a térképen.
-
-Ezt az oldalsávban az erre vonatkozó utasítás mellett található, piros alapon fehér gombostűre
-(<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>)
-kattintva tudja megtenni. Ezt követően kattintson a térképen arra a helyre, amelyet meg kíván jelölni a feltett kérdésnek megfelelően. Egyszeri kattintással tudja lehelyezni a pontot, ezt követően a jobb oldalon megnyíló párbeszédablakban indoklást fűzhet a megjelölt helyhez.
-
-A jelölést a Mentés gombra kattintva eltárolhatja, vagy az Elem törlése gombra kattintva törölheti. Ezt követően újabb jelölést adhat a térképhez.
+Always try to be as precise as possible in the positioning of the markings. If necessary, use the scroll wheel on your mouse, the +/- keys or two fingers to zoom in on the map.
 
 
-#### Vonal felrajzolása {#vonal}
+#### Plot point {#point}
 
-A projekt gazdája azt várja Öntől, hogy egy vonalszakasszal jelöljön meg valamit a térképen.
+The project owner expects you to mark specific locations on the map.
 
-Ezt az oldalsávban az erre vonatkozó utasítás mellett található, kék alapon fehér vonalra (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-route"></i></span>) kattintva tudja megtenni. A térképen egyszeri kattintással helyezze le a vonal kezdőpontját, majd további kattintásokkal jelölje be a szakasz köztes pontjait. Végül a végpontra történő dupla kattintással zárja le a vonalat.
+This can be done by clicking on the white pin on a red background (<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>) next to the instructions in the sidebar. Then click on the location on the map that you want to mark according to the question asked. You can place the point by clicking once, then in the dialogue box on the right you can add a reason for the marked location.
+
+You can save the selection by clicking Save or delete it by clicking Delete Item. You can then add another marker to the map.
+
+
+#### Draw a line {#line}
+
+The project owner expects you to mark something on the map with a line segment.
+
+You can do this by clicking on the white line on a blue background (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-route"></i></span>) next to the relevant instruction in the sidebar. On the map, click once to place the start point of the line, and then click again to mark the intermediate points of the section. Finally, double-click the end point to end the line.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
-			<img alt="Vonal felrajzolása" class="figure-img img-fluid rounded shadow-sm" src="/help/line.png">
+			<img alt="Draw line" class="figure-img img-fluid rounded shadow-sm" src="/help/line-en.png">
 			<figcaption class="figure-caption text-center">
-				Vonal felrajzolása
+				Drawing a line
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-A vonal lezárását követően a megnyíló párbeszédablakban indoklást fűzhet a megjelölt elemhez. A jelölést a Mentés gombra kattintva eltárolhatja, vagy az Elem törlése gombra kattintva törölheti. Ezt követően újabb jelölést adhat a térképhez.
+After closing the line, you can add a reason for the selected item in the dialogue box that opens. You can save the selection by clicking Save or delete it by clicking Delete Item. You can then add another marker to the map.
 
 
-#### Terület felrajzolása {#alakzat}
+#### Mapping the area {#shape}
 
-A projekt gazdája azt várja Öntől, hogy jelöljön körbe egy területet, amely releváns a feltett kérdés szempontjából.
+The project owner expects you to select an area that is relevant to the question asked.
 
-Ezt az oldalsávban az erre vonatkozó utasítás mellett található, zöld alapon fehér körbezárt alakzatra
-(<span class="bg-success rounded text-white mx-1 p-1"><i class="fas fa-fw fa-draw-polygon"></i></span>)
-kattintva tudja megtenni. A térképen egyszeri kattintással helyezze le az alakzat kezdőpontját, majd további kattintásokkal jelölje ki a határpontokat, végül a kezdőpontra való újbóli kattintással zárja le a területet.
+This can be done by clicking on the white outline on a green background (<span class="bg-success rounded text-white mx-1 p-1"><i class="fas fa-fw fa-draw-polygon"></i></span>) next to the relevant instruction in the sidebar. On the map, click once to place the start point of the shape, click again to select the boundary points, and then click again on the starting point to close the area.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
-			<img alt="Poligon felrajzolása" class="figure-img img-fluid rounded shadow-sm"
-				src="/help/polygon.png">
+			<img alt="Draw polygon" class="figure-img img-fluid rounded shadow-sm"
+				src="/help/polygon-en.png">
 			<figcaption class="figure-caption text-center">
-				Poligon felrajzolása
+				Drawing a polygon
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-A terület lezárását követően a megnyíló párbeszédablakban indoklást fűzhet a megjelölt elemhez. A jelölést a Mentés gombra kattintva eltárolhatja, vagy az Elem törlése gombra kattintva törölheti. Ezt követően újabb jelölést adhat a térképhez.
+After closing the area, you can add a reason for the selected item in the dialogue box that opens. You can save the selection by clicking Save or delete it by clicking Delete Item. You can then add another marker to the map.
 
-Amennyiben befejezte az elemek hozzáadását, az oldalsáv alján található kék nyíllal tud a következő lapra lépni.
+When you have finished adding elements, you can move to the next page by clicking the blue arrow at the bottom of the sidebar.

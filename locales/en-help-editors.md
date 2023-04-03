@@ -1,301 +1,301 @@
-## Segítség felmérés készítéséhez {#adminsugo}
+## Help to create a survey {#adminsugo}
 
-Az alábbiakban az admin felület működését mutatjuk be.
-
-
-### Regisztráció {#regisztracio}
-
-[Regisztrációt](/register) követően bárki teljes körűen és ingyenesen használhatja az alkalmazást. A PARTIMAP jelenleg magyar és angol nyelven érhető el, a nyelvek között a jobb felső sarokban lévő (<i class="fas fa-globe fa-fw"></i>) gombbal lehet váltani. Ha más nyelven használná a programot, és segítene a fordításban, keressen minket a <hello@partimap.eu> címen!
-
-Az admin felületen lehetőség van új felméréseket készíteni, korábbiakat módosítani ([**Projektek**](/admin/projects)), illetve szerkeszteni a felmérésekhez kapcsolódó térképeket ([**Térképek**](/admin/maps)).
+Below is a description of how the admin interface works.
 
 
-### Új projekt létrehozása és korábbiak kezelése {#ujprojekt}
+### Registration {#registration}
 
-Új projekt a belépést követően a Projektek oldalon, a **projekt elnevezésének megadásával** hozható létre a *Hozzáadás* gombra kattintva.
+After [registration](/register), anyone can use the app with full access to its functions and free of charge. PARTIMAP is currently available in Hungarian and English, and you can switch between languages by clicking on the button in the top right-hand corner (<i class="fas fa-globe fa-fw"></i>). If you would like to use the program in another language and help with translation, please contact us at <hello@partimap.eu>!
 
-<div class="row mb-5">
-	<div class="col-12 col-lg-10 mx-auto mt-4">
-		<figure class="figure">
-			<img
-				alt="Projekt létrehozása"
-				class="figure-img img-fluid rounded shadow-sm"
-				src="/help/project.png"
-			>
-			<figcaption class="figure-caption text-center">
-				Projekt létrehozása
-			</figcaption>
-		</figure>
-	</div>
-</div>
-
-A Projekt menüpontban megtalálható a saját projektek listája. Itt látható a megtekintések és kitöltések száma, és a **Riport letöltése** gombra kattintva .xlsx formátumban letölthető a kitöltésekből generált riport.
-
-A felméréshez kapcsolódó adatok, kérdések és tartalmak a projekt létrehozását követően a projekt adatlapján adhatóak meg.
+In the admin interface, you can create new surveys, modify previous ones ([**Projects**](/admin/projects)) and edit maps related to surveys ([**Maps**](/admin/maps)).
 
 
-### Projekt adatlap {#projektadatlap}
+### Create new project and manage previous ones {#ujprojekt}
 
-A [Projektek](/admin/projects) menüpontból a listában a projekt nevére kattintva, vagy új projektet létrehozva a projekt adatlapjára jutunk.
-
-Ez két részből áll: az oldal felső részén a felméréshez kapcsolódó általános adatok adhatóak meg, a második felében a munkalapok szerkesztésére van lehetőség.
-
-A kapcsolódó adatoknál és beállításoknál van lehetőség
-
-- megadni a projekt elnevezését, ami az adminfelületen túl a böngésző lapcímében és a közösségi médiában megosztáskor jelenik meg;
-- szerkeszteni az elérési útvonalát (URL címét - <code>https://partimap.eu/p/*</code>),
-- jelszavas védelmet beállítani, amivel szűkíthető a kitöltők köre. Ilyenkor a kérdőív URL-jére navigálva az oldal jelszót kér, ennek megadás után lehet kitölteni a kérdőívet. Ha nem szeretne több kitöltést fogadni, jelszó beállításával passziválhatja is a kérdőívet;
-- Facebook megosztáshoz egyedi meta leírást (előnézeti szöveget) adni,
-- Facebook megosztáshoz egyedi képet feltölteni;
-- az adatkezelő elérhetőségét megadni, ez az adatkezelési nyilatkozatban jelenik meg;
-- a kitöltés végén (a beküldés után) megjelenő egyedi köszönő üzenetet és tovább navigáló linket (Tovább URL) megadni, valamint a kitöltés végén a felmérés megosztására felhívó gombokat (Facebook, Twitter, e-mail) ki- és bekapcsolni.
-
-
-### Munkalapok listája
-
-A projekt munkalapokra tagolódik. Az egyes munkalapok szerkesztőfelületén lehet beállítani különböző kérdőívkérdéseket, tájékoztató szövegeket és kitöltői interakcióra felhívó térképes elemeket.
-
-A munkalapok a felméréshez kapcsolódó általános beállítások alatt szerkeszthetőek. Új projekt esetében ez a rész üres, a *Munkalap hozzáadása* gombra kattintva lehet elkezdeni a kérdőív tartalmának szerkesztését. A már létrehozott munkalapok listanézete is itt érhető el.
+A new project can be created by entering the **project name** on the Projects page after logging in and clicking on the *Add* button.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
 			<img
-				alt="Munkalapok listája"
+				alt="Create project"
 				class="figure-img img-fluid rounded shadow-sm"
-				src="/help/sheets.png"
+				src="/help/project-en.png"
 			>
 			<figcaption class="figure-caption text-center">
-				Munkalapok listája
+				Creating a project
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-Ha már több munkalapot is tartalmaz a projekt, a fel és le nyilakkal változtatható a munkalapok sorrendje, a kuka ikon pedig törli a szükségtelen munkalapot.
+In the Project menu you can find a list of your own projects. Here you can see the number of views and responses, and by clicking on **Download report** you can download the report generated from the completions in .xlsx format.
 
-A munkalap típusát (*Szöveg, Kérdőív, Térkép* vagy *Interaktív térkép*) a piktogramokra kattintva lehet kiválasztani.
+The data, questions and content related to the survey can be entered in the project data sheet after the project has been created.
+
+
+### Project data sheet {#project data sheet}
+
+From the [Projects](/admin/projects) menu, click on the project name in the list or create a new project to go to the project details page.
+
+It is divided into two parts: the top part of the page provides general information about the survey and the second part allows you to edit the worksheets.
+
+In the related data and settings you have the option to
+
+- enter the name of the project, which will appear in the browser page title and when sharing on social media, in addition to the admin interface;
+- edit its path (URL - <code>https://partimap.eu/p/*</code>),
+- set password protection to restrict who can fill it in. In this case, navigating to the URL of the questionnaire will prompt for a password, which can then be used to complete the questionnaire. If you don't want to receive any more completions, you can also set the questionnaire to inactive by setting a password;
+- Add a unique meta description (preview text) for Facebook sharing,
+- upload a unique image for Facebook sharing;
+- provide the contact details of the data controller, which will appear in the privacy statement;
+- Provide a unique thank you message and a link to continue navigation (Next URL) at the end of the completion (after submission) and to turn on/off the buttons (Facebook, Twitter, email) at the end of the completion inviting the respondent to share the survey.
+
+
+### List of worksheets
+
+The project is divided into worksheets. In the editing interface of each worksheet, you can set up different questionnaire questions, informative texts and map elements prompting interaction from the respondents.
+
+Worksheets can be edited under the general survey settings. For a new project, this section is empty, and you can start editing the survey content by clicking on the *Add Worksheet* button. A list view of already created worksheets is also available here.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
 			<img
-				alt="Új munkalap hozzáadása"
+				alt="List of worksheets"
 				class="figure-img img-fluid rounded shadow-sm"
-				src="/help/newsheet.png"
+				src="/help/sheets-en.png"
 			>
 			<figcaption class="figure-caption text-center">
-				Új munkalap hozzáadása
+				List of worksheets
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-Az első munkalapon a kitöltőknek el kell fogadniuk a felhasználási feltételeket és az adatkezelési tájékoztatót. Első munkalapként érdemes Szöveg munkalapot megadni, ahol tisztázhatók a felmérés keretei (pl. a kitöltés várható hossza) és célja.
+If there are already several worksheets in the project, the up and down arrows can be used to change the order of the worksheets, and the trash can icon deletes the unnecessary worksheet.
 
-A Projekt adatlap jobb felső sarkában található **Megtekintés** gombra kattintva közvetlenül az épülő kérdőívre léphetünk, nyomon követve a mentett változtatásokat. Érdemes a kérdőív szerkesztésekor itt a szerkesztővel párhuzamosan követni a módosításokat.
-
-
-### Munkalapok típusai {#munkalapok}
-
-
-#### Szöveg munkalap {#szoveges}
-
-Szöveg és képek megjelenítésére alkalmas munkalap, ahol többek közt a felmérés céljait, a lebonyolító szervezet vagy intézmény tevékenységét, a döntési helyzet hátterét lehet ismertetni. A munkalap szerkesztése során megadhatók:
-
--   A *Munkalap címe*, amely megjelenik a publikus kérdőívben is;
--   A *Munkalap leírása*, amely a megjelenő párbeszédablak fő szövege. A szöveg alapvető formátumbeállítási lehetőségekkel testre szabható, lehetőség van link, illetve kép beszúrására is (külső forráslink megadásával);
--   *Saját háttérkép*, amely a párbeszédablak mögötti teret tölti ki;
--   A felmérés *megosztására felhívó gombok*.
-
-A változtatások rögzítéséhez meg kell nyomni a *Mentés* gombot, erre más oldalra navigálás esetén felugró ablak is figyelmeztet. A szerkesztés alatt álló munkalapok közötti navigációra szolgálnak a lap alján található kék jobbra/balra nyilak.
-
-A munkalapok szerkesztőfelületéről a bal felső sarokban található PARTIMAP ikonra kattintva (*Vissza a projektre*) is visszaléphetünk a projekt adatlapjára.
-
-
-#### Kérdőív munkalap {#kerdoiv}
-
-A Kérdőív munkalap segítségével hagyományos kérdőíves felméréseket készíthetünk. A munkalap szerkesztése során megadhatók:
-
--   A *Munkalap címe*, amely megjelenik a publikus kérdőívben is;
--   A *Munkalap leírása*, amely a párbeszédablak elején jelenik meg. A szöveg alapvető formátumbeállítási lehetőségekkel testre szabható, lehetőség van link, illetve kép beszúrására is a Szöveg munkalaphoz hasonlóan. Kép hozzáadásával lehetőség van a képre vonatkozó kérdések feltételére;
--   *Kérdőív:* a munkalaphoz itt van lehetőség kérdőívkérdések hozzáadására, amelyek tulajdonságai a megjelenő párbeszédablakban szerkesztők;
--   *Kitöltés után válasz statisztika megjelenítése a látogatónak:* bejelölve a kitöltést követően, lapozás után a látogató számára megjelenik a válaszok egyszerűen összesített statisztikája oszlopdiagramon;
--   *Csak az eredmények megjelenítése:* bejelölve a munkalap kérdései lezárulnak, nem gyűjtenek válaszokat. Ezen a munkalapon csak az eredmények lesznek láthatóak a kitöltők számára. Ez lehetőséget ad arra, hogy a lezárt kérdőívet a link megtartásával egy, az eredményeket bemutató projektté alakítsuk át;
--   *Saját háttérkép*, amely a párbeszédablak mögötti teret tölti ki;
--   A felmérés *megosztására felhívó gombok*. Ezt az utolsó, gyakran demográfiai kérdéseket tartalmazó munkalap esetén érdemes bekapcsolni.
-
-A Kérdőív blokkhoz az alábbi kérdéstípusok adhatók a *Kérdés szövege* megadásával:
-
-*Szöveges válasz:* a szövegmezőbe a kitöltő tetszőleges választ gépelhet. Az eredményriport ezt a szöveges választ tartalmazza.
-
-*Numerikus válasz (bepötyögős):* a mezőbe a kitöltő egy számot gépelhet. Beállítható a megadható válasz minimális és maximális értéke. A riport a választ szám formátumban tartalmazza.
-
-*Numerikus válasz (csúszkával):* a kitöltő itt gépelés nélkül, egy csúszka segítségével állíthatja be számszerű válaszát. Itt is megadhatod a megadható válasz minimális és maximális értékét. A két véglet szövegesen is elnevezhető, ez a kérdőívben a csúszka két oldalán jelenik meg, skálát képezve. A riport a választ szám formátumban tartalmazza.
-
-*Jelölőnégyzetek:* az Opcióknál az *Új opció* gombra kattintva tetszőleges számú válaszlehetőséget lehet megadni, amelyre a kitöltő egyedileg adhat választ a négyzet bejelölésével. Beállítható a maximálisan kiválasztható válaszok száma. Az *Egyéb opció hozzáadása* bejelölésével a válaszok között egy Egyéb... opció is megjelenik, amit megjelölve a kitöltő saját szöveges választ adhat a kérdésre. A riport a megjelölt válaszopciók nevét és a megadott saját egyéb választ tartalmazza szöveges formában, pontosvesszőkkel elválasztva.
-
-*Feleletválasztós:* az Opcióknál az *Új opció* gombra kattintva tetszőleges számú válaszlehetőség adható meg, ezek közül a kitöltő egyet választhat. A riport a válaszopció nevét szöveges formában tartalmazza.
-
-*Opciók lenyíló listában (egyet lehet vál.):* a feleletválasztóshoz hasonlóan a megadott Opciók közül a kitöltő egyet választhat egy lenyíló listából. Az Opciók mellé itt is megadhatunk Egyéb... opciót. A riport a válaszopció nevét szöveges formában tartalmazza.
-
-*Értékelés (5 csillag):* a kitöltő egyszerű kattintással 1-5 csillaggal adhat visszajelzést a megadott kérdésre. A riport a választ szám formátumban tartalmazza.
-
-*Feleletválasztós rács:* a feleletválasztós kérdéstípushoz hasonló, de több Sor is megadható, ezekre nézve kérjük a kitöltőt, hogy jelölje be valamelyik válaszopciót (Oszlop). A kérdéshez tetszőleges számú sor és oszlop adható. Amennyiben kötelező megválaszolni, minden sorra nézve be kell jelölni valamelyik opciót. A riport soronként szétbontva tartalmazza a válaszopció nevét szöveges formában.
-
-*Jelölőnégyzetrács:* a jelölőnégyzetek kérdéstípushoz hasonlóan egy Sorhoz a kitöltő több válaszopciót is bejelölhet, ezeket az *Új oszlop* gombra kattintva állíthatjuk be. A kérdéshez tetszőleges számú sor és oszlop adható. Amennyiben kötelező megválaszolni, minden sorra nézve be kell jelölni legalább egy opciót. A riport soronként szétbontva tartalmazza a válaszopciók nevét szöveges formában, pontosvesszőkkel elválasztva.
-
-Az egyes kérdések a *Kötelező megválaszolni* bepipálásával kötelezővé tehetők a kitöltőknek, enélkül nem tudnak továbblépni, vagy beküldeni a választ.
-
-A munkalap szerkesztőfelületének Kérdőív menüpontjában (a kérdések listájában) a kérdések a kuka ikonra kattintva törölhetőek, illetve sorrendjük a kérdés fiókjára kattintva, vonszolással módosítható.
-
-
-#### Térképes munkalap (statikus térkép) {#statikus}
-
-A munkalap segítségével olyan térkép alapú felmérés készíthető, amely alkalmas egy megvalósult fejlesztés vagy terv bemutatására, valamint az ezzel kapcsolatos értékelések, visszajelzések gyűjtésére. A kitöltőket itt arra kérjük, hogy a térképen látottakhoz kapcsolódóan válaszoljanak a feltett kérdésekre, de szemben az interaktív térkép munkalappal, ők nem rajzolhatnak a térképre.
-
-A Térkép munkalap létrehozásakor a térkép tartalmát egy már meglévő, a Térképek menüpontban tárolt térképről is importálhatjuk (*Térkép elemek másolása innen*), illetve külső forrásból (pl. Google Maps) egy .kml file segítségével közvetlenül is feltölthetjük. A térkép mozgatásáról a Térképek menüpont bemutatásánál található bővebb leírás.
-
-A munkalap szerkesztése során megadhatók:
-
--   A *Munkalap címe*, amely megjelenik a publikus kérdőívben is;
--   A *Munkalap leírása*, amely a párbeszédablak elején jelenik meg. Itt érdemes tömören elmagyarázni, mi a kitöltő feladata az adott munkalapon. A szöveg alapvető formátumbeállítási lehetőségekkel testre szabható, itt is lehetőség van link és képek beszúrására.
--   *Kérdőív:* a munkalap egészéhez itt is lehetőség van kérdőívkérdések hozzáadására, amelyek a Kérdőív munkalapnál megismert módon a megjelenő párbeszédablakban szerkeszthető. A kérdőívkérdések a kitöltők számára az oldalsávban, a leírás alatt jelennek meg.
--   *Kitöltés után válasz statisztika megjelenítése a látogatónak:* ha be van jelölve, lapozás után a látogató számára megjelenik a válaszok összesített statisztikája: a munkalapszintű kérdőívkérdések eredményei és az elemekhez rendelt értékelések átlaga is.
--   *Csak az eredmények megjelenítése:* ha be van jelölve, a munkalap nem gyűjt válaszokat, csak a válaszok statisztikája lesz látható a kitöltők számára.
--   *Látogatói interakciók:*ha a *Fix elemek értékelése* be van jelölve, a kitöltők értékelhetik a térképre felrajzolt elemeket. Kétféle értékelés választható:
-    -   *Csillagok:* a kitöltő ekkor az elemre kattintva csillagokkal értékelhet. A csillagok száma beállítható (1-10), ha egy csillagot választunk, az igen-nem válaszként használható. Az értékeléshez nem tartozik munkalapszintű kérdés, az ehhez tartozó instrukciót átfogóan a munkalap leírásában, vagy egyedileg az elem leírásában kell megadnunk. Ha a válasz statisztika be van állítva, az elemeknél lapozás után a csillagok átlaga és az értékelések száma jelenik meg a kitöltőknek -- ez az admin felületen alapértelmezetten látható.
-    -   *Like/dislike:* a kitöltő pozitív (<i class="fas fa-fw fa-thumbs-up text-success"></i>) vagy negatív (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) értékelést adhat elemekhez. Ha a válasz statisztika be van állítva, az elemeknél lapozás után a pozitív és negatív értékelések száma jelenik meg a kitöltőknek -- ez az admin felületen alapértelmezetten látható.
-    -   A riport az értékelések adatait egy külön Értékelések munkalapon jeleníti meg, ami tartalmazza a kitöltés azonosítóját, amivel az értékelés más válaszokhoz társítható, illetve az értékelt elem nevét és az értékelést szám formátumban (csillagok száma, [1, -1]). Emellett a generált riport egy Összesített értékelések munkalapon az értékelések összesített számát és átlagát is bemutatja.
--   *Alapértelmezett alaptérkép:* itt állítható be a térképre rajzolt elemek mögött megjelenő alaptérkép (pl. úthálózat, szatellit, fekete-fehér, kerékpárutak, topográfiai stb.) A kitöltők maguk is válthatnak az alaptérképek között.
--   *Térkép elemei:* itt jelennek meg az alaptérképre felrajzolt elemek. Az elemekhez tartozó fiókokban szerkeszthető az a tartalom, ami a kitöltők számára az adott elemre vagy a fiókra kattintva megjelenik. Az elemekhez tartozó fiókban név, szín, méret, stílus és képes leírás állítható be.
-    -   A *Kategória* mezőt kitöltve a térkép elemeit a kitöltők leszűrhetik az adott kategóriára. A kategória beállításával elkülöníthetőek egymástól és könnyebben elemezhetők különböző elemek.
-    -   Az *Elem elrejtése a listában* bejelölésével az adott elem megjelenik ugyan a térképen, de nem lehet vele interaktálni: nem jelenik meg a Térkép elemei között fiókként és a térképen sem lehet belekattintani. Ez akkor hasznos, ha egy olyan segédelemet rajzolunk a térképre, ami csak orientálja a kitöltőket, pl. egy város határvonala.
--   Az elemlista felett található KML gombok segítségével lehetőség van más szerkesztőfelületen készített térkép betöltésére (<i class="fas fa-fw fa-upload"></i>) vagy a térkép elemeinek lementésére (<i class="fas fa-fw fa-download"></i>).
-
-A statikus térkép munkalap szerkesztőfelületén a jobb felső sarokban található *pont, vonal* és *terület* gombokkal közvetlenül is lehet elemeket felrajzolni a munkalapon megjelenített térképre. A térképre tetszőleges számú elem felrajzolható. A térképre a +/- gombokkal vagy kétujjas nagyítással közelíthetünk.
-
-*Pont felrajzolása (piros):* a piros alapon fehér gombostűre kattintva helyezhető el pont jelölő. A jelölőt egyszeri kattintással helyezhetjük el.
-
-*Vonal felrajzolása (kék):* a kék alapon fehér vonalra kattintva lehet vonalat rajzolni. Egyszeri kattintással helyezze le a vonal kezdőpontját a térképen, további kattintásokkal jelölje be a vonal köztes pontjait, majd dupla kattintással a végpontot.
+You can select the type of worksheet (*Text, Questionnaire, Map* or *Interactive map*) by clicking on the pictograms.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
-			<img alt="Vonal felrajzolása" class="figure-img img-fluid rounded shadow-sm" src="/help/line.png">
+			<img
+				alt="Add new worksheet"
+				class="figure-img img-fluid rounded shadow-sm"
+				src="/help/newsheet-en.png"
+			>
 			<figcaption class="figure-caption text-center">
-				Vonal felrajzolása
+				Add a new worksheet
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-*Terület felrajzolása (zöld):* a zöld alapon fehér körbezárt alakzatra kattintva lehet területet (poligont) felrajzolni. Egyszeri kattintással helyezze el az alakzat kezdőpontját a térképen, majd további kattintásokkal jelölje ki a határokat, végül a kezdőpontba történő újbóli kattintással fejezze be a rajzolást.
+In the first worksheet, respondents must accept the terms of use and the privacy policy. As a first worksheet, it is useful to provide a Text worksheet where the scope (e.g. expected length of the survey) and purpose of the survey can be clarified.
 
-*Mobilnézet:* amennyiben táblagépen vagy mobiltelefonon használja a szerkesztőfelületet, a térképes munkalapok esetén a kérdéseket tartalmazó panel és a térkép között az elrejt (<<) és a kinyit (>>) gombokkal lehet váltani. A rajzoláshoz szükséges gombok a térkép nézetben érhetőek el, az oldalsáv elrejtésével.
-
-#### Interaktív térkép munkalap {#interaktiv}
-
-Ezen a munkalapon a kitöltők rajzolhatnak a térképre. A statikus térképhez hasonlóan az adminnak is lehetősége van elemeket felrajzolni a térképre, amivel orientálhatja a kitöltőket, vagy amihez képest térképes jelöléseket vár. A munkalaphoz és annak elemeihez azonban itt nem adható kérdőívkérdés vagy értékelés.
-
-A *Munkalap címe* és a *Munkalap leírása* kell tartalmazza azokat az információkat, amelyek segítik a kitöltőt, hogy pontos választ adjon a feltett kérdésre.
-
-A *Látogatói interakciók* menüpontban lehet beállítani, hogy a kitöltőtől milyen típusú jelöléseket gyűjtünk (pont, vonal, terület). Egy munkalapon többféle jelölés is kérhető, de egy elemtípushoz csak egy feladat adható. Több különböző feladatot például pont felrajzolásához (kedvenc helyek és kellemetlen helyek) különálló interaktív munkalapokon lehet megadni.
-
-A kiválasztott elemekhez az *Instrukció pont/vonal/terület felrajzolásához* szövegmezőben megadható a kitöltőknek, hogy pontosan mit jelöljenek be (pl. Melyik a kedvenc helyed? [pont], Merre közlekedsz a munkahelyedre? [vonal], Hol lenne szükség több zöldfelületre? [terület]). Ez a szöveg az oldalsávban, a rajzolást elindító gomb mellett jelenik majd meg. Ha a kitöltő felrajzol valamit a térképre, a válaszát szövegesen is kiegészítheti. Az ehhez tartozó utasítást a *Felrajzolt elemekhez rendelt kérdés* mezőben adhatod meg, ezzel irányítva a válaszadást.
-
-A *Térkép elemei* a statikus térképhez hasonlóan az adminfelületen hozzáadott (felrajzolt vagy feltöltött) elemek listáját tartalmazza. Figyelem, a hozzájuk adott leírás nem jelenik meg a kitöltők számára, ezek az elemek csupán a térképen tűnnek fel a statikus térkép elrejtett elemeihez hasonlóan! A felrajzolt elemek itt a kitöltők orientálására használhatók, színük, méretük, stílusuk állítható. Jelezhető velük, milyen területen, zónákon belül várjuk az elemek felrajzolását. Megadásuk azért is hasznos, mert a térkép automatikusan ezekre az elemekre közelít.
-
-Amennyiben egy interaktív térképre már érkeztek kitöltők által felrajzolt elemek, ezek a projekt adatlapján, a listában a munkalap melletti *Új saját térképre küldés* linkkel exportálhatók saját térképre, ahol böngészhetők, szerkeszthetők vagy külső felhasználásra .kml formátumban letölthetők. Az .xlsx riport is tartalmazza a beküldött elemek adatait (kitöltés azonosítója, koordináták, leírás).
+By clicking on the **View** button in the top right corner of the Project Data Sheet, you can go directly to the questionnaire being built, tracking the changes you have saved. When editing the questionnaire, it is a good idea to track changes here in parallel with the editor interface.
 
 
-### Térképek létrehozása és korábbiak kezelése {#terkepek}
-
-A <a href="/admin/maps" target="_blank">Térképek</a> menüpontban saját térképes jelölések (.kml formátumú shapefile-ok) tárolhatók és szerkeszthetők. Itt lehet gyűjteni és szerkeszteni a felhasználó városáról, környezetéről korábban készített térképeit, és a kérdőívekből összegyűjtött válaszokat. A .kml formátumú file-ok segítségével külső térképszerkesztő programokba egyszerűen exportálhatók az itt tárolt elemek, és onnan a PARTIMAP-ba importálhatók térképek. A Térképek menüpont és a projektek között is egyszerű az átjárás: a saját térképek tartalma átmozgatható a munkalapokra (*Térkép elemek másolása innen*).
-
-A PARTIMAP jelenleg nem kínál grafikus elemző funkciókat, de a saját térképen az egyedi elemek szerkeszthetők: név és leírás mellett a kinézetük (szín, méret, vonalak esetén a vonal stílusa) egyedileg beállítható.
-
-Új saját térkép létrehozása:
-
-- A <a href="/admin/maps" target="_blank">Térképek</a> oldalon az Új térkép elnevezése megadásával a *Hozzáadás* gombra kattintva. Ide .kml fájlból adatot lehet betölteni a szerkesztőfelületen;
-- Egy felmérés kitöltőinek beküldéseiből a projekt adatlapon a vonatkozó munkalap sorában megjelenő *Új saját térképre küldés*
-
-Saját térkép szerkesztése során a munkalapokhoz hasonló felületen megadható:
-
--   *A térkép neve*
--   *Térkép elemei:* itt jelennek meg az alaptérképre felrajzolt objektumok. A lap alján található *KML export/import* gombok segítségével lehetőség van más szerkesztőfelületen készített térkép alaptérképre importálására, és a térkép elemeinek mentésére .kml formátumban.
-
-A PARTIMAP felmérés kitöltéseit tartalmazó .kml kategóriaként tartalmazza a jelölések típusát, így külső elemző program segítségével, vagy a .kml file-t [táblázatos formába konvertálva](https://mygeodata.cloud/converter/kml-to-xlsx) szétválaszthatók a különböző jelölések, és szerkeszthetők az elemek paraméterei.
-
-A PARTIMAP által generált és használt .kml file-ok az alábbi paramétereket használják, ezek a Google Maps-el is átjárhatóságot biztosítanak:
-
--   Az elemeket alkotó pontok x és y koordinátái;
--   Az elem sorszáma (gid) és neve (Name);
--   Az elemhez rendelt kategória (partimapCategory);
--   A vonal vagy területet határoló vonal stílusa (partimapLineStyle), a pont mérete (partimapPointSize) és további, a Google Maps által automatikusan beolvasott paraméterek (méret, szín) (ExtendedData);
--   A leírás mező tartalma, amit a PARTIMAP használ (partimapDescription);
--   Erről bővebb leírás a projekt [Github oldalán](https://github.com/k-monitor/partimap/blob/master/KML.md) érhető el.
+### Worksheet types {#worksheets}
 
 
-### Riport és eredmények {#riport}
+#### Text worksheet {#soveges}
 
-Egy felmérés kitöltéseit a [Projektek](/admin/projects) listanézetének oldalán van lehetőség letölteni .xlsx formátumban. A riport az eredményeket a korábban részletezett formátumban tartalmazza. A térképes elemek azonosítószámok mentén összekapcsolhatók a kérdőívkérdésekre adott válaszokkal, így pl. a kitöltők demográfiai adataival. Az adatok összekapcsolása után a térbeli jelölések is mélyebben elemezhetők, leszűrhetők a kitöltők egyes csoportjai mentén.
+A worksheet with text and images, which can be used to describe, among other things, the objectives of the survey, the activities of the organisation or institution carrying out the survey, the background to the decision situation. They can be provided when editing the worksheet:
+
+- The *Worksheet title*, which will also appear in the public questionnaire;
+- The *Worksheet description*, which is the main text of the dialog box that appears. The text can be customised with basic formatting options, with the possibility to insert a link or image (by providing an external source link);
+- *Your background image*, which fills the space behind the dialog box;
+- Buttons to *share the survey*.
+
+To save your changes, press the *Save* button, and a pop-up window will warn you when you navigate to another page. The blue right/left arrows at the bottom of the page are used to navigate between the worksheets under editing.
+
+From the worksheet editing interface, you can also go back to the project sheet by clicking on the PARTIMAP icon (*Back to project*) in the top left corner.
 
 
-### Tippek egy kérdőív elkészítéséhez {#tippek}
+#### Questionnaire worksheet {#kerdoiv}
 
-Mielőtt elkezdenénk a kérdőív összeállítását, tisztában kell lennünk azzal, hogy milyen döntés vagy tevékenység támogatásához szeretnénk kérni a kitöltők véleményét. Érdemes egy témakörre koncentrálni, ha túl tág a kérdőív fókusza, a kapott válaszok pontatlanabbak lesznek és a kitöltők kedvét is elveheti, ha túl sok, vagy számukra nem releváns kérdésre kell válaszolniuk. Ha megfelelően fókuszálunk, a célcsoportokat is könnyebben beazonosíthatjuk és elérhetjük.
+The Questionnaire worksheet allows you to create traditional questionnaire surveys. They can be entered when editing the worksheet:
 
-**Tervezzük meg, kiket és hogyan szeretnénk elérni a kérdőívünkkel!**
+- The *Worksheet title*, which will also appear in the public questionnaire;
+- The *Worksheet description*, which appears at the top of the dialog box. The text can be customised with basic formatting options, with the possibility to insert a link or an image, similar to the Text worksheet. By adding an image, it is possible to condition questions on the image;
+- *Questionnaire:* for the worksheet, here is the possibility to add questionnaire questions, whose properties are editable in the dialog that appears;
+- *Show response statistics to the visitor after completion:* if checked, after continuing to the next page, the visitor is shown a simple aggregated statistics of the responses so far in a bar chart;
+- *Display results only:* if checked, the worksheet questions are closed, no answers are collected anymore. In this worksheet, only the results of previous responses will be visible to visitors. This gives you the opportunity to convert the closed survey into a project displaying the outcome of the survey while maintaining the same link;
+- *Supply background image*, which fills the space behind the dialogue box;
+- Buttons to *share the survey*. This is useful for the last worksheet, which often contains demographic questions.
 
-Egy, a játszóterekkel kapcsolatos kérdőívet például érdemes beküldeni a helyi anyukákat tömörítő Facebook-csoportba, de ha a helyi fiatalokat szeretnénk megkérdezni valamilyen őket érintő problémáról, érdemes olyan platformokon vagy intézményeken keresztül elérni őket, amit napi szinten használnak.
+The following question types can be added to the Questionnaire block by specifying *Question text*:
 
-Fektessünk hangsúlyt a nehezebben elérhető társadalmi csoportokra is. Az online kérdőívek jellemzően a fiatal vagy középkorú, magasabb jövedelmű és végzettségű kitöltőket érik el. Megfelelő tervezéssel, és különböző (akár offline) eszközökkel azonban biztosíthatjuk, hogy mindenkinek lehetősége legyen kifejteni a véleményét. Tegyük ki a papíralapú kérdőívet a könyvtárban, tegyünk a kérdőívre mutató QR kódot közösségi terekre, buzdítsuk a civil szervezeteket, hogy osszák meg a kérdőívet ügyeleikkel, követőikkel!
+*Text answer:* a text box allows the respondent to type in any answer. The result report will include this text response.
 
-Érdemes tisztában lenni azzal is, hogy a feltérképezni kívánt témakörben milyen adatok állnak már rendelkezésünkre. Ne kérdezzünk olyat, amire már tudjuk a választ, vagy kérdőívezés nélkül is könnyedén megtudhatjuk!
+*Numeric answer (typing):* the field can be filled in by typing a number. You can set the minimum and maximum value of the answer that can be given. The report contains the answer in numeric format.
 
-**A kérdőív legyen lényegre törő!**
+*Numeric answer (with slider):* here the respondent can set a numeric answer without typing, using a slider. Here you can also specify the minimum and maximum value of the answer. The two extremes can also be named in text, which will appear on both sides of the slider in the questionnaire, forming a scale. The report contains the answer in number format.
 
-Egy felmérés készítése során újabb és újabb ötletek merülnek fel a témával kapcsolatban, egyre több részletre leszünk kíváncsiak. A kitöltők azonban nem ennyire elkötelezettek, a hosszabb felmérés láttán lemorzsolódhatnak. Javasoljuk, hogy 6-8 munkalapnál ne használjon többet egy felmérésben. Mérje le, mennyi időbe telik egy kitöltés, **10-12 percnél ne legyen hosszabb!**
+*Checkboxes:* In the Options section, click on the *New option* button to enter any number of response options, to which the respondent can individually respond by ticking the box. The maximum number of answers that can be selected can be set. By ticking the *Add Other option* box, an Other... option will be added to the list of answers, allowing the respondent to enter their own text response to the question. The report will contain the name of the selected answer options and the other answer given, separated by semicolons.
 
-A becsült kitöltési időt tüntesse fel a felmérés első munkalapján. Ha a kérdőív kitöltőinek száma jóval elmarad a megtekintések számától (pl. csak minden tizedik megnyitásból lesz kitöltés), akkor a kérdőívünk valószínűleg túl hosszú lett.
+*Multiple choice:* In the Options section, clicking on the *New option* button allows you to select any number of options, from which the respondent can choose one. The report contains the name of the response option in text form.
 
-Igyekezzünk pontos magyarázatot adni a feladatokhoz, a szöveg kiemelésével, emotív ikonok használatával, lehetőleg minél tömörebben! A kérdések megfogalmazásához további szempontokat a PARTIMAP [részvételi módszertanában](https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view) talál!
+*Dropdown (one can be selected):* like the multiple-choice, the filler can select one of the given Options from a drop-down list. In addition to the Options, you can also specify an Other... option. The report will contain the name of the response option in text form.
 
-**Ellenőrizzük magunkat!**
+*Star rating (5 stars):* the respondent can give a rating of 1 to 5 stars on the question by simply clicking on it. The report contains the answer in number format.
 
-Egy több munkalapból álló, kérdések és információk sorából álló felmérés összetettsége miatt minden figyelmesség és alaposság miatt becsúszhatnak hibák, elírások. Ha rossz kérdéseket teszünk fel, a válaszok használhatatlanok lesznek.
+*Multiple Choice grid:* similar to the multiple-choice question type, but multiple rows can be entered, for which the respondent is asked to select one of the answer options (Column). Any number of rows and columns can be entered for the question. If a response is mandatory, an option must be selected for each row. The report will contain the name of the response option in text form, broken down by line.
 
-Az admin felület szerkesztésével párhuzamosan érdemes a publikus felületen ellenőrizni a változtatásokat. A szerkesztőben végrehajtott változások a mentést követően a publikus felületen is frissülnek. Felmérés elindítása után a kérdőívet csak indokolt esetben szabad módosítani, hiszen az átalakított kérdésekre beérkező eredmények nem lesznek összevethetők a korábbi kérdésekre adott válaszokkal. Csináljunk próbakitöltéseket a publikálás előtt!Nézzük át a beérkezett eredményeket, elemezhetőek, használhatóak-e a célnak megfelelően!
+*Checkbox grid:* Like the checkboxes question type, the filler can select more than one response option for a row, which can be set by clicking on the *New column* button. You can add any number of rows and columns to a question. If a response is mandatory, at least one option must be selected for each row. The report will contain the names of the answer options in text form, separated by semicolons.
 
-**Tervezzük meg a beérkező adatok struktúráját!**
+Each question can be made compulsory by ticking the *Request to be answered* box, without which the respondent will not be able to proceed or submit your answer.
 
-A megfelelő mennyiségű kitöltés beérkezését és a kampány lezárultát követően fel kell dolgozunk a kapott adatokat. Gondoljuk át előre, milyen típusú válaszokat várunk, milyen formában, felületeken és eszközök segítségével tervezzük bemutatni az eredményeket!
+In the Questionnaire section of the worksheet's editor interface (in the list of questions), questions can be deleted by clicking on the trash can icon, or their order can be changed by dragging and dropping them onto the question drawer.
 
--   Jó ötletnek tűnhet a nyitott, kifejtős kérdések alkalmazása, azonban 1-2 ilyennél többet nem érdemes egy kérdőívben feltenni. A nyitott kérdések megválaszolása a kitöltők számára is megerőltetőbb, az adatok feldolgozásakor pedig jóval nehezebben elemezhetők a szöveges válaszok, mintha a megadott opciókból választanának a válaszadók.
--   A PARTIMAP lehetővé teszi, hogy egy feleletválasztós vagy meghatározott számú opciót kiválasztani engedő kérdésnél egyéb választ is fogadjunk a kitöltőktől. Ez a legtöbb nyílt végű kérdést feleslegessé teszi. A kérdőív végén azonban érdemes lehetőséget adni arra, hogy a kitöltő szövegesen leírhassa azokat a szempontjait a témában, ami a kérdőívből kimaradt.
--   A feleletválasztós kérdéseknél fontos, hogy a választható opciók egyértelműek és megkülönböztethetőek legyenek. Nem biztos, hogy minden válaszadó számára nyilvánvaló a ,,Ritkán" és a ,,Néha" közötti különbség.
--   Minden kérdéstípusnál kulcsfontosságú, hogy a feltett kérdés ne legyen sugalmazó, ne befolyásolja a kitöltőket, mert ez torz eredményekhez vezet.
--   Ne kérdezzünk két különböző dologra egy kérdésen belül, és kerüljük a hasonló vagy ismétlődő kérdéseket, mert ez is elveheti a kitöltők kedvét.
--   Kötelezővé tehetjük az egyes kérdések kitöltését, ha az azokra adott válaszokat fontosnak tartjuk, azonban a túl sok kötelező kérdés lemorzsolódáshoz vezet.
--   A térképes interakciónál mindenképp buzdítsuk a kitöltőket, hogy érdemi szöveges indoklásokat adjanak, hiszen ezek nélkül csak találgatni tudunk, miért éppen azt a helyet jelölték meg a térképen!
--   A legtöbb esetben fontos, hogy szocio-demográfiai adatokat (kor, nem, jövedelem, iskolázottsági szint) is gyűjtsünk, hiszen ez alapján tudjuk meghatározni, kik voltak a kitöltőink, lefedte-e a kitöltői kör a teljes érintett csoportot, vagy csak egy szűk réteg válaszait látjuk. Személyes adatokat azonban csak a szükséges mértékig gyűjtsünk, és legyünk egyértelműek ezek felhasználását illetően (összhangban a felhasználási feltételekkel). Ha publikáljuk az adatokat, minden személyes, szenzitív adatot rejtsünk el (pl. szöveges válaszban megadott adatok, lakóhely bejelölése a térképen).
--   A felmérés elindítása előtt határozzunk meg kitöltési célszámokat, és kövessük nyomon, hogy hány kitöltést gyűjtöttünk. Ha elmaradunk a célszámoktól, tegyünk további erőfeszítéseket a kérdőív terjesztésére.
 
-**Legyen egyedi, felismerhető a kérdőívünk!**
+#### Map worksheet (static map) {#static}
 
-A Felhasználók menüpontban saját profilunknál mini logót és webcímet adhatunk meg, ami ezután minden munkalap tetején megjelenik, jelezve, hogy ki a kérdőív gazdája. A munkalapokat ezen felül egyedi háttérképekkel is testre szabhatjuk. Törekedjünk az egyszerű, letisztult, koherens kinézetre!
+The worksheet can be used to create a map-based survey that can be used to present a completed development or plan, and to collect evaluations and feedback on it. Here, respondents are asked to answer questions related to what they see on the map, but unlike the interactive map worksheet, they are not allowed to draw on the map.
 
-A leírás mezőkben is el lehet helyezni képeket, ehhez egy külső tárhelyen kell tárolni a képet, vagy jogtiszta, szabadon felhasználható illusztrációt találni. Ezekkel még átélhetőbbé tehetjük a döntést a kitöltők számára.
+When creating the Map worksheet, you can import the map content from an existing map stored in the Maps menu (*Copy map elements from here*) or upload it directly from an external source (e.g. Google Maps) using a .kml file. For more information on moving the map, see the introduction under the subsection on Maps.
 
-A statikus térkép munkalap pontjait, vonalaid átszínezhetjük a szervezetünk színére. A térkép elemeihez szintén adható leírás, kép, így könnyebben beazonosíthatóvá tehetők a megjelölt helyek.
+Elements that can be defined when editing the worksheet:
 
-A projekt szerkesztőfelületén a kérdőívhez saját url-t és Facebook megoszthatóságot adhatunk. Ez fontos, hiszen a kérdőívet legegyszerűbben a közösségi médiában lehet terjeszteni. Ha akkor adunk hozzá Facebook arculatot, amikor a kérdőívet már megosztották, az előnézet nem az lesz, amit beállítottunk. Ezt [jelezni kell a Facebook felé](https://developers.facebook.com/tools/debug/), ami ezután frissíti a képet és elnevezést.
+- The *Worksheet title*, which will also appear in the public questionnaire;
+- The *Worksheet description*, which appears at the top of the dialog box. Here it is worth explaining concisely what the respondent is expected to do on the worksheet. The text can be customised with basic formatting options, and there is also the possibility to insert links and images.
+- *Questionnaire:* it is also possible to add questionnaire questions here for the whole worksheet, which can be edited in the dialog box, similarly to the Questionnaire worksheet. The questionnaire questions are displayed in the sidebar below the description for those completing the survey.
+- *Show response statistics to the visitor after completion:*  if checked, after continuing to the next page, the visitor is shown a simple aggregated statistics of the responses so far: both the results of the worksheet-level questionnaire questions and the average of the scores assigned to the items.
+- *Display results only:* if checked, the worksheet will not collect responses, only the statistics of the responses will be displayed to the respondent.
+- *Respondent interactions:* if *Rating fixed items* is checked, respondents can rate the items displayed on the map. Two types of rating can be selected:
+    - *Stars:* the respondent can rate the item with stars by clicking on the item. The number of stars can be set (1-10), but if a single star is selected it can be used as a yes/no answer. The rating does not include a worksheet level question, the instructions for this must be provided either comprehensively in the worksheet description or individually in the item description. If the response statistic is set, the average number of stars and the number of ratings will be displayed for the items after continuing to the next page -- this is shown by default in the admin interface.
+    - *Like/dislike:* the respondent can give items a positive (<i class="fas fa-fw fa-thumbs-up text-success"></i>) or negative (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) rating. If the response statistic is set, the number of positive and negative ratings will be displayed for the items after continuing to the next page -- this is shown by default in the admin interface.
+    - The report displays the ratings data in a separate Ratings worksheet, which includes the respondent ID used to associate the rating with other responses, the name of the rated item, and the rating in number format (number of stars, [1, -1]). In addition, the generated report also displays the total number and average of ratings in an Aggregated Ratings worksheet.
+- *Default basemap:* Here you can set the basemap that will be displayed behind the elements drawn on the map (e.g. road network, satellite, black and white, cycle paths, topographic, etc.). Respondents can change the display themselves.
+- *Map Elements:* The elements drawn on the base map are displayed here. The content that is displayed to respondents when they click on the element or drawer can be edited in the element drawers. In the item drawer, you can set name, colour, size, style and picture description.
+    - By filling in the *Category* field, map items can be filtered by respondents for that category. By setting a category, different elements can be separated and more easily analysed.
+    - By checking *Hide item in list*, the item will appear on the map, but cannot be interacted with: it will not appear as a drawer among the Map items and cannot be clicked on in the map. This is useful when drawing an auxiliary element on the map that only orients the respondents, e.g. the boundary of a city.
+- Using the KML buttons above the element list, it is possible to load a map created in another editor interface (<i class="fas fa-fw fa-upload"></i>) or to download map elements (<i class="fas fa-fw fa-download"></i>).
 
-A kérdőív beágyazható a weboldaladra, ehhez az oldal HTML kódjába, a megfelelő helyre az alábbi kódot kell elhelyezni a projekt linkjével.
+You can also use the *point, line* and *area* buttons in the top right corner of the static map worksheet's editing interface to draw elements directly onto the map displayed on the worksheet. Any number of elements can be drawn on the map. You can zoom in on the map by using the +/- buttons or by using the two-finger zoom function.
+
+*Drawing a point (red):* click on the white pin on the red background to place a point marker. The marker can be placed with a single click.
+
+*Draw a line (blue):* Click on the white line on the blue background to draw a line. Single-click to place the start point of the line on the map, click again to mark the intermediate points of the line and double-click to mark the end point.
+
+<div class="row mb-5">
+	<div class="col-12 col-lg-10 mx-auto mt-4">
+		<figure class="figure">
+			<img alt="Draw line" class="figure-img img-fluid rounded shadow-sm" src="/help/line-en.png">
+			<figcaption class="figure-caption text-center">
+				Drawing a line
+			</figcaption>
+		</figure>
+	</div>
+</div>
+
+*Draw area (green):* Click on the white outline on the green background to draw an area (polygon). Click once to place the starting point of the shape on the map, click again to mark the boundaries, and then click again on the starting point to end the drawing.
+
+*Mobile view:* If you are using the editor interface on a tablet or mobile phone, you can switch between the question panel and the map by pressing the hide (<<) and open (>>) buttons for map worksheets. The drawing buttons are available in the map view by hiding the sidebar.
+
+#### Interactive map worksheet {#interaktiv}
+
+In this worksheet, respondents can draw on the map. As with the static map, the admin has the option to draw elements on the map to orient the respondents or to expect map markings in relation to it. However, no questionnaire questions or ratings can be added to the worksheet and its elements here.
+
+The *Worksheet title* and *Worksheet description* should contain information that will help the respondent to give an accurate answer to the question asked.
+
+The *Respondent Interactions* menu allows you to set the type of markup (dot, line, area) that is collected from the respondent. You can request multiple types of markup on a worksheet, but only one task can be assigned to an item type. For example, several different tasks for point plotting (favourite places and unpleasant places) can be specified on separate interactive worksheets.
+
+For the selected items, the *Instruction to plot point/line/area* text box allows you to specify exactly what respondents should mark (e.g. Which is your favourite place? [dot], Which way do you travel to work? [line], Where would you like more green space? [area]). This text will appear in the sidebar next to the button that starts the drawing. If the respondent draws something on the map, they can add text to their answer. You can enter the corresponding instructions in the *Question assigned to drawn items* field, thus guiding the response.
+
+The *Map Elements* contains a list of elements added (drawn or uploaded) in the admin area, similar to a static map. Note, the description given to them is not displayed to the respondent, these elements only appear on the map like the hidden elements of the static map! The drawn elements can be used here to orient the respondents, their colour, size and style can be adjusted. They can be used to indicate the area or zones within which the elements are expected to be drawn. They are also useful because the map automatically zooms in on these elements.
+
+If elements drawn by respondents have already been submitted to an interactive map, they can be exported to a personal map by clicking on the *Send to own map* link next to the worksheet in the list on the project data sheet, where they can be browsed, edited or downloaded in .kml format for external use. The .xlsx report also contains the data of the submitted elements (fill identifier, coordinates, description).
+
+
+### Create maps and manage history {#terkepekek}
+
+In the <a href="/admin/maps" target="_blank">Maps</a> menu, you can store and edit your own map drawings (.kml format shapefiles). Here you can collect and edit maps of the user's city and its surroundings that have been created previously, and the answers collected from questionnaires. Using .kml format files, it is easy to export the elements stored here to external map editors and import maps from there into PARTIMAP. It's also easy to move between the Maps menu and projects: you can move the contents of your own maps to worksheets (*Copy map elements from here*).
+
+PARTIMAP does not currently offer graphical analysis functions, but you can edit individual elements on your own map: in addition to their name and description, you can customise their appearance (colour, size, line style in the case of lines).
+
+To create your own new map:
+
+- On the <a href="/admin/maps" target="_blank">Maps</a> page, enter the name of the new map and click on the *Add* button. Here you can load data from a .kml file in the editor interface;
+- From the submissions of a survey's respondents, with the *Send to New Own Map* button in the row of the corresponding worksheet on the project data sheet.
+
+You can edit the following details of your own map in an interface similar to worksheets:
+
+- *Name of map*
+- *Map elements:* objects drawn on the base map are displayed here. Using the *KML export/import* buttons at the bottom of the page, you can import a map created in another editor interface to the base map and save the map elements in .kml format.
+
+The .kml file containing the PARTIMAP survey completions contains the type of markers as a category, so you can use an external analysis program or convert the .kml file [into a spreadsheet](https://mygeodata.cloud/converter/kml-to-xlsx) to separate the different markers and edit the parameters of the items.
+
+The .kml files generated and used by PARTIMAP use the following parameters, which also provide interoperability with Google Maps:
+
+- The x and y coordinates of the points that make up the elements;
+- The element's serial number (gid) and name (Name);
+- The category assigned to the element (partimapCategory);
+- The style of the line or area boundary (partimapLineStyle), the size of the point (partimapPointSize) and other parameters (size, colour) automatically read by Google Maps (ExtendedData);
+- The content of the description field used by PARTIMAP (partimapDescription);
+- More information about this is available on the project's [Github page](https://github.com/k-monitor/partimap/blob/master/KML.md).
+
+
+### Report and results {#riport}
+
+You can download a survey in .xlsx format from the [Projects](/admin/projects) list view page. The report contains the results in the format detailed earlier. The map elements can be linked to the answers to the survey questions, such as the demographic data of the respondents, by means of identification numbers. Once the data are linked, the spatial markers can be analysed in more depth, filtered along each group of respondents.
+
+
+### Tips for making a questionnaire {#tips}
+
+Before we start to compile the questionnaire, we need to be clear about the decision or activity we want to ask respondents to support. It makes sense to focus on one topic, since if the focus of the questionnaire is too broad, the answers will be less accurate and respondents may be discouraged if they have to answer too many questions or questions that are not relevant to them. If properly focused, target groups can also be more easily identified and reached.
+
+**Plan who you want to reach with your questionnaire and how!**
+
+A questionnaire about playgrounds, for example, should be sent to a Facebook group for local mums, but if you want to ask local young people about an issue that concerns them, you should reach them through platforms or institutions they use on a daily basis.
+
+Focus on the more hard-to-reach social groups. Online questionnaires tend to reach young or middle-aged respondents with higher incomes and education. However, with proper design and different (even offline) tools, we can ensure that everyone has the opportunity to express their views. Let's put the paper questionnaire in the library, put a QR code pointing to the questionnaire in community spaces, encourage NGOs to share the questionnaire with their clients and followers!
+
+It is also worth being aware of what data is already available on the topic you want to map. Don't ask questions that we already know the answer to or can easily find out without asking!
+
+**The questionnaire should be concise!**
+
+As a survey is conducted, new ideas on the subject emerge, and more and more details are sought. However, respondents are not as committed and may drop out if they see a longer survey. We recommend that you use no more than 6-8 worksheets in a survey. Measure the time it takes to complete a survey, **and make it no longer than 10-12 minutes!
+
+Please indicate the estimated completion time on the first worksheet of the survey. If the number of people completing the survey is far below the number of views (e.g. only one in ten views will result in a full survey completion), your survey is probably too long.
+
+Try to give a precise explanation of the tasks, highlighting the text, using emotive icons, and as concisely as possible!
+
+**Review your work!**
+
+Due to the complexity of a survey consisting of several worksheets with a series of questions and information, mistakes and typos can slip through despite all the care and attention. If the wrong questions are asked, the answers will be useless.
+
+In parallel with editing the admin interface, you should track the changes on the public interface. Changes made in the editor are updated in the public interface after saving. Once the survey has been launched, the questionnaire should only be modified if justified, as the results of the modified questions will not be comparable with the answers to the previous versions. Check the results received to see if they can be analysed and used for the intended purpose.
+
+**Prepare the structure of the incoming data!**
+
+Once you have received a sufficient number of responses and the campaign has ended, you will have to process the data received. Think in advance about the type of responses you expect, the format, interfaces and tools you plan to use to present the results.
+
+- It may be a good idea to use open-ended, expository questions, but it is not a good idea to ask more than 1 or 2 of these in a questionnaire. Open-ended questions are also more demanding for the respondents to answer, and it is much more difficult to analyse text responses when processing the data than if respondents were to choose from the options provided.
+- PARTIMAP allows for the possibility of accepting other responses from respondents to a question with a multiple-choice or a fixed number of options. This makes most open-ended questions redundant. However, at the end of the questionnaire, it is worth giving the respondent the opportunity to write down in text any aspects of the topic that were left out of the questionnaire.
+- For multiple-choice questions, it is important that the options are clear and distinguishable. The difference between "Rarely" and "Sometimes" may not be obvious to all respondents.
+- For all types of questions, it is crucial that the question asked is not suggestive and does not influence the respondents, as this will lead to biased results.
+- Do not ask two different questions within the same question and avoid similar or repetitive questions as this can also discourage respondents.
+- You can make some questions compulsory if you think the answers to them are important, but too many compulsory questions will lead to drop-out.
+- In the map interaction, you should always encourage respondents to provide meaningful textual justifications, without which you can only guess why the place on the map is marked!
+- In most cases, it is important to collect socio-demographic data (age, gender, income, education level), as this will help you to determine who your respondents were, whether they were representative of the whole population concerned or only constitute a narrow group of respondents. However, collect personal data only to the extent necessary and be clear about how it is used (in line with the terms of use). If you publish data, you should hide any personal, sensitive data (e.g. data provided in a text response, place of residence marked on a map).
+- Set target completion rates before launching the survey and track how many responses have been collected. If you fall short of the targets, make further efforts to disseminate the questionnaire.
+
+**Make your questionnaire unique and recognisable!**
+
+Under Users, you can enter a mini logo and web address for your profile, which will then appear at the top of each worksheet, indicating who the owner of the questionnaire is. You can also customise the worksheets with individual background images. Keep it simple, clean and coherent!
+
+You can also place images in the description fields, but you need to store the image on an external repository or find a copyright-free, freely usable illustration. These can make the decision more tangible for the person filling in the form.
+
+You can colour the points and lines of the static map worksheet to match the colour of your organisation. You can also add descriptions and images to the map elements, making it easier to identify the places you have marked.
+
+You can add your own url and Facebook share options to the questionnaire in the project's editor interface. This is important as the easiest way to distribute the questionnaire is through social media. If you add Facebook preview details after the questionnaire has been shared, the preview will not be updated to the one you have set. If this is the case, it should be [indicated to Facebook](https://developers.facebook.com/tools/debug/), who will then update the image and title.
+
+The questionnaire can be embedded on your website by placing the following code in the HTML code of the page, with the link to the project in the appropriate place.
 
 ```
-<embed src="https://partimap.eu/hu/p/példa" style="width:100%; height:550px;">
+<embed src="https://partimap.eu/en/p/demo" style="width:100%; height:550px;">
 ```
 
-A beágyazott elem szélessége és magassága a width és height értékével állítható.
+The width and height of the embedded element can be adjusted.
