@@ -142,7 +142,7 @@ function prepareKmlForImport(kmlString) {
 			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
 			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
 			.replace(
-				/(?<!"|<a[^<>]+>\s*)(https?:[^ <>"]+)/g,
+				/\s(https?:[^ <>"\s]+)/g,
 				'<a href="$1" target="_blank">$1</a>'
 			);
 		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
