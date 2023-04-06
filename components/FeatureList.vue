@@ -160,20 +160,20 @@ export default {
 		}),
 		filteredAdminFeatures() {
 			return this.filteredFeatures.filter(
-				(f) =>
+				f =>
 					!f.get('visitorFeature') &&
 					(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
 			);
 		},
 		filteredVisitorFeatures() {
-			return this.filteredFeatures.filter((f) => f.get('visitorFeature'));
+			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
 		},
 	},
 	watch: {
 		getSelectedFeature(f) {
 			if (f) {
 				const id = f.getId();
-				const ids = this.filteredFeatures.map((f) => f.getId());
+				const ids = this.filteredFeatures.map(f => f.getId());
 				if (!ids.includes(id)) {
 					// selected feature doesn't match current search filter
 					// it means that click was on the map, we must show the
@@ -210,20 +210,20 @@ export default {
 		updateCategories() {
 			const cats = new Set(
 				this.getAllFeatures
-					.map((f) => (f.get('category') || '').trim())
-					.filter((f) => f.length)
+					.map(f => (f.get('category') || '').trim())
+					.filter(f => f.length)
 			);
 			this.categories = Array.from(cats);
 		},
 		updateFilteredFeatures() {
 			this.filteredFeatures = this.getAllFeatures
 				.filter(
-					(f) =>
+					f =>
 						!this.categoryFilter ||
 						f.get('category') === this.categoryFilter
 				)
 				.filter(
-					(f) =>
+					f =>
 						String(f.getId() || '')
 							.toLowerCase()
 							.includes(this.search.toLowerCase()) ||
@@ -258,11 +258,11 @@ export default {
 		importKML() {
 			const input = document.createElement('input');
 			input.setAttribute('type', 'file');
-			input.addEventListener('change', (e) => {
+			input.addEventListener('change', e => {
 				const f = e.target.files[0];
 				const reader = new FileReader();
-				reader.onload = ((e) => {
-					return (e) => {
+				reader.onload = (e => {
+					return e => {
 						const kmlString = e.target.result;
 						const features = KMLToFeatures(kmlString);
 						this.$nuxt.$emit('importedFeatures', features);

@@ -2,7 +2,6 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const transformation = require('transform-coordinates');
-const AggregatedRating = require('../../model/aggregatedRating');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const i18n = require('../common/i18n');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');

@@ -51,10 +51,9 @@ export default {
 				}
 				data = nd;
 			}
+			const avg = Math.round(q.average * 10) / 10;
 			const avgText = 'number|range|rating'.includes(q.type)
-				? ` | ${this.$t('SurveyResult.averageValue')}: ${
-						Math.round(q.average * 10) / 10
-				  }`
+				? ` | ${this.$t('SurveyResult.averageValue')}: ${avg}`
 				: '';
 
 			return {

@@ -32,9 +32,9 @@ function removeProjectImageFile(project) {
 router.put(
 	'/project/:id/image',
 	ensureLoggedIn,
-	resolveRecord((req) => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr((req) => req.project.userId === req.user.id),
-	acceptImage((req) => req.project.id, 1200, 1200, 'image'),
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	acceptImage(req => req.project.id, 1200, 1200, 'image'),
 	async (req, res) => {
 		removeProjectImageFile(req.project);
 		req.project.image = req.image.replace(/^\./, ''); // make it absolute for client
@@ -47,8 +47,8 @@ router.put(
 router.delete(
 	'/project/:id',
 	ensureLoggedIn,
-	resolveRecord((req) => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr((req) => req.project.userId === req.user.id),
+	resolveRecord(req => req.params.id, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		await pdb.del(req.params.id);
 		rmrf(`./uploads/${req.project.id}`);
@@ -66,8 +66,8 @@ router.get('/projects', ensureLoggedIn, async (req, res) => {
 router.get(
 	'/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
 	ensureLoggedIn,
-	resolveRecord((req) => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
-	ensureAdminOr((req) => req.project.userId === req.user.id),
+	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		req.project.sheets = await sdb.findByProjectId(req.project.id);
 		res.json(hidePasswordField(req.project));
@@ -77,8 +77,8 @@ router.get(
 router.patch(
 	'/project',
 	ensureLoggedIn,
-	resolveRecord((req) => req.body.id, pdb.findById, 'project'),
-	ensureAdminOr((req) => req.project.userId === req.user.id),
+	resolveRecord(req => req.body.id, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
 		const changes = req.body;
 		if (!req.user.isAdmin) {
@@ -160,15 +160,15 @@ function doesSheetNeedResults(sheet) {
 }
 
 async function addResultsToProject(project) {
-	project.sheets.forEach((s) => {
+	project.sheets.forEach(s => {
 		s.answers = [];
 		s.ratings = {};
 	});
 
 	try {
 		const answers = await sadb.aggregateByProjectId(project.id);
-		project.sheets.filter(doesSheetNeedResults).forEach((s) => {
-			s.answers = answers.filter((a) => a.sheetId === s.id);
+		project.sheets.filter(doesSheetNeedResults).forEach(s => {
+			s.answers = answers.filter(a => a.sheetId === s.id);
 		});
 	} catch (error) {
 		console.error(error);
@@ -177,10 +177,10 @@ async function addResultsToProject(project) {
 	try {
 		const promises = project.sheets
 			.filter(doesSheetNeedResults)
-			.map(async (s) => {
+			.map(async s => {
 				const arr = await rdb.aggregateBySheetId(s.id);
 				const dict = {};
-				arr.forEach((ar) => {
+				arr.forEach(ar => {
 					dict[ar.featureId] = ar;
 				});
 				s.ratings = dict;
@@ -193,8 +193,8 @@ async function addResultsToProject(project) {
 
 router.post(
 	'/project/access',
-	resolveRecord((req) => req.body.projectId, pdb.findByIdOrSlug, 'project'),
-	validateCaptcha((req) => req.project.password && req.body.password),
+	resolveRecord(req => req.body.projectId, pdb.findByIdOrSlug, 'project'),
+	validateCaptcha(req => req.project.password && req.body.password),
 	(req, res, next) => {
 		const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
 		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -277,7 +277,7 @@ router.post(
 
 router.post(
 	'/view/:idOrSlug',
-	resolveRecord((req) => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
+	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
 	async (req, res) => {
 		const exp = `/p/${req.params.idOrSlug}/0`;
 		if (!req.headers.referer.endsWith(exp)) {

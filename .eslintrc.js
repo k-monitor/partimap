@@ -10,6 +10,7 @@ module.exports = {
 		'plugin:nuxt/recommended',
 		'plugin:prettier-vue/recommended',
 	],
+	ignorePatterns: ['migrations/**'],
 	parserOptions: {
 		parser: 'babel-eslint',
 	},
@@ -19,6 +20,7 @@ module.exports = {
 		'prettier-vue/prettier': [
 			'error',
 			{
+				arrowParens: 'avoid',
 				semi: true,
 				singleAttributePerLine: true,
 				singleQuote: true,
