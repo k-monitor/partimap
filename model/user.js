@@ -6,6 +6,7 @@ class User {
 	 * @param {String} data.email
 	 * @param {String} data.password
 	 * @param {String} data.name
+	 * @param {String} data.color
 	 * @param {String} data.logo
 	 * @param {String} data.website
 	 * @param {Number} data.registered
@@ -19,6 +20,7 @@ class User {
 		this.email = data.email;
 		this.password = data.password;
 		this.name = data.name;
+		this.color = data.color;
 		this.logo = data.logo;
 		this.website = data.website;
 		this.registered = data.registered || new Date().getTime();

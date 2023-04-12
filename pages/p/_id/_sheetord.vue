@@ -2,6 +2,8 @@
 	<SheetFrame
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
+		:class="{ branded: !!project.user.color }"
+		:style="`--brand: ${project.user.color}`"
 	>
 		<form
 			ref="sheetForm"

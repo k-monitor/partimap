@@ -49,7 +49,7 @@
 		</div>
 		<b-alert
 			:show="showConsent"
-			variant="primary"
+			variant="dark"
 			class="mt-4"
 		>
 			<b-form-checkbox

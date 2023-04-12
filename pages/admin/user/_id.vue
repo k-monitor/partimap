@@ -28,6 +28,31 @@
 				/>
 			</b-form-group>
 			<b-form-group
+				:label="$t('userEditor.color')"
+				:description="$t('userEditor.colorDescription')"
+			>
+				<b-button
+					v-if="!m.color"
+					variant="outline-primary"
+					@click="m.color = '#000000'"
+				>
+					{{ $t('userEditor.colorAdd') }}
+				</b-button>
+				<div v-else>
+					<b-form-input
+						v-model="m.color"
+						style="width: 100px"
+						type="color"
+					/>
+					<a
+						class="small text-danger"
+						href="javascript:void(0)"
+						@click="m.color = null"
+						>{{ $t('userEditor.colorDel') }}</a
+					>
+				</div>
+			</b-form-group>
+			<b-form-group
 				:invalid-feedback="$t('imageUpload.maxFileSize')"
 				:label="$t('userEditor.logo')"
 				:description="$t('userEditor.logoDescription')"
@@ -193,7 +218,10 @@ export default {
 	async asyncData({ $axios, params, redirect }) {
 		try {
 			const u = await $axios.$get('/api/user/' + params.id);
-			return { u, m: { ...u, newPassword: null, oldPassword: null } };
+			return {
+				u,
+				m: { ...u, newPassword: null, oldPassword: null },
+			};
 		} catch (err) {
 			redirect('/admin/users');
 		}

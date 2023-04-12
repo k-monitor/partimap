@@ -6,7 +6,7 @@ function db(drawType, icon, tooltip, variant) {
 
 const _buttons = [
 	db('Point', 'fa-map-marker-alt', 'Pont felrajzolása', 'danger'),
-	db('LineString', 'fa-route', 'Vonal felrajzolása', 'primary'),
+	db('LineString', 'fa-route', 'Vonal felrajzolása', 'blue'),
 	db('Polygon', 'fa-draw-polygon', 'Terület felrajzolása', 'success'),
 	db('', 'fa-times', 'Mégsem', 'warning'),
 ];
