@@ -45,7 +45,7 @@
 						type="color"
 					/>
 					<a
-						class="text-danger"
+						class="small text-danger"
 						href="javascript:void(0)"
 						@click="m.color = null"
 						>{{ $t('userEditor.colorDel') }}</a

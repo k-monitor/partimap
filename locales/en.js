@@ -248,7 +248,7 @@ export default {
 		colorAdd: 'Set color',
 		colorDel: 'Unset color (to default)',
 		colorDescription:
-			'This will be the color of the buttons in the survey. Default is the blue of Partimap.',
+			'This will be the color of the buttons and links in the survey. Default is the blue of Partimap.',
 		deleteConfirmation:
 			"<strong>You are about to permanently delete your account. Are you sure?</strong> I'm sure, delete my account <strong>{email}</strong> with all its data (photos, maps, projects). This action is permanent and irreversible.",
 		deleteUser: 'Delete account',

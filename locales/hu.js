@@ -242,7 +242,7 @@ export default {
 		colorAdd: 'Szín beállítása',
 		colorDel: 'Szín törlése (alapértelmezés)',
 		colorDescription:
-			'A kérdőív vezérlőgombjainak színét lehet itt beállítani. Az alapértelmezés a Partimap kékje.',
+			'A kérdőív vezérlőgombjainak és linkjeinek színét lehet itt beállítani. Az alapértelmezés a Partimap kékje.',
 		confirmDeleteUser: 'Fiók törlése',
 		deleteConfirmation:
 			'<strong>Jól meggondoltam,</strong> törlöm a(z) <strong>{email}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).',

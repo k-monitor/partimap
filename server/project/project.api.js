@@ -268,6 +268,7 @@ router.post(
 		await addResultsToProject(req.project);
 
 		req.project.user = {
+			color: user.color,
 			logo: user.logo,
 			website: user.website,
 		};
