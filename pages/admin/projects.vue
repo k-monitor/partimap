@@ -100,6 +100,7 @@ export default {
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
 		const projects = await $axios.$get('/api/projects');
+		projects.sort((a, b) => b.id - a.id);
 		return { projects };
 	},
 	data() {
