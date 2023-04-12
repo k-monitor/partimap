@@ -97,39 +97,52 @@
 				<div
 					v-for="sheet in sheets"
 					:key="sheet.ord"
-					class="align-items-center d-flex list-group-item"
+					class="align-items-center d-flex flex-wrap list-group-item px-2"
+					style="gap: 0.5rem"
 				>
-					<i
-						:class="sheetIcon(sheet)"
-						class="fas fa-fw mr-3"
-					/>
-					<span class="mr-3">{{ sheet.ord + 1 }}.</span>
-					<div>
-						<NuxtLink
-							:to="
-								localePath(
-									'/admin/project/' +
-										projectId +
-										'/sheet/' +
-										sheet.ord
-								)
-							"
-							class="font-weight-bold mr-2"
+					<div class="d-flex">
+						<i
+							:class="sheetIcon(sheet)"
+							class="fas fa-fw mr-3 mt-1"
+						/>
+						<span class="d-none d-lg-block mr-3"
+							>{{ sheet.ord + 1 }}.</span
 						>
-							{{ sheet.title }}
-						</NuxtLink>
-						<span v-if="sheet.submittedFeatureCount">
-							<br />
-							{{ $t('ProjectSheetManager.submittedFeatures') }}:
-							{{ sheet.submittedFeatureCount }}
-							<a
-								href="javascript:void(0)"
-								@click.prevent="submittedFeaturesToMap(sheet)"
-								>{{ $t('ProjectSheetManager.sendToMap') }}</a
+						<div>
+							<NuxtLink
+								:to="
+									localePath(
+										'/admin/project/' +
+											projectId +
+											'/sheet/' +
+											sheet.ord
+									)
+								"
+								class="font-weight-bold mr-2"
 							>
-						</span>
+								{{ sheet.title }}
+							</NuxtLink>
+							<span
+								v-if="sheet.submittedFeatureCount"
+								class="d-flex flex-wrap"
+							>
+								{{
+									$t('ProjectSheetManager.submittedFeatures')
+								}}:
+								{{ sheet.submittedFeatureCount }}
+								<a
+									href="javascript:void(0)"
+									@click.prevent="
+										submittedFeaturesToMap(sheet)
+									"
+									>{{
+										$t('ProjectSheetManager.sendToMap')
+									}}</a
+								>
+							</span>
+						</div>
 					</div>
-					<div class="ml-auto">
+					<div class="d-flex ml-auto">
 						<span
 							v-if="sheet.ord"
 							class="mr-3"
