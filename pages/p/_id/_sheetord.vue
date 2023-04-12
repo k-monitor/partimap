@@ -1,7 +1,11 @@
 <template>
+	<!-- TODO make ".brand" class dynamic below (2 instances!) -->
+	<!-- TODO make "--brand" value dynamic below (2 instances!) -->
 	<SheetFrame
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
+		:class="{ branded: true }"
+		style="--brand: red"
 	>
 		<form
 			ref="sheetForm"
@@ -137,6 +141,8 @@
 	<div
 		v-else
 		class="container d-flex flex-column flex-grow-1"
+		:class="{ branded: true }"
+		style="--brand: red"
 	>
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">

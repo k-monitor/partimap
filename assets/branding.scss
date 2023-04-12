@@ -1,0 +1,118 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+.branded {
+
+	/*.alert-primary {
+		background-color: $gray-200 !important;
+		border-color: $gray-400 !important;
+		color: $gray-800 !important;
+	}*/
+
+	.bg-primary {
+		background-color: var(--brand) !important;
+	}
+
+	.btn-primary {
+		position: relative;
+
+		&,
+		&:active,
+		&.active,
+		&:disabled,
+		&.disabled,
+		&:focus,
+		&.focus,
+		&:hover {
+			background-color: var(--brand) !important;
+			border-color: var(--brand) !important;
+			box-shadow: none !important;
+		}
+
+		&:disabled,
+		&.disabled {
+			opacity: .65;
+		}
+
+		&:hover::after {
+			background: black;
+			content: '';
+			display: block;
+			height: 100%;
+			left: 0;
+			opacity: 0.1;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		&:active::after,
+		&.active::after,
+		&:focus::after,
+		&.focus::after {
+			background: black;
+			content: '';
+			display: block;
+			height: 100%;
+			left: 0;
+			opacity: 0.2;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+	}
+
+	.custom-control-input:focus ~ .custom-control-label::before {
+		box-shadow: none !important;
+		border-color: var(--brand);
+	}
+
+	.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+		border-color: var(--brand);
+	}
+
+	.custom-control-input:checked ~ .custom-control-label::before {
+		background-color: var(--brand);
+		border-color: var(--brand);
+	}
+
+	.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+		background-color: var(--brand);
+		border-color: var(--brand);
+		opacity: 0.5;
+	}
+
+	input,
+	select {
+		box-shadow: none !important;
+
+		&:active,
+		&.active,
+		&:focus,
+		&.focus
+		&:hover {
+			border-color: unset;
+		}
+	}
+
+	input[type=range]::-moz-range-thumb {
+		background-color: var(--brand);
+	}
+
+	input[type=range]::-webkit-slider-thumb {
+		background-color: var(--brand);
+	}
+
+	.logo {
+		filter: grayscale(1);
+	}
+
+	.alert-primary a,
+	.rich a,
+	.text-primary {
+		color: var(--brand) !important;
+	}
+}
+
