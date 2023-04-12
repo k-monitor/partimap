@@ -2,17 +2,19 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
 
+.alert-dark {
+	background-color: $gray-200 !important;
+	border-color: $gray-400 !important;
+	color: $gray-800 !important;
+}
+
 .btn-blue {
+	// This has to remain the old primary Bootstrap-blue.
 	@include button-variant($primary, $primary);
 }
 
 .branded {
 
-	/*.alert-primary {
-		background-color: $gray-200 !important;
-		border-color: $gray-400 !important;
-		color: $gray-800 !important;
-	}*/
 
 	.bg-primary {
 		background-color: var(--brand) !important;
