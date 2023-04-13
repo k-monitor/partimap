@@ -168,6 +168,9 @@ export default {
 				return this.getVisitorAnswers(this.sheet.id);
 			},
 			set(answers) {
+				Object.entries(answers)
+					.filter(([k, v]) => v === null)
+					.forEach(([k]) => delete answers[k]);
 				const payload = {
 					answers,
 					sheetId: this.sheet.id,

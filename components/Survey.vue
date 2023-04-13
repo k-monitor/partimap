@@ -16,7 +16,7 @@
 					<span
 						v-if="
 							answers[q.id] &&
-							'dropdown|radiogroup|range|singleChoiceMatrix'.includes(
+							'dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(
 								q.type
 							)
 						"
