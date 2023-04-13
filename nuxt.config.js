@@ -125,7 +125,7 @@ export default {
 			});
 		},
 		postcss: null,
-		transpile: ['ol', ({ isServer }) => 'vue-typeahead-bootstrap'],
+		transpile: ['defu', 'ol', ({ isServer }) => 'vue-typeahead-bootstrap'],
 	},
 
 	serverMiddleware: {

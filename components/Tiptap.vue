@@ -95,6 +95,13 @@
 				>
 					<i class="fas fa-fw fa-image" />
 				</b-button>
+				<b-button
+					size="sm"
+					variant="light"
+					@click="addYoutube"
+				>
+					<i class="fab fa-fw fa-youtube" />
+				</b-button>
 			</div>
 			<div class="border-bottom px-1">
 				<b-button
@@ -123,6 +130,7 @@
 import { Editor, EditorContent } from '@tiptap/vue-2';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
+import Youtube from '@tiptap/extension-youtube';
 import StarterKit from '@tiptap/starter-kit';
 
 export default {
@@ -165,6 +173,10 @@ export default {
 				Link.configure({
 					openOnClick: false,
 				}),
+				Youtube.configure({
+					height: 225,
+					width: 300,
+				}),
 			],
 			onUpdate: () => {
 				this.$emit('input', this.editor.getHTML());
@@ -180,9 +192,15 @@ export default {
 
 	methods: {
 		addImage() {
-			const url = window.prompt('URL');
-			if (url) {
-				this.editor.chain().focus().setImage({ src: url }).run();
+			const src = window.prompt('URL');
+			if (src) {
+				this.editor.chain().focus().setImage({ src }).run();
+			}
+		},
+		addYoutube() {
+			const src = window.prompt('YouTube video URL');
+			if (src) {
+				this.editor.commands.setYoutubeVideo({ src });
 			}
 		},
 		setLink() {
