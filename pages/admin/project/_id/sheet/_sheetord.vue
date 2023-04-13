@@ -309,9 +309,11 @@ export default {
 		this.$nuxt.$on('contentModified', () => {
 			this.contentModified = true;
 		});
+		this.$nuxt.$on('toggleLoading', value => (this.loading = value));
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('contentModified');
+		this.$nuxt.$off('toggleLoading');
 	},
 	mounted() {
 		this.$store.commit('selected/clear');

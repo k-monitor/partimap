@@ -249,13 +249,16 @@ export default {
 			this.categoryFilter = this.categoryFilter === c ? '' : c;
 		},
 		exportKML() {
+			this.$nuxt.$emit('toggleLoading', true);
 			const kml = featuresToKML(this.getAllFeatures);
 			const blob = new Blob([kml], {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
+			this.$nuxt.$emit('toggleLoading', false);
 			saveAs(blob, 'partimap.kml');
 		},
 		importKML() {
+			this.$nuxt.$emit('toggleLoading', true);
 			const input = document.createElement('input');
 			input.setAttribute('type', 'file');
 			input.addEventListener('change', e => {
@@ -266,6 +269,7 @@ export default {
 						const kmlString = e.target.result;
 						const features = KMLToFeatures(kmlString);
 						this.$nuxt.$emit('importedFeatures', features);
+						this.$nuxt.$emit('toggleLoading', false);
 					};
 				})(f);
 				reader.readAsText(f);
