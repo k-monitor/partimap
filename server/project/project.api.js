@@ -8,6 +8,7 @@ const slugify = require('slugify');
 const Project = require('../../model/project');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { hidePasswordField } = require('../common/functions');
+const i18n = require('../common/i18n');
 const {
 	acceptImage,
 	resolveRecord,
@@ -138,8 +139,11 @@ router.put('/project', ensureLoggedIn, async (req, res) => {
 	}
 	project.slug = await generateValidSlug(project.slug || project.title);
 
-	const id = await pdb.create(project);
-	project = await pdb.findById(id);
+	const projectId = await pdb.create(project);
+	project = await pdb.findById(projectId);
+
+	const title = i18n(project.lang || 'hu').newProject.newSheetTitle;
+	await sdb.create({ projectId, title });
 
 	res.json(hidePasswordField(project));
 });
