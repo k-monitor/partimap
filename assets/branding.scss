@@ -112,8 +112,12 @@
 		background-color: var(--brand);
 	}
 
-	.logo {
-		filter: grayscale(1);
+	.logo img:first-of-type {
+		display: none !important;
+	}
+
+	.logo img:nth-of-type(2) {
+		display: block !important;
 	}
 
 	.alert-primary a,

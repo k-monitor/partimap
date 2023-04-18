@@ -5,6 +5,12 @@
 			alt="Partimap"
 			height="30"
 		/>
+		<img
+			src="/logo-black.png"
+			alt="Partimap"
+			height="30"
+			style="display: none"
+		/>
 	</div>
 </template>
 
