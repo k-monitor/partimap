@@ -43,7 +43,10 @@
 			</div>
 		</section>
 
-		<section class="bg-white py-5">
+		<section
+			v-if="$i18n.locale === 'hu'"
+			class="bg-white py-5"
+		>
 			<div class="bg-primary container p-4 text-justify text-white">
 				<h4 class="mb-4 w-100">{{ $t('landing.methodTitle') }}</h4>
 				<p class="mb-4">{{ $t('landing.methodDesc') }}</p>
