@@ -348,7 +348,7 @@ export default {
 	},
 	PublicFrame: {
 		contactUs: 'Írj nekünk!',
-		help: 'Hogyan működik',
+		help: 'Hogyan működik?',
 		helpTooltip: 'Hogyan működik?',
 		login: 'Belépés',
 		kmonitorUrl: 'https://k-monitor.hu/hu',
