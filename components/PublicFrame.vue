@@ -37,8 +37,22 @@
 		<slot />
 
 		<footer class="bg-dark mt-auto py-3 text-white">
-			<div class="container d-flex">
-				<div>
+			<div class="container d-flex flex-wrap align-items-center">
+				<div
+					id="contactus"
+					class="mb-4 mb-md-0 d-flex flex-grow-1 align-items-center justify-content-center"
+				>
+					{{ $t('PublicFrame.contactUs') }}
+					<a
+						class="font-weight-bold text-white ml-2"
+						href="mailto:hello@partimap.hu"
+						>hello@partimap.hu</a
+					>
+				</div>
+				<div
+					id="logos"
+					class="d-flex align-items-center mx-auto"
+				>
 					<a
 						class="mr-3"
 						:href="$t('PublicFrame.kmonitorUrl')"
@@ -51,7 +65,7 @@
 						/>
 					</a>
 					<a
-						class="mr-3"
+						class="mr-4"
 						href="https://www.deepdata.hu/"
 						target="_blank"
 					>
@@ -61,8 +75,6 @@
 							height="31"
 						/>
 					</a>
-				</div>
-				<div class="ml-auto">
 					<a
 						class="text-white"
 						href="https://github.com/k-monitor/partimap"
@@ -75,3 +87,20 @@
 		</footer>
 	</div>
 </template>
+
+<style lang="scss">
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+
+#contactus {
+	width: 100%;
+}
+
+@include media-breakpoint-up(md) {
+	#contactus {
+		justify-content: start !important;
+		width: auto;
+	}
+}
+</style>
