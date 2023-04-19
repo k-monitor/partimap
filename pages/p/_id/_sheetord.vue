@@ -189,8 +189,9 @@ export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
 	},
-	async asyncData({ $axios, store, params, redirect }) {
-		if (params.sheetord > 0 && !store.state.visitId) {
+	async asyncData({ $auth, $axios, params, redirect, route, store }) {
+		const forcedSheetOrd = $auth.user && !!route.query.force;
+		if (params.sheetord > 0 && !store.state.visitId && !forcedSheetOrd) {
 			// before visitId generation, so it's a manual navigation
 			return redirect(`/p/${params.id}/0`);
 		}
