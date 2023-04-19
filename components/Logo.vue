@@ -6,7 +6,7 @@
 			height="30"
 		/>
 		<img
-			src="/logo-black.png"
+			src="/logo-black.svg"
 			alt="Partimap"
 			height="30"
 			style="display: none"
