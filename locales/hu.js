@@ -243,6 +243,7 @@ export default {
 		colorDel: 'Szín törlése (alapértelmezés)',
 		colorDescription:
 			'A kérdőív vezérlőgombjainak és linkjeinek színét lehet itt beállítani. Az alapértelmezés a PARTIMAP kékje.',
+		colorTooBright: 'Ez a szín túl világos!',
 		confirmDeleteUser: 'Fiók törlése',
 		deleteConfirmation:
 			'<strong>Jól meggondoltam,</strong> törlöm a(z) <strong>{email}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).',

@@ -39,11 +39,18 @@
 					{{ $t('userEditor.colorAdd') }}
 				</b-button>
 				<div v-else>
-					<b-form-input
-						v-model="m.color"
-						style="width: 100px"
-						type="color"
-					/>
+					<div class="d-flex align-items-center">
+						<b-form-input
+							v-model="m.color"
+							style="width: 100px; min-width: 100px"
+							type="color"
+						/>
+						<span
+							v-if="isTooBright"
+							class="font-weight-bold text-danger ml-3"
+							>{{ $t('userEditor.colorTooBright') }}</span
+						>
+					</div>
 					<a
 						class="small text-danger"
 						href="javascript:void(0)"
@@ -213,6 +220,8 @@
 </template>
 
 <script>
+import tinycolor from 'tinycolor2';
+
 export default {
 	middleware: ['auth'],
 	async asyncData({ $axios, params, redirect }) {
@@ -239,6 +248,15 @@ export default {
 		return {
 			title: 'Admin: ' + (this.u.name || this.u.email),
 		};
+	},
+	computed: {
+		isTooBright() {
+			if (!this.m.color) return false;
+			const cr =
+				(0.05 + tinycolor('white').getLuminance()) /
+				(0.05 + tinycolor(this.m.color).getLuminance());
+			return cr < 4.5; // WCAG AA
+		},
 	},
 	watch: {
 		image(val) {
