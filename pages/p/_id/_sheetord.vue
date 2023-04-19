@@ -45,6 +45,7 @@
 					</div>
 				</template>
 				<SheetContent
+					:brand-color="project.user.color"
 					:project="project"
 					:results="resultsShown"
 					:sheet="sheet"
@@ -105,6 +106,7 @@
 					</b-navbar>
 
 					<SheetContent
+						:brand-color="project.user.color"
 						class="mb-3"
 						hide-title
 						:project="project"

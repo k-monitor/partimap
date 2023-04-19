@@ -17,6 +17,10 @@ import { OTHER_ANSWER } from '../assets/constants';
 
 export default {
 	props: {
+		brandColor: {
+			type: String,
+			default: null,
+		},
 		data: {
 			type: Array,
 			default: () => [],
@@ -60,6 +64,7 @@ export default {
 				chart: {
 					type: 'number|range'.includes(q.type) ? 'column' : 'bar',
 				},
+				colors: [this.brandColor || '#007bff'],
 				credits: { enabled: false },
 				legend: { enabled: false },
 				series: [{ data }],

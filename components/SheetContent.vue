@@ -16,7 +16,10 @@
 		>
 			<div v-if="results">
 				<client-only>
-					<SurveyResults :data="sheet.answers" />
+					<SurveyResults
+						:brand-color="brandColor"
+						:data="sheet.answers"
+					/>
 				</client-only>
 			</div>
 			<div v-else>
@@ -111,6 +114,10 @@ import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
 	props: {
+		brandColor: {
+			type: String,
+			default: null,
+		},
 		hideTitle: {
 			type: Boolean,
 			default: false,
