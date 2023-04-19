@@ -2,7 +2,7 @@
 	<div class="overflow-auto">
 		<div class="matrix text-center w-100">
 			<div class="d-flex w-100">
-				<div class="matrix-cell" />
+				<div class="matrix-cell">&nbsp;</div>
 				<div
 					v-for="column in question.columns"
 					:key="column"
@@ -62,11 +62,12 @@ export default {
 
 .matrix .matrix-cell {
 	flex: 1 1 auto;
-	min-width: 90px;
 	max-width: 90px;
+	min-width: 68px;
 }
 
 .matrix .matrix-cell:first-of-type {
 	max-width: unset;
+	min-width: 90px;
 }
 </style>
