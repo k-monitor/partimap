@@ -1,12 +1,12 @@
 <template>
 	<div class="overflow-auto">
-		<div class="matrix border-collapse d-table text-center">
-			<div class="d-table-row">
-				<div class="d-table-cell" />
+		<div class="matrix text-center w-100">
+			<div class="d-flex w-100">
+				<div class="matrix-cell">&nbsp;</div>
 				<div
 					v-for="column in question.columns"
 					:key="column"
-					class="align-middle d-table-cell p-1 small text-break"
+					class="matrix-cell align-items-center d-flex justify-content-center p-1 small text-break"
 				>
 					{{ column }}
 				</div>
@@ -60,8 +60,13 @@ export default {
 	border-collapse: collapse;
 }
 
-.matrix .d-table-cell {
+.matrix .matrix-cell {
+	flex: 1 1 auto;
 	min-width: 90px;
 	max-width: 90px;
+}
+
+.matrix .matrix-cell:first-of-type {
+	max-width: unset;
 }
 </style>
