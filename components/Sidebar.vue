@@ -16,7 +16,7 @@
 			sidebar-class="border-right border-secondary"
 			width="360px"
 		>
-			<template #header="{ hide }">
+			<template #header="{ hide: sbhide }">
 				<b-navbar
 					type="light"
 					class="border-bottom justify-content-between shadow-sm w-100"
@@ -60,7 +60,7 @@
 							v-if="!fixed"
 							v-b-tooltip.hover
 							:title="$t('Sidebar.hide')"
-							@click="hide"
+							@click="sbhide"
 						>
 							<i class="fas fa-fw fa-angle-double-left" />
 						</b-nav-item>
@@ -78,6 +78,7 @@
 					<FooterButtons
 						:disable-save="!contentModified"
 						:disable-submit="!contentModified"
+						:project-id="project?.slug"
 						:show-next="showNext"
 						:show-prev="showPrev"
 						:show-save="admin"
@@ -124,7 +125,7 @@ export default {
 			default: false,
 		},
 		project: {
-			// needed for logo
+			// needed for logo and preview button
 			type: Object,
 			default: null,
 		},

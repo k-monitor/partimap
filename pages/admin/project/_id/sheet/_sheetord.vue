@@ -20,8 +20,10 @@
 			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
+			:project="project"
 			:show-next="!isLastSheet"
 			show-prev
+			:step="sheet.ord + 1"
 			@back="back"
 			@next="next"
 			@prev="prev"
