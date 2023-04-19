@@ -2,7 +2,7 @@
 	<div class="overflow-auto">
 		<div class="matrix text-center w-100">
 			<div class="d-flex w-100">
-				<div class="matrix-cell">&nbsp;</div>
+				<div class="matrix-cell" />
 				<div
 					v-for="column in question.columns"
 					:key="column"
