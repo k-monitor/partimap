@@ -45,7 +45,7 @@
 				title=""
 			>
 				<i
-					class="fa-fw fa-2x"
+					class="fa-fw fa-2x share-icon"
 					:class="s.icon"
 				/>
 			</ShareNetwork>
@@ -100,7 +100,7 @@
 				title=""
 			>
 				<i
-					class="fa-fw fa-2x"
+					class="fa-fw fa-2x share-icon"
 					:class="s.icon"
 				/>
 			</ShareNetwork>
