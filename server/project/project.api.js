@@ -1,5 +1,6 @@
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
+const copydir = require('copy-dir');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
@@ -122,6 +123,42 @@ router.patch(
 		project = await pdb.findById(project.id);
 		project.sheets = await sdb.findByProjectId(project.id);
 		res.json(hidePasswordField(project));
+	}
+);
+
+router.put(
+	'/project/clone',
+	ensureLoggedIn,
+	resolveRecord(req => req.body.id, pdb.findById, 'project'),
+	ensureAdminOr(req => req.project.userId === req.user.id),
+	async (req, res) => {
+		if (req.body.title) req.project.title = req.body.title;
+		req.project.slug = await generateValidSlug(req.project.title);
+		req.project.views = 0;
+
+		const oldId = req.project.id;
+		const id = await pdb.create(req.project);
+
+		const oldDir = `./uploads/${oldId}`;
+		if (fs.existsSync(oldDir)) {
+			copydir.sync(oldDir, `./uploads/${id}`);
+		}
+
+		const project = await pdb.findById(id);
+		if (project.image) {
+			project.image = project.image.replace(`/${oldId}/`, `/${id}/`);
+			await pdb.update(project);
+		}
+
+		const sheets = await sdb.findByProjectId(oldId);
+		for (let i = 0; i < sheets.length; i++) {
+			const s = sheets[i];
+			s.projectId = id;
+			if (s.image) s.image = s.image.replace(`/${oldId}/`, `/${id}/`);
+			await sdb.create(s);
+		}
+
+		res.json(id);
 	}
 );
 
