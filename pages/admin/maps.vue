@@ -122,7 +122,10 @@ export default {
 		async clone(map) {
 			try {
 				this.loading = true;
-				await this.$axios.$put('/api/map/clone', { id: map.id });
+				await this.$axios.$put('/api/map/clone', {
+					id: map.id,
+					title: `${map.title} ${new Date().toLocaleString()}`,
+				});
 				this.maps = await this.$axios.$get('/api/maps');
 			} catch (error) {
 				this.errorToast(this.$t('maps.creationFailed'));

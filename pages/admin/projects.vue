@@ -144,6 +144,7 @@ export default {
 				this.loading = true;
 				await this.$axios.$put('/api/project/clone', {
 					id: project.id,
+					title: `${project.title} ${new Date().toLocaleString()}`,
 				});
 				this.projects = await this.$axios.$get('/api/projects');
 			} catch (error) {
