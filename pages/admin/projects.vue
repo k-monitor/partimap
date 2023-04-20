@@ -69,15 +69,18 @@
 				>
 			</ListItem>
 		</div>
+		<LoadingOverlay :show="loading" />
 	</AdminFrame>
 </template>
 
 <script>
 import ListItem from '../../components/ListItem.vue';
+import LoadingOverlay from '../../components/LoadingOverlay.vue';
 
 export default {
 	components: {
 		ListItem,
+		LoadingOverlay,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
@@ -88,6 +91,7 @@ export default {
 	data() {
 		return {
 			filter: '',
+			loading: false,
 			newProjectTitle: null,
 			projects: [],
 			filterOwn: false,
@@ -137,10 +141,13 @@ export default {
 			const confirmed = await this.confirmDeletion(project.title);
 			if (confirmed) {
 				try {
+					this.loading = true;
 					await this.$axios.$delete('/api/project/' + project.id);
 					this.projects = await this.$axios.$get('/api/projects');
 				} catch (error) {
 					this.errorToast(this.$t('projects.deletionFailed'));
+				} finally {
+					this.loading = false;
 				}
 			}
 		},

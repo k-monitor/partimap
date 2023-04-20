@@ -59,15 +59,18 @@
 				@del="del(m)"
 			/>
 		</div>
+		<LoadingOverlay :show="loading" />
 	</AdminFrame>
 </template>
 
 <script>
 import ListItem from '../../components/ListItem.vue';
+import LoadingOverlay from '../../components/LoadingOverlay.vue';
 
 export default {
 	components: {
 		ListItem,
+		LoadingOverlay,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
@@ -77,6 +80,7 @@ export default {
 	data() {
 		return {
 			filter: '',
+			loading: false,
 			newMapTitle: null,
 			maps: [],
 			filterOwn: false,
@@ -116,10 +120,13 @@ export default {
 			const confirmed = await this.confirmDeletion(map.title);
 			if (confirmed) {
 				try {
+					this.loading = true;
 					await this.$axios.$delete('/api/map/' + map.id);
 					this.maps = await this.$axios.$get('/api/maps');
 				} catch (error) {
 					this.errorToast(this.$t('maps.deleteFailed'));
+				} finally {
+					this.loading = false;
 				}
 			}
 		},
