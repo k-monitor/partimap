@@ -94,7 +94,7 @@ export default {
 	},
 	computed: {
 		filteredMaps() {
-			return this.maps.filter(m => {
+			const maps = this.maps.filter(m => {
 				const f = this.filter.toLowerCase();
 				const t = m.title.toLowerCase();
 				const d = (m.description || '').toLowerCase();
@@ -104,6 +104,8 @@ export default {
 				// eslint-disable-next-line no-unreachable
 				return t.includes(f) || d.includes(f);
 			});
+			maps.sort((a, b) => b.id - a.id);
+			return maps;
 		},
 	},
 	methods: {

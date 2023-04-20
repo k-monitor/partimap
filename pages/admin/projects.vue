@@ -86,7 +86,6 @@ export default {
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
 		const projects = await $axios.$get('/api/projects');
-		projects.sort((a, b) => b.id - a.id);
 		return { projects };
 	},
 	data() {
@@ -105,7 +104,7 @@ export default {
 	},
 	computed: {
 		filteredProjects() {
-			return this.projects.filter(p => {
+			const projects = this.projects.filter(p => {
 				if (p.lang !== this.$i18n.locale) {
 					return false;
 				}
@@ -119,6 +118,8 @@ export default {
 				// eslint-disable-next-line no-unreachable
 				return t.includes(f) || d.includes(f);
 			});
+			projects.sort((a, b) => b.id - a.id);
+			return projects;
 		},
 	},
 	methods: {
