@@ -54,6 +54,18 @@ router.patch(
 	}
 );
 
+router.put(
+	'/map/clone',
+	ensureLoggedIn,
+	resolveRecord(req => req.body.id, db.findById, 'map'),
+	ensureAdminOr(req => req.map.userId === req.user.id),
+	async (req, res) => {
+		if (req.body.title) req.map.title = req.body.title;
+		const id = await db.create(req.map);
+		res.json(id);
+	}
+);
+
 router.put('/map', ensureLoggedIn, async (req, res) => {
 	let map = new Map(req.body);
 	if (!map.title) {
