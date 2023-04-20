@@ -10,7 +10,7 @@ module.exports = {
 		body: '<p><b>Hey there, {user}!</p><p>You can set a new password for your Partimap account by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, request a password change again.</p>',
 	},
 	newProject: {
-		newSheetTitle: 'New text sheet',
+		newSheetTitle: 'Survey objectives',
 	},
 	report: {
 		aggregatedRating: 'Aggregated ratings',

@@ -10,7 +10,7 @@ module.exports = {
 		body: '<p><b>Kedves {user}!</p><p>A Partimap fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>',
 	},
 	newProject: {
-		newSheetTitle: 'Új szöveges munkalap',
+		newSheetTitle: 'A felmérés célja',
 	},
 	report: {
 		aggregatedRating: 'Összesített értékelése',
