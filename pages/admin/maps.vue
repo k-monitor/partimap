@@ -50,43 +50,25 @@
 			</div>
 		</div>
 		<div class="list-group">
-			<div
+			<ListItem
 				v-for="m in filteredMaps"
 				:key="m.id"
-				class="align-items-center d-flex list-group-item"
-			>
-				<NuxtLink
-					:to="localePath('/admin/map/' + m.id)"
-					class="font-weight-bold mr-2"
-				>
-					{{ m.title }}
-				</NuxtLink>
-				<span
-					v-if="m.userId != $auth.user.id"
-					class="badge badge-warning"
-				>
-					{{ $t('maps.owner') }}: #{{ m.userId }}
-				</span>
-				<span
-					v-else-if="$auth.user.isAdmin"
-					class="badge badge-info"
-				>
-					{{ $t('maps.own') }}
-				</span>
-				<span
-					class="ml-auto text-danger"
-					role="button"
-					@click.prevent="del(m)"
-				>
-					<i class="fas fa-trash" />
-				</span>
-			</div>
+				:link="localePath('/admin/map/' + m.id)"
+				:title="m.title"
+				:user-id="m.userId"
+				@del="del(m)"
+			/>
 		</div>
 	</AdminFrame>
 </template>
 
 <script>
+import ListItem from '../../components/ListItem.vue';
+
 export default {
+	components: {
+		ListItem,
+	},
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
 		const maps = await $axios.$get('/api/maps');

@@ -50,53 +50,35 @@
 			</div>
 		</div>
 		<div class="list-group">
-			<div
+			<ListItem
 				v-for="p in filteredProjects"
 				:key="p.id"
-				class="align-items-center d-flex list-group-item"
+				:link="localePath('/admin/project/' + p.id)"
+				:title="p.title"
+				:user-id="p.userId"
+				@del="del(p)"
 			>
-				<div>
-					<NuxtLink
-						:to="localePath('/admin/project/' + p.id)"
-						class="font-weight-bold mr-2"
-					>
-						{{ p.title }}
-					</NuxtLink>
-					<span
-						v-if="p.userId != $auth.user.id"
-						class="badge badge-warning"
-					>
-						{{ $t('projects.owner') }}: #{{ p.userId }}
-					</span>
-					<span
-						v-else-if="$auth.user.isAdmin"
-						class="badge badge-info"
-						>Saját</span
-					>
-					<br />
-					{{ $t('projects.views') }}: {{ p.views }},
-					{{ $t('projects.submissions') }}: {{ p.submissions }}
-					<a
-						v-if="p.submissions"
-						:href="`/api/submission/export/${$i18n.locale}/${p.id}`"
-						target="_blank"
-						>{{ $t('projects.export') }}</a
-					>
-				</div>
-				<span
-					class="ml-auto text-danger"
-					role="button"
-					@click.prevent="del(p)"
+				<br />
+				{{ $t('projects.views') }}: {{ p.views }},
+				{{ $t('projects.submissions') }}: {{ p.submissions }}
+				<a
+					v-if="p.submissions"
+					:href="`/api/submission/export/${$i18n.locale}/${p.id}`"
+					target="_blank"
+					>{{ $t('projects.export') }}</a
 				>
-					<i class="fas fa-trash" />
-				</span>
-			</div>
+			</ListItem>
 		</div>
 	</AdminFrame>
 </template>
 
 <script>
+import ListItem from '../../components/ListItem.vue';
+
 export default {
+	components: {
+		ListItem,
+	},
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
 		const projects = await $axios.$get('/api/projects');
