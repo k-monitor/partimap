@@ -56,6 +56,7 @@
 				:link="localePath('/admin/project/' + p.id)"
 				:title="p.title"
 				:user-id="p.userId"
+				@clone="clone(p)"
 				@del="del(p)"
 			>
 				<br />
@@ -135,6 +136,19 @@ export default {
 				this.$router.push(this.localePath(`/admin/project/${id}`));
 			} catch (error) {
 				this.errorToast(this.$t('projects.creationFailed'));
+			}
+		},
+		async clone(project) {
+			try {
+				this.loading = true;
+				await this.$axios.$put('/api/project/clone', {
+					id: project.id,
+				});
+				this.projects = await this.$axios.$get('/api/projects');
+			} catch (error) {
+				this.errorToast(this.$t('projects.creationFailed'));
+			} finally {
+				this.loading = false;
 			}
 		},
 		async del(project) {

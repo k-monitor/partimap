@@ -56,6 +56,7 @@
 				:link="localePath('/admin/map/' + m.id)"
 				:title="m.title"
 				:user-id="m.userId"
+				@clone="clone(m)"
 				@del="del(m)"
 			/>
 		</div>
@@ -114,6 +115,17 @@ export default {
 				this.$router.push(this.localePath(`/admin/map/${id}`));
 			} catch (error) {
 				this.errorToast(this.$t('maps.creationFailed'));
+			}
+		},
+		async clone(map) {
+			try {
+				this.loading = true;
+				await this.$axios.$put('/api/map/clone', { id: map.id });
+				this.maps = await this.$axios.$get('/api/maps');
+			} catch (error) {
+				this.errorToast(this.$t('maps.creationFailed'));
+			} finally {
+				this.loading = false;
 			}
 		},
 		async del(map) {
