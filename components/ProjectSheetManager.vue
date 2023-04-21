@@ -7,91 +7,12 @@
 					class="float-right"
 					variant="success"
 					type="button"
+					@click="openNewSheetModal"
 				>
 					{{ $t('ProjectSheetManager.addSheet') }}
 				</b-button>
-				<b-modal
-					id="create-sheet-modal"
-					ref="modal"
-					:title="$t('ProjectSheetManager.title')"
-					:cancel-title="$t('ProjectSheetManager.cancel')"
-					ok-variant="success"
-					@show="resetModal"
-					@shown="$refs.sheetNameInput.focus()"
-					@hidden="resetModal"
-					@ok="handleOk"
-				>
-					<form
-						ref="form"
-						@submit.stop.prevent="handleSubmit"
-					>
-						<b-form-group
-							:label="$t('ProjectSheetManager.sheetName')"
-							:invalid-feedback="
-								$t('ProjectSheetManager.sheetNameRequired')
-							"
-							:state="nameState"
-						>
-							<b-form-input
-								ref="sheetNameInput"
-								v-model="newSheetTitle"
-								:state="nameState"
-								required
-							/>
-						</b-form-group>
 
-						<p class="pb-3">
-							{{ $t('ProjectSheetManager.sheetType') }}
-						</p>
-						<div class="d-flex justify-content-between">
-							<span
-								v-for="t in sheetTypes"
-								:key="t.name"
-								v-b-tooltip.hover
-								:title="t.tooltip"
-								:class="
-									newSheetType === t.name
-										? 'text-success border border-success'
-										: 'text-muted'
-								"
-								class="btn btn-link"
-								role="button"
-								@click="toggleSheetType(t.name)"
-							>
-								<i
-									:class="t.icon"
-									class="fas fa-fw fa-2x"
-								/>
-							</span>
-						</div>
-
-						<b-form-group
-							v-if="
-								'staticMap;interactiveMap'.includes(
-									newSheetType
-								)
-							"
-						>
-							<label for="sourceMap">{{
-								$t('ProjectSheetManager.copyFeaturesFrom')
-							}}</label>
-							<b-form-select
-								id="sourceMap"
-								v-model="sourceMap"
-								:options="
-									[
-										{
-											value: null,
-											text: $t(
-												'ProjectSheetManager.withoutCopying'
-											),
-										},
-									].concat(maps)
-								"
-							/>
-						</b-form-group>
-					</form>
-				</b-modal>
+				<NewSheetModal @addSheet="addSheet" />
 			</template>
 			<div class="list-group">
 				<div
@@ -175,9 +96,14 @@
 </template>
 
 <script>
+import NewSheetModal from './NewSheetModal.vue';
 import { deserializeInteractions } from '~/assets/interactions';
+import sheetTypes from '~/assets/sheetTypes';
 
 export default {
+	components: {
+		NewSheetModal,
+	},
 	props: {
 		projectId: {
 			type: Number,
@@ -193,55 +119,13 @@ export default {
 			default: () => [],
 		},
 	},
-	data() {
-		return {
-			maps: [],
-			newSheetTitle: '',
-			newSheetType: 'text',
-			sheetTypes: [
-				{
-					name: 'text',
-					icon: 'fa-paragraph',
-					tooltip: this.$t('ProjectSheetManager.sheetTypes.text'),
-				},
-				{
-					name: 'survey',
-					icon: 'fa-poll',
-					tooltip: this.$t('ProjectSheetManager.sheetTypes.survey'),
-				},
-				{
-					name: 'staticMap',
-					icon: 'fa-map',
-					tooltip: this.$t(
-						'ProjectSheetManager.sheetTypes.staticMap'
-					),
-				},
-				{
-					name: 'interactiveMap',
-					icon: 'fa-map-marker-alt',
-					tooltip: this.$t(
-						'ProjectSheetManager.sheetTypes.interactiveMap'
-					),
-				},
-			],
-			nameState: null,
-			sourceMap: null,
-		};
-	},
-	async fetch() {
-		const maps = await this.$axios.$get('/api/maps');
-		this.maps = maps
-			.map(m => ({
-				...m,
-				featureCount: JSON.parse(m.features || '[]').length,
-			}))
-			.filter(m => m.featureCount > 0)
-			.map(m => ({
-				value: m.id,
-				text: `${m.title} (${m.featureCount} elem)`,
-			}));
-	},
 	methods: {
+		addSheet(title, type, sourceMap) {
+			this.$emit('addSheet', title, type, sourceMap);
+		},
+		openNewSheetModal() {
+			this.$bvModal.show('create-sheet-modal');
+		},
 		sheetType(sheet) {
 			const interactions = deserializeInteractions(sheet.interactions);
 			if (!sheet) {
@@ -261,53 +145,12 @@ export default {
 		},
 		sheetIcon(sheet) {
 			const type = this.sheetType(sheet);
-			return this.sheetTypes.filter(t => t.name === type)[0].icon;
+			return sheetTypes.filter(t => t.name === type)[0].icon;
 		},
 		async deleteSheet(sheet) {
 			const confirmed = await this.confirmDeletion(sheet.title);
 			if (confirmed) {
 				this.$emit('delSheet', sheet);
-			}
-		},
-		checkFormValidity() {
-			const valid = this.$refs.form.checkValidity();
-			this.nameState = valid;
-			return valid;
-		},
-		resetModal() {
-			this.newSheetTitle = '';
-			this.nameState = null;
-		},
-		handleOk(bvModalEvt) {
-			// Prevent modal from closing
-			bvModalEvt.preventDefault();
-			// Trigger submit handler
-			this.handleSubmit();
-		},
-		handleSubmit() {
-			// Exit when the form isn't valid
-			if (!this.checkFormValidity()) {
-				return;
-			}
-			// Create sheet
-			this.$emit(
-				'addSheet',
-				this.newSheetTitle,
-				this.newSheetType,
-				this.sourceMap
-			);
-			this.newSheetTitle = '';
-			this.newSheetType = '';
-			// Hide the modal manually
-			this.$nextTick(() => {
-				this.$bvModal.hide('create-sheet-modal');
-			});
-		},
-		toggleSheetType(type) {
-			if (type === this.newSheetType) {
-				this.newSheetType = 'text';
-			} else {
-				this.newSheetType = type;
 			}
 		},
 		async submittedFeaturesToMap(sheet) {
