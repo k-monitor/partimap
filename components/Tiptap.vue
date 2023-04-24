@@ -174,8 +174,8 @@ export default {
 					openOnClick: false,
 				}),
 				Youtube.configure({
-					height: 225,
-					width: 300,
+					height: 180,
+					width: 240,
 				}),
 			],
 			onUpdate: () => {
