@@ -131,6 +131,7 @@
 								}}:
 								{{ sheet.submittedFeatureCount }}
 								<a
+									class="ml-2"
 									href="javascript:void(0)"
 									@click.prevent="
 										submittedFeaturesToMap(sheet)
