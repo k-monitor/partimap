@@ -65,4 +65,24 @@ div#__nuxt,
 .vue-star-rating-star {
 	margin-top: -2px;
 }
+
+[data-youtube-video] {
+	position: relative;
+	width: 100%;
+}
+
+[data-youtube-video]::before {
+	content: '';
+	display: block;
+	padding-top: 56.25%;
+}
+
+[data-youtube-video] iframe {
+	border: none;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
 </style>
