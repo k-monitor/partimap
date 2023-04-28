@@ -28,38 +28,6 @@
 				/>
 			</b-form-group>
 			<b-form-group
-				:label="$t('userEditor.color')"
-				:description="$t('userEditor.colorDescription')"
-			>
-				<b-button
-					v-if="!m.color"
-					variant="outline-primary"
-					@click="m.color = '#000000'"
-				>
-					{{ $t('userEditor.colorAdd') }}
-				</b-button>
-				<div v-else>
-					<div class="d-flex align-items-center">
-						<b-form-input
-							v-model="m.color"
-							style="width: 100px; min-width: 100px"
-							type="color"
-						/>
-						<span
-							v-if="isTooBright"
-							class="font-weight-bold text-danger ml-3"
-							>{{ $t('userEditor.colorTooBright') }}</span
-						>
-					</div>
-					<a
-						class="small text-danger"
-						href="javascript:void(0)"
-						@click="m.color = null"
-						>{{ $t('userEditor.colorDel') }}</a
-					>
-				</div>
-			</b-form-group>
-			<b-form-group
 				:invalid-feedback="$t('imageUpload.maxFileSize')"
 				:label="$t('userEditor.logo')"
 				:description="$t('userEditor.logoDescription')"
@@ -102,6 +70,38 @@
 							>
 						</figcaption>
 					</figure>
+				</div>
+			</b-form-group>
+			<b-form-group
+				:label="$t('userEditor.color')"
+				:description="$t('userEditor.colorDescription')"
+			>
+				<b-button
+					v-if="!m.color"
+					variant="outline-primary"
+					@click="m.color = '#000000'"
+				>
+					{{ $t('userEditor.colorAdd') }}
+				</b-button>
+				<div v-else>
+					<div class="d-flex align-items-center">
+						<b-form-input
+							v-model="m.color"
+							style="width: 100px; min-width: 100px"
+							type="color"
+						/>
+						<span
+							v-if="isTooBright"
+							class="font-weight-bold text-danger ml-3"
+							>{{ $t('userEditor.colorTooBright') }}</span
+						>
+					</div>
+					<a
+						class="small text-danger"
+						href="javascript:void(0)"
+						@click="m.color = null"
+						>{{ $t('userEditor.colorDel') }}</a
+					>
 				</div>
 			</b-form-group>
 			<b-form-group
