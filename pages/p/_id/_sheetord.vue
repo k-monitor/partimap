@@ -374,12 +374,14 @@ export default {
 			return [...visitorFeatures, ...adminFeatures];
 		},
 		next() {
-			if (this.$refs.sheetForm.reportValidity()) {
-				if (this.needToShowResults) {
-					this.resultsShown = true;
-				} else {
-					this.goToSheetOrd(this.sheet.ord + 1);
-				}
+			if (!this.$refs.sheetForm.reportValidity()) {
+				this.$store.commit('selected/clear');
+				return;
+			}
+			if (this.needToShowResults) {
+				this.resultsShown = true;
+			} else {
+				this.goToSheetOrd(this.sheet.ord + 1);
 			}
 		},
 		prev() {
@@ -427,6 +429,7 @@ export default {
 		},
 		async submit() {
 			if (!this.$refs.sheetForm.reportValidity()) {
+				this.$store.commit('selected/clear');
 				return;
 			}
 			this.loading = true;
