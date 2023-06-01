@@ -374,8 +374,9 @@ export default {
 			return [...visitorFeatures, ...adminFeatures];
 		},
 		next() {
+			this.$store.commit('selected/clear');
+			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = 0;
 			if (!this.$refs.sheetForm.reportValidity()) {
-				this.$store.commit('selected/clear');
 				return;
 			}
 			if (this.needToShowResults) {
@@ -428,8 +429,9 @@ export default {
 			}
 		},
 		async submit() {
+			this.$store.commit('selected/clear');
+			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = 0;
 			if (!this.$refs.sheetForm.reportValidity()) {
-				this.$store.commit('selected/clear');
 				return;
 			}
 			this.loading = true;
