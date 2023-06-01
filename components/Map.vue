@@ -203,28 +203,16 @@ export default {
 		},
 		changeZoom(delta) {
 			const view = this.map.getView();
+			const newZoom = view.getZoom() + delta;
 			view.animate({
 				duration: 200,
-				zoom: view.getZoom() + delta,
+				zoom: newZoom,
 			});
 		},
 		initMapComponents() {
 			if (this.initialBaseMapKey) {
 				this.setBaseMap(this.initialBaseMapKey);
 			}
-
-			this.source = new VectorSource({
-				features: this.loadInitFeatures(this.features),
-			});
-
-			this.vector = new VectorLayer({
-				source: this.source,
-				style: (feature, resolution) => {
-					// using defaults here, real styling happens in
-					// changeFeatureStyle called by loadInitFeatures
-					return this.styleFunction();
-				},
-			});
 
 			this.select = new Select({
 				style: null,
@@ -236,18 +224,33 @@ export default {
 			const center = gm2ol(coords.reverse());
 			const zoom = Number(this.$t('Map.initialZoom')) || 10;
 
+			this.view = new View({
+				center,
+				constrainResolution: true,
+				maxZoom: 19,
+				zoom,
+			});
+			this.view.on('change:resolution', () => {
+				this.source.getFeatures().forEach(feature => {
+					this.updateFeatureStyle(feature, this.getSelectedFeature);
+				});
+			});
+
+			this.source = new VectorSource({
+				features: this.loadInitFeatures(this.features),
+			});
+
+			this.vector = new VectorLayer({
+				source: this.source,
+			});
+
 			this.map = new Map({
 				controls: defaultControls({ attribution: false }).extend([
 					new Attribution({ collapsible: false }),
 				]),
 				layers: [...Object.values(this.baseMaps).flat(), this.vector],
 				target: this.$refs['map-root'],
-				view: new View({
-					center,
-					constrainResolution: true,
-					maxZoom: 19,
-					zoom,
-				}),
+				view: this.view,
 			});
 			this.updateLayers();
 			this.map.addInteraction(this.select);
@@ -390,6 +393,15 @@ export default {
 			const addWidth =
 				isSelected && !isHidden && !isPoint && this.visitor ? 5 : 0;
 
+			// decrease width with zoom
+			const zoom = this.view.getZoom();
+			const decWidth = 19 - zoom;
+
+			const newWidth = Math.max(
+				0,
+				Number(feature.get('width')) + addWidth - decWidth
+			);
+
 			feature.setStyle(
 				this.styleFunction({
 					feature,
@@ -397,7 +409,7 @@ export default {
 					lineColor: color + opacity,
 					polygonColor: color, // opacity is constant and handled in styleFunction
 					lineDash: feature.get('dash'),
-					strokeWidth: Number(feature.get('width')) + addWidth,
+					strokeWidth: newWidth,
 				})
 			);
 		},
