@@ -4,30 +4,42 @@
 			<draggable
 				v-model="survey.questions"
 				:draggable="readonly ? null : '.item'"
+				handle=".handle"
 				@end="emitSurvey"
 			>
 				<b-list-group-item
 					v-for="(q, i) in survey.questions"
 					:key="q.id"
 					button
-					class="d-flex align-items-center item"
-					@click="editQuestion(i)"
+					class="d-flex item p-0"
 				>
-					<i
-						class="fas fa-fw mr-2"
-						:class="icon[q.type]"
-					/>
-					<strong class="flex-grow-1 text-truncate">
-						{{ q.label }}
-					</strong>
-					<span
+					<b-button
+						class="handle border-0 py-3 rounded-0 text-center"
+						variant="light"
+						style="width: 40px"
+					>
+						<i class="fas fa-grip-vertical" />
+					</b-button>
+					<div
+						class="d-flex align-items-center flex-grow-1 px-2 py-3 overflow-hidden"
+						@click="editQuestion(i)"
+					>
+						<i
+							class="fas fa-fw mr-2"
+							:class="icon[q.type]"
+						/>
+						<strong class="flex-grow-1 text-truncate">
+							{{ q.label }}
+						</strong>
+					</div>
+					<b-button
 						v-if="!readonly"
-						class="text-danger"
-						role="button"
+						class="border-0 px-2 py-3 rounded-0 text-danger"
+						variant="light"
 						@click.stop="delQuestion(i)"
 					>
 						<i class="fas fa-fw fa-trash" />
-					</span>
+					</b-button>
 				</b-list-group-item>
 				<b-list-group-item
 					v-if="!readonly"

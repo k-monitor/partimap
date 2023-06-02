@@ -128,6 +128,10 @@ export default {
 		transpile: ['defu', 'ol', ({ isServer }) => 'vue-typeahead-bootstrap'],
 	},
 
+	/* server: {
+		host: '0',
+	}, */
+
 	serverMiddleware: {
 		'/api': '~/server/api.js',
 		'/uploads': '~/server/uploads.js',
