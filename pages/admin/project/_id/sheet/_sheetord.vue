@@ -187,10 +187,21 @@
 						>
 							<i class="fas fa-fw fa-chevron-right" />
 						</b-button>
+						<b-button
+							v-else
+							variant="success"
+							@click="openNewSheetModal"
+						>
+							<i class="fas fa-fw fa-plus" />
+						</b-button>
 					</div>
 				</div>
 			</template>
 		</Sidebar>
+		<NewSheetModal
+			:project-id="project.id"
+			@addedSheet="addedSheet"
+		/>
 	</SheetFrame>
 </template>
 
@@ -203,11 +214,13 @@ import {
 } from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
 import SaveButton from '~/components/SaveButton.vue';
+import NewSheetModal from '~/components/NewSheetModal.vue';
 
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
 		SaveButton,
+		NewSheetModal,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
@@ -366,6 +379,28 @@ export default {
 				this.localePath(`/admin/project/${this.project.id}`)
 			);
 		},
+		async next() {
+			if (this.contentModified) {
+				const confirmed = await this.confirmLeavingUnsaved();
+				if (!confirmed) return;
+			}
+			this.goToSheetOrd(this.sheet.ord + 1);
+		},
+		async prev() {
+			if (this.contentModified) {
+				const confirmed = await this.confirmLeavingUnsaved();
+				if (!confirmed) return;
+			}
+			if (this.isFirstSheet) {
+				this.back();
+			} else {
+				this.goToSheetOrd(this.sheet.ord - 1);
+			}
+		},
+		addedSheet(sheet) {
+			this.project.sheets.push(sheet);
+			this.next();
+		},
 		featuresFromRaw(featuresRaw) {
 			const features = JSON.parse(featuresRaw);
 			const featureCollection = { type: 'FeatureCollection', features };
@@ -389,23 +424,8 @@ export default {
 		loadInitFeatures() {
 			return this.featuresFromRaw(this.sheet.features);
 		},
-		async next() {
-			if (this.contentModified) {
-				const confirmed = await this.confirmLeavingUnsaved();
-				if (!confirmed) return;
-			}
-			this.goToSheetOrd(this.sheet.ord + 1);
-		},
-		async prev() {
-			if (this.contentModified) {
-				const confirmed = await this.confirmLeavingUnsaved();
-				if (!confirmed) return;
-			}
-			if (this.isFirstSheet) {
-				this.back();
-			} else {
-				this.goToSheetOrd(this.sheet.ord - 1);
-			}
+		openNewSheetModal() {
+			this.$bvModal.show('create-sheet-modal');
 		},
 		removeBackground() {
 			this.backgroundImage = null;
