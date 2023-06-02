@@ -17,17 +17,10 @@
 		<Sidebar
 			admin
 			:back-label="$t('sheetEditor.back')"
-			:content-modified="contentModified"
 			:fixed="!sheet.features"
 			:loading="loading"
 			:project="project"
-			:show-next="!isLastSheet"
-			show-prev
-			:step="sheet.ord + 1"
 			@back="back"
-			@next="next"
-			@prev="prev"
-			@save="save"
 		>
 			<b-form-group>
 				<template #label>
@@ -161,6 +154,42 @@
 				:stars="interactions.stars"
 				:visitor-can-rate="isRatingSelected"
 			/>
+
+			<template #footer>
+				<div
+					class="align-items-center d-flex justify-content-between p-2 w-100"
+				>
+					<div class="fixed-width">
+						<b-button
+							variant="primary"
+							@click="prev"
+						>
+							<i class="fas fa-fw fa-chevron-left" />
+						</b-button>
+					</div>
+					<SaveButton
+						:content-modified="contentModified"
+						@save="save"
+					/>
+					<b-button
+						v-if="project.id"
+						:href="previewUrl"
+						target="_blank"
+						variant="outline-primary"
+					>
+						<i class="fas fa-external-link-alt fa-fw" />
+					</b-button>
+					<div class="fixed-width">
+						<b-button
+							v-if="!isLastSheet"
+							variant="primary"
+							@click="next"
+						>
+							<i class="fas fa-fw fa-chevron-right" />
+						</b-button>
+					</div>
+				</div>
+			</template>
 		</Sidebar>
 	</SheetFrame>
 </template>
@@ -173,10 +202,12 @@ import {
 	serializeInteractions,
 } from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
+import SaveButton from '~/components/SaveButton.vue';
 
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
+		SaveButton,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
@@ -268,6 +299,9 @@ export default {
 		isRatingSelected() {
 			return this.interactions.enabled.includes('Rating');
 		},
+		previewUrl() {
+			return `/${this.$i18n.locale}/p/${this.project.id}/${this.sheet.ord}?force=1`;
+		},
 	},
 	watch: {
 		backgroundImage(val) {
@@ -323,7 +357,11 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setBaseMap']),
-		back() {
+		async back() {
+			if (this.contentModified) {
+				const confirmed = await this.confirmLeavingUnsaved();
+				if (!confirmed) return;
+			}
 			this.$router.push(
 				this.localePath(`/admin/project/${this.project.id}`)
 			);
@@ -351,10 +389,18 @@ export default {
 		loadInitFeatures() {
 			return this.featuresFromRaw(this.sheet.features);
 		},
-		next() {
+		async next() {
+			if (this.contentModified) {
+				const confirmed = await this.confirmLeavingUnsaved();
+				if (!confirmed) return;
+			}
 			this.goToSheetOrd(this.sheet.ord + 1);
 		},
-		prev() {
+		async prev() {
+			if (this.contentModified) {
+				const confirmed = await this.confirmLeavingUnsaved();
+				if (!confirmed) return;
+			}
 			if (this.isFirstSheet) {
 				this.back();
 			} else {

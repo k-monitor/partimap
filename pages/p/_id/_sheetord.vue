@@ -86,20 +86,9 @@
 				<MapTask :interactions="interactions" />
 				<MapHint />
 				<Sidebar
-					:content-modified="!submitted"
 					:fixed="!sheet.features"
 					:loading="loading"
 					:project="project"
-					:show-next="!isLastSheet || needToShowResults"
-					:show-prev="!isFirstSheet && !submitted"
-					:show-submit="
-						getConsent && isLastSheet && !needToShowResults
-					"
-					:step="sheet.ord + 1"
-					:steps="project.sheets.length"
-					@next="next"
-					@prev="prev"
-					@submit="submit"
 				>
 					<b-navbar class="m-0 mb-4 p-0">
 						<h1 class="h3 m-0">{{ sheet.title }}</h1>
@@ -125,6 +114,24 @@
 							interactions.enabled.includes('Rating')
 						"
 					/>
+
+					<template #footer>
+						<FooterButtons
+							:disable-submit="
+								loading || !getConsent || submitted
+							"
+							:show-next="!isLastSheet || needToShowResults"
+							:show-prev="!isFirstSheet && !submitted"
+							:show-submit="
+								getConsent && isLastSheet && !needToShowResults
+							"
+							:step="sheet.ord + 1"
+							:steps="project.sheets.length"
+							@next="next"
+							@prev="prev"
+							@submit="submit"
+						/>
+					</template>
 				</Sidebar>
 			</div>
 		</form>

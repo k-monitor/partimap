@@ -321,8 +321,6 @@ export default {
 		size: 'Size',
 	},
 	FooterButtons: {
-		save: 'Save',
-		saved: 'Saved',
 		submit: 'Submit',
 		submitted: 'Submitted!',
 	},
@@ -380,6 +378,10 @@ export default {
 		submittedFeatures: 'Submitted features',
 		title: 'New Sheet',
 		withoutCopying: 'Create without copying from existing map.',
+	},
+	SaveButton: {
+		save: 'Save',
+		saved: 'Saved',
 	},
 	SheetContent: {
 		consent1: 'I acknowledge that I have read and understand',

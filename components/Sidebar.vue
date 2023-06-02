@@ -26,7 +26,7 @@
 						v-b-tooltip.hover
 						role="button"
 						:title="backLabel"
-						@click="nav('back')"
+						@click="$emit('back')"
 					>
 						<Logo />
 					</b-navbar-brand>
@@ -75,21 +75,7 @@
 			</template>
 			<template #footer>
 				<div class="bg-light border-top">
-					<FooterButtons
-						:disable-save="!contentModified"
-						:disable-submit="!contentModified"
-						:project-id="project?.slug"
-						:show-next="showNext"
-						:show-prev="showPrev"
-						:show-save="admin"
-						:show-submit="showSubmit"
-						:step="step"
-						:steps="steps"
-						@next="nav('next')"
-						@prev="nav('prev')"
-						@save="$emit('save')"
-						@submit="$emit('submit')"
-					/>
+					<slot name="footer" />
 				</div>
 			</template>
 		</b-sidebar>
@@ -112,10 +98,6 @@ export default {
 				return this.$t('Sidebar.back');
 			},
 		},
-		contentModified: {
-			type: Boolean,
-			default: false,
-		},
 		fixed: {
 			type: Boolean,
 			default: false,
@@ -128,26 +110,6 @@ export default {
 			// needed for logo and preview button
 			type: Object,
 			default: null,
-		},
-		showNext: {
-			type: Boolean,
-			default: false,
-		},
-		showPrev: {
-			type: Boolean,
-			default: false,
-		},
-		showSubmit: {
-			type: Boolean,
-			default: false,
-		},
-		step: {
-			type: Number,
-			default: 0,
-		},
-		steps: {
-			type: Number,
-			default: 0,
 		},
 	},
 	computed: {
@@ -180,22 +142,6 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setDrawType', 'setSidebarVisible']),
-		confirmIfNeeded() {
-			if (this.contentModified) {
-				return this.confirmLeavingUnsaved();
-			}
-			return true;
-		},
-		async nav(eventName) {
-			if (this.admin) {
-				const confirmed = await this.confirmIfNeeded();
-				if (confirmed) {
-					this.$emit(eventName);
-				}
-			} else {
-				this.$emit(eventName);
-			}
-		},
 		hide() {
 			this.setSidebarVisible(false);
 		},

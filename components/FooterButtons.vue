@@ -20,31 +20,7 @@
 					<i class="fas fa-fw fa-chevron-left" />
 				</b-button>
 			</div>
-			<b-button
-				v-if="showSave"
-				:disabled="disableSave"
-				:variant="disableSave ? 'outline-success' : 'success'"
-				@click="$emit('save')"
-			>
-				<i
-					class="fas fa-fw mr-1"
-					:class="disableSave ? 'fa-check' : 'fa-save'"
-				/>
-				<span>{{
-					disableSave
-						? $t('FooterButtons.saved')
-						: $t('FooterButtons.save')
-				}}</span>
-			</b-button>
-			<b-button
-				v-if="showSave && projectId"
-				:href="previewUrl"
-				target="_blank"
-				variant="outline-primary"
-			>
-				<i class="fas fa-external-link-alt fa-fw" />
-			</b-button>
-			<div v-else-if="step && steps && !showSubmit">
+			<div v-if="step && steps && !showSubmit">
 				{{ step }} / {{ steps }}
 			</div>
 			<b-button
@@ -90,19 +66,11 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		projectId: {
-			type: String,
-			default: null,
-		},
 		showNext: {
 			type: Boolean,
 			default: false,
 		},
 		showPrev: {
-			type: Boolean,
-			default: false,
-		},
-		showSave: {
 			type: Boolean,
 			default: false,
 		},
@@ -117,13 +85,6 @@ export default {
 		steps: {
 			type: Number,
 			default: 0,
-		},
-	},
-	computed: {
-		previewUrl() {
-			return `/${this.$i18n.locale}/p/${this.projectId}/${
-				this.step - 1
-			}?force=1`;
 		},
 	},
 };

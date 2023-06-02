@@ -11,10 +11,8 @@
 		<Sidebar
 			admin
 			:back-label="$t('mapEditor.back')"
-			:content-modified="contentModified"
 			:loading="loading"
 			@back="back"
-			@save="save"
 		>
 			<b-form-group class="mb-4">
 				<template #label>
@@ -26,6 +24,15 @@
 				/>
 			</b-form-group>
 			<FeatureList />
+
+			<template #footer>
+				<div class="p-2 text-center">
+					<SaveButton
+						:content-modified="contentModified"
+						@save="save"
+					/>
+				</div>
+			</template>
 		</Sidebar>
 	</div>
 </template>
@@ -33,10 +40,12 @@
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
+import SaveButton from '~/components/SaveButton.vue';
 
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
+		SaveButton,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {

@@ -315,8 +315,6 @@ export default {
 		size: 'Méret',
 	},
 	FooterButtons: {
-		save: 'Mentés',
-		saved: 'Mentve',
 		submit: 'Beküldés',
 		submitted: 'Beküldve',
 	},
@@ -374,6 +372,10 @@ export default {
 		submittedFeatures: 'Beküldött térkép elemek',
 		title: 'Új munkalap',
 		withoutCopying: 'Nincs másolás',
+	},
+	SaveButton: {
+		save: 'Mentés',
+		saved: 'Mentve',
 	},
 	SheetContent: {
 		consent1: 'Elolvastam és elfogadom a',
