@@ -92,7 +92,7 @@ export default {
 			},
 			defaultStroke: {
 				lineDash: '0',
-				width: 4,
+				width: 8,
 			},
 		};
 	},
