@@ -202,7 +202,7 @@
 			:project="project"
 			:project-id="project.id"
 			:sheets="project.sheets"
-			@addSheet="addSheet"
+			@addedSheet="addedSheet"
 			@delSheet="delSheet"
 			@moveSheet="moveSheet"
 		/>
@@ -213,7 +213,6 @@
 import copy from 'copy-to-clipboard';
 import { orderBy } from 'lodash';
 import slugify from 'slugify';
-import { Interactions } from '~/assets/interactions';
 
 export default {
 	middleware: ['auth'],
@@ -336,40 +335,8 @@ export default {
 				this.errorToast(this.$t('imageUpload.failed'));
 			}
 		},
-		async addSheet(title, type, sourceMap) {
-			let initialFeatures = [];
-			if (sourceMap) {
-				const m = await this.$axios.$get('/api/map/' + sourceMap);
-				initialFeatures = m.features;
-			}
-
-			const sheetData = {};
-			sheetData.title = title;
-			if (type === 'survey') {
-				sheetData.survey = {};
-			} else if (type.match(/map$/i)) {
-				// staticMap / interactiveMap
-				sheetData.features = initialFeatures;
-				if (type.startsWith('interactive')) {
-					// interactiveMap
-					sheetData.interactions = new Interactions({
-						enabled: ['Point'],
-					});
-				} else {
-					// staticMap has optional survey too
-					sheetData.survey = {};
-				}
-			}
-
-			try {
-				const newSheet = await this.$axios.$put(
-					'/api/project/' + this.project.id + '/sheet',
-					sheetData
-				);
-				this.project.sheets.push(newSheet);
-			} catch (error) {
-				this.errorToast(this.$t('projectEditor.sheetCreationFailed'));
-			}
+		addedSheet(sheet) {
+			this.project.sheets.push(sheet);
 		},
 		async delSheet(sheet) {
 			try {

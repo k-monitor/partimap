@@ -12,7 +12,10 @@
 					{{ $t('ProjectSheetManager.addSheet') }}
 				</b-button>
 
-				<NewSheetModal @addSheet="addSheet" />
+				<NewSheetModal
+					:project-id="projectId"
+					@addedSheet="addedSheet"
+				/>
 			</template>
 			<div class="list-group">
 				<div
@@ -120,8 +123,8 @@ export default {
 		},
 	},
 	methods: {
-		addSheet(title, type, sourceMap) {
-			this.$emit('addSheet', title, type, sourceMap);
+		addedSheet(sheet) {
+			this.$emit('addedSheet', sheet);
 		},
 		openNewSheetModal() {
 			this.$bvModal.show('create-sheet-modal');

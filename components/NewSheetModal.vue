@@ -76,15 +76,23 @@
 </template>
 
 <script>
+import { Interactions } from '~/assets/interactions';
 import sheetTypes from '~/assets/sheetTypes';
 
 export default {
+	props: {
+		projectId: {
+			type: Number,
+			default: 0,
+		},
+	},
 	data() {
 		return {
 			maps: [],
 			nameState: null,
 			newSheetTitle: '',
 			newSheetType: null,
+
 			sourceMap: null,
 		};
 	},
@@ -119,20 +127,49 @@ export default {
 			bvModalEvt.preventDefault(); // prevent modal close
 			this.handleSubmit();
 		},
-		handleSubmit() {
+		async handleSubmit() {
 			if (!this.checkFormValidity()) return;
 
-			this.$emit(
-				'addSheet',
-				this.newSheetTitle,
-				this.newSheetType,
-				this.sourceMap
-			);
+			let initialFeatures = [];
+			if (this.sourceMap) {
+				const m = await this.$axios.$get('/api/map/' + this.sourceMap);
+				initialFeatures = m.features;
+			}
 
-			this.$nextTick(() => {
-				this.$bvModal.hide('create-sheet-modal');
-				this.resetModal();
-			});
+			const sheetData = {};
+			sheetData.title = this.newSheetTitle;
+			if (this.newSheetType === 'survey') {
+				sheetData.survey = {};
+			} else if (this.newSheetType.match(/map$/i)) {
+				// staticMap / interactiveMap
+				sheetData.features = initialFeatures;
+				if (this.newSheetType.startsWith('interactive')) {
+					// interactiveMap
+					sheetData.interactions = new Interactions({
+						enabled: ['Point'],
+					});
+				} else {
+					// staticMap has optional survey too
+					sheetData.survey = {};
+				}
+			}
+
+			try {
+				const newSheet = await this.$axios.$put(
+					'/api/project/' + this.projectId + '/sheet',
+					sheetData
+				);
+
+				this.$nextTick(() => {
+					this.$bvModal.hide('create-sheet-modal');
+					this.resetModal();
+				});
+
+				this.$emit('addedSheet', newSheet);
+			} catch (error) {
+				console.error(error);
+				this.errorToast(this.$t('projectEditor.sheetCreationFailed'));
+			}
 		},
 		resetModal() {
 			this.newSheetTitle = '';
