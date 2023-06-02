@@ -313,7 +313,7 @@ export default {
 			return this.interactions.enabled.includes('Rating');
 		},
 		previewUrl() {
-			return `/${this.$i18n.locale}/p/${this.project.id}/${this.sheet.ord}?force=1`;
+			return `/${this.$i18n.locale}/p/${this.project.slug}/${this.sheet.ord}?force=1`;
 		},
 	},
 	watch: {
