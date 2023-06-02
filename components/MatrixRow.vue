@@ -1,8 +1,6 @@
 <template>
-	<div class="matrix-row d-flex w-100">
-		<div
-			class="matrix-cell align-items-center border-top d-flex p-1 position-relative small text-left text-break"
-		>
+	<div class="d-table-row">
+		<div class="d-table-cell align-middle border-top p-1 position-relative">
 			{{ row }}
 			<input
 				v-if="
@@ -21,7 +19,7 @@
 		<div
 			v-for="column in question.columns"
 			:key="column"
-			class="matrix-cell align-items-center border-top d-flex justify-content-center py-3"
+			class="d-table-cell align-middle border-top py-3 text-center"
 		>
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
@@ -89,7 +87,11 @@ export default {
 	padding-left: 1.75rem;
 }
 
-.matrix-row:hover .matrix-cell {
-	background-color: rgb(227, 227, 227);
+.d-table-row:hover .d-table-cell {
+	background-color: #e9ecef;
+}
+
+.d-table-cell {
+	min-width: 60px;
 }
 </style>
