@@ -375,7 +375,9 @@ export default {
 		},
 		next() {
 			this.$store.commit('selected/clear');
-			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = 0;
+			const sidebar =
+				document.getElementsByClassName('b-sidebar-body')[0];
+			if (sidebar) sidebar.scrollTop = 0;
 			if (!this.$refs.sheetForm.reportValidity()) {
 				return;
 			}
@@ -430,7 +432,9 @@ export default {
 		},
 		async submit() {
 			this.$store.commit('selected/clear');
-			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = 0;
+			const sidebar =
+				document.getElementsByClassName('b-sidebar-body')[0];
+			if (sidebar) sidebar.scrollTop = 0;
 			if (!this.$refs.sheetForm.reportValidity()) {
 				return;
 			}
