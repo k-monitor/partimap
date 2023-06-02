@@ -287,7 +287,7 @@
 							variant="success"
 							@click="featureClicked"
 						>
-							{{ $t('FooterButtons.save') }}
+							{{ $t('SaveButton.save') }}
 						</b-button>
 					</div>
 				</b-form-group>
