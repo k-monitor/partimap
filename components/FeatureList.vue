@@ -250,7 +250,7 @@ export default {
 		},
 		exportKML() {
 			this.$nuxt.$emit('toggleLoading', true);
-			const kml = featuresToKML(this.getAllFeatures);
+			const kml = featuresToKML(this.filteredFeatures);
 			const blob = new Blob([kml], {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
