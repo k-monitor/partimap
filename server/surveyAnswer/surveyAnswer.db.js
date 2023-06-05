@@ -117,9 +117,11 @@ async function aggregateByProjectId(projectId) {
 			continue;
 		}
 
-		const { average, count } = averagesByQuestion.filter(
+		const abq = averagesByQuestion.filter(
 			e => Number(e.questionId) === q.id
 		)[0];
+		const average = abq?.average || 0;
+		const count = abq?.count || 0;
 		if (count < 1) {
 			continue;
 		}

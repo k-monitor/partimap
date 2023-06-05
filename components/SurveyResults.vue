@@ -76,9 +76,10 @@ export default {
 				title: { text: q.question },
 				tooltip: {
 					formatter() {
+						const pct = Math.round((100 * this.y) / q.count);
 						return q.type === 'checkbox'
 							? `${this.y}x ${this.x}`
-							: `${this.y}x ${this.point.name}`;
+							: `${this.y}x (${pct}%) ${this.point.name}`;
 					},
 				},
 				xAxis: {
