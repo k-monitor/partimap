@@ -6,9 +6,9 @@
 		>
 			<h1 class="h3 m-0">{{ sheet.title }}</h1>
 		</b-navbar>
-		<div
-			class="my-4 rich"
-			v-html="sheet.description"
+		<TipTapDisplay
+			class="my-4"
+			:html="sheet.description"
 		/>
 		<div
 			v-if="sheet.survey"
@@ -72,9 +72,9 @@
 		</b-alert>
 	</div>
 	<div v-else>
-		<div
-			class="mb-5 rich"
-			v-html="project.thanks"
+		<TipTapDisplay
+			class="mb-5"
+			:html="project.thanks"
 		/>
 		<div
 			v-if="project.thanksUrl"
@@ -110,6 +110,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import TipTapDisplay from './TipTapDisplay.vue';
 import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
@@ -190,5 +191,6 @@ export default {
 		this.projectUrl = window.location.href.replace(/\/\d+\/?/, ''); // need to set here to avoid SSR error
 		this.consented = this.getConsent; // this will disable checkbox on the next mount (next sheet view)
 	},
+	components: { TipTapDisplay },
 };
 </script>

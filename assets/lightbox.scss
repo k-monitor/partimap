@@ -1,0 +1,6 @@
+$basicLightbox__background: rgba(0, 0, 0, .8); // Background color
+$basicLightbox__zIndex: 9999; // Stack order
+$basicLightbox__duration: .4s; // Transition duration
+$basicLightbox__timing: ease; // Transition timing
+
+@import '/node_modules/basiclightbox/src/styles/main.scss';

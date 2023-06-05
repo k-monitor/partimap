@@ -1,5 +1,5 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
-	<!-- eslint-disable-next-line vue/no-v-html -->
 	<div
 		class="md"
 		v-html="html"

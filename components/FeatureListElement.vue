@@ -180,9 +180,9 @@
 						variant="light"
 						v-text="form.category"
 					/>
-					<div
-						class="mb-3 rich"
-						v-html="form.description"
+					<TipTapDisplay
+						class="mb-3"
+						:html="form.description"
 					/>
 				</div>
 				<b-form-group
@@ -300,10 +300,12 @@
 import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
+import TipTapDisplay from './TipTapDisplay.vue';
 
 export default {
 	components: {
 		VueTypeaheadBootstrap,
+		TipTapDisplay,
 	},
 	props: {
 		categories: {
