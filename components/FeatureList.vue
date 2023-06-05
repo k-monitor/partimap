@@ -249,6 +249,9 @@ export default {
 					}
 					return String(ac).localeCompare(String(bc));
 				});
+
+			const ids = this.filteredFeatures.map(f => f.getId());
+			this.$nuxt.$emit('filterFeatures', ids);
 		},
 		toggleCategoryFilter(c) {
 			this.categoryFilter = this.categoryFilter === c ? '' : c;

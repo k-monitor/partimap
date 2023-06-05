@@ -94,6 +94,8 @@ export default {
 				lineDash: '0',
 				width: 8,
 			},
+
+			filteredIds: null, // null means no filter, otherwise it's an ID array
 		};
 	},
 	computed: {
@@ -179,11 +181,19 @@ export default {
 			features.forEach(f => this.vector.getSource().addFeature(f));
 			this.fitViewToFeatures();
 		});
+
+		this.$nuxt.$on('filterFeatures', ids => {
+			this.filteredIds = ids;
+			this.source.getFeatures().forEach(feature => {
+				this.updateFeatureStyle(feature, this.getSelectedFeature);
+			});
+		});
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('changeStyle');
 		this.$nuxt.$off('importedFeatures');
+		this.$nuxt.$off('filterFeatures');
 	},
 	methods: {
 		...mapMutations(['setBaseMap']),
@@ -401,6 +411,14 @@ export default {
 				0,
 				Number(feature.get('width')) + addWidth - decWidth
 			);
+
+			// if item is filtered out, hide it
+			if (
+				this.filteredIds !== null &&
+				!this.filteredIds.includes(feature.getId())
+			) {
+				return feature.setStyle(() => false);
+			}
 
 			feature.setStyle(
 				this.styleFunction({
