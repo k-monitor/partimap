@@ -1,6 +1,7 @@
 const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
+const isMobile = require('is-mobile');
 const transformation = require('transform-coordinates');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const i18n = require('../common/i18n');
@@ -161,12 +162,16 @@ router.get(
 		const sas = wb.addWorksheet(m.submittedAnswers);
 		sas.cell(1, 1).string(m.submissionId);
 		sas.cell(1, 2).string(m.timestamp);
+		sas.cell(1, 3).string(m.isMobile);
 		submissions.forEach((s, row) => {
 			const CELL = col => sas.cell(row + 2, col);
 			CELL(1).number(s.id);
 			CELL(2).date(new Date(s.timestamp));
+			CELL(3).string(
+				isMobile({ ua: s.ua }) ? m.isMobileYes : m.isMobileNo
+			);
 
-			let COL = 3;
+			let COL = 4;
 			questions.forEach(q => {
 				let a = answers.filter(
 					a =>

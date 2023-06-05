@@ -41,6 +41,7 @@
 		"highcharts": "^9.3.1",
 		"highcharts-vue": "^1.4.0",
 		"http-status-codes": "^2.1.4",
+		"is-mobile": "^4.0.0",
 		"jsonwebtoken": "^8.5.1",
 		"lodash.orderby": "^4.6.0",
 		"markdown-it": "^13.0.1",
