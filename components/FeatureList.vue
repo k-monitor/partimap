@@ -73,6 +73,7 @@
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:stars="stars"
 					:visitor="visitor"
+					:visitor-can-name="visitorCanName"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -141,6 +142,10 @@ export default {
 			default: false,
 		},
 		visitorCanRate: {
+			type: Boolean,
+			default: false,
+		},
+		visitorCanName: {
 			type: Boolean,
 			default: false,
 		},

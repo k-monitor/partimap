@@ -211,6 +211,7 @@ export default {
 			Point: 'Pont felrajzolása',
 			LineString: 'Vonal felrajzolása',
 			Polygon: 'Terület felrajzolása',
+			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
 			SocialSharing: 'Megosztás gombok',
 		},

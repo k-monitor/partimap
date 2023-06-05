@@ -127,7 +127,7 @@
 						/>
 					</b-form-group>
 					<b-form-group
-						v-if="!visitor"
+						v-if="!visitor || visitorCanName"
 						:label="$t('FeatureListElement.name')"
 					>
 						<b-form-input
@@ -338,6 +338,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		visitorCanName: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {
@@ -494,7 +498,6 @@ export default {
 			}
 		},
 		expandFinished() {
-			console.log('expandFinished');
 			// custom scrollIntoView as its more accurate:
 			const t = this.$refs.feature?.offsetTop || 0;
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =

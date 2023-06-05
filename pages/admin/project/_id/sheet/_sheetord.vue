@@ -272,13 +272,18 @@ export default {
 			const options = [];
 			const ia = n => ({
 				value: n,
-				text: this.$t('sheetEditor.interactions')[n],
+				text: this.$t(`sheetEditor.interactions.${n}`),
 			});
 			if (this.sheet.features) {
 				// map sheet
 				if (!this.sheet.survey) {
 					// interactive map sheet
-					options.push(ia('Point'), ia('LineString'), ia('Polygon'));
+					options.push(
+						ia('Point'),
+						ia('LineString'),
+						ia('Polygon'),
+						ia('naming')
+					);
 				} else {
 					options.push(ia('Rating'));
 				}

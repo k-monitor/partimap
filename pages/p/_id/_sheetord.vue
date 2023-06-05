@@ -113,6 +113,9 @@
 						:visitor-can-rate="
 							interactions.enabled.includes('Rating')
 						"
+						:visitor-can-name="
+							interactions.enabled.includes('naming')
+						"
 					/>
 
 					<template #footer>

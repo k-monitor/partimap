@@ -216,6 +216,7 @@ export default {
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',
+			naming: 'Add name to markers drawn',
 			Rating: 'Rate static features',
 			SocialSharing: 'Share page on social media',
 		},
