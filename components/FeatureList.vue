@@ -266,11 +266,12 @@ export default {
 			saveAs(blob, 'partimap.kml');
 		},
 		importKML() {
-			this.$nuxt.$emit('toggleLoading', true);
 			const input = document.createElement('input');
 			input.setAttribute('type', 'file');
 			input.addEventListener('change', e => {
 				const f = e.target.files[0];
+				if (!f) return;
+				this.$nuxt.$emit('toggleLoading', true);
 				const reader = new FileReader();
 				reader.onload = (e => {
 					return e => {
