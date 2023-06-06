@@ -133,7 +133,8 @@ function prepareKmlForImport(kmlString) {
 				.trim()
 				.replace(/^[^ :<]+: /, '') // remove leading "desc:" part (can be any language...)
 				.replace(/<br>partimap\w+:.*?(?=<br>\w+:|$)/g, '') // remove Partimap data fields
-				.replace(/<br>\w+:\s*(?=<br>\w+:|$)/g, ''); // remove empty key-value pairs
+				.replace(/<br>\w+:\s*(?=<br>\w+:|$)/g, '') // remove empty key-value pairs
+				.replace(/<br>/gi, '<br/>'); // make BR tags valid
 			descEl.innerHTML = desc.trim();
 		}
 
