@@ -319,10 +319,15 @@ export default {
 		submitted: 'Beküldve',
 	},
 	HelpEditor: {
+		editor: 'Szerkesztő',
 		instructions:
-			'A súgószövegek Markdown-ban vannak tárolva és ebben a formában is szerkeszthetők. A kék gombbal egy barátságosabb felület nyílik meg a szerkesztéshez, melyet a bal felső sarokban levő ikonnal lehet majd bezárni.',
+			'A súgószövegek Markdown-ban vannak tárolva és ebben a formában is szerkeszthetők.',
+		preview: 'Előnézet',
 		saveFailed: 'Nem sikerült menteni',
 		saveSuccess: 'Mentve!',
+		stackeditButton: 'Szerkesztés StackEdit-tel',
+		stackeditInfo:
+			'Barátságosabb szerkesztő, de az előnézete nem tud mindent megjeleníteni. A bal felső sarokban levő gombbal zárható be.',
 	},
 	ListItem: {
 		clone: 'Másolat készítése',

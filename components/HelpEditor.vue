@@ -13,26 +13,50 @@
 			</div>
 		</template>
 
-		<div class="d-flex">
-			<div class="mr-3">
-				<b-button
-					variant="primary"
-					@click="openEditor"
-				>
-					<i class="fas fa-edit" />
-				</b-button>
-			</div>
-			<p>{{ $t('HelpEditor.instructions') }}</p>
-		</div>
+		<p>{{ $t('HelpEditor.instructions') }}</p>
 
-		<b-form-textarea
-			id="textarea"
-			v-model="value"
-			autofocus
-			class="text-monospace"
-			rows="3"
-			max-rows="12"
-		></b-form-textarea>
+		<client-only>
+			<b-tabs>
+				<b-tab
+					:title="$t('HelpEditor.editor')"
+					active
+				>
+					<b-card-text>
+						<b-form-textarea
+							id="textarea"
+							v-model="value"
+							autofocus
+							class="mb-3 text-monospace"
+							rows="3"
+							max-rows="12"
+						></b-form-textarea>
+						<div class="d-flex">
+							<div class="mb-3 mr-3">
+								<b-button
+									variant="primary"
+									@click="openEditor"
+								>
+									<i class="fas fa-edit" />
+								</b-button>
+							</div>
+							<div>
+								<strong>{{
+									$t('HelpEditor.stackeditButton')
+								}}</strong>
+								<br />
+								{{ $t('HelpEditor.stackeditInfo') }}
+							</div>
+						</div>
+					</b-card-text>
+				</b-tab>
+				<b-tab :title="$t('HelpEditor.preview')">
+					<Markdown
+						class="help mb-5"
+						:md="value"
+					/>
+				</b-tab>
+			</b-tabs>
+		</client-only>
 	</AdminFrame>
 </template>
 

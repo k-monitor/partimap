@@ -325,10 +325,14 @@ export default {
 		submitted: 'Submitted!',
 	},
 	HelpEditor: {
-		instructions:
-			'Help texts are stored and editable in Markdown. The blue button opens a friendlier editor interface, which can be closed with its button in the top left corner.',
-		saveFailed: 'Nem sikerült menteni',
-		saveSuccess: 'Mentve!',
+		editor: 'Editor',
+		instructions: 'Help texts are stored and editable in Markdown.',
+		preview: 'Preview',
+		saveFailed: 'Save failed',
+		saveSuccess: 'Saved',
+		stackeditButton: 'Edit with StackEdit',
+		stackeditInfo:
+			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
 	},
 	ListItem: {
 		clone: 'Duplicate',
