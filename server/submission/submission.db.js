@@ -12,14 +12,14 @@ function create(submission) {
 /**
  * @param {Number} id
  */
-async function del(id) {
+/* async function del(id) {
 	await db.query('DELETE FROM submission WHERE id = ?', [id]);
 	await db.query('DELETE FROM submitted_features WHERE submissionId = ?', [
 		id,
 	]);
 	await db.query('DELETE FROM survey_answer WHERE submissionId = ?', [id]);
 	await db.query('DELETE FROM rating WHERE submissionId = ?', [id]);
-}
+} */
 
 /**
  * @param {Number} id
@@ -43,7 +43,7 @@ async function findByProjectId(projectId) {
 
 module.exports = {
 	create,
-	del,
+	// del,
 	findById,
 	findByProjectId,
 };
