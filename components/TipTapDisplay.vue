@@ -1,6 +1,5 @@
 <template>
 	<div
-		v-if="html"
 		ref="html"
 		class="rich"
 		v-html="html"
