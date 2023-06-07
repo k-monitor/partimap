@@ -14,9 +14,13 @@ function create(project) {
  * @return {Promise}
  */
 function del(id) {
-	return db.transaction([
+	return db.transaction(delQueries(id));
+}
+
+function delQueries(id) {
+	return [
 		{
-			statement: 'DELETE FROM project WHERE _id = ?',
+			statement: 'DELETE FROM project WHERE id = ?',
 			args: [id],
 		},
 		{
@@ -42,7 +46,7 @@ function del(id) {
 			statement: 'DELETE FROM submission WHERE projectId = ?',
 			args: [id],
 		},
-	]);
+	];
 }
 
 /**
@@ -120,6 +124,7 @@ function update(project) {
 module.exports = {
 	create,
 	del,
+	delQueries,
 	findAll,
 	findById,
 	findByIdOrSlug,
