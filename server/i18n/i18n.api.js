@@ -7,6 +7,7 @@ const db = require('./i18n.db');
 router.get('/i18n/get/:lang/:key', async (req, res) => {
 	const { lang, key } = req.params;
 	let value = await db.getValue(lang, key);
+	value = (value || '').trim();
 	if (!value) {
 		const fn = `./locales/${lang}-${key}.default.md`;
 		if (fs.existsSync(fn)) {

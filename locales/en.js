@@ -274,9 +274,9 @@ export default {
 	// components
 
 	AdminFrame: {
-		editEditorsHelp: 'Edit How to create surveys',
+		editEditorsHelp: 'Edit help to create surveys',
 		editHelp: 'Edit help pages',
-		editVisitorsHelp: 'Edit How to fill surveys',
+		editVisitorsHelp: 'Edit help for filling surveys',
 		help: 'How it works',
 		logout: 'Log Out',
 		maps: 'Maps',
