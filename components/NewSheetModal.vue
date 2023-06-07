@@ -92,7 +92,6 @@ export default {
 			nameState: null,
 			newSheetTitle: '',
 			newSheetType: null,
-
 			sourceMap: null,
 		};
 	},

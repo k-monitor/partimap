@@ -272,6 +272,9 @@ export default {
 	// components
 
 	AdminFrame: {
+		editEditorsHelp: 'Kérdőív készítési útmutató szerk.',
+		editHelp: 'Súgó szerk.',
+		editVisitorsHelp: 'Kitöltési útmutató szerk.',
 		help: 'Súgó',
 		logout: 'Kijelentkezés',
 		maps: 'Térképek',
@@ -318,6 +321,12 @@ export default {
 	FooterButtons: {
 		submit: 'Beküldés',
 		submitted: 'Beküldve',
+	},
+	HelpEditor: {
+		instructions:
+			'A súgószövegek Markdown-ban vannak tárolva és ebben a formában is szerkeszthetők. A kék gombbal egy barátságosabb felület nyílik meg a szerkesztéshez, melyet a bal felső sarokban levő ikonnal lehet majd bezárni.',
+		saveFailed: 'Nem sikerült menteni',
+		saveSuccess: 'Mentve!',
 	},
 	ListItem: {
 		clone: 'Másolat készítése',

@@ -278,6 +278,9 @@ export default {
 	// components
 
 	AdminFrame: {
+		editEditorsHelp: 'Edit How to create surveys',
+		editHelp: 'Edit help pages',
+		editVisitorsHelp: 'Edit How to fill surveys',
 		help: 'How it works',
 		logout: 'Log Out',
 		maps: 'Maps',
@@ -324,6 +327,12 @@ export default {
 	FooterButtons: {
 		submit: 'Submit',
 		submitted: 'Submitted!',
+	},
+	HelpEditor: {
+		instructions:
+			'Help texts are stored and editable in Markdown. The blue button opens a friendlier editor interface, which can be closed with its button in the top left corner.',
+		saveFailed: 'Nem sikerült menteni',
+		saveSuccess: 'Mentve!',
 	},
 	ListItem: {
 		clone: 'Duplicate',
