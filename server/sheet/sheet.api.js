@@ -39,8 +39,8 @@ router.delete(
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
-		removeSheetImageFile(req.sheet);
 		await sdb.del(req.params.id);
+		removeSheetImageFile(req.sheet);
 		res.json({});
 	}
 );

@@ -43,7 +43,6 @@ async function findByProjectId(projectId) {
 
 module.exports = {
 	create,
-	// del,
 	findById,
 	findByProjectId,
 };

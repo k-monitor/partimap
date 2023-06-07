@@ -10,7 +10,7 @@ const DEFAULT_NEW_SHEET_ORD = 9999;
 async function create(sheet) {
 	sheet.ord = DEFAULT_NEW_SHEET_ORD;
 	const id = await db.create('sheet', sheet, Sheet);
-	await reorderSheets(sheet.projectId);
+	await db.transaction(generateReorderQueries(sheet.projectId));
 	return id;
 }
 
@@ -19,11 +19,26 @@ async function create(sheet) {
  */
 async function del(id) {
 	const sheet = await findById(id);
-	await db.del('sheet', id);
-	await reorderSheets(sheet.projectId);
-	await db.query('DELETE FROM submitted_features WHERE sheetId = ?', [id]);
-	await db.query('DELETE FROM survey_answer WHERE sheetId = ?', [id]);
-	await db.query('DELETE FROM rating WHERE sheetId = ?', [id]);
+	await db.transaction([
+		{
+			statement: 'DELETE FROM sheet WHERE id = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM submitted_features WHERE sheetId = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM survey_answer WHERE sheetId = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM rating WHERE sheetId = ?',
+			args: [id],
+		},
+	]);
+	// yes, this is a separate transaction as it needs to see missing sheets:
+	await db.transaction(generateReorderQueries(sheet.projectId));
 }
 
 /**
@@ -77,19 +92,21 @@ async function update(sheet) {
 		);
 	}
 	await db.update('sheet', sheet, Sheet);
-	await reorderSheets(sheet.projectId);
+	await db.transaction(generateReorderQueries(sheet.projectId));
 }
 
-async function reorderSheets(projectId) {
+async function generateReorderQueries(projectId) {
+	const queries = [];
 	const sheets = await findByProjectId(projectId);
 	for (let i = 0; i < sheets.length; i++) {
 		if (sheets[i].ord !== i) {
-			await db.query('UPDATE sheet SET ord = ? WHERE id = ?', [
-				i,
-				sheets[i].id,
-			]);
+			queries.push({
+				statement: 'UPDATE sheet SET ord = ? WHERE id = ?',
+				args: [i, sheets[i].id],
+			});
 		}
 	}
+	return queries;
 }
 
 module.exports = {
