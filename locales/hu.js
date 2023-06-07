@@ -1,5 +1,3 @@
-import editorHelp from './hu-help-editors.md';
-import visitorHelp from './hu-help-visitors.md';
 import terms from './hu-terms.md';
 
 export default {
@@ -12,11 +10,9 @@ export default {
 
 	adminHelp: {
 		title: 'Súgó',
-		content: editorHelp,
 	},
 	help: {
 		title: 'Hogyan működik az oldal?',
-		content: visitorHelp,
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',

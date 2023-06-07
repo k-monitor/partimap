@@ -1,5 +1,3 @@
-import editorHelp from './en-help-editors.md';
-import visitorHelp from './en-help-visitors.md';
 import terms from './en-terms.md';
 
 export default {
@@ -12,11 +10,9 @@ export default {
 
 	adminHelp: {
 		title: 'How it works?',
-		content: editorHelp,
 	},
 	help: {
 		title: 'User guide',
-		content: visitorHelp,
 	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',

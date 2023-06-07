@@ -1,3 +1,4 @@
+const fs = require('fs');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const { ensureAdmin } = require('../auth/middlewares');
@@ -5,7 +6,13 @@ const db = require('./i18n.db');
 
 router.get('/i18n/get/:lang/:key', async (req, res) => {
 	const { lang, key } = req.params;
-	const value = await db.getValue(lang, key);
+	let value = await db.getValue(lang, key);
+	if (!value) {
+		const fn = `./locales/${lang}-${key}.default.md`;
+		if (fs.existsSync(fn)) {
+			value = fs.readFileSync(fn, { encoding: 'utf8' });
+		}
+	}
 	if (!value) return res.sendStatus(StatusCodes.NOT_FOUND);
 	res.json({ lang, key, value });
 });
