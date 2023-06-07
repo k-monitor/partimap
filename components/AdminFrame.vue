@@ -28,6 +28,18 @@
 					>
 						{{ $t('AdminFrame.users') }}
 					</b-nav-item>
+					<b-nav-item-dropdown :text="$t('AdminFrame.editHelp')">
+						<b-dropdown-item
+							:to="localePath('/admin/i18n/editors-help/')"
+						>
+							{{ $t('AdminFrame.editEditorsHelp') }}
+						</b-dropdown-item>
+						<b-dropdown-item
+							:to="localePath('/admin/i18n/visitors-help/')"
+						>
+							{{ $t('AdminFrame.editVisitorsHelp') }}
+						</b-dropdown-item>
+					</b-nav-item-dropdown>
 				</b-navbar-nav>
 				<b-navbar-nav class="ml-auto">
 					<b-nav-item :to="localePath('/admin/help')">
@@ -51,7 +63,7 @@
 			</b-collapse>
 		</b-navbar>
 
-		<div class="container mt-5 pt-5">
+		<div class="container mt-5 pt-5 flex-grow-1">
 			<div class="card mb-5 shadow-sm">
 				<h2
 					v-if="$slots.header"
@@ -61,7 +73,7 @@
 				</h2>
 				<div
 					v-if="$slots.default"
-					class="card-body"
+					class="card-body d-flex flex-column"
 				>
 					<slot />
 				</div>

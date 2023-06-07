@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const app = require('express')();
 const auth = require('./auth/setup');
 const db = require('./db');
+const i18n = require('./i18n/i18n.api');
 const map = require('./map/map.api');
 const project = require('./project/project.api');
 const sheet = require('./sheet/sheet.api');
@@ -17,6 +18,7 @@ app.use(cookieParser());
 
 auth.setup(app);
 
+app.use('/', i18n);
 app.use('/', map);
 app.use('/', project);
 app.use('/', sheet);

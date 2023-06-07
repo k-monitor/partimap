@@ -7,12 +7,12 @@
 
 			<Markdown
 				class="help mb-5"
-				:md="$t('help.content')"
+				:md="visitorsHelp.value"
 			/>
 
 			<Markdown
 				class="help mb-5"
-				:md="$t('adminHelp.content')"
+				:md="editorsHelp.value"
 			/>
 		</div>
 	</PublicFrame>
@@ -20,6 +20,16 @@
 
 <script>
 export default {
+	async asyncData({ $axios, i18n }) {
+		const lang = i18n.locale;
+		const editorsHelp = await $axios.$get(
+			`/api/i18n/get/${lang}/editorsHelp`
+		);
+		const visitorsHelp = await $axios.$get(
+			`/api/i18n/get/${lang}/visitorsHelp`
+		);
+		return { editorsHelp, visitorsHelp };
+	},
 	head() {
 		return {
 			title: this.$t('help.title'),

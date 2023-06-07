@@ -1,5 +1,3 @@
-import editorHelp from './en-help-editors.md';
-import visitorHelp from './en-help-visitors.md';
 import terms from './en-terms.md';
 
 export default {
@@ -12,11 +10,9 @@ export default {
 
 	adminHelp: {
 		title: 'How it works?',
-		content: editorHelp,
 	},
 	help: {
 		title: 'User guide',
-		content: visitorHelp,
 	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',
@@ -278,6 +274,9 @@ export default {
 	// components
 
 	AdminFrame: {
+		editEditorsHelp: 'Edit help to create surveys',
+		editHelp: 'Edit help pages',
+		editVisitorsHelp: 'Edit help for filling surveys',
 		help: 'How it works',
 		logout: 'Log Out',
 		maps: 'Maps',
@@ -324,6 +323,16 @@ export default {
 	FooterButtons: {
 		submit: 'Submit',
 		submitted: 'Submitted!',
+	},
+	HelpEditor: {
+		editor: 'Editor',
+		instructions: 'Help texts are stored and editable in Markdown.',
+		preview: 'Preview',
+		saveFailed: 'Save failed',
+		saveSuccess: 'Saved',
+		stackeditButton: 'Edit with StackEdit',
+		stackeditInfo:
+			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
 	},
 	ListItem: {
 		clone: 'Duplicate',

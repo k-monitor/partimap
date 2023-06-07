@@ -1,5 +1,3 @@
-import editorHelp from './hu-help-editors.md';
-import visitorHelp from './hu-help-visitors.md';
 import terms from './hu-terms.md';
 
 export default {
@@ -12,11 +10,9 @@ export default {
 
 	adminHelp: {
 		title: 'Súgó',
-		content: editorHelp,
 	},
 	help: {
 		title: 'Hogyan működik az oldal?',
-		content: visitorHelp,
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍV',
@@ -272,6 +268,9 @@ export default {
 	// components
 
 	AdminFrame: {
+		editEditorsHelp: 'Kérdőív készítési útmutató szerk.',
+		editHelp: 'Súgó szerk.',
+		editVisitorsHelp: 'Kitöltési útmutató szerk.',
 		help: 'Súgó',
 		logout: 'Kijelentkezés',
 		maps: 'Térképek',
@@ -318,6 +317,17 @@ export default {
 	FooterButtons: {
 		submit: 'Beküldés',
 		submitted: 'Beküldve',
+	},
+	HelpEditor: {
+		editor: 'Szerkesztő',
+		instructions:
+			'A súgószövegek Markdown-ban vannak tárolva és ebben a formában is szerkeszthetők.',
+		preview: 'Előnézet',
+		saveFailed: 'Nem sikerült menteni',
+		saveSuccess: 'Mentve!',
+		stackeditButton: 'Szerkesztés StackEdit-tel',
+		stackeditInfo:
+			'Barátságosabb szerkesztő, de az előnézete nem tud mindent megjeleníteni. A bal felső sarokban levő gombbal zárható be.',
 	},
 	ListItem: {
 		clone: 'Másolat készítése',

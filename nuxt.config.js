@@ -36,6 +36,10 @@ export default {
 			src: '~/plugins/rating.js',
 			ssr: false,
 		},
+		{
+			src: '~/plugins/stackedit.js',
+			ssr: false,
+		},
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
