@@ -24,6 +24,34 @@ async function query(statement, args) {
 	return rows;
 }
 
+/**
+ * @param {{ statement: String, args: Object[] }[]} queries
+ * @returns {Promise<Boolean>}
+ */
+async function transaction(queries) {
+	let error = false;
+	let connection;
+	try {
+		if (pool) {
+			connection = await pool.getConnection();
+		} else {
+			connection = await mysql.createConnection(dbConf);
+		}
+		await connection.beginTransaction();
+		for (let i = 0; i < queries.length; i++) {
+			const q = queries[i];
+			await connection.execute(q.statement, q.args || []);
+		}
+		await connection.commit();
+	} catch (e) {
+		error = e;
+		if (connection) await connection.rollback();
+	} finally {
+		if (connection) connection.release();
+	}
+	if (error) throw error;
+}
+
 function sqlize(obj) {
 	const entries = Object.entries(obj).filter(e => e[1] !== undefined);
 	const fields = entries.map(e => e[0]);
@@ -101,6 +129,7 @@ function update(table, record, Model) {
 module.exports = {
 	init,
 	query,
+	transaction,
 	sqlize,
 	create,
 	findAll,
