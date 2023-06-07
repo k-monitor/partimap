@@ -13,7 +13,17 @@
 			</div>
 		</template>
 
-		<p>{{ $t('HelpEditor.instructions') }}</p>
+		<div class="d-flex">
+			<div class="mr-3">
+				<b-button
+					variant="primary"
+					@click="openEditor"
+				>
+					<i class="fas fa-edit" />
+				</b-button>
+			</div>
+			<p>{{ $t('HelpEditor.instructions') }}</p>
+		</div>
 
 		<b-form-textarea
 			id="textarea"
@@ -44,6 +54,21 @@ export default {
 		this.value = record.value || '';
 	},
 	methods: {
+		openEditor() {
+			const stackedit = new this.$Stackedit();
+
+			// Open the iframe
+			stackedit.openFile({
+				name: 'Filename', // with an optional filename
+				content: {
+					text: this.value,
+				},
+			});
+
+			stackedit.on('fileChange', file => {
+				this.value = file.content.text;
+			});
+		},
 		async save() {
 			try {
 				const lang = this.$i18n.locale;
