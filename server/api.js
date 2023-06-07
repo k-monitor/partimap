@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = require('express')();
+require('express-async-errors');
 const auth = require('./auth/setup');
 const db = require('./db');
 const i18n = require('./i18n/i18n.api');
