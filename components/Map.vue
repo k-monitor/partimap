@@ -94,7 +94,6 @@ export default {
 				lineDash: '0',
 				width: 8,
 			},
-
 			filteredIds: null, // null means no filter, otherwise it's an ID array
 		};
 	},
@@ -408,7 +407,7 @@ export default {
 			const decWidth = 19 - zoom;
 
 			const newWidth = Math.max(
-				0,
+				1,
 				Number(feature.get('width')) + addWidth - decWidth
 			);
 
