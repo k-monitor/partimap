@@ -73,6 +73,7 @@
 					<Map
 						:key="$route.path"
 						:features="loadInitFeatures()"
+						:fit-selected="!isInteractive"
 						:initial-base-map-key="interactions.baseMap"
 						visitor
 						@visitorFeatureAdded="addVisitorFeature"

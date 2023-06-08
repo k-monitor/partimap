@@ -71,6 +71,10 @@ export default {
 			default: null,
 			validator: container => container.every(f => f instanceof Feature),
 		},
+		fitSelected: {
+			type: Boolean,
+			default: false,
+		},
 		visitor: {
 			type: Boolean,
 			default: false,
@@ -271,9 +275,10 @@ export default {
 			}
 
 			// fit to selected feature or all features
-			const extent = this.getSelectedFeature
-				? this.getSelectedFeature.getGeometry().getExtent()
-				: this.source.getExtent();
+			const extent =
+				this.getSelectedFeature && this.fitSelected
+					? this.getSelectedFeature.getGeometry().getExtent()
+					: this.source.getExtent();
 
 			const leftPadding = isMobile() ? 0 : 400;
 
