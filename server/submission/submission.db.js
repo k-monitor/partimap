@@ -1,8 +1,8 @@
 const db = require('../db');
+const Rating = require('../../model/rating');
 const Submission = require('../../model/submission');
-const Rating = require('~/model/rating');
-const SurveyAnswer = require('~/model/surveyAnswer');
-const SubmittedFeatures = require('~/model/submittedFeatures');
+const SubmittedFeatures = require('../../model/submittedFeatures');
+const SurveyAnswer = require('../../model/surveyAnswer');
 
 /**
  * @param {Submission} submission

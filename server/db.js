@@ -1,5 +1,4 @@
 const mysql = require('mysql2/promise');
-const Connection = require('mysql2/typings/mysql/lib/Connection');
 const conf = require('./conf');
 
 /** @typedef { statement: String, args: Object[] } Query */
@@ -37,7 +36,7 @@ function transaction(queries) {
 
 /**
  * @callback inTransactionCallback
- * @param {Connection} connection
+ * @param {import('mysql2/typings/mysql/lib/Connection')} connection
  * @returns {Promise}
  */
 
@@ -67,7 +66,7 @@ async function inTransaction(fn) {
 }
 
 /**
- * @param {Connection} connection
+ * @param {import('mysql2/typings/mysql/lib/Connection')} connection
  * @param {Query[]} queries
  * @returns {Promise}
  */
@@ -92,6 +91,7 @@ function sqlize(obj) {
 }
 
 async function create(table, record, Model) {
+	const q = createQuery(table, record, Model);
 	const { insertId } = await query(q.statement, q.args);
 	return insertId > 0 ? insertId : false;
 }

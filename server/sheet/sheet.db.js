@@ -10,7 +10,7 @@ const DEFAULT_NEW_SHEET_ORD = 9999;
 async function create(sheet) {
 	sheet.ord = DEFAULT_NEW_SHEET_ORD;
 	const id = await db.create('sheet', sheet, Sheet);
-	await db.transaction(generateReorderQueries(sheet.projectId));
+	await reorderSheets(sheet.projectId);
 	return id;
 }
 
@@ -38,7 +38,7 @@ async function del(id) {
 		},
 	]);
 	// yes, this is a separate transaction as it needs to see missing sheets:
-	await db.transaction(generateReorderQueries(sheet.projectId));
+	await reorderSheets(sheet.projectId);
 }
 
 /**
@@ -92,10 +92,10 @@ async function update(sheet) {
 		);
 	}
 	await db.update('sheet', sheet, Sheet);
-	await db.transaction(generateReorderQueries(sheet.projectId));
+	await reorderSheets(sheet.projectId);
 }
 
-async function generateReorderQueries(projectId) {
+async function reorderSheets(projectId) {
 	const queries = [];
 	const sheets = await findByProjectId(projectId);
 	for (let i = 0; i < sheets.length; i++) {
@@ -106,7 +106,7 @@ async function generateReorderQueries(projectId) {
 			});
 		}
 	}
-	return queries;
+	return db.transaction(queries);
 }
 
 module.exports = {
