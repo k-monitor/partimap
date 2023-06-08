@@ -1,6 +1,8 @@
 const mysql = require('mysql2/promise');
 const conf = require('./conf');
 
+/** @typedef { statement: String, args: Object[] } Query */
+
 const dbConf = {
 	host: conf.DB_HOST,
 	port: conf.DB_PORT,
@@ -24,6 +26,57 @@ async function query(statement, args) {
 	return rows;
 }
 
+/**
+ * @param {Query[]} queries
+ * @returns {Promise}
+ */
+function transaction(queries) {
+	return inTransaction(connection => runQueries(connection, queries));
+}
+
+/**
+ * @callback inTransactionCallback
+ * @param {import('mysql2/typings/mysql/lib/Connection')} connection
+ * @returns {Promise}
+ */
+
+/**
+ * @param {inTransactionCallback} fn
+ * @returns {Promise}
+ */
+async function inTransaction(fn) {
+	let error = false;
+	let connection;
+	try {
+		if (pool) {
+			connection = await pool.getConnection();
+		} else {
+			connection = await mysql.createConnection(dbConf);
+		}
+		await connection.beginTransaction();
+		await fn(connection);
+		await connection.commit();
+	} catch (e) {
+		error = e;
+		if (connection) await connection.rollback();
+	} finally {
+		if (connection) connection.release();
+	}
+	if (error) throw error;
+}
+
+/**
+ * @param {import('mysql2/typings/mysql/lib/Connection')} connection
+ * @param {Query[]} queries
+ * @returns {Promise}
+ */
+async function runQueries(connection, queries) {
+	for (let i = 0; i < queries.length; i++) {
+		const q = queries[i];
+		await connection.execute(q.statement, q.args || []);
+	}
+}
+
 function sqlize(obj) {
 	const entries = Object.entries(obj).filter(e => e[1] !== undefined);
 	const fields = entries.map(e => e[0]);
@@ -38,14 +91,19 @@ function sqlize(obj) {
 }
 
 async function create(table, record, Model) {
+	const q = createQuery(table, record, Model);
+	const { insertId } = await query(q.statement, q.args);
+	return insertId > 0 ? insertId : false;
+}
+
+function createQuery(table, record, Model) {
 	const model = new Model(record);
 	delete model.id;
 	const i = sqlize(model);
-	const { insertId } = await query(
-		`INSERT IGNORE INTO ${table} (${i.cols}) VALUES (${i.qmarks})`,
-		i.values
-	);
-	return insertId > 0 ? insertId : false;
+	return {
+		statement: `INSERT IGNORE INTO ${table} (${i.cols}) VALUES (${i.qmarks})`,
+		args: i.values,
+	};
 }
 
 /**
@@ -101,8 +159,12 @@ function update(table, record, Model) {
 module.exports = {
 	init,
 	query,
+	transaction,
+	inTransaction,
+	runQueries,
 	sqlize,
 	create,
+	createQuery,
 	findAll,
 	findBy,
 	update,

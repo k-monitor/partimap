@@ -19,11 +19,26 @@ async function create(sheet) {
  */
 async function del(id) {
 	const sheet = await findById(id);
-	await db.del('sheet', id);
+	await db.transaction([
+		{
+			statement: 'DELETE FROM sheet WHERE id = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM submitted_features WHERE sheetId = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM survey_answer WHERE sheetId = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM rating WHERE sheetId = ?',
+			args: [id],
+		},
+	]);
+	// yes, this is a separate transaction as it needs to see missing sheets:
 	await reorderSheets(sheet.projectId);
-	await db.query('DELETE FROM submitted_features WHERE sheetId = ?', [id]);
-	await db.query('DELETE FROM survey_answer WHERE sheetId = ?', [id]);
-	await db.query('DELETE FROM rating WHERE sheetId = ?', [id]);
 }
 
 /**
@@ -81,15 +96,17 @@ async function update(sheet) {
 }
 
 async function reorderSheets(projectId) {
+	const queries = [];
 	const sheets = await findByProjectId(projectId);
 	for (let i = 0; i < sheets.length; i++) {
 		if (sheets[i].ord !== i) {
-			await db.query('UPDATE sheet SET ord = ? WHERE id = ?', [
-				i,
-				sheets[i].id,
-			]);
+			queries.push({
+				statement: 'UPDATE sheet SET ord = ? WHERE id = ?',
+				args: [i, sheets[i].id],
+			});
 		}
 	}
+	return db.transaction(queries);
 }
 
 module.exports = {

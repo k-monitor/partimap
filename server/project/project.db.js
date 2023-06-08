@@ -11,23 +11,42 @@ function create(project) {
 
 /**
  * @param {Number} id
+ * @return {Promise}
  */
-async function del(id) {
-	await db.query('DELETE FROM project WHERE id = ?', [id]);
-	await db.query('DELETE FROM sheet WHERE projectId = ?', [id]);
-	await db.query(
-		'DELETE a FROM submitted_features a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
-		[id]
-	);
-	await db.query(
-		'DELETE a FROM survey_answer a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
-		[id]
-	);
-	await db.query(
-		'DELETE a FROM rating a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
-		[id]
-	);
-	await db.query('DELETE FROM submission WHERE projectId = ?', [id]);
+function del(id) {
+	return db.transaction(delQueries(id));
+}
+
+function delQueries(id) {
+	return [
+		{
+			statement: 'DELETE FROM project WHERE id = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM sheet WHERE projectId = ?',
+			args: [id],
+		},
+		{
+			statement:
+				'DELETE a FROM submitted_features a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
+			args: [id],
+		},
+		{
+			statement:
+				'DELETE a FROM survey_answer a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
+			args: [id],
+		},
+		{
+			statement:
+				'DELETE a FROM rating a INNER JOIN submission s ON s.id = a.submissionId WHERE s.projectId = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM submission WHERE projectId = ?',
+			args: [id],
+		},
+	];
 }
 
 /**
@@ -105,6 +124,7 @@ function update(project) {
 module.exports = {
 	create,
 	del,
+	delQueries,
 	findAll,
 	findById,
 	findByIdOrSlug,

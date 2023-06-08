@@ -2,18 +2,6 @@ const db = require('../db');
 const SubmittedFeatures = require('../../model/submittedFeatures');
 
 /**
- * @param {SubmittedFeatures} submittedFeatures
- * @returns {Number|Boolean}
- */
-function create(submittedFeatures) {
-	return db.create(
-		'submitted_features',
-		submittedFeatures,
-		SubmittedFeatures
-	);
-}
-
-/**
  * @param {Number} projectId
  * @returns {SubmittedFeatures[]}
  */
@@ -38,7 +26,6 @@ async function findBySheetId(sheetId) {
 }
 
 module.exports = {
-	create,
 	findByProjectId,
 	findBySheetId,
 };

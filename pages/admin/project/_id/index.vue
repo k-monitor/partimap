@@ -341,19 +341,19 @@ export default {
 		async delSheet(sheet) {
 			try {
 				await this.$axios.$delete('/api/sheet/' + sheet.id);
+				this.project.sheets = this.project.sheets.filter(function (s) {
+					if (s.id !== sheet.id) {
+						if (s.ord > sheet.ord) {
+							s.ord--;
+						}
+						return true;
+					} else {
+						return false;
+					}
+				});
 			} catch (error) {
 				this.errorToast(this.$t('projectEditor.sheetDeletionFailed'));
 			}
-			this.project.sheets = this.project.sheets.filter(function (s) {
-				if (s.id !== sheet.id) {
-					if (s.ord > sheet.ord) {
-						s.ord--;
-					}
-					return true;
-				} else {
-					return false;
-				}
-			});
 		},
 		async moveSheet(dir, sheet) {
 			let otherSheet; // with which the current element is switched

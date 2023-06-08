@@ -35,6 +35,7 @@
 		"email-validator": "^2.0.4",
 		"excel4node": "^1.7.2",
 		"express": "^4.17.1",
+		"express-async-errors": "^3.1.1",
 		"express-mysql-session": "^2.1.7",
 		"express-session": "^1.17.2",
 		"file-saver": "^2.0.5",

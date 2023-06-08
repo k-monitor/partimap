@@ -3,14 +3,6 @@ const Rating = require('../../model/rating');
 const AggregatedRating = require('../../model/aggregatedRating');
 
 /**
- * @param {Rating} rating
- * @returns {Number|Boolean}
- */
-function create(rating) {
-	return db.create('rating', rating, Rating);
-}
-
-/**
  * @param {Number} sheetId
  * @return {AggregatedRating[]}
  */
@@ -43,7 +35,6 @@ async function findByProjectId(projectId) {
 }
 
 module.exports = {
-	create,
 	aggregateBySheetId,
 	findByProjectId,
 };

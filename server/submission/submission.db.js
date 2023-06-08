@@ -1,25 +1,61 @@
 const db = require('../db');
+const Rating = require('../../model/rating');
 const Submission = require('../../model/submission');
+const SubmittedFeatures = require('../../model/submittedFeatures');
+const SurveyAnswer = require('../../model/surveyAnswer');
 
 /**
  * @param {Submission} submission
- * @returns {Number|Boolean}
+ * @param {Rating[]} ratings
+ * @param {SurveyAnswer[]} answers
+ * @param {SubmittedFeatures[]} features
+ * @returns {Promise<Number|Boolean>}
  */
-function create(submission) {
-	return db.create('submission', submission, Submission);
+async function create(submission, ratings, answers, features) {
+	let submissionId = -1;
+	await db.inTransaction(async connection => {
+		const cq = db.createQuery('submission', submission, Submission);
+		const [rows] = await connection.execute(cq.statement, cq.args);
+		const { insertId } = rows;
+		if (!insertId || insertId < 0) {
+			throw new Error(`Invalid insertId: ${insertId}`);
+		}
+		submissionId = insertId;
+
+		const queries = [
+			...ratings.map(e => {
+				e.submissionId = submissionId;
+				return db.createQuery('rating', e, Rating);
+			}),
+			...answers.map(e => {
+				e.submissionId = submissionId;
+				return db.createQuery('survey_answer', e, SurveyAnswer);
+			}),
+			...features.map(e => {
+				e.submissionId = submissionId;
+				return db.createQuery(
+					'submitted_features',
+					e,
+					SubmittedFeatures
+				);
+			}),
+		];
+		await db.runQueries(connection, queries);
+	});
+	return submissionId;
 }
 
 /**
  * @param {Number} id
  */
-async function del(id) {
+/* async function del(id) {
 	await db.query('DELETE FROM submission WHERE id = ?', [id]);
 	await db.query('DELETE FROM submitted_features WHERE submissionId = ?', [
 		id,
 	]);
 	await db.query('DELETE FROM survey_answer WHERE submissionId = ?', [id]);
 	await db.query('DELETE FROM rating WHERE submissionId = ?', [id]);
-}
+} */
 
 /**
  * @param {Number} id
@@ -43,7 +79,6 @@ async function findByProjectId(projectId) {
 
 module.exports = {
 	create,
-	del,
 	findById,
 	findByProjectId,
 };

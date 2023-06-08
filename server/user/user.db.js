@@ -15,17 +15,24 @@ function create(user) {
  * @param {Number} id
  */
 async function del(id) {
-	await db.del('user', id);
+	const delProjectQueries = [];
 
 	const projects = await pdb.findByUserId(id);
-	for (const p of projects) {
-		await pdb.del(p.id);
+	for (const project of projects) {
+		delProjectQueries.push(...pdb.delQueries(project.id));
 	}
 
-	const maps = await mdb.findByUserId(id);
-	for (const m of maps) {
-		await mdb.del(m.id);
-	}
+	await db.transaction([
+		{
+			statement: 'DELETE FROM user WHERE id = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM map WHERE userId = ?',
+			args: [id],
+		},
+		...delProjectQueries,
+	]);
 }
 
 /**
