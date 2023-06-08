@@ -102,8 +102,18 @@
 				)"
 				:key="dt"
 				:label="$t('sheetEditor.instructions')[dt]"
+				:description="`${
+					(interactions.buttonLabels[dt] || '').length
+				} / 100`"
 			>
-				<b-form-input v-model="interactions.buttonLabels[dt]" />
+				<b-form-input
+					v-model="interactions.buttonLabels[dt]"
+					:state="
+						(interactions.buttonLabels[dt] || '').length > 100
+							? false
+							: null
+					"
+				/>
 			</b-form-group>
 
 			<div v-if="isRatingSelected">
