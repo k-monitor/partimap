@@ -4,14 +4,6 @@ const { OTHER_ANSWER, OTHER_PREFIX } = require('../../assets/constants');
 const SurveyAnswer = require('../../model/surveyAnswer');
 
 /**
- * @param {SurveyAnswer} surveyAnswer
- * @returns {Number|Boolean}
- */
-function create(surveyAnswer) {
-	return db.create('survey_answer', surveyAnswer, SurveyAnswer);
-}
-
-/**
  * @param {Number} projectId
  * @return {Object[]}
  */
@@ -191,6 +183,5 @@ async function findByProjectId(projectId) {
 
 module.exports = {
 	aggregateByProjectId,
-	create,
 	findByProjectId,
 };

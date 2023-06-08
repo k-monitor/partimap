@@ -55,18 +55,21 @@ router.post(
 		// TODO validate ratings: filter for existing featureIDs in that same sheet
 		// TODO send BAD_REQUEST if no answer, no feature and no rating present
 
-		const submissionId = await smdb.create({
+		const submission = {
 			projectId: req.project.id,
 			timestamp: new Date().getTime(),
 			ip,
 			ua,
-		});
+		};
+		const ratings = [];
+		const surveyAnswers = [];
+		const submittedFeatures = [];
+
 		for (const sheetId of submittedSheetIds) {
 			const s = req.body[sheetId];
 			if (s.answers) {
 				for (const questionId in s.answers) {
-					await sadb.create({
-						submissionId,
+					surveyAnswers.push({
 						sheetId,
 						questionId,
 						answer: s.answers[questionId],
@@ -74,8 +77,7 @@ router.post(
 				}
 			}
 			if (s.features) {
-				await sfdb.create({
-					submissionId,
+				submittedFeatures.push({
 					sheetId,
 					features: s.features,
 				});
@@ -83,11 +85,8 @@ router.post(
 			if (s.ratings) {
 				for (const fid in s.ratings) {
 					const featureId = Number(fid);
-					if (!featureId) {
-						continue;
-					}
-					await rdb.create({
-						submissionId,
+					if (!featureId) continue;
+					ratings.push({
 						sheetId,
 						featureId,
 						rating: s.ratings[featureId],
@@ -95,8 +94,12 @@ router.post(
 				}
 			}
 		}
-		// TODO improvement I: insert in bulk by table
-		// TODO improvement II: do all this in transaction
+		const submissionId = await smdb.create(
+			submission,
+			ratings,
+			surveyAnswers,
+			submittedFeatures
+		);
 		res.json({ submissionId });
 	}
 );
