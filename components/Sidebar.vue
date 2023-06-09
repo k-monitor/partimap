@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<b-button
-			class="bg-dark border border-secondary position-absolute py-2 shadow-sm sidebar-button text-white"
+			class="sidebar-button bg-dark border border-secondary position-absolute py-2 shadow-sm text-white"
+			:class="visible ? 'sidebar-visible' : 'sidebar-hidden'"
 			variant="light"
 			@click="showSidebarAndCancelDrawing"
 		>
@@ -171,7 +172,18 @@ export default {
 	border-bottom-right-radius: 0.5rem;
 	border-top-left-radius: 0px !important;
 	border-bottom-left-radius: 0px !important;
+	border-left-width: 0px !important;
 	font-size: 1.25rem;
 	top: 0.5rem;
+	transition: left 0.3s ease;
+}
+
+.sidebar-button.sidebar-visible {
+	left: -100%;
+}
+
+.sidebar-button.sidebar-hidden {
+	left: 0;
+	transition-delay: 0.3s;
 }
 </style>
