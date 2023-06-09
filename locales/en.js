@@ -317,6 +317,7 @@ export default {
 		deleteFeature: 'Delete feature',
 		description: 'Description',
 		hidden: 'Hide from the list of features',
+		jumpToMap: 'Show map',
 		name: 'Name',
 		size: 'Size',
 	},

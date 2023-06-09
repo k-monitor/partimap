@@ -311,6 +311,7 @@ export default {
 		deleteFeature: 'Elem törlése',
 		description: 'Leírás',
 		hidden: 'Elem elrejtése a listában',
+		jumpToMap: 'Megnézem a térképen',
 		name: 'Név',
 		size: 'Méret',
 	},

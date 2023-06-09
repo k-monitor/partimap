@@ -50,15 +50,16 @@
 			@shown="expandFinished()"
 		>
 			<b-card
-				v-if="
-					selectedFeature &&
-					(editable ||
-						form.category ||
-						form.description ||
-						visitorCanRate)
-				"
+				v-if="selectedFeature"
 				body-class="pb-0"
-				class="collapse-content"
+				class="collapse-content py-0"
+				:class="{
+					'd-sm-none':
+						!editable &&
+						!form.category &&
+						!form.description &&
+						!visitorCanRate,
+				}"
 			>
 				<div v-if="editable">
 					<b-row
@@ -291,6 +292,18 @@
 						</b-button>
 					</div>
 				</b-form-group>
+				<div
+					v-else
+					class="d-sm-none mb-3 text-center"
+				>
+					<b-button
+						variant="primary"
+						@click="setSidebarVisible(false)"
+					>
+						<i class="fas fa-map-marked-alt position-relative" />
+						{{ $t('FeatureListElement.jumpToMap') }}
+					</b-button>
+				</div>
 			</b-card>
 		</b-collapse>
 	</div>
@@ -298,7 +311,7 @@
 
 <script>
 import Feature from 'ol/Feature';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 import TipTapDisplay from './TipTapDisplay.vue';
 
@@ -468,6 +481,7 @@ export default {
 		}
 	},
 	methods: {
+		...mapMutations(['setSidebarVisible']),
 		emitChangeStyle() {
 			this.$nuxt.$emit(
 				'changeStyle',
