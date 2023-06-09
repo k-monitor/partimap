@@ -187,11 +187,12 @@ router.get(
 				a = a || '';
 
 				function writeCell(a) {
-					if (!a) {
+					if (a === undefined || a === null || isNaN(a)) {
 						return;
 					}
-					if (Number.isInteger(a)) {
-						CELL(COL).number(a);
+					const asNum = Number(a);
+					if (a.length && !isNaN(asNum)) {
+						CELL(COL).number(asNum);
 					} else if (Array.isArray(a)) {
 						CELL(COL).string(a.join('; '));
 					} else {

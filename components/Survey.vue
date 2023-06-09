@@ -49,7 +49,6 @@
 				</div>
 				<div class="align-items-center d-flex">
 					<b-form-input
-						____v-model="answers[q.id]"
 						:min="q.min"
 						:max="q.max"
 						:name="'q' + q.id"
