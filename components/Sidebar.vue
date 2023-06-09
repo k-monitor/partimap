@@ -1,12 +1,14 @@
 <template>
 	<div>
 		<b-button
-			class="sidebar-button bg-dark border border-secondary position-absolute py-2 shadow-sm text-white"
+			ref="sidebarButton"
+			class="sidebar-button bg-dark border border-secondary position-absolute pl-1 py-2 shadow-sm text-white"
 			:class="visible ? 'sidebar-visible' : 'sidebar-hidden'"
 			variant="light"
 			@click="showSidebarAndCancelDrawing"
 		>
-			<i class="fas fa-fw fa-angle-double-right" />
+			<i class="far fa-window-maximize fa-rotate-270" />
+			<i class="fas fa-angle-double-right" />
 		</b-button>
 		<b-sidebar
 			v-model="visible"
@@ -18,56 +20,62 @@
 			sidebar-class="border-right border-secondary"
 			width="360px"
 		>
-			<template #header="{ hide: sbhide }">
-				<b-navbar
-					type="light"
-					class="border-bottom justify-content-between shadow-sm w-100"
-				>
-					<b-navbar-brand
-						v-if="admin"
-						v-b-tooltip.hover
-						role="button"
-						:title="backLabel"
-						@click="$emit('back')"
+			<template #header>
+				<div class="border-bottom d-flex flex-grow-1 shadow-sm">
+					<b-navbar
+						type="light"
+						class="flex-grow-1 justify-content-between"
 					>
-						<Logo />
-					</b-navbar-brand>
-					<b-navbar-brand
-						v-else
-						v-b-tooltip.hover.bottom
-						:href="localePath({ name: 'hogyan-mukodik' })"
-						target="_blank"
-						:title="$t('PublicFrame.help')"
-					>
-						<Logo class="small" />
-					</b-navbar-brand>
-					<div
-						v-if="!admin && project && project.user"
-						class="mx-auto"
-					>
-						<a
-							:href="project.user.website"
-							target="_blank"
-						>
-							<img
-								v-if="project.user.logo"
-								:src="project.user.logo"
-								:alt="project.user.website"
-								height="30"
-							/>
-						</a>
-					</div>
-					<b-navbar-nav>
-						<b-nav-item
-							v-if="!fixed"
+						<b-navbar-brand
+							v-if="admin"
 							v-b-tooltip.hover
-							:title="$t('Sidebar.hide')"
-							@click="sbhide"
+							role="button"
+							:title="backLabel"
+							@click="$emit('back')"
 						>
-							<i class="fas fa-fw fa-angle-double-left" />
-						</b-nav-item>
-					</b-navbar-nav>
-				</b-navbar>
+							<Logo />
+						</b-navbar-brand>
+						<b-navbar-brand
+							v-else
+							v-b-tooltip.hover.bottom
+							:href="localePath({ name: 'hogyan-mukodik' })"
+							target="_blank"
+							:title="$t('PublicFrame.help')"
+						>
+							<Logo class="small" />
+						</b-navbar-brand>
+						<div
+							v-if="!admin && project && project.user"
+							class="mx-auto"
+						>
+							<a
+								:href="project.user.website"
+								target="_blank"
+							>
+								<img
+									v-if="project.user.logo"
+									:src="project.user.logo"
+									:alt="project.user.website"
+									height="30"
+								/>
+							</a>
+						</div>
+					</b-navbar>
+					<b-button
+						v-if="!fixed"
+						v-b-tooltip.hover
+						class="sidebar-button-inside border-left rounded-0"
+						:title="$t('Sidebar.hide')"
+						variant="light"
+						@click="hide"
+					>
+						<i class="fas fa-angle-double-left" />
+						<i
+							class="fas fa-map-marked-alt position-relative"
+							style="font-size: 110%"
+						/>
+					</b-button>
+				</div>
 			</template>
 			<template #default>
 				<div class="p-3">
