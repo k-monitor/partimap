@@ -12,6 +12,7 @@
 			bg-variant="white"
 			class="admin-sidebar"
 			header-class="p-0"
+			no-close-on-esc
 			shadow="sm"
 			sidebar-class="border-right border-secondary"
 			width="360px"
