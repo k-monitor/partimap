@@ -401,7 +401,7 @@ export default {
 
 			// raise width of selected features
 			const isHidden = feature.get('hidden');
-			const isPoint = feature.getGeometry().constructor.name === 'Point';
+			const isPoint = feature.getGeometry().getType() === 'Point';
 			const isSelected =
 				selFeature && selFeature.getId() === feature.getId();
 			const addWidth =
