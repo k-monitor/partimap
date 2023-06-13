@@ -6,25 +6,29 @@
 			class="my-4"
 		>
 			<template #label>
-				<div class="d-flex">
-					<span
-						v-if="q.required"
-						class="text-danger"
-						>*</span
-					>
-					<strong class="text-primary">{{ q.label }}</strong>
-					<span
+				<div class="row">
+					<div class="col-9">
+						<span
+							v-if="q.required"
+							class="text-danger"
+						>
+							*
+						</span>
+						<strong class="text-primary">{{ q.label }}</strong>
+					</div>
+					<div
 						v-if="
 							answers[q.id] &&
 							'dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(
 								q.type
 							)
 						"
-						class="ml-auto small text-muted"
+						class="col small text-muted text-right"
 						role="button"
 						@click="removeAnswer(q.id)"
-						>{{ $t('Survey.removeAnswer') }}</span
 					>
+						{{ $t('Survey.removeAnswer') }}
+					</div>
 				</div>
 			</template>
 			<CheckboxGroup
