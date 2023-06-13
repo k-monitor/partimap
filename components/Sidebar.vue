@@ -124,12 +124,19 @@ export default {
 			default: null,
 		},
 	},
+	data() {
+		return {
+			mounted: false,
+		};
+	},
 	computed: {
 		...mapGetters(['getDrawType', 'getSidebarVisible']),
 		...mapGetters('selected', ['getSelectedFeature']),
 		visible: {
 			get() {
-				return this.fixed ? true : this.getSidebarVisible;
+				return this.fixed
+					? true
+					: this.getSidebarVisible && this.mounted;
 			},
 			set(v) {
 				if (!this.fixed) {
@@ -161,6 +168,12 @@ export default {
 			cl.add('animate__animated', 'animate__flash');
 			this.$refs.sidebarButtonInsideIcons.style.animationDelay = '2s';
 		},
+	},
+	mounted() {
+		const delay = isMobile() ? 500 : 0;
+		setTimeout(() => {
+			this.mounted = true;
+		}, delay);
 	},
 	methods: {
 		...mapMutations(['setDrawType', 'setSidebarVisible']),
