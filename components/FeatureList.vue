@@ -112,8 +112,9 @@
 
 <script>
 import { saveAs } from 'file-saver';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { featuresToKML, KMLToFeatures } from '@/assets/kml';
+import { isMobile } from '~/assets/constants';
 
 export default {
 	props: {
@@ -200,6 +201,7 @@ export default {
 		},
 	},
 	methods: {
+		...mapMutations(['setSidebarVisible']),
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};
 			const rating = dict[featureId.toString()];
@@ -255,6 +257,9 @@ export default {
 		},
 		toggleCategoryFilter(c) {
 			this.categoryFilter = this.categoryFilter === c ? '' : c;
+			setTimeout(() => {
+				if (isMobile()) this.setSidebarVisible(false);
+			}, 500);
 		},
 		exportKML() {
 			this.$nuxt.$emit('toggleLoading', true);
