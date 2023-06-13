@@ -66,7 +66,7 @@
 						v-b-tooltip.hover
 						class="sidebar-button-inside border-left rounded-0"
 						:title="$t('Sidebar.hide')"
-						variant="light"
+						variant="primary"
 						@click="hide"
 					>
 						<span ref="sidebarButtonInsideIcons">
