@@ -14,10 +14,10 @@ async function aggregateByProjectId(projectId) {
 	const questions = [];
 	for (const s of sheets) {
 		const survey = JSON.parse(s.survey || '{}');
-		if (survey.showResults || survey.showResultsOnly) {
-			const qs = survey.questions || [];
-			questions.push(...qs.map(q => ({ ...q, sheetId: s.id })));
-		}
+		const qs = (survey.questions || [])
+			.filter(q => survey.showResults || q.showResult)
+			.map(q => ({ ...q, sheetId: s.id }));
+		questions.push(...qs);
 	}
 
 	if (!questions.length) {

@@ -432,8 +432,9 @@ export default {
 		},
 		required: 'Required question',
 		showOnlyStatsToVisitors: 'Display only the results',
-		showStatsToVisitors:
-			'Display results to visitors after submitting the sheet',
+		showResult: 'Display results to visitors after submitting the sheet',
+		showResults:
+			'Display results to visitors after submitting the sheet (modifies every question)',
 	},
 	SurveyResult: {
 		averageValue: 'Average value',

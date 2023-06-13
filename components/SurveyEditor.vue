@@ -14,23 +14,29 @@
 					class="d-flex item p-0"
 				>
 					<b-button
-						class="handle border-0 py-3 rounded-0 text-center"
+						class="handle border-0 flex-shrink-0 py-3 rounded-0 text-center"
 						variant="light"
-						style="width: 40px"
+						style="width: 32px"
 					>
 						<i class="fas fa-grip-vertical" />
 					</b-button>
 					<div
-						class="d-flex align-items-center flex-grow-1 px-2 py-3 overflow-hidden"
+						class="d-flex align-items-center flex-grow-1 px-1 py-3 overflow-hidden"
 						@click="editQuestion(i)"
 					>
 						<i
-							class="fas fa-fw mr-2"
+							class="fas fa-fw flex-shrink-0 mr-1"
 							:class="icon[q.type]"
 						/>
 						<strong class="flex-grow-1 text-truncate">
 							{{ q.label }}
 						</strong>
+					</div>
+					<div class="px-1 py-3">
+						<i
+							v-if="q.showResult"
+							class="fas fa-chart-bar fa-fw text-muted"
+						/>
 					</div>
 					<b-button
 						v-if="!readonly"
@@ -54,12 +60,18 @@
 			</draggable>
 		</b-list-group>
 		<b-form-group>
-			<b-form-checkbox v-model="survey.showResults">
-				{{ $t('SurveyEditor.showStatsToVisitors') }}
+			<b-form-checkbox
+				v-model="survey.showResults"
+				@change="showResultsClicked"
+			>
+				{{ $t('SurveyEditor.showResults') }}
 			</b-form-checkbox>
 		</b-form-group>
 		<b-form-group>
-			<b-form-checkbox v-model="survey.showResultsOnly">
+			<b-form-checkbox
+				v-model="survey.showResultsOnly"
+				:disabled="!showAnyResults"
+			>
 				{{ $t('SurveyEditor.showOnlyStatsToVisitors') }}
 			</b-form-checkbox>
 		</b-form-group>
@@ -174,6 +186,11 @@
 						{{ $t('SurveyEditor.required') }}
 					</b-form-checkbox>
 				</b-form-group>
+				<b-form-group v-if="canHaveResults(question)">
+					<b-form-checkbox v-model="question.showResult">
+						{{ $t('SurveyEditor.showResult') }}
+					</b-form-checkbox>
+				</b-form-group>
 			</b-form>
 		</b-modal>
 	</div>
@@ -202,6 +219,9 @@ export default {
 			survey.questions = [];
 		}
 		survey.showResults = !!survey.showResults;
+		if (survey.showResults) {
+			survey.questions.forEach(q => (q.showResult = true));
+		}
 		survey.showResultsOnly = !!survey.showResultsOnly;
 		return {
 			survey,
@@ -266,25 +286,45 @@ export default {
 		hasOptions() {
 			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
 		},
+		showAnyResults() {
+			return (
+				this.survey.showResults ||
+				this.survey.questions.filter(q => q.showResult).length
+			);
+		},
 	},
 	watch: {
-		'survey.showResults'() {
+		'survey.showResults'(v) {
 			this.emitSurvey();
+			if (!v) this.survey.showResultsOnly = false;
 		},
 		'survey.showResultsOnly'() {
 			this.emitSurvey();
 		},
 	},
 	methods: {
+		showResultsClicked() {
+			this.survey.questions.forEach(
+				q => (q.showResult = this.survey.showResults)
+			);
+		},
 		addQuestion() {
 			const id = new Date().getTime();
 			const label =
 				this.$t('SurveyEditor.questionPrefix') +
 				` #${this.survey.questions.length + 1}`;
-			const q = { id, label, type: 'text' };
+			const q = {
+				id,
+				label,
+				type: 'text',
+				showResult: this.survey.showResults,
+			};
 			this.survey.questions.push(q);
 			this.emitSurvey();
 			this.editQuestion(this.survey.questions.length - 1);
+		},
+		canHaveResults(q) {
+			return q.type && q.type !== 'text';
 		},
 		editQuestion(i) {
 			this.questionIndex = i;
@@ -304,6 +344,9 @@ export default {
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
 				this.$delete(this.question, 'options');
+			}
+			if (!this.question.showResult) {
+				this.survey.showResults = false;
 			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();

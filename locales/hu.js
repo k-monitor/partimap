@@ -427,8 +427,9 @@ export default {
 		},
 		required: 'Kötelező megválaszolni',
 		showOnlyStatsToVisitors: 'Csak az eredmények megjelenítése',
-		showStatsToVisitors:
-			'Kitöltés után válasz statisztika megjelenítése a látogatónak',
+		showResult: 'Kitöltés után válasz statisztika megjelenítése',
+		showResults:
+			'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',
 	},
 	SurveyResult: {
 		averageValue: 'Átlagos érték',
