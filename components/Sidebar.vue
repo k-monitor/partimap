@@ -162,7 +162,7 @@ export default {
 			}
 		},
 		visibleAndLoaded(vl) {
-			if (!vl) return;
+			if (!vl || !this.$refs.sidebarButtonInsideIcons) return;
 			const cl = this.$refs.sidebarButtonInsideIcons.classList;
 			cl.remove('animate__animated', 'animate__flash');
 			cl.add('animate__animated', 'animate__flash');
