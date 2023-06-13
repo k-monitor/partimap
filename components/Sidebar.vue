@@ -164,6 +164,7 @@ export default {
 		showSidebarAndCancelDrawing() {
 			this.setDrawType('');
 			this.setSidebarVisible(true);
+			this.$refs.sidebarButton.blur();
 		},
 	},
 };
