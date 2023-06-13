@@ -220,4 +220,8 @@ export default {
 	left: 0;
 	transition-delay: 0.3s;
 }
+
+.tooltip {
+	z-index: 10000; /* above FLE highlight */
+}
 </style>
