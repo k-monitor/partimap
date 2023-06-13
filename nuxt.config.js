@@ -24,7 +24,11 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: ['~/assets/branding.scss', '~/assets/lightbox.scss'],
+	css: [
+		'~/assets/animate.min.css',
+		'~/assets/branding.scss',
+		'~/assets/lightbox.scss',
+	],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [

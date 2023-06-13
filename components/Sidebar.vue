@@ -69,11 +69,13 @@
 						variant="light"
 						@click="hide"
 					>
-						<i class="fas fa-angle-double-left" />
-						<i
-							class="fas fa-map-marked-alt position-relative"
-							style="font-size: 110%"
-						/>
+						<span ref="sidebarButtonInsideIcons">
+							<i class="fas fa-angle-double-left" />
+							<i
+								class="fas fa-map-marked-alt position-relative"
+								style="font-size: 110%"
+							/>
+						</span>
 					</b-button>
 				</div>
 			</template>
@@ -135,6 +137,9 @@ export default {
 				}
 			},
 		},
+		visibleAndLoaded() {
+			return this.visible && !this.loading;
+		},
 	},
 	watch: {
 		getDrawType(t) {
@@ -148,6 +153,13 @@ export default {
 			if (f) {
 				this.show();
 			}
+		},
+		visibleAndLoaded(vl) {
+			if (!vl) return;
+			const cl = this.$refs.sidebarButtonInsideIcons.classList;
+			cl.remove('animate__animated', 'animate__flash');
+			cl.add('animate__animated', 'animate__flash');
+			this.$refs.sidebarButtonInsideIcons.style.animationDelay = '2s';
 		},
 	},
 	methods: {
