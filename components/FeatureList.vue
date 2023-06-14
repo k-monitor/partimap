@@ -71,9 +71,9 @@
 					:description-label="descriptionLabelFor(feature)"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
-					:stars="stars"
+					:stars="interactions?.stars"
 					:visitor="visitor"
-					:visitor-can-name="visitorCanName"
+					:visitor-can-name="interactions?.enabled.includes('naming')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -94,9 +94,9 @@
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:show-results="showResults"
-					:stars="stars"
+					:stars="interactions?.stars"
 					:visitor="visitor"
-					:visitor-can-rate="visitorCanRate"
+					:visitor-can-rate="interactions?.enabled.includes('Rating')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -119,10 +119,6 @@ import { Interactions } from '~/assets/interactions';
 
 export default {
 	props: {
-		hideAdminFeatures: {
-			type: Boolean,
-			default: false,
-		},
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
@@ -135,19 +131,7 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		stars: {
-			type: Number,
-			default: 5,
-		},
 		visitor: {
-			type: Boolean,
-			default: false,
-		},
-		visitorCanRate: {
-			type: Boolean,
-			default: false,
-		},
-		visitorCanName: {
 			type: Boolean,
 			default: false,
 		},
@@ -174,6 +158,17 @@ export default {
 		},
 		filteredVisitorFeatures() {
 			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
+		},
+		hideAdminFeatures() {
+			return this.visitor && this.isInteractive;
+		},
+		isInteractive() {
+			return (
+				this.interactions &&
+				(this.interactions.enabled.includes('Point') ||
+					this.interactions.enabled.includes('LineString') ||
+					this.interactions.enabled.includes('Polygon'))
+			);
 		},
 	},
 	watch: {

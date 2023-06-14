@@ -164,8 +164,6 @@
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
 				:interactions="interactions"
-				:stars="interactions.stars"
-				:visitor-can-rate="isRatingSelected"
 			/>
 
 			<template #footer>
