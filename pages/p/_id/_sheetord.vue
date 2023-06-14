@@ -107,6 +107,7 @@
 					<FeatureList
 						:description-label="sheet.descriptionLabel"
 						:init-feature-ratings="featureRatings"
+						:interactions="interactions"
 						:hide-admin-features="!!isInteractive"
 						:show-results="resultsShown"
 						:stars="stars"

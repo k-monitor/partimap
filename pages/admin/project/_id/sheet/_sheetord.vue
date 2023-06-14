@@ -96,25 +96,35 @@
 					stacked
 				/>
 			</b-form-group>
-			<b-form-group
+
+			<div
 				v-for="dt in ['Point', 'LineString', 'Polygon'].filter(dt =>
 					interactions.enabled.includes(dt)
 				)"
 				:key="dt"
-				:label="$t('sheetEditor.instructions')[dt]"
-				:description="`${
-					(interactions.buttonLabels[dt] || '').length
-				} / 100`"
 			>
-				<b-form-input
-					v-model="interactions.buttonLabels[dt]"
-					:state="
-						(interactions.buttonLabels[dt] || '').length > 100
-							? false
-							: null
-					"
-				/>
-			</b-form-group>
+				<b-form-group
+					:label="$t('sheetEditor.instructions')[dt]"
+					:description="`${
+						(interactions.buttonLabels[dt] || '').length
+					} / 100`"
+				>
+					<b-form-input
+						v-model="interactions.buttonLabels[dt]"
+						:state="
+							(interactions.buttonLabels[dt] || '').length > 100
+								? false
+								: null
+						"
+					/>
+				</b-form-group>
+				<b-form-group :label="$t('sheetEditor.featureQuestion')">
+					<b-form-input
+						v-model="interactions.descriptionLabels[dt]"
+						:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
+					/>
+				</b-form-group>
+			</div>
 
 			<div v-if="isRatingSelected">
 				<b-form-group :label="$t('sheetEditor.ratingType')">
@@ -139,6 +149,7 @@
 					/>
 				</b-form-group>
 			</div>
+
 			<b-form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
@@ -149,18 +160,10 @@
 				/>
 			</b-form-group>
 
-			<b-form-group
-				v-if="isInteractive"
-				:label="$t('sheetEditor.featureQuestion')"
-			>
-				<b-form-input
-					v-model="sheet.descriptionLabel"
-					:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
-				/>
-			</b-form-group>
 			<FeatureList
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
+				:interactions="interactions"
 				:stars="interactions.stars"
 				:visitor-can-rate="isRatingSelected"
 			/>
@@ -243,6 +246,17 @@ export default {
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
+
+			// BEGIN backward compatibility for #2437
+			const descriptionLabel = sheet?.descriptionLabel || '';
+			['Point', 'LineString', 'Polygon'].forEach(dt => {
+				if (!interactions.descriptionLabels[dt]) {
+					interactions.descriptionLabels[dt] = descriptionLabel;
+				}
+			});
+			if (sheet) sheet.descriptionLabel = '';
+			// END backward compatibility for #2437
+
 			return {
 				project,
 				sheet,

@@ -68,7 +68,7 @@
 					v-for="feature in filteredVisitorFeatures"
 					:key="feature.getId()"
 					:categories="categories"
-					:description-label="descriptionLabel"
+					:description-label="descriptionLabelFor(feature)"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:stars="stars"
@@ -115,13 +115,10 @@ import { saveAs } from 'file-saver';
 import { mapGetters, mapMutations } from 'vuex';
 import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
+import { Interactions } from '~/assets/interactions';
 
 export default {
 	props: {
-		descriptionLabel: {
-			type: String,
-			default: null,
-		},
 		hideAdminFeatures: {
 			type: Boolean,
 			default: false,
@@ -129,6 +126,10 @@ export default {
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
+		},
+		interactions: {
+			type: Interactions,
+			default: null,
 		},
 		showResults: {
 			type: Boolean,
@@ -202,6 +203,11 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
+		descriptionLabelFor(feature) {
+			const dt = feature.getGeometry().getType();
+			const lab = this.interactions?.descriptionLabels[dt];
+			return lab || this.sheet?.descriptionLabel || '';
+		},
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};
 			const rating = dict[featureId.toString()];
