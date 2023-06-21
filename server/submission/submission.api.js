@@ -181,15 +181,11 @@ router.get(
 						a.submissionId === s.id &&
 						String(a.questionId) === String(q.id)
 				)[0];
-				if (a && a.answer) {
-					a = a.answer;
-				}
+				if (a) a = a.answer;
 				a = a || '';
 
 				function writeCell(a) {
-					if (a === undefined || a === null || isNaN(a)) {
-						return;
-					}
+					if (!a && String(a) !== '0') return;
 					const asNum = Number(a);
 					if (a.length && !isNaN(asNum)) {
 						CELL(COL).number(asNum);
