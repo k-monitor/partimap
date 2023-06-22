@@ -115,7 +115,6 @@ import { saveAs } from 'file-saver';
 import { mapGetters, mapMutations } from 'vuex';
 import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
-import { Interactions } from '~/assets/interactions';
 
 export default {
 	props: {
@@ -124,7 +123,7 @@ export default {
 			default: () => {},
 		},
 		interactions: {
-			type: Interactions,
+			type: Object, // TODO Interactions actually, but throws warnings on console
 			default: null,
 		},
 		showResults: {

@@ -90,10 +90,40 @@
 						{{ $t('sheetEditor.visitorInteractions') }}
 					</h6>
 				</template>
-				<b-form-checkbox-group
-					v-model="interactions.enabled"
-					:options="interactionOptions"
-					stacked
+				<b-list-group class="mb-3">
+					<b-list-group-item
+						v-for="o in interactionOptions"
+						:key="o.value"
+						class="d-flex p-0 align-items-center"
+					>
+						<div class="p-2">
+							<b-form-checkbox
+								v-model="interactions.enabled"
+								:value="o.value"
+							>
+								{{ o.text }}
+							</b-form-checkbox>
+						</div>
+						<b-button
+							v-if="
+								['Point', 'LineString', 'Polygon'].includes(
+									o.value
+								)
+							"
+							class="border-0 ml-auto px-2 py-2 rounded-0"
+							variant="outline-primary"
+							:disabled="!interactions.enabled.includes(o.value)"
+							@click="$bvModal.show(o.value + '-modal')"
+						>
+							<i class="fas fa-fw fa-cog" />
+						</b-button>
+					</b-list-group-item>
+				</b-list-group>
+				<InteractionSettingsModal
+					v-for="dt in ['Point', 'LineString', 'Polygon']"
+					:id="dt + '-modal'"
+					:key="dt"
+					:draw-type="dt"
 				/>
 			</b-form-group>
 
@@ -224,6 +254,7 @@ import {
 	serializeInteractions,
 } from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
+import InteractionSettingsModal from '~/components/InteractionSettingsModal.vue';
 import SaveButton from '~/components/SaveButton.vue';
 import NewSheetModal from '~/components/NewSheetModal.vue';
 
@@ -232,6 +263,7 @@ export default {
 		Map: () => (process.client ? import('@/components/Map') : null),
 		SaveButton,
 		NewSheetModal,
+		InteractionSettingsModal,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
@@ -300,12 +332,10 @@ export default {
 				// map sheet
 				if (!this.sheet.survey) {
 					// interactive map sheet
-					options.push(
-						ia('Point'),
-						ia('LineString'),
-						ia('Polygon'),
-						ia('naming')
-					);
+					options.push(ia('Point'), ia('LineString'), ia('Polygon'));
+					if (this.isInteractive) {
+						options.push(ia('naming'));
+					}
 				} else {
 					options.push(ia('Rating'));
 				}
