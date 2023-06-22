@@ -34,7 +34,7 @@
 					</div>
 					<div class="px-1 py-3">
 						<i
-							v-if="q.showResult"
+							v-if="q.showResult && canHaveResults(q)"
 							class="fas fa-chart-bar fa-fw text-muted"
 						/>
 					</div>
@@ -59,22 +59,24 @@
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
-		<b-form-group>
-			<b-form-checkbox
-				v-model="survey.showResults"
-				@change="showResultsClicked"
-			>
-				{{ $t('SurveyEditor.showResults') }}
-			</b-form-checkbox>
-		</b-form-group>
-		<b-form-group>
-			<b-form-checkbox
-				v-model="survey.showResultsOnly"
-				:disabled="!showAnyResults"
-			>
-				{{ $t('SurveyEditor.showOnlyStatsToVisitors') }}
-			</b-form-checkbox>
-		</b-form-group>
+		<div v-if="survey.questions.filter(canHaveResults).length">
+			<b-form-group>
+				<b-form-checkbox
+					v-model="survey.showResults"
+					@change="showResultsClicked"
+				>
+					{{ $t('SurveyEditor.showResults') }}
+				</b-form-checkbox>
+			</b-form-group>
+			<b-form-group>
+				<b-form-checkbox
+					v-model="survey.showResultsOnly"
+					:disabled="!showAnyResults"
+				>
+					{{ $t('SurveyEditor.showOnlyStatsToVisitors') }}
+				</b-form-checkbox>
+			</b-form-group>
+		</div>
 		<b-modal
 			id="survey-question-editor"
 			:cancel-title="$t('SurveyEditor.cancel')"
