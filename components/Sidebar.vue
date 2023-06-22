@@ -134,9 +134,10 @@ export default {
 		...mapGetters('selected', ['getSelectedFeature']),
 		visible: {
 			get() {
+				const isMob = typeof window !== 'undefined' && isMobile();
 				return this.fixed
 					? true
-					: this.getSidebarVisible && this.mounted;
+					: this.getSidebarVisible && (this.mounted || !isMob);
 			},
 			set(v) {
 				if (!this.fixed) {
@@ -162,7 +163,8 @@ export default {
 			}
 		},
 		visibleAndLoaded(vl) {
-			if (!vl || !this.$refs.sidebarButtonInsideIcons) return;
+			if (!isMobile() || !vl || !this.$refs.sidebarButtonInsideIcons)
+				return;
 			const cl = this.$refs.sidebarButtonInsideIcons.classList;
 			cl.remove('animate__animated', 'animate__flash');
 			cl.add('animate__animated', 'animate__flash');
