@@ -124,37 +124,10 @@
 					:id="dt + '-modal'"
 					:key="dt"
 					:draw-type="dt"
+					:interactions="interactions"
+					@modified="handleInteractionModified"
 				/>
 			</b-form-group>
-
-			<div
-				v-for="dt in ['Point', 'LineString', 'Polygon'].filter(dt =>
-					interactions.enabled.includes(dt)
-				)"
-				:key="dt"
-			>
-				<b-form-group
-					:label="$t('sheetEditor.instructions')[dt]"
-					:description="`${
-						(interactions.buttonLabels[dt] || '').length
-					} / 100`"
-				>
-					<b-form-input
-						v-model="interactions.buttonLabels[dt]"
-						:state="
-							(interactions.buttonLabels[dt] || '').length > 100
-								? false
-								: null
-						"
-					/>
-				</b-form-group>
-				<b-form-group :label="$t('sheetEditor.featureQuestion')">
-					<b-form-input
-						v-model="interactions.descriptionLabels[dt]"
-						:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
-					/>
-				</b-form-group>
-			</div>
 
 			<div v-if="isRatingSelected">
 				<b-form-group :label="$t('sheetEditor.ratingType')">
@@ -469,6 +442,10 @@ export default {
 			this.$router.push(
 				this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord)
 			);
+		},
+		handleInteractionModified(drawType, buttonLabel, descriptionLabel) {
+			this.interactions.buttonLabels[drawType] = buttonLabel;
+			this.interactions.descriptionLabels[drawType] = descriptionLabel;
 		},
 		loadFeaturesFromStore() {
 			const features = [];

@@ -2,8 +2,27 @@
 	<b-modal
 		:id="id"
 		ref="modal"
+		:cancel-title="$t('ProjectSheetManager.cancel')"
+		ok-variant="success"
+		:title="$t(`sheetEditor.interactions.${drawType}`)"
+		@ok="handleOk"
+		@show="reinit"
 	>
-		{{ drawType }}
+		<b-form-group
+			:label="$t('sheetEditor.instructions')[drawType]"
+			:description="`${buttonLabel.length} / 100`"
+		>
+			<b-form-input
+				v-model="buttonLabel"
+				:state="buttonLabel.length > 100 ? false : null"
+			/>
+		</b-form-group>
+		<b-form-group :label="$t('sheetEditor.featureQuestion')">
+			<b-form-input
+				v-model="descriptionLabel"
+				:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
+			/>
+		</b-form-group>
 	</b-modal>
 </template>
 
@@ -23,8 +42,34 @@ export default {
 			default: null,
 		},
 	},
+	data() {
+		return {
+			buttonLabel: '',
+			descriptionLabel: '',
+		};
+	},
+	watch: {
+		interactions: {
+			handler() {
+				this.reinit();
+			},
+			deep: true,
+		},
+	},
 	methods: {
-		close() {
+		reinit() {
+			this.buttonLabel =
+				this.interactions?.buttonLabels[this.drawType] || '';
+			this.descriptionLabel =
+				this.interactions?.descriptionLabels[this.drawType] || '';
+		},
+		handleOk() {
+			this.$emit(
+				'modified',
+				this.drawType,
+				this.buttonLabel,
+				this.descriptionLabel
+			);
 			this.$refs.modal.hide();
 		},
 	},
