@@ -20,7 +20,16 @@ export default {
 		Array.from(this.$refs.html.querySelectorAll('img')).forEach(img => {
 			img.style.cursor = 'pointer';
 			img.addEventListener('click', () => {
-				basicLightbox.create(`<img src="${img.src}">`).show();
+				const blb = basicLightbox.create(`<img src="${img.src}">`);
+				blb.show();
+
+				function closeOnEsc(e) {
+					if (e.key === 'Escape') {
+						blb.close();
+						window.removeEventListener('keydown', closeOnEsc);
+					}
+				}
+				window.addEventListener('keydown', closeOnEsc);
 			});
 		});
 	},
