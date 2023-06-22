@@ -1,7 +1,7 @@
 import KML from 'ol/format/KML';
 
 const DEFAULT_COLOR = '#000000';
-const DEFAULT_WIDTH = '4';
+const DEFAULT_WIDTH = '8';
 const EXPORTED_CATEGORY_NAME = 'partimapCategory';
 const EXPORTED_DASH_NAME = 'partimapLineStyle';
 const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
