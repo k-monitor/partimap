@@ -14,7 +14,7 @@
 			<div class="fixed-width">
 				<b-button
 					v-if="showPrev"
-					variant="primary"
+					variant="outline-primary"
 					@click="$emit('prev')"
 				>
 					<i class="fas fa-fw fa-chevron-left" />

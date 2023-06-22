@@ -19,6 +19,22 @@
 		background-color: var(--brand) !important;
 	}
 
+	.btn-outline-primary {
+		border-color: var(--brand) !important;
+		color: var(--brand) !important;
+
+		&:active,
+		&.active,
+		&:focus,
+		&.focus,
+		&:hover {
+			background-color: var(--brand) !important;
+			border-color: var(--brand) !important;
+			box-shadow: none !important;
+			color: white !important;
+		}
+	}
+
 	.btn-primary,
 	.sidebar-button,
 	.sidebar-button-inside {
