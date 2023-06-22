@@ -45,7 +45,7 @@ export function buttons(
 					interactions.buttonLabels[button.drawType] ||
 					$context.$t('sheetEditor.interactions')[button.drawType];
 			} else {
-				button.tooltip = $context.$t('MapToolbar.cancel');
+				button.tooltip = $context.$t('modals.cancel');
 			}
 			return button;
 		});

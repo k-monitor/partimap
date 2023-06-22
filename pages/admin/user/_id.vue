@@ -173,7 +173,7 @@
 		<b-modal
 			id="delete-user-modal"
 			:busy="loading"
-			:cancel-title="$t('userEditor.cancel')"
+			:cancel-title="$t('modals.cancel')"
 			cancel-variant="success"
 			centered
 			footer-class="d-flex justify-content-between"

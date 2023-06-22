@@ -2,7 +2,7 @@
 	<b-modal
 		:id="id"
 		ref="modal"
-		:cancel-title="$t('ProjectSheetManager.cancel')"
+		:cancel-title="$t('modals.cancel')"
 		ok-variant="success"
 		:title="$t(`sheetEditor.interactions.${drawType}`)"
 		@ok="handleOk"

@@ -229,7 +229,6 @@ export default {
 		administrator: 'Adminisztrátor',
 		altLogo: 'Logó',
 		back: 'Felhasználók',
-		cancel: 'Mégsem',
 		changeFailed: 'Módosítás sikertelen',
 		changeSuccessful: 'Módosítás sikeres',
 		color: 'Brand szín',
@@ -348,9 +347,6 @@ export default {
 		Polygon:
 			'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
 	},
-	MapToolbar: {
-		cancel: 'Mégsem',
-	},
 	OptionsEditor: {
 		addColumn: 'Új Oszlop',
 		addOption: 'Új Opció',
@@ -369,7 +365,6 @@ export default {
 	},
 	ProjectSheetManager: {
 		addSheet: 'Munkalap hozzáadása',
-		cancel: 'Mégsem',
 		copyFeaturesFrom: 'Térkép elemek másolása innen',
 		sendToMap: 'Új saját térképre küldés',
 		sheetName: 'Munkalap elnevezése',
@@ -404,7 +399,6 @@ export default {
 	},
 	SurveyEditor: {
 		addQuestion: 'Új kérdés hozzáadása',
-		cancel: 'Mégsem',
 		maxName: 'Maximum elnevezés',
 		maxSelect: 'Maximálisan kiválasztható',
 		maxValue: 'Maximum érték',

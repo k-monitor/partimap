@@ -3,7 +3,7 @@
 		id="create-sheet-modal"
 		ref="modal"
 		:title="$t('ProjectSheetManager.title')"
-		:cancel-title="$t('ProjectSheetManager.cancel')"
+		:cancel-title="$t('modals.cancel')"
 		ok-variant="success"
 		@show="resetModal"
 		@shown="$refs.sheetNameInput.focus()"

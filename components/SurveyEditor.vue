@@ -79,7 +79,7 @@
 		</div>
 		<b-modal
 			id="survey-question-editor"
-			:cancel-title="$t('SurveyEditor.cancel')"
+			:cancel-title="$t('modals.cancel')"
 			:ok-disabled="readonly"
 			:title="
 				$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`
