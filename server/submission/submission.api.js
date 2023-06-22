@@ -165,16 +165,18 @@ router.get(
 		const sas = wb.addWorksheet(m.submittedAnswers);
 		sas.cell(1, 1).string(m.submissionId);
 		sas.cell(1, 2).string(m.timestamp);
-		sas.cell(1, 3).string(m.isMobile);
+		sas.cell(1, 3).string('IP');
+		sas.cell(1, 4).string(m.isMobile);
 		submissions.forEach((s, row) => {
 			const CELL = col => sas.cell(row + 2, col);
 			CELL(1).number(s.id);
 			CELL(2).date(new Date(s.timestamp));
-			CELL(3).string(
+			CELL(3).string(s.ip);
+			CELL(4).string(
 				isMobile({ ua: s.ua }) ? m.isMobileYes : m.isMobileNo
 			);
 
-			let COL = 4;
+			let COL = 5;
 			questions.forEach(q => {
 				let a = answers.filter(
 					a =>
