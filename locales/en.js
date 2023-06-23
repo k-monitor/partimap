@@ -202,6 +202,7 @@ export default {
 		backgroundImage: 'Background image',
 		defaultFeatureQuestion: 'Please explain why you gave this response.',
 		defaultBaseMap: 'Default base map',
+		featureLabel: 'Name of these contributions in the report',
 		featureQuestion: "Follow-up request to user's contribution",
 		instructions: {
 			Point: 'Instruction for placing a Point marker',

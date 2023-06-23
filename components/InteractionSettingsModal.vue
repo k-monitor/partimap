@@ -23,6 +23,12 @@
 				:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
 			/>
 		</b-form-group>
+		<b-form-group :label="$t('sheetEditor.featureLabel')">
+			<b-form-input
+				v-model="featureLabel"
+				:placeholder="$t(`FeatureListElement.defaultName.${drawType}`)"
+			/>
+		</b-form-group>
 	</b-modal>
 </template>
 
@@ -46,6 +52,7 @@ export default {
 		return {
 			buttonLabel: '',
 			descriptionLabel: '',
+			featureLabel: '',
 		};
 	},
 	watch: {
@@ -62,13 +69,16 @@ export default {
 				this.interactions?.buttonLabels[this.drawType] || '';
 			this.descriptionLabel =
 				this.interactions?.descriptionLabels[this.drawType] || '';
+			this.featureLabel =
+				this.interactions?.featureLabels[this.drawType] || '';
 		},
 		handleOk() {
 			this.$emit(
 				'modified',
 				this.drawType,
 				this.buttonLabel,
-				this.descriptionLabel
+				this.descriptionLabel,
+				this.featureLabel
 			);
 			this.$refs.modal.hide();
 		},

@@ -443,9 +443,15 @@ export default {
 				this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord)
 			);
 		},
-		handleInteractionModified(drawType, buttonLabel, descriptionLabel) {
+		handleInteractionModified(
+			drawType,
+			buttonLabel,
+			descriptionLabel,
+			featureLabel
+		) {
 			this.interactions.buttonLabels[drawType] = buttonLabel;
 			this.interactions.descriptionLabels[drawType] = descriptionLabel;
+			this.interactions.featureLabels[drawType] = featureLabel;
 		},
 		loadFeaturesFromStore() {
 			const features = [];
