@@ -90,29 +90,42 @@
 						{{ $t('sheetEditor.visitorInteractions') }}
 					</h6>
 				</template>
-				<b-form-checkbox-group
-					v-model="interactions.enabled"
-					:options="interactionOptions"
-					stacked
-				/>
-			</b-form-group>
-			<b-form-group
-				v-for="dt in ['Point', 'LineString', 'Polygon'].filter(dt =>
-					interactions.enabled.includes(dt)
-				)"
-				:key="dt"
-				:label="$t('sheetEditor.instructions')[dt]"
-				:description="`${
-					(interactions.buttonLabels[dt] || '').length
-				} / 100`"
-			>
-				<b-form-input
-					v-model="interactions.buttonLabels[dt]"
-					:state="
-						(interactions.buttonLabels[dt] || '').length > 100
-							? false
-							: null
-					"
+				<b-list-group class="mb-3">
+					<b-list-group-item
+						v-for="o in interactionOptions"
+						:key="o.value"
+						class="d-flex p-0 align-items-center"
+					>
+						<div class="p-2">
+							<b-form-checkbox
+								v-model="interactions.enabled"
+								:value="o.value"
+							>
+								{{ o.text }}
+							</b-form-checkbox>
+						</div>
+						<b-button
+							v-if="
+								['Point', 'LineString', 'Polygon'].includes(
+									o.value
+								)
+							"
+							class="border-0 ml-auto px-2 py-2 rounded-0"
+							variant="outline-primary"
+							:disabled="!interactions.enabled.includes(o.value)"
+							@click="$bvModal.show(o.value + '-modal')"
+						>
+							<i class="fas fa-fw fa-cog" />
+						</b-button>
+					</b-list-group-item>
+				</b-list-group>
+				<InteractionSettingsModal
+					v-for="dt in ['Point', 'LineString', 'Polygon']"
+					:id="dt + '-modal'"
+					:key="dt"
+					:draw-type="dt"
+					:interactions="interactions"
+					@modified="handleInteractionModified"
 				/>
 			</b-form-group>
 
@@ -139,6 +152,7 @@
 					/>
 				</b-form-group>
 			</div>
+
 			<b-form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
@@ -149,20 +163,10 @@
 				/>
 			</b-form-group>
 
-			<b-form-group
-				v-if="isInteractive"
-				:label="$t('sheetEditor.featureQuestion')"
-			>
-				<b-form-input
-					v-model="sheet.descriptionLabel"
-					:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
-				/>
-			</b-form-group>
 			<FeatureList
 				v-if="sheet.features"
 				:init-feature-ratings="submittedRatings"
-				:stars="interactions.stars"
-				:visitor-can-rate="isRatingSelected"
+				:interactions="interactions"
 			/>
 
 			<template #footer>
@@ -223,6 +227,7 @@ import {
 	serializeInteractions,
 } from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
+import InteractionSettingsModal from '~/components/InteractionSettingsModal.vue';
 import SaveButton from '~/components/SaveButton.vue';
 import NewSheetModal from '~/components/NewSheetModal.vue';
 
@@ -231,6 +236,7 @@ export default {
 		Map: () => (process.client ? import('@/components/Map') : null),
 		SaveButton,
 		NewSheetModal,
+		InteractionSettingsModal,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
@@ -243,6 +249,17 @@ export default {
 			const submittedRatings = await $axios.$get(
 				`/api/submission/ratings/${sheet.id}`
 			);
+
+			// BEGIN backward compatibility for #2437
+			const descriptionLabel = sheet?.descriptionLabel || '';
+			['Point', 'LineString', 'Polygon'].forEach(dt => {
+				if (!interactions.descriptionLabels[dt]) {
+					interactions.descriptionLabels[dt] = descriptionLabel;
+				}
+			});
+			if (sheet) sheet.descriptionLabel = '';
+			// END backward compatibility for #2437
+
 			return {
 				project,
 				sheet,
@@ -288,12 +305,10 @@ export default {
 				// map sheet
 				if (!this.sheet.survey) {
 					// interactive map sheet
-					options.push(
-						ia('Point'),
-						ia('LineString'),
-						ia('Polygon'),
-						ia('naming')
-					);
+					options.push(ia('Point'), ia('LineString'), ia('Polygon'));
+					if (this.isInteractive) {
+						options.push(ia('naming'));
+					}
 				} else {
 					options.push(ia('Rating'));
 				}
@@ -427,6 +442,16 @@ export default {
 			this.$router.push(
 				this.$route.fullPath.replace(/[?#].*$/, '').replace(/\d+$/, ord)
 			);
+		},
+		handleInteractionModified(
+			drawType,
+			buttonLabel,
+			descriptionLabel,
+			featureLabel
+		) {
+			this.interactions.buttonLabels[drawType] = buttonLabel;
+			this.interactions.descriptionLabels[drawType] = descriptionLabel;
+			this.interactions.featureLabels[drawType] = featureLabel;
 		},
 		loadFeaturesFromStore() {
 			const features = [];

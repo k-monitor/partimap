@@ -276,7 +276,7 @@ router.get(
 
 		const sfs = wb.addWorksheet(m.submittedFeatures);
 		sfs.cell(1, 1).string(m.submissionId);
-		sfs.cell(1, 2).string(m.sheetTitle);
+		sfs.cell(1, 2).string(m.featureLabel);
 		sfs.cell(1, 3).string(m.featureType);
 		sfs.cell(1, 4).string(m.coords);
 		sfs.cell(1, 5).string(m.featureName);
@@ -287,6 +287,7 @@ router.get(
 			const sheet = sheets.filter(s => s.id === sf.sheetId)[0];
 			if (sheet) {
 				const features = JSON.parse(sf.features);
+				const interactions = JSON.parse(sheet.interactions || '{}');
 				for (let j = 0; j < features.length; j++) {
 					const f = features[j];
 					const name = f?.properties?.name || f.id;
@@ -307,10 +308,15 @@ router.get(
 					// convert to string, 1 point per line
 					coords = coords.map(c => c.join(';')).join('\n');
 
+					const type = m.geometry[f.geometry.type];
+					const label =
+						(interactions.featureLabels || {})[f.geometry.type] ||
+						type;
+
 					row++;
 					sfs.cell(row, 1).number(sf.submissionId);
-					sfs.cell(row, 2).string(sheet.title);
-					sfs.cell(row, 3).string(f.geometry.type);
+					sfs.cell(row, 2).string(label);
+					sfs.cell(row, 3).string(type);
 					sfs.cell(row, 4).string(coords);
 					sfs.cell(row, 5).string(String(name));
 					sfs.cell(row, 6).string(f?.properties?.description || '');

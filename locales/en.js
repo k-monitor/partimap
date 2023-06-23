@@ -202,6 +202,7 @@ export default {
 		backgroundImage: 'Background image',
 		defaultFeatureQuestion: 'Please explain why you gave this response.',
 		defaultBaseMap: 'Default base map',
+		featureLabel: 'Name of these contributions in the report',
 		featureQuestion: "Follow-up request to user's contribution",
 		instructions: {
 			Point: 'Instruction for placing a Point marker',
@@ -234,7 +235,6 @@ export default {
 		administrator: 'Administrator',
 		altLogo: 'Logo',
 		back: 'Users',
-		cancel: 'Cancel',
 		changeFailed: 'Modification failed',
 		changeSuccessful: 'Account modified successfully',
 		confirmDeleteUser: 'Delete account',
@@ -353,9 +353,6 @@ export default {
 		Polygon:
 			'Click border points. Click the starting point again to end and save.',
 	},
-	MapToolbar: {
-		cancel: 'Cancel',
-	},
 	OptionsEditor: {
 		addColumn: 'Add column',
 		addOption: 'Add option',
@@ -374,7 +371,6 @@ export default {
 	},
 	ProjectSheetManager: {
 		addSheet: 'Add new sheet',
-		cancel: 'Cancel',
 		copyFeaturesFrom: 'Copy features from this map:',
 		sendToMap: 'Send features to a map',
 		sheetName: 'Sheet title',
@@ -409,7 +405,6 @@ export default {
 	},
 	SurveyEditor: {
 		addQuestion: 'Add question',
-		cancel: 'Cancel',
 		maxName: 'Label (maximum)',
 		maxSelect: 'Maximum number of choices:',
 		maxValue: 'Maximum value',

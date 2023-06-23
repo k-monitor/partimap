@@ -6,6 +6,8 @@ export class Interactions {
 	 * @param {Object} data Derserialized interactions object
 	 * @param {String[]} data.enabled List of enabled interactions
 	 * @param {{Point: String, LineString: String, Polygon: String}} data.buttonLabels Custom labels for drawing buttons
+	 * @param {{Point: String, LineString: String, Polygon: String}} data.descriptionLabels Custom labels for description field of features
+	 * @param {{Point: String, LineString: String, Polygon: String}} data.featureLabels Custom labels for features in report (export)
 	 * @param {Number} data.stars Number of stars for Rating interaction
 	 */
 	constructor(data) {
@@ -16,6 +18,16 @@ export class Interactions {
 			Point: data.buttonLabels?.Point || '',
 			LineString: data.buttonLabels?.LineString || '',
 			Polygon: data.buttonLabels?.Polygon || '',
+		};
+		this.descriptionLabels = {
+			Point: data.descriptionLabels?.Point || '',
+			LineString: data.descriptionLabels?.LineString || '',
+			Polygon: data.descriptionLabels?.Polygon || '',
+		};
+		this.featureLabels = {
+			Point: data.featureLabels?.Point || '',
+			LineString: data.featureLabels?.LineString || '',
+			Polygon: data.featureLabels?.Polygon || '',
 		};
 		this.stars = data.stars || 5;
 	}

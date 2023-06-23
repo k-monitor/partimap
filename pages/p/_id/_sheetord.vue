@@ -105,18 +105,10 @@
 						:show-consent="isFirstSheet"
 					/>
 					<FeatureList
-						:description-label="sheet.descriptionLabel"
 						:init-feature-ratings="featureRatings"
-						:hide-admin-features="!!isInteractive"
+						:interactions="interactions"
 						:show-results="resultsShown"
-						:stars="stars"
 						visitor
-						:visitor-can-rate="
-							interactions.enabled.includes('Rating')
-						"
-						:visitor-can-name="
-							interactions.enabled.includes('naming')
-						"
 					/>
 
 					<template #footer>
@@ -299,9 +291,6 @@ export default {
 				Object.keys(this.sheet.ratings).length > 0;
 			const haveResults = haveAnswers || haveRatings;
 			return haveResults && !this.resultsShown;
-		},
-		stars() {
-			return this.interactions.stars;
 		},
 	},
 	async mounted() {

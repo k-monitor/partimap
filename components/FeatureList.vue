@@ -68,12 +68,12 @@
 					v-for="feature in filteredVisitorFeatures"
 					:key="feature.getId()"
 					:categories="categories"
-					:description-label="descriptionLabel"
+					:description-label="descriptionLabelFor(feature)"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
-					:stars="stars"
+					:stars="interactions?.stars"
 					:visitor="visitor"
-					:visitor-can-name="visitorCanName"
+					:visitor-can-name="interactions?.enabled.includes('naming')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -94,9 +94,9 @@
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:show-results="showResults"
-					:stars="stars"
+					:stars="interactions?.stars"
 					:visitor="visitor"
-					:visitor-can-rate="visitorCanRate"
+					:visitor-can-rate="interactions?.enabled.includes('Rating')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -118,35 +118,19 @@ import { isMobile } from '~/assets/constants';
 
 export default {
 	props: {
-		descriptionLabel: {
-			type: String,
-			default: null,
-		},
-		hideAdminFeatures: {
-			type: Boolean,
-			default: false,
-		},
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
+		},
+		interactions: {
+			type: Object, // TODO Interactions actually, but throws warnings on console
+			default: null,
 		},
 		showResults: {
 			type: Boolean,
 			default: false,
 		},
-		stars: {
-			type: Number,
-			default: 5,
-		},
 		visitor: {
-			type: Boolean,
-			default: false,
-		},
-		visitorCanRate: {
-			type: Boolean,
-			default: false,
-		},
-		visitorCanName: {
 			type: Boolean,
 			default: false,
 		},
@@ -173,6 +157,17 @@ export default {
 		},
 		filteredVisitorFeatures() {
 			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
+		},
+		hideAdminFeatures() {
+			return this.visitor && this.isInteractive;
+		},
+		isInteractive() {
+			return (
+				this.interactions &&
+				(this.interactions.enabled.includes('Point') ||
+					this.interactions.enabled.includes('LineString') ||
+					this.interactions.enabled.includes('Polygon'))
+			);
 		},
 	},
 	watch: {
@@ -202,6 +197,11 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
+		descriptionLabelFor(feature) {
+			const dt = feature.getGeometry().getType();
+			const lab = this.interactions?.descriptionLabels[dt];
+			return lab || this.sheet?.descriptionLabel || '';
+		},
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};
 			const rating = dict[featureId.toString()];
