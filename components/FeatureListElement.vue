@@ -360,6 +360,7 @@ export default {
 	},
 	data() {
 		return {
+			confirmedClose: false,
 			form: {
 				name: this.getFeatureName(),
 				category: this.feature.get('category') || '', // empty string is important for typeahead comp
@@ -497,8 +498,18 @@ export default {
 			];
 			return this.feature.get('name') || anon;
 		},
-		featureClicked() {
+		async featureClicked() {
 			if (this.selectedFeature) {
+				if (
+					this.visitor &&
+					this.editable &&
+					!this.form.description &&
+					!this.confirmedClose
+				) {
+					const confirmed = await this.confirmFeatureClose();
+					if (!confirmed) return;
+					this.confirmedClose = true;
+				}
 				this.$store.commit('selected/remove', this.feature);
 				document.querySelector('.b-sidebar-body').scrollTo(0, 0);
 			} else {

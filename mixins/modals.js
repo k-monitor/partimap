@@ -26,5 +26,19 @@ export default {
 				}
 			);
 		},
+		confirmFeatureClose() {
+			return this.$bvModal.msgBoxConfirm(
+				this.$t('modals.confirmFeatureClose'),
+				{
+					cancelTitle: this.$t('modals.cancel'),
+					cancelVariant: 'success',
+					centered: true,
+					footerClass: 'p-2',
+					okTitle: this.$t('modals.yes'),
+					okVariant: 'danger',
+					title: this.$t('modals.unsaved'),
+				}
+			);
+		},
 	},
 };

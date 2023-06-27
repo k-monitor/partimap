@@ -447,6 +447,8 @@ export default {
 	modals: {
 		cancel: 'Mégsem',
 		confirmDeletion: 'Biztosan törlöd ezt',
+		confirmFeatureClose:
+			'A válasz segíti a felmérést. Mentés szöveges magyarázat nélkül?',
 		confirmUnsaved:
 			'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
