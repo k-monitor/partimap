@@ -309,6 +309,7 @@ export default {
 			this.survey.questions.forEach(
 				q => (q.showResult = this.survey.showResults)
 			);
+			this.emitSurvey();
 		},
 		addQuestion() {
 			const id = new Date().getTime();
