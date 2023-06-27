@@ -20,7 +20,7 @@ module.exports = {
 		dislikeCount: 'Diszlájkok száma',
 		feature: 'Térkép elem',
 		featureDesc: 'Leírás',
-		featureLabel: 'Közös elnevezés',
+		featureLabel: 'Feladat egyedi neve',
 		featureName: 'Név',
 		featureType: 'Elem típusa',
 		filename: 'export.xlsx',

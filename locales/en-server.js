@@ -20,7 +20,7 @@ module.exports = {
 		dislikeCount: 'Downvote count',
 		feature: 'Marker',
 		featureDesc: 'Description',
-		featureLabel: 'Common name',
+		featureLabel: 'Unique task name',
 		featureName: 'Name',
 		featureType: 'Type of marker',
 		filename: 'export.xlsx',
