@@ -195,10 +195,10 @@ export default {
 	sheetEditor: {
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
-		defaultFeatureQuestion: 'Miért rajzoltad ezt fel?',
+		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		featureLabel: 'Felrajzolt elemek elnevezése a riportban',
-		featureQuestion: 'Felrajzolt elemekhez rendelt kérdés',
+		descriptionLabel: 'Felrajzolt elemekhez rendelt kérdés',
 		instructions: {
 			Point: 'Instrukció pont felrajzolásához',
 			LineString: 'Instrukció vonal felrajzolásához',

@@ -280,7 +280,8 @@ router.get(
 		sfs.cell(1, 3).string(m.featureType);
 		sfs.cell(1, 4).string(m.coords);
 		sfs.cell(1, 5).string(m.featureName);
-		sfs.cell(1, 6).string(m.featureDesc);
+		sfs.cell(1, 6).string(m.descriptionLabel);
+		sfs.cell(1, 7).string(m.featureDesc);
 		row = 1;
 		for (let i = 0; i < submittedFeatures.length; i++) {
 			const sf = submittedFeatures[i];
@@ -309,17 +310,22 @@ router.get(
 					coords = coords.map(c => c.join(';')).join('\n');
 
 					const type = m.geometry[f.geometry.type];
-					const label =
+					const descriptionLabel =
+						(interactions.descriptionLabels || {})[
+							f.geometry.type
+						] || '';
+					const featureLabel =
 						(interactions.featureLabels || {})[f.geometry.type] ||
 						type;
 
 					row++;
 					sfs.cell(row, 1).number(sf.submissionId);
-					sfs.cell(row, 2).string(label);
+					sfs.cell(row, 2).string(featureLabel);
 					sfs.cell(row, 3).string(type);
 					sfs.cell(row, 4).string(coords);
 					sfs.cell(row, 5).string(String(name));
-					sfs.cell(row, 6).string(f?.properties?.description || '');
+					sfs.cell(row, 6).string(descriptionLabel);
+					sfs.cell(row, 7).string(f?.properties?.description || '');
 				}
 			}
 		}

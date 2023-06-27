@@ -200,10 +200,10 @@ export default {
 	sheetEditor: {
 		back: 'Back to project',
 		backgroundImage: 'Background image',
-		defaultFeatureQuestion: 'Please explain why you gave this response.',
+		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultBaseMap: 'Default base map',
 		featureLabel: 'Name of these contributions in the report',
-		featureQuestion: "Follow-up request to user's contribution",
+		descriptionLabel: "Follow-up request to user's contribution",
 		instructions: {
 			Point: 'Instruction for placing a Point marker',
 			LineString: 'Instruction for drawing a Line',

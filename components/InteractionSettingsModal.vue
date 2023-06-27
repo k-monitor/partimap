@@ -17,10 +17,10 @@
 				:state="buttonLabel.length > 100 ? false : null"
 			/>
 		</b-form-group>
-		<b-form-group :label="$t('sheetEditor.featureQuestion')">
+		<b-form-group :label="$t('sheetEditor.descriptionLabel')">
 			<b-form-input
 				v-model="descriptionLabel"
-				:placeholder="$t('sheetEditor.defaultFeatureQuestion')"
+				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
 		</b-form-group>
 		<b-form-group :label="$t('sheetEditor.featureLabel')">

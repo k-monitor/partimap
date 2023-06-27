@@ -156,7 +156,7 @@
 						v-if="visitor"
 						:label="
 							descriptionLabel ||
-							$t('sheetEditor.defaultFeatureQuestion')
+							$t('sheetEditor.defaultDescriptionLabel')
 						"
 					>
 						<b-textarea
