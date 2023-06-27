@@ -82,7 +82,9 @@
 				<template #label>
 					<h6 class="mb-0">{{ $t('sheetEditor.survey') }}</h6>
 				</template>
-				<SurveyEditor v-model="sheet.survey" />
+				<client-only>
+					<SurveyEditor v-model="sheet.survey" />
+				</client-only>
 			</b-form-group>
 			<b-form-group v-if="interactionOptions.length">
 				<template #label>
