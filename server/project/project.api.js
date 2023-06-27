@@ -191,7 +191,7 @@ function doesSheetNeedResults(sheet) {
 		// in the `survey` JSON. But we are using it for feature ratings too
 		// now... see `addResultsToProject` below.
 		const survey = JSON.parse(sheet.survey);
-		const qnr = survey.questions.map(q => q.showResult).length;
+		const qnr = survey.questions.filter(q => q.showResult).length;
 		return survey.showResults || qnr > 0;
 		// Would be nice to move up these fields up to sheet level, but we'd
 		// need to do this in a backward-compatible way. (Still need to check)
