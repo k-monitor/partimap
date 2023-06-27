@@ -199,6 +199,7 @@ export default {
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		featureLabel: 'Felrajzolt elemek elnevezése a riportban',
 		descriptionLabel: 'Felrajzolt elemekhez rendelt kérdés',
+		descriptionLabelInKML: 'Exportálás KML-be',
 		instructions: {
 			Point: 'Instrukció pont felrajzolásához',
 			LineString: 'Instrukció vonal felrajzolásához',

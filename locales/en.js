@@ -204,6 +204,7 @@ export default {
 		defaultBaseMap: 'Default base map',
 		featureLabel: 'Name of these contributions in the report',
 		descriptionLabel: "Follow-up request to user's contribution",
+		descriptionLabelInKML: 'Export into KML',
 		instructions: {
 			Point: 'Instruction for placing a Point marker',
 			LineString: 'Instruction for drawing a Line',
