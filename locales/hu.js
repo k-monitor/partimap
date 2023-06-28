@@ -197,7 +197,7 @@ export default {
 		backgroundImage: 'Háttérkép',
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
-		featureLabel: 'Felrajzolt elemek elnevezése a riportban',
+		featureLabel: 'Feladat egyedi neve a riportban',
 		descriptionLabel: 'Felrajzolt elemekhez rendelt kérdés',
 		descriptionLabelInKML: 'Exportálás KML-be',
 		instructions: {

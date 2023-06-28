@@ -8,6 +8,12 @@
 		@ok="handleOk"
 		@show="reinit"
 	>
+		<b-form-group :label="$t('sheetEditor.featureLabel')">
+			<b-form-input
+				v-model="featureLabel"
+				:placeholder="$t(`FeatureListElement.defaultName.${drawType}`)"
+			/>
+		</b-form-group>
 		<b-form-group
 			:label="$t('sheetEditor.instructions')[drawType]"
 			:description="`${buttonLabel.length} / 100`"
@@ -28,12 +34,6 @@
 			>
 				{{ $t('sheetEditor.descriptionLabelInKML') }}
 			</b-form-checkbox>
-		</b-form-group>
-		<b-form-group :label="$t('sheetEditor.featureLabel')">
-			<b-form-input
-				v-model="featureLabel"
-				:placeholder="$t(`FeatureListElement.defaultName.${drawType}`)"
-			/>
 		</b-form-group>
 	</b-modal>
 </template>

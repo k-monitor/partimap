@@ -202,7 +202,7 @@ export default {
 		backgroundImage: 'Background image',
 		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultBaseMap: 'Default base map',
-		featureLabel: 'Name of these contributions in the report',
+		featureLabel: 'Unique task name displayed in report',
 		descriptionLabel: "Follow-up request to user's contribution",
 		descriptionLabelInKML: 'Export into KML',
 		instructions: {
@@ -214,7 +214,7 @@ export default {
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',
-			naming: 'Add name to markers drawn',
+			naming: 'Add title to marker',
 			Rating: 'Rate static features',
 			SocialSharing: 'Share page on social media',
 		},
