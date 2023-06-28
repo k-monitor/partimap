@@ -449,6 +449,7 @@ export default {
 			const sheetIds = this.project.sheets.map(s => s.id);
 			const data = this.getSubmissionData(sheetIds);
 			if (Object.keys(data).length) {
+				this.injectDataIntoFeatures(data);
 				try {
 					const captcha = await this.$recaptcha.execute('submit');
 					await this.$axios.$post(
@@ -465,6 +466,36 @@ export default {
 				}
 			}
 			this.loading = false;
+		},
+		injectDataIntoFeatures(data) {
+			const questions = {};
+			const answers = {};
+
+			// gather questions and answers to inject
+			this.project.sheets.forEach(sheet => {
+				try {
+					const qs = JSON.parse(sheet.survey).questions;
+					qs.filter(q => q.addToFeatures).forEach(q => {
+						questions[q.id] = q.label;
+						answers[q.id] = data[sheet.id]?.answers[q.id];
+					});
+				} catch {}
+			});
+
+			// inject into features
+			Object.keys(data).forEach(sid => {
+				const features = data[sid].features;
+				if (!features) return;
+				for (let i = 0; i < features.length; i++) {
+					const f = features[i];
+					Object.keys(questions).forEach(qid => {
+						f.properties[`partimapQuestion_${qid}`] =
+							questions[qid];
+						f.properties[`partimapQuestion_${qid}_ans`] =
+							answers[qid];
+					});
+				}
+			});
 		},
 	},
 };
