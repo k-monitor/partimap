@@ -7,7 +7,6 @@ export class Interactions {
 	 * @param {String[]} data.enabled List of enabled interactions
 	 * @param {{Point: String, LineString: String, Polygon: String}} data.buttonLabels Custom labels for drawing buttons
 	 * @param {{Point: String, LineString: String, Polygon: String}} data.descriptionLabels Custom labels for description field of features
-	 * @param {{Point: Boolean, LineString: Boolean, Polygon: Boolean}} data.descriptionLabelsInKML Whether to export description labels into KML
 	 * @param {{Point: String, LineString: String, Polygon: String}} data.featureLabels Custom labels for features in report (export)
 	 * @param {Number} data.stars Number of stars for Rating interaction
 	 */
@@ -24,11 +23,6 @@ export class Interactions {
 			Point: data.descriptionLabels?.Point || '',
 			LineString: data.descriptionLabels?.LineString || '',
 			Polygon: data.descriptionLabels?.Polygon || '',
-		};
-		this.descriptionLabelsInKML = {
-			Point: !!data.descriptionLabelsInKML?.Point,
-			LineString: !!data.descriptionLabelsInKML?.LineString,
-			Polygon: !!data.descriptionLabelsInKML?.Polygon,
 		};
 		this.featureLabels = {
 			Point: data.featureLabels?.Point || '',

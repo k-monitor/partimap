@@ -329,9 +329,10 @@ export default {
 			const features = this.getVisitorFeatures(this.sheet.id) || [];
 
 			const dls = this.interactions.descriptionLabels || {};
-			const dliks = this.interactions.descriptionLabelsInKML || {};
-			const dt = feature.getGeometry().getType();
-			if (dliks[dt]) feature.set('partimapDescriptionLabel', dls[dt]);
+			feature.set(
+				'partimapDescriptionLabel',
+				dls[feature.getGeometry().getType()]
+			);
 
 			features.push(feature);
 			const payload = { features, sheetId: this.sheet.id };

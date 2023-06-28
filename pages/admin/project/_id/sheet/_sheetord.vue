@@ -449,13 +449,10 @@ export default {
 			drawType,
 			buttonLabel,
 			descriptionLabel,
-			descriptionLabelInKML,
 			featureLabel
 		) {
 			this.interactions.buttonLabels[drawType] = buttonLabel;
 			this.interactions.descriptionLabels[drawType] = descriptionLabel;
-			this.interactions.descriptionLabelsInKML[drawType] =
-				descriptionLabelInKML;
 			this.interactions.featureLabels[drawType] = featureLabel;
 		},
 		loadFeaturesFromStore() {

@@ -28,12 +28,6 @@
 				v-model="descriptionLabel"
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
-			<b-form-checkbox
-				v-model="descriptionLabelInKML"
-				class="mt-2"
-			>
-				{{ $t('sheetEditor.descriptionLabelInKML') }}
-			</b-form-checkbox>
 		</b-form-group>
 	</b-modal>
 </template>
@@ -58,7 +52,6 @@ export default {
 		return {
 			buttonLabel: '',
 			descriptionLabel: '',
-			descriptionLabelInKML: false,
 			featureLabel: '',
 		};
 	},
@@ -76,8 +69,6 @@ export default {
 				this.interactions?.buttonLabels[this.drawType] || '';
 			this.descriptionLabel =
 				this.interactions?.descriptionLabels[this.drawType] || '';
-			this.descriptionLabelInKML =
-				!!this.interactions?.descriptionLabelsInKML[this.drawType];
 			this.featureLabel =
 				this.interactions?.featureLabels[this.drawType] || '';
 		},
@@ -87,7 +78,6 @@ export default {
 				this.drawType,
 				this.buttonLabel,
 				this.descriptionLabel,
-				this.descriptionLabelInKML,
 				this.featureLabel
 			);
 			this.$refs.modal.hide();
