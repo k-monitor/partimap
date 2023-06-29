@@ -291,9 +291,15 @@ export default {
 	DropdownGroup: {
 		other: 'Other...',
 	},
+	FeatureImportModal: {
+		fromMap: 'From a map',
+		selectMap: 'Select a map',
+		title: 'Import map markers',
+	},
 	FeatureList: {
 		features: 'Markers on the map',
 		fixedFeatures: 'Fixed features',
+		importFromSheet: 'Import...',
 		notFound: 'No matches found.',
 		ownFeatures: 'Your features',
 		search: 'Search...',

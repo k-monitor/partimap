@@ -285,9 +285,15 @@ export default {
 	DropdownGroup: {
 		other: 'Egyéb...',
 	},
+	FeatureImportModal: {
+		fromMap: 'Másik térképről',
+		selectMap: 'Válassz egy térképet',
+		title: 'Elemek importálása',
+	},
 	FeatureList: {
 		features: 'Térkép elemei',
 		fixedFeatures: 'Fix Elemek',
+		importFromSheet: 'Importálás...',
 		notFound: 'Nem található ilyen elem a térképen.',
 		ownFeatures: 'Saját elemeid',
 		search: 'Keresés...',

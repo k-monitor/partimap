@@ -31,6 +31,15 @@
 					<i class="fas fa-fw mr-2 fa-upload" />
 					KML
 				</b-button>
+				<b-button
+					class="m-2"
+					size="sm"
+					variant="success"
+					@click="$bvModal.show('featureImportModal')"
+				>
+					<i class="fas fa-fw mr-2 fa-file-import" />
+					{{ $t('FeatureList.importFromSheet') }}
+				</b-button>
 			</div>
 			<div v-if="!hideAdminFeatures">
 				<b-input-group class="mt-3">
@@ -107,6 +116,7 @@
 		>
 			{{ $t('FeatureList.notFound') }}
 		</p>
+		<FeatureImportModal @import-features="handleImportFeatures" />
 	</div>
 </template>
 
@@ -289,6 +299,9 @@ export default {
 				reader.readAsText(f);
 			});
 			input.click();
+		},
+		handleImportFeatures(features) {
+			this.$nuxt.$emit('importedFeatures', features);
 		},
 	},
 };
