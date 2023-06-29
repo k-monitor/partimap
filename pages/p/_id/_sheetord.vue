@@ -449,6 +449,7 @@ export default {
 			const sheetIds = this.project.sheets.map(s => s.id);
 			const data = this.getSubmissionData(sheetIds);
 			if (Object.keys(data).length) {
+				this.injectDataIntoFeatures(data);
 				try {
 					const captcha = await this.$recaptcha.execute('submit');
 					await this.$axios.$post(
@@ -465,6 +466,47 @@ export default {
 				}
 			}
 			this.loading = false;
+		},
+		injectDataIntoFeatures(data) {
+			const questions = {};
+			const answers = {};
+
+			// gather questions and answers to inject
+			const str = v => (Array.isArray(v) ? v.join(', ') : v || '');
+			this.project.sheets.forEach(sheet => {
+				try {
+					const qs = JSON.parse(sheet.survey).questions;
+					qs.filter(q => q.addToFeatures).forEach(q => {
+						const ans = data[sheet.id]?.answers[q.id];
+						if (Object.isExtensible(ans) && !Array.isArray(ans)) {
+							// answer is {...}, so a matrix -> injecting rows separately
+							Object.keys(ans).forEach((k, i) => {
+								const qak = `${q.id}_${i}`;
+								questions[qak] = `${q.label} [${k}]`;
+								answers[qak] = str(ans[k]);
+							});
+						} else {
+							questions[q.id] = q.label;
+							answers[q.id] = str(ans);
+						}
+					});
+				} catch {}
+			});
+
+			// inject into features
+			Object.keys(data).forEach(sid => {
+				const features = data[sid].features;
+				if (!features) return;
+				for (let i = 0; i < features.length; i++) {
+					const f = features[i];
+					Object.keys(questions).forEach(qid => {
+						f.properties[`partimapQuestion_${qid}`] =
+							questions[qid];
+						f.properties[`partimapQuestion_${qid}_ans`] =
+							answers[qid];
+					});
+				}
+			});
 		},
 	},
 };

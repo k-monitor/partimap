@@ -193,6 +193,11 @@
 						{{ $t('SurveyEditor.showResult') }}
 					</b-form-checkbox>
 				</b-form-group>
+				<b-form-group>
+					<b-form-checkbox v-model="question.addToFeatures">
+						{{ $t('SurveyEditor.addToFeatures') }}
+					</b-form-checkbox>
+				</b-form-group>
 			</b-form>
 		</b-modal>
 	</div>

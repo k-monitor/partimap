@@ -405,6 +405,7 @@ export default {
 	},
 	SurveyEditor: {
 		addQuestion: 'Add question',
+		addToFeatures: 'Add responses to map markings for analysis purpose',
 		maxName: 'Label (maximum)',
 		maxSelect: 'Maximum number of choices:',
 		maxValue: 'Maximum value',

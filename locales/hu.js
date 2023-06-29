@@ -400,6 +400,8 @@ export default {
 	},
 	SurveyEditor: {
 		addQuestion: 'Új kérdés hozzáadása',
+		addToFeatures:
+			'Válaszok hozzáadása a térképes jelölésekhez elemzés céljára',
 		maxName: 'Maximum elnevezés',
 		maxSelect: 'Maximálisan kiválasztható',
 		maxValue: 'Maximum érték',
