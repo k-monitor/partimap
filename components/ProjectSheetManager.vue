@@ -46,25 +46,45 @@
 							>
 								{{ sheet.title }}
 							</NuxtLink>
-							<span
+							<div
 								v-if="sheet.submittedFeatureCount"
-								class="d-flex flex-wrap"
+								class="d-flex flex-column"
 							>
-								{{
-									$t('ProjectSheetManager.submittedFeatures')
-								}}:
-								{{ sheet.submittedFeatureCount }}
-								<a
-									class="ml-2"
-									href="javascript:void(0)"
-									@click.prevent="
-										submittedFeaturesToMap(sheet)
-									"
-									>{{
-										$t('ProjectSheetManager.sendToMap')
-									}}</a
-								>
-							</span>
+								<span>
+									{{
+										$t(
+											'ProjectSheetManager.submittedFeatures'
+										)
+									}}:
+									{{ sheet.submittedFeatureCount }}
+								</span>
+								<div class="d-flex flex-wrap">
+									<b-button
+										class="mr-2"
+										size="sm"
+										variant="primary"
+										@click.prevent="
+											submittedFeaturesToKML(sheet)
+										"
+									>
+										<i class="fas fa-fw fa-download" />
+										KML
+									</b-button>
+									<b-button
+										class="mr-2"
+										size="sm"
+										variant="primary"
+										@click.prevent="
+											submittedFeaturesToMap(sheet)
+										"
+									>
+										<i class="fas fa-fw fa-plus-circle" />
+										{{
+											$t('ProjectSheetManager.sendToMap')
+										}}
+									</b-button>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="d-flex ml-auto">
@@ -99,9 +119,12 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
+import GeoJSON from 'ol/format/GeoJSON';
 import NewSheetModal from './NewSheetModal.vue';
-import { deserializeInteractions } from '~/assets/interactions';
-import sheetTypes from '~/assets/sheetTypes';
+import { deserializeInteractions } from '@/assets/interactions';
+import { featuresToKML } from '@/assets/kml';
+import sheetTypes from '@/assets/sheetTypes';
 
 export default {
 	components: {
@@ -165,6 +188,20 @@ export default {
 			};
 			const map = await this.$axios.$put('/api/map', data);
 			this.$router.push(this.localePath('/admin/map/' + map.id));
+		},
+		async submittedFeaturesToKML(sheet) {
+			const submissions = await this.$axios.$get(
+				'/api/submitted-features/' + sheet.id
+			);
+			const features = submissions
+				.map(s => JSON.parse(s.features))
+				.flat()
+				.map(f => new GeoJSON().readFeature(f));
+			const kml = featuresToKML(features);
+			const blob = new Blob([kml], {
+				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
+			});
+			saveAs(blob, 'partimap.kml');
 		},
 	},
 };
