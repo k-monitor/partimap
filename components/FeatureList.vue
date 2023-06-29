@@ -19,7 +19,8 @@
 					variant="primary"
 					@click="exportKML"
 				>
-					<i class="fas fa-fw mr-2 fa-download" />
+					<i class="fas fa-fw fa-download" />
+					<br />
 					KML
 				</b-button>
 				<b-button
@@ -28,7 +29,8 @@
 					variant="success"
 					@click="importKML"
 				>
-					<i class="fas fa-fw mr-2 fa-upload" />
+					<i class="fas fa-fw fa-upload" />
+					<br />
 					KML
 				</b-button>
 				<b-button
@@ -37,7 +39,8 @@
 					variant="success"
 					@click="$bvModal.show('featureImportModal')"
 				>
-					<i class="fas fa-fw mr-2 fa-file-import" />
+					<i class="fas fa-fw fa-file-import" />
+					<br />
 					{{ $t('FeatureList.importFromSheet') }}
 				</b-button>
 			</div>
