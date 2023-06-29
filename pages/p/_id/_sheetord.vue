@@ -472,12 +472,23 @@ export default {
 			const answers = {};
 
 			// gather questions and answers to inject
+			const str = v => (Array.isArray(v) ? v.join(', ') : v || '');
 			this.project.sheets.forEach(sheet => {
 				try {
 					const qs = JSON.parse(sheet.survey).questions;
 					qs.filter(q => q.addToFeatures).forEach(q => {
-						questions[q.id] = q.label;
-						answers[q.id] = data[sheet.id]?.answers[q.id];
+						const ans = data[sheet.id]?.answers[q.id];
+						if (Object.isExtensible(ans) && !Array.isArray(ans)) {
+							// answer is {...}, so a matrix -> injecting rows separately
+							Object.keys(ans).forEach((k, i) => {
+								const qak = `${q.id}_${i}`;
+								questions[qak] = `${q.label} [${k}]`;
+								answers[qak] = str(ans[k]);
+							});
+						} else {
+							questions[q.id] = q.label;
+							answers[q.id] = str(ans);
+						}
 					});
 				} catch {}
 			});
