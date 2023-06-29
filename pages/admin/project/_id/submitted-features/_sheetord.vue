@@ -12,7 +12,7 @@
 			:loading="loading"
 			@back="back"
 		>
-			<FeatureList />
+			<FeatureList readonly />
 		</Sidebar>
 	</div>
 </template>

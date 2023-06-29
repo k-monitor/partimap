@@ -24,6 +24,7 @@
 					KML
 				</b-button>
 				<b-button
+					v-if="!readonly"
 					class="m-2"
 					size="sm"
 					variant="success"
@@ -34,6 +35,7 @@
 					KML
 				</b-button>
 				<b-button
+					v-if="!readonly"
 					class="m-2"
 					size="sm"
 					variant="success"
@@ -105,6 +107,7 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:readonly="readonly"
 					:show-results="showResults"
 					:stars="interactions?.stars"
 					:visitor="visitor"
@@ -138,6 +141,10 @@ export default {
 		interactions: {
 			type: Object, // TODO Interactions actually, but throws warnings on console
 			default: null,
+		},
+		readonly: {
+			type: Boolean,
+			default: false,
 		},
 		showResults: {
 			type: Boolean,
