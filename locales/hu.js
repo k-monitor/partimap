@@ -386,7 +386,7 @@ export default {
 			survey: 'Kérdőív',
 			text: 'Szöveg',
 		},
-		submittedFeatures: 'Beküldött térkép elemek',
+		submittedFeatures: 'beküldött térkép elem',
 		title: 'Új munkalap',
 		withoutCopying: 'Nincs másolás',
 	},

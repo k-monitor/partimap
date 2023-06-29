@@ -21,96 +21,101 @@
 				<div
 					v-for="sheet in sheets"
 					:key="sheet.ord"
-					class="align-items-center d-flex flex-wrap list-group-item px-2"
+					class="d-flex flex-column list-group-item px-2"
 					style="gap: 0.5rem"
 				>
 					<div class="d-flex">
-						<i
-							:class="sheetIcon(sheet)"
-							class="fas fa-fw mr-3 mt-1"
-						/>
-						<span class="d-none d-lg-block mr-3"
-							>{{ sheet.ord + 1 }}.</span
+						<div class="d-flex flex-shrink-0">
+							<i
+								:class="sheetIcon(sheet)"
+								class="fas fa-fw mr-3 mt-1"
+							/>
+							<span class="d-none d-lg-block mr-3">
+								{{ sheet.ord + 1 }}.
+							</span>
+						</div>
+						<NuxtLink
+							:to="
+								localePath(
+									'/admin/project/' +
+										projectId +
+										'/sheet/' +
+										sheet.ord
+								)
+							"
+							class="font-weight-bold mr-2"
 						>
-						<div>
-							<NuxtLink
-								:to="
-									localePath(
-										'/admin/project/' +
-											projectId +
-											'/sheet/' +
-											sheet.ord
-									)
+							{{ sheet.title }}
+						</NuxtLink>
+
+						<div class="d-flex ml-auto">
+							<span
+								v-if="sheet.ord"
+								class="mr-3"
+								role="button"
+								@click.prevent="$emit('moveSheet', 'up', sheet)"
+							>
+								<i class="fas fa-fw fa-arrow-up" />
+							</span>
+							<span
+								v-if="(sheet.ord || 0) < sheets.length - 1"
+								class="mr-3"
+								role="button"
+								@click.prevent="
+									$emit('moveSheet', 'down', sheet)
 								"
-								class="font-weight-bold mr-2"
 							>
-								{{ sheet.title }}
-							</NuxtLink>
-							<div
-								v-if="sheet.submittedFeatureCount"
-								class="d-flex flex-column"
+								<i class="fas fa-fw fa-arrow-down" />
+							</span>
+							<span
+								class="text-danger"
+								role="button"
+								@click.prevent="deleteSheet(sheet)"
 							>
-								<span>
-									{{
-										$t(
-											'ProjectSheetManager.submittedFeatures'
-										)
-									}}:
-									{{ sheet.submittedFeatureCount }}
-								</span>
-								<div class="d-flex flex-wrap">
-									<b-button
-										class="mr-2"
-										size="sm"
-										variant="primary"
-										@click.prevent="
-											submittedFeaturesToKML(sheet)
-										"
-									>
-										<i class="fas fa-fw fa-download" />
-										KML
-									</b-button>
-									<b-button
-										class="mr-2"
-										size="sm"
-										variant="primary"
-										@click.prevent="
-											submittedFeaturesToMap(sheet)
-										"
-									>
-										<i class="fas fa-fw fa-plus-circle" />
-										{{
-											$t('ProjectSheetManager.sendToMap')
-										}}
-									</b-button>
-								</div>
-							</div>
+								<i class="fas fa-fw fa-trash" />
+							</span>
 						</div>
 					</div>
-					<div class="d-flex ml-auto">
-						<span
-							v-if="sheet.ord"
-							class="mr-3"
-							role="button"
-							@click.prevent="$emit('moveSheet', 'up', sheet)"
+
+					<div
+						v-if="sheet.submittedFeatureCount"
+						class="d-flex flex-wrap pl-4"
+						style="gap: 0.5rem"
+					>
+						<b-button
+							size="sm"
+							variant="primary"
+							:to="
+								localePath(
+									'/admin/project/' +
+										projectId +
+										'/submitted-features/' +
+										sheet.ord
+								)
+							"
 						>
-							<i class="fas fa-fw fa-arrow-up" />
-						</span>
-						<span
-							v-if="(sheet.ord || 0) < sheets.length - 1"
-							class="mr-3"
-							role="button"
-							@click.prevent="$emit('moveSheet', 'down', sheet)"
+							<i class="fas fa-fw fa-eye" />
+							<strong>{{ sheet.submittedFeatureCount }}</strong>
+							{{ $t('ProjectSheetManager.submittedFeatures') }}
+						</b-button>
+
+						<b-button
+							size="sm"
+							variant="outline-primary"
+							@click.prevent="submittedFeaturesToMap(sheet)"
 						>
-							<i class="fas fa-fw fa-arrow-down" />
-						</span>
-						<span
-							class="text-danger"
-							role="button"
-							@click.prevent="deleteSheet(sheet)"
+							<i class="fas fa-fw fa-plus-circle" />
+							{{ $t('ProjectSheetManager.sendToMap') }}
+						</b-button>
+
+						<b-button
+							size="sm"
+							variant="outline-primary"
+							@click.prevent="submittedFeaturesToKML(sheet)"
 						>
-							<i class="fas fa-fw fa-trash" />
-						</span>
+							<i class="fas fa-fw fa-download" />
+							KML
+						</b-button>
 					</div>
 				</div>
 			</div>

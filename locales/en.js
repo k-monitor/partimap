@@ -391,7 +391,7 @@ export default {
 			survey: 'Survey',
 			text: 'Text',
 		},
-		submittedFeatures: 'Submitted features',
+		submittedFeatures: 'features submitted',
 		title: 'New Sheet',
 		withoutCopying: 'Create without copying from existing map.',
 	},
