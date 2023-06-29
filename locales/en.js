@@ -292,8 +292,11 @@ export default {
 		other: 'Other...',
 	},
 	FeatureImportModal: {
-		fromMap: 'From a map',
+		fromMap: 'Import from a map',
+		fromSubmitted: 'Import submitted features',
 		selectMap: 'Select a map',
+		selectProject: 'Select a project',
+		selectSheet: 'Select a sheet',
 		title: 'Import map markers',
 	},
 	FeatureList: {

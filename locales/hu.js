@@ -286,8 +286,11 @@ export default {
 		other: 'Egyéb...',
 	},
 	FeatureImportModal: {
-		fromMap: 'Másik térképről',
+		fromMap: 'Térkép elemeinek importálása',
+		fromSubmitted: 'Beküldött elemek importálása',
 		selectMap: 'Válassz egy térképet',
+		selectProject: 'Válassz egy projektet',
+		selectSheet: 'Válassz egy munkalapot',
 		title: 'Elemek importálása',
 	},
 	FeatureList: {

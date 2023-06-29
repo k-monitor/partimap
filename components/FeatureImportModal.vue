@@ -12,10 +12,34 @@
 					:options="mapOptions"
 				/>
 				<b-button
-					class="ml-2"
+					class="ml-3"
 					:disabled="!mapId"
 					variant="success"
 					@click="importFromMap"
+				>
+					<i class="fas fa-fw fa-file-import" />
+				</b-button>
+			</div>
+		</b-form-group>
+
+		<hr />
+
+		<b-form-group :label="$t('FeatureImportModal.fromSubmitted')">
+			<b-form-select
+				v-model="projectId"
+				:options="projectOptions"
+			/>
+			<div class="d-flex mt-3">
+				<b-form-select
+					v-model="sheetId"
+					:disabled="!sheets || !sheets.length"
+					:options="sheetOptions"
+				/>
+				<b-button
+					class="ml-3"
+					:disabled="!sheetId"
+					variant="success"
+					@click="importSubmitted"
 				>
 					<i class="fas fa-fw fa-file-import" />
 				</b-button>
@@ -32,7 +56,10 @@ export default {
 		return {
 			mapId: null,
 			maps: [],
+			projectId: null,
 			projects: [],
+			sheetId: null,
+			sheets: [],
 		};
 	},
 	async fetch() {
@@ -45,7 +72,8 @@ export default {
 			})
 			.filter(m => m.featureCount);
 
-		// this.projects = await this.$axios.get('/api/projects');
+		const projects = await this.$axios.$get('/api/projects');
+		this.projects = projects.filter(p => p.userId === this.$auth.user.id);
 	},
 	computed: {
 		mapOptions() {
@@ -58,10 +86,47 @@ export default {
 			];
 		},
 		projectOptions() {
-			return this.projects.map(p => ({
-				value: p.id,
-				text: p.title,
-			}));
+			return [
+				{
+					value: null,
+					text: this.$t('FeatureImportModal.selectProject'),
+				},
+				...this.projects.map(p => ({
+					value: p.id,
+					text: p.title,
+				})),
+			];
+		},
+		sheetOptions() {
+			return [
+				{
+					value: null,
+					text: this.$t('FeatureImportModal.selectSheet'),
+				},
+				...this.sheets.map(s => ({
+					value: s.id,
+					text: `${s.title} (${s.submittedFeatureCount} elem)`, // TODO i18n
+				})),
+			];
+		},
+	},
+	watch: {
+		async projectId(pid) {
+			if (!pid) {
+				this.sheetId = null;
+				this.sheets = [];
+				return;
+			}
+			const project = await this.$axios.$get('/api/project/' + pid);
+			const sfcs = await this.$axios.$get(
+				'/api/submission/feature-counts/' + pid
+			);
+			project.sheets.forEach((s, i) => {
+				project.sheets[i].submittedFeatureCount = Number(
+					sfcs[s.id] || 0
+				);
+			});
+			this.sheets = project.sheets.filter(s => s.submittedFeatureCount);
 		},
 	},
 	methods: {
@@ -73,6 +138,9 @@ export default {
 			);
 			this.$emit('import-features', features);
 			this.$refs.modal.hide();
+		},
+		importSubmitted() {
+			// TODO
 		},
 	},
 };
