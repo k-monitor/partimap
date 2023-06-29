@@ -133,14 +133,25 @@ export default {
 		importFromMap() {
 			const map = this.maps.find(m => m.id === this.mapId);
 			if (!map) return;
-			const features = JSON.parse(map.features).map(f =>
-				new GeoJSON().readFeature(f)
-			);
-			this.$emit('import-features', features);
-			this.$refs.modal.hide();
+			const features = JSON.parse(map.features);
+			this.emitFeatures(features);
 		},
-		importSubmitted() {
-			// TODO
+		async importSubmitted() {
+			if (!this.sheetId) return;
+			const submissions = await this.$axios.$get(
+				'/api/submitted-features/' + this.sheetId
+			);
+			const features = submissions
+				.map(s => JSON.parse(s.features))
+				.flat();
+			this.emitFeatures(features);
+		},
+		emitFeatures(features) {
+			this.$emit(
+				'import-features',
+				features.map(f => new GeoJSON().readFeature(f))
+			);
+			this.$refs.modal.hide();
 		},
 	},
 };
