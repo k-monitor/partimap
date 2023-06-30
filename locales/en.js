@@ -292,12 +292,15 @@ export default {
 		other: 'Other...',
 	},
 	FeatureImportModal: {
-		fromMap: 'Import from a map',
-		fromSubmitted: 'Import submitted features',
+		doImportFixed: `Import {n} fixed marker(s)`,
+		doImportFromMap: 'Import {n} marker(s)',
+		doImportSubmitted: `Import {n} submitted marker(s)`,
+		importFromMap: 'Import from a map',
+		importFromSheet: 'Import from a sheet',
 		selectMap: 'Select a map',
 		selectProject: 'Select a project',
 		selectSheet: 'Select a sheet',
-		title: 'Import map markers',
+		title: 'Import markers',
 	},
 	FeatureList: {
 		features: 'Markers on the map',

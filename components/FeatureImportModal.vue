@@ -5,43 +5,67 @@
 		hide-footer
 		:title="$t('FeatureImportModal.title')"
 	>
-		<b-form-group :label="$t('FeatureImportModal.fromMap')">
-			<div class="d-flex">
-				<b-form-select
-					v-model="mapId"
-					:options="mapOptions"
-				/>
+		<b-form-group :label="$t('FeatureImportModal.importFromMap')">
+			<b-form-select
+				v-model="map"
+				class="mb-3"
+				:options="mapOptions"
+			/>
+			<div class="d-flex justify-content-end">
 				<b-button
-					class="ml-3"
-					:disabled="!mapId"
+					:disabled="!map"
 					variant="success"
 					@click="importFromMap"
 				>
 					<i class="fas fa-fw fa-file-import" />
+					{{
+						$t('FeatureImportModal.doImportFromMap', {
+							n: map?.featureCount || 0,
+						})
+					}}
 				</b-button>
 			</div>
 		</b-form-group>
 
-		<hr />
+		<hr class="mt-4" />
 
-		<b-form-group :label="$t('FeatureImportModal.fromSubmitted')">
+		<b-form-group :label="$t('FeatureImportModal.importFromSheet')">
 			<b-form-select
-				v-model="projectId"
+				v-model="project"
+				class="mb-3"
 				:options="projectOptions"
 			/>
-			<div class="d-flex mt-3">
-				<b-form-select
-					v-model="sheetId"
-					:disabled="!sheets || !sheets.length"
-					:options="sheetOptions"
-				/>
+			<b-form-select
+				v-model="sheet"
+				class="mb-3"
+				:disabled="!sheets || !sheets.length"
+				:options="sheetOptions"
+			/>
+			<div class="d-flex">
 				<b-button
-					class="ml-3"
-					:disabled="!sheetId"
+					:disabled="!sheet || !sheet.submittedFeatureCount"
 					variant="success"
 					@click="importSubmitted"
 				>
 					<i class="fas fa-fw fa-file-import" />
+					{{
+						$t('FeatureImportModal.doImportSubmitted', {
+							n: sheet?.submittedFeatureCount || 0,
+						})
+					}}
+				</b-button>
+				<b-button
+					class="ml-3"
+					:disabled="!sheet || !sheet.featureCount"
+					variant="success"
+					@click="importFixed"
+				>
+					<i class="fas fa-fw fa-file-import" />
+					{{
+						$t('FeatureImportModal.doImportFixed', {
+							n: sheet?.featureCount || 0,
+						})
+					}}
 				</b-button>
 			</div>
 		</b-form-group>
@@ -54,11 +78,11 @@ import GeoJSON from 'ol/format/GeoJSON';
 export default {
 	data() {
 		return {
-			mapId: null,
+			map: null,
 			maps: [],
-			projectId: null,
+			project: null,
 			projects: [],
-			sheetId: null,
+			sheet: null,
 			sheets: [],
 		};
 	},
@@ -80,7 +104,7 @@ export default {
 			return [
 				{ value: null, text: this.$t('FeatureImportModal.selectMap') },
 				...this.maps.map(m => ({
-					value: m.id,
+					value: m,
 					text: `${m.title} (${m.featureCount} elem)`, // TODO i18n
 				})),
 			];
@@ -92,7 +116,7 @@ export default {
 					text: this.$t('FeatureImportModal.selectProject'),
 				},
 				...this.projects.map(p => ({
-					value: p.id,
+					value: p,
 					text: p.title,
 				})),
 			];
@@ -104,42 +128,49 @@ export default {
 					text: this.$t('FeatureImportModal.selectSheet'),
 				},
 				...this.sheets.map(s => ({
-					value: s.id,
-					text: `${s.title} (${s.submittedFeatureCount} elem)`, // TODO i18n
+					value: s,
+					text: `${s.title}`,
 				})),
 			];
 		},
 	},
 	watch: {
-		async projectId(pid) {
-			if (!pid) {
+		async project(project) {
+			if (!project) {
 				this.sheetId = null;
 				this.sheets = [];
 				return;
 			}
-			const project = await this.$axios.$get('/api/project/' + pid);
+			project = await this.$axios.$get('/api/project/' + project.id);
 			const sfcs = await this.$axios.$get(
-				'/api/submission/feature-counts/' + pid
+				'/api/submission/feature-counts/' + project.id
 			);
-			project.sheets.forEach((s, i) => {
-				project.sheets[i].submittedFeatureCount = Number(
-					sfcs[s.id] || 0
-				);
+			project.sheets = project.sheets.map((s, i) => {
+				const f = JSON.parse(s.features || '[]');
+				s.featureCount = f.length;
+				s.submittedFeatureCount = Number(sfcs[s.id] || 0);
+				return s;
 			});
-			this.sheets = project.sheets.filter(s => s.submittedFeatureCount);
+			this.sheets = project.sheets.filter(
+				s => s.featureCount + s.submittedFeatureCount > 0
+			);
 		},
 	},
 	methods: {
 		importFromMap() {
-			const map = this.maps.find(m => m.id === this.mapId);
-			if (!map) return;
-			const features = JSON.parse(map.features);
+			if (!this.map) return;
+			const features = JSON.parse(this.map.features);
+			this.emitFeatures(features);
+		},
+		importFixed() {
+			if (!this.sheet) return;
+			const features = JSON.parse(this.sheet.features);
 			this.emitFeatures(features);
 		},
 		async importSubmitted() {
-			if (!this.sheetId) return;
+			if (!this.sheet) return;
 			const submissions = await this.$axios.$get(
-				'/api/submitted-features/' + this.sheetId
+				'/api/submitted-features/' + this.sheet.id
 			);
 			const features = submissions
 				.map(s => JSON.parse(s.features))
