@@ -48,13 +48,13 @@ export default {
 		SaveButton,
 	},
 	middleware: ['auth'],
-	async asyncData({ $axios, store, params, redirect }) {
+	async asyncData({ $axios, store, params, redirect, localePath }) {
 		store.commit('features/clear');
 		try {
 			const mapData = await $axios.$get('/api/map/' + params.id);
 			return { mapData };
 		} catch (error) {
-			redirect('/admin/maps');
+			redirect(localePath('/admin/maps'));
 		}
 	},
 	data() {

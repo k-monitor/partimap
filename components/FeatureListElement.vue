@@ -63,7 +63,7 @@
 			>
 				<div v-if="editable">
 					<b-row
-						v-if="!visitor"
+						v-if="!visitor && !readonly"
 						align-h="between"
 						align-v="center"
 					>
@@ -117,6 +117,7 @@
 					<b-form-group
 						v-if="
 							!visitor &&
+							!readonly &&
 							feature.getGeometry().getType() !== 'Point'
 						"
 						:label="$t('FeatureListElement.dashType')"
@@ -134,12 +135,13 @@
 						<b-form-input
 							id="type-text"
 							v-model="form.name"
+							:disabled="readonly"
 							size="sm"
 							type="text"
 						/>
 					</b-form-group>
 					<b-form-group
-						v-if="!visitor"
+						v-if="!visitor && !readonly"
 						:label="$t('FeatureListElement.category')"
 					>
 						<vue-typeahead-bootstrap
@@ -165,13 +167,22 @@
 						/>
 					</b-form-group>
 					<b-form-group
-						v-else
+						v-else-if="!readonly"
 						class="rich"
 						:label="$t('FeatureListElement.description')"
 					>
 						<client-only>
 							<tiptap v-model="form.description" />
 						</client-only>
+					</b-form-group>
+					<b-form-group
+						v-else
+						:label="$t('FeatureListElement.description')"
+					>
+						<TipTapDisplay
+							v-if="readonly"
+							:html="form.description"
+						/>
 					</b-form-group>
 				</div>
 				<div v-else>
@@ -272,7 +283,7 @@
 					</b-form-checkbox>
 				</b-form-group>
 
-				<b-form-group v-if="editable">
+				<b-form-group v-if="editable && !readonly">
 					<div
 						class="align-items-center d-flex justify-content-between"
 					>
@@ -315,6 +326,8 @@ import { mapGetters, mapMutations } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 import TipTapDisplay from './TipTapDisplay.vue';
 
+// TODO visitor, editable & readonly - all mean slightly different things here, need a cleanup (separate components)
+
 export default {
 	components: {
 		VueTypeaheadBootstrap,
@@ -336,6 +349,10 @@ export default {
 		initFeatureRating: {
 			type: Object,
 			default: () => {}, // { average, count, ... }
+		},
+		readonly: {
+			type: Boolean,
+			default: false,
 		},
 		showResults: {
 			type: Boolean,

@@ -9,6 +9,7 @@ const map = require('./map/map.api');
 const project = require('./project/project.api');
 const sheet = require('./sheet/sheet.api');
 const submission = require('./submission/submission.api');
+const submittedFeatures = require('./submittedFeatures/submittedFeatures.api');
 const user = require('./user/user.api');
 
 db.init(); // async but no need to wait here
@@ -24,6 +25,7 @@ app.use('/', map);
 app.use('/', project);
 app.use('/', sheet);
 app.use('/', submission);
+app.use('/', submittedFeatures);
 app.use('/', user);
 
 module.exports = app;

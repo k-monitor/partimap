@@ -19,17 +19,31 @@
 					variant="primary"
 					@click="exportKML"
 				>
-					<i class="fas fa-fw mr-2 fa-download" />
+					<i class="fas fa-fw fa-download" />
+					<br />
 					KML
 				</b-button>
 				<b-button
+					v-if="!readonly"
 					class="m-2"
 					size="sm"
 					variant="success"
 					@click="importKML"
 				>
-					<i class="fas fa-fw mr-2 fa-upload" />
+					<i class="fas fa-fw fa-upload" />
+					<br />
 					KML
+				</b-button>
+				<b-button
+					v-if="!readonly"
+					class="m-2"
+					size="sm"
+					variant="success"
+					@click="$bvModal.show('featureImportModal')"
+				>
+					<i class="fas fa-fw fa-file-import" />
+					<br />
+					{{ $t('FeatureList.importFromSheet') }}
 				</b-button>
 			</div>
 			<div v-if="!hideAdminFeatures">
@@ -93,6 +107,7 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:readonly="readonly"
 					:show-results="showResults"
 					:stars="interactions?.stars"
 					:visitor="visitor"
@@ -107,6 +122,7 @@
 		>
 			{{ $t('FeatureList.notFound') }}
 		</p>
+		<FeatureImportModal @import-features="handleImportFeatures" />
 	</div>
 </template>
 
@@ -125,6 +141,10 @@ export default {
 		interactions: {
 			type: Object, // TODO Interactions actually, but throws warnings on console
 			default: null,
+		},
+		readonly: {
+			type: Boolean,
+			default: false,
 		},
 		showResults: {
 			type: Boolean,
@@ -289,6 +309,9 @@ export default {
 				reader.readAsText(f);
 			});
 			input.click();
+		},
+		handleImportFeatures(features) {
+			this.$nuxt.$emit('importedFeatures', features);
 		},
 	},
 };
