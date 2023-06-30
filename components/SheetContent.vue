@@ -48,7 +48,7 @@
 			</ShareNetwork>
 		</div>
 		<b-alert
-			:show="showConsent"
+			:show="showConsent && !results"
 			variant="dark"
 			class="mt-4"
 		>
