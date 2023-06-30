@@ -75,6 +75,7 @@
 						:features="loadInitFeatures()"
 						:fit-selected="!isInteractive"
 						:initial-base-map-key="interactions.baseMap"
+						:labels="labels"
 						visitor
 						@visitorFeatureAdded="addVisitorFeature"
 						@visitorFeatureRemoved="delVisitorFeature"
@@ -275,6 +276,15 @@ export default {
 				this.interactions.enabled.includes('LineString') ||
 				this.interactions.enabled.includes('Polygon')
 			);
+		},
+		labels() {
+			if (!this.resultsShown) return {};
+			const labels = {};
+			Object.entries(this.sheet.ratings || {}).forEach(([id, r]) => {
+				const avg = Math.round(r.average * 10) / 10;
+				labels[id] = avg;
+			});
+			return labels;
 		},
 		needToShowResults() {
 			// We will show results if we got results from server.

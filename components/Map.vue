@@ -53,7 +53,7 @@ import { Draw, Select, Snap } from 'ol/interaction';
 import { Vector as VectorLayer } from 'ol/layer';
 import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
 import createBaseMaps from '@/assets/basemaps';
 import { isMobile } from '@/assets/constants';
 import 'ol/ol.css';
@@ -74,6 +74,10 @@ export default {
 		fitSelected: {
 			type: Boolean,
 			default: false,
+		},
+		labels: {
+			type: Object,
+			default: () => {},
 		},
 		visitor: {
 			type: Boolean,
@@ -161,6 +165,12 @@ export default {
 
 			this.fitViewToFeatures();
 		},
+		labels: {
+			handler() {
+				this.updateAllFeatures();
+			},
+			deep: true,
+		},
 	},
 	mounted() {
 		this.$store.commit('selected/clear');
@@ -195,9 +205,7 @@ export default {
 
 		this.$nuxt.$on('filterFeatures', ids => {
 			this.filteredIds = ids;
-			this.source.getFeatures().forEach(feature => {
-				this.updateFeatureStyle(feature, this.getSelectedFeature);
-			});
+			this.updateAllFeatures();
 		});
 	},
 	beforeDestroy() {
@@ -253,9 +261,7 @@ export default {
 				zoom,
 			});
 			this.view.on('change:resolution', () => {
-				this.source.getFeatures().forEach(feature => {
-					this.updateFeatureStyle(feature, this.getSelectedFeature);
-				});
+				this.updateAllFeatures();
 			});
 
 			this.source = new VectorSource({
@@ -398,6 +404,11 @@ export default {
 				});
 			}
 		},
+		updateAllFeatures() {
+			this.source.getFeatures().forEach(feature => {
+				this.updateFeatureStyle(feature, this.getSelectedFeature);
+			});
+		},
 		updateFeatureStyle(feature, selFeature) {
 			const r = feature.get('rating');
 			const rated = Number.isInteger(r) && r !== 0;
@@ -445,12 +456,14 @@ export default {
 			);
 		},
 		styleFunction({
+			feature,
 			pointFillColor = this.defaultColor.drawing,
 			lineColor = this.defaultColor.drawing,
 			polygonColor = this.defaultColor.drawing,
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
+			console.log('STYLE', this.labels);
 			return new Style({
 				fill: polygonColor
 					? new Fill({ color: polygonColor + '15' }) // more transparent fill
@@ -468,6 +481,19 @@ export default {
 					fill: pointFillColor
 						? new Fill({ color: pointFillColor })
 						: null,
+				}),
+				text: new Text({
+					font: 'bold 20px sans-serif',
+					text: String((this.labels || {})[feature.id_] || ''),
+					placement: 'point',
+					backgroundFill: new Fill({
+						color: pointFillColor || lineColor || polygonColor,
+					}),
+					fill: new Fill({
+						color: '#fff',
+					}),
+					overflow: true,
+					padding: [2, 5, 0, 6],
 				}),
 			});
 		},
