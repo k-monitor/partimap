@@ -45,8 +45,8 @@
 					{{ $t('PublicFrame.contactUs') }}
 					<a
 						class="font-weight-bold text-white ml-2"
-						href="mailto:hello@partimap.hu"
-						>hello@partimap.hu</a
+						href="mailto:hello@partimap.eu"
+						>hello@partimap.eu</a
 					>
 				</div>
 				<div
