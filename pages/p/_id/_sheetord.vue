@@ -328,6 +328,12 @@ export default {
 		addVisitorFeature(feature) {
 			const features = this.getVisitorFeatures(this.sheet.id) || [];
 
+			const cat = this.$t(
+				'FeatureListElement.defaultName.' +
+					feature.getGeometry().getType()
+			);
+			feature.set('category', cat);
+
 			const dls = this.interactions.descriptionLabels || {};
 			feature.set(
 				'partimapDescriptionLabel',
