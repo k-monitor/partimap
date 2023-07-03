@@ -91,14 +91,9 @@
 					:loading="loading"
 					:project="project"
 				>
-					<b-navbar class="m-0 mb-4 p-0">
-						<h1 class="h3 m-0">{{ sheet.title }}</h1>
-					</b-navbar>
-
 					<SheetContent
 						:brand-color="project.user.color"
 						class="mb-3"
-						hide-title
 						:project="project"
 						:results="resultsShown"
 						:sheet="sheet"

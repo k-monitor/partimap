@@ -1,9 +1,6 @@
 <template>
 	<div v-if="!submitted">
-		<b-navbar
-			v-if="!hideTitle"
-			class="m-0 mb-4 p-0"
-		>
+		<b-navbar class="m-0 mb-4 p-0">
 			<h1 class="h3 m-0">{{ sheet.title }}</h1>
 		</b-navbar>
 		<TipTapDisplay
@@ -118,10 +115,6 @@ export default {
 		brandColor: {
 			type: String,
 			default: null,
-		},
-		hideTitle: {
-			type: Boolean,
-			default: false,
 		},
 		project: {
 			// for thank you stuff
