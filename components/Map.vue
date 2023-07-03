@@ -173,6 +173,14 @@ export default {
 		this.$nuxt.$on('clearFeature', feature => {
 			this.vector.getSource().removeFeature(feature);
 		});
+		this.$nuxt.$on('clearFeatures', ids => {
+			console.log('clearFeatures', ids);
+			this.vector
+				.getSource()
+				.getFeatures()
+				.filter(f => ids.includes(f.getId()))
+				.forEach(f => this.vector.getSource().removeFeature(f));
+		});
 		// handles feature style change, performed in the feature-sidebar
 		this.$nuxt.$on('changeStyle', (feature, color, dash, width) => {
 			this.changeFeatureStyle(feature, color, dash, width, true);
@@ -194,6 +202,7 @@ export default {
 	},
 	beforeDestroy() {
 		this.$nuxt.$off('clearFeature');
+		this.$nuxt.$off('clearFeatures');
 		this.$nuxt.$off('changeStyle');
 		this.$nuxt.$off('importedFeatures');
 		this.$nuxt.$off('filterFeatures');

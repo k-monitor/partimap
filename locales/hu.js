@@ -297,6 +297,7 @@ export default {
 		title: 'Elemek importálása',
 	},
 	FeatureList: {
+		deleteAll: 'Törlés',
 		features: 'Térkép elemei',
 		fixedFeatures: 'Fix Elemek',
 		importFromSheet: 'Importálás...',

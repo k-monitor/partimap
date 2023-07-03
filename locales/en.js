@@ -303,6 +303,7 @@ export default {
 		title: 'Import markers',
 	},
 	FeatureList: {
+		deleteAll: 'Delete',
 		features: 'Markers on the map',
 		fixedFeatures: 'Fixed features',
 		importFromSheet: 'Import...',

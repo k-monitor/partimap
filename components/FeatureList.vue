@@ -45,6 +45,17 @@
 					<br />
 					{{ $t('FeatureList.importFromSheet') }}
 				</b-button>
+				<b-button
+					v-if="!readonly"
+					class="m-2"
+					size="sm"
+					variant="danger"
+					@click="deleteAll"
+				>
+					<i class="fas fa-fw fa-trash" />
+					<br />
+					{{ $t('FeatureList.deleteAll') }}
+				</b-button>
 			</div>
 			<div v-if="!hideAdminFeatures">
 				<b-input-group class="mt-3">
@@ -312,6 +323,12 @@ export default {
 		},
 		handleImportFeatures(features) {
 			this.$nuxt.$emit('importedFeatures', features);
+		},
+		deleteAll() {
+			this.$nuxt.$emit(
+				'clearFeatures',
+				this.filteredFeatures.map(f => f.getId())
+			);
 		},
 	},
 };
