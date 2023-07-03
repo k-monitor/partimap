@@ -408,6 +408,7 @@ export default {
 		consent2:
 			'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
 		next: 'Next',
+		results: 'Results',
 	},
 	Sidebar: {
 		back: 'Back',

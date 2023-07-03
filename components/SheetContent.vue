@@ -3,7 +3,14 @@
 		<b-navbar class="m-0 mb-4 p-0">
 			<h1 class="h3 m-0">{{ sheet.title }}</h1>
 		</b-navbar>
+		<h2
+			v-if="results"
+			class="h4"
+		>
+			Eredmények
+		</h2>
 		<TipTapDisplay
+			v-else
 			class="my-4"
 			:html="sheet.description"
 		/>

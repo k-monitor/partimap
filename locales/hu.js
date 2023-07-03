@@ -403,6 +403,7 @@ export default {
 		consent2:
 			'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		next: 'Tovább',
+		results: 'Eredmények',
 	},
 	Sidebar: {
 		back: 'Vissza',
