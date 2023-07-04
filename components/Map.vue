@@ -463,7 +463,6 @@ export default {
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
-			console.log('STYLE', this.labels);
 			return new Style({
 				fill: polygonColor
 					? new Fill({ color: polygonColor + '15' }) // more transparent fill
