@@ -42,6 +42,11 @@
 			<span v-else-if="rated">
 				<i class="fas fa-fw fa-check" />
 			</span>
+			<span
+				v-else-if="showResults"
+				class="flex-shrink-0"
+				>{{ ratingResult }}</span
+			>
 		</b-list-group-item>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
@@ -430,6 +435,15 @@ export default {
 		rated() {
 			const r = this.rating;
 			return Number.isInteger(r) && r !== 0 && !this.showResults;
+		},
+		ratingResult() {
+			const r = this.initFeatureRating;
+			if (this.stars === -2) {
+				return `👍 ${r.likeCount} 👎 ${r.dislikeCount}`;
+			} else {
+				const avg = Math.round(r.average * 10) / 10;
+				return `☆ ${avg}`;
+			}
 		},
 	},
 	watch: {
