@@ -465,6 +465,8 @@ export default {
 	},
 	modals: {
 		cancel: 'Cancel',
+		confirmDeleteFeatures:
+			'Are you sure you wish to delete the listed {count} marker(s)?',
 		confirmDeletion: 'Are you sure you wish to delete this',
 		confirmFeatureClose:
 			'An explanation is expected. Are you sure you want to save without entering a comment?',

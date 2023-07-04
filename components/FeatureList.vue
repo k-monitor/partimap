@@ -324,11 +324,14 @@ export default {
 		handleImportFeatures(features) {
 			this.$nuxt.$emit('importedFeatures', features);
 		},
-		deleteAll() {
-			this.$nuxt.$emit(
-				'clearFeatures',
-				this.filteredFeatures.map(f => f.getId())
-			);
+		async deleteAll() {
+			const ids = this.filteredFeatures.map(f => f.getId());
+			const confirmed = await this.confirmDeleteFeatures(ids.length);
+			if (confirmed) {
+				this.$nuxt.$emit('clearFeatures', ids);
+				this.categoryFilter = '';
+				this.search = '';
+			}
 		},
 	},
 };

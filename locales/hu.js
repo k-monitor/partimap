@@ -461,6 +461,7 @@ export default {
 	},
 	modals: {
 		cancel: 'Mégsem',
+		confirmDeleteFeatures: 'Biztosan törlöd ezt a {count} elemet?',
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
 			'A válasz segíti a felmérést. Mentés szöveges magyarázat nélkül?',
