@@ -215,6 +215,7 @@ export default {
 			Polygon: 'Draw polygons',
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
+			RatingResults: 'Show rating results',
 			SocialSharing: 'Share page on social media',
 		},
 		numberOfStars: 'Set scale (1-10)',

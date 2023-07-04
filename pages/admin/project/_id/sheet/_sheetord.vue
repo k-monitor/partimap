@@ -313,6 +313,8 @@ export default {
 					}
 				} else {
 					options.push(ia('Rating'));
+					if (this.isRatingSelected)
+						options.push(ia('RatingResults'));
 				}
 			} else {
 				options.push(ia('SocialSharing'));

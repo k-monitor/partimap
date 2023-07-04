@@ -185,17 +185,21 @@ router.put('/project', ensureLoggedIn, async (req, res) => {
 	res.json(hidePasswordField(project));
 });
 
-function doesSheetNeedResults(sheet) {
+function doesSheetNeedRatingResults(sheet) {
 	try {
-		// Yeah... showing results was a survey-specific thing, so it is stored
-		// in the `survey` JSON. But we are using it for feature ratings too
-		// now... see `addResultsToProject` below.
+		const interactions = JSON.parse(sheet.interactions || '{}');
+		const enabled = interactions.enabled || [];
+		console.log(enabled);
+		if (enabled.includes('RatingResults')) return true;
+	} catch {}
+	return false;
+}
+
+function doesSheetNeedSurveyResults(sheet) {
+	try {
 		const survey = JSON.parse(sheet.survey);
 		const qnr = survey.questions.filter(q => q.showResult).length;
 		return survey.showResults || qnr > 0;
-		// Would be nice to move up these fields up to sheet level, but we'd
-		// need to do this in a backward-compatible way. (Still need to check)
-		// the `survey` field.
 	} catch {
 		return false;
 	}
@@ -209,7 +213,7 @@ async function addResultsToProject(project) {
 
 	try {
 		const answers = await sadb.aggregateByProjectId(project.id);
-		project.sheets.filter(doesSheetNeedResults).forEach(s => {
+		project.sheets.filter(doesSheetNeedSurveyResults).forEach(s => {
 			s.answers = answers.filter(a => a.sheetId === s.id);
 		});
 	} catch (error) {
@@ -217,9 +221,11 @@ async function addResultsToProject(project) {
 	}
 
 	try {
+		console.log('Before rating result check');
 		const promises = project.sheets
-			.filter(doesSheetNeedResults)
+			.filter(doesSheetNeedRatingResults)
 			.map(async s => {
+				console.log('Fetching ratings for sheet ID', s.id);
 				const arr = await rdb.aggregateBySheetId(s.id);
 				const dict = {};
 				arr.forEach(ar => {

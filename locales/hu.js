@@ -210,6 +210,7 @@ export default {
 			Polygon: 'Terület felrajzolása',
 			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
+			RatingResults: 'Értékelés eredmények megjelenítése',
 			SocialSharing: 'Megosztás gombok',
 		},
 		numberOfStars: 'Csillagok száma (1-10)',
