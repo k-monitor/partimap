@@ -281,8 +281,12 @@ export default {
 			if (!this.resultsShown) return {};
 			const labels = {};
 			Object.entries(this.sheet.ratings || {}).forEach(([id, r]) => {
-				const avg = Math.round(r.average * 10) / 10;
-				labels[id] = avg;
+				if (this.interactions.stars === -2) {
+					labels[id] = `👍 ${r.likeCount} 👎 ${r.dislikeCount}`;
+				} else {
+					const avg = Math.round(r.average * 10) / 10;
+					labels[id] = `☆ ${avg}`;
+				}
 			});
 			return labels;
 		},
