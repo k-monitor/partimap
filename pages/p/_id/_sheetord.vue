@@ -305,7 +305,10 @@ export default {
 			await this.$recaptcha.init();
 		} else {
 			const survey = JSON.parse(this.sheet?.survey || '{}');
-			if (survey.showResultsOnly) {
+			if (
+				this.interactions.enabled.includes('ShowResultsOnly') ||
+				survey.showResultsOnly
+			) {
 				this.resultsShown = true;
 			}
 		}

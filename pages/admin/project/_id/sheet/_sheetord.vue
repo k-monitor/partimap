@@ -262,6 +262,17 @@ export default {
 			if (sheet) sheet.descriptionLabel = '';
 			// END backward compatibility for #2437
 
+			// BEGIN backward compatibility for #2434
+			try {
+				const survey = JSON.parse(sheet?.survey);
+				if (survey.showResultsOnly) {
+					interactions.enabled.push('ShowResultsOnly');
+					delete survey.showResultsOnly;
+					sheet.survey = JSON.stringify(survey);
+				}
+			} catch {}
+			// END backward compatibility for #2434
+
 			return {
 				project,
 				sheet,
@@ -319,6 +330,9 @@ export default {
 			} else {
 				options.push(ia('SocialSharing'));
 			}
+			if (this.areResultsNeeded) {
+				options.push(ia('ShowResultsOnly'));
+			}
 			return options;
 		},
 		isFirstSheet() {
@@ -345,6 +359,16 @@ export default {
 		},
 		isRatingSelected() {
 			return this.interactions.enabled.includes('Rating');
+		},
+		areResultsNeeded() {
+			if (this.interactions.enabled.includes('RatingResults'))
+				return true;
+			try {
+				const { questions } = JSON.parse(this.sheet.survey);
+				return !!questions.find(q => q.showResult);
+			} catch {}
+
+			return false;
 		},
 		previewUrl() {
 			return `/${this.$i18n.locale}/p/${this.project.slug}/${this.sheet.ord}?force=1`;

@@ -68,14 +68,6 @@
 					{{ $t('SurveyEditor.showResults') }}
 				</b-form-checkbox>
 			</b-form-group>
-			<b-form-group>
-				<b-form-checkbox
-					v-model="survey.showResultsOnly"
-					:disabled="!showAnyResults"
-				>
-					{{ $t('SurveyEditor.showOnlyStatsToVisitors') }}
-				</b-form-checkbox>
-			</b-form-group>
 		</div>
 		<b-modal
 			id="survey-question-editor"
@@ -229,7 +221,6 @@ export default {
 		if (survey.showResults) {
 			survey.questions.forEach(q => (q.showResult = true));
 		}
-		survey.showResultsOnly = !!survey.showResultsOnly;
 		return {
 			survey,
 			icon: {
@@ -293,19 +284,9 @@ export default {
 		hasOptions() {
 			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
 		},
-		showAnyResults() {
-			return (
-				this.survey.showResults ||
-				this.survey.questions.filter(q => q.showResult).length
-			);
-		},
 	},
 	watch: {
-		'survey.showResults'(v) {
-			this.emitSurvey();
-			if (!v) this.survey.showResultsOnly = false;
-		},
-		'survey.showResultsOnly'() {
+		'survey.showResults'() {
 			this.emitSurvey();
 		},
 	},

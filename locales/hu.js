@@ -211,6 +211,7 @@ export default {
 			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
 			RatingResults: 'Értékelés eredmények megjelenítése',
+			ShowResultsOnly: 'Csak az eredmények megjelenítése',
 			SocialSharing: 'Megosztás gombok',
 		},
 		numberOfStars: 'Csillagok száma (1-10)',
@@ -438,7 +439,6 @@ export default {
 			text: 'Szöveges válasz',
 		},
 		required: 'Kötelező megválaszolni',
-		showOnlyStatsToVisitors: 'Csak az eredmények megjelenítése',
 		showResult: 'Kitöltés után válasz statisztika megjelenítése',
 		showResults:
 			'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',

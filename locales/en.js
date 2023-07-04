@@ -216,6 +216,7 @@ export default {
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
 			RatingResults: 'Show rating results',
+			ShowResultsOnly: 'Display only the results',
 			SocialSharing: 'Share page on social media',
 		},
 		numberOfStars: 'Set scale (1-10)',
@@ -442,7 +443,6 @@ export default {
 			text: 'Text box',
 		},
 		required: 'Required question',
-		showOnlyStatsToVisitors: 'Display only the results',
 		showResult: 'Display results to visitors after submitting the sheet',
 		showResults:
 			'Display results to visitors after submitting the sheet (modifies every question)',
