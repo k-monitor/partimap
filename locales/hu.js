@@ -211,8 +211,6 @@ export default {
 			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
 			RatingResults: 'Értékelés eredmények megjelenítése',
-			ShowResults:
-				'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',
 			ShowResultsOnly: 'Csak az eredmények megjelenítése',
 			SocialSharing: 'Megosztás gombok',
 		},
@@ -225,6 +223,8 @@ export default {
 		saveFailed: 'Módosítás sikertelen',
 		sheetDescription: 'Munkalap leírása',
 		sheetName: 'Munkalap címe',
+		showAllResults:
+			'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',
 		success: 'Módosítás sikeres',
 		survey: 'Kérdőív',
 		visitorInteractions: 'Látogatói interakciók',

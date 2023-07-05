@@ -162,11 +162,10 @@
 					</h6>
 				</template>
 				<b-form-checkbox
-					v-model="interactions.enabled"
-					value="ShowResults"
-					@change="showResultsClicked"
+					v-model="showAllResults"
+					@change="showAllResultsClicked"
 				>
-					{{ $t('sheetEditor.interactions.ShowResults') }}
+					{{ $t('sheetEditor.showAllResults') }}
 				</b-form-checkbox>
 				<b-form-checkbox
 					v-if="canHaveResults"
@@ -287,11 +286,6 @@ export default {
 			// BEGIN backward compatibility for #2434
 			try {
 				const survey = JSON.parse(sheet?.survey);
-				if (survey.showResults) {
-					interactions.enabled.push('ShowResults');
-					delete survey.showResults;
-					sheet.survey = JSON.stringify(survey);
-				}
 				if (survey.showResultsOnly) {
 					interactions.enabled.push('ShowResultsOnly');
 					delete survey.showResultsOnly;
@@ -324,6 +318,7 @@ export default {
 			contentModified: false,
 			loading: true,
 			ratingTypes,
+			showAllResults: false,
 		};
 	},
 	head() {
@@ -384,6 +379,19 @@ export default {
 		isRatingSelected() {
 			return this.interactions.enabled.includes('Rating');
 		},
+		isAllResultsEnabled() {
+			if (!this.interactions.enabled.includes('RatingResults'))
+				return false;
+
+			try {
+				const { questions } = JSON.parse(this.sheet.survey);
+				const questionsWithResults = questions.filter(
+					q => q.type && q.type !== 'text'
+				);
+				if (!questionsWithResults.find(q => !q.showResult)) return true;
+			} catch {}
+			return false;
+		},
 		canHaveResults() {
 			if (this.interactions.enabled.includes('RatingResults'))
 				return true;
@@ -431,6 +439,7 @@ export default {
 		sheet: {
 			handler() {
 				this.contentModified = true;
+				this.showAllResults = this.isAllResultsEnabled;
 			},
 			deep: true,
 		},
@@ -448,6 +457,7 @@ export default {
 	mounted() {
 		this.$store.commit('selected/clear');
 		this.loading = false;
+		this.showAllResults = this.isAllResultsEnabled;
 	},
 	methods: {
 		...mapMutations(['setBaseMap']),
@@ -504,9 +514,8 @@ export default {
 			this.interactions.descriptionLabels[drawType] = descriptionLabel;
 			this.interactions.featureLabels[drawType] = featureLabel;
 		},
-		showResultsClicked() {
-			const showResults =
-				this.interactions.enabled.includes('ShowResults');
+		showAllResultsClicked() {
+			const showResults = this.showAllResults;
 			if (
 				showResults &&
 				!this.interactions.enabled.includes('RatingResults')
