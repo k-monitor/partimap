@@ -329,12 +329,6 @@ export default {
 			);
 			feature.set('category', cat);
 
-			const dls = this.interactions.descriptionLabels || {};
-			feature.set(
-				'partimapDescriptionLabel',
-				dls[feature.getGeometry().getType()]
-			);
-
 			features.push(feature);
 			const payload = { features, sheetId: this.sheet.id };
 			this.$store.commit('visitordata/addFeatures', payload);
