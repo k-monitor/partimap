@@ -4,6 +4,7 @@
 			<Map
 				:key="$route.path"
 				:features="loadInitFeatures()"
+				fit-selected
 			/>
 		</client-only>
 		<Sidebar
