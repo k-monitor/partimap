@@ -434,6 +434,7 @@ export default {
 		},
 		ratingResult() {
 			const r = this.initFeatureRating;
+			if (!r.count) return;
 			if (this.stars === -2) {
 				return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
 			} else {

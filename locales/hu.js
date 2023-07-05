@@ -443,7 +443,7 @@ export default {
 		required: 'Kötelező megválaszolni',
 		showResult: 'Kitöltés után válasz statisztika megjelenítése',
 		showResults:
-			'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',
+			'Kitöltés után kérdőíves válaszok megjelenítése a látogatónak (minden kérdést módosít)',
 	},
 	SurveyResult: {
 		averageValue: 'Átlagos érték',

@@ -279,7 +279,7 @@ export default {
 			);
 		},
 		labels() {
-			if (!this.resultsShown) return {};
+			if (!this.resultsShown || !this.sheet.ratings) return {};
 			const labels = {};
 			Object.entries(this.sheet.ratings || {}).forEach(([id, r]) => {
 				if (this.interactions.stars === -2) {
