@@ -421,8 +421,8 @@ export default {
 			const decWidth = 19 - zoom;
 
 			const newWidth = Math.max(
-				1,
-				Number(feature.get('width')) + addWidth - decWidth
+				2,
+				Number(feature.get('width')) + addWidth - 0.75 * decWidth
 			);
 
 			// if item is filtered out, hide it
