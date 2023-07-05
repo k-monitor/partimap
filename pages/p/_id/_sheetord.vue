@@ -295,8 +295,7 @@ export default {
 		},
 		needToShowResults() {
 			// We will show results if we got results from server.
-			// Server will know when to include results, based on
-			// showResults and showResultsOnly survey attributes.
+			// Server knows when to include results based on sheet settings.
 			const haveAnswers = this.sheet.answers.length > 0;
 			const haveRatings =
 				this.sheet.ratings &&
@@ -312,10 +311,11 @@ export default {
 			await this.$recaptcha.init();
 		} else {
 			const survey = JSON.parse(this.sheet?.survey || '{}');
-			if (
+			const gotResults = this.needToShowResults;
+			const showOnlyResults =
 				this.interactions.enabled.includes('ShowResultsOnly') ||
-				survey.showResultsOnly
-			) {
+				survey.showResultsOnly;
+			if (gotResults && showOnlyResults) {
 				this.resultsShown = true;
 			}
 		}
