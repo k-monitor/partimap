@@ -216,6 +216,8 @@ export default {
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
 			RatingResults: 'Show rating results',
+			ShowResults:
+				'Display results to visitors after submitting the sheet (modifies every question)',
 			ShowResultsOnly: 'Display only the results',
 			SocialSharing: 'Share page on social media',
 		},
@@ -446,8 +448,6 @@ export default {
 		},
 		required: 'Required question',
 		showResult: 'Display results to visitors after submitting the sheet',
-		showResults:
-			'Display results to visitors after submitting the sheet (modifies every question)',
 	},
 	SurveyResult: {
 		averageValue: 'Average value',

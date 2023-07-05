@@ -155,6 +155,28 @@
 				</b-form-group>
 			</div>
 
+			<b-form-group>
+				<template #label>
+					<h6 class="mb-0">
+						{{ $t('SheetContent.results') }}
+					</h6>
+				</template>
+				<b-form-checkbox
+					v-model="interactions.enabled"
+					value="ShowResults"
+					@change="showResultsClicked"
+				>
+					{{ $t('sheetEditor.interactions.ShowResults') }}
+				</b-form-checkbox>
+				<b-form-checkbox
+					v-if="canHaveResults"
+					v-model="interactions.enabled"
+					value="ShowResultsOnly"
+				>
+					{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
+				</b-form-checkbox>
+			</b-form-group>
+
 			<b-form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
@@ -265,6 +287,11 @@ export default {
 			// BEGIN backward compatibility for #2434
 			try {
 				const survey = JSON.parse(sheet?.survey);
+				if (survey.showResults) {
+					interactions.enabled.push('ShowResults');
+					delete survey.showResults;
+					sheet.survey = JSON.stringify(survey);
+				}
 				if (survey.showResultsOnly) {
 					interactions.enabled.push('ShowResultsOnly');
 					delete survey.showResultsOnly;
@@ -330,9 +357,6 @@ export default {
 			} else {
 				options.push(ia('SocialSharing'));
 			}
-			if (this.areResultsNeeded) {
-				options.push(ia('ShowResultsOnly'));
-			}
 			return options;
 		},
 		isFirstSheet() {
@@ -360,14 +384,13 @@ export default {
 		isRatingSelected() {
 			return this.interactions.enabled.includes('Rating');
 		},
-		areResultsNeeded() {
+		canHaveResults() {
 			if (this.interactions.enabled.includes('RatingResults'))
 				return true;
 			try {
 				const { questions } = JSON.parse(this.sheet.survey);
 				return !!questions.find(q => q.showResult);
 			} catch {}
-
 			return false;
 		},
 		previewUrl() {
@@ -480,6 +503,27 @@ export default {
 			this.interactions.buttonLabels[drawType] = buttonLabel;
 			this.interactions.descriptionLabels[drawType] = descriptionLabel;
 			this.interactions.featureLabels[drawType] = featureLabel;
+		},
+		showResultsClicked() {
+			const showResults =
+				this.interactions.enabled.includes('ShowResults');
+			if (
+				showResults &&
+				!this.interactions.enabled.includes('RatingResults')
+			) {
+				this.interactions.enabled.push('RatingResults');
+			}
+			if (
+				!showResults &&
+				this.interactions.enabled.includes('RatingResults')
+			) {
+				this.interactions.enabled = this.interactions.enabled.filter(
+					i => i !== 'RatingResults'
+				);
+			}
+			const survey = JSON.parse(this.sheet.survey);
+			survey.questions.forEach(q => (q.showResult = showResults));
+			this.sheet.survey = JSON.stringify(survey);
 		},
 		loadFeaturesFromStore() {
 			const features = [];

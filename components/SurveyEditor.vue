@@ -59,16 +59,6 @@
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
-		<div v-if="survey.questions.filter(canHaveResults).length">
-			<b-form-group>
-				<b-form-checkbox
-					v-model="survey.showResults"
-					@change="showResultsClicked"
-				>
-					{{ $t('SurveyEditor.showResults') }}
-				</b-form-checkbox>
-			</b-form-group>
-		</div>
 		<b-modal
 			id="survey-question-editor"
 			:cancel-title="$t('modals.cancel')"
@@ -217,7 +207,6 @@ export default {
 		if (!survey.questions) {
 			survey.questions = [];
 		}
-		survey.showResults = !!survey.showResults;
 		if (survey.showResults) {
 			survey.questions.forEach(q => (q.showResult = true));
 		}
@@ -286,17 +275,11 @@ export default {
 		},
 	},
 	watch: {
-		'survey.showResults'() {
-			this.emitSurvey();
+		value() {
+			this.survey = JSON.parse(this.value || '{}');
 		},
 	},
 	methods: {
-		showResultsClicked() {
-			this.survey.questions.forEach(
-				q => (q.showResult = this.survey.showResults)
-			);
-			this.emitSurvey();
-		},
 		addQuestion() {
 			const id = new Date().getTime();
 			const label =
@@ -306,7 +289,7 @@ export default {
 				id,
 				label,
 				type: 'text',
-				showResult: this.survey.showResults,
+				showResult: false,
 			};
 			this.survey.questions.push(q);
 			this.emitSurvey();
@@ -333,9 +316,6 @@ export default {
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
 				this.$delete(this.question, 'options');
-			}
-			if (!this.question.showResult) {
-				this.survey.showResults = false;
 			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();

@@ -189,7 +189,6 @@ function doesSheetNeedRatingResults(sheet) {
 	try {
 		const interactions = JSON.parse(sheet.interactions || '{}');
 		const enabled = interactions.enabled || [];
-		console.log(enabled);
 		if (enabled.includes('RatingResults')) return true;
 	} catch {}
 	return false;

@@ -211,6 +211,8 @@ export default {
 			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
 			RatingResults: 'Értékelés eredmények megjelenítése',
+			ShowResults:
+				'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',
 			ShowResultsOnly: 'Csak az eredmények megjelenítése',
 			SocialSharing: 'Megosztás gombok',
 		},
@@ -442,8 +444,6 @@ export default {
 		},
 		required: 'Kötelező megválaszolni',
 		showResult: 'Kitöltés után válasz statisztika megjelenítése',
-		showResults:
-			'Kitöltés után kérdőíves válaszok megjelenítése a látogatónak (minden kérdést módosít)',
 	},
 	SurveyResult: {
 		averageValue: 'Átlagos érték',
