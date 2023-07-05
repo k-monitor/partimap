@@ -221,11 +221,9 @@ async function addResultsToProject(project) {
 	}
 
 	try {
-		console.log('Before rating result check');
 		const promises = project.sheets
 			.filter(doesSheetNeedRatingResults)
 			.map(async s => {
-				console.log('Fetching ratings for sheet ID', s.id);
 				const arr = await rdb.aggregateBySheetId(s.id);
 				const dict = {};
 				arr.forEach(ar => {

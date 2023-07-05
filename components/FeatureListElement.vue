@@ -252,13 +252,9 @@
 					>
 						<StarRating
 							v-model="rating"
-							:active-color="
-								visitor && !showResults ? '#ffc107' : '#17a2b8'
-							"
-							:animate="visitor"
-							:border-color="
-								visitor && !showResults ? '#ffc107' : '#17a2b8'
-							"
+							active-color="var(--brand)"
+							:animate="visitor && !showResults"
+							border-color="var(--brand)"
 							:border-width="2"
 							clearable
 							:fixed-points="1"
@@ -439,10 +435,10 @@ export default {
 		ratingResult() {
 			const r = this.initFeatureRating;
 			if (this.stars === -2) {
-				return `👍 ${r.likeCount} 👎 ${r.dislikeCount}`;
+				return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
 			} else {
 				const avg = Math.round(r.average * 10) / 10;
-				return `☆ ${avg}`;
+				return `⭐ ${avg}`;
 			}
 		},
 	},

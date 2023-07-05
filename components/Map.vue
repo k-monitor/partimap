@@ -62,10 +62,6 @@ const gm2ol = get('EPSG:4326', 'EPSG:3857');
 
 export default {
 	props: {
-		initialBaseMapKey: {
-			type: String,
-			default: '',
-		},
 		features: {
 			type: Array,
 			default: null,
@@ -74,6 +70,14 @@ export default {
 		fitSelected: {
 			type: Boolean,
 			default: false,
+		},
+		grayRated: {
+			type: Boolean,
+			default: false,
+		},
+		initialBaseMapKey: {
+			type: String,
+			default: '',
 		},
 		labels: {
 			type: Object,
@@ -412,7 +416,8 @@ export default {
 		updateFeatureStyle(feature, selFeature) {
 			const r = feature.get('rating');
 			const rated = Number.isInteger(r) && r !== 0;
-			const color = rated ? '#666666' : feature.get('color');
+			const color =
+				rated && this.grayRated ? '#666666' : feature.get('color');
 
 			// lower opacity of unselected features
 			const isUnselected =
@@ -464,6 +469,9 @@ export default {
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
 			return new Style({
+				geometry(feature) {
+					return feature.getGeometry();
+				},
 				fill: polygonColor
 					? new Fill({ color: polygonColor + '15' }) // more transparent fill
 					: null,
@@ -476,7 +484,7 @@ export default {
 					width: strokeWidth,
 				}),
 				image: new CircleStyle({
-					radius: strokeWidth * 3,
+					radius: 15, // strokeWidth * 3,
 					fill: pointFillColor
 						? new Fill({ color: pointFillColor })
 						: null,

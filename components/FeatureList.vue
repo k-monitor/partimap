@@ -180,11 +180,20 @@ export default {
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
 		filteredAdminFeatures() {
-			return this.filteredFeatures.filter(
+			let arr = this.filteredFeatures.filter(
 				f =>
 					!f.get('visitorFeature') &&
 					(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
 			);
+			if (this.showResults) {
+				arr = arr.sort((a, b) => {
+					const ra = this.getAggregatedFeatureRating(a);
+					const rb = this.getAggregatedFeatureRating(b);
+					return rb - ra;
+				});
+			}
+
+			return arr;
 		},
 		filteredVisitorFeatures() {
 			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
@@ -244,6 +253,10 @@ export default {
 				// admin sheet gets AggregatedRating object
 				return rating || {};
 			}
+		},
+		getAggregatedFeatureRating(feature) {
+			const r = this.getFeatureRating(feature.getId());
+			return this.interactions?.stars === -2 ? r.sum : r.average;
 		},
 		updateCategories() {
 			const cats = new Set(

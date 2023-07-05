@@ -2,10 +2,13 @@
 	<div v-if="!submitted">
 		<b-navbar class="m-0 mb-4 p-0">
 			<div v-if="results">
-				<h1 class="h3">{{ $t('SheetContent.results') }}</h1>
+				<h1 class="h3 text-primary">
+					{{ $t('SheetContent.results') }}
+				</h1>
 				<h2 class="h4">
 					{{ sheet.title }}
 				</h2>
+				<p class="my-4">{{ $t('SheetContent.resultsDescription') }}</p>
 			</div>
 			<h1
 				v-else

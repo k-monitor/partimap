@@ -3,7 +3,7 @@
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
 		:class="{ branded: !!project.user.color }"
-		:style="`--brand: ${project.user.color}`"
+		:style="`--brand: ${project.user.color || '#007bff'}`"
 	>
 		<form
 			ref="sheetForm"
@@ -74,6 +74,7 @@
 						:key="$route.path"
 						:features="loadInitFeatures()"
 						:fit-selected="!isInteractive"
+						:gray-rated="!resultsShown"
 						:initial-base-map-key="interactions.baseMap"
 						:labels="labels"
 						visitor
@@ -282,10 +283,12 @@ export default {
 			const labels = {};
 			Object.entries(this.sheet.ratings || {}).forEach(([id, r]) => {
 				if (this.interactions.stars === -2) {
-					labels[id] = `👍 ${r.likeCount} 👎 ${r.dislikeCount}`;
+					labels[id] = `👍 ${r.likeCount} 👎 ${Math.abs(
+						r.dislikeCount
+					)}`;
 				} else {
 					const avg = Math.round(r.average * 10) / 10;
-					labels[id] = `☆ ${avg}`;
+					labels[id] = `⭐ ${avg}`;
 				}
 			});
 			return labels;

@@ -406,6 +406,8 @@ export default {
 			'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		next: 'Tovább',
 		results: 'Eredmények',
+		resultsDescription:
+			'Ezen az oldalon továbblépés előtt a mások által eddig beküldött válaszok statisztikája böngészhető.',
 	},
 	Sidebar: {
 		back: 'Vissza',

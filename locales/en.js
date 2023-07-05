@@ -411,6 +411,8 @@ export default {
 			'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
 		next: 'Next',
 		results: 'Results',
+		resultsDescription:
+			'On this page, you can browse through the statistics of the responses submitted by others, before moving on.',
 	},
 	Sidebar: {
 		back: 'Back',
