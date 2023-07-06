@@ -73,7 +73,7 @@
 					<Map
 						:key="$route.path"
 						:features="loadInitFeatures()"
-						:fit-selected="!isInteractive"
+						fit-selected
 						:gray-rated="!resultsShown"
 						:initial-base-map-key="interactions.baseMap"
 						:labels="labels"
