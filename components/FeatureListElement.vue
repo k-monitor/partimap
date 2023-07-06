@@ -215,6 +215,22 @@
 						<b-button
 							:disabled="!visitor || showResults"
 							:variant="
+								rating === 1 ? 'success' : 'outline-success'
+							"
+							@click="rating === 1 ? (rating = 0) : (rating = 1)"
+						>
+							<i class="fas fa-thumbs-up" />
+							<span
+								v-if="!visitor || showResults"
+								class="ml-2"
+							>
+								{{ initFeatureRating.likeCount || 0 }}
+							</span>
+						</b-button>
+						<div class="flex-grow-1" />
+						<b-button
+							:disabled="!visitor || showResults"
+							:variant="
 								rating === -1 ? 'danger' : 'outline-danger'
 							"
 							@click="
@@ -226,23 +242,7 @@
 								v-if="!visitor || showResults"
 								class="ml-2"
 							>
-								{{ -(initFeatureRating.dislikeCount || 0) }}
-							</span>
-						</b-button>
-						<div class="flex-grow-1" />
-						<b-button
-							:disabled="!visitor || showResults"
-							:variant="
-								rating === 1 ? 'success' : 'outline-success'
-							"
-							@click="rating === 1 ? (rating = 0) : (rating = 1)"
-						>
-							<i class="fas fa-thumbs-up" />
-							<span
-								v-if="!visitor || showResults"
-								class="ml-2"
-							>
-								{{ initFeatureRating.likeCount || 0 }}
+								{{ initFeatureRating.dislikeCount || 0 }}
 							</span>
 						</b-button>
 					</b-button-group>
@@ -257,18 +257,18 @@
 							border-color="var(--brand)"
 							:border-width="2"
 							clearable
-							:fixed-points="1"
 							inactive-color="#fff"
 							:max-rating="stars"
 							:read-only="!visitor || showResults"
 							:round-start-rating="false"
-							:show-rating="!visitor || showResults"
+							:show-rating="false"
 							:star-size="16"
 						/>
 						<span
 							v-if="!visitor || showResults"
-							class="ml-1"
+							class="ml-2"
 						>
+							{{ rating ? Number(rating).toFixed(1) : '-' }}
 							(<small class="fas fa-user fa-fw" />
 							{{ initFeatureRating.count || 0 }})
 						</span>
@@ -439,7 +439,7 @@ export default {
 				return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
 			} else {
 				const avg = Math.round(r.average * 10) / 10;
-				return `⭐ ${avg}`;
+				return `⭐ ${Number(avg).toFixed(1)}`;
 			}
 		},
 	},

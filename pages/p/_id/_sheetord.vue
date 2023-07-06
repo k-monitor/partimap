@@ -288,7 +288,7 @@ export default {
 					)}`;
 				} else {
 					const avg = Math.round(r.average * 10) / 10;
-					labels[id] = `⭐ ${avg}`;
+					labels[id] = `⭐ ${Number(avg).toFixed(1)}`;
 				}
 			});
 			return labels;
