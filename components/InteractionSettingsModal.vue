@@ -94,6 +94,7 @@ export default {
 		},
 		handleOk() {
 			if (this.hasFeatureQuestion && this.featureQuestion.label) {
+				this.featureQuestion.id = 'partimapFeatureQuestion';
 				this.featureQuestion.type = 'checkbox';
 			} else {
 				this.featureQuestion = {};

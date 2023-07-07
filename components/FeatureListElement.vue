@@ -189,6 +189,18 @@
 							:html="form.description"
 						/>
 					</b-form-group>
+
+					<b-form-group
+						v-if="visitor && question"
+						:label="question.label"
+					>
+						<CheckboxGroup
+							v-model="visitorAnswer"
+							:q="question"
+						/>
+						<div>visitorAnswer: {{ visitorAnswer }}</div>
+						<div>form.pFQ: {{ form.partimapFeatureQuestion }}</div>
+					</b-form-group>
 				</div>
 				<div v-else>
 					<b-badge
@@ -202,6 +214,7 @@
 						:html="form.description"
 					/>
 				</div>
+
 				<b-form-group
 					v-if="
 						(visitor && !editable && visitorCanRate) ||
@@ -351,6 +364,10 @@ export default {
 			type: Object,
 			default: () => {}, // { average, count, ... }
 		},
+		question: {
+			type: Object,
+			default: null,
+		},
 		readonly: {
 			type: Boolean,
 			default: false,
@@ -386,6 +403,9 @@ export default {
 				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
+				partimapFeatureQuestion: JSON.parse(
+					this.feature.get('partimapFeatureQuestion') || '[]'
+				),
 				width: this.feature.get('width'),
 			},
 			rating: Number(this.initFeatureRating.average || 0),
@@ -442,6 +462,14 @@ export default {
 				return `⭐ ${Number(avg).toFixed(1)}`;
 			}
 		},
+		visitorAnswer: {
+			get() {
+				return this.form.partimapFeatureQuestion;
+			},
+			set(answer) {
+				this.form.partimapFeatureQuestion = answer;
+			},
+		},
 	},
 	watch: {
 		getSidebarVisible(v) {
@@ -472,6 +500,12 @@ export default {
 		},
 		'form.description'() {
 			this.feature.set('description', this.form.description);
+		},
+		'form.partimapFeatureQuestion'() {
+			this.feature.set(
+				'partimapFeatureQuestion',
+				JSON.stringify(this.form.partimapFeatureQuestion)
+			);
 		},
 		'form.width'() {
 			this.emitChangeStyle();
