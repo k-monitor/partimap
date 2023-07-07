@@ -102,6 +102,7 @@
 						:show-consent="isFirstSheet"
 					/>
 					<FeatureList
+						v-if="!submitted"
 						:init-feature-ratings="featureRatings"
 						:interactions="interactions"
 						:show-results="resultsShown"
