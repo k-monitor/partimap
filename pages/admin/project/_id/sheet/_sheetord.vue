@@ -155,7 +155,7 @@
 				</b-form-group>
 			</div>
 
-			<b-form-group>
+			<b-form-group v-if="canHaveResults">
 				<template #label>
 					<h6 class="mb-0">
 						{{ $t('SheetContent.results') }}
@@ -168,7 +168,7 @@
 					{{ $t('sheetEditor.showAllResults') }}
 				</b-form-checkbox>
 				<b-form-checkbox
-					v-if="canHaveResults"
+					v-if="someResultsEnabled"
 					v-model="interactions.enabled"
 					value="ShowResultsOnly"
 				>
@@ -393,6 +393,14 @@ export default {
 			return false;
 		},
 		canHaveResults() {
+			if (this.interactions.enabled.includes('Rating')) return true;
+			try {
+				const { questions } = JSON.parse(this.sheet.survey);
+				return questions.length > 0;
+			} catch {}
+			return false;
+		},
+		someResultsEnabled() {
 			if (this.interactions.enabled.includes('RatingResults'))
 				return true;
 			try {
