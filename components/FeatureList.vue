@@ -96,6 +96,7 @@
 					:description-label="descriptionLabelFor(feature)"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:question="questionFor(feature)"
 					:stars="interactions?.stars"
 					:visitor="visitor"
 					:visitor-can-name="interactions?.enabled.includes('naming')"
@@ -241,6 +242,11 @@ export default {
 			const dt = feature.getGeometry().getType();
 			const lab = this.interactions?.descriptionLabels[dt];
 			return lab || this.sheet?.descriptionLabel || '';
+		},
+		questionFor(feature) {
+			const dt = feature.getGeometry().getType();
+			const q = this.interactions?.featureQuestions[dt] || {};
+			return q.label ? q : null;
 		},
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};
