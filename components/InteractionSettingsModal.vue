@@ -29,11 +29,20 @@
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
 		</b-form-group>
-		<!-- <b-form-group>
-			<b-form-checkbox v-model="editFeatureQuestion">
+		<b-form-group>
+			<b-form-checkbox v-model="hasFeatureQuestion">
 				{{ $t('sheetEditor.addFeatureQuestion') }}
 			</b-form-checkbox>
-		</b-form-group> -->
+		</b-form-group>
+		<div v-if="hasFeatureQuestion">
+			<b-form-group :label="$t('SurveyEditor.questionText')">
+				<b-form-input v-model="featureQuestion.label" />
+			</b-form-group>
+			<OptionsEditor
+				v-model="featureQuestion.options"
+				label-state="option"
+			/>
+		</div>
 	</b-modal>
 </template>
 
@@ -57,9 +66,9 @@ export default {
 		return {
 			buttonLabel: '',
 			descriptionLabel: '',
-			editFeatureQuestion: false,
+			hasFeatureQuestion: false,
 			featureLabel: '',
-			featureQuestion: null,
+			featureQuestion: {},
 		};
 	},
 	watch: {
@@ -79,11 +88,16 @@ export default {
 			this.featureLabel =
 				this.interactions?.featureLabels[this.drawType] || '';
 			this.featureQuestion =
-				this.interactions?.featureQuestions[this.drawType] || null;
-			this.editFeatureQuestion =
-				!!this.interactions?.featureQuestions[this.drawType];
+				this.interactions?.featureQuestions[this.drawType] || {};
+			this.hasFeatureQuestion =
+				!!this.interactions?.featureQuestions[this.drawType]?.label;
 		},
 		handleOk() {
+			if (this.hasFeatureQuestion && this.featureQuestion.label) {
+				this.featureQuestion.type = 'checkbox';
+			} else {
+				this.featureQuestion = {};
+			}
 			this.$emit(
 				'modified',
 				this.drawType,

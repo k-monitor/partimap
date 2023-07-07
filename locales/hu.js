@@ -194,6 +194,7 @@ export default {
 		view: 'Megtekintés',
 	},
 	sheetEditor: {
+		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',

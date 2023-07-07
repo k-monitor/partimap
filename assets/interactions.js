@@ -31,9 +31,9 @@ export class Interactions {
 			Polygon: data.featureLabels?.Polygon || '',
 		};
 		this.featureQuestions = {
-			Point: data.featureQuestions?.Point || null,
-			LineString: data.featureQuestions?.LineString || null,
-			Polygon: data.featureQuestions?.Polygon || null,
+			Point: data.featureQuestions?.Point || {},
+			LineString: data.featureQuestions?.LineString || {},
+			Polygon: data.featureQuestions?.Polygon || {},
 		};
 		this.stars = data.stars || 5;
 	}
