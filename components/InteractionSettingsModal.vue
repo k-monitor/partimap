@@ -29,6 +29,11 @@
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
 		</b-form-group>
+		<!-- <b-form-group>
+			<b-form-checkbox v-model="editFeatureQuestion">
+				{{ $t('sheetEditor.addFeatureQuestion') }}
+			</b-form-checkbox>
+		</b-form-group> -->
 	</b-modal>
 </template>
 
@@ -52,7 +57,9 @@ export default {
 		return {
 			buttonLabel: '',
 			descriptionLabel: '',
+			editFeatureQuestion: false,
 			featureLabel: '',
+			featureQuestion: null,
 		};
 	},
 	watch: {
@@ -71,6 +78,10 @@ export default {
 				this.interactions?.descriptionLabels[this.drawType] || '';
 			this.featureLabel =
 				this.interactions?.featureLabels[this.drawType] || '';
+			this.featureQuestion =
+				this.interactions?.featureQuestions[this.drawType] || null;
+			this.editFeatureQuestion =
+				!!this.interactions?.featureQuestions[this.drawType];
 		},
 		handleOk() {
 			this.$emit(
@@ -78,7 +89,8 @@ export default {
 				this.drawType,
 				this.buttonLabel,
 				this.descriptionLabel,
-				this.featureLabel
+				this.featureLabel,
+				this.featureQuestion
 			);
 			this.$refs.modal.hide();
 		},
