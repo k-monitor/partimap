@@ -448,7 +448,6 @@ export default {
 			) {
 				return feature.setStyle(() => false);
 			}
-
 			feature.setStyle(
 				this.styleFunction({
 					feature,
@@ -468,6 +467,10 @@ export default {
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
+			const isHidden = feature.get('hidden');
+			const text = isHidden
+				? ''
+				: String((this.labels || {})[feature.id_] || '');
 			return new Style({
 				geometry(feature) {
 					return feature.getGeometry();
@@ -491,7 +494,7 @@ export default {
 				}),
 				text: new Text({
 					font: 'bold 20px sans-serif',
-					text: String((this.labels || {})[feature.id_] || ''),
+					text,
 					placement: 'point',
 					backgroundFill: new Fill({
 						color: pointFillColor || lineColor || polygonColor,
