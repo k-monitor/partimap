@@ -148,6 +148,7 @@ export default {
 		slug: 'Page URL',
 		slugDescription: 'The URL you enter may be modified if already used.',
 		thanks: 'Acknowledgements',
+		thanksDefault: 'Thank you for your answers.',
 		thanksDescription:
 			'This message will be displayed on the last sheet, after submission.',
 		thanksSocial: 'Add share buttons to Acknowledgements.',

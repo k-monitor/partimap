@@ -146,6 +146,7 @@ export default {
 		slugDescription:
 			'Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal.',
 		thanks: 'Köszönetnyilvánítás',
+		thanksDefault: 'Köszönjük a kitöltést!',
 		thanksDescription:
 			'A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után.',
 		thanksSocial: 'Megosztás gombok a köszönetnyilvánítás alatt.',

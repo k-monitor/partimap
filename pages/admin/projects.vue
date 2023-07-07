@@ -133,6 +133,9 @@ export default {
 					}</p><p>E-mail: <a href="mailto:${this.$auth.user.email}">${
 						this.$auth.user.email
 					}</a></p>`,
+					thanks: `<h5>${this.$t(
+						'projectEditor.thanksDefault'
+					)}</h5>`,
 				});
 				this.$router.push(this.localePath(`/admin/project/${id}`));
 			} catch (error) {
