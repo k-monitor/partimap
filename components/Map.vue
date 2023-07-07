@@ -484,7 +484,7 @@ export default {
 					width: strokeWidth,
 				}),
 				image: new CircleStyle({
-					radius: 15, // strokeWidth * 3,
+					radius: strokeWidth * 3,
 					fill: pointFillColor
 						? new Fill({ color: pointFillColor })
 						: null,
