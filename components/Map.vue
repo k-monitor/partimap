@@ -188,7 +188,6 @@ export default {
 			this.vector.getSource().removeFeature(feature);
 		});
 		this.$nuxt.$on('clearFeatures', ids => {
-			console.log('clearFeatures', ids);
 			this.vector
 				.getSource()
 				.getFeatures()

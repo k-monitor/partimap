@@ -199,6 +199,7 @@ export default {
 		view: 'View Project',
 	},
 	sheetEditor: {
+		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',
 		defaultDescriptionLabel: 'Please explain why you gave this response.',

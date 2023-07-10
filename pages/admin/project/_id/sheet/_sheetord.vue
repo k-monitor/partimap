@@ -516,11 +516,13 @@ export default {
 			drawType,
 			buttonLabel,
 			descriptionLabel,
-			featureLabel
+			featureLabel,
+			featureQuestion
 		) {
 			this.interactions.buttonLabels[drawType] = buttonLabel;
 			this.interactions.descriptionLabels[drawType] = descriptionLabel;
 			this.interactions.featureLabels[drawType] = featureLabel;
+			this.interactions.featureQuestions[drawType] = featureQuestion;
 		},
 		showAllResultsClicked() {
 			const showResults = this.showAllResults;

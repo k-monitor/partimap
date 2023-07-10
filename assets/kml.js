@@ -78,6 +78,15 @@ function prepareKmlForExport(kmlString) {
 			if (!name.startsWith('partimap')) {
 				d.remove();
 			}
+
+			// formatting partimapFeatureQuestion_ans
+			if (name === 'partimapFeatureQuestion_ans') {
+				const value = d.querySelector('value');
+				try {
+					const v = JSON.parse(value.innerHTML);
+					if (Array.isArray(v)) value.innerHTML = v.join(', ');
+				} catch {}
+			}
 		});
 	});
 

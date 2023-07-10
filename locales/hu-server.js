@@ -23,6 +23,8 @@ module.exports = {
 		featureDesc: 'Leírás',
 		featureLabel: 'Feladat egyedi neve',
 		featureName: 'Név',
+		featureQuestion: 'Jelölőnégyzetes kérdés',
+		featureQuestionAnswer: 'Válasz',
 		featureType: 'Elem típusa',
 		filename: 'export.xlsx',
 		geometry: {

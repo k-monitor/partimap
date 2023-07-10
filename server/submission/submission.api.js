@@ -282,6 +282,8 @@ router.get(
 		sfs.cell(1, 5).string(m.featureName);
 		sfs.cell(1, 6).string(m.descriptionLabel);
 		sfs.cell(1, 7).string(m.featureDesc);
+		sfs.cell(1, 8).string(m.featureQuestion);
+		sfs.cell(1, 9).string(m.featureQuestionAnswer);
 		row = 1;
 		for (let i = 0; i < submittedFeatures.length; i++) {
 			const sf = submittedFeatures[i];
@@ -318,6 +320,14 @@ router.get(
 						(interactions.featureLabels || {})[f.geometry.type] ||
 						type;
 
+					const rawAnswer =
+						f?.properties?.partimapFeatureQuestion_ans || '';
+					let answer = '';
+					try {
+						const v = JSON.parse(rawAnswer);
+						if (Array.isArray(v)) answer = v.join(', ');
+					} catch {}
+
 					row++;
 					sfs.cell(row, 1).number(sf.submissionId);
 					sfs.cell(row, 2).string(featureLabel);
@@ -326,6 +336,10 @@ router.get(
 					sfs.cell(row, 5).string(String(name));
 					sfs.cell(row, 6).string(descriptionLabel);
 					sfs.cell(row, 7).string(f?.properties?.description || '');
+					sfs.cell(row, 8).string(
+						f?.properties?.partimapFeatureQuestion
+					);
+					sfs.cell(row, 9).string(answer);
 				}
 			}
 		}
