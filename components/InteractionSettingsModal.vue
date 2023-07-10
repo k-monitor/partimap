@@ -66,7 +66,8 @@ export default {
 		return {
 			buttonLabel: '',
 			descriptionLabel: '',
-			hasFeatureQuestion: false,
+			hasFeatureQuestion:
+				!!this.interactions?.featureQuestions[this.drawType]?.label,
 			featureLabel: '',
 			featureQuestion: {},
 		};
@@ -89,8 +90,8 @@ export default {
 				this.interactions?.featureLabels[this.drawType] || '';
 			this.featureQuestion =
 				this.interactions?.featureQuestions[this.drawType] || {};
-			this.hasFeatureQuestion =
-				!!this.interactions?.featureQuestions[this.drawType]?.label;
+			// this.hasFeatureQuestion =
+			//	!!this.interactions?.featureQuestions[this.drawType]?.label;
 		},
 		handleOk() {
 			if (this.hasFeatureQuestion && this.featureQuestion.label) {
