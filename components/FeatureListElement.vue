@@ -198,8 +198,6 @@
 							v-model="visitorAnswer"
 							:q="question"
 						/>
-						<div>visitorAnswer: {{ visitorAnswer }}</div>
-						<div>form.pFQ: {{ form.partimapFeatureQuestion }}</div>
 					</b-form-group>
 				</div>
 				<div v-else>
@@ -403,8 +401,8 @@ export default {
 				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
-				partimapFeatureQuestion: JSON.parse(
-					this.feature.get('partimapFeatureQuestion') || '[]'
+				questionAnswer: JSON.parse(
+					this.feature.get('partimapFeatureQuestion_ans') || '[]'
 				),
 				width: this.feature.get('width'),
 			},
@@ -464,10 +462,10 @@ export default {
 		},
 		visitorAnswer: {
 			get() {
-				return this.form.partimapFeatureQuestion;
+				return this.form.questionAnswer;
 			},
 			set(answer) {
-				this.form.partimapFeatureQuestion = answer;
+				this.form.questionAnswer = answer;
 			},
 		},
 	},
@@ -501,10 +499,11 @@ export default {
 		'form.description'() {
 			this.feature.set('description', this.form.description);
 		},
-		'form.partimapFeatureQuestion'() {
+		'form.questionAnswer'() {
+			this.feature.set('partimapFeatureQuestion', this.question.label);
 			this.feature.set(
-				'partimapFeatureQuestion',
-				JSON.stringify(this.form.partimapFeatureQuestion)
+				'partimapFeatureQuestion_ans',
+				JSON.stringify(this.form.questionAnswer)
 			);
 		},
 		'form.width'() {
