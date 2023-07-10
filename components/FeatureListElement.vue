@@ -315,6 +315,14 @@
 						</b-button>
 					</div>
 				</b-form-group>
+
+				<b-form-group
+					v-if="readonly && form.questionAnswer"
+					:label="feature.get('partimapFeatureQuestion')"
+				>
+					{{ form.questionAnswer.join(', ') }}
+				</b-form-group>
+
 				<div
 					v-else
 					class="d-sm-none mb-3 text-center"
