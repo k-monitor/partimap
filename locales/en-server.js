@@ -23,6 +23,8 @@ module.exports = {
 		featureDesc: 'Description',
 		featureLabel: 'Unique task name',
 		featureName: 'Name',
+		featureQuestion: 'Checkbox question',
+		featureQuestionAnswer: 'Answer',
 		featureType: 'Type of marker',
 		filename: 'export.xlsx',
 		geometry: {
