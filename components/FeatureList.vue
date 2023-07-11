@@ -82,6 +82,15 @@
 					@click="toggleCategoryFilter(c)"
 					v-text="c"
 				/>
+				<b-badge
+					v-for="a in answers"
+					:key="a"
+					class="border border-secondary m-2"
+					role="button"
+					:variant="search === a ? 'dark' : 'light'"
+					@click="search === a ? (search = '') : (search = a)"
+					v-text="a"
+				/>
 			</div>
 		</b-form-group>
 		<b-form-group
@@ -210,6 +219,19 @@ export default {
 					this.interactions.enabled.includes('Polygon'))
 			);
 		},
+		answers() {
+			const answers = [];
+			this.getAllFeatures.forEach(f => {
+				const json = f.get('partimapFeatureQuestion_ans');
+				try {
+					const arr = JSON.parse(json);
+					arr.forEach(a => {
+						if (!answers.includes(a)) answers.push(a);
+					});
+				} catch {}
+			});
+			return answers.sort();
+		},
 	},
 	watch: {
 		getSelectedFeature(f) {
@@ -289,7 +311,10 @@ export default {
 							.includes(this.search.toLowerCase()) ||
 						(f.get('category') || '')
 							.toLowerCase()
-							.includes(this.search.toLowerCase())
+							.includes(this.search.toLowerCase()) ||
+						f
+							.get('partimapFeatureQuestion_ans')
+							?.includes(this.search)
 				)
 				.sort((a, b) => {
 					const ac = a.get('category') || '';
