@@ -39,6 +39,25 @@
 				v-model="featureQuestion.options"
 				label-state="option"
 			/>
+			<b-form-group :label="$t('SurveyEditor.maxSelect')">
+				<b-form-input
+					v-model.number="featureQuestion.max"
+					type="number"
+					min="1"
+					:max="
+						!featureQuestion.options
+							? 0
+							: featureQuestion.options.length
+					"
+					@change="inputValid"
+				/>
+			</b-form-group>
+			<b-form-group>
+				<b-form-checkbox v-model="featureQuestion.other">
+					{{ $t('SurveyEditor.other') }}
+				</b-form-checkbox>
+			</b-form-group>
+			<!-- TODO use SurveyEditor instead of these copied parts -->
 		</div>
 
 		<hr />
