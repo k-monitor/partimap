@@ -66,6 +66,13 @@
 						!visitorCanRate,
 				}"
 			>
+				<b-form-group
+					v-if="readonly && form.questionAnswer"
+					:label="feature.get('partimapFeatureQuestion')"
+				>
+					{{ form.questionAnswer.join(', ') }}
+				</b-form-group>
+
 				<div v-if="editable">
 					<b-row
 						v-if="!visitor && !readonly"
@@ -159,6 +166,17 @@
 							show-on-focus
 						/>
 					</b-form-group>
+
+					<b-form-group
+						v-if="visitor && question"
+						:label="question.label"
+					>
+						<CheckboxGroup
+							v-model="visitorAnswer"
+							:q="question"
+						/>
+					</b-form-group>
+
 					<b-form-group
 						v-if="visitor"
 						:label="
@@ -187,16 +205,6 @@
 						<TipTapDisplay
 							v-if="readonly"
 							:html="form.description"
-						/>
-					</b-form-group>
-
-					<b-form-group
-						v-if="visitor && question"
-						:label="question.label"
-					>
-						<CheckboxGroup
-							v-model="visitorAnswer"
-							:q="question"
 						/>
 					</b-form-group>
 				</div>
@@ -314,13 +322,6 @@
 							{{ $t('SaveButton.save') }}
 						</b-button>
 					</div>
-				</b-form-group>
-
-				<b-form-group
-					v-if="readonly && form.questionAnswer"
-					:label="feature.get('partimapFeatureQuestion')"
-				>
-					{{ form.questionAnswer.join(', ') }}
 				</b-form-group>
 
 				<div

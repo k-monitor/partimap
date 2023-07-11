@@ -23,12 +23,9 @@
 				:state="buttonLabel.length > 100 ? false : null"
 			/>
 		</b-form-group>
-		<b-form-group :label="$t('sheetEditor.descriptionLabel')">
-			<b-form-input
-				v-model="descriptionLabel"
-				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
-			/>
-		</b-form-group>
+
+		<hr />
+
 		<b-form-group>
 			<b-form-checkbox v-model="hasFeatureQuestion">
 				{{ $t('sheetEditor.addFeatureQuestion') }}
@@ -43,6 +40,15 @@
 				label-state="option"
 			/>
 		</div>
+
+		<hr />
+
+		<b-form-group :label="$t('sheetEditor.descriptionLabel')">
+			<b-form-input
+				v-model="descriptionLabel"
+				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
+			/>
+		</b-form-group>
 	</b-modal>
 </template>
 
