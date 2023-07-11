@@ -48,8 +48,10 @@
 					class="align-items-end d-flex justify-content-between small"
 				>
 					<span>{{ q.minLabel }}</span>
-					<strong>{{ answers[q.id] }}</strong>
-					<span>{{ q.maxLabel }}</span>
+					<strong class="mx-2">{{
+						answers[q.id] || '&nbsp;'
+					}}</strong>
+					<span class="text-right">{{ q.maxLabel }}</span>
 				</div>
 				<div class="align-items-center d-flex">
 					<b-form-input
