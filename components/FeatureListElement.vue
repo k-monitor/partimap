@@ -477,6 +477,11 @@ export default {
 				this.form.questionAnswer = answer;
 			},
 		},
+		visitorFilledEverything() {
+			if (!this.form.description) return false;
+			if (this.question && !this.visitorAnswer?.length) return false;
+			return true;
+		},
 	},
 	watch: {
 		getSidebarVisible(v) {
@@ -573,7 +578,7 @@ export default {
 				if (
 					this.visitor &&
 					this.editable &&
-					!this.form.description &&
+					!this.visitorFilledEverything &&
 					!this.confirmedClose
 				) {
 					const confirmed = await this.confirmFeatureClose();
