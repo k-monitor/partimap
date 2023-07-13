@@ -26,5 +26,6 @@ module.exports = {
 
 	RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY,
 
+	SUB_DAILY_HOUR: process.env.SUB_DAILY_HOUR || 8,
 	SUB_EVENTS_DEBOUNCE_MINS: process.env.SUB_EVENTS_DEBOUNCE_MINS || 60,
 };

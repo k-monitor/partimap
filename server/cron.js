@@ -1,32 +1,34 @@
 const CronJob = require('cron').CronJob;
-const { SUB_EVENTS_DEBOUNCE_MINS } = require('./conf');
-const { dataForEventlySubscriptions } = require('./project/project.db');
+const { SUB_DAILY_HOUR, SUB_EVENTS_DEBOUNCE_MINS } = require('./conf');
+const {
+	dataForDailyNotifications,
+	dataForEventBasedNotifications,
+} = require('./project/project.db');
+
+// eslint-disable-next-line no-new
+new CronJob(
+	`0 0 ${SUB_DAILY_HOUR} * * *`, // daily at 8
+	sendDailyNotifications,
+	null,
+	true // start now
+);
 
 // eslint-disable-next-line no-new
 new CronJob(
 	'0 */5 * * * *', // every 5 minutes
-	sendEventEmails,
+	sendEventBasedNotifications,
 	null,
 	true // start now
 );
 
-// eslint-disable-next-line no-new
-new CronJob(
-	'0 0 8 * * *', // daily at 8
-	sendDigestEmails(),
-	null,
-	true // start now
-);
+async function sendDailyNotifications() {
+	const projects = await dataForDailyNotifications();
+	// TODO send email
+}
 
-async function sendEventEmails() {
-	const projects = await dataForEventlySubscriptions(
+async function sendEventBasedNotifications() {
+	const projects = await dataForEventBasedNotifications(
 		SUB_EVENTS_DEBOUNCE_MINS
 	);
-	// TODO
+	// TODO email
 }
-
-function sendDigestEmails() {
-	// TODO
-}
-
-sendEventEmails();

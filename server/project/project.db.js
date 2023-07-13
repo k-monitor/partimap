@@ -122,10 +122,32 @@ function update(project) {
 }
 
 /**
- * @param {Number} debounceMins Only return projects where last submission is older than X minutes
- * @returns {{ id: Number, submissions: Number, newSubmissions: Number }[]}
+ * @returns {{ id: Number, email: String, submissions: Number, newSubmissions: Number }[]}
  */
-function dataForEventlySubscriptions(debounceMins) {
+function dataForDailyNotifications() {
+	const sql = `
+		SELECT
+			p.id,
+			COUNT(s.id) submissions,
+			SUM(CASE
+				WHEN s.timestamp > p.lastSent
+				THEN 1
+				ELSE 0
+			END) newSubmissions,
+			u.email
+		FROM project p
+		INNER JOIN submission s ON s.projectId = p.id
+		INNER JOIN user u ON u.id = p.userId
+		WHERE subscribe = 'D'
+		GROUP BY p.id;`;
+	return db.query(sql);
+}
+
+/**
+ * @param {Number} debounceMins Only return projects where last submission is older than X minutes
+ * @returns {{ id: Number, email: String, submissions: Number, newSubmissions: Number }[]}
+ */
+function dataForEventBasedNotifications(debounceMins) {
 	const sql = `
 		SELECT
 			p.id,
@@ -146,7 +168,30 @@ function dataForEventlySubscriptions(debounceMins) {
 	return db.query(sql, [debounceMins]);
 }
 
+function updateLastSent(id) {
+	return db.query('UPDATE project SET lastSent = ? WHERE id = ?', [
+		Date.now(),
+		id,
+	]);
+}
+
+/**
+ * @param {Number} id
+ * @param {String} token
+ * @returns {Boolean}
+ */
+async function attemptToUnsubscribe(id, token) {
+	const sql = `
+		UPDATE project
+		SET subscribe = "N"
+		WHERE id = ?
+		AND unsubscribeToken = ?`;
+	const r = await db.query(sql, [id, token]);
+	return !!r.affectedRows;
+}
+
 module.exports = {
+	attemptToUnsubscribe,
 	create,
 	del,
 	delQueries,
@@ -157,5 +202,7 @@ module.exports = {
 	findByUserId,
 	incrementViewsById,
 	update,
-	dataForEventlySubscriptions,
+	updateLastSent,
+	dataForDailyNotifications,
+	dataForEventBasedNotifications,
 };
