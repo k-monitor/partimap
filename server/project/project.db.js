@@ -122,19 +122,23 @@ function update(project) {
 }
 
 /**
- * @returns {{ id: Number, email: String, submissions: Number, newSubmissions: Number }[]}
+ * @returns {{ id: Number, lang: String, title: String, unsubscribeToken: String, email: String, submissions: Number, newSubmissions: Number }[]}
  */
 function dataForDailyNotifications() {
 	const sql = `
 		SELECT
 			p.id,
+			p.lang,
+			p.title,
+			p.unsubscribeToken,
 			COUNT(s.id) submissions,
 			SUM(CASE
 				WHEN s.timestamp > p.lastSent
 				THEN 1
 				ELSE 0
 			END) newSubmissions,
-			u.email
+			u.email,
+			u.name
 		FROM project p
 		INNER JOIN submission s ON s.projectId = p.id
 		INNER JOIN user u ON u.id = p.userId
@@ -145,19 +149,23 @@ function dataForDailyNotifications() {
 
 /**
  * @param {Number} debounceMins Only return projects where last submission is older than X minutes
- * @returns {{ id: Number, email: String, submissions: Number, newSubmissions: Number }[]}
+ * @returns {{ id: Number, lang: String, title: String, unsubscribeToken: String, email: String, submissions: Number, newSubmissions: Number }[]}
  */
 function dataForEventBasedNotifications(debounceMins) {
 	const sql = `
 		SELECT
 			p.id,
+			p.lang,
+			p.title,
+			p.unsubscribeToken,
 			COUNT(s.id) submissions,
 			SUM(CASE
 				WHEN s.timestamp > p.lastSent
 				THEN 1
 				ELSE 0
 			END) newSubmissions,
-			u.email
+			u.email,
+			u.name
 		FROM project p
 		INNER JOIN submission s ON s.projectId = p.id
 		INNER JOIN user u ON u.id = p.userId

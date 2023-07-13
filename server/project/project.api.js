@@ -350,6 +350,18 @@ router.post(
 	}
 );
 
+router.get('/unsubscribe/:id/:token', async (req, res) => {
+	const success = await pdb.attemptToUnsubscribe(
+		req.params.id,
+		req.params.token
+	);
+	if (!success) {
+		res.sendStatus(StatusCodes.NOT_FOUND);
+	} else {
+		res.send('OK');
+	}
+});
+
 async function generateValidSlug(seed, currentId) {
 	const slug = slugify(seed);
 	const ep = await pdb.findBySlug(slug);
