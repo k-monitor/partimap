@@ -25,4 +25,6 @@ module.exports = {
 	SMTP_PASS: process.env.SMTP_PASS,
 
 	RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY,
+
+	SUB_EVENTS_DEBOUNCE_MINS: process.env.SUB_EVENTS_DEBOUNCE_MINS || 60,
 };

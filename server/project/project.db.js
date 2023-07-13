@@ -121,6 +121,31 @@ function update(project) {
 	return db.update('project', project, Project);
 }
 
+/**
+ * @param {Number} debounceMins Only return projects where last submission is older than X minutes
+ * @returns {{ id: Number, submissions: Number, newSubmissions: Number }[]}
+ */
+function dataForEventlySubscriptions(debounceMins) {
+	const sql = `
+		SELECT
+			p.id,
+			COUNT(s.id) submissions,
+			SUM(CASE
+				WHEN s.timestamp > p.lastSent
+				THEN 1
+				ELSE 0
+			END) newSubmissions,
+			u.email
+		FROM project p
+		INNER JOIN submission s ON s.projectId = p.id
+		INNER JOIN user u ON u.id = p.userId
+		WHERE subscribe = 'E'
+		GROUP BY p.id
+		HAVING MAX(s.timestamp)/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?;
+	`;
+	return db.query(sql, [debounceMins]);
+}
+
 module.exports = {
 	create,
 	del,
@@ -132,4 +157,5 @@ module.exports = {
 	findByUserId,
 	incrementViewsById,
 	update,
+	dataForEventlySubscriptions,
 };
