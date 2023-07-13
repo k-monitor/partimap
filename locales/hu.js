@@ -145,6 +145,12 @@ export default {
 		slug: 'Elérési útvonal',
 		slugDescription:
 			'Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal.',
+		subscribe: 'Feliratkozás kitöltésekre',
+		subscribeDescription:
+			'Az emailt arra a címedre küldjük, amivel regisztráltál.',
+		subscribeD: 'Napi email értesítés kitöltésekről',
+		subscribeE: 'Egyedi email értesítés kitöltésről (óránként)',
+		subscribeN: 'Nem kérek emailt a kitöltésekről',
 		thanks: 'Köszönetnyilvánítás',
 		thanksDefault: 'Köszönjük a kitöltést!',
 		thanksDescription:

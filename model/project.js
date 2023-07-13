@@ -15,6 +15,9 @@ class Project {
 	 * @param {String} data.password
 	 * @param {Number} data.views
 	 * @param {Number} data.submissions
+	 * @param {String} data.subscribe
+	 * @param {String} data.unsubscribeToken
+	 * @param {Number} data.lastSent
 	 */
 	constructor(data) {
 		this.id = data.id;
@@ -30,6 +33,9 @@ class Project {
 		this.thanksSocial = data.thanksSocial;
 		this.password = data.password;
 		this.views = data.views;
+		this.subscribe = data.subscribe;
+		this.unsubscribeToken = data.unsubscribeToken;
+		this.lastSent = data.lastSent;
 
 		// calculated:
 		this.submissions = data.submissions;

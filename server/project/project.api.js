@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const copydir = require('copy-dir');
@@ -112,6 +113,18 @@ router.patch(
 			removeProjectImageFile(req.project);
 		} else {
 			delete changes.image;
+		}
+
+		if (!['N', 'E', 'D'].includes(changes.subscribe)) {
+			changes.subscribe = 'N';
+		}
+		if (
+			changes.subscribe !== 'N' &&
+			changes.subscribe !== req.project.subscribe
+		) {
+			// it's been turned on now
+			changes.unsubscribeToken = crypto.randomBytes(64).toString('hex');
+			changes.lastSent = Date.now();
 		}
 
 		let project = new Project(Object.assign(req.project, changes));
