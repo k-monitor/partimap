@@ -6,7 +6,7 @@
 					<CardHeader :text="$t('unsubscribe.title')" />
 					<div class="card-body">
 						<b-alert
-							v-if="success"
+							v-if="successful"
 							show
 							variant="success"
 						>
@@ -19,7 +19,6 @@
 						>
 							{{ $t('unsubscribe.failed') }}
 						</b-alert>
-						{{ res }}
 					</div>
 					<div class="card-footer d-flex justify-content-end">
 						<b-button
@@ -38,16 +37,16 @@
 <script>
 export default {
 	async asyncData({ $axios, route }) {
-		let success = false;
+		let successful = false;
 		try {
 			const { id, token } = route.query;
 			const res = await $axios.$post(`/api/project/unsubscribe`, {
 				id,
 				token,
 			});
-			success = res.success;
+			successful = res.success;
 		} catch (error) {}
-		return { success };
+		return { successful };
 	},
 };
 </script>

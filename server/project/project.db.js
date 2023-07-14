@@ -143,7 +143,8 @@ function dataForDailyNotifications() {
 		INNER JOIN submission s ON s.projectId = p.id
 		INNER JOIN user u ON u.id = p.userId
 		WHERE subscribe = 'D'
-		GROUP BY p.id;`;
+		GROUP BY p.id
+		HAVING newSubmissions > 0;`;
 	return db.query(sql);
 }
 
@@ -171,7 +172,8 @@ function dataForEventBasedNotifications(debounceMins) {
 		INNER JOIN user u ON u.id = p.userId
 		WHERE subscribe = 'E'
 		GROUP BY p.id
-		HAVING MAX(s.timestamp)/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?;
+		HAVING newSubmissions > 0
+		AND MAX(s.timestamp)/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?;
 	`;
 	return db.query(sql, [debounceMins]);
 }
