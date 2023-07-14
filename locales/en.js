@@ -147,6 +147,11 @@ export default {
 		sheetMovingFailed: 'Failed to move the sheet',
 		slug: 'Page URL',
 		slugDescription: 'The URL you enter may be modified if already used.',
+		subscribe: 'Subscribe to submissions',
+		subscribeDescription: 'Emails will be sent to your registered address.',
+		subscribeD: 'Daily email notifications about submissions',
+		subscribeE: 'Individual email notifications about submissions (hourly)',
+		subscribeN: "Don't want to receive email notifications",
 		thanks: 'Acknowledgements',
 		thanksDefault: 'Thank you for your answers.',
 		thanksDescription:
@@ -235,6 +240,13 @@ export default {
 		success: 'Sheet modified successfully',
 		survey: 'Survey',
 		visitorInteractions: 'Respondents are allowed to:',
+	},
+	unsubscribe: {
+		home: 'Back to PARTIMAP',
+		failed: "Unsubscribe failed. Please log in and turn off the email notifications in the project's settings.",
+		success:
+			"You have successfully unsubscribed from this project's email notifications.",
+		title: 'Unsubscribe',
 	},
 	userEditor: {
 		activated: 'Activated',

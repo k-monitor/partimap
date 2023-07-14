@@ -12,6 +12,8 @@ const submission = require('./submission/submission.api');
 const submittedFeatures = require('./submittedFeatures/submittedFeatures.api');
 const user = require('./user/user.api');
 
+require('./cron'); // init cron jobs
+
 db.init(); // async but no need to wait here
 
 app.use(bodyParser({ limit: '10mb' }));

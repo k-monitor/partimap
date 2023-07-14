@@ -3,14 +3,18 @@
 module.exports = {
 	activationEmail: {
 		subject: 'Új fiók aktiválása',
-		body: '<p><b>Kedves {user}!</p><p>Kérlek véglegesítsd Partimap regisztrációdat az alábbi hivatkozás megnyitásával:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>',
+		body: '<p><b>Kedves {user}!</b></p><p>Kérlek véglegesítsd PARTIMAP regisztrációdat az alábbi hivatkozás megnyitásával:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>',
 	},
 	forgotEmail: {
 		subject: 'Elfelejtett jelszó',
-		body: '<p><b>Kedves {user}!</p><p>A Partimap fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>',
+		body: '<p><b>Kedves {user}!</b></p><p>A PARTIMAP fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>',
 	},
 	newProject: {
 		newSheetTitle: 'A felmérés célja',
+	},
+	notificationEmail: {
+		subject: '{title} kérdőívedhez kitöltés érkezett!',
+		body: '<p><b>Kedves {user}!</b></p><p><a href="{projectUrl}">{title}</a> elnevezésű PARTIMAP kérdőívedhez {newSubmissions} új kitöltés érkezett.</p><p>Összesen {submissions} kitöltés érkezett a kérdőívedre, ezeket <a href="{reportUrl}">a riportban</a> találod.</p><p></p><p><a href="{unsubscribeUrl}">Nem kérek több email értesítést az új kitöltésekről.</a></p>',
 	},
 	report: {
 		aggregatedRating: 'Összesített értékelése',

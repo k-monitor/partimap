@@ -2,12 +2,12 @@
 	<div class="logo overflow-hidden">
 		<img
 			src="/logo.svg"
-			alt="Partimap"
+			alt="PARTIMAP"
 			height="30"
 		/>
 		<img
 			src="/logo-black.svg"
-			alt="Partimap"
+			alt="PARTIMAP"
 			height="30"
 			style="display: none"
 		/>

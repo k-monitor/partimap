@@ -184,6 +184,17 @@
 						{{ $t('projectEditor.thanksSocial') }}
 					</b-form-checkbox>
 				</b-form-group>
+				<b-form-group
+					:label="$t('projectEditor.subscribe')"
+					:description="$t('projectEditor.subscribeDescription')"
+				>
+					<b-form-radio-group
+						id="radio-group-1"
+						v-model="project.subscribe"
+						:options="subscribeOptions"
+						stacked
+					/>
+				</b-form-group>
 			</form>
 			<template #footer>
 				<div class="d-flex justify-content-end">
@@ -239,6 +250,10 @@ export default {
 			imageState: null,
 			newPassword: '',
 			passwordModified: false,
+			subscribeOptions: ['N', 'E', 'D'].map(value => ({
+				text: this.$t(`projectEditor.subscribe${value}`),
+				value,
+			})),
 		};
 	},
 	head() {
