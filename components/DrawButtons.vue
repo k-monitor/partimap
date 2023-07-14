@@ -12,6 +12,7 @@
 				:variant="b.variant"
 				class="py-2"
 				:class="!b.drawType ? 'cancel-button' : ''"
+				:disabled="!!getSelectedFeature"
 				@click="setDrawType(b.drawType)"
 			>
 				<i
@@ -41,6 +42,7 @@ export default {
 
 	computed: {
 		...mapGetters(['getDrawType']),
+		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		drawingButtons() {
 			return buttons(
 				this.getDrawType,

@@ -48,8 +48,7 @@ import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Attribution, defaults as defaultControls } from 'ol/control';
-import { click } from 'ol/events/condition';
-import { Draw, Select, Snap } from 'ol/interaction';
+import { Draw, Snap } from 'ol/interaction';
 import { Vector as VectorLayer } from 'ol/layer';
 import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
@@ -120,9 +119,6 @@ export default {
 			if (type) {
 				this.$store.commit('selected/clear');
 			}
-			type
-				? this.map.removeInteraction(this.select)
-				: this.map.addInteraction(this.select);
 
 			// set draw type on OL map
 			this.map.removeInteraction(this.draw);
@@ -146,21 +142,9 @@ export default {
 		 * @param selFeature Is null if the map is clicked
 		 * without clicking on a feature.
 		 */
-		getSelectedFeature(selFeature, prevFeature) {
-			// sync the local selectedFeatures collection with the store
-			const selectedFeatures = this.select.getFeatures();
-			if (selFeature && !selectedFeatures.array_.includes(selFeature)) {
-				selectedFeatures.push(selFeature);
-			}
-			// clear the selection of the previously selected feature
-			if (selectedFeatures.array_.includes(prevFeature)) {
-				selectedFeatures.remove(prevFeature);
-			}
-			// deselect the feature if the plain map is clicked
+		getSelectedFeature(selFeature) {
 			if (!selFeature) {
-				// removes the blur which indicates selection
 				this.removeBlur();
-				this.select.getFeatures().pop();
 			} else {
 				this.source.getFeatures().forEach(feature => {
 					this.updateFeatureStyle(feature, selFeature);
@@ -247,11 +231,6 @@ export default {
 				this.setBaseMap(this.initialBaseMapKey);
 			}
 
-			this.select = new Select({
-				style: null,
-				condition: click,
-			});
-
 			// localized map init
 			const coords = this.$t('Map.initialCenter').split(',');
 			const center = gm2ol(coords.reverse());
@@ -284,7 +263,6 @@ export default {
 				view: this.view,
 			});
 			this.updateLayers();
-			this.map.addInteraction(this.select);
 		},
 		fitViewToFeatures() {
 			// no need to fit view if no feature is present
@@ -306,15 +284,13 @@ export default {
 			});
 		},
 		addEventListeners() {
-			const selectedFeatures = this.select.getFeatures();
-			selectedFeatures.on('add', e => {
-				const f = e.element;
-				if (!f.get('hidden')) {
-					this.$store.commit('selected/change', f);
-				}
-			});
-			selectedFeatures.on('remove', f => {
-				this.$store.commit('selected/remove', f.element);
+			this.map.on('click', e => {
+				if (this.drawType) return; // no selection while drawing
+				let clickedFeature = null;
+				this.map.forEachFeatureAtPixel(e.pixel, f => {
+					if (!f.get('hidden')) clickedFeature = f;
+				});
+				this.$nuxt.$emit('selectAttempt', clickedFeature); // feature or null
 			});
 
 			this.source.on('addfeature', e => {
@@ -348,7 +324,11 @@ export default {
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f);
 				if (drawing) {
-					selectedFeatures.push(f);
+					this.$nextTick(() => {
+						// after FLE is created
+						this.$nuxt.$emit('selectAttempt', f);
+					});
+					// this.$store.commit('selected/change', f);
 				}
 
 				if (this.visitor) {
