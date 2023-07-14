@@ -14,7 +14,7 @@ const {
 
 // eslint-disable-next-line no-new
 new CronJob(
-	`0 0 ${SUB_DAILY_HOUR} * * *`, // daily at 8
+	`0 0 ${SUB_DAILY_HOUR} * * *`, // daily at XX:00
 	sendDailyNotifications,
 	null,
 	true // start now
@@ -22,7 +22,7 @@ new CronJob(
 
 // eslint-disable-next-line no-new
 new CronJob(
-	'0 */5 * * * *', // every 5 minutes
+	'0 */5 * * * *', // every X minutes
 	sendEventBasedNotifications,
 	null,
 	true // start now
@@ -49,7 +49,7 @@ async function sendNotifications(projects) {
 		const m = i18n(p.lang || 'hu').notificationEmail;
 		const projectUrl = `${BASE_URL}/${p.lang}/p/${p.id}`;
 		const reportUrl = `${BASE_URL}/api/submission/export/hu/${p.id}`;
-		const unsubscribeUrl = `${BASE_URL}/api/unsubscribe/${p.id}/${p.unsubscribeToken}`;
+		const unsubscribeUrl = `${BASE_URL}/${p.lang}/unsubscribe?id=${p.id}&token=${p.unsubscribeToken}`;
 		const subject = m.subject.replace(/\{title\}/g, p.title);
 		const body = m.body
 			.replace(/\{user\}/g, p.name)

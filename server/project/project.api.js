@@ -350,15 +350,12 @@ router.post(
 	}
 );
 
-router.get('/unsubscribe/:id/:token', async (req, res) => {
-	const success = await pdb.attemptToUnsubscribe(
-		req.params.id,
-		req.params.token
-	);
+router.post('/project/unsubscribe', async (req, res) => {
+	const success = await pdb.attemptToUnsubscribe(req.body.id, req.body.token);
 	if (!success) {
-		res.sendStatus(StatusCodes.NOT_FOUND);
+		res.status(StatusCodes.NOT_FOUND).json({ success: false });
 	} else {
-		res.send('OK');
+		res.json({ success: true });
 	}
 });
 

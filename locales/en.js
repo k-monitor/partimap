@@ -241,6 +241,13 @@ export default {
 		survey: 'Survey',
 		visitorInteractions: 'Respondents are allowed to:',
 	},
+	unsubscribe: {
+		home: 'Back to PARTIMAP',
+		failed: "Unsubscribe failed. Please log in and turn off the email notifications in the project's settings.",
+		success:
+			"You have successfully unsubscribed from this project's email notifications.",
+		title: 'Unsubscribe',
+	},
 	userEditor: {
 		activated: 'Activated',
 		administrator: 'Administrator',

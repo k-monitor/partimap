@@ -237,6 +237,12 @@ export default {
 		survey: 'Kérdőív',
 		visitorInteractions: 'Látogatói interakciók',
 	},
+	unsubscribe: {
+		home: 'Tovább a PARTIMAP-ra',
+		failed: 'Nem sikerült leiratkozni. Kérlek jelentkezz be és a projekt beállításainál kapcsold ki az email értesítéseket.',
+		success: 'Sikeresen leiratkoztál a projekt email értesítéseiről.',
+		title: 'Leiratkozás',
+	},
 	userEditor: {
 		activated: 'Aktiválva',
 		administrator: 'Adminisztrátor',
