@@ -3,11 +3,11 @@
 module.exports = {
 	activationEmail: {
 		subject: "You're Almost In!",
-		body: '<p><b>Hey there, {user}</b>!</p><p>Please complete your Partimap registration by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, register again.</p>',
+		body: '<p><b>Hey there, {user}</b>!</p><p>Please complete your PARTIMAP registration by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, register again.</p>',
 	},
 	forgotEmail: {
 		subject: 'Forgotten password',
-		body: '<p><b>Hey there, {user}</b>!</p><p>You can set a new password for your Partimap account by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, request a password change again.</p>',
+		body: '<p><b>Hey there, {user}</b>!</p><p>You can set a new password for your PARTIMAP account by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, request a password change again.</p>',
 	},
 	newProject: {
 		newSheetTitle: 'Survey objectives',

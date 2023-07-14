@@ -3,11 +3,11 @@
 module.exports = {
 	activationEmail: {
 		subject: 'Új fiók aktiválása',
-		body: '<p><b>Kedves {user}!</b></p><p>Kérlek véglegesítsd Partimap regisztrációdat az alábbi hivatkozás megnyitásával:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>',
+		body: '<p><b>Kedves {user}!</b></p><p>Kérlek véglegesítsd PARTIMAP regisztrációdat az alábbi hivatkozás megnyitásával:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>',
 	},
 	forgotEmail: {
 		subject: 'Elfelejtett jelszó',
-		body: '<p><b>Kedves {user}!</b></p><p>A Partimap fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>',
+		body: '<p><b>Kedves {user}!</b></p><p>A PARTIMAP fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>',
 	},
 	newProject: {
 		newSheetTitle: 'A felmérés célja',

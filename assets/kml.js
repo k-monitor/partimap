@@ -141,7 +141,7 @@ function prepareKmlForImport(kmlString) {
 				.replace(/\]\]>$/, '') // remove CDATA footer
 				.trim()
 				.replace(/^[^ :<]+: /, '') // remove leading "desc:" part (can be any language...)
-				.replace(/<br>partimap\w+:.*?(?=<br>\w+:|$)/g, '') // remove Partimap data fields
+				.replace(/<br>partimap\w+:.*?(?=<br>\w+:|$)/g, '') // remove PARTIMAP data fields
 				.replace(/<br>\w+:\s*(?=<br>\w+:|$)/g, '') // remove empty key-value pairs
 				.replace(/<br>/gi, '<br/>'); // make BR tags valid
 			descEl.innerHTML = desc.trim();
@@ -210,7 +210,7 @@ function renameData(ed, oldKey, newKey) {
 }
 
 function abgrToRgb(abgr) {
-	// we omit alpha value as it is used dynamically in Partimap
+	// we omit alpha value as it is used dynamically in PARTIMAP
 	return abgr.replace(/(\w\w)(\w\w)(\w\w)(\w\w)/, '#$4$3$2');
 }
 

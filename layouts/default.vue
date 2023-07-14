@@ -16,7 +16,7 @@ export default {
 	head() {
 		const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 		return {
-			titleTemplate: '%s | Partimap',
+			titleTemplate: '%s | PARTIMAP',
 			htmlAttrs: {
 				...i18nHead.htmlAttrs,
 			},

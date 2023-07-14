@@ -3,7 +3,7 @@
 		<header class="bg-primary text-white">
 			<div class="container my-5 py-lg-3 text-center">
 				<img
-					alt="Partimap"
+					alt="PARTIMAP"
 					class="mb-5"
 					src="logo-white.png"
 					style="width: 200px"

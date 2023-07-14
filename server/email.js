@@ -28,7 +28,7 @@ function sendEmail(to, subject, html, listUnsubscribe) {
 			replyTo: conf.SMTP_REPLY_TO,
 			to,
 			subject,
-			html: `${html}\n<p><b>Partimap</b> by <a href="https://k-monitor.hu/">K-Monitor</a></p>`,
+			html: `${html}\n<p><b>PARTIMAP</b> by <a href="https://k-monitor.hu/">K-Monitor</a></p>`,
 			list: {
 				unsubscribe: listUnsubscribe,
 			},

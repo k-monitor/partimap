@@ -147,7 +147,7 @@
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="sendPassword">
 					<div class="card m-3 shadow-sm">
-						<h5 class="card-header">Partimap</h5>
+						<h5 class="card-header">PARTIMAP</h5>
 						<div class="card-body">
 							<p>{{ $t('sheet.restricted') }}</p>
 							<p>{{ $t('sheet.passwordRequired') }}</p>
