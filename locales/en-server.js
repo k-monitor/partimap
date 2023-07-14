@@ -14,7 +14,10 @@ module.exports = {
 	},
 	notificationEmail: {
 		subject: 'Your form, {title}, has new responses',
-		body: '<p><b>Dear {user},</b></p><p>Your PARTIMAP form <a href="{projectUrl}">{title}</a>, has {newSubmissions} new response(s).</p><p>View the {submissions} responses you collected by <a href="{reportUrl}">generating a report here.</a></p><p></p><p><a href="{unsubscribeUrl}">Disable email notification for new responses.</a></p>',
+		body_one:
+			'<p><b>Dear {user},</b></p><p>Your PARTIMAP form <a href="{projectUrl}">{title}</a>, has a new response.</p><p>View the {submissions} responses you collected by <a href="{reportUrl}">generating a report here.</a></p><p>&nbsp;</p><p><a href="{unsubscribeUrl}">Disable email notification for new responses.</a></p>',
+		body_other:
+			'<p><b>Dear {user},</b></p><p>Your PARTIMAP form <a href="{projectUrl}">{title}</a>, has {newSubmissions} new responses.</p><p>View the {submissions} responses you collected by <a href="{reportUrl}">generating a report here.</a></p><p>&nbsp;</p><p><a href="{unsubscribeUrl}">Disable email notification for new responses.</a></p>',
 	},
 	report: {
 		aggregatedRating: 'Aggregated ratings',

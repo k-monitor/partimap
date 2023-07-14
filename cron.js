@@ -51,7 +51,7 @@ async function sendNotifications(projects) {
 		const reportUrl = `${BASE_URL}/api/submission/export/${p.lang}/${p.id}`;
 		const unsubscribeUrl = `${BASE_URL}/${p.lang}/unsubscribe?id=${p.id}&token=${p.unsubscribeToken}`;
 		const subject = m.subject.replace(/\{title\}/g, p.title);
-		const body = m.body
+		const body = (p.newSubmissions === 1 ? m.body_one : m.body_other)
 			.replace(/\{user\}/g, p.name)
 			.replace(/\{title\}/g, p.title)
 			.replace(/\{submissions\}/g, p.submissions)

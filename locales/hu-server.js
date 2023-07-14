@@ -14,7 +14,10 @@ module.exports = {
 	},
 	notificationEmail: {
 		subject: '{title} kérdőívedhez kitöltés érkezett!',
-		body: '<p><b>Kedves {user}!</b></p><p><a href="{projectUrl}">{title}</a> elnevezésű PARTIMAP kérdőívedhez {newSubmissions} új kitöltés érkezett.</p><p>Összesen {submissions} kitöltés érkezett a kérdőívedre, ezeket <a href="{reportUrl}">a riportban</a> találod.</p><p></p><p><a href="{unsubscribeUrl}">Nem kérek több email értesítést az új kitöltésekről.</a></p>',
+		body_one:
+			'<p><b>Kedves {user}!</b></p><p><a href="{projectUrl}">{title}</a> elnevezésű PARTIMAP kérdőívedhez új kitöltés érkezett.</p><p>Összesen {submissions} kitöltés érkezett a kérdőívedre, ezeket <a href="{reportUrl}">a riportban</a> találod.</p><p>&nbsp;</p><p><a href="{unsubscribeUrl}">Nem kérek több email értesítést az új kitöltésekről.</a></p>',
+		body_other:
+			'<p><b>Kedves {user}!</b></p><p><a href="{projectUrl}">{title}</a> elnevezésű PARTIMAP kérdőívedhez {newSubmissions} új kitöltés érkezett.</p><p>Összesen {submissions} kitöltés érkezett a kérdőívedre, ezeket <a href="{reportUrl}">a riportban</a> találod.</p><p>&nbsp;</p><p><a href="{unsubscribeUrl}">Nem kérek több email értesítést az új kitöltésekről.</a></p>',
 	},
 	report: {
 		aggregatedRating: 'Összesített értékelése',
