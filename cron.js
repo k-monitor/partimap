@@ -3,14 +3,14 @@ const {
 	BASE_URL,
 	SUB_DAILY_HOUR,
 	SUB_EVENTS_DEBOUNCE_MINS,
-} = require('./conf');
-const { sendEmail } = require('./email');
-const i18n = require('./common/i18n');
+} = require('./server/conf');
+const i18n = require('./server/common/i18n');
+const { sendEmail } = require('./server/email');
 const {
 	dataForDailyNotifications,
 	dataForEventBasedNotifications,
 	updateLastSent,
-} = require('./project/project.db');
+} = require('./server/project/project.db');
 
 // eslint-disable-next-line no-new
 new CronJob(
