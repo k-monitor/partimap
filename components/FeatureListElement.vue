@@ -556,6 +556,12 @@ export default {
 			this.expandFinished();
 		}
 	},
+	created() {
+		this.$nuxt.$on('selectAttempt', this.handleSelectAttempt);
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('selectAttempt', this.handleSelectAttempt);
+	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
 		emitChangeStyle() {
@@ -573,22 +579,47 @@ export default {
 			];
 			return this.feature.get('name') || anon;
 		},
+		async handleSelectAttempt(clickedFeature) {
+			const currentId = this.feature?.getId();
+			const selectedId = this.getSelectedFeature?.getId();
+			const clickedId = clickedFeature?.getId();
+
+			if (!selectedId && clickedId === currentId) {
+				// no feature selected currently
+				// this feature was clicked on map
+				// --> finalize feature selection
+				this.$store.commit('selected/change', clickedFeature);
+			} else if (this.selectedFeature && clickedId !== currentId) {
+				// this feature is selected currently
+				// another feature was clicked on map
+				// --> confirm as needed
+				const canDeselect = await this.canDeselectFeature();
+				if (canDeselect) {
+					this.$store.commit('selected/change', clickedFeature);
+				}
+			}
+		},
+		async canDeselectFeature() {
+			if (
+				this.visitor &&
+				this.editable &&
+				!this.visitorFilledEverything &&
+				!this.confirmedClose
+			) {
+				const confirmed = await this.confirmFeatureClose();
+				if (!confirmed) return false;
+				this.confirmedClose = true;
+			}
+			return true;
+		},
 		async featureClicked() {
 			if (this.selectedFeature) {
-				if (
-					this.visitor &&
-					this.editable &&
-					!this.visitorFilledEverything &&
-					!this.confirmedClose
-				) {
-					const confirmed = await this.confirmFeatureClose();
-					if (!confirmed) return;
-					this.confirmedClose = true;
-				}
+				const canDeselect = await this.canDeselectFeature();
+				if (!canDeselect) return;
 				this.$store.commit('selected/remove', this.feature);
 				document.querySelector('.b-sidebar-body').scrollTo(0, 0);
 			} else {
-				this.$store.commit('selected/change', this.feature);
+				this.$nuxt.$emit('selectAttempt', this.feature);
 			}
 		},
 		async deleteFeature() {

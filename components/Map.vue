@@ -146,21 +146,16 @@ export default {
 		 * @param selFeature Is null if the map is clicked
 		 * without clicking on a feature.
 		 */
-		getSelectedFeature(selFeature, prevFeature) {
-			// sync the local selectedFeatures collection with the store
+		getSelectedFeature(selFeature) {
 			const selectedFeatures = this.select.getFeatures();
-			if (selFeature && !selectedFeatures.array_.includes(selFeature)) {
+			if (!selFeature) {
+				selectedFeatures.clear();
+			} else if (!selectedFeatures.array_.includes(selFeature)) {
 				selectedFeatures.push(selFeature);
 			}
-			// clear the selection of the previously selected feature
-			if (selectedFeatures.array_.includes(prevFeature)) {
-				selectedFeatures.remove(prevFeature);
-			}
-			// deselect the feature if the plain map is clicked
+
 			if (!selFeature) {
-				// removes the blur which indicates selection
 				this.removeBlur();
-				this.select.getFeatures().pop();
 			} else {
 				this.source.getFeatures().forEach(feature => {
 					this.updateFeatureStyle(feature, selFeature);
@@ -309,12 +304,16 @@ export default {
 			const selectedFeatures = this.select.getFeatures();
 			selectedFeatures.on('add', e => {
 				const f = e.element;
-				if (!f.get('hidden')) {
-					this.$store.commit('selected/change', f);
-				}
+
+				// hidden elements cannot be selected
+				if (f.get('hidden')) return;
+
+				// notifying UI that user attempted to select feature on map
+				this.$nuxt.$emit('selectAttempt', f);
 			});
-			selectedFeatures.on('remove', f => {
-				this.$store.commit('selected/remove', f.element);
+			selectedFeatures.on('remove', () => {
+				// notifying UI that user attempted to deselect a feature on map
+				this.$nuxt.$emit('selectAttempt', null);
 			});
 
 			this.source.on('addfeature', e => {
@@ -348,7 +347,11 @@ export default {
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f);
 				if (drawing) {
-					selectedFeatures.push(f);
+					this.$nextTick(() => {
+						// after FLE is created
+						this.$nuxt.$emit('selectAttempt', f);
+					});
+					// this.$store.commit('selected/change', f);
 				}
 
 				if (this.visitor) {
