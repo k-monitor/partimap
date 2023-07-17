@@ -155,27 +155,32 @@ function dataForDailyNotifications() {
 function dataForEventBasedNotifications(debounceMins) {
 	const sql = `
 		SELECT
+			u.email,
+			u.name,
 			p.id,
 			p.lang,
+			p.lastSent,
 			p.title,
 			p.unsubscribeToken,
-			COUNT(s.id) submissions,
+			MAX(s.timestamp) lastSubmission,
 			SUM(CASE
 				WHEN s.timestamp > p.lastSent
 				THEN 1
 				ELSE 0
 			END) newSubmissions,
-			u.email,
-			u.name
+			COUNT(s.id) submissions
 		FROM project p
 		INNER JOIN submission s ON s.projectId = p.id
 		INNER JOIN user u ON u.id = p.userId
 		WHERE subscribe = 'E'
 		GROUP BY p.id
 		HAVING newSubmissions > 0
-		AND MAX(s.timestamp)/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?;
+		AND (
+			lastSubmission/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?
+			OR p.lastSent/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?
+		);
 	`;
-	return db.query(sql, [debounceMins]);
+	return db.query(sql, [debounceMins, debounceMins]);
 }
 
 function updateLastSent(id) {
