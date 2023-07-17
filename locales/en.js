@@ -210,7 +210,9 @@ export default {
 		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultBaseMap: 'Default base map',
 		featureLabel: 'Unique task name displayed in report',
-		descriptionLabel: "Follow-up request to user's contribution",
+		descriptionLabel: 'Follow-up text question',
+		descriptionLabelDescription:
+			'A text question with this request is displayed after a marker is placed by the respondent.',
 		instructions: {
 			Point: 'Instruction for placing a Point marker',
 			LineString: 'Instruction for drawing a Line',

@@ -24,7 +24,7 @@ module.exports = {
 		aggregatedRatings: 'Összesített értékelések',
 		coords: 'Koordináták',
 		dateFormat: 'YYYY-MM-DD HH:MM:SS',
-		descriptionLabel: 'Felrajzolt elemekhez rendelt kérdés',
+		descriptionLabel: 'Szöveges kifejtéshez rendelt kérdés',
 		dislikeCount: 'Diszlájkok száma',
 		feature: 'Térkép elem',
 		featureDesc: 'Leírás',

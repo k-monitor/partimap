@@ -24,7 +24,7 @@ module.exports = {
 		aggregatedRatings: 'Aggregated ratings',
 		coords: 'Coordinates',
 		dateFormat: 'YYYY-MM-DD HH:MM:SS',
-		descriptionLabel: "Follow-up request to user's contribution",
+		descriptionLabel: 'Follow-up text question',
 		dislikeCount: 'Downvote count',
 		feature: 'Marker',
 		featureDesc: 'Description',

@@ -62,7 +62,10 @@
 
 		<hr />
 
-		<b-form-group :label="$t('sheetEditor.descriptionLabel')">
+		<b-form-group
+			:label="$t('sheetEditor.descriptionLabel')"
+			:description="$t('sheetEditor.descriptionLabelDescription')"
+		>
 			<b-form-input
 				v-model="descriptionLabel"
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"

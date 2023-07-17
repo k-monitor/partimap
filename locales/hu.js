@@ -206,7 +206,9 @@ export default {
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		featureLabel: 'Feladat egyedi neve a riportban',
-		descriptionLabel: 'Felrajzolt elemekhez rendelt kérdés',
+		descriptionLabel: 'Szöveges kifejtéshez rendelt kérdés',
+		descriptionLabelDescription:
+			'A kért elem felrajzolása után a kitöltő szöveges indoklást adhat, az ehhez tartozó kérdés vagy utasítás adható meg itt.',
 		instructions: {
 			Point: 'Instrukció pont felrajzolásához',
 			LineString: 'Instrukció vonal felrajzolásához',
