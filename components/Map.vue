@@ -103,7 +103,7 @@ export default {
 			},
 			defaultStroke: {
 				lineDash: '0',
-				width: 8,
+				width: 6,
 			},
 			filteredIds: null, // null means no filter, otherwise it's an ID array
 		};
