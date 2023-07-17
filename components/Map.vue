@@ -285,11 +285,10 @@ export default {
 		},
 		addEventListeners() {
 			this.map.on('click', e => {
-				if (this.drawType) return; // no selection while drawing
-				let clickedFeature = null;
-				this.map.forEachFeatureAtPixel(e.pixel, f => {
-					if (!f.get('hidden')) clickedFeature = f;
-				});
+				if (this.drawType) return;
+				const clickedFeature = this.map
+					.getFeaturesAtPixel(e.pixel)
+					.filter(f => !f.get('hidden'))[0];
 				this.$nuxt.$emit('selectAttempt', clickedFeature); // feature or null
 			});
 
