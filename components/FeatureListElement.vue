@@ -56,6 +56,7 @@
 		>
 			<b-card
 				v-if="selectedFeature"
+				ref="card"
 				body-class="pb-0"
 				class="collapse-content py-0"
 				:class="{
@@ -184,10 +185,7 @@
 							$t('sheetEditor.defaultDescriptionLabel')
 						"
 					>
-						<b-textarea
-							ref="description"
-							v-model="form.description"
-						/>
+						<b-textarea v-model="form.description" />
 					</b-form-group>
 					<b-form-group
 						v-else-if="!readonly"
@@ -636,8 +634,14 @@ export default {
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =
 				t - 75;
 
-			if (this.$refs.description) {
-				this.$refs.description.focus();
+			if (this.visitor && this.$refs.card) {
+				const firstInput =
+					this.$refs.card.querySelector('input,textarea');
+				if (
+					firstInput?.tagName === 'TEXTAREA' ||
+					firstInput?.type === 'text'
+				)
+					firstInput.focus();
 			}
 		},
 	},
