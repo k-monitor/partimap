@@ -138,6 +138,16 @@ export default {
 			);
 			this.$refs.modal.hide();
 		},
+		inputValid(max) {
+			if (
+				!this.featureQuestion.options ||
+				!max ||
+				max < 1 ||
+				max >= this.featureQuestion.options.length
+			) {
+				this.featureQuestion.max = '';
+			}
+		},
 	},
 };
 </script>
