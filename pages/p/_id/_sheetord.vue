@@ -317,7 +317,7 @@ export default {
 			const survey = JSON.parse(this.sheet?.survey || '{}');
 			const gotResults = this.needToShowResults;
 			const showOnlyResults =
-				this.interactions.enabled.includes('ShowResultsOnly') ||
+				this.interactions?.enabled?.includes('ShowResultsOnly') ||
 				survey.showResultsOnly;
 			if (gotResults && showOnlyResults) {
 				this.resultsShown = true;
