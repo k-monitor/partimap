@@ -280,8 +280,9 @@ export default {
 			);
 		},
 		labels() {
-			if (!this.resultsShown || !this.sheet.ratings) return {};
 			const labels = {};
+			if (!this.resultsShown || !this.sheet || !this.sheet.ratings)
+				return labels;
 			Object.entries(this.sheet.ratings || {}).forEach(([id, r]) => {
 				if (this.interactions.stars === -2) {
 					labels[id] = `👍 ${r.likeCount} 👎 ${Math.abs(
@@ -297,6 +298,7 @@ export default {
 		needToShowResults() {
 			// We will show results if we got results from server.
 			// Server knows when to include results based on sheet settings.
+			if (!this.sheet) return false;
 			const haveAnswers =
 				this.sheet.answers && this.sheet.answers.length > 0;
 			const haveRatings =
