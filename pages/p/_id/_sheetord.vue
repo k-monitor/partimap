@@ -297,7 +297,8 @@ export default {
 		needToShowResults() {
 			// We will show results if we got results from server.
 			// Server knows when to include results based on sheet settings.
-			const haveAnswers = this.sheet.answers.length > 0;
+			const haveAnswers =
+				this.sheet.answers && this.sheet.answers.length > 0;
 			const haveRatings =
 				this.sheet.ratings &&
 				Object.keys(this.sheet.ratings).length > 0;
