@@ -53,7 +53,7 @@
 					}}</strong>
 					<span class="text-right">{{ q.maxLabel }}</span>
 				</div>
-				<div class="align-items-center d-flex">
+				<div class="align-items-center d-flex position-relative">
 					<b-form-input
 						:min="q.min"
 						:max="q.max"
@@ -69,6 +69,19 @@
 						style="min-width: 2rem"
 						>{{ answers[q.id] }}</strong
 					>
+					<input
+						v-if="q.type == 'range' && q.required"
+						v-model="answers[q.id]"
+						class="position-absolute"
+						required
+						style="
+							bottom: 0;
+							left: 50%;
+							width: 50%;
+							height: 0;
+							opacity: 0;
+						"
+					/>
 				</div>
 			</div>
 			<b-form-radio-group
@@ -92,13 +105,24 @@
 				v-model="answers[q.id]"
 				:question="q"
 			/>
-			<b-form-rating
+			<div
 				v-else-if="q.type === 'rating'"
-				v-model="answers[q.id]"
-				:name="'q' + q.id"
-				:required="q.required"
-				variant="warning"
-			/>
+				class="position-relative"
+			>
+				<b-form-rating
+					v-model="answers[q.id]"
+					:name="'q' + q.id"
+					:required="q.required"
+					variant="warning"
+				/>
+				<input
+					v-if="q.required"
+					v-model="answers[q.id]"
+					class="position-absolute"
+					required
+					style="bottom: 0; left: 0; height: 0; opacity: 0"
+				/>
+			</div>
 		</b-form-group>
 	</div>
 </template>
