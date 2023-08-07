@@ -109,12 +109,22 @@
 				v-else-if="q.type === 'rating'"
 				class="position-relative"
 			>
-				<b-form-rating
-					v-model="answers[q.id]"
-					:name="'q' + q.id"
-					:required="q.required"
-					variant="warning"
-				/>
+				<div
+					class="border d-flex font-weight-bold justify-content-center p-2"
+				>
+					<StarRating
+						v-model="answers[q.id]"
+						active-color="var(--brand)"
+						animate
+						border-color="var(--brand)"
+						:border-width="2"
+						clearable
+						inactive-color="#fff"
+						:max-rating="5"
+						:star-size="16"
+						:show-rating="false"
+					/>
+				</div>
 				<input
 					v-if="q.required"
 					v-model="answers[q.id]"
@@ -179,3 +189,11 @@ export default {
 	},
 };
 </script>
+
+<style>
+.vue-star-rating {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+</style>
