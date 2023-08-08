@@ -192,23 +192,19 @@ export default {
 
 <style>
 .vue-star-rating-wrapper {
-	background: brown;
 	display: block;
 	width: 100%;
 }
 .vue-star-rating-wrapper > .vue-star-rating {
-	background: red;
 	display: block;
 	width: 100%;
 }
 .vue-star-rating > .vue-star-rating {
-	background: orange;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	width: 100%;
 }
 span.vue-star-rating-star {
-	background: yellow;
 	text-align: center;
 	width: 100%;
 }
