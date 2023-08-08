@@ -194,11 +194,13 @@ export default {
 .vue-star-rating-wrapper > .vue-star-rating {
 	display: -webkit-flex;
 	display: flex;
+	flex: 1 0 auto;
 	flex-grow: 1;
 }
 .vue-star-rating > .vue-star-rating {
 	display: -webkit-flex;
 	display: flex;
+	flex: 1 0 auto;
 	flex-grow: 1;
 	justify-content: space-around;
 }
