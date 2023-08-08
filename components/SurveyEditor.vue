@@ -190,6 +190,16 @@
 							:options="testableQuestionOptions"
 						/>
 					</b-form-group>
+					<div class="text-right">
+						<div
+							v-if="testedQuestionId"
+							class="btn btn-link"
+							role="button"
+							@click="testedQuestionId = null"
+						>
+							Feltétel törlése
+						</div>
+					</div>
 				</div>
 			</b-form>
 		</b-modal>
