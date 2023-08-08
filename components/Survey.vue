@@ -192,10 +192,12 @@ export default {
 
 <style>
 .vue-star-rating-wrapper > .vue-star-rating {
+	display: -webkit-flex;
 	display: flex;
 	flex-grow: 1;
 }
 .vue-star-rating > .vue-star-rating {
+	display: -webkit-flex;
 	display: flex;
 	flex-grow: 1;
 	justify-content: space-around;
