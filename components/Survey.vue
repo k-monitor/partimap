@@ -192,16 +192,19 @@ export default {
 
 <style>
 .vue-star-rating-wrapper > .vue-star-rating {
-	display: -webkit-flex;
-	display: flex;
-	flex: 1 0 auto;
-	flex-grow: 1;
+	background: red;
+	display: block;
+	width: 100%;
 }
 .vue-star-rating > .vue-star-rating {
-	display: -webkit-flex;
-	display: flex;
-	flex: 1 0 auto;
-	flex-grow: 1;
-	justify-content: space-around;
+	background: orange;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	width: 100%;
+}
+span.vue-star-rating-star {
+	background: yellow;
+	text-align: center;
+	width: 100%;
 }
 </style>
