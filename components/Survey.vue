@@ -110,7 +110,7 @@
 				class="position-relative"
 			>
 				<div
-					class="border d-flex font-weight-bold justify-content-center p-2"
+					class="border d-flex font-weight-bold justify-content-center p-2 vue-star-rating-wrapper"
 				>
 					<StarRating
 						v-model="answers[q.id]"
@@ -191,9 +191,13 @@ export default {
 </script>
 
 <style>
-.vue-star-rating {
+.vue-star-rating-wrapper > .vue-star-rating {
 	display: flex;
+	flex-grow: 1;
+}
+.vue-star-rating > .vue-star-rating {
+	display: flex;
+	flex-grow: 1;
 	justify-content: space-around;
-	width: 100%;
 }
 </style>
