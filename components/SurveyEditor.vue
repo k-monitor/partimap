@@ -180,6 +180,17 @@
 						{{ $t('SurveyEditor.addToFeatures') }}
 					</b-form-checkbox>
 				</b-form-group>
+
+				<div v-if="questionIndex > 0">
+					<hr />
+					<!-- FIXME i18n -->
+					<b-form-group label="Csak akkor jelenjen meg, ha a(z)">
+						<b-form-select
+							v-model="testedQuestionId"
+							:options="testableQuestionOptions"
+						/>
+					</b-form-group>
+				</div>
 			</b-form>
 		</b-modal>
 	</div>
@@ -211,7 +222,7 @@ export default {
 			survey.questions.forEach(q => (q.showResult = true));
 		}
 		return {
-			survey,
+			survey, // survey definition as parsed object
 			icon: {
 				text: 'fa-keyboard',
 				number: 'fa-hashtag',
@@ -267,11 +278,40 @@ export default {
 			],
 			questionIndex: 0,
 			question: {},
+			testedQuestionId: null,
 		};
 	},
 	computed: {
 		hasOptions() {
 			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+		},
+		testableQuestions() {
+			const fq = this.survey.questions.filter(
+				(q, i) =>
+					i < this.questionIndex &&
+					!q.showIf &&
+					q.type &&
+					q.type !== 'text'
+			);
+			return fq;
+		},
+		testableQuestionOptions() {
+			return this.testableQuestions.map(q => {
+				if (q.type.includes('Matrix')) {
+					return {
+						label: q.label,
+						options: q.rows.map(r => ({
+							value: `${q.id}/${r}`,
+							text: r,
+						})),
+					};
+				} else {
+					return {
+						value: q.id,
+						text: q.label,
+					};
+				}
+			});
 		},
 	},
 	watch: {
@@ -301,6 +341,10 @@ export default {
 		editQuestion(i) {
 			this.questionIndex = i;
 			this.question = { ...this.survey.questions[i] };
+
+			const showIf = this.question?.showIf;
+			this.testedQuestionId = showIf ? showIf.split('\n')[0] : undefined;
+
 			this.$bvModal.show('survey-question-editor');
 		},
 		async delQuestion(i) {
@@ -316,6 +360,10 @@ export default {
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
 				this.$delete(this.question, 'options');
+			}
+			if (this.testedQuestionId) {
+				const questionId = this.testedQuestionId;
+				this.question.showIf = `${questionId}\n`;
 			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();
