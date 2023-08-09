@@ -292,7 +292,7 @@
 					</div>
 				</b-form-group>
 
-				<b-form-group v-if="editable">
+				<b-form-group v-if="editable && visitorCanRate">
 					<b-form-checkbox
 						v-model="form.hidden"
 						name="hidden"
