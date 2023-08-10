@@ -181,27 +181,46 @@
 					</b-form-checkbox>
 				</b-form-group>
 
-				<div v-if="questionIndex > 0">
-					<hr />
+				<div v-if="questionIndex > 0 && testableQuestions.length">
 					<!-- FIXME i18n -->
-					<b-form-group label="Csak akkor jelenjen meg, ha a(z)">
-						<b-form-select
-							v-model="testedQuestionId"
-							:options="testableQuestionOptions"
-						/>
-					</b-form-group>
-					<div class="text-right">
-						<div
-							v-if="testedQuestionId"
-							class="btn btn-link"
-							role="button"
-							@click="testedQuestionId = null"
+					<b-form-group>
+						<b-form-checkbox
+							v-model="questionIsConditional"
+							@change="toggleConditional"
 						>
-							Feltétel törlése
+							Megjelenik, ha...
+						</b-form-checkbox>
+					</b-form-group>
+					<div
+						v-if="questionIsConditional"
+						class="ml-5"
+					>
+						<div v-if="Array.isArray(question.showIf)">
+							<QuestionConditionEditor
+								v-for="(c, i) in question.showIf"
+								:key="i"
+								v-model="question.showIf[i]"
+								:testable-questions="testableQuestions"
+							/>
+							<b-button
+								variant="success"
+								@click="showNewCondition = true"
+							>
+								Új feltétel (ÉS)
+							</b-button>
+						</div>
+						<div v-if="showNewCondition">
+							<QuestionConditionEditor
+								:testable-questions="testableQuestions"
+								@input="addNewCondition"
+							/>
 						</div>
 					</div>
 				</div>
 			</b-form>
+			<div class="bg-info small">
+				{{ JSON.stringify(question.showIf) }}
+			</div>
 		</b-modal>
 	</div>
 </template>
@@ -288,6 +307,8 @@ export default {
 			],
 			questionIndex: 0,
 			question: {},
+			questionIsConditional: false,
+			showNewCondition: false,
 			testedQuestionId: null,
 		};
 	},
@@ -304,24 +325,6 @@ export default {
 					q.type !== 'text'
 			);
 			return fq;
-		},
-		testableQuestionOptions() {
-			return this.testableQuestions.map(q => {
-				if (q.type.includes('Matrix')) {
-					return {
-						label: q.label,
-						options: q.rows.map(r => ({
-							value: `${q.id}/${r}`,
-							text: r,
-						})),
-					};
-				} else {
-					return {
-						value: q.id,
-						text: q.label,
-					};
-				}
-			});
 		},
 	},
 	watch: {
@@ -351,10 +354,7 @@ export default {
 		editQuestion(i) {
 			this.questionIndex = i;
 			this.question = { ...this.survey.questions[i] };
-
-			const showIf = this.question?.showIf;
-			this.testedQuestionId = showIf ? showIf.split('\n')[0] : undefined;
-
+			this.questionIsConditional = Array.isArray(this.question?.showIf);
 			this.$bvModal.show('survey-question-editor');
 		},
 		async delQuestion(i) {
@@ -370,10 +370,6 @@ export default {
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
 				this.$delete(this.question, 'options');
-			}
-			if (this.testedQuestionId) {
-				const questionId = this.testedQuestionId;
-				this.question.showIf = `${questionId}\n`;
 			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();
@@ -393,6 +389,20 @@ export default {
 			) {
 				this.question.max = '';
 			}
+		},
+		toggleConditional() {
+			if (this.questionIsConditional) {
+				if (!Array.isArray(this.question?.showIf)) {
+					this.showNewCondition = true;
+				}
+			} else {
+				this.$delete(this.question, 'showIf');
+			}
+		},
+		addNewCondition(condition) {
+			const existing = this.question?.showIf || [];
+			this.question.showIf = [...existing, condition];
+			this.showNewCondition = false;
 		},
 	},
 };
