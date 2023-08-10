@@ -12,41 +12,53 @@
 					v-for="(q, i) in survey.questions"
 					:key="q.id"
 					button
-					class="d-flex item p-0"
+					class="item p-0"
 				>
-					<b-button
-						class="handle border-0 flex-shrink-0 py-3 rounded-0 text-center"
-						variant="light"
-						style="width: 32px"
-					>
-						<i class="fas fa-grip-vertical" />
-					</b-button>
-					<div
-						class="d-flex align-items-center flex-grow-1 px-1 py-3 overflow-hidden"
-						@click="editQuestion(i)"
-					>
-						<i
-							class="fas fa-fw flex-shrink-0 mr-1"
-							:class="icon[q.type]"
-						/>
-						<strong class="flex-grow-1 text-truncate">
-							{{ q.label }}
-						</strong>
+					<div class="d-flex align-items-stretch">
+						<div
+							class="handle d-flex flex-shrink-0 align-items-center px-2 bg-light"
+						>
+							<i class="fas fa-grip-vertical" />
+						</div>
+						<div
+							class="flex-grow-1 overflow-hidden p-2"
+							@click="editQuestion(i)"
+						>
+							<p class="font-weight-bold mb-1 text-truncate">
+								<span v-if="q.required">*</span>
+								{{ q.label }}
+							</p>
+							<div class="d-flex align-items-center text-muted">
+								<i
+									class="fas fa-fw mr-1"
+									:class="icon[q.type]"
+								/>
+								<i
+									v-if="q.showResult && canHaveResults(q)"
+									class="fas fa-chart-bar fa-fw mr-1"
+								/>
+								<i
+									v-if="false /* FIXME referenced question */"
+									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-1"
+								/>
+								<i
+									v-if="
+										false /* FIXME conditional question */
+									"
+									class="fas fa-level-up-alt fa-fw mr-1"
+								/>
+								<b-button
+									v-if="!readonly"
+									class="border-0 ml-auto text-danger"
+									size="sm"
+									variant="light"
+									@click.stop="delQuestion(i)"
+								>
+									<i class="fas fa-fw fa-trash" />
+								</b-button>
+							</div>
+						</div>
 					</div>
-					<div class="px-1 py-3">
-						<i
-							v-if="q.showResult && canHaveResults(q)"
-							class="fas fa-chart-bar fa-fw text-muted"
-						/>
-					</div>
-					<b-button
-						v-if="!readonly"
-						class="border-0 px-2 py-3 rounded-0 text-danger"
-						variant="light"
-						@click.stop="delQuestion(i)"
-					>
-						<i class="fas fa-fw fa-trash" />
-					</b-button>
 				</b-list-group-item>
 				<b-list-group-item
 					v-if="!readonly"
