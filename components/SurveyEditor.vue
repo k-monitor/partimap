@@ -5,6 +5,7 @@
 				v-model="survey.questions"
 				:draggable="readonly ? null : '.item'"
 				handle=".handle"
+				:move="canMoveQuestion"
 				@end="emitSurvey"
 			>
 				<b-list-group-item
@@ -431,6 +432,20 @@ export default {
 			} else {
 				this.question.showIf.splice(i, 1);
 			}
+		},
+		canMoveQuestion({ draggedContext }) {
+			const { index, futureIndex } = draggedContext;
+			const question = this.survey.questions[index];
+
+			// no referenced questions, allow move
+			if (!Array.isArray(question.showIf)) return true;
+
+			const refIds = question.showIf.map(c => c[0][0]);
+			const refInd = refIds.map(id =>
+				this.survey.questions.findIndex(q => q.id === id)
+			);
+			const minId = Math.max(...refInd) + 1;
+			return futureIndex >= minId;
 		},
 	},
 };
