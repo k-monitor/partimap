@@ -446,27 +446,48 @@ export default {
 		isQuestionConditional(question) {
 			return Array.isArray(question.showIf) && question.showIf.length;
 		},
+		referencedQuestionIdsOf(question) {
+			return Array.isArray(question.showIf)
+				? question.showIf.map(c => c[0][0])
+				: [];
+		},
+		questionIdsThatReference(question) {
+			return this.survey.questions
+				.filter(q => {
+					const refIds = this.referencedQuestionIdsOf(q);
+					return refIds.includes(question.id);
+				})
+				.map(q => q.id);
+		},
+		indexOfQuestionId(id) {
+			return this.survey.questions.findIndex(q => q.id === id);
+		},
 		isQuestionReferenced(question) {
-			return !!this.survey.questions.find(q => {
-				if (!Array.isArray(q.showIf)) return false;
-				return q.showIf
-					.map(c => c[0][0])
-					.find(id => id === question.id);
-			});
+			return this.questionIdsThatReference(question).length;
 		},
 		canMoveQuestion({ draggedContext }) {
 			const { index, futureIndex } = draggedContext;
 			const question = this.survey.questions[index];
 
-			// no referenced questions, allow move
-			if (!Array.isArray(question.showIf)) return true;
+			// conditional questions cannot be moved above
+			// their referenced questions
+			const refIds = this.referencedQuestionIdsOf(question);
+			if (refIds.length) {
+				const refInd = refIds.map(this.indexOfQuestionId);
+				const minInd = Math.max(...refInd) + 1;
+				return futureIndex >= minInd;
+			}
 
-			const refIds = question.showIf.map(c => c[0][0]);
-			const refInd = refIds.map(id =>
-				this.survey.questions.findIndex(q => q.id === id)
-			);
-			const minId = Math.max(...refInd) + 1;
-			return futureIndex >= minId;
+			// referenced questions cannot be moved below
+			// those questions that reference them
+			const conIds = this.questionIdsThatReference(question);
+			if (conIds.length) {
+				const conInd = conIds.map(this.indexOfQuestionId);
+				const maxInd = Math.min(...conInd) - 1;
+				return futureIndex <= maxInd;
+			}
+
+			return true;
 		},
 	},
 };
