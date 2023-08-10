@@ -1,7 +1,6 @@
 <template>
 	<!-- FIXME i18n -->
 	<div>
-		<div class="bg-info">value = {{ JSON.stringify(value) }}</div>
 		<b-form-group label="a következő kérdésre">
 			<b-form-select
 				v-model="questionId"
@@ -10,13 +9,14 @@
 		</b-form-group>
 		<b-form-group label="az alábbi választ adják">
 			<b-form-select
-				v-if="!question"
+				v-if="!questionId"
 				disabled
 			/>
 			<b-form-select
 				v-else-if="hasOptions"
 				v-model="answer"
 				:options="answerOptions"
+				required
 			/>
 			<div
 				v-else-if="isNumberQuestion"
@@ -24,16 +24,17 @@
 			>
 				<b-form-input
 					v-model.number="min"
+					required
 					type="number"
 				/>
-				<div class="form-control-label mx-2">-</div>
+				<label class="mx-2 col-form-label">-</label>
 				<b-form-input
 					v-model.number="max"
+					required
 					type="number"
 				/>
 			</div>
 		</b-form-group>
-		<div class="bg-success">{{ condition }}</div>
 	</div>
 </template>
 
@@ -54,7 +55,7 @@ export default {
 			answer: null,
 			max: null,
 			min: null,
-			questionId: null,
+			questionId: [],
 		};
 	},
 	computed: {
@@ -94,12 +95,12 @@ export default {
 			return this.question?.columns || this.question?.options;
 		},
 		serializedAnswer() {
-			if (
-				this.isNumberQuestion &&
-				Number.isInteger(this.min) &&
-				Number.isInteger(this.max)
-			) {
-				return `${this.min}-${this.max}`;
+			if (this.isNumberQuestion) {
+				if (Number.isInteger(this.min) && Number.isInteger(this.max)) {
+					return `${this.min}-${this.max}`;
+				} else {
+					return null;
+				}
 			}
 			return this.answer;
 		},
@@ -108,13 +109,13 @@ export default {
 		},
 	},
 	watch: {
-		value(v) {
+		value() {
 			this.deserializeCondition();
 		},
 		condition(nc, oc) {
 			const ncj = JSON.stringify(nc);
 			const ocj = JSON.stringify(oc);
-			if (nc && ncj !== ocj) this.$emit('input', nc);
+			if (ncj !== ocj) this.$emit('input', nc);
 		},
 	},
 	mounted() {
@@ -122,21 +123,12 @@ export default {
 	},
 	methods: {
 		deserializeCondition() {
-			// ['questionId', 'min-max']
-			// ['questionId', 'option']
-			// ['matrixQuestionId', 'matrixRow', 'option']
-			if (!Array.isArray(this.value)) return;
-			const [e1, e2, e3] = this.value;
-
-			let ans = null;
-			let qid = null;
-			if (this.value.length === 3) {
-				qid = [e1, e2];
-				ans = e3;
-			} else if (this.value.length === 2) {
-				qid = [e1];
-				ans = e2;
-			}
+			// [['questionId'], 'min-max']
+			// [['questionId'], 'option']
+			// [['matrixQuestionId', 'matrixRow'], 'option']
+			if (!Array.isArray(this.value)) return [];
+			const [qid, ans] = this.value;
+			this.questionId = qid;
 			if (ans?.match(/^\d+-\d+/)) {
 				const nums = ans.split('-').map(p => Number(p));
 				this.min = nums[0];
@@ -144,11 +136,11 @@ export default {
 			} else {
 				this.answer = ans;
 			}
-			this.questionId = qid;
 		},
 		serializeCondition() {
-			if (!this.question || !this.serializedAnswer) return null;
-			return [...this.questionId, this.serializedAnswer];
+			return this.serializedAnswer
+				? [this.questionId, this.serializedAnswer]
+				: [this.questionId];
 		},
 	},
 };

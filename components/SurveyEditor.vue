@@ -69,20 +69,24 @@
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
-			<b-form @submit.prevent="saveQuestion">
+			<form
+				ref="form"
+				@submit.prevent="saveQuestion"
+			>
 				<b-form-group :label="$t('SurveyEditor.questionText')">
 					<b-form-input
 						ref="questionLabelInput"
 						v-model="question.label"
-						:readonly="readonly"
 						:disabled="readonly"
+						:readonly="readonly"
+						required
 					/>
 				</b-form-group>
 				<b-form-group :label="$t('SurveyEditor.questionType')">
 					<b-form-select
 						v-model="question.type"
-						:options="questionTypes"
 						:disabled="readonly"
+						:options="questionTypes"
 					/>
 				</b-form-group>
 				<b-row v-if="'number|range'.includes(question.type)">
@@ -196,31 +200,34 @@
 						class="ml-5"
 					>
 						<div v-if="Array.isArray(question.showIf)">
-							<QuestionConditionEditor
+							<div
 								v-for="(c, i) in question.showIf"
 								:key="i"
-								v-model="question.showIf[i]"
-								:testable-questions="testableQuestions"
-							/>
+							>
+								<p v-if="i > 0">ÉS</p>
+								<QuestionConditionEditor
+									v-model="question.showIf[i]"
+									:testable-questions="testableQuestions"
+								/>
+								<p class="small text-right">
+									<a
+										href="javascript:void(0)"
+										@click="deleteCondition(i)"
+										>Feltétel törlése</a
+									>
+								</p>
+							</div>
 							<b-button
+								v-if="canAddNewCondition"
 								variant="success"
-								@click="showNewCondition = true"
+								@click="addNewCondition"
 							>
 								Új feltétel (ÉS)
 							</b-button>
 						</div>
-						<div v-if="showNewCondition">
-							<QuestionConditionEditor
-								:testable-questions="testableQuestions"
-								@input="addNewCondition"
-							/>
-						</div>
 					</div>
 				</div>
-			</b-form>
-			<div class="bg-info small">
-				{{ JSON.stringify(question.showIf) }}
-			</div>
+			</form>
 		</b-modal>
 	</div>
 </template>
@@ -308,7 +315,6 @@ export default {
 			questionIndex: 0,
 			question: {},
 			questionIsConditional: false,
-			showNewCondition: false,
 			testedQuestionId: null,
 		};
 	},
@@ -325,6 +331,10 @@ export default {
 					q.type !== 'text'
 			);
 			return fq;
+		},
+		canAddNewCondition() {
+			const showIf = this.question?.showIf || [];
+			return this.questionIsConditional && showIf[0]?.length === 2;
 		},
 	},
 	watch: {
@@ -354,7 +364,12 @@ export default {
 		editQuestion(i) {
 			this.questionIndex = i;
 			this.question = { ...this.survey.questions[i] };
-			this.questionIsConditional = Array.isArray(this.question?.showIf);
+
+			const showIf = (this.question?.showIf || []).filter(
+				c => c?.length === 2
+			);
+			this.questionIsConditional = !!showIf.length;
+
 			this.$bvModal.show('survey-question-editor');
 		},
 		async delQuestion(i) {
@@ -367,9 +382,15 @@ export default {
 			}
 		},
 		saveQuestion() {
+			if (!this.$refs.form.reportValidity()) return; // TODO not working :/
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
 				this.$delete(this.question, 'options');
+			}
+			if (Array.isArray(this.question.showIf)) {
+				this.question.showIf = this.question.showIf.filter(
+					c => c?.length === 2
+				);
 			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();
@@ -392,17 +413,22 @@ export default {
 		},
 		toggleConditional() {
 			if (this.questionIsConditional) {
-				if (!Array.isArray(this.question?.showIf)) {
-					this.showNewCondition = true;
-				}
+				this.addNewCondition();
 			} else {
 				this.$delete(this.question, 'showIf');
 			}
 		},
-		addNewCondition(condition) {
+		addNewCondition() {
 			const existing = this.question?.showIf || [];
-			this.question.showIf = [...existing, condition];
-			this.showNewCondition = false;
+			this.$set(this.question, 'showIf', [...existing, []]);
+		},
+		deleteCondition(i) {
+			if (this.question.showIf.length === 1) {
+				this.questionIsConditional = false;
+				this.toggleConditional();
+			} else {
+				this.question.showIf.splice(i, 1);
+			}
 		},
 	},
 };
