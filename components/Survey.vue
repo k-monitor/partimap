@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-form-group
-			v-for="q in questions"
+			v-for="q in questions.filter(canShowQuestion)"
 			:key="q.id"
 			class="my-4"
 		>
@@ -177,6 +177,28 @@ export default {
 		},
 	},
 	methods: {
+		canShowQuestion(question) {
+			if (!Array.isArray(question.showIf)) return true;
+			return question.showIf
+				.map(condition => {
+					const [[id, row], exp] = condition;
+					const refQuestion = this.questions.find(q => q.id === id);
+					if (!refQuestion) return false;
+					const t = refQuestion.type || '';
+
+					if ('number|range|rating'.includes(t)) {
+						const [min, max] = exp.split('-').map(v => Number(v));
+						const act = Number(this.answers[id]);
+						return min <= act && act <= max;
+					}
+
+					const act = t.includes('Matrix')
+						? (this.answers[id] || {})[row]
+						: this.answers[id];
+					return Array.isArray(act) ? act.includes(exp) : act === exp;
+				})
+				.every(condition => !!condition);
+		},
 		removeAnswer(questionId) {
 			this.$delete(this.answers, questionId);
 		},

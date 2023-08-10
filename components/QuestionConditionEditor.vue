@@ -92,7 +92,10 @@ export default {
 			return 'number|range|rating'.includes(this.question?.type);
 		},
 		answerOptions() {
-			return this.question?.columns || this.question?.options;
+			const t = this.question?.type || '';
+			return t.includes('Matrix')
+				? this.question?.columns
+				: this.question?.options;
 		},
 		serializedAnswer() {
 			if (this.isNumberQuestion) {
