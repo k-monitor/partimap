@@ -38,13 +38,11 @@
 									class="fas fa-chart-bar fa-fw mr-1"
 								/>
 								<i
-									v-if="false /* FIXME referenced question */"
+									v-if="isQuestionReferenced(q)"
 									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-1"
 								/>
 								<i
-									v-if="
-										false /* FIXME conditional question */
-									"
+									v-if="isQuestionConditional(q)"
 									class="fas fa-level-up-alt fa-fw mr-1"
 								/>
 								<b-button
@@ -444,6 +442,17 @@ export default {
 			} else {
 				this.question.showIf.splice(i, 1);
 			}
+		},
+		isQuestionConditional(question) {
+			return Array.isArray(question.showIf) && question.showIf.length;
+		},
+		isQuestionReferenced(question) {
+			return !!this.survey.questions.find(q => {
+				if (!Array.isArray(q.showIf)) return false;
+				return q.showIf
+					.map(c => c[0][0])
+					.find(id => id === question.id);
+			});
 		},
 		canMoveQuestion({ draggedContext }) {
 			const { index, futureIndex } = draggedContext;
