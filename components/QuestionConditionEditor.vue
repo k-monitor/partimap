@@ -45,8 +45,8 @@ export default {
 			default: () => [],
 		},
 		value: {
-			type: Object,
-			default: () => ({}),
+			type: Array,
+			default: () => [],
 		},
 	},
 	data() {
@@ -93,16 +93,28 @@ export default {
 		answerOptions() {
 			return this.question?.columns || this.question?.options;
 		},
+		serializedAnswer() {
+			if (
+				this.isNumberQuestion &&
+				Number.isInteger(this.min) &&
+				Number.isInteger(this.max)
+			) {
+				return `${this.min}-${this.max}`;
+			}
+			return this.answer;
+		},
 		condition() {
 			return this.serializeCondition();
 		},
 	},
 	watch: {
-		value() {
+		value(v) {
 			this.deserializeCondition();
 		},
-		condition(c) {
-			if (c) this.$emit('input', c);
+		condition(nc, oc) {
+			const ncj = JSON.stringify(nc);
+			const ocj = JSON.stringify(oc);
+			if (nc && ncj !== ocj) this.$emit('input', nc);
 		},
 	},
 	mounted() {
@@ -110,25 +122,33 @@ export default {
 	},
 	methods: {
 		deserializeCondition() {
-			// FIXME parse this.value into data fields
+			// ['questionId', 'min-max']
+			// ['questionId', 'option']
+			// ['matrixQuestionId', 'matrixRow', 'option']
+			if (!Array.isArray(this.value)) return;
+			const [e1, e2, e3] = this.value;
+
+			let ans = null;
+			let qid = null;
+			if (this.value.length === 3) {
+				qid = [e1, e2];
+				ans = e3;
+			} else if (this.value.length === 2) {
+				qid = [e1];
+				ans = e2;
+			}
+			if (ans?.match(/^\d+-\d+/)) {
+				const nums = ans.split('-').map(p => Number(p));
+				this.min = nums[0];
+				this.max = nums[1];
+			} else {
+				this.answer = ans;
+			}
+			this.questionId = qid;
 		},
 		serializeCondition() {
-			if (this.hasOptions && this.answer) {
-				const questionId = this.questionId[0];
-				const option = this.questionId[1];
-				return option
-					? { [questionId]: { [option]: this.answer } }
-					: { [questionId]: this.answer };
-			}
-			if (
-				this.isNumberQuestion &&
-				Number.isInteger(this.min) &&
-				Number.isInteger(this.max)
-			) {
-				const questionId = this.questionId[0];
-				return { [questionId]: `${this.min}-${this.max}` };
-			}
-			return null;
+			if (!this.question || !this.serializedAnswer) return null;
+			return [...this.questionId, this.serializedAnswer];
 		},
 	},
 };
