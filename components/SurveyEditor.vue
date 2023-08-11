@@ -29,26 +29,41 @@
 								{{ q.label }}
 							</p>
 							<div class="d-flex align-items-center text-muted">
+								<!-- FIXME tooltips i18n -->
 								<i
-									class="fas fa-fw mr-1"
+									v-b-tooltip.hover.bottom
+									class="fas fa-fw mr-2"
 									:class="icon[q.type]"
+									:title="
+										$t(
+											`SurveyEditor.questionTypes.${q.type}`
+										)
+									"
 								/>
 								<i
 									v-if="q.showResult && canHaveResults(q)"
-									class="fas fa-chart-bar fa-fw mr-1"
+									v-b-tooltip.hover.bottom
+									class="fas fa-chart-bar fa-fw mr-2"
+									title="Eredmények megjelennek"
 								/>
 								<i
 									v-if="isQuestionReferenced(q)"
-									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-1"
+									v-b-tooltip.hover.bottom
+									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-2"
+									title="Más kérdés függ ettől"
 								/>
 								<i
 									v-if="isQuestionConditional(q)"
-									class="fas fa-level-up-alt fa-fw mr-1"
+									v-b-tooltip.hover.bottom
+									class="fas fa-level-up-alt fa-fw mr-2"
+									title="Feltételesen jelenik meg"
 								/>
 								<b-button
-									v-if="!readonly"
+									v-if="!readonly && !isQuestionReferenced(q)"
+									v-b-tooltip.hover.bottom
 									class="border-0 ml-auto text-danger"
 									size="sm"
+									title="Kérdés törlése"
 									variant="light"
 									@click.stop="delQuestion(i)"
 								>
@@ -80,6 +95,14 @@
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
+			<div
+				v-if="isQuestionReferenced(question)"
+				class="alert alert-warning"
+			>
+				<!-- FIXME i18n -->
+				Ettől a kérdéstől legalább egy másik kérdés megjelenítése függ,
+				így bizonyos tulajdonságai nem módosíthatók.
+			</div>
 			<form
 				ref="form"
 				@submit.prevent="saveQuestion"
@@ -96,7 +119,9 @@
 				<b-form-group :label="$t('SurveyEditor.questionType')">
 					<b-form-select
 						v-model="question.type"
-						:disabled="readonly"
+						:disabled="
+							!!(readonly || isQuestionReferenced(question))
+						"
 						:options="questionTypes"
 					/>
 				</b-form-group>
@@ -105,6 +130,12 @@
 						<b-form-group :label="$t('SurveyEditor.minValue')">
 							<b-form-input
 								v-model="question.min"
+								:disabled="
+									!!(
+										readonly ||
+										isQuestionReferenced(question)
+									)
+								"
 								type="number"
 							/>
 						</b-form-group>
@@ -113,6 +144,12 @@
 						<b-form-group :label="$t('SurveyEditor.maxValue')">
 							<b-form-input
 								v-model="question.max"
+								:disabled="
+									!!(
+										readonly ||
+										isQuestionReferenced(question)
+									)
+								"
 								type="number"
 							/>
 						</b-form-group>
@@ -150,7 +187,7 @@
 				<OptionsEditor
 					v-if="hasOptions"
 					v-model="question.options"
-					:readonly="readonly"
+					:readonly="!!(readonly || isQuestionReferenced(question))"
 					label-state="option"
 				/>
 				<OptionsEditor
@@ -160,7 +197,7 @@
 						)
 					"
 					v-model="question.rows"
-					:readonly="readonly"
+					:readonly="!!(readonly || isQuestionReferenced(question))"
 					label-state="row"
 				/>
 				<OptionsEditor
@@ -170,7 +207,7 @@
 						)
 					"
 					v-model="question.columns"
-					:readonly="readonly"
+					:readonly="!!(readonly || isQuestionReferenced(question))"
 					label-state="column"
 				/>
 				<b-form-group
@@ -230,7 +267,7 @@
 							</div>
 							<b-button
 								v-if="canAddNewCondition"
-								variant="success"
+								variant="outline-success"
 								@click="addNewCondition"
 							>
 								Új feltétel (ÉS)
