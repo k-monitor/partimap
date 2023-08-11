@@ -24,12 +24,16 @@
 			>
 				<b-form-input
 					v-model.number="min"
+					:max="question.max"
+					:min="question.min"
 					required
 					type="number"
 				/>
 				<label class="mx-2 col-form-label">-</label>
 				<b-form-input
 					v-model.number="max"
+					:max="question.max"
+					:min="question.min"
 					required
 					type="number"
 				/>
@@ -100,7 +104,9 @@ export default {
 		serializedAnswer() {
 			if (this.isNumberQuestion) {
 				if (Number.isInteger(this.min) && Number.isInteger(this.max)) {
-					return `${this.min}-${this.max}`;
+					return this.min < this.max
+						? `${this.min}-${this.max}`
+						: `${this.max}-${this.min}`;
 				} else {
 					return null;
 				}
