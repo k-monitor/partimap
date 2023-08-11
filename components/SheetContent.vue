@@ -31,7 +31,7 @@
 				<client-only>
 					<SurveyResults
 						:brand-color="brandColor"
-						:data="sheet.answers"
+						:data="resultsData"
 					/>
 				</client-only>
 			</div>
@@ -142,6 +142,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		resultsData: {
+			type: Array,
+			default: () => [],
+		},
 		sheet: {
 			type: Object,
 			default: null,
@@ -187,7 +191,10 @@ export default {
 		visitorAnswers: {
 			handler(answers) {
 				Object.entries(answers || {})
-					.filter(([k, v]) => v === null)
+					.filter(
+						([k, v]) =>
+							v === null || (Array.isArray(v) && !v.length)
+					)
 					.forEach(([k]) => delete answers[k]);
 				const payload = {
 					answers,

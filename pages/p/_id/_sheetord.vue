@@ -48,6 +48,7 @@
 					:brand-color="project.user.color"
 					:project="project"
 					:results="resultsShown"
+					:results-data="resultsData"
 					:sheet="sheet"
 					:show-consent="isFirstSheet"
 				/>
@@ -98,6 +99,7 @@
 						class="mb-3"
 						:project="project"
 						:results="resultsShown"
+						:results-data="resultsData"
 						:sheet="sheet"
 						:show-consent="isFirstSheet"
 					/>
@@ -257,6 +259,7 @@ export default {
 		...mapGetters(['getConsent', 'getDrawType']),
 		...mapGetters('features', ['getAllFeature']),
 		...mapGetters('visitordata', [
+			'getVisitorAnswers',
 			'getVisitorFeatures',
 			'getVisitorRatings',
 			'getSubmissionData',
@@ -295,12 +298,34 @@ export default {
 			});
 			return labels;
 		},
+		showOnlyResults() {
+			const survey = JSON.parse(this.sheet?.survey || '{}');
+			return (
+				this.interactions?.enabled?.includes('ShowResultsOnly') ||
+				survey.showResultsOnly
+			);
+		},
+		visitorAnswers() {
+			return this.getVisitorAnswers(this.sheet?.id);
+		},
+		resultsData() {
+			if (this.showOnlyResults) return this.sheet?.answers || [];
+			// Show results for only those questions that has been answered.
+			const answeredIds = Object.keys(this.visitorAnswers || {}).filter(
+				id =>
+					!!this.visitorAnswers[id] && this.visitorAnswers[id] !== []
+			);
+			return (
+				this.sheet?.answers?.filter(e =>
+					answeredIds.includes(String(e.questionId))
+				) || []
+			);
+		},
 		needToShowResults() {
 			// We will show results if we got results from server.
 			// Server knows when to include results based on sheet settings.
 			if (!this.sheet) return false;
-			const haveAnswers =
-				this.sheet.answers && this.sheet.answers.length > 0;
+			const haveAnswers = this.resultsData.length > 0;
 			const haveRatings =
 				this.sheet.ratings &&
 				Object.keys(this.sheet.ratings).length > 0;
@@ -313,15 +338,8 @@ export default {
 		if (!this.project) {
 			this.$refs.password.focus();
 			await this.$recaptcha.init();
-		} else {
-			const survey = JSON.parse(this.sheet?.survey || '{}');
-			const gotResults = this.needToShowResults;
-			const showOnlyResults =
-				this.interactions?.enabled?.includes('ShowResultsOnly') ||
-				survey.showResultsOnly;
-			if (gotResults && showOnlyResults) {
-				this.resultsShown = true;
-			}
+		} else if (this.needToShowResults && this.showOnlyResults) {
+			this.resultsShown = true;
 		}
 		this.$store.commit('selected/clear');
 		this.loading = false;
