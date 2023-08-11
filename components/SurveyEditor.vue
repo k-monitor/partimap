@@ -384,6 +384,12 @@ export default {
 				.map(s => JSON.parse(s.survey)?.questions)
 				.flat();
 		},
+		questionsFromNextSheets() {
+			return (this.project?.sheets || [])
+				.filter(s => s.ord > this.sheet?.ord && s.survey)
+				.map(s => JSON.parse(s.survey)?.questions)
+				.flat();
+		},
 		testableQuestions() {
 			const self = this;
 			return [
@@ -500,7 +506,7 @@ export default {
 				: [];
 		},
 		questionIdsThatReference(question) {
-			return this.survey.questions
+			return [...this.survey.questions, ...this.questionsFromNextSheets]
 				.filter(q => {
 					const refIds = this.referencedQuestionIdsOf(q);
 					return refIds.includes(question.id);
