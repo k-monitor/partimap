@@ -233,7 +233,7 @@
 					</b-form-checkbox>
 				</b-form-group>
 
-				<div v-if="questionIndex > 0 && testableQuestions.length">
+				<div v-if="testableQuestions.length">
 					<!-- FIXME i18n -->
 					<b-form-group>
 						<b-form-checkbox
@@ -292,9 +292,17 @@ export default {
 			type: String, // survey definition as JSON string
 			default: null,
 		},
+		project: {
+			type: Object,
+			default: null,
+		},
 		readonly: {
 			type: Boolean,
 			default: false,
+		},
+		sheet: {
+			type: Object,
+			default: null,
 		},
 	},
 	data() {
@@ -370,15 +378,18 @@ export default {
 		hasOptions() {
 			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
 		},
+		questionsFromPrevSheets() {
+			return (this.project?.sheets || [])
+				.filter(s => s.ord < this.sheet?.ord && s.survey)
+				.map(s => JSON.parse(s.survey)?.questions)
+				.flat();
+		},
 		testableQuestions() {
-			const fq = this.survey.questions.filter(
-				(q, i) =>
-					i < this.questionIndex &&
-					!q.showIf &&
-					q.type &&
-					q.type !== 'text'
-			);
-			return fq;
+			const self = this;
+			return [
+				...this.questionsFromPrevSheets,
+				...this.survey.questions.slice(0, this.questionIndex),
+			].filter(q => !self.isQuestionConditional(q) && q.type !== 'text');
 		},
 		canAddNewCondition() {
 			const showIf = this.question?.showIf || [];
