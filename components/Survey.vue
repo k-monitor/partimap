@@ -138,6 +138,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
 	props: {
 		survey: {
@@ -155,6 +157,15 @@ export default {
 		};
 	},
 	computed: {
+		...mapState('visitordata', ['visitorAnswers']),
+		allAnswers() {
+			const ansBySheet = Object.values(this.visitorAnswers);
+			const all = {};
+			ansBySheet.forEach(ans => {
+				if (ans) Object.assign(all, ans);
+			});
+			return all;
+		},
 		questions() {
 			let s;
 			try {
@@ -182,20 +193,16 @@ export default {
 			return question.showIf
 				.map(condition => {
 					const [[id, row], exp] = condition;
-					const refQuestion = this.questions.find(q => q.id === id);
-					if (!refQuestion) return false;
-					const t = refQuestion.type || '';
-
-					if ('number|range|rating'.includes(t)) {
+					let act = this.allAnswers[id];
+					if (!act && act !== 0) return false;
+					if (act[row]) act = act[row];
+					if (act === exp) return true;
+					if (Array.isArray(act)) return act.includes(exp);
+					if (Number.isInteger(Number(act))) {
 						const [min, max] = exp.split('-').map(v => Number(v));
-						const act = Number(this.answers[id]);
 						return min <= act && act <= max;
 					}
-
-					const act = t.includes('Matrix')
-						? (this.answers[id] || {})[row]
-						: this.answers[id];
-					return Array.isArray(act) ? act.includes(exp) : act === exp;
+					return false;
 				})
 				.every(condition => !!condition);
 		},
