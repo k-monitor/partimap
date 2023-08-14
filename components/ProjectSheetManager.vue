@@ -50,7 +50,7 @@
 
 						<div class="d-flex ml-auto">
 							<span
-								v-if="sheet.ord"
+								v-if="canMoveUp(sheet)"
 								class="mr-3"
 								role="button"
 								@click.prevent="$emit('moveSheet', 'up', sheet)"
@@ -58,7 +58,7 @@
 								<i class="fas fa-fw fa-arrow-up" />
 							</span>
 							<span
-								v-if="(sheet.ord || 0) < sheets.length - 1"
+								v-if="canMoveDown(sheet)"
 								class="mr-3"
 								role="button"
 								@click.prevent="
@@ -150,7 +150,49 @@ export default {
 			default: () => [],
 		},
 	},
+	computed: {
+		sheetDependencies() {
+			const questionsDict = {}; // questionId -> sheet ord
+			const sheetDeps = {}; // sheet ord -> [sheet ord]
+			this.sheets.forEach((s, i) => {
+				if (!s.survey) return;
+				const { questions } = JSON.parse(s.survey);
+				questions.forEach(q => {
+					questionsDict[q.id] = s.ord;
+					if (!Array.isArray(q.showIf)) return;
+					q.showIf.forEach(c => {
+						const qid = c[0];
+						const ord = questionsDict[qid];
+						sheetDeps[s.ord] = sheetDeps[s.ord] || [];
+						sheetDeps[s.ord].push(ord);
+					});
+				});
+			});
+			return sheetDeps;
+		},
+	},
 	methods: {
+		canMoveUp(sheet) {
+			if (!sheet.ord) return false;
+			const deps = this.sheetDependencies[sheet.ord] || [];
+			if (!deps.length) return true;
+			const minIndex = Math.max(...deps) + 1;
+			return sheet.ord > minIndex;
+		},
+		canMoveDown(sheet) {
+			const n = this.sheets.length;
+			if (sheet.ord === n - 1) return false;
+			const ords = Object.keys(this.sheetDependencies);
+			if (!ords.length) return true;
+			let firstDependentOrd = Number.MAX_SAFE_INTEGER;
+			ords.forEach(ord => {
+				const deps = this.sheetDependencies[ord];
+				if (deps.includes(sheet.ord)) {
+					firstDependentOrd = Math.min(firstDependentOrd, ord);
+				}
+			});
+			return sheet.ord < firstDependentOrd - 1;
+		},
 		addedSheet(sheet) {
 			this.$emit('addedSheet', sheet);
 		},
