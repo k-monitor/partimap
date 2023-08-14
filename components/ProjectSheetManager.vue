@@ -68,6 +68,7 @@
 								<i class="fas fa-fw fa-arrow-down" />
 							</span>
 							<span
+								v-if="canDelete(sheet)"
 								class="text-danger"
 								role="button"
 								@click.prevent="deleteSheet(sheet)"
@@ -154,17 +155,17 @@ export default {
 		sheetDependencies() {
 			const questionsDict = {}; // questionId -> sheet ord
 			const sheetDeps = {}; // sheet ord -> [sheet ord]
-			this.sheets.forEach((s, i) => {
+			this.sheets.forEach(s => {
 				if (!s.survey) return;
 				const { questions } = JSON.parse(s.survey);
 				questions.forEach(q => {
 					questionsDict[q.id] = s.ord;
 					if (!Array.isArray(q.showIf)) return;
 					q.showIf.forEach(c => {
-						const qid = c[0];
+						const qid = c[0][0];
 						const ord = questionsDict[qid];
 						sheetDeps[s.ord] = sheetDeps[s.ord] || [];
-						sheetDeps[s.ord].push(ord);
+						if (s.ord !== ord) sheetDeps[s.ord].push(ord);
 					});
 				});
 			});
@@ -192,6 +193,12 @@ export default {
 				}
 			});
 			return sheet.ord < firstDependentOrd - 1;
+		},
+		canDelete(sheet) {
+			return !Object.keys(this.sheetDependencies).find(ord => {
+				const deps = this.sheetDependencies[ord];
+				return deps.includes(sheet.ord);
+			});
 		},
 		addedSheet(sheet) {
 			this.$emit('addedSheet', sheet);
