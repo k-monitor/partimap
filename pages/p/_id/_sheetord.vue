@@ -67,7 +67,6 @@
 						@prev="prev"
 						@submit="submit"
 					/>
-					DEBUG {{ JSON.stringify(availableSheetOrds) }}
 				</template>
 			</b-modal>
 			<div v-else>
@@ -188,6 +187,7 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 import { deserializeInteractions } from '~/assets/interactions';
+import { canShowQuestion } from '~/assets/questionUtil';
 
 export default {
 	components: {
@@ -260,6 +260,7 @@ export default {
 		...mapGetters(['getConsent', 'getDrawType']),
 		...mapGetters('features', ['getAllFeature']),
 		...mapGetters('visitordata', [
+			'getAllVisitorAnswers',
 			'getVisitorAnswers',
 			'getVisitorFeatures',
 			'getVisitorRatings',
@@ -275,11 +276,10 @@ export default {
 				.filter(sheet => {
 					if (!sheet.survey) return true;
 					const { questions } = JSON.parse(sheet.survey);
-					const availableQuestions = questions.filter(q => {
-						// FIXME impl/call canShowQuestion(q)
-						return true;
+					const questionsAvailable = !!questions.find(q => {
+						return canShowQuestion(q, this.getAllVisitorAnswers);
 					});
-					return availableQuestions.length;
+					return questionsAvailable;
 				})
 				.map(sheet => sheet.ord);
 		},

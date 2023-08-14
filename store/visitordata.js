@@ -37,6 +37,14 @@ export const mutations = {
 };
 
 export const getters = {
+	getAllVisitorAnswers: state => {
+		const ansBySheet = Object.values(state.visitorAnswers);
+		const all = {};
+		ansBySheet.forEach(ans => {
+			if (ans) Object.assign(all, ans);
+		});
+		return all;
+	},
 	getVisitorAnswers: state => sheetId =>
 		state.visitorAnswers[sheetId.toString()],
 	getVisitorFeatures: state => sheetId =>

@@ -138,7 +138,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
+import { canShowQuestion } from '~/assets/questionUtil';
 
 export default {
 	props: {
@@ -157,15 +158,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState('visitordata', ['visitorAnswers']),
-		allAnswers() {
-			const ansBySheet = Object.values(this.visitorAnswers);
-			const all = {};
-			ansBySheet.forEach(ans => {
-				if (ans) Object.assign(all, ans);
-			});
-			return all;
-		},
+		...mapGetters('visitordata', ['getAllVisitorAnswers']),
 		questions() {
 			let s;
 			try {
@@ -189,22 +182,7 @@ export default {
 	},
 	methods: {
 		canShowQuestion(question) {
-			if (!Array.isArray(question.showIf)) return true;
-			return question.showIf
-				.map(condition => {
-					const [[id, row], exp] = condition;
-					let act = this.allAnswers[id];
-					if (!act && act !== 0) return false;
-					if (act[row]) act = act[row];
-					if (act === exp) return true;
-					if (Array.isArray(act)) return act.includes(exp);
-					if (Number.isInteger(Number(act))) {
-						const [min, max] = exp.split('-').map(v => Number(v));
-						return min <= act && act <= max;
-					}
-					return false;
-				})
-				.every(condition => !!condition);
+			return canShowQuestion(question, this.getAllVisitorAnswers);
 		},
 		removeAnswer(questionId) {
 			this.$delete(this.answers, questionId);
