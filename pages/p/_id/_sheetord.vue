@@ -67,6 +67,7 @@
 						@prev="prev"
 						@submit="submit"
 					/>
+					DEBUG {{ JSON.stringify(availableSheetOrds) }}
 				</template>
 			</b-modal>
 			<div v-else>
@@ -269,11 +270,32 @@ export default {
 				? this.sheet.ratings
 				: this.getVisitorRatings(this.sheet.id);
 		},
+		availableSheetOrds() {
+			return this.project.sheets
+				.filter(sheet => {
+					if (!sheet.survey) return true;
+					const { questions } = JSON.parse(sheet.survey);
+					const availableQuestions = questions.filter(q => {
+						// FIXME impl/call canShowQuestion(q)
+						return true;
+					});
+					return availableQuestions.length;
+				})
+				.map(sheet => sheet.ord);
+		},
+		nextSheetOrd() {
+			return this.availableSheetOrds.find(o => o > this.sheet.ord);
+		},
+		prevSheetOrd() {
+			const ords = [...this.availableSheetOrds];
+			ords.reverse();
+			return this.availableSheetOrds.find(o => o < this.sheet.ord);
+		},
 		isFirstSheet() {
-			return this.sheet.ord === 0;
+			return typeof this.prevSheetOrd === 'undefined';
 		},
 		isLastSheet() {
-			return this.sheet.ord === this.project.sheets.length - 1;
+			return typeof this.nextSheetOrd === 'undefined';
 		},
 		isInteractive() {
 			return (
@@ -428,11 +450,11 @@ export default {
 			if (this.needToShowResults) {
 				this.resultsShown = true;
 			} else {
-				this.goToSheetOrd(this.sheet.ord + 1);
+				this.goToSheetOrd(this.nextSheetOrd);
 			}
 		},
 		prev() {
-			this.goToSheetOrd(this.sheet.ord - 1);
+			this.goToSheetOrd(this.prevSheetOrd);
 		},
 		registerHit() {
 			if (
