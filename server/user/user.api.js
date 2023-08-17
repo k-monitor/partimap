@@ -115,7 +115,7 @@ router.put(
 	'/user',
 	validateCaptcha(req => !req.user || !req.user.isAdmin), // no captcha on admin page
 	async (req, res) => {
-		const m = i18n(req.body.locale || 'hu').activationEmail;
+		const m = i18n(req.body.locale).activationEmail;
 		if (!req.body.consent && (!req.user || !req.user.isAdmin)) {
 			// public reg
 			return res
@@ -193,7 +193,7 @@ router.post('/user/activate', async (req, res) => {
 });
 
 router.post('/user/forgot', validateCaptcha(), async (req, res) => {
-	const m = i18n(req.body.locale || 'hu').forgotEmail;
+	const m = i18n(req.body.locale).forgotEmail;
 	const user = await db.findByEmail(req.body.email);
 	if (!user) {
 		return res

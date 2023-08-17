@@ -4,8 +4,7 @@ const { StatusCodes } = require('http-status-codes');
 const { ensureAdmin } = require('../auth/middlewares');
 const db = require('./i18n.db');
 
-router.get('/i18n/get/:lang/:key', async (req, res) => {
-	const { lang, key } = req.params;
+async function getValue(lang, key) {
 	let value = await db.getValue(lang, key);
 	value = (value || '').trim();
 	if (!value) {
@@ -13,6 +12,16 @@ router.get('/i18n/get/:lang/:key', async (req, res) => {
 		if (fs.existsSync(fn)) {
 			value = fs.readFileSync(fn, { encoding: 'utf8' });
 		}
+	}
+	return value;
+}
+
+router.get('/i18n/get/:lang/:key', async (req, res) => {
+	const { lang, key } = req.params;
+	let value = await getValue(lang, key);
+	value = (value || '').trim();
+	if (!value) {
+		value = await getValue('en', key);
 	}
 	if (!value) return res.sendStatus(StatusCodes.NOT_FOUND);
 	res.json({ lang, key, value });

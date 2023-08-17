@@ -192,7 +192,7 @@ router.put('/project', ensureLoggedIn, async (req, res) => {
 	const projectId = await pdb.create(project);
 	project = await pdb.findById(projectId);
 
-	const title = i18n(project.lang || 'hu').newProject.newSheetTitle;
+	const title = i18n(project.lang).newProject.newSheetTitle;
 	await sdb.create({ projectId, title });
 
 	res.json(hidePasswordField(project));

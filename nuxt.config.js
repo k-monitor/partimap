@@ -87,10 +87,11 @@ export default {
 		locales: [
 			{ code: 'hu', iso: 'hu-HU', file: 'hu.js', name: 'Magyar' },
 			{ code: 'en', iso: 'en-GB', file: 'en.js', name: 'English' },
+			{ code: 'es', iso: 'es-ES', file: 'es.js', name: 'Español' },
 		],
 		strategy: 'prefix',
 		vueI18n: {
-			fallbackLocale: 'hu',
+			fallbackLocale: 'en',
 		},
 	},
 

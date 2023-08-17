@@ -484,7 +484,7 @@ export default {
 		confirmDeleteFeatures: 'Biztosan törlöd ezt a(z) {count} elemet?',
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
-			'Nem mentett módosítások A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
+			'A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
 		confirmUnsaved:
 			'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',

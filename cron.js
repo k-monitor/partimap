@@ -46,7 +46,7 @@ async function sendEventBasedNotifications() {
 async function sendNotifications(projects) {
 	for (let i = 0; i < projects.length; i++) {
 		const p = projects[i];
-		const m = i18n(p.lang || 'hu').notificationEmail;
+		const m = i18n(p.lang).notificationEmail;
 		const projectUrl = `${BASE_URL}/${p.lang}/admin/project/${p.id}`;
 		const reportUrl = `${BASE_URL}/api/submission/export/${p.lang}/${p.id}`;
 		const unsubscribeUrl = `${BASE_URL}/${p.lang}/unsubscribe?id=${p.id}&token=${p.unsubscribeToken}`;
