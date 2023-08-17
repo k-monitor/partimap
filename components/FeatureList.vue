@@ -214,6 +214,7 @@ export default {
 		},
 		onStaticMapSheetEditor() {
 			return (
+				!this.visitor && // not visitor
 				!this.readonly && // not results page
 				!!this.interactions && // sheet editor
 				!this.isInteractive // not interactive sheet -> static sheet
