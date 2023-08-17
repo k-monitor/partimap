@@ -387,7 +387,7 @@ export default {
 		questionsFromNextSheets() {
 			return (this.project?.sheets || [])
 				.filter(s => s.ord > this.sheet?.ord && s.survey)
-				.map(s => JSON.parse(s.survey)?.questions)
+				.map(s => JSON.parse(s.survey)?.questions || [])
 				.flat();
 		},
 		testableQuestions() {
