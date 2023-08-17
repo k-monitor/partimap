@@ -155,10 +155,10 @@ export default {
 		sheetDependencies() {
 			const questionsDict = {}; // questionId -> sheet ord
 			const sheetDeps = {}; // sheet ord -> [sheet ord]
-			this.sheets.forEach(s => {
+			this.sheets?.forEach(s => {
 				if (!s.survey) return;
 				const { questions } = JSON.parse(s.survey);
-				questions.forEach(q => {
+				questions?.forEach(q => {
 					questionsDict[q.id] = s.ord;
 					if (!Array.isArray(q.showIf)) return;
 					q.showIf.forEach(c => {
