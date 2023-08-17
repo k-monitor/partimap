@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-form-group
-			v-for="q in questions"
+			v-for="q in questions.filter(canShowQuestion)"
 			:key="q.id"
 			class="my-4"
 		>
@@ -138,6 +138,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { canShowQuestion } from '~/assets/questionUtil';
+
 export default {
 	props: {
 		survey: {
@@ -155,6 +158,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters('visitordata', ['getAllVisitorAnswers']),
 		questions() {
 			let s;
 			try {
@@ -177,6 +181,9 @@ export default {
 		},
 	},
 	methods: {
+		canShowQuestion(question) {
+			return canShowQuestion(question, this.getAllVisitorAnswers);
+		},
 		removeAnswer(questionId) {
 			this.$delete(this.answers, questionId);
 		},

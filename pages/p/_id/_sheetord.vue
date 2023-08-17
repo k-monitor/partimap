@@ -48,6 +48,7 @@
 					:brand-color="project.user.color"
 					:project="project"
 					:results="resultsShown"
+					:results-data="resultsData"
 					:sheet="sheet"
 					:show-consent="isFirstSheet"
 				/>
@@ -98,6 +99,7 @@
 						class="mb-3"
 						:project="project"
 						:results="resultsShown"
+						:results-data="resultsData"
 						:sheet="sheet"
 						:show-consent="isFirstSheet"
 					/>
@@ -185,6 +187,7 @@
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
 import { deserializeInteractions } from '~/assets/interactions';
+import { canShowQuestion } from '~/assets/questionUtil';
 
 export default {
 	components: {
@@ -257,6 +260,8 @@ export default {
 		...mapGetters(['getConsent', 'getDrawType']),
 		...mapGetters('features', ['getAllFeature']),
 		...mapGetters('visitordata', [
+			'getAllVisitorAnswers',
+			'getVisitorAnswers',
 			'getVisitorFeatures',
 			'getVisitorRatings',
 			'getSubmissionData',
@@ -266,11 +271,31 @@ export default {
 				? this.sheet.ratings
 				: this.getVisitorRatings(this.sheet.id);
 		},
+		availableSheetOrds() {
+			return this.project.sheets
+				.filter(sheet => {
+					if (!sheet.survey) return true;
+					const { questions } = JSON.parse(sheet.survey);
+					const questionsAvailable = !!questions.find(q => {
+						return canShowQuestion(q, this.getAllVisitorAnswers);
+					});
+					return questionsAvailable;
+				})
+				.map(sheet => sheet.ord);
+		},
+		nextSheetOrd() {
+			return this.availableSheetOrds.find(o => o > this.sheet.ord);
+		},
+		prevSheetOrd() {
+			const ords = [...this.availableSheetOrds];
+			ords.reverse();
+			return this.availableSheetOrds.find(o => o < this.sheet.ord);
+		},
 		isFirstSheet() {
-			return this.sheet.ord === 0;
+			return typeof this.prevSheetOrd === 'undefined';
 		},
 		isLastSheet() {
-			return this.sheet.ord === this.project.sheets.length - 1;
+			return typeof this.nextSheetOrd === 'undefined';
 		},
 		isInteractive() {
 			return (
@@ -295,12 +320,34 @@ export default {
 			});
 			return labels;
 		},
+		showOnlyResults() {
+			const survey = JSON.parse(this.sheet?.survey || '{}');
+			return (
+				this.interactions?.enabled?.includes('ShowResultsOnly') ||
+				survey.showResultsOnly
+			);
+		},
+		visitorAnswers() {
+			return this.getVisitorAnswers(this.sheet?.id);
+		},
+		resultsData() {
+			if (this.showOnlyResults) return this.sheet?.answers || [];
+			// Show results for only those questions that has been answered.
+			const answeredIds = Object.keys(this.visitorAnswers || {}).filter(
+				id =>
+					!!this.visitorAnswers[id] && this.visitorAnswers[id] !== []
+			);
+			return (
+				this.sheet?.answers?.filter(e =>
+					answeredIds.includes(String(e.questionId))
+				) || []
+			);
+		},
 		needToShowResults() {
 			// We will show results if we got results from server.
 			// Server knows when to include results based on sheet settings.
 			if (!this.sheet) return false;
-			const haveAnswers =
-				this.sheet.answers && this.sheet.answers.length > 0;
+			const haveAnswers = this.resultsData.length > 0;
 			const haveRatings =
 				this.sheet.ratings &&
 				Object.keys(this.sheet.ratings).length > 0;
@@ -313,15 +360,8 @@ export default {
 		if (!this.project) {
 			this.$refs.password.focus();
 			await this.$recaptcha.init();
-		} else {
-			const survey = JSON.parse(this.sheet?.survey || '{}');
-			const gotResults = this.needToShowResults;
-			const showOnlyResults =
-				this.interactions?.enabled?.includes('ShowResultsOnly') ||
-				survey.showResultsOnly;
-			if (gotResults && showOnlyResults) {
-				this.resultsShown = true;
-			}
+		} else if (this.needToShowResults && this.showOnlyResults) {
+			this.resultsShown = true;
 		}
 		this.$store.commit('selected/clear');
 		this.loading = false;
@@ -410,11 +450,11 @@ export default {
 			if (this.needToShowResults) {
 				this.resultsShown = true;
 			} else {
-				this.goToSheetOrd(this.sheet.ord + 1);
+				this.goToSheetOrd(this.nextSheetOrd);
 			}
 		},
 		prev() {
-			this.goToSheetOrd(this.sheet.ord - 1);
+			this.goToSheetOrd(this.prevSheetOrd);
 		},
 		registerHit() {
 			if (

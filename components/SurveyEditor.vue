@@ -5,47 +5,73 @@
 				v-model="survey.questions"
 				:draggable="readonly ? null : '.item'"
 				handle=".handle"
+				:move="canMoveQuestion"
 				@end="emitSurvey"
 			>
 				<b-list-group-item
 					v-for="(q, i) in survey.questions"
 					:key="q.id"
 					button
-					class="d-flex item p-0"
+					class="item p-0"
 				>
-					<b-button
-						class="handle border-0 flex-shrink-0 py-3 rounded-0 text-center"
-						variant="light"
-						style="width: 32px"
-					>
-						<i class="fas fa-grip-vertical" />
-					</b-button>
-					<div
-						class="d-flex align-items-center flex-grow-1 px-1 py-3 overflow-hidden"
-						@click="editQuestion(i)"
-					>
-						<i
-							class="fas fa-fw flex-shrink-0 mr-1"
-							:class="icon[q.type]"
-						/>
-						<strong class="flex-grow-1 text-truncate">
-							{{ q.label }}
-						</strong>
+					<div class="d-flex align-items-stretch">
+						<div
+							class="handle d-flex flex-shrink-0 align-items-center px-2 bg-light"
+						>
+							<i class="fas fa-grip-vertical" />
+						</div>
+						<div
+							class="flex-grow-1 overflow-hidden p-2"
+							@click="editQuestion(i)"
+						>
+							<p class="font-weight-bold mb-1 text-truncate">
+								<span v-if="q.required">*</span>
+								{{ q.label }}
+							</p>
+							<div class="d-flex align-items-center text-muted">
+								<!-- FIXME tooltips i18n -->
+								<i
+									v-b-tooltip.hover.bottom
+									class="fas fa-fw mr-2"
+									:class="icon[q.type]"
+									:title="
+										$t(
+											`SurveyEditor.questionTypes.${q.type}`
+										)
+									"
+								/>
+								<i
+									v-if="q.showResult && canHaveResults(q)"
+									v-b-tooltip.hover.bottom
+									class="fas fa-chart-bar fa-fw mr-2"
+									title="Eredmények megjelennek"
+								/>
+								<i
+									v-if="isQuestionReferenced(q)"
+									v-b-tooltip.hover.bottom
+									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-2"
+									title="Más kérdés függ ettől"
+								/>
+								<i
+									v-if="isQuestionConditional(q)"
+									v-b-tooltip.hover.bottom
+									class="fas fa-level-up-alt fa-fw mr-2"
+									title="Feltételesen jelenik meg"
+								/>
+								<b-button
+									v-if="!readonly && !isQuestionReferenced(q)"
+									v-b-tooltip.hover.bottom
+									class="border-0 ml-auto text-danger"
+									size="sm"
+									title="Kérdés törlése"
+									variant="light"
+									@click.stop="delQuestion(i)"
+								>
+									<i class="fas fa-fw fa-trash" />
+								</b-button>
+							</div>
+						</div>
 					</div>
-					<div class="px-1 py-3">
-						<i
-							v-if="q.showResult && canHaveResults(q)"
-							class="fas fa-chart-bar fa-fw text-muted"
-						/>
-					</div>
-					<b-button
-						v-if="!readonly"
-						class="border-0 px-2 py-3 rounded-0 text-danger"
-						variant="light"
-						@click.stop="delQuestion(i)"
-					>
-						<i class="fas fa-fw fa-trash" />
-					</b-button>
 				</b-list-group-item>
 				<b-list-group-item
 					v-if="!readonly"
@@ -69,20 +95,34 @@
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
-			<b-form @submit.prevent="saveQuestion">
+			<div
+				v-if="isQuestionReferenced(question)"
+				class="alert alert-warning"
+			>
+				<!-- FIXME i18n -->
+				Ettől a kérdéstől legalább egy másik kérdés megjelenítése függ,
+				így bizonyos tulajdonságai nem módosíthatók.
+			</div>
+			<form
+				ref="form"
+				@submit.prevent="saveQuestion"
+			>
 				<b-form-group :label="$t('SurveyEditor.questionText')">
 					<b-form-input
 						ref="questionLabelInput"
 						v-model="question.label"
-						:readonly="readonly"
 						:disabled="readonly"
+						:readonly="readonly"
+						required
 					/>
 				</b-form-group>
 				<b-form-group :label="$t('SurveyEditor.questionType')">
 					<b-form-select
 						v-model="question.type"
+						:disabled="
+							!!(readonly || isQuestionReferenced(question))
+						"
 						:options="questionTypes"
-						:disabled="readonly"
 					/>
 				</b-form-group>
 				<b-row v-if="'number|range'.includes(question.type)">
@@ -90,6 +130,12 @@
 						<b-form-group :label="$t('SurveyEditor.minValue')">
 							<b-form-input
 								v-model="question.min"
+								:disabled="
+									!!(
+										readonly ||
+										isQuestionReferenced(question)
+									)
+								"
 								type="number"
 							/>
 						</b-form-group>
@@ -98,6 +144,12 @@
 						<b-form-group :label="$t('SurveyEditor.maxValue')">
 							<b-form-input
 								v-model="question.max"
+								:disabled="
+									!!(
+										readonly ||
+										isQuestionReferenced(question)
+									)
+								"
 								type="number"
 							/>
 						</b-form-group>
@@ -135,7 +187,7 @@
 				<OptionsEditor
 					v-if="hasOptions"
 					v-model="question.options"
-					:readonly="readonly"
+					:readonly="!!(readonly || isQuestionReferenced(question))"
 					label-state="option"
 				/>
 				<OptionsEditor
@@ -145,7 +197,7 @@
 						)
 					"
 					v-model="question.rows"
-					:readonly="readonly"
+					:readonly="!!(readonly || isQuestionReferenced(question))"
 					label-state="row"
 				/>
 				<OptionsEditor
@@ -155,7 +207,7 @@
 						)
 					"
 					v-model="question.columns"
-					:readonly="readonly"
+					:readonly="!!(readonly || isQuestionReferenced(question))"
 					label-state="column"
 				/>
 				<b-form-group
@@ -180,7 +232,50 @@
 						{{ $t('SurveyEditor.addToFeatures') }}
 					</b-form-checkbox>
 				</b-form-group>
-			</b-form>
+
+				<div v-if="testableQuestions.length">
+					<!-- FIXME i18n -->
+					<b-form-group>
+						<b-form-checkbox
+							v-model="questionIsConditional"
+							@change="toggleConditional"
+						>
+							Megjelenik, ha...
+						</b-form-checkbox>
+					</b-form-group>
+					<div
+						v-if="questionIsConditional"
+						class="ml-5"
+					>
+						<div v-if="Array.isArray(question.showIf)">
+							<div
+								v-for="(c, i) in question.showIf"
+								:key="i"
+							>
+								<p v-if="i > 0">ÉS</p>
+								<QuestionConditionEditor
+									v-model="question.showIf[i]"
+									:testable-questions="testableQuestions"
+								/>
+								<p class="small text-right">
+									<a
+										href="javascript:void(0)"
+										@click="deleteCondition(i)"
+										>Feltétel törlése</a
+									>
+								</p>
+							</div>
+							<b-button
+								v-if="canAddNewCondition"
+								variant="outline-success"
+								@click="addNewCondition"
+							>
+								Új feltétel (ÉS)
+							</b-button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</b-modal>
 	</div>
 </template>
@@ -197,9 +292,17 @@ export default {
 			type: String, // survey definition as JSON string
 			default: null,
 		},
+		project: {
+			type: Object,
+			default: null,
+		},
 		readonly: {
 			type: Boolean,
 			default: false,
+		},
+		sheet: {
+			type: Object,
+			default: null,
 		},
 	},
 	data() {
@@ -211,7 +314,7 @@ export default {
 			survey.questions.forEach(q => (q.showResult = true));
 		}
 		return {
-			survey,
+			survey, // survey definition as parsed object
 			icon: {
 				text: 'fa-keyboard',
 				number: 'fa-hashtag',
@@ -267,11 +370,36 @@ export default {
 			],
 			questionIndex: 0,
 			question: {},
+			questionIsConditional: false,
+			testedQuestionId: null,
 		};
 	},
 	computed: {
 		hasOptions() {
 			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+		},
+		questionsFromPrevSheets() {
+			return (this.project?.sheets || [])
+				.filter(s => s.ord < this.sheet?.ord && s.survey)
+				.map(s => JSON.parse(s.survey)?.questions)
+				.flat();
+		},
+		questionsFromNextSheets() {
+			return (this.project?.sheets || [])
+				.filter(s => s.ord > this.sheet?.ord && s.survey)
+				.map(s => JSON.parse(s.survey)?.questions)
+				.flat();
+		},
+		testableQuestions() {
+			const self = this;
+			return [
+				...this.questionsFromPrevSheets,
+				...this.survey.questions.slice(0, this.questionIndex),
+			].filter(q => !self.isQuestionConditional(q) && q.type !== 'text');
+		},
+		canAddNewCondition() {
+			const showIf = this.question?.showIf || [];
+			return this.questionIsConditional && showIf[0]?.length === 2;
 		},
 	},
 	watch: {
@@ -301,6 +429,12 @@ export default {
 		editQuestion(i) {
 			this.questionIndex = i;
 			this.question = { ...this.survey.questions[i] };
+
+			const showIf = (this.question?.showIf || []).filter(
+				c => c?.length === 2
+			);
+			this.questionIsConditional = !!showIf.length;
+
 			this.$bvModal.show('survey-question-editor');
 		},
 		async delQuestion(i) {
@@ -313,9 +447,17 @@ export default {
 			}
 		},
 		saveQuestion() {
+			// if (!this.$refs.form.reportValidity()) return;
+			// TODO not working on OK button because that closes the modal auto
+
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {
 				this.$delete(this.question, 'options');
+			}
+			if (Array.isArray(this.question.showIf)) {
+				this.question.showIf = this.question.showIf.filter(
+					c => c?.length === 2
+				);
 			}
 			this.$set(this.survey.questions, this.questionIndex, this.question);
 			this.emitSurvey();
@@ -335,6 +477,71 @@ export default {
 			) {
 				this.question.max = '';
 			}
+		},
+		toggleConditional() {
+			if (this.questionIsConditional) {
+				this.addNewCondition();
+			} else {
+				this.$delete(this.question, 'showIf');
+			}
+		},
+		addNewCondition() {
+			const existing = this.question?.showIf || [];
+			this.$set(this.question, 'showIf', [...existing, []]);
+		},
+		deleteCondition(i) {
+			if (this.question.showIf.length === 1) {
+				this.questionIsConditional = false;
+				this.toggleConditional();
+			} else {
+				this.question.showIf.splice(i, 1);
+			}
+		},
+		isQuestionConditional(question) {
+			return Array.isArray(question.showIf) && question.showIf.length;
+		},
+		referencedQuestionIdsOf(question) {
+			return Array.isArray(question.showIf)
+				? question.showIf.map(c => c[0][0])
+				: [];
+		},
+		questionIdsThatReference(question) {
+			return [...this.survey.questions, ...this.questionsFromNextSheets]
+				.filter(q => {
+					const refIds = this.referencedQuestionIdsOf(q);
+					return refIds.includes(question.id);
+				})
+				.map(q => q.id);
+		},
+		indexOfQuestionId(id) {
+			return this.survey.questions.findIndex(q => q.id === id);
+		},
+		isQuestionReferenced(question) {
+			return this.questionIdsThatReference(question).length;
+		},
+		canMoveQuestion({ draggedContext }) {
+			const { index, futureIndex } = draggedContext;
+			const question = this.survey.questions[index];
+
+			// conditional questions cannot be moved above
+			// their referenced questions
+			const refIds = this.referencedQuestionIdsOf(question);
+			if (refIds.length) {
+				const refInd = refIds.map(this.indexOfQuestionId);
+				const minInd = Math.max(...refInd) + 1;
+				return futureIndex >= minInd;
+			}
+
+			// referenced questions cannot be moved below
+			// those questions that reference them
+			const conIds = this.questionIdsThatReference(question);
+			if (conIds.length) {
+				const conInd = conIds.map(this.indexOfQuestionId);
+				const maxInd = Math.min(...conInd) - 1;
+				return futureIndex <= maxInd;
+			}
+
+			return true;
 		},
 	},
 };

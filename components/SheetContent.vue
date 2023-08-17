@@ -31,7 +31,7 @@
 				<client-only>
 					<SurveyResults
 						:brand-color="brandColor"
-						:data="sheet.answers"
+						:data="resultsData"
 					/>
 				</client-only>
 			</div>
@@ -127,6 +127,7 @@ import TipTapDisplay from './TipTapDisplay.vue';
 import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
+	components: { TipTapDisplay },
 	props: {
 		brandColor: {
 			type: String,
@@ -140,6 +141,10 @@ export default {
 		results: {
 			type: Boolean,
 			default: false,
+		},
+		resultsData: {
+			type: Array,
+			default: () => [],
 		},
 		sheet: {
 			type: Object,
@@ -159,6 +164,7 @@ export default {
 				{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
 				{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
 			],
+			visitorAnswers: {},
 		};
 	},
 	computed: {
@@ -180,13 +186,15 @@ export default {
 		interactions() {
 			return deserializeInteractions(this.sheet.interactions);
 		},
+	},
+	watch: {
 		visitorAnswers: {
-			get() {
-				return this.getVisitorAnswers(this.sheet.id);
-			},
-			set(answers) {
-				Object.entries(answers)
-					.filter(([k, v]) => v === null)
+			handler(answers) {
+				Object.entries(answers || {})
+					.filter(
+						([k, v]) =>
+							v === null || (Array.isArray(v) && !v.length)
+					)
 					.forEach(([k]) => delete answers[k]);
 				const payload = {
 					answers,
@@ -194,12 +202,15 @@ export default {
 				};
 				this.$store.commit('visitordata/addAnswers', payload);
 			},
+			deep: true,
 		},
+	},
+	beforeMount() {
+		this.visitorAnswers = this.getVisitorAnswers(this.sheet.id);
 	},
 	mounted() {
 		this.projectUrl = window.location.href.replace(/\/\d+\/?/, ''); // need to set here to avoid SSR error
 		this.consented = this.getConsent; // this will disable checkbox on the next mount (next sheet view)
 	},
-	components: { TipTapDisplay },
 };
 </script>

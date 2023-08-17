@@ -10,12 +10,18 @@ export const mutations = {
 	addAnswers(state, payload) {
 		const answers = payload.answers;
 		const sheetId = payload.sheetId.toString();
-		state.visitorAnswers[sheetId] = answers;
+		state.visitorAnswers = {
+			...state.visitorAnswers,
+			[sheetId]: answers,
+		};
 	},
 	addFeatures(state, payload) {
 		const featureArray = payload.features;
 		const sheetIdKey = payload.sheetId.toString();
-		state.visitorFeatures[sheetIdKey] = featureArray;
+		state.visitorFeatures = {
+			...state.visitorFeatures,
+			[sheetIdKey]: featureArray,
+		};
 	},
 	clear(state) {
 		state.visitorFeatures = {};
@@ -23,11 +29,22 @@ export const mutations = {
 	addRatings(state, payload) {
 		const sheetIdKey = payload.sheetId.toString();
 		const ratings = payload.ratings;
-		state.visitorRatings[sheetIdKey] = ratings;
+		state.visitorRatings = {
+			...state.visitorRatings,
+			[sheetIdKey]: ratings,
+		};
 	},
 };
 
 export const getters = {
+	getAllVisitorAnswers: state => {
+		const ansBySheet = Object.values(state.visitorAnswers);
+		const all = {};
+		ansBySheet.forEach(ans => {
+			if (ans) Object.assign(all, ans);
+		});
+		return all;
+	},
 	getVisitorAnswers: state => sheetId =>
 		state.visitorAnswers[sheetId.toString()],
 	getVisitorFeatures: state => sheetId =>
