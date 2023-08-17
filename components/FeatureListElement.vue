@@ -292,7 +292,7 @@
 					</div>
 				</b-form-group>
 
-				<b-form-group v-if="editable && visitorCanRate">
+				<b-form-group v-if="adminCanHide">
 					<b-form-checkbox
 						v-model="form.hidden"
 						name="hidden"
@@ -394,6 +394,10 @@ export default {
 			default: false,
 		},
 		visitorCanName: {
+			type: Boolean,
+			default: false,
+		},
+		adminCanHide: {
 			type: Boolean,
 			default: false,
 		},

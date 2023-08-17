@@ -125,6 +125,7 @@
 				<FeatureListElement
 					v-for="feature in filteredAdminFeatures"
 					:key="feature.getId()"
+					:admin-can-hide="onStaticMapSheetEditor"
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
@@ -210,6 +211,13 @@ export default {
 		},
 		hideAdminFeatures() {
 			return this.visitor && this.isInteractive;
+		},
+		onStaticMapSheetEditor() {
+			return (
+				!this.readonly && // not results page
+				!!this.interactions && // sheet editor
+				!this.isInteractive // not interactive sheet -> static sheet
+			);
 		},
 		isInteractive() {
 			return (
