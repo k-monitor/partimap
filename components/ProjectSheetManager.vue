@@ -17,6 +17,14 @@
 					@addedSheet="addedSheet"
 				/>
 			</template>
+			<div
+				v-if="isThereReferencedSheet"
+				class="alert alert-warning"
+			>
+				<!-- FIXME i18n -->
+				Azon munkalapok, melyekre más munkalapok hivatkoznak (feltételes
+				kérdések), csak korlátozottan mozgathatók és nem törölhetők.
+			</div>
 			<div class="list-group">
 				<div
 					v-for="sheet in sheets"
@@ -170,6 +178,13 @@ export default {
 				});
 			});
 			return sheetDeps;
+		},
+		isThereReferencedSheet() {
+			return (
+				Object.values(this.sheetDependencies).findIndex(
+					v => v?.length > 0
+				) > -1
+			);
 		},
 	},
 	methods: {
