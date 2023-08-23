@@ -7,7 +7,7 @@
 				:options="questionOptions"
 			/>
 		</b-form-group>
-		<b-form-group label="az alábbi választ adják">
+		<b-form-group :label="`az alábbi választ adják ${minMax}`">
 			<b-form-select
 				v-if="!questionId"
 				disabled
@@ -43,6 +43,12 @@
 </template>
 
 <script>
+function clampText(t) {
+	t = t || '';
+	const limit = 26;
+	return t.length > limit ? `${t.substring(0, limit)}...` : t;
+}
+
 export default {
 	props: {
 		testableQuestions: {
@@ -67,16 +73,16 @@ export default {
 			return this.testableQuestions.map(q => {
 				if (q.type.includes('Matrix')) {
 					return {
-						label: q.label,
+						label: clampText(q.label),
 						options: q.rows.map(r => ({
 							value: [q.id, r],
-							text: r,
+							text: clampText(r),
 						})),
 					};
 				} else {
 					return {
 						value: [q.id],
-						text: q.label,
+						text: clampText(q.label),
 					};
 				}
 			});
@@ -94,6 +100,16 @@ export default {
 		},
 		isNumberQuestion() {
 			return 'number|range|rating'.includes(this.question?.type);
+		},
+		minMax() {
+			if (!this.question?.type) return '';
+			if (this.question.type === 'rating') return '(1-5)';
+			const hasMin = typeof this.question.min !== 'undefined';
+			const hasMax = typeof this.question.max !== 'undefined';
+			if (hasMin && hasMax) {
+				return `(${this.question.min}-${this.question.max})`;
+			}
+			return '';
 		},
 		answerOptions() {
 			const t = this.question?.type || '';
