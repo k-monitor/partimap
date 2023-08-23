@@ -50,12 +50,22 @@
 									v-if="isQuestionReferenced(q)"
 									v-b-tooltip.hover.bottom
 									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-2"
+									:class="
+										cancelledDrag.includes(q.id)
+											? 'alert-danger text-danger rounded'
+											: ''
+									"
 									title="Más kérdés függ ettől"
 								/>
 								<i
 									v-if="isQuestionConditional(q)"
 									v-b-tooltip.hover.bottom
 									class="fas fa-level-up-alt fa-fw mr-2"
+									:class="
+										cancelledDrag.includes(q.id)
+											? 'alert-danger text-danger rounded'
+											: ''
+									"
 									title="Feltételesen jelenik meg"
 								/>
 								<b-button
@@ -372,6 +382,7 @@ export default {
 			question: {},
 			questionIsConditional: false,
 			testedQuestionId: null,
+			cancelledDrag: [],
 		};
 	},
 	computed: {
@@ -463,6 +474,7 @@ export default {
 			this.emitSurvey();
 		},
 		emitSurvey() {
+			this.cancelledDrag.splice(0, this.cancelledDrag.length);
 			if (this.readonly) {
 				return true;
 			}
@@ -528,8 +540,15 @@ export default {
 			const refIds = this.referencedQuestionIdsOf(question);
 			if (refIds.length) {
 				const refInd = refIds.map(this.indexOfQuestionId);
-				const minInd = Math.max(...refInd) + 1;
-				return futureIndex >= minInd;
+				const minInd = Math.max(...refInd);
+				if (futureIndex < minInd + 1) {
+					this.cancelledDrag.splice(0, this.cancelledDrag.length);
+					this.cancelledDrag.push(
+						question.id,
+						this.survey.questions[minInd].id
+					);
+					return false;
+				}
 			}
 
 			// referenced questions cannot be moved below
@@ -537,10 +556,18 @@ export default {
 			const conIds = this.questionIdsThatReference(question);
 			if (conIds.length) {
 				const conInd = conIds.map(this.indexOfQuestionId);
-				const maxInd = Math.min(...conInd) - 1;
-				return futureIndex <= maxInd;
+				const maxInd = Math.min(...conInd);
+				if (futureIndex > maxInd - 1) {
+					this.cancelledDrag.splice(0, this.cancelledDrag.length);
+					this.cancelledDrag.push(
+						question.id,
+						this.survey.questions[maxInd].id
+					);
+					return false;
+				}
 			}
 
+			this.cancelledDrag.splice(0, this.cancelledDrag.length);
 			return true;
 		},
 	},
