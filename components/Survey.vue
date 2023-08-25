@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-form-group
-			v-for="q in questions.filter(canShowQuestion)"
+			v-for="q in visibleQuestions"
 			:key="q.id"
 			class="my-4"
 		>
@@ -171,8 +171,19 @@ export default {
 			}
 			return s.questions;
 		},
+		visibleQuestions() {
+			return this.questions.filter(this.canShowQuestion);
+		},
 	},
 	watch: {
+		visibleQuestions(vq) {
+			const visibleIds = vq.map(q => String(q.id));
+			const answeredIds = Object.keys(this.answers);
+			const hiddenIds = answeredIds.filter(
+				id => !visibleIds.includes(String(id))
+			);
+			hiddenIds.forEach(id => this.removeAnswer(id));
+		},
 		answers: {
 			handler(a) {
 				this.$emit('input', a);
