@@ -267,7 +267,7 @@
 									v-model="question.showIf[i]"
 									:testable-questions="testableQuestions"
 									:testable-question-options="
-										testableQuestionOptions
+										questionOptionsForCond(i)
 									"
 								/>
 								<p class="small text-right">
@@ -425,18 +425,27 @@ export default {
 							value: [q.id, r],
 							text: clampText(r),
 						})),
+						qid: q.id,
+						type: q.type,
 					};
 				} else {
 					return {
 						value: [q.id],
 						text: clampText(q.label),
+						qid: q.id,
+						type: q.type,
 					};
 				}
 			});
 		},
 		canAddNewCondition() {
 			const showIf = this.question?.showIf || [];
-			return this.questionIsConditional && showIf[0]?.length === 2;
+			const condN = showIf[0]?.length || 0;
+			return (
+				this.questionIsConditional &&
+				condN === 2 &&
+				this.questionOptionsForCond(condN).length
+			);
 		},
 	},
 	watch: {
@@ -523,6 +532,19 @@ export default {
 				this.$delete(this.question, 'showIf');
 			}
 		},
+		questionOptionsForCond(i) {
+			if (!this.question || !this.question.showIf)
+				return this.testableQuestionOptions;
+			return this.testableQuestionOptions.filter(o => {
+				const oneCondQuestionTypes =
+					'dropdown|number|radiogroup|range|rating|singleChoiceMatrix';
+				if (!oneCondQuestionTypes.includes(o.type)) return true;
+				const alreadyHaveCond = this.question.showIf
+					.slice(0, i)
+					.find(c => ((c || [])[0] || [])[0] === o.qid);
+				return !alreadyHaveCond;
+			});
+		},
 		addNewCondition() {
 			const existing = this.question?.showIf || [];
 			this.$set(this.question, 'showIf', [...existing, []]);
@@ -550,6 +572,9 @@ export default {
 					return refIds.includes(question.id);
 				})
 				.map(q => q.id);
+		},
+		questionById(id) {
+			return this.survey.questions.find(q => q.id === id);
 		},
 		indexOfQuestionId(id) {
 			return this.survey.questions.findIndex(q => q.id === id);
