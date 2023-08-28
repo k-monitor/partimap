@@ -100,9 +100,7 @@ export default {
 		serializedAnswer() {
 			if (this.isNumberQuestion) {
 				if (Number.isInteger(this.min) && Number.isInteger(this.max)) {
-					return this.min < this.max
-						? `${this.min}-${this.max}`
-						: `${this.max}-${this.min}`;
+					return `${this.min}-${this.max}`;
 				} else {
 					return null;
 				}

@@ -9,7 +9,12 @@ export function canShowQuestion(question, allVisitorAnswers) {
 			if (act === exp) return true;
 			if (Array.isArray(act)) return act.includes(exp);
 			if (Number.isInteger(Number(act))) {
-				const [min, max] = exp.split('-').map(v => Number(v));
+				let [min, max] = exp.split('-').map(v => Number(v));
+				if (min > max) {
+					const t = min;
+					min = max;
+					max = t;
+				}
 				return min <= act && act <= max;
 			}
 			return false;
