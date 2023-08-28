@@ -266,6 +266,9 @@
 								<QuestionConditionEditor
 									v-model="question.showIf[i]"
 									:testable-questions="testableQuestions"
+									:testable-question-options="
+										testableQuestionOptions
+									"
 								/>
 								<p class="small text-right">
 									<a
@@ -407,6 +410,29 @@ export default {
 				...this.questionsFromPrevSheets,
 				...this.survey.questions.slice(0, this.questionIndex),
 			].filter(q => !self.isQuestionConditional(q) && q.type !== 'text');
+		},
+		testableQuestionOptions() {
+			function clampText(t) {
+				t = t || '';
+				const limit = 26;
+				return t.length > limit ? `${t.substring(0, limit)}...` : t;
+			}
+			return this.testableQuestions.map(q => {
+				if (q.type.includes('Matrix')) {
+					return {
+						label: clampText(q.label),
+						options: q.rows.map(r => ({
+							value: [q.id, r],
+							text: clampText(r),
+						})),
+					};
+				} else {
+					return {
+						value: [q.id],
+						text: clampText(q.label),
+					};
+				}
+			});
 		},
 		canAddNewCondition() {
 			const showIf = this.question?.showIf || [];

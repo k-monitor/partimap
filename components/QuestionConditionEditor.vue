@@ -4,7 +4,7 @@
 		<b-form-group label="a következő kérdésre">
 			<b-form-select
 				v-model="questionId"
-				:options="questionOptions"
+				:options="testableQuestionOptions"
 			/>
 		</b-form-group>
 		<b-form-group :label="`az alábbi választ adják ${minMax}`">
@@ -43,15 +43,13 @@
 </template>
 
 <script>
-function clampText(t) {
-	t = t || '';
-	const limit = 26;
-	return t.length > limit ? `${t.substring(0, limit)}...` : t;
-}
-
 export default {
 	props: {
 		testableQuestions: {
+			type: Array,
+			default: () => [],
+		},
+		testableQuestionOptions: {
 			type: Array,
 			default: () => [],
 		},
@@ -69,24 +67,6 @@ export default {
 		};
 	},
 	computed: {
-		questionOptions() {
-			return this.testableQuestions.map(q => {
-				if (q.type.includes('Matrix')) {
-					return {
-						label: clampText(q.label),
-						options: q.rows.map(r => ({
-							value: [q.id, r],
-							text: clampText(r),
-						})),
-					};
-				} else {
-					return {
-						value: [q.id],
-						text: clampText(q.label),
-					};
-				}
-			});
-		},
 		question() {
 			const question = this.testableQuestions.find(
 				q => String(q.id) === String((this.questionId || [])[0])
