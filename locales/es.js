@@ -428,7 +428,13 @@ export default {
 		},
 		submittedFeatures: 'Características enviadas',
 		title: 'Nueva hoja',
+		warnForReferencedSheets:
+			"Those sheets that are referenced from others (in questions' conditions) can only be moved with restrictions and cannot be deleted.", // TODO
 		withoutCopying: 'Crear sin copiar de un mapa existente.',
+	},
+	QuestionConditionEditor: {
+		selectQuestion: 'for the following question', // TODO
+		selectAnswer: 'the visitor gives the following answer', // TODO
 	},
 	SaveButton: {
 		save: 'Guardar',
@@ -451,9 +457,14 @@ export default {
 		removeAnswer: 'Eliminar respuesta',
 	},
 	SurveyEditor: {
+		addCondition: 'Add condition (AND)', // TODO
 		addQuestion: 'Agregar pregunta',
 		addToFeatures:
 			'Agregar respuestas a marcadores de mapas con fines de análisis',
+		and: 'AND', // TODO
+		conditionalQuestion: 'Conditionally visible', // TODO
+		deleteCondition: 'Remove condition', // TODO
+		deleteQuestion: 'Remove question', // TODO
 		maxName: 'Etiqueta (máximo)',
 		maxSelect: 'Número máximo de opciones:',
 		maxValue: 'Valor máximo',
@@ -474,9 +485,13 @@ export default {
 			singleChoiceMatrix: 'Matriz de casillas de verificación',
 			text: 'Cuadro de texto',
 		},
+		referencedQuestion: 'Another question references this', // TODO
 		required: 'Pregunta obligatoria',
+		showIf: 'Show if...', // TODO
 		showResult:
 			'Mostrar resultados a los visitantes después de enviar la hoja',
+		warnForReferencedQuestion:
+			'Some properties of this question are read-only because this question is referenced in another one.', // TODO
 	},
 	SurveyResult: {
 		averageValue: 'Valor promedio',

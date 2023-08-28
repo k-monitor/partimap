@@ -29,7 +29,6 @@
 								{{ q.label }}
 							</p>
 							<div class="d-flex align-items-center text-muted">
-								<!-- FIXME tooltips i18n -->
 								<i
 									v-b-tooltip.hover.bottom
 									class="fas fa-fw mr-2"
@@ -44,7 +43,7 @@
 									v-if="q.showResult && canHaveResults(q)"
 									v-b-tooltip.hover.bottom
 									class="fas fa-chart-bar fa-fw mr-2"
-									title="Eredmények megjelennek"
+									:title="$t('SurveyEditor.showResult')"
 								/>
 								<i
 									v-if="isQuestionReferenced(q)"
@@ -55,7 +54,9 @@
 											? 'alert-danger text-danger rounded'
 											: ''
 									"
-									title="Más kérdés függ ettől"
+									:title="
+										$t('SurveyEditor.referencedQuestion')
+									"
 								/>
 								<i
 									v-if="isQuestionConditional(q)"
@@ -66,14 +67,16 @@
 											? 'alert-danger text-danger rounded'
 											: ''
 									"
-									title="Feltételesen jelenik meg"
+									:title="
+										$t('SurveyEditor.conditionalQuestion')
+									"
 								/>
 								<b-button
 									v-if="!readonly && !isQuestionReferenced(q)"
 									v-b-tooltip.hover.bottom
 									class="border-0 ml-auto text-danger"
 									size="sm"
-									title="Kérdés törlése"
+									:title="$t('SurveyEditor.deleteQuestion')"
 									variant="light"
 									@click.stop="delQuestion(i)"
 								>
@@ -109,9 +112,7 @@
 				v-if="isQuestionReferenced(question)"
 				class="alert alert-warning"
 			>
-				<!-- FIXME i18n -->
-				Ettől a kérdéstől legalább egy másik kérdés megjelenítése függ,
-				így bizonyos tulajdonságai nem módosíthatók.
+				{{ $t('SurveyEditor.warnForReferencedQuestion') }}
 			</div>
 			<form
 				ref="form"
@@ -244,13 +245,12 @@
 				</b-form-group>
 
 				<div v-if="testableQuestions.length">
-					<!-- FIXME i18n -->
 					<b-form-group>
 						<b-form-checkbox
 							v-model="questionIsConditional"
 							@change="toggleConditional"
 						>
-							Megjelenik, ha...
+							{{ $t('SurveyEditor.showIf') }}
 						</b-form-checkbox>
 					</b-form-group>
 					<div
@@ -262,7 +262,7 @@
 								v-for="(c, i) in question.showIf"
 								:key="i"
 							>
-								<p v-if="i > 0">ÉS</p>
+								<p v-if="i > 0">{{ $t('SurveyEditor.and') }}</p>
 								<QuestionConditionEditor
 									v-model="question.showIf[i]"
 									:testable-questions="testableQuestions"
@@ -274,8 +274,9 @@
 									<a
 										href="javascript:void(0)"
 										@click="deleteCondition(i)"
-										>Feltétel törlése</a
 									>
+										{{ $t('SurveyEditor.deleteCondition') }}
+									</a>
 								</p>
 							</div>
 							<b-button
@@ -283,7 +284,7 @@
 								variant="outline-success"
 								@click="addNewCondition"
 							>
-								Új feltétel (ÉS)
+								{{ $t('SurveyEditor.addCondition') }}
 							</b-button>
 						</div>
 					</div>

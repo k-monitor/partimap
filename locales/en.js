@@ -417,7 +417,13 @@ export default {
 		},
 		submittedFeatures: 'features submitted',
 		title: 'New Sheet',
+		warnForReferencedSheets:
+			"Those sheets that are referenced from others (in questions' conditions) can only be moved with restrictions and cannot be deleted.",
 		withoutCopying: 'Create without copying from existing map.',
+	},
+	QuestionConditionEditor: {
+		selectQuestion: 'for the following question',
+		selectAnswer: 'the visitor gives the following answer',
 	},
 	SaveButton: {
 		save: 'Save',
@@ -440,8 +446,13 @@ export default {
 		removeAnswer: 'Remove answer',
 	},
 	SurveyEditor: {
+		addCondition: 'Add condition (AND)',
 		addQuestion: 'Add question',
 		addToFeatures: 'Add responses to map markings for analysis purpose',
+		and: 'AND',
+		conditionalQuestion: 'Conditionally visible',
+		deleteCondition: 'Remove condition',
+		deleteQuestion: 'Remove question',
 		maxName: 'Label (maximum)',
 		maxSelect: 'Maximum number of choices:',
 		maxValue: 'Maximum value',
@@ -462,8 +473,12 @@ export default {
 			singleChoiceMatrix: 'Checkbox grid',
 			text: 'Text box',
 		},
+		referencedQuestion: 'Another question references this',
 		required: 'Required question',
+		showIf: 'Show if...',
 		showResult: 'Display results to visitors after submitting the sheet',
+		warnForReferencedQuestion:
+			'Some properties of this question are read-only because this question is referenced in another one.',
 	},
 	SurveyResult: {
 		averageValue: 'Average value',

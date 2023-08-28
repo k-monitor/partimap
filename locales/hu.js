@@ -412,7 +412,13 @@ export default {
 		},
 		submittedFeatures: 'beküldött térkép elem',
 		title: 'Új munkalap',
+		warnForReferencedSheets:
+			'Azon munkalapok, melyekre más munkalapok hivatkoznak (feltételes kérdések), csak korlátozottan mozgathatók és nem törölhetők.',
 		withoutCopying: 'Nincs másolás',
+	},
+	QuestionConditionEditor: {
+		selectQuestion: 'a következő kérdésre',
+		selectAnswer: 'az alábbi választ adják',
 	},
 	SaveButton: {
 		save: 'Mentés',
@@ -435,9 +441,14 @@ export default {
 		removeAnswer: 'Válasz törlése',
 	},
 	SurveyEditor: {
+		addCondition: 'Új feltétel (ÉS)',
 		addQuestion: 'Új kérdés hozzáadása',
 		addToFeatures:
 			'Válaszok hozzáadása a térképes jelölésekhez elemzés céljára',
+		and: 'ÉS',
+		conditionalQuestion: 'Feltételesen jelenik meg',
+		deleteCondition: 'Feltétel törlése',
+		deleteQuestion: 'Kérdés törlése',
 		maxName: 'Maximum elnevezés',
 		maxSelect: 'Maximálisan kiválasztható',
 		maxValue: 'Maximum érték',
@@ -458,8 +469,12 @@ export default {
 			singleChoiceMatrix: 'Feleletválasztós rács',
 			text: 'Szöveges válasz',
 		},
+		referencedQuestion: 'Más kérdés hivatkozik erre',
 		required: 'Kötelező megválaszolni',
+		showIf: 'Megjelenik, ha...',
 		showResult: 'Kitöltés után válasz statisztika megjelenítése',
+		warnForReferencedQuestion:
+			'Ettől a kérdéstől legalább egy másik kérdés megjelenítése függ, így bizonyos tulajdonságai nem módosíthatók.',
 	},
 	SurveyResult: {
 		averageValue: 'Átlagos érték',

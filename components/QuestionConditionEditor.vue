@@ -1,13 +1,14 @@
 <template>
-	<!-- FIXME i18n -->
 	<div>
-		<b-form-group label="a következő kérdésre">
+		<b-form-group :label="$t('QuestionConditionEditor.selectQuestion')">
 			<b-form-select
 				v-model="questionId"
 				:options="testableQuestionOptions"
 			/>
 		</b-form-group>
-		<b-form-group :label="`az alábbi választ adják ${minMax}`">
+		<b-form-group
+			:label="$t('QuestionConditionEditor.selectAnswer') + ` ${minMax}`"
+		>
 			<b-form-select
 				v-if="!questionId"
 				disabled

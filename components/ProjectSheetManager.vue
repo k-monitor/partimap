@@ -21,9 +21,7 @@
 				v-if="isThereReferencedSheet"
 				class="alert alert-warning"
 			>
-				<!-- FIXME i18n -->
-				Azon munkalapok, melyekre más munkalapok hivatkoznak (feltételes
-				kérdések), csak korlátozottan mozgathatók és nem törölhetők.
+				{{ $t('ProjectSheetManager.warnForReferencedSheets') }}
 			</div>
 			<div class="list-group">
 				<div
