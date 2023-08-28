@@ -234,7 +234,9 @@ router.get(
 			const sheet = sheets.filter(sh => sh.id === r.sheetId)[0];
 			if (sheet && sheet.features) {
 				const features = JSON.parse(sheet.features);
-				const feature = features.filter(f => f.id === r.featureId)[0];
+				const feature = features.find(
+					f => String(f.id) === String(r.featureId)
+				);
 				const name = feature?.properties?.name || r.featureId;
 				rs.cell(i + 2, 2).string(String(name));
 			}
@@ -260,7 +262,9 @@ router.get(
 			for (let j = 0; j < ar.length; j++) {
 				const r = ar[j];
 				row++;
-				const feature = features.filter(f => f.id === r.featureId)[0];
+				const feature = features.find(
+					f => String(f.id) === String(r.featureId)
+				);
 				const name = feature?.properties?.name || r.featureId;
 				ars.cell(row, 1).string(String(name));
 				ars.cell(row, 2).number(r.count);
