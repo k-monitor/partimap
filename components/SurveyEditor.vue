@@ -534,17 +534,47 @@ export default {
 			}
 		},
 		questionOptionsForCond(i) {
-			if (!this.question || !this.question.showIf)
+			if (!this.question || !this.question.showIf || i === 0)
 				return this.testableQuestionOptions;
-			return this.testableQuestionOptions.filter(o => {
+
+			const referencedIds = {}; // { questionId: [row, row], questionId: [] }
+			this.question.showIf.slice(0, i).forEach(c => {
+				if (!c[0]) return;
+				const qid = c[0][0];
+				const row = c[0][1];
+				if (!qid) return;
+				referencedIds[qid] = referencedIds[qid] || [];
+				if (row) referencedIds[qid].push(row);
+			});
+
+			const options = [];
+			this.testableQuestionOptions.forEach(o => {
 				const oneCondQuestionTypes =
 					'dropdown|number|radiogroup|range|rating|singleChoiceMatrix';
-				if (!oneCondQuestionTypes.includes(o.type)) return true;
-				const alreadyHaveCond = this.question.showIf
-					.slice(0, i)
-					.find(c => ((c || [])[0] || [])[0] === o.qid);
-				return !alreadyHaveCond;
+
+				if (
+					!oneCondQuestionTypes.includes(o.type) ||
+					!referencedIds[o.qid]
+				) {
+					// question can be referenced multiple times
+					// or hasn't been referenced -> available
+					return options.push(o);
+				}
+
+				if (o.type === 'singleChoiceMatrix') {
+					// matrix questions can be used
+					// but their options has to be filtered
+					const option = JSON.parse(JSON.stringify(o)); // copy
+					option.options = option.options.filter(
+						r => !referencedIds[o.qid].includes(r.value[1])
+					);
+					if (option.options.length) options.push(option);
+				} else if (!referencedIds[o.qid]) {
+					// other questions can be added if not referenced
+					options.push(o);
+				}
 			});
+			return options;
 		},
 		addNewCondition() {
 			const existing = this.question?.showIf || [];
