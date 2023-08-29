@@ -418,12 +418,12 @@ export default {
 		submittedFeatures: 'features submitted',
 		title: 'New Sheet',
 		warnForReferencedSheets:
-			"Those sheets that are referenced from others (in questions' conditions) can only be moved with restrictions and cannot be deleted.",
+			'A sheet that contains a conditional question cannot precede the sheet where that condition is defined.',
 		withoutCopying: 'Create without copying from existing map.',
 	},
 	QuestionConditionEditor: {
-		selectQuestion: 'for the following question',
-		selectAnswer: 'the visitor gives the following answer',
+		selectQuestion: 'this question ',
+		selectAnswer: 'receives the following answer',
 	},
 	SaveButton: {
 		save: 'Save',
@@ -473,12 +473,13 @@ export default {
 			singleChoiceMatrix: 'Checkbox grid',
 			text: 'Text box',
 		},
-		referencedQuestion: 'Another question references this',
+		referencedQuestion:
+			'Contains condition for the visibility of another question below it.',
 		required: 'Required question',
-		showIf: 'Show if...',
+		showIf: 'Show only if...',
 		showResult: 'Display results to visitors after submitting the sheet',
 		warnForReferencedQuestion:
-			'Some properties of this question are read-only because this question is referenced in another one.',
+			'The attributes are read-only because the question is referenced in a conditionally visible question below it.',
 	},
 	SurveyResult: {
 		averageValue: 'Average value',

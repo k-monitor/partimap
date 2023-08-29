@@ -413,7 +413,7 @@ export default {
 		submittedFeatures: 'beküldött térkép elem',
 		title: 'Új munkalap',
 		warnForReferencedSheets:
-			'Azon munkalapok, melyekre más munkalapok hivatkoznak (feltételes kérdések), csak korlátozottan mozgathatók és nem törölhetők.',
+			'Egy feltételes kérdést tartalmazó munkalap nem előzheti meg azt a munkalapot, amely a rá vonatkozó feltételt tartalmazza.',
 		withoutCopying: 'Nincs másolás',
 	},
 	QuestionConditionEditor: {

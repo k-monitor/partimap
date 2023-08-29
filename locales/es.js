@@ -429,12 +429,12 @@ export default {
 		submittedFeatures: 'Características enviadas',
 		title: 'Nueva hoja',
 		warnForReferencedSheets:
-			"Those sheets that are referenced from others (in questions' conditions) can only be moved with restrictions and cannot be deleted.", // TODO
+			'A sheet that contains a conditional question cannot precede the sheet where that condition is defined.', // TODO
 		withoutCopying: 'Crear sin copiar de un mapa existente.',
 	},
 	QuestionConditionEditor: {
-		selectQuestion: 'for the following question', // TODO
-		selectAnswer: 'the visitor gives the following answer', // TODO
+		selectQuestion: 'this question ', // TODO
+		selectAnswer: 'receives the following answer', // TODO
 	},
 	SaveButton: {
 		save: 'Guardar',
@@ -485,13 +485,14 @@ export default {
 			singleChoiceMatrix: 'Matriz de casillas de verificación',
 			text: 'Cuadro de texto',
 		},
-		referencedQuestion: 'Another question references this', // TODO
+		referencedQuestion:
+			'Contains condition for the visibility of another question below it.', // TODO
 		required: 'Pregunta obligatoria',
-		showIf: 'Show if...', // TODO
+		showIf: 'Show only if...', // TODO
 		showResult:
 			'Mostrar resultados a los visitantes después de enviar la hoja',
 		warnForReferencedQuestion:
-			'Some properties of this question are read-only because this question is referenced in another one.', // TODO
+			'The attributes are read-only because the question is referenced in a conditionally visible question below it.', // TODO
 	},
 	SurveyResult: {
 		averageValue: 'Valor promedio',

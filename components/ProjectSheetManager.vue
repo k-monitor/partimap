@@ -17,12 +17,6 @@
 					@addedSheet="addedSheet"
 				/>
 			</template>
-			<div
-				v-if="isThereReferencedSheet"
-				class="alert alert-warning"
-			>
-				{{ $t('ProjectSheetManager.warnForReferencedSheets') }}
-			</div>
 			<div class="list-group">
 				<div
 					v-for="sheet in sheets"
@@ -125,6 +119,12 @@
 						</b-button>
 					</div>
 				</div>
+			</div>
+			<div
+				v-if="isThereReferencedSheet"
+				class="alert alert-warning"
+			>
+				{{ $t('ProjectSheetManager.warnForReferencedSheets') }}
 			</div>
 		</b-card>
 	</b-container>
