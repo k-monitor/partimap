@@ -493,9 +493,11 @@ export default {
 				this.emitSurvey();
 			}
 		},
-		saveQuestion() {
-			// if (!this.$refs.form.reportValidity()) return;
-			// TODO not working on OK button because that closes the modal auto
+		saveQuestion(bvModalEvent) {
+			if (!this.$refs.form.reportValidity()) {
+				bvModalEvent.preventDefault();
+				return;
+			}
 
 			this.$bvModal.hide('survey-question-editor');
 			if (!this.hasOptions) {

@@ -4,6 +4,7 @@
 			<b-form-select
 				v-model="questionId"
 				:options="testableQuestionOptions"
+				required
 			/>
 		</b-form-group>
 		<b-form-group
