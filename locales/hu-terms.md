@@ -6,7 +6,7 @@ A közpénzek átlátható felhasználásáért küzdő [K-Monitor Közhasznú E
 
 ## 2\. A felhasználás feltételei
 
-A Felhasználási feltételek elfogadásával a szolgáltatás használója (a továbbiakban: Használó) elfogadja, hogy a PARTIMAP.eu felület célja a fenti célok elérése. Erre tekintettel a Használó a szolgáltatás használata során is ezen célok szem előtt tartásával jár el.
+A Felhasználási feltételek elfogadásával a szolgáltatás használója (a továbbiakban: Használó) elfogadja, hogy a  [www.partimap.eu](https://www.partimap.eu) felület célja a fenti célok elérése. Erre tekintettel a Használó a szolgáltatás használata során is ezen célok szem előtt tartásával jár el.
 
 A Használó a Felhasználási feltételek elfogadásával tudomásul veszi, hogy a szolgáltatáson keresztül megosztott tartalmai a nyilvánosság számára szabadon felhasználhatóak, valamint hogy a szolgáltatást közvetlen anyagi haszonszerzésre nem használhatja.
 
@@ -148,17 +148,11 @@ A Linux Hungary Kft. biztosít tárhelyszolgáltatást a [www.partimap.eu](http:
 A Felhasználót az adatok kezelésének ideje alatt az alábbi jogok illetik meg:
 
 *   tájékoztatás és hozzáférés joga: a Felhasználó a vele kapcsolatban tárolt személyes adatokról tájékoztatást kérhet, valamint kérheti azok másolatának átadását;
-
 *   helyesbítéshez való jog: a Felhasználó kérheti a vele kapcsolatban tárolt személyes adatok helyesbítését, ha azok nem pontosak vagy nem teljesek. Amennyiben a Felhasználó az Adatkezelő részére olyan személyes adatot is a rendelkezésére bocsát, amely az adatkezelés céljához nem szükséges, azt az Adatkezelő törli.
-
 *   elfeledtetéshez való jog: Felhasználó kérheti, hogy az Adatkezelő törölje a róla tárolt adatokat az adatbázisából, különösen ha az adatkezeléshez adott korábbi hozzájárulását visszavonja vagy az adatok kezelése jogellenes módon történik.
-
 *   adatkezelés korlátozásának joga: a Felhasználó kérheti az adatkezelés korlátozását, ha a) vitatja a személyes adatok pontosságát és az Adatkezelés korlátozását kéri arra az időre, amíg az Adatkezelő ellenőrzi a személyes adatok pontosságát; b) az adatkezelés jogellenes, de a Felhasználó ellenzi az adatok törlését, és ehelyett kéri azok felhasználásának korlátozását; c) az Adatkezelőnek már nincs szüksége a személyes adatokra adatkezelés céljából, de a Felhasználó igényli azokat jogi igények előterjesztéséhez, érvényesítéséhez vagy védelméhez;
-
 *   adathordozhatósághoz való jog: személyes adatok automatizált kezelése esetén Felhasználó kérheti, hogy a tárolt személyes adatokat az Adatkezelő tagolt, géppel olvasható (interoperábilis) formátumban a Felhasználó részére átadja, illetve technikai megvalósíthatóság esetén egy másik Adatkezelőnek továbbítsa. Az adathordozhatósághoz való jog nem érintheti hátrányosan mások jogait és szabadságait.
-
 *   tiltakozáshoz való jog: a Felhasználó saját helyzetével kapcsolatos okokból tiltakozhat személyes adatai kezelése ellen, ha az adatkezelés közérdekű, közhatalmi jogosítvány gyakorlása keretében végzett feladat ellátásához, vagy az adatkezelő illetve harmadik fél jogos érdekeinek érvényesítéséhez szükséges. A Szolgáltatás nyújtásakor Adatkezelő a Felhasználó hozzájárulásával kezeli annak adatait, ezért tiltakozásra csak a hozzájárulás hiányában is elvégzendő kötelező adatkezelés (például eseti adattovábbítás) esetén van mód.
-
 *   jogorvoslathoz való jog: lásd 7. pont
 
 ## 7\. Jogorvoslati lehetőségek

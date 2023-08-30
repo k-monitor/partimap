@@ -1,4 +1,4 @@
-import terms from './en-terms.md';
+import terms from './es-terms.md';
 
 export default {
 	meta: {
@@ -43,27 +43,27 @@ export default {
 			{
 				title: 'Diseño personalizable',
 				description:
-					'<p>Las interfaces de cuestionarios están diseñadas para llegar efectivamente al público objetivo. Por esta razón, prestamos especial atención a la capacidad de compartir y personalizar proyectos durante el desarrollo. En las hojas de inicio y cierre, hay botones de uso compartido para las plataformas de redes sociales más populares. Los proyectos también se pueden configurar con una imagen de miniatura personalizada de Facebook y un texto de vista previa, lo que permite a los usuarios adaptar su encuesta a sus propios diseños establecidos. Además de cargar sus propias fotos en la interfaz de edición de hojas, también puede formatear texto, agregar enlaces y cargar imágenes de fondo. Además, los proyectos pueden tener una URL única en la aplicación.</p>',
+					'<p>Las interfaces de cuestionarios están diseñadas para llegar efectivamente al público objetivo. Por esta razón, prestamos especial atención a la capacidad de compartir y personalizar proyectos durante el desarrollo. En las hojas de trabajo de inicio y cierre, hay botones de uso compartido para las plataformas de redes sociales más populares. Los proyectos también se pueden configurar con una imagen de miniatura personalizada de Facebook y un texto de vista previa, lo que permite a los usuarios adaptar su encuesta a sus propios diseños establecidos. Además de cargar sus propias fotos en la interfaz de edición de hojas de trabajo, también puede formatear texto, agregar enlaces y cargar imágenes de fondo. Además, los proyectos pueden tener una URL única en la aplicación.</p>',
 			},
 			{
 				title: 'Una encuesta multifacética',
 				description:
-					'<p>La hoja de cuestionario del sitio se puede utilizar para crear encuestas no relacionadas con la función de mapas. Las preguntas pueden adoptar la forma de opciones de opción múltiple, menús desplegables, calificaciones escalonadas o respuestas de texto; estas se pueden personalizar libremente agregando sus propias imágenes y opciones adicionales. El resumen (resultados) de las respuestas proporcionadas por los encuestados se puede publicar en forma de gráficos al final de la hoja con un solo clic, y también se proporciona la opción de mostrar los resultados en la página después de finalizar el período de encuesta. La hoja se puede personalizar de la misma manera que las otras hojas: se pueden usar imágenes de fondo, ilustraciones y enlaces para hacerla más fácil de usar.</p>',
+					'<p>La hoja de trabajo de tipo cuestionario del sitio se puede utilizar para crear encuestas no relacionadas con la función de mapas. Las preguntas pueden adoptar la forma de opciones de opción múltiple, menús desplegables, calificaciones escalonadas o respuestas de texto; estas se pueden personalizar libremente agregando sus propias imágenes y opciones adicionales. El resumen (resultados) de las respuestas proporcionadas por los encuestados se puede publicar en forma de gráficos al final de la hoja con un solo clic, y también se proporciona la opción de mostrar los resultados en la página después de finalizar el período de encuesta. La hoja de trabajo se puede personalizar de la misma manera que las otras hojas: se pueden usar imágenes de fondo, ilustraciones y enlaces para hacerla más fácil de usar.</p>',
 			},
 			{
 				title: 'Mapeo de planes existentes',
 				description:
-					'<p>Se puede agregar una hoja de mapa estático al cuestionario para ilustrar un transporte particular, infraestructura u otra idea de desarrollo o desarrollo que se pueda representar en un mapa y recopilar comentarios al respecto. Es posible importar elementos de otras interfaces de cartografía (por ejemplo, Google Maps), que luego se pueden visualizar y evaluar individualmente en PARTIMAP. Además, la hoja de cuestionario basada en mapas puede incluir los tipos de pregunta ya conocidos del cuestionario, así como explicaciones adicionales, descripciones y enlaces. El mapa editado se puede guardar como su propio mapa y usarlo en un proyecto futuro también.</p><p>El mapa estático es una herramienta ideal para pedir a los residentes que califiquen las diferentes infraestructuras de un municipio, por ejemplo, la accesibilidad en general y para personas con movilidad reducida, si es apto para bicicletas, etc. Una vez que los resultados estén disponibles, se puede derivar una evaluación compleja. Este tipo de hoja también se puede utilizar para resolver dilemas específicos de desarrollo, por ejemplo, al revisar las versiones A y B de un desarrollo planificado para un área, los encuestados pueden decidir cuál prefieren.</p>',
+					'<p>Se puede agregar una hoja de trabajo de tipo mapa estático al cuestionario para ilustrar un transporte particular, infraestructura u otra idea de desarrollo o desarrollo que se pueda representar en un mapa y recopilar comentarios al respecto. Es posible importar elementos de otras interfaces de cartografía (por ejemplo, Google Maps), que luego se pueden visualizar y evaluar individualmente en PARTIMAP. Además, la hoja de trabajo de tipo cuestionario basada en mapas puede incluir los tipos de pregunta ya conocidos del cuestionario, así como explicaciones adicionales, descripciones y enlaces. El mapa editado se puede guardar como su propio mapa y usarlo en un proyecto futuro también.</p><p>El mapa estático es una herramienta ideal para pedir a los residentes que califiquen las diferentes infraestructuras de un municipio, por ejemplo, la accesibilidad en general y para personas con movilidad reducida, si es apto para bicicletas, etc. Una vez que los resultados estén disponibles, se puede derivar una evaluación compleja. Este tipo de hoja de trabajo también se puede utilizar para resolver dilemas específicos de desarrollo, por ejemplo, al revisar las versiones A y B de un desarrollo planificado para un área, los encuestados pueden decidir cuál prefieren.</p>',
 			},
 			{
 				title: '¡Ahora es tu turno de contribuir al mapa!',
 				description:
-					'<p>Lo que hace que PARTIMAP sea único en comparación con otras herramientas de encuesta en línea es que las personas pueden expresar su opinión con una ubicación adjunta, pueden ilustrar sus sugerencias o simplemente compartir sus rutas de viaje, por ejemplo. Los espacios públicos en un municipio, distrito o vecindario son utilizados por una amplia gama de personas, cuyas diversas necesidades y opiniones sobre su uso del espacio pueden evaluarse utilizando la hoja de mapa interactivo. Los encuestados pueden utilizar puntos, líneas y formas de polígono para proporcionar respuestas gráficas a las preguntas realizadas. Las respuestas entrantes se pueden procesar fácilmente en forma de un mapa de calor, o las sugerencias recibidas se pueden votar en un mapa estático en un cuestionario posterior.</p>',
+					'<p>Lo que hace que PARTIMAP sea único en comparación con otras herramientas de encuesta en línea es que las personas pueden expresar su opinión con una ubicación adjunta, pueden ilustrar sus sugerencias o simplemente compartir sus rutas de viaje, por ejemplo. Los espacios públicos en un municipio, distrito o vecindario son utilizados por una amplia gama de personas, cuyas diversas necesidades y opiniones sobre su uso del espacio pueden evaluarse utilizando la hoja de trabajo de tipo mapa interactivo. Los encuestados pueden utilizar puntos, líneas y formas de polígono para proporcionar respuestas gráficas a las preguntas realizadas. Las respuestas entrantes se pueden procesar fácilmente en forma de un mapa de calor, o las sugerencias recibidas se pueden votar en un mapa estático en un cuestionario posterior.</p>',
 			},
 			{
 				title: 'Interoperabilidad con otras plataformas',
 				description:
-					'<p>Ambas hojas de mapas utilizan openstreetmap.org como mapa de fondo, para el cual se puede dibujar un mapa base personalizado resaltando los puntos focales de la encuesta. Los elementos dibujados en proyectos anteriores se pueden guardar y almacenar entre los propios mapas del usuario. Para cada hoja de trabajo, el mapa de base se puede importar no solo de este propio repositorio de mapas, sino también de un archivo .KML externo: una función de importación/exportación permite un intercambio rápido con software de cartografía como Google MyMaps u otros software geoespaciales más complejos.</p><p>La interfaz de edición sencilla le permite crear mapas que se ajusten a la encuesta dibujando puntos, líneas y polígonos de colores. Con un clic de botón, también es posible crear un mapa base a partir de los datos enviados por un encuestado, y exportar en formato de archivo .KML, lo que proporciona portabilidad a otras aplicaciones de edición de mapas. En el futuro, también tenemos la intención de crear otros tipos de mapas de fondo rasterizados y nuevas representaciones gráficas de los elementos trazados (por ejemplo, iconos personalizados).</p>',
+					'<p>Ambas hojas de trabajo de tipo mapas utilizan openstreetmap.org como mapa de fondo, para el cual se puede dibujar un mapa base personalizado resaltando los puntos focales de la encuesta. Los elementos dibujados en proyectos anteriores se pueden guardar y almacenar entre los propios mapas del usuario. Para cada hoja de trabajo, el mapa de base se puede importar no solo de este propio repositorio de mapas, sino también de un archivo .KML externo: una función de importación/exportación permite un intercambio rápido con software de cartografía como Google MyMaps u otros software geoespaciales más complejos.</p><p>La interfaz de edición sencilla le permite crear mapas que se ajusten a la encuesta dibujando puntos, líneas y polígonos de colores. Con un clic de botón, también es posible crear un mapa base a partir de los datos enviados por un encuestado, y exportar en formato de archivo .KML, lo que proporciona portabilidad a otras aplicaciones de edición de mapas. En el futuro, también tenemos la intención de crear otros tipos de mapas de fondo rasterizados y nuevas representaciones gráficas de los elementos trazados (por ejemplo, iconos personalizados).</p>',
 			},
 			{
 				title: 'Comunicación de sus resultados',
@@ -144,13 +144,13 @@ export default {
 			'Descripción meta (Vista previa del enlace de Facebook)',
 		projectTitle: 'Título del proyecto',
 		save: 'Guardar',
-		sheetCreationFailed: 'Error al crear la hoja',
-		sheetDeletionFailed: 'Error al eliminar la hoja',
-		sheetMovingFailed: 'Error al mover la hoja',
+		sheetCreationFailed: 'Error al crear la hoja de trabajo',
+		sheetDeletionFailed: 'Error al eliminar la hoja de trabajo',
+		sheetMovingFailed: 'Error al mover la hoja de trabajo',
 		slug: 'URL de la página',
 		slugDescription:
 			'La URL que ingreses puede modificarse si ya se está utilizando.',
-		subscribe: 'Suscribirse a las respuestas',
+		subscribe: 'Notificaciones sobre respuestas',
 		subscribeDescription:
 			'Se enviarán correos electrónicos a tu dirección registrada.',
 		subscribeD:
@@ -161,7 +161,7 @@ export default {
 		thanks: 'Agradecimientos',
 		thanksDefault: 'Gracias por tus respuestas.',
 		thanksDescription:
-			'Este mensaje se mostrará en la última hoja, después de enviar la respuesta.',
+			'Este mensaje se mostrará en la última hoja de trabajo, después de enviar la respuesta.',
 		thanksSocial: 'Agregar botones de compartir a los Agradecimientos.',
 		thanksUrl: 'URL de redireccionamiento',
 		thanksUrlDescription:
@@ -220,17 +220,17 @@ export default {
 		featureLabel: 'Nombre de tarea único que se muestra en el informe',
 		descriptionLabel: 'Pregunta de seguimiento de texto',
 		descriptionLabelDescription:
-			'Se muestra una pregunta de texto con esta solicitud después de que un respondiente coloque un marcador.',
+			'Se muestra una pregunta de texto con esta solicitud después de que un respondiente coloque un Punto.',
 		instructions: {
-			Point: 'Instrucciones para colocar un marcador de Punto',
+			Point: 'Instrucciones para colocar un Punto',
 			LineString: 'Instrucciones para dibujar una Línea',
 			Polygon: 'Instrucciones para dibujar un Polígono',
 		},
 		interactions: {
-			Point: 'Colocar marcadores de punto',
+			Point: 'Colocar Punto',
 			LineString: 'Dibujar líneas',
 			Polygon: 'Dibujar polígonos',
-			naming: 'Agregar título al marcador',
+			naming: 'Agregar título al Punto',
 			Rating: 'Calificar características estáticas',
 			RatingResults: 'Mostrar resultados de calificación',
 			ShowResultsOnly: 'Mostrar solo los resultados',
@@ -243,11 +243,11 @@ export default {
 			likeDislike: 'Calificación positiva/negativa',
 		},
 		saveFailed: 'Error al guardar',
-		sheetDescription: 'Descripción de la hoja',
-		sheetName: 'Título de la hoja',
+		sheetDescription: 'Descripción de la hoja de trabajo',
+		sheetName: 'Título de la hoja de trabajo',
 		showAllResults:
-			'Mostrar resultados a los visitantes después de enviar la hoja (modifica todas las preguntas)',
-		success: 'Hoja modificada exitosamente',
+			'Mostrar resultados a los visitantes después de enviar la hoja de trabajo (modifica todas las preguntas)',
+		success: 'Hoja de trabajo modificada exitosamente',
 		survey: 'Encuesta',
 		visitorInteractions: 'Los respondientes pueden:',
 	},
@@ -322,23 +322,23 @@ export default {
 		other: 'Otro...',
 	},
 	FeatureImportModal: {
-		doImportFixed: 'Importar {n} marcadores fijos',
-		doImportFromMap: 'Importar {n} marcadores',
-		doImportSubmitted: 'Importar {n} marcadores enviados',
+		doImportFixed: 'Importar {n} puntos fijos',
+		doImportFromMap: 'Importar {n} puntos',
+		doImportSubmitted: 'Importar {n} puntos enviados',
 		importFromMap: 'Importar desde un mapa',
-		importFromSheet: 'Importar desde una hoja',
+		importFromSheet: 'Importar desde una hoja de trabajo',
 		selectMap: 'Seleccionar un mapa',
 		selectProject: 'Seleccionar un proyecto',
-		selectSheet: 'Seleccionar una hoja',
-		title: 'Importar marcadores',
+		selectSheet: 'Seleccionar una hoja de trabajo',
+		title: 'Importar puntos',
 	},
 	FeatureList: {
 		deleteAll: 'Eliminar',
-		features: 'Marcadores en el mapa',
-		fixedFeatures: 'Marcadores fijos',
+		features: 'Puntos en el mapa',
+		fixedFeatures: 'Puntos fijos',
 		importFromSheet: 'Importar...',
 		notFound: 'No se encontraron coincidencias.',
-		ownFeatures: 'Tus marcadores',
+		ownFeatures: 'Tus Puntos',
 		search: 'Buscar...',
 	},
 	FeatureListElement: {
@@ -353,7 +353,7 @@ export default {
 			p1131: 'Punteado y discontinua',
 		},
 		defaultName: {
-			Point: 'Marcador de punto',
+			Point: 'Punto',
 			LineString: 'Línea',
 			Polygon: 'Polígono',
 		},
@@ -391,7 +391,7 @@ export default {
 		initialZoom: '4',
 	},
 	MapHint: {
-		Point: 'Haz clic en el mapa para colocar un marcador',
+		Point: 'Haz clic en el mapa para colocar un punto',
 		LineString:
 			'Haz clic en el punto de inicio, opcionalmente haz clic en más puntos. Haz doble clic en el último punto para finalizar y guardar.',
 		Polygon:
@@ -414,12 +414,12 @@ export default {
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
 	ProjectSheetManager: {
-		addSheet: 'Agregar nueva hoja',
+		addSheet: 'Agregar nueva hoja de trabajo',
 		copyFeaturesFrom: 'Copiar características de este mapa:',
 		sendToMap: 'Enviar características a un mapa',
-		sheetName: 'Título de la hoja',
-		sheetNameRequired: 'Se requiere el título de la hoja',
-		sheetType: 'Seleccionar tipo de hoja',
+		sheetName: 'Título de la hoja de trabajo',
+		sheetNameRequired: 'Se requiere el título de la hoja de trabajo',
+		sheetType: 'Seleccionar tipo de hoja de trabajo',
 		sheetTypes: {
 			interactiveMap: 'Mapa interactivo',
 			staticMap: 'Mapa estático',
@@ -427,14 +427,14 @@ export default {
 			text: 'Texto',
 		},
 		submittedFeatures: 'Características enviadas',
-		title: 'Nueva hoja',
+		title: 'Nueva hoja de trabajo',
 		warnForReferencedSheets:
-			'A sheet that contains a conditional question cannot precede the sheet where that condition is defined.', // TODO
+			'Una hoja de trabajo que contiene una pregunta condicional no puede preceder a la hoja donde se define esa condición.',
 		withoutCopying: 'Crear sin copiar de un mapa existente.',
 	},
 	QuestionConditionEditor: {
-		selectQuestion: 'this question ', // TODO
-		selectAnswer: 'receives the following answer', // TODO
+		selectQuestion: 'esta pregunta',
+		selectAnswer: 'recibe la siguiente respuesta',
 	},
 	SaveButton: {
 		save: 'Guardar',
@@ -457,14 +457,14 @@ export default {
 		removeAnswer: 'Eliminar respuesta',
 	},
 	SurveyEditor: {
-		addCondition: 'Add condition (AND)', // TODO
+		addCondition: 'Agregar condición (Y)',
 		addQuestion: 'Agregar pregunta',
 		addToFeatures:
 			'Agregar respuestas a marcadores de mapas con fines de análisis',
-		and: 'AND', // TODO
-		conditionalQuestion: 'Conditionally visible', // TODO
-		deleteCondition: 'Remove condition', // TODO
-		deleteQuestion: 'Remove question', // TODO
+		and: 'Y',
+		conditionalQuestion: 'Condicionalmente visible',
+		deleteCondition: 'Eliminar condicionante',
+		deleteQuestion: 'Eliminar pregunta',
 		maxName: 'Etiqueta (máximo)',
 		maxSelect: 'Número máximo de opciones:',
 		maxValue: 'Valor máximo',
@@ -486,13 +486,13 @@ export default {
 			text: 'Cuadro de texto',
 		},
 		referencedQuestion:
-			'Contains condition for the visibility of another question below it.', // TODO
+			'Contiene una condicionante para la visibilidad de otra pregunta debajo.',
 		required: 'Pregunta obligatoria',
-		showIf: 'Show only if...', // TODO
+		showIf: 'Mostrar solamente si...',
 		showResult:
-			'Mostrar resultados a los visitantes después de enviar la hoja',
+			'Mostrar resultados a los visitantes después de enviar la hoja de trabajo',
 		warnForReferencedQuestion:
-			'The attributes are read-only because the question is referenced in a conditionally visible question below it.', // TODO
+			'Los atributos son de solo lectura porque se hace referencia a la pregunta en una pregunta condicionalmente visible debajo de ella.',
 	},
 	SurveyResult: {
 		averageValue: 'Valor promedio',
@@ -515,7 +515,7 @@ export default {
 	modals: {
 		cancel: 'Cancelar',
 		confirmDeleteFeatures:
-			'¿Estás seguro de que deseas eliminar los {count} marcadores listados?',
+			'¿Estás seguro de que deseas eliminar los {count} puntos listados?',
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',

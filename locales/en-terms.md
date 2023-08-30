@@ -26,7 +26,7 @@ However, if the User breaches the above conditions, K-Monitor Public Benefit Ass
 
 ## 1\. Purpose of the Privacy Policy
 
-This Privacy Policy describes the data management practices of the service (hereinafter referred to as the "Service") available on the website www.partimap.eu operated by K-Monitor Public Benefit Association (headquarters: 1077 Budapest, Rózsa u. 8., hereinafter referred to as the "Data Controller") in accordance with the EU rules.
+This Privacy Policy describes the data management practices of the service (hereinafter referred to as the "Service") available on the website [www.partimap.eu](https://www.partimap.eu) operated by K-Monitor Public Benefit Association (headquarters: 1077 Budapest, Rózsa u. 8., hereinafter referred to as the "Data Controller") in accordance with the EU rules.
 
 The purpose of this Privacy Policy is to set out the data protection, data processing and data management rules that the Data Controller and the user registered on the platform (hereinafter referred to as the "Registered User"), as a Specific Data Controller, undertake to comply with and accept as binding upon them.
 
@@ -146,17 +146,11 @@ Linux Hungary Kft. provides hosting services for [www.partimap.eu](http://www.pa
 The Registered User has the following rights during the period of data handling:
 
 *   the right to information and access: the Registered User may request information about the personal data stored in relation to him or her and may request a copy of such data;
-
 *   the right to rectification: the Registered User may request the rectification of personal data stored about him/her if they are inaccurate or incomplete. If the Registered User also provides the Data Controller with personal data which is not necessary for the purposes of the processing, the Data Controller shall delete it.
-
 *   right to be forgotten: the Registered User may request the Data Controller to delete the data stored about him/her from the database, in particular if he/she withdraws his/her previous consent to the processing or if the processing is unlawful.
-
 *   right to restriction of handling: the Registered User may request the restriction of handling if a) he/she contests the accuracy of the personal data and requests the restriction of handling for the period of time necessary for the Data Controller to verify the accuracy of the personal data; b) the handling is unlawful but the Registered User opposes the erasure of the data and requests instead the restriction of their use; c) the Data Controller no longer needs the personal data for the purposes of the handling but the Registered User requires them for the establishment, exercise or defence of legal claims;
-
 *   right to data portability: in the case of automated processing of personal data, the Registered User may request that the Data Controller transfers the stored personal data to the Registered User in a structured, machine-readable (interoperable) format or, if technically feasible, to another data controller. The right to data portability must not adversely affect the rights and freedoms of others.
-
 *   the right to object: the Registered User may object to the handling of his or her personal data on grounds relating to his or her particular situation, if the handling is necessary for the performance of a task carried out in the public interest, in the exercise of official authority, or for the legitimate interests of the controller or a third party. When providing the Service, the Data Controller handles the Registered User's data with the Registered User's consent, and therefore objections may only be raised in the case of mandatory data handling (e.g. ad hoc data transfers) that must be carried out even without consent.
-
 *   right to redress: see point 7.
 
 ## 7\. Redress possibilities
