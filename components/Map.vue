@@ -445,10 +445,11 @@ export default {
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
-			const isHidden = feature.get('hidden');
-			const text = isHidden
-				? ''
-				: String((this.labels || {})[feature.id_] || '');
+			const featureMapLabel = feature.get('partimapMapLabel') || '';
+			const mapLabelOverride = String(
+				(this.labels || {})[feature.id_] || ''
+			);
+			const text = mapLabelOverride || featureMapLabel;
 			return new Style({
 				geometry(feature) {
 					return feature.getGeometry();

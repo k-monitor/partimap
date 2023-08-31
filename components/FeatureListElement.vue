@@ -146,13 +146,25 @@
 						:label="$t('FeatureListElement.name')"
 					>
 						<b-form-input
-							id="type-text"
 							v-model="form.name"
 							:disabled="readonly"
 							size="sm"
 							type="text"
 						/>
 					</b-form-group>
+
+					<!-- FIXME i18n-->
+					<b-form-group
+						v-if="!visitor && !readonly"
+						label="Térképen megjelenő címke"
+					>
+						<b-form-input
+							v-model="form.partimapMapLabel"
+							size="sm"
+							type="text"
+						/>
+					</b-form-group>
+
 					<b-form-group
 						v-if="!visitor && !readonly"
 						:label="$t('FeatureListElement.category')"
@@ -412,6 +424,7 @@ export default {
 				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
+				partimapMapLabel: this.feature.get('partimapMapLabel') || '',
 				questionAnswer: JSON.parse(
 					this.feature.get('partimapFeatureQuestion_ans') || '[]'
 				),
@@ -511,6 +524,10 @@ export default {
 		},
 		'form.name'() {
 			this.feature.set('name', this.form.name);
+		},
+		'form.partimapMapLabel'() {
+			this.feature.set('partimapMapLabel', this.form.partimapMapLabel);
+			this.emitChangeStyle();
 		},
 		'form.description'() {
 			this.feature.set('description', this.form.description);
