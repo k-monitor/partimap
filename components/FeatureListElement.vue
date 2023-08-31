@@ -156,7 +156,7 @@
 					<!-- FIXME i18n-->
 					<b-form-group
 						v-if="!visitor && !readonly"
-						label="Térképen megjelenő címke"
+						:label="$t('FeatureListElement.mapLabel')"
 					>
 						<b-form-input
 							v-model="form.partimapMapLabel"

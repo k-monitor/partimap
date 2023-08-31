@@ -351,6 +351,7 @@ export default {
 		description: 'Description',
 		hidden: 'Hide from the list of features',
 		jumpToMap: 'Show on map',
+		mapLabel: 'Label on map',
 		name: 'Name',
 		size: 'Size',
 	},

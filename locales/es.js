@@ -361,6 +361,7 @@ export default {
 		description: 'Descripción',
 		hidden: 'Ocultar de la lista de características',
 		jumpToMap: 'Mostrar en el mapa',
+		mapLabel: 'Label on map', // TODO
 		name: 'Nombre',
 		size: 'Tamaño',
 	},

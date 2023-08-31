@@ -345,6 +345,7 @@ export default {
 		description: 'Leírás',
 		hidden: 'Elem elrejtése a listában',
 		jumpToMap: 'Megnézem a térképen',
+		mapLabel: 'Térképen megjelenő címke',
 		name: 'Név',
 		size: 'Méret',
 	},
