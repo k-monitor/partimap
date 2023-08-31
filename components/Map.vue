@@ -445,6 +445,7 @@ export default {
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
+			const hidden = feature.get('hidden');
 			const featureMapLabel = feature.get('partimapMapLabel') || '';
 			const mapLabelOverride = String(
 				(this.labels || {})[feature.id_] || ''
@@ -484,6 +485,7 @@ export default {
 					overflow: true,
 					padding: [2, 5, 0, 6],
 				}),
+				zIndex: hidden ? -1 : 0,
 			});
 		},
 	},
