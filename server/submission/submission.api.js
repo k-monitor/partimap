@@ -286,11 +286,12 @@ router.get(
 		sfs.cell(1, 2).string(m.featureLabel);
 		sfs.cell(1, 3).string(m.featureType);
 		sfs.cell(1, 4).string(m.coords);
-		sfs.cell(1, 5).string(m.featureName);
-		sfs.cell(1, 6).string(m.descriptionLabel);
-		sfs.cell(1, 7).string(m.featureDesc);
-		sfs.cell(1, 8).string(m.featureQuestion);
-		sfs.cell(1, 9).string(m.featureQuestionAnswer);
+		sfs.cell(1, 5).string(m.feature);
+		sfs.cell(1, 6).string(m.featureName);
+		sfs.cell(1, 7).string(m.descriptionLabel);
+		sfs.cell(1, 8).string(m.featureDesc);
+		sfs.cell(1, 9).string(m.featureQuestion);
+		sfs.cell(1, 10).string(m.featureQuestionAnswer);
 		row = 1;
 		for (let i = 0; i < submittedFeatures.length; i++) {
 			const sf = submittedFeatures[i];
@@ -300,7 +301,7 @@ router.get(
 				const interactions = JSON.parse(sheet.interactions || '{}');
 				for (let j = 0; j < features.length; j++) {
 					const f = features[j];
-					const name = f?.properties?.name || f.id;
+					const name = f?.properties?.name || '';
 
 					let coords = f.geometry.coordinates;
 					// flatten completely
@@ -340,13 +341,14 @@ router.get(
 					sfs.cell(row, 2).string(featureLabel);
 					sfs.cell(row, 3).string(type);
 					sfs.cell(row, 4).string(coords);
-					sfs.cell(row, 5).string(String(name));
-					sfs.cell(row, 6).string(descriptionLabel);
-					sfs.cell(row, 7).string(f?.properties?.description || '');
-					sfs.cell(row, 8).string(
+					sfs.cell(row, 5).string(String(f.id));
+					sfs.cell(row, 6).string(String(name));
+					sfs.cell(row, 7).string(descriptionLabel);
+					sfs.cell(row, 8).string(f?.properties?.description || '');
+					sfs.cell(row, 9).string(
 						f?.properties?.partimapFeatureQuestion
 					);
-					sfs.cell(row, 9).string(answer);
+					sfs.cell(row, 10).string(answer);
 				}
 			}
 		}
