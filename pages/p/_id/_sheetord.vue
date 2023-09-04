@@ -290,7 +290,7 @@ export default {
 		prevSheetOrd() {
 			const ords = [...this.availableSheetOrds];
 			ords.reverse();
-			return this.availableSheetOrds.find(o => o < this.sheet.ord);
+			return ords.find(o => o < this.sheet.ord);
 		},
 		isFirstSheet() {
 			return typeof this.prevSheetOrd === 'undefined';
