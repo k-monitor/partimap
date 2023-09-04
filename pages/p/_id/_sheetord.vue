@@ -276,7 +276,7 @@ export default {
 				.filter(sheet => {
 					if (!sheet.survey) return true;
 					const { questions } = JSON.parse(sheet.survey);
-					if (!questions) return true;
+					if (!questions || !questions.length) return true;
 					const questionsAvailable = !!questions?.find(q => {
 						return canShowQuestion(q, this.getAllVisitorAnswers);
 					});
