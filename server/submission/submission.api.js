@@ -226,28 +226,30 @@ router.get(
 		const rs = wb.addWorksheet(m.ratings);
 		rs.cell(1, 1).string(m.submissionId);
 		rs.cell(1, 2).string(m.feature);
-		rs.cell(1, 3).string(m.rating);
+		rs.cell(1, 3).string(m.featureName);
+		rs.cell(1, 4).string(m.rating);
 		ratings.forEach((r, i) => {
 			rs.cell(i + 2, 1).number(r.submissionId);
 			rs.cell(i + 2, 2).string(String(r.featureId));
-			rs.cell(i + 2, 3).number(r.rating);
+			rs.cell(i + 2, 4).number(r.rating);
 			const sheet = sheets.filter(sh => sh.id === r.sheetId)[0];
 			if (sheet && sheet.features) {
 				const features = JSON.parse(sheet.features);
 				const feature = features.find(
 					f => String(f.id) === String(r.featureId)
 				);
-				const name = feature?.properties?.name || r.featureId;
-				rs.cell(i + 2, 2).string(String(name));
+				const name = feature?.properties?.name || '';
+				rs.cell(i + 2, 3).string(String(name));
 			}
 		});
 
 		const ars = wb.addWorksheet(m.aggregatedRatings);
 		ars.cell(1, 1).string(m.feature);
-		ars.cell(1, 2).string(m.ratingCount);
-		ars.cell(1, 3).string(m.aggregatedRating);
-		ars.cell(1, 4).string(m.likeCount);
-		ars.cell(1, 5).string(m.dislikeCount);
+		ars.cell(1, 2).string(m.featureName);
+		ars.cell(1, 3).string(m.ratingCount);
+		ars.cell(1, 4).string(m.aggregatedRating);
+		ars.cell(1, 5).string(m.likeCount);
+		ars.cell(1, 6).string(m.dislikeCount);
 		let row = 1;
 		for (let i = 0; i < sheets.length; i++) {
 			const sheet = sheets[i];
@@ -265,15 +267,16 @@ router.get(
 				const feature = features.find(
 					f => String(f.id) === String(r.featureId)
 				);
-				const name = feature?.properties?.name || r.featureId;
-				ars.cell(row, 1).string(String(name));
-				ars.cell(row, 2).number(r.count);
+				const name = feature?.properties?.name || '';
+				ars.cell(row, 1).string(String(r.featureId));
+				ars.cell(row, 2).string(String(name));
+				ars.cell(row, 3).number(r.count);
 				if (stars === -2) {
-					ars.cell(row, 3).number(Number(r.sum));
-					ars.cell(row, 4).number(Number(r.likeCount));
-					ars.cell(row, 5).number(Number(r.dislikeCount));
+					ars.cell(row, 4).number(Number(r.sum));
+					ars.cell(row, 5).number(Number(r.likeCount));
+					ars.cell(row, 6).number(Number(r.dislikeCount));
 				} else {
-					ars.cell(row, 3).number(Number(r.average));
+					ars.cell(row, 4).number(Number(r.average));
 				}
 			}
 		}
