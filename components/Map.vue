@@ -289,8 +289,15 @@ export default {
 				if (this.drawType) return;
 				const clickedFeature = this.map
 					.getFeaturesAtPixel(e.pixel)
-					.filter(f => !f.get('hidden'))[0];
+					.find(f => !f.get('hidden'));
 				this.$nuxt.$emit('selectAttempt', clickedFeature); // feature or null
+			});
+
+			this.map.on('pointermove', e => {
+				const hit = this.map
+					.getFeaturesAtPixel(e.pixel)
+					.find(f => !f.get('hidden'));
+				this.map.getTargetElement().style.cursor = hit ? 'pointer' : '';
 			});
 
 			this.source.on('addfeature', e => {
