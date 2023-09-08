@@ -42,6 +42,7 @@ tags! */
 </template>
 
 <script>
+import tinycolor from 'tinycolor2';
 import { mapGetters, mapMutations } from 'vuex';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
@@ -445,17 +446,21 @@ export default {
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
-			const isHidden = feature.get('hidden');
-			const selFeature = this.getSelectedFeature;
-			const isSelected = selFeature && selFeature.getId() === feature.id_;
+			const bgColor = pointFillColor || lineColor || polygonColor;
+			const isBright = tinycolor(bgColor).isLight();
+			const fgColor = isBright ? '#000000' : '#ffffff';
+
+			const fontSize = strokeWidth * 4;
+
 			const featureMapLabel = feature.get('partimapMapLabel') || '';
 			const mapLabelOverride = String(
 				(this.labels || {})[feature.id_] || ''
 			);
 			const text = mapLabelOverride || featureMapLabel;
 
-			const fontSize = strokeWidth * 4;
-
+			const isHidden = feature.get('hidden');
+			const selFeature = this.getSelectedFeature;
+			const isSelected = selFeature && selFeature.getId() === feature.id_;
 			let zIndex = 0;
 			if (isHidden) zIndex = -1;
 			else if (isSelected) zIndex = 1;
@@ -486,10 +491,10 @@ export default {
 					text,
 					placement: 'point',
 					backgroundFill: new Fill({
-						color: pointFillColor || lineColor || polygonColor,
+						color: bgColor,
 					}),
 					fill: new Fill({
-						color: '#fff',
+						color: fgColor,
 					}),
 					offsetY: 1,
 					overflow: true,
