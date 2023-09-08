@@ -445,12 +445,19 @@ export default {
 			lineDash = this.defaultStroke.lineDash,
 			strokeWidth = this.defaultStroke.width,
 		} = {}) {
-			const hidden = feature.get('hidden');
+			const isHidden = feature.get('hidden');
+			const selFeature = this.getSelectedFeature;
+			const isSelected = selFeature && selFeature.getId() === feature.id_;
 			const featureMapLabel = feature.get('partimapMapLabel') || '';
 			const mapLabelOverride = String(
 				(this.labels || {})[feature.id_] || ''
 			);
 			const text = mapLabelOverride || featureMapLabel;
+
+			let zIndex = 0;
+			if (isHidden) zIndex = -1;
+			else if (isSelected) zIndex = 1;
+
 			return new Style({
 				geometry(feature) {
 					return feature.getGeometry();
@@ -485,7 +492,7 @@ export default {
 					overflow: true,
 					padding: [2, 5, 0, 6],
 				}),
-				zIndex: hidden ? -1 : 0,
+				zIndex,
 			});
 		},
 	},
