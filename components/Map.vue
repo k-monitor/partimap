@@ -454,6 +454,8 @@ export default {
 			);
 			const text = mapLabelOverride || featureMapLabel;
 
+			const fontSize = strokeWidth * 4;
+
 			let zIndex = 0;
 			if (isHidden) zIndex = -1;
 			else if (isSelected) zIndex = 1;
@@ -480,7 +482,7 @@ export default {
 						: null,
 				}),
 				text: new Text({
-					font: 'bold 20px sans-serif',
+					font: `bold ${fontSize}px sans-serif`,
 					text,
 					placement: 'point',
 					backgroundFill: new Fill({
@@ -489,8 +491,8 @@ export default {
 					fill: new Fill({
 						color: '#fff',
 					}),
+					offsetY: 1,
 					overflow: true,
-					padding: [2, 5, 0, 6],
 				}),
 				zIndex,
 			});
