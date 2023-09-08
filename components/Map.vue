@@ -458,23 +458,27 @@ export default {
 			const isBright = tinycolor(bgColor).isLight();
 			const fgColor = isBright ? '#000000' : '#ffffff';
 
-			const fontSize = strokeWidth * 3.5;
+			const angle = Number(feature.get('partimapMapLabelAngle') || 0);
+			let rotation = angle * (Math.PI / 180);
+
 			let text = null;
+			const fontSize = strokeWidth * 3.5;
 			if (fontSize >= 8) {
-				const featureMapLabel = feature.get('partimapMapLabel') || '';
+				text = feature.get('partimapMapLabel') || '';
 				const mapLabelOverride = String(
 					(this.labels || {})[feature.id_] || ''
 				);
-				text = mapLabelOverride || featureMapLabel;
+				if (mapLabelOverride) {
+					// rating result on public sheet
+					text = mapLabelOverride;
+					rotation = 0;
+				}
 				text = wordWrap(text, {
 					indent: '',
 					trim: true,
 					width: 25,
 				});
 			}
-
-			const angle = Number(feature.get('partimapMapLabelAngle') || 0);
-			const rotation = angle * (Math.PI / 180);
 
 			const isHidden = feature.get('hidden');
 			const selFeature = this.getSelectedFeature;
