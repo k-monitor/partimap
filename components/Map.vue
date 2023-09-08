@@ -459,17 +459,19 @@ export default {
 			const fgColor = isBright ? '#000000' : '#ffffff';
 
 			const fontSize = strokeWidth * 3.5;
-
-			const featureMapLabel = feature.get('partimapMapLabel') || '';
-			const mapLabelOverride = String(
-				(this.labels || {})[feature.id_] || ''
-			);
-			const text = mapLabelOverride || featureMapLabel;
-			const wrappedText = wordWrap(text, {
-				indent: '',
-				trim: true,
-				width: 25,
-			});
+			let text = null;
+			if (fontSize >= 8) {
+				const featureMapLabel = feature.get('partimapMapLabel') || '';
+				const mapLabelOverride = String(
+					(this.labels || {})[feature.id_] || ''
+				);
+				text = mapLabelOverride || featureMapLabel;
+				text = wordWrap(text, {
+					indent: '',
+					trim: true,
+					width: 25,
+				});
+			}
 
 			const isHidden = feature.get('hidden');
 			const selFeature = this.getSelectedFeature;
@@ -501,7 +503,7 @@ export default {
 				}),
 				text: new Text({
 					font: `bold ${fontSize}px sans-serif`,
-					text: wrappedText,
+					text,
 					placement: 'point',
 					backgroundFill: new Fill({
 						color: bgColor,
