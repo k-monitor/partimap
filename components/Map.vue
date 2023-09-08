@@ -43,6 +43,7 @@ tags! */
 
 <script>
 import tinycolor from 'tinycolor2';
+import wordWrap from 'word-wrap';
 import { mapGetters, mapMutations } from 'vuex';
 import Collection from 'ol/Collection';
 import Feature from 'ol/Feature';
@@ -457,13 +458,18 @@ export default {
 			const isBright = tinycolor(bgColor).isLight();
 			const fgColor = isBright ? '#000000' : '#ffffff';
 
-			const fontSize = strokeWidth * 4;
+			const fontSize = strokeWidth * 3.5;
 
 			const featureMapLabel = feature.get('partimapMapLabel') || '';
 			const mapLabelOverride = String(
 				(this.labels || {})[feature.id_] || ''
 			);
 			const text = mapLabelOverride || featureMapLabel;
+			const wrappedText = wordWrap(text, {
+				indent: '',
+				trim: true,
+				width: 25,
+			});
 
 			const isHidden = feature.get('hidden');
 			const selFeature = this.getSelectedFeature;
@@ -495,7 +501,7 @@ export default {
 				}),
 				text: new Text({
 					font: `bold ${fontSize}px sans-serif`,
-					text,
+					text: wrappedText,
 					placement: 'point',
 					backgroundFill: new Fill({
 						color: bgColor,
@@ -505,6 +511,7 @@ export default {
 					}),
 					offsetY: 1,
 					overflow: true,
+					padding: [3, 3, 3, 3],
 				}),
 				zIndex,
 			});
