@@ -473,6 +473,9 @@ export default {
 				});
 			}
 
+			const angle = Number(feature.get('partimapMapLabelAngle') || 0);
+			const rotation = angle * (Math.PI / 180);
+
 			const isHidden = feature.get('hidden');
 			const selFeature = this.getSelectedFeature;
 			const isSelected = selFeature && selFeature.getId() === feature.id_;
@@ -514,6 +517,7 @@ export default {
 					offsetY: 1,
 					overflow: true,
 					padding: [3, 3, 3, 3],
+					rotation,
 				}),
 				zIndex,
 			});

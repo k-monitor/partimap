@@ -153,16 +153,28 @@
 						/>
 					</b-form-group>
 
-					<!-- FIXME i18n-->
 					<b-form-group
 						v-if="!visitor && !readonly"
 						:label="$t('FeatureListElement.mapLabel')"
 					>
 						<b-form-input
-							v-model="form.partimapMapLabel"
+							v-model.trim="form.partimapMapLabel"
 							size="sm"
 							type="text"
 						/>
+					</b-form-group>
+					<b-form-group v-if="!!form.partimapMapLabel">
+						<div class="d-flex align-items-center">
+							<div>0°</div>
+							<b-form-input
+								v-model.number="form.partimapMapLabelAngle"
+								class="mx-2 mb-1"
+								max="90"
+								min="0"
+								type="range"
+							/>
+							<div>90°</div>
+						</div>
 					</b-form-group>
 
 					<b-form-group
@@ -425,6 +437,9 @@ export default {
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
 				partimapMapLabel: this.feature.get('partimapMapLabel') || '',
+				partimapMapLabelAngle: Number(
+					this.feature.get('partimapMapLabelAngle') || 0
+				),
 				questionAnswer: JSON.parse(
 					this.feature.get('partimapFeatureQuestion_ans') || '[]'
 				),
@@ -508,13 +523,6 @@ export default {
 			this.feature.set('category', this.form.category);
 			this.$emit('categoryEdited');
 		},
-		'form.color'() {
-			this.emitChangeStyle();
-			// debounce maybe..
-		},
-		'form.dash'() {
-			this.emitChangeStyle();
-		},
 		'form.hidden'(h) {
 			if (h) {
 				this.feature.set('hidden', true);
@@ -527,7 +535,12 @@ export default {
 		},
 		'form.partimapMapLabel'() {
 			this.feature.set('partimapMapLabel', this.form.partimapMapLabel);
-			this.emitChangeStyle();
+		},
+		'form.partimapMapLabelAngle'() {
+			this.feature.set(
+				'partimapMapLabelAngle',
+				this.form.partimapMapLabelAngle
+			);
 		},
 		'form.description'() {
 			this.feature.set('description', this.form.description);
@@ -539,11 +552,9 @@ export default {
 				JSON.stringify(this.form.questionAnswer)
 			);
 		},
-		'form.width'() {
-			this.emitChangeStyle();
-		},
 		form: {
 			handler(val) {
+				this.emitChangeStyle();
 				this.$nuxt.$emit('contentModified');
 			},
 			deep: true,
