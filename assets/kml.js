@@ -1,3 +1,4 @@
+import { decode } from 'html-entities';
 import KML from 'ol/format/KML';
 
 const DEFAULT_COLOR = '#000000';
@@ -161,6 +162,7 @@ function prepareKmlForImport(kmlString) {
 				/\s(https?:[^ <>"\s]+)/g,
 				'<a href="$1" target="_blank">$1</a>'
 			);
+		descEl.innerHTML = decode(descEl.innerHTML);
 		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
 	});
 
