@@ -458,19 +458,19 @@ export default {
 			const isBright = tinycolor(bgColor).isLight();
 			const fgColor = isBright ? '#000000' : '#ffffff';
 
-			const angle = Number(feature.get('partimapMapLabelAngle') || 0);
-			let rotation = angle * (Math.PI / 180);
-
-			let text = null;
+			let rotation = 0;
+			let text = '';
 			const fontSize = Math.max(10, strokeWidth * 3.5);
-			text = feature.get('partimapMapLabel') || '';
-			const mapLabelOverride = String(
-				(this.labels || {})[feature.id_] || ''
-			);
-			if (mapLabelOverride) {
-				// rating result on public sheet
-				text = mapLabelOverride;
+			if (Object.keys(this.labels || {}).length) {
+				// we received map label overrides which are rating results,
+				// in this mode we don't want to show any feature labels,
+				// just the results for those that have one
 				rotation = 0;
+				text = this.labels[feature.id_] || '';
+			} else {
+				const angle = Number(feature.get('partimapMapLabelAngle') || 0);
+				rotation = angle * (Math.PI / 180);
+				text = feature.get('partimapMapLabel') || '';
 			}
 			text = wordWrap(text, {
 				indent: '',
