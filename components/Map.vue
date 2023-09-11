@@ -462,23 +462,21 @@ export default {
 			let rotation = angle * (Math.PI / 180);
 
 			let text = null;
-			const fontSize = strokeWidth * 3.5;
-			if (fontSize >= 8) {
-				text = feature.get('partimapMapLabel') || '';
-				const mapLabelOverride = String(
-					(this.labels || {})[feature.id_] || ''
-				);
-				if (mapLabelOverride) {
-					// rating result on public sheet
-					text = mapLabelOverride;
-					rotation = 0;
-				}
-				text = wordWrap(text, {
-					indent: '',
-					trim: true,
-					width: 25,
-				});
+			const fontSize = Math.max(10, strokeWidth * 3.5);
+			text = feature.get('partimapMapLabel') || '';
+			const mapLabelOverride = String(
+				(this.labels || {})[feature.id_] || ''
+			);
+			if (mapLabelOverride) {
+				// rating result on public sheet
+				text = mapLabelOverride;
+				rotation = 0;
 			}
+			text = wordWrap(text, {
+				indent: '',
+				trim: true,
+				width: 25,
+			});
 
 			const isHidden = feature.get('hidden');
 			const selFeature = this.getSelectedFeature;
