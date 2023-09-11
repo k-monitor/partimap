@@ -165,12 +165,13 @@
 					</b-form-group>
 					<b-form-group v-if="!!form.partimapMapLabel">
 						<div class="d-flex align-items-center">
-							<div>0°</div>
+							<div>-90°</div>
 							<b-form-input
 								v-model.number="form.partimapMapLabelAngle"
 								class="mx-2 mb-1"
 								max="90"
-								min="0"
+								min="-90"
+								step="5"
 								type="range"
 							/>
 							<div>90°</div>
