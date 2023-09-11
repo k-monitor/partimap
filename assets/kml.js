@@ -5,6 +5,7 @@ const DEFAULT_WIDTH = '6';
 const EXPORTED_CATEGORY_NAME = 'partimapCategory';
 const EXPORTED_DASH_NAME = 'partimapLineStyle';
 const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
+const EXPORTED_ID_NAME = 'partimapId';
 const EXPORTED_HIDDEN_NAME = 'partimapHidden';
 const EXPORTED_POINT_SIZE = 'partimapPointSize';
 
@@ -27,6 +28,8 @@ function prepareKmlForExport(kmlString) {
 	const kml = deserializeXML(kmlString);
 	kml.querySelectorAll('Placemark').forEach(p => {
 		const ed = ensureElement(kml, p, 'ExtendedData');
+
+		ensureData(kml, ed, EXPORTED_ID_NAME, p.getAttribute('id'));
 
 		if (p.querySelector('Point')) {
 			// fix missing IconStyle
@@ -99,11 +102,14 @@ function prepareKmlForImport(kmlString) {
 
 	const idBase = new Date().getTime() - placemarks.length;
 	placemarks.forEach((p, i) => {
-		// ensure ID
-		const pId = p.getAttribute('id') || idBase + i;
-		p.setAttribute('id', pId);
-
 		const ed = ensureElement(kml, p, 'ExtendedData');
+
+		// ensure ID
+		const idValueEl = ed.querySelector(
+			`Data[name="${EXPORTED_ID_NAME}"] value`
+		);
+		const pId = idValueEl?.innerHTML || p.getAttribute('id') || idBase + i;
+		p.setAttribute('id', pId);
 
 		// rename back data entries
 		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
