@@ -438,28 +438,40 @@ export default {
 			const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
 			// size
-			let featureSize = Math.max(1, Number(feature.get('width') || 1));
+			const baseFeatureSize = Math.max(
+				1,
+				Number(feature.get('width') || 1)
+			);
+			let featureSize = baseFeatureSize;
 			if (this.visitor) {
 				const isPoint = feature.getGeometry().getType() === 'Point';
 				if (!isHidden && isSelected && !isPoint) featureSize += 5;
 			}
 			const zoom = this.view.getZoom();
 			featureSize -= 0.75 * (19 - zoom);
+			let fontSize = featureSize * 3.5;
+			if (baseFeatureSize < 5) {
+				const featureSizeAdj = 5 - baseFeatureSize + 1;
+				fontSize += featureSizeAdj * 3.5;
+			}
 			featureSize = Math.max(2, featureSize);
-			const fontSize = Math.max(10, featureSize * 3.5);
 
 			// text
-			const isInResultsMode = Object.keys(this.labels || {}).length;
-			const angle = Number(feature.get('partimapMapLabelAngle') || 0); // deg
-			const rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
-			let text = isInResultsMode
-				? this.labels[feature.id_]
-				: feature.get('partimapMapLabel');
-			text = wordWrap(text || '', {
-				indent: '',
-				trim: true,
-				width: 25, // chars
-			});
+			let rotation = 0;
+			let text = '';
+			if (fontSize >= 8) {
+				const isInResultsMode = Object.keys(this.labels || {}).length;
+				const angle = Number(feature.get('partimapMapLabelAngle') || 0); // deg
+				rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
+				text = isInResultsMode
+					? this.labels[feature.id_]
+					: feature.get('partimapMapLabel');
+				text = wordWrap(text || '', {
+					indent: '',
+					trim: true,
+					width: 25, // chars
+				});
+			}
 
 			function fill(color) {
 				if (!color) return null;
