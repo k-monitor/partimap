@@ -418,11 +418,6 @@ export default {
 			if (isHidden) zIndex = -1;
 			else if (isSelected) zIndex = 1;
 
-			// line style
-			const lineDash = (feature.get('dash') || '1')
-				.split(',')
-				.map(w => Number(w) * featureSize);
-
 			// color
 			let color = feature.get('color');
 			if (this.grayRated) {
@@ -472,6 +467,11 @@ export default {
 					width: 25, // chars
 				});
 			}
+
+			// line style
+			const lineDash = (feature.get('dash') || '1')
+				.split(',')
+				.map(w => Number(w) * featureSize);
 
 			function fill(color) {
 				if (!color) return null;
