@@ -401,108 +401,92 @@ export default {
 			});
 		},
 		updateFeatureStyle(feature, selFeature) {
-			const r = feature.get('rating');
-			const rated = Number.isInteger(r) && r !== 0;
-			const color =
-				rated && this.grayRated ? '#666666' : feature.get('color');
-
-			// lower opacity of unselected features
-			const isUnselected =
-				selFeature && selFeature.getId() !== feature.getId();
-			const opacity = isUnselected ? '60' : '';
-
-			// raise width of selected features
+			const isSomeFeatureSelected = !!selFeature;
+			const isSelected = selFeature?.getId() === feature.getId();
+			const isUnselected = isSomeFeatureSelected && !isSelected;
 			const isHidden = feature.get('hidden');
-			const isPoint = feature.getGeometry().getType() === 'Point';
-			const isSelected =
-				selFeature && selFeature.getId() === feature.getId();
-			const addWidth =
-				isSelected && !isHidden && !isPoint && this.visitor ? 5 : 0;
 
-			// decrease width with zoom
-			const zoom = this.view.getZoom();
-			const decWidth = 19 - zoom;
-
-			const newWidth = Math.max(
-				2,
-				Number(feature.get('width')) + addWidth - 0.75 * decWidth
-			);
-
-			// if item is filtered out, hide it
-			if (
-				this.filteredIds !== null &&
-				!this.filteredIds.includes(feature.getId())
-			) {
-				return feature.setStyle(() => false);
+			// filter
+			const isFilterActive = this.filteredIds !== null;
+			const featureIncluded = this.filteredIds?.includes(feature.getId());
+			if (isFilterActive && !featureIncluded) {
+				return feature.setStyle(() => false); // hide
 			}
 
-			const pointFillColor = color + opacity;
-			const lineColor = color + opacity;
-			const polygonColor = color;
-			const lineDash = feature.get('dash');
-			const strokeWidth = newWidth;
-
-			const bgColor = pointFillColor || lineColor || polygonColor;
-			const isBright = tinycolor(bgColor).isLight();
-			const fgColor = isBright ? '#000000' : '#ffffff';
-
-			let rotation = 0;
-			let text = '';
-			const fontSize = Math.max(10, strokeWidth * 3.5);
-			if (Object.keys(this.labels || {}).length) {
-				// we received map label overrides which are rating results,
-				// in this mode we don't want to show any feature labels,
-				// just the results for those that have one
-				rotation = 0;
-				text = this.labels[feature.id_] || '';
-			} else {
-				const angle = Number(feature.get('partimapMapLabelAngle') || 0);
-				rotation = angle * (Math.PI / 180);
-				text = feature.get('partimapMapLabel') || '';
-			}
-			text = wordWrap(text, {
-				indent: '',
-				trim: true,
-				width: 25, // characters
-			});
-
-			// const selFeature = this.getSelectedFeature;
-			// const isSelected = selFeature && selFeature.getId() === feature.id_;
+			// z-index
 			let zIndex = 0;
 			if (isHidden) zIndex = -1;
 			else if (isSelected) zIndex = 1;
+
+			// line style
+			const lineDash = (feature.get('dash') || '1')
+				.split(',')
+				.map(w => Number(w) * featureSize);
+
+			// color
+			let color = feature.get('color');
+			if (this.grayRated) {
+				const rating = feature.get('rating');
+				const isRated = Number.isInteger(rating) && rating !== 0;
+				if (isRated) color = '#666666';
+			}
+			const opacity = isUnselected ? '60' : ''; // hex
+			const colorWithOpacity = color + opacity;
+			const polygonFillColor = color + '15';
+			const isLight = tinycolor(colorWithOpacity).isLight();
+			const textOpacity = isUnselected ? 'CC' : ''; // hex
+			const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
+
+			// size
+			let featureSize = Math.max(1, Number(feature.get('width') || 1));
+			if (this.visitor) {
+				const isPoint = feature.getGeometry().getType() === 'Point';
+				if (!isHidden && isSelected && !isPoint) featureSize += 5;
+			}
+			const zoom = this.view.getZoom();
+			featureSize -= 0.75 * (19 - zoom);
+			featureSize = Math.max(2, featureSize);
+			const fontSize = Math.max(10, featureSize * 3.5);
+
+			// text
+			const isInResultsMode = Object.keys(this.labels || {}).length;
+			const angle = Number(feature.get('partimapMapLabelAngle') || 0); // deg
+			const rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
+			let text = isInResultsMode
+				? this.labels[feature.id_]
+				: feature.get('partimapMapLabel');
+			text = wordWrap(text || '', {
+				indent: '',
+				trim: true,
+				width: 25, // chars
+			});
+
+			function fill(color) {
+				if (!color) return null;
+				return new Fill({ color });
+			}
 
 			const style = new Style({
 				geometry(feature) {
 					return feature.getGeometry();
 				},
-				fill: polygonColor
-					? new Fill({ color: polygonColor + '15' }) // more transparent fill
-					: null,
+				fill: fill(polygonFillColor),
 				stroke: new Stroke({
-					color: lineColor,
+					color: colorWithOpacity,
 					lineCap: 'butt',
-					lineDash: lineDash
-						.split(',')
-						.map(w => Number(w) * strokeWidth),
-					width: strokeWidth,
+					lineDash,
+					width: featureSize,
 				}),
 				image: new CircleStyle({
-					radius: strokeWidth * 3,
-					fill: pointFillColor
-						? new Fill({ color: pointFillColor })
-						: null,
+					radius: featureSize * 3,
+					fill: fill(colorWithOpacity),
 				}),
 				text: new Text({
 					font: `bold ${fontSize}px sans-serif`,
 					text,
 					placement: 'point',
-					backgroundFill: new Fill({
-						color: bgColor,
-					}),
-					fill: new Fill({
-						color: fgColor,
-					}),
+					backgroundFill: fill(colorWithOpacity),
+					fill: fill(textColor),
 					offsetY: 1,
 					overflow: true,
 					padding: [3, 3, 3, 3],
