@@ -435,25 +435,13 @@ export default {
 			) {
 				return feature.setStyle(() => false);
 			}
-			feature.setStyle(
-				this.styleFunction({
-					feature,
-					pointFillColor: color + opacity,
-					lineColor: color + opacity,
-					polygonColor: color, // opacity is constant and handled in styleFunction
-					lineDash: feature.get('dash'),
-					strokeWidth: newWidth,
-				})
-			);
-		},
-		styleFunction({
-			feature,
-			pointFillColor = this.defaultColor.drawing,
-			lineColor = this.defaultColor.drawing,
-			polygonColor = this.defaultColor.drawing,
-			lineDash = this.defaultStroke.lineDash,
-			strokeWidth = this.defaultStroke.width,
-		} = {}) {
+
+			const pointFillColor = color + opacity;
+			const lineColor = color + opacity;
+			const polygonColor = color;
+			const lineDash = feature.get('dash');
+			const strokeWidth = newWidth;
+
 			const bgColor = pointFillColor || lineColor || polygonColor;
 			const isBright = tinycolor(bgColor).isLight();
 			const fgColor = isBright ? '#000000' : '#ffffff';
@@ -475,17 +463,16 @@ export default {
 			text = wordWrap(text, {
 				indent: '',
 				trim: true,
-				width: 25,
+				width: 25, // characters
 			});
 
-			const isHidden = feature.get('hidden');
-			const selFeature = this.getSelectedFeature;
-			const isSelected = selFeature && selFeature.getId() === feature.id_;
+			// const selFeature = this.getSelectedFeature;
+			// const isSelected = selFeature && selFeature.getId() === feature.id_;
 			let zIndex = 0;
 			if (isHidden) zIndex = -1;
 			else if (isSelected) zIndex = 1;
 
-			return new Style({
+			const style = new Style({
 				geometry(feature) {
 					return feature.getGeometry();
 				},
@@ -523,6 +510,8 @@ export default {
 				}),
 				zIndex,
 			});
+
+			feature.setStyle(style);
 		},
 	},
 };
