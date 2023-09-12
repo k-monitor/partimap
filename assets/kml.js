@@ -22,7 +22,19 @@ export function featuresToKML(features) {
 
 export function KMLToFeatures(kml) {
 	const preparedKml = prepareKmlForImport(kml);
-	return new KML().readFeatures(preparedKml, options);
+	const features = new KML().readFeatures(preparedKml, options);
+	fixDescriptionsAfterImport(features);
+	return features;
+}
+
+/**
+ * @param {import('ol').Feature[]} features
+ */
+function fixDescriptionsAfterImport(features) {
+	features.forEach(f => {
+		const d = f.get('description') || '';
+		f.set('description', decode(d));
+	});
 }
 
 function prepareKmlForExport(kmlString) {
@@ -162,7 +174,6 @@ function prepareKmlForImport(kmlString) {
 				/\s(https?:[^ <>"\s]+)/g,
 				'<a href="$1" target="_blank">$1</a>'
 			);
-		descEl.innerHTML = decode(descEl.innerHTML);
 		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
 	});
 
