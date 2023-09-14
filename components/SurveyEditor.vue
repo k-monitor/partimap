@@ -108,16 +108,17 @@
 			@ok="saveQuestion"
 			@shown="$refs.questionLabelInput.focus()"
 		>
-			<div
-				v-if="isQuestionReferenced(question)"
-				class="alert alert-warning"
-			>
-				{{ $t('SurveyEditor.warnForReferencedQuestion') }}
-			</div>
 			<form
+				v-if="question"
 				ref="form"
 				@submit.prevent="saveQuestion"
 			>
+				<div
+					v-if="isQuestionReferenced(question)"
+					class="alert alert-warning"
+				>
+					{{ $t('SurveyEditor.warnForReferencedQuestion') }}
+				</div>
 				<b-form-group :label="$t('SurveyEditor.questionText')">
 					<b-form-input
 						ref="questionLabelInput"
@@ -591,10 +592,10 @@ export default {
 			}
 		},
 		isQuestionConditional(question) {
-			return Array.isArray(question.showIf) && question.showIf.length;
+			return Array.isArray(question?.showIf) && question.showIf.length;
 		},
 		referencedQuestionIdsOf(question) {
-			return Array.isArray(question.showIf)
+			return Array.isArray(question?.showIf)
 				? question.showIf.map(c => c[0][0])
 				: [];
 		},
@@ -602,7 +603,7 @@ export default {
 			return [...this.survey.questions, ...this.questionsFromNextSheets]
 				.filter(q => {
 					const refIds = this.referencedQuestionIdsOf(q);
-					return refIds.includes(question.id);
+					return refIds.includes(question?.id);
 				})
 				.map(q => q.id);
 		},
