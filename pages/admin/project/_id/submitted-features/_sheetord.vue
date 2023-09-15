@@ -13,6 +13,11 @@
 			:loading="loading"
 			@back="back"
 		>
+			<b-navbar class="m-0 mb-4 p-0">
+				<h1 class="h3">
+					{{ sheet.title }}
+				</h1>
+			</b-navbar>
 			<FeatureList readonly />
 		</Sidebar>
 	</div>
