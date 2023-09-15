@@ -67,10 +67,12 @@
 						!visitorCanRate,
 				}"
 			>
-				<b-form-group
-					v-if="readonly && form.questionAnswer"
-					:label="feature.get('partimapFeatureQuestion')"
-				>
+				<b-form-group v-if="readonly && form.questionAnswer">
+					<template #label>
+						<strong>{{
+							feature.get('partimapFeatureQuestion')
+						}}</strong>
+					</template>
 					{{ form.questionAnswer.join(', ') }}
 				</b-form-group>
 
@@ -141,13 +143,16 @@
 							:options="dashOptions"
 						/>
 					</b-form-group>
-					<b-form-group
-						v-if="!visitor || visitorCanName"
-						:label="$t('FeatureListElement.name')"
-					>
+					<b-form-group v-if="!visitor || visitorCanName">
+						<template #label>
+							<span :class="readonly && 'font-weight-bold'">{{
+								$t('FeatureListElement.name')
+							}}</span>
+						</template>
+						<p v-if="readonly">{{ form.name }}</p>
 						<b-form-input
+							v-else
 							v-model="form.name"
-							:disabled="readonly"
 							size="sm"
 							type="text"
 						/>
@@ -221,10 +226,13 @@
 							<tiptap v-model="form.description" />
 						</client-only>
 					</b-form-group>
-					<b-form-group
-						v-else
-						:label="$t('FeatureListElement.description')"
-					>
+					<b-form-group v-else>
+						<template #label>
+							<strong>{{
+								$t('FeatureListElement.description')
+							}}</strong>
+							<!-- TODO these would be much better with DL tag -->
+						</template>
 						<TipTapDisplay
 							v-if="readonly"
 							:html="form.description"
