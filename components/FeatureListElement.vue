@@ -32,7 +32,7 @@
 				<i class="fas fa-fw fa-times" />
 			</span>
 			<span
-				v-else-if="editable && !readonly"
+				v-else-if="editable"
 				class="ml-auto text-danger"
 				role="button"
 				@click.stop="deleteFeature"
