@@ -149,7 +149,12 @@
 								$t('FeatureListElement.name')
 							}}</span>
 						</template>
-						<p v-if="readonly">{{ form.name }}</p>
+						<p
+							v-if="readonly"
+							class="mb-0"
+						>
+							{{ form.name }}
+						</p>
 						<b-form-input
 							v-else
 							v-model="form.name"
