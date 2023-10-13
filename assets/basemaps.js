@@ -1,11 +1,11 @@
 import { Tile as TileLayer } from 'ol/layer';
-import { OSM, Stamen, XYZ } from 'ol/source';
+import { OSM, XYZ } from 'ol/source';
 
 const cycleOsmAttribution =
 	'Map tiles by <a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a>; Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const stamenAttribution =
-	'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+	'&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> <a href="https://stamen.com/" target="_blank">&copy; Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/about" target="_blank">OpenStreetMap</a> contributors';
 
 const esriAttribution =
 	'Map tiles &copy; Esri; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community; Labels by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -23,20 +23,16 @@ const baseMapCreators = {
 		),
 	],
 	toner: () => [
-		new TileLayer({
-			source: new Stamen({
-				attribution: stamenAttribution,
-				layer: 'toner',
-			}),
-		}),
+		tl(
+			stamenAttribution,
+			'https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png'
+		),
 	],
 	terrain: () => [
-		new TileLayer({
-			source: new Stamen({
-				attribution: stamenAttribution,
-				layer: 'terrain',
-			}),
-		}),
+		tl(
+			stamenAttribution,
+			'https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.png'
+		),
 	],
 	'esri-wi': () => [
 		tl(
