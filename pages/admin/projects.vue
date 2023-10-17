@@ -64,6 +64,7 @@
 				{{ $t('projects.submissions') }}: {{ p.submissions }}
 				<a
 					v-if="p.submissions"
+					:id="`dlr-${p.id}`"
 					:href="`/api/submission/export/${$i18n.locale}/${p.id}`"
 					target="_blank"
 					>{{ $t('projects.export') }}</a
@@ -121,6 +122,18 @@ export default {
 			projects.sort((a, b) => b.id - a.id);
 			return projects;
 		},
+	},
+	mounted() {
+		const pid = this.$route.query.dlr;
+		if (pid) {
+			// remove query param
+			this.$router.replace({ path: this.$route.path });
+
+			// start downloading project report
+			const a = document.getElementById(`dlr-${pid}`);
+			const u = a.getAttribute('href');
+			window.location.href = u;
+		}
 	},
 	methods: {
 		async add() {

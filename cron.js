@@ -48,7 +48,7 @@ async function sendNotifications(projects) {
 		const p = projects[i];
 		const m = i18n(p.lang).notificationEmail;
 		const projectUrl = `${BASE_URL}/${p.lang}/admin/project/${p.id}`;
-		const reportUrl = `${BASE_URL}/api/submission/export/${p.lang}/${p.id}`;
+		const reportUrl = `${BASE_URL}/${p.lang}/admin/projects?dlr=${p.id}`;
 		const unsubscribeUrl = `${BASE_URL}/${p.lang}/unsubscribe?id=${p.id}&token=${p.unsubscribeToken}`;
 		const subject = m.subject.replace(/\{title\}/g, p.title);
 		const body = (p.newSubmissions === 1 ? m.body_one : m.body_other)
