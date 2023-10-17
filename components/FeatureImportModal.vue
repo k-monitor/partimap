@@ -105,7 +105,7 @@ export default {
 				{ value: null, text: this.$t('FeatureImportModal.selectMap') },
 				...this.maps.map(m => ({
 					value: m,
-					text: `${m.title} (${m.featureCount} elem)`, // TODO i18n
+					text: `${m.title} (${m.featureCount})`,
 				})),
 			];
 		},

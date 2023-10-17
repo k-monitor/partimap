@@ -88,6 +88,7 @@ export default {
 			{ code: 'hu', iso: 'hu-HU', file: 'hu.js', name: 'Magyar' },
 			{ code: 'en', iso: 'en-GB', file: 'en.js', name: 'English' },
 			{ code: 'es', iso: 'es-ES', file: 'es.js', name: 'Español' },
+			{ code: 'lt', iso: 'lt-LT', file: 'lt.js', name: 'Lietuvių' },
 		],
 		strategy: 'prefix',
 		vueI18n: {

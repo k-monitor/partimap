@@ -105,7 +105,7 @@ export default {
 			.filter(m => m.featureCount > 0)
 			.map(m => ({
 				value: m.id,
-				text: `${m.title} (${m.featureCount} elem)`, // TODO i18n
+				text: `${m.title} (${m.featureCount})`,
 			}));
 	},
 	computed: {

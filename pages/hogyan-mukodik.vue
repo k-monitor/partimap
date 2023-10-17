@@ -39,6 +39,7 @@ export default {
 		paths: {
 			en: '/how-it-works',
 			es: '/guia-del-usuario',
+			lt: '/naudojimosi-instrukcija',
 		},
 	},
 };
