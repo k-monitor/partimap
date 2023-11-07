@@ -20,7 +20,7 @@ export default {
 		tagline2:
 			'kurie tiki, kad gyventojai turi būti įtraukiami į teritorijų planavimo procesą ',
 		column1:
-			'Kada paskutinį kartą buvo klausiama jūsų nuomonės apie plėtros projektą, kuris turės įtakos jūsų kasdieniniam gyvenimui? Miestų atnaujinimui skiriami milijardai eurų, tačiau gyventojų nuomonės išklausymas ir projektų viešinimas dažnai lieka tik formalumu. Norint, kad projektas būtų sėkmingas, svarbu atsižvelgti ne tik į ekspertų, bet ir į žmonių, kurie kasdien naudosis nauja infrastruktūra, poreikius. Juk stotelių modernizavimo tikslas nėra pats atnaujinimas, o žmonių, kurie keliauja viešuoju transportu padidėjimas. Nauji modernūs suoliukai aikštėse nepaverčia viešosios erdvės bendruomenės vieta, tokia ji tampa, jei taip nusprendžia patys gyventojai.',
+			'Kada paskutinį kartą buvo klausiama jūsų nuomonės apie plėtros projektą, kuris turės įtakos jūsų kasdieniniam gyvenimui? Miestų atnaujinimui skiriami milijardai eurų, tačiau gyventojų nuomonės išklausymas ir projektų viešinimas dažnai lieka tik formalumu. Norint, kad projektas būtų sėkmingas, svarbu atsižvelgti ne tik į ekspertų, bet ir į žmonių, kurie kasdien naudosis nauja infrastruktūra, poreikius. Juk stotelių modernizavimo tikslas nėra pats atnaujinimas, bet žmonių, kurie dažniau keliautų viešuoju transportu, pritraukimas.Nauji modernūs suoliukai aikštėse nepaverčia viešosios erdvės bendruomenės vieta, tokia ji tampa, jei taip nusprendžia patys gyventojai.',
 		column2:
 			'Dalyvaujamasis kartografavimas yra procesas, kurio metu suinteresuotųjų šalių žinios naudojamos bendruomenės plėtrai skirtiems projektams. PARTIMAP žemėlapių apklausos paverčia bendravimą su vietos suinteresuotomis šalimis greitesniu, paprastesniu ir efektyvesniu. Šią atviro kodo platformą po registracijos galima naudoti, redaguoti ir plėtoti nemokamai. Nesvarbu, ar atstovaujate viešajai įstaigai, savivaldybei ar vietinei grupei, jei ieškote išmanaus ir skaidraus būdo susipažinti su savo bendruomenės nuomone, išbandykite PARTIMAP ir prisijunkite prie aplikacijos plėtros!',
 		tryButton: 'Išbandykite',
@@ -41,7 +41,7 @@ export default {
 			{
 				title: 'Savo dizaino kūrimas',
 				description:
-					'<p>Klausimynas sukurtos taip, kad efektyviai pasiektų tikslinę auditoriją. Dėl šios priežasties kūrimo metu ypatingą dėmesį skyrėme projektų dalinimuisi ir pritaikymui. Darbalapiuose yra populiariausių socialinių platformų bendrinimo mygtukai. Projektus taip pat galima kurti naudojant Facebook nuorodą ir peržiūros tekstą, leidžiantį vartotojams pritaikyti apklausą pagal savo sukurtą dizainą. Galite ne tik įkelti savo nuotraukas į darbalapio redagavimo sąsają, bet ir formatuoti tekstą, pridėti nuorodas ir įkelti fono paveikslėlius. Be to, programoje projektams gali būti suteiktas unikalus url (partimap.eu/en/p/NAME).</p>',
+					'<p>Klausimynas sukurtas taip, kad efektyviai pasiektų tikslinę auditoriją. Dėl šios priežasties kūrimo metu ypatingą dėmesį skyrėme projektų dalinimuisi ir pritaikymui. Darbalapiuose yra populiariausių socialinių platformų bendrinimo mygtukai. Projektus taip pat galima kurti naudojant Facebook nuorodą ir peržiūros tekstą, leidžiantį vartotojams pritaikyti apklausą pagal savo sukurtą dizainą. Galite ne tik įkelti savo nuotraukas į darbalapio redagavimo sąsają, bet ir formatuoti tekstą, pridėti nuorodas ir įkelti fono paveikslėlius. Be to, programoje projektams gali būti suteiktas unikalus url (partimap.eu/en/p/NAME).</p>',
 			},
 			{
 				title: 'Įvairios atsakymų formos',
@@ -61,7 +61,7 @@ export default {
 			{
 				title: 'Suderinamumas su kitomis platformomis',
 				description:
-					'<p>Abu žemėlapių darbalapiai naudoja openstreetmap.org kaip fono žemėlapį, kuriam galima kitą pasirinkti pagrindo žemėlapį, išryškinantį tyrimo taškus. Ankstesniuose projektuose nupiešti elementai gali būti išsaugoti ir saugomi tarp vartotojo žemėlapių. Kiekviename darbalapyje pagrindo žemėlapį galima importuoti ne tik iš šios žemėlapių saugyklos, bet ir iš išorinio .KML failo: importavimo / eksportavimo funkcija užtikrina greitą pasikeitimą su žemėlapių programine įranga, tokia kaip Google MyMaps ar kita sudėtingesne geoerdvine programine įranga.< /p><p>Paprasta redagavimo sąsaja leidžia kurti tyrimui tinkančius žemėlapius braižant spalvotus taškus, linijas ir daugiakampius. Vieno mygtuko paspaudimu taip pat galima sukurti pagrindo žemėlapį iš apklausos respondento pateiktų duomenų, ir eksportuoti į .KML failo formatą – suteikdami perkeliamumą kitoms žemėlapių redagavimo programoms. Ateityje taip pat ketiname kurti kitų tipų rastrinius fono žemėlapius ir naujus grafinius nubrėžtų elementų vaizdus (pvz., pasirinktines piktogramas).</p> ',
+					'<p>Abu žemėlapių darbalapiai naudoja openstreetmap.org kaip fono žemėlapį, kuriam galima pasirinkti kitą pagrindo žemėlapį, išryškinantį tyrimo taškus. Ankstesniuose projektuose nupiešti elementai gali būti išsaugoti ir saugomi tarp vartotojo žemėlapių. Kiekviename darbalapyje pagrindo žemėlapį galima importuoti ne tik iš šios žemėlapių saugyklos, bet ir iš išorinio .KML failo: importavimo / eksportavimo funkcija užtikrina greitą pasikeitimą su žemėlapių programine įranga, tokia kaip Google MyMaps ar kita sudėtingesne geoerdvine programine įranga.</p><p>Paprasta redagavimo sąsaja leidžia kurti tyrimui tinkančius žemėlapius braižant spalvotus taškus, linijas ir daugiakampius. Vieno mygtuko paspaudimu taip pat galima sukurti pagrindo žemėlapį iš apklausos respondento pateiktų duomenų, ir eksportuoti į .KML failo formatą – suteikdami perkeliamumą kitoms žemėlapių redagavimo programoms. Ateityje taip pat ketiname kurti kitų tipų rastrinius fono žemėlapius ir naujus grafinius nubrėžtų elementų vaizdus (pvz., pasirinktines piktogramas).</p> ',
 			},
 			{
 				title: 'Rezultatų viešinimas',
@@ -130,7 +130,7 @@ export default {
 		copiedURL: 'Projekto URL nukopijuotas!',
 		generateSlug: 'Sukurkite pagal projekto pavadinimą!',
 		newPassword: 'Naujas slaptažodis',
-		password: 'Slaptodžiu apribota prieiga',
+		password: 'Slaptažodžiu apribota prieiga',
 		passwordDescription:
 			'Jei esate prisijungęs, slaptažodžio prisijungiant prie projekto neprašoma. Prisijungimą su slaptažodžiu galite patikrinti incognito arba privačiame lange.',
 		passwordSet: 'Slaptodis nustatytas',
@@ -223,7 +223,7 @@ export default {
 		interactions: {
 			Point: 'Taškų uždėjimas',
 			LineString: 'Linijų braižymas',
-			Polygon: 'Apibrėžti teritoriją',
+			Polygon: 'Poligono braižymas',
 			naming: 'Pridėkite žymeklio pavadinimą',
 			Rating: 'Įvertinkite statiškus elementus ',
 			RatingResults: 'Rodyti įvertinimo rezultatus',
