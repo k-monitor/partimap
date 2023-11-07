@@ -431,8 +431,7 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'Aš perskaičiau ir sutinku su taisyklėmis',
-		consent2:
-			'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
+		consent2: 'ir sąlygomis bei su Privatumo politika.',
 		next: 'Kitas',
 		results: 'Rezultatai',
 		resultsDescription:
