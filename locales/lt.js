@@ -179,8 +179,7 @@ export default {
 	},
 	register: {
 		consent1: 'Aš perskaičiau ir sutinku su taisyklėmis',
-		consent2:
-			'Aš perskaičiau ir sutinku su Taisyklėmis ir sąlygomis bei su Privatumo politika.',
+		consent2: 'ir sąlygomis bei su Privatumo politika.',
 		email: 'Įveskite galiojantį el.pašto adresą',
 		login: 'Jau turite paskyrą?',
 		name: 'Paskyros vardas',
