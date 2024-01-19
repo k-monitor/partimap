@@ -44,6 +44,10 @@
 									/>
 								</b-form-checkbox>
 							</b-form-group>
+
+							<p class="m-0 small text-muted">
+								{{ $t('register.procedure') }}
+							</p>
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button

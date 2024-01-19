@@ -192,6 +192,8 @@ export default {
 		login: '¿Ya tienes una cuenta?',
 		name: 'Nombre',
 		password: 'Contraseña',
+		procedure:
+			'Una vez que se haya registrado correctamente, recibirá un mensaje de verificación. Para completar su registro, revise su bandeja de entrada y haga clic en el enlace.',
 		registrationFailed:
 			'Error en el registro. La dirección de correo proporcionada podría estar registrada. Inténtalo de nuevo o contacta al administrador.',
 		submit: 'Registrarse',

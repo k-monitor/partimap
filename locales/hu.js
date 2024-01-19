@@ -184,6 +184,8 @@ export default {
 		login: 'Már van fiókom',
 		name: 'Név',
 		password: 'Jelszó',
+		procedure:
+			'A fiók aktiválásához a Regisztráció gomb megnyomása után a megadott e-mail címére küldünk egy levelet, amellyel aktiválhatja a regisztrációját.',
 		registrationFailed: 'Regisztráció sikertelen',
 		submit: 'Regisztráció',
 		termsTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',

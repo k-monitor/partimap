@@ -185,6 +185,8 @@ export default {
 		login: 'Jau turite paskyrą?',
 		name: 'Paskyros vardas',
 		password: 'Slaptažodis',
+		procedure:
+			'Kai užsiregistruosite, gausite el. laišką, kad įsitikintumėte, jog tai tikrai jūs. Ieškokite jo el. laiške ir spustelėkite viduje esančią nuorodą, kad užbaigtumėte registraciją.',
 		registrationFailed:
 			'Registracija nepavyko. Gali būti, kad el.paštas jau egzistuoja. Pabandykite dar kartą arba susisiekite su administratoriumi.',
 		submit: 'Registruotis',

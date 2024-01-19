@@ -184,6 +184,8 @@ export default {
 		login: 'Already have an account?',
 		name: 'Name',
 		password: 'Password',
+		procedure:
+			'A verification email will be sent to you upon successful registration. Check your inbox and click on the link to complete your registration.',
 		registrationFailed:
 			'Registration failed. The email address provided may be registered already. Try again or contact the administrator.',
 		submit: 'Register',
