@@ -96,7 +96,8 @@ export default {
 		pwchanged: 'Jelszó sikeresen cserélve!',
 		pwchangefailed: 'Jelszócsere sikertelen, próbáld újra!',
 		register: 'Még nincs fiókom',
-		registered: 'Aktivációhoz szükséges email kiküldve!',
+		registered:
+			'A fiók aktiválásához szükséges e-mail kiküldve. Ellenőrizze a postafiókját!',
 		submit: 'Bejelentkezés',
 		title: 'Bejelentkezés',
 	},

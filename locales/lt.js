@@ -98,7 +98,8 @@ export default {
 		pwchangefailed:
 			'Slaptažodžio pakeisti nepavyko. Pabandykite dar kartą arba susisiekite su administratoriumi',
 		register: 'Sukurti naują paskyrą',
-		registered: 'Patvirtinimo laiškas išsiųstas į el.paštą',
+		registered:
+			'Naujas patvirtinimo el. laiškas išsiųstas! Patikrinkite savo pašto dėžutę.',
 		submit: 'Prisijungimas',
 		title: 'Prisijungimas arba registracija',
 	},

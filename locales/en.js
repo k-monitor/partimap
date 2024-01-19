@@ -99,7 +99,7 @@ export default {
 		pwchangefailed:
 			'Password change failed. Please try again or contact the administrator',
 		register: 'Create new account',
-		registered: 'Verification email sent to your address',
+		registered: 'Verification email sent. Please check your inbox.',
 		submit: 'Log In',
 		title: 'Log In or Sign Up',
 	},

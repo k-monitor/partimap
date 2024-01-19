@@ -100,7 +100,8 @@ export default {
 		pwchangefailed:
 			'Error al cambiar la contraseña. Por favor, inténtalo de nuevo o contacta al administrador',
 		register: 'Crear nueva cuenta',
-		registered: 'Correo de verificación enviado a tu dirección',
+		registered:
+			'Se ha enviado un correo electrónico de verificación. Compruebe su bandeja de entrada.',
 		submit: 'Ingresar',
 		title: 'Ingresar o Registrarse',
 	},
