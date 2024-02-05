@@ -268,7 +268,10 @@ export default {
 			const blob = new Blob([kml], {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
-			saveAs(blob, 'partimap.kml');
+			saveAs(
+				blob,
+				(sheet.title || this.project.title || 'partimap') + '.kml'
+			);
 		},
 	},
 };
