@@ -33,7 +33,6 @@ module.exports = {
 		featureQuestion: 'Jelölőnégyzetes kérdés',
 		featureQuestionAnswer: 'Válasz',
 		featureType: 'Elem típusa',
-		filename: 'export.xlsx',
 		geometry: {
 			Point: 'Pont',
 			LineString: 'Útvonal',

@@ -33,7 +33,6 @@ module.exports = {
 		featureQuestion: 'Klausimas',
 		featureQuestionAnswer: 'Atsakymas',
 		featureType: 'Žymeklio tipas',
-		filename: 'ataskaita.xlsx',
 		geometry: {
 			Point: 'Taško žymeklis',
 			LineString: 'Linija',

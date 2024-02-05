@@ -33,7 +33,6 @@ module.exports = {
 		featureQuestion: 'Pregunta de la casilla',
 		featureQuestionAnswer: 'Respuesta',
 		featureType: 'Tipo de caracteristica',
-		filename: 'informe.xlsx',
 		geometry: {
 			Point: 'Marcador de punto',
 			LineString: 'Línea',

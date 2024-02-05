@@ -353,7 +353,7 @@ router.get(
 			}
 		}
 
-		wb.write(m.filename, res);
+		wb.write((req.project.title || 'export') + '.xlsx', res);
 	}
 );
 

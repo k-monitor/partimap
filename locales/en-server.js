@@ -33,7 +33,6 @@ module.exports = {
 		featureQuestion: 'Checkbox question',
 		featureQuestionAnswer: 'Answer',
 		featureType: 'Type of marker',
-		filename: 'export.xlsx',
 		geometry: {
 			Point: 'Point marker',
 			LineString: 'Line',
