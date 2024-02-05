@@ -288,6 +288,7 @@ export default {
 		creationFailed: 'Paskyros sukurti nepavyko',
 		filter: 'Ieškoti',
 		inactive: 'Neaktyvi',
+		lastLogin: 'Paskutinis prisijungimas', // TODO Google Translate, needs review
 		newUsersEmail: 'Įvesti naują paskyros el.paštą',
 		registered: 'Aktyvi',
 		title: 'Vartotojai',

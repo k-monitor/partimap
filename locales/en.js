@@ -288,6 +288,7 @@ export default {
 		creationFailed: 'Account creation failed',
 		filter: 'Search',
 		inactive: 'Inactive',
+		lastLogin: 'Last login',
 		newUsersEmail: "Enter the new user's email address",
 		registered: 'Active',
 		title: 'Users',

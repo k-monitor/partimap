@@ -59,10 +59,19 @@
 					{{ $t('users.inactive') }}
 				</b-badge>
 				<br />
-				<small class="text-muted"
-					>{{ $t('users.registered') }}:
-					{{ new Date(u.registered).toLocaleString() }}</small
-				>
+				<small class="text-muted">
+					{{ $t('users.registered') }}:
+					{{ new Date(u.registered).toLocaleString() }}
+				</small>
+				<br />
+				<small class="text-muted">
+					{{ $t('users.lastLogin') }}:
+					{{
+						u.lastLogin
+							? new Date(u.lastLogin).toLocaleString()
+							: '?'
+					}}
+				</small>
 			</NuxtLink>
 		</div>
 	</AdminFrame>

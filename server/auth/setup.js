@@ -33,9 +33,11 @@ const sessionOpts = {
 };
 
 passport.use(
-	new Strategy({ usernameField: 'email' }, (email, password, callback) => {
-		db.findByEmail(email)
-			.then(user => {
+	new Strategy(
+		{ usernameField: 'email' },
+		async (email, password, callback) => {
+			try {
+				const user = await db.findByEmail(email);
 				if (
 					!user ||
 					!user.active ||
@@ -43,10 +45,18 @@ passport.use(
 				) {
 					return callback(null, false);
 				}
+
+				user.lastLogin = new Date().getTime();
+				try {
+					await db.update(user);
+				} catch {}
+
 				callback(null, user);
-			})
-			.catch(callback);
-	})
+			} catch (err) {
+				callback(err);
+			}
+		}
+	)
 );
 
 passport.serializeUser((user, callback) => {

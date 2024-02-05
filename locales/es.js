@@ -298,6 +298,7 @@ export default {
 		creationFailed: 'Error en la creación de la cuenta',
 		filter: 'Buscar',
 		inactive: 'Inactivo',
+		lastLogin: 'Último acceso', // TODO Google Translate, needs review
 		newUsersEmail:
 			'Ingresa la dirección de correo electrónico del nuevo usuario',
 		registered: 'Activo',

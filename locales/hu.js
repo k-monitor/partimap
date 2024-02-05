@@ -283,6 +283,7 @@ export default {
 		creationFailed: 'Létrehozás sikertelen',
 		filter: 'Szűrés',
 		inactive: 'Még nem aktivált',
+		lastLogin: 'Utolsó bejelentkezés',
 		newUsersEmail: 'Új felh. email címe',
 		registered: 'Regisztrálva',
 		title: 'Felhasználók',
