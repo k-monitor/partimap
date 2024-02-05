@@ -18,7 +18,10 @@
 					{{ sheet.title }}
 				</h1>
 			</b-navbar>
-			<FeatureList readonly />
+			<FeatureList
+				:filename="sheet.title"
+				readonly
+			/>
 		</Sidebar>
 	</div>
 </template>

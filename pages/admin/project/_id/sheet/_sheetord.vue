@@ -192,6 +192,7 @@
 
 			<FeatureList
 				v-if="sheet.features"
+				:filename="sheet.title"
 				:init-feature-ratings="submittedRatings"
 				:interactions="interactions"
 			/>

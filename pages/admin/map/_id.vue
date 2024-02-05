@@ -24,7 +24,7 @@
 					size="lg"
 				/>
 			</b-form-group>
-			<FeatureList />
+			<FeatureList :filename="mapData.title" />
 
 			<template #footer>
 				<div class="p-2 text-center">

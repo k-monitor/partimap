@@ -156,6 +156,10 @@ import { isMobile } from '~/assets/constants';
 
 export default {
 	props: {
+		filename: {
+			type: String,
+			default: '',
+		},
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
@@ -352,7 +356,7 @@ export default {
 				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 			});
 			this.$nuxt.$emit('toggleLoading', false);
-			saveAs(blob, 'partimap.kml');
+			saveAs(blob, (this.filename || 'partimap') + '.kml');
 		},
 		importKML() {
 			const input = document.createElement('input');
