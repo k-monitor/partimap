@@ -197,7 +197,14 @@
 				</b-form-group>
 			</form>
 			<template #footer>
-				<div class="d-flex justify-content-end">
+				<div class="d-flex justify-content-between">
+					<b-button
+						type="button"
+						variant="outline-danger"
+						@click="deleteProject"
+					>
+						{{ $t('ListItem.delete') }}
+					</b-button>
 					<b-button
 						:disabled="!isPrivacyPolicyValid"
 						form="projectForm"
@@ -294,6 +301,22 @@ export default {
 		},
 	},
 	methods: {
+		async deleteProject() {
+			const confirmed = await this.confirmDeletion(this.project.title);
+			if (confirmed) {
+				try {
+					this.loading = true;
+					await this.$axios.$delete(
+						'/api/project/' + this.project.id
+					);
+					this.$router.push(this.localePath('/admin/projects'));
+				} catch (error) {
+					this.errorToast(this.$t('projects.deletionFailed'));
+				} finally {
+					this.loading = false;
+				}
+			}
+		},
 		generateSlug() {
 			return slugify(this.project.title);
 		},
