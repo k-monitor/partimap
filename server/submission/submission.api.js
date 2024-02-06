@@ -2,6 +2,7 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const isMobile = require('is-mobile');
+const jsonrepair = require('jsonrepair');
 const transformation = require('transform-coordinates');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const i18n = require('../common/i18n');
@@ -104,6 +105,18 @@ router.post(
 	}
 );
 
+function safeParseJSON(json) {
+	try {
+		return JSON.parse(json);
+	} catch {
+		return null;
+	}
+}
+
+function repairAndParseJSON(json) {
+	return safeParseJSON(jsonrepair(json));
+}
+
 router.get(
 	'/submission/feature-counts/:id',
 	ensureLoggedIn,
@@ -113,7 +126,9 @@ router.get(
 		const sfs = await sfdb.findByProjectId(req.project.id);
 		const sfcs = {};
 		sfs.forEach(({ sheetId, features }) => {
-			const f = JSON.parse(features || '[]');
+			// Repair is needed because there were some truncated JSONs in the DB.
+			const o = repairAndParseJSON(features);
+			const f = Array.isArray(o) ? o : [];
 			sfcs[sheetId] = (sfcs[sheetId] || 0) + f.length;
 		});
 		res.json(sfcs);
