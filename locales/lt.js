@@ -467,6 +467,7 @@ export default {
 		questionType: 'Klausimo tipas',
 		questionTypes: {
 			checkbox: 'Keli pasirinkimai',
+			distributeUnits: 'Distribute 100 units', // TODO
 			dropdown: 'Išskleidžiamasis meniu',
 			multipleChoiceMatrix: 'Kelių pasirinkimų lentelė',
 			number: 'Skaičiaus įvedimas tekstu',

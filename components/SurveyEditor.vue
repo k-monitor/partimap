@@ -340,6 +340,7 @@ export default {
 				rating: 'fa-star-half-alt',
 				singleChoiceMatrix: 'fa-dot-circle',
 				multipleChoiceMatrix: 'fa-check-square',
+				distributeUnits: 'fa-balance-scale',
 			},
 			questionTypes: [
 				{
@@ -382,6 +383,10 @@ export default {
 						'SurveyEditor.questionTypes.multipleChoiceMatrix'
 					),
 				},
+				{
+					value: 'distributeUnits',
+					text: this.$t('SurveyEditor.questionTypes.distributeUnits'),
+				},
 			],
 			questionIndex: 0,
 			question: {},
@@ -392,7 +397,9 @@ export default {
 	},
 	computed: {
 		hasOptions() {
-			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+			return 'checkbox|distributeUnits|dropdown|radiogroup'.includes(
+				this.question.type
+			);
 		},
 		questionsFromPrevSheets() {
 			return (this.project?.sheets || [])
@@ -411,7 +418,12 @@ export default {
 			return [
 				...this.questionsFromPrevSheets,
 				...this.survey.questions.slice(0, this.questionIndex),
-			].filter(q => !self.isQuestionConditional(q) && q.type !== 'text');
+			].filter(
+				q =>
+					!self.isQuestionConditional(q) &&
+					q.type !== 'text' &&
+					q.type !== 'distributeUnits'
+			);
 		},
 		testableQuestionOptions() {
 			function clampText(t) {
@@ -472,7 +484,7 @@ export default {
 			this.editQuestion(this.survey.questions.length - 1);
 		},
 		canHaveResults(q) {
-			return q.type && q.type !== 'text';
+			return q.type && q.type !== 'text' && q.type !== 'distributeUnits';
 		},
 		editQuestion(i) {
 			this.questionIndex = i;

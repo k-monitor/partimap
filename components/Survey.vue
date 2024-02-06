@@ -19,7 +19,7 @@
 					<div
 						v-if="
 							answers[q.id] &&
-							'dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(
+							'distributeUnits|dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(
 								q.type
 							)
 						"
@@ -133,6 +133,11 @@
 					style="bottom: 0; left: 0; height: 0; opacity: 0"
 				/>
 			</div>
+			<DistributeUnitsQuestion
+				v-else-if="q.type === 'distributeUnits'"
+				v-model="answers[q.id]"
+				:question="q"
+			/>
 		</b-form-group>
 	</div>
 </template>
