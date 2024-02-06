@@ -34,6 +34,15 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end">
+			<input
+				v-if="question.required || sum !== 0"
+				required
+				:max="max"
+				:min="max"
+				type="number"
+				:value="sum"
+				style="opacity: 0; width: 1px"
+			/>
 			<div
 				class="d-flex flex-shrink-0 align-items-center py-1 font-weight-bold"
 				:class="{
