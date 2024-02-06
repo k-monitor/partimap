@@ -115,7 +115,7 @@ router.get(
 		const sfcs = {};
 		sfs.forEach(({ sheetId, features }) => {
 			// Repair is needed because there were some truncated JSONs in the DB.
-			const f = safeParseJSONArray(features);
+			const f = safeParseJSONArray(features).filter(f => !!f.id);
 			sfcs[sheetId] = (sfcs[sheetId] || 0) + f.length;
 		});
 		res.json(sfcs);
@@ -299,7 +299,9 @@ router.get(
 			const sf = submittedFeatures[i];
 			const sheet = sheets.filter(s => s.id === sf.sheetId)[0];
 			if (sheet) {
-				const features = safeParseJSONArray(sf.features);
+				const features = safeParseJSONArray(sf.features).filter(
+					f => !!f.id
+				);
 				const interactions = JSON.parse(sheet.interactions || '{}');
 				for (let j = 0; j < features.length; j++) {
 					const f = features[j];

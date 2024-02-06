@@ -81,7 +81,7 @@ router.put('/map', ensureLoggedIn, async (req, res) => {
 		const features = [];
 		const sfs = await sfdb.findBySheetId(req.body.importSubmittedFeatures);
 		(sfs || []).forEach(sf => {
-			const f = safeParseJSONArray(sf.features);
+			const f = safeParseJSONArray(sf.features).filter(f => !!f.id);
 			features.push(...f);
 		});
 		map.features = JSON.stringify(features);

@@ -15,7 +15,7 @@ router.get(
 	async (req, res) => {
 		const sfs = await sfdb.findBySheetId(req.sheet.id);
 		sfs.forEach(sf => {
-			sf.features = safeParseJSONArray(sf.features);
+			sf.features = safeParseJSONArray(sf.features).filter(f => !!f.id);
 			sf.features = JSON.stringify(sf.features);
 		});
 		res.json(sfs);
