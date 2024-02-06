@@ -2,7 +2,7 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const isMobile = require('is-mobile');
-const jsonrepair = require('jsonrepair');
+const { jsonrepair } = require('jsonrepair');
 const transformation = require('transform-coordinates');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const i18n = require('../common/i18n');
@@ -114,7 +114,11 @@ function safeParseJSON(json) {
 }
 
 function repairAndParseJSON(json) {
-	return safeParseJSON(jsonrepair(json));
+	try {
+		return safeParseJSON(jsonrepair(json));
+	} catch {
+		return null;
+	}
 }
 
 function safeParseJSONArray(json) {
