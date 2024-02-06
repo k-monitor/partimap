@@ -117,6 +117,11 @@ function repairAndParseJSON(json) {
 	return safeParseJSON(jsonrepair(json));
 }
 
+function safeParseJSONArray(json) {
+	const o = safeParseJSON(json) || repairAndParseJSON(json);
+	return Array.isArray(o) ? o : [];
+}
+
 router.get(
 	'/submission/feature-counts/:id',
 	ensureLoggedIn,
@@ -127,8 +132,7 @@ router.get(
 		const sfcs = {};
 		sfs.forEach(({ sheetId, features }) => {
 			// Repair is needed because there were some truncated JSONs in the DB.
-			const o = repairAndParseJSON(features);
-			const f = Array.isArray(o) ? o : [];
+			const f = safeParseJSONArray(features);
 			sfcs[sheetId] = (sfcs[sheetId] || 0) + f.length;
 		});
 		res.json(sfcs);
@@ -312,7 +316,7 @@ router.get(
 			const sf = submittedFeatures[i];
 			const sheet = sheets.filter(s => s.id === sf.sheetId)[0];
 			if (sheet) {
-				const features = JSON.parse(sf.features);
+				const features = safeParseJSONArray(sf.features);
 				const interactions = JSON.parse(sheet.interactions || '{}');
 				for (let j = 0; j < features.length; j++) {
 					const f = features[j];
