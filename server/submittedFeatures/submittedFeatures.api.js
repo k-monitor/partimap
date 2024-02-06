@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
+const { safeParseJSONArray } = require('../common/json');
 const { resolveRecord } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('../sheet/sheet.db');
@@ -12,8 +13,12 @@ router.get(
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
-		const features = await sfdb.findBySheetId(req.sheet.id);
-		res.json(features);
+		const sfs = await sfdb.findBySheetId(req.sheet.id);
+		sfs.forEach(sf => {
+			sf.features = safeParseJSONArray(sf.features);
+			sf.features = JSON.stringify(sf.features);
+		});
+		res.json(sfs);
 	}
 );
 
