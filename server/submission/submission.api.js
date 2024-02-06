@@ -2,10 +2,10 @@ const xl = require('excel4node');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 const isMobile = require('is-mobile');
-const { jsonrepair } = require('jsonrepair');
 const transformation = require('transform-coordinates');
 const { ensureAdminOr, ensureLoggedIn } = require('../auth/middlewares');
 const i18n = require('../common/i18n');
+const { safeParseJSONArray } = require('../common/json');
 const { resolveRecord, validateCaptcha } = require('../common/middlewares');
 const pdb = require('../project/project.db');
 const sdb = require('../sheet/sheet.db');
@@ -104,27 +104,6 @@ router.post(
 		res.json({ submissionId });
 	}
 );
-
-function safeParseJSON(json) {
-	try {
-		return JSON.parse(json);
-	} catch {
-		return null;
-	}
-}
-
-function repairAndParseJSON(json) {
-	try {
-		return safeParseJSON(jsonrepair(json));
-	} catch {
-		return null;
-	}
-}
-
-function safeParseJSONArray(json) {
-	const o = safeParseJSON(json) || repairAndParseJSON(json);
-	return Array.isArray(o) ? o : [];
-}
 
 router.get(
 	'/submission/feature-counts/:id',

@@ -4,6 +4,7 @@ const Map = require('../../model/map');
 const { ensureLoggedIn, ensureAdminOr } = require('../auth/middlewares');
 const { resolveRecord } = require('../common/middlewares');
 const sfdb = require('../submittedFeatures/submittedFeatures.db');
+const { safeParseJSONArray } = require('../common/json');
 const db = require('./map.db');
 
 router.delete(
@@ -79,7 +80,10 @@ router.put('/map', ensureLoggedIn, async (req, res) => {
 		// sheetID
 		const features = [];
 		const sfs = await sfdb.findBySheetId(req.body.importSubmittedFeatures);
-		(sfs || []).forEach(sf => features.push(...JSON.parse(sf.features)));
+		(sfs || []).forEach(sf => {
+			const f = safeParseJSONArray(sf.features);
+			features.push(...f);
+		});
 		map.features = JSON.stringify(features);
 	}
 
