@@ -191,7 +191,7 @@ router.get(
 				function writeCell(a) {
 					if (!a && String(a) !== '0') return;
 					const asNum = Number(a);
-					if (a.length && !isNaN(asNum)) {
+					if (!isNaN(asNum)) {
 						CELL(COL).number(asNum);
 					} else if (Array.isArray(a)) {
 						CELL(COL).string(a.join('; '));
@@ -200,15 +200,16 @@ router.get(
 					}
 				}
 
-				if (q.type.includes('Matrix')) {
+				if (q.type === 'distributeUnits' || q.type.includes('Matrix')) {
 					// multiple columns
 					try {
 						a = JSON.parse(a);
 					} catch {}
 
-					(q.rows || []).forEach(row => {
-						sas.cell(1, COL).string(`${q.label} [${row}]`);
-						writeCell(a[row]);
+					const subkeys = q.rows || q.options;
+					(subkeys || []).forEach(subkey => {
+						sas.cell(1, COL).string(`${q.label} [${subkey}]`);
+						writeCell(a[subkey]);
 						COL++;
 					});
 				} else {
