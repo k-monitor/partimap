@@ -418,12 +418,7 @@ export default {
 			return [
 				...this.questionsFromPrevSheets,
 				...this.survey.questions.slice(0, this.questionIndex),
-			].filter(
-				q =>
-					!self.isQuestionConditional(q) &&
-					q.type !== 'text' &&
-					q.type !== 'distributeUnits'
-			);
+			].filter(q => !self.isQuestionConditional(q) && q.type !== 'text');
 		},
 		testableQuestionOptions() {
 			function clampText(t) {
@@ -432,10 +427,10 @@ export default {
 				return t.length > limit ? `${t.substring(0, limit)}...` : t;
 			}
 			return this.testableQuestions.map(q => {
-				if (q.type.includes('Matrix')) {
+				if (q.type.includes('Matrix') || q.type === 'distributeUnits') {
 					return {
 						label: clampText(q.label),
-						options: q.rows.map(r => ({
+						options: (q.rows || q.options).map(r => ({
 							value: [q.id, r],
 							text: clampText(r),
 						})),
