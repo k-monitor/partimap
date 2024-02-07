@@ -29,9 +29,9 @@ export default {
 	methods: {
 		chart(q) {
 			let data = (q.options || [])
-				.map(({ answer, count }) => ({
+				.map(({ answer, count, average }) => ({
 					name: answer,
-					y: count,
+					y: count || average,
 				}))
 				.map(a => {
 					if (a.name === OTHER_ANSWER) {
@@ -76,10 +76,12 @@ export default {
 				title: { text: q.question },
 				tooltip: {
 					formatter() {
+						if (q.type === 'checkbox')
+							return `${this.y}x ${this.x}`;
+						if (q.type === 'distributeUnits')
+							return `${this.y}% ${this.x}`;
 						const pct = Math.round((100 * this.y) / q.count);
-						return q.type === 'checkbox'
-							? `${this.y}x ${this.x}`
-							: `${this.y}x (${pct}%) ${this.point.name}`;
+						return `${this.y}x (${pct}%) ${this.point.name}`;
 					},
 				},
 				xAxis: {

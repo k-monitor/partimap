@@ -484,7 +484,7 @@ export default {
 			this.editQuestion(this.survey.questions.length - 1);
 		},
 		canHaveResults(q) {
-			return q.type && q.type !== 'text' && q.type !== 'distributeUnits';
+			return q.type && q.type !== 'text';
 		},
 		editQuestion(i) {
 			this.questionIndex = i;
