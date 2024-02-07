@@ -41,6 +41,7 @@
 				/>
 			</div>
 		</b-form-group>
+		{{ JSON.stringify(condition) }}
 	</div>
 </template>
 
@@ -73,6 +74,10 @@ export default {
 			const question = this.testableQuestions.find(
 				q => String(q.id) === String((this.questionId || [])[0])
 			);
+			if (question) {
+				question.min = 0;
+				question.max = question.max || 100;
+			}
 			return question;
 		},
 		hasOptions() {
@@ -81,7 +86,9 @@ export default {
 			);
 		},
 		isNumberQuestion() {
-			return 'number|range|rating'.includes(this.question?.type);
+			return 'distributeUnits|number|range|rating'.includes(
+				this.question?.type
+			);
 		},
 		minMax() {
 			if (!this.question?.type) return '';

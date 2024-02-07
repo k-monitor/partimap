@@ -42,27 +42,75 @@ async function aggregateByProjectId(projectId) {
 		[projectId]
 	);
 
-	const matrixAnswersByQuestion = new Map();
-	await Promise.all(
-		questions
-			.filter(q => q.type.includes('Matrix'))
-			.map(async q => {
+	async function getAnswersByQuestion(questionPredicate) {
+		const answersByQuestion = new Map();
+		const filteredQuestions = questions.filter(questionPredicate);
+		await Promise.all(
+			filteredQuestions.map(async q => {
 				const answers = await db.query(
 					`SELECT answer FROM survey_answer a
 					INNER JOIN sheet s ON s.id = a.sheetId AND s.projectId = ?
 					AND a.questionId = ?`,
 					[projectId, q.id]
 				);
-				matrixAnswersByQuestion.set(
+				answersByQuestion.set(
 					q.id,
 					answers.map(a => a.answer)
 				);
 			})
+		);
+		return answersByQuestion;
+	}
+
+	const distAnswersByQuestion = await getAnswersByQuestion(
+		q => q.type === 'distributeUnits'
+	);
+	const matrixAnswersByQuestion = await getAnswersByQuestion(q =>
+		q.type.includes('Matrix')
 	);
 
 	const results = [];
 	for (const q of questions) {
 		if (q.type === 'text') {
+			continue;
+		}
+
+		if (q.type === 'distributeUnits') {
+			const sums = new Map();
+			const counts = new Map();
+			const answers = (distAnswersByQuestion.get(q.id) || [])
+				.map(a => {
+					try {
+						return JSON.parse(a);
+					} catch {
+						return false;
+					}
+				})
+				.filter(a => !!a);
+			answers.forEach(a => {
+				Object.entries(a).forEach(([key, value]) => {
+					if (!(q.options || []).includes(key)) return;
+					sums.set(key, (sums.get(key) || 0) + value);
+					counts.set(key, (counts.get(key) || 0) + 1);
+				});
+			});
+
+			const result = {
+				questionId: `${q.id}`,
+				question: `${q.label}`,
+				sheetId: q.sheetId,
+				type: q.type,
+				count: answers.length,
+			};
+			result.options = (q.options || [])
+				.filter(o => counts.get(o))
+				.map(o => ({
+					answer: o,
+					average:
+						Math.round((10 * (sums.get(o) || 0)) / counts.get(o)) /
+						10,
+				}));
+			results.push(result);
 			continue;
 		}
 
@@ -76,9 +124,7 @@ async function aggregateByProjectId(projectId) {
 					}
 				})
 				.filter(a => !!a);
-			if (!answers) {
-				continue;
-			}
+			if (!answers || !answers.length) continue;
 
 			(q.rows || []).forEach((row, i) => {
 				let count = 0;

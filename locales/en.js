@@ -468,6 +468,7 @@ export default {
 		questionType: 'Question type',
 		questionTypes: {
 			checkbox: 'Checkboxes',
+			distributeUnits: 'Distribute 100 units',
 			dropdown: 'Drop-down (one answer)',
 			multipleChoiceMatrix: 'Multiple choice grid',
 			number: 'Numeric text box',

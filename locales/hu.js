@@ -465,6 +465,7 @@ export default {
 		questionType: 'Kérdés típusa',
 		questionTypes: {
 			checkbox: 'Jelölőnégyzetek',
+			distributeUnits: '100 egység elosztása',
 			dropdown: 'Opciók lenyíló listában (egyet lehet vál.)',
 			multipleChoiceMatrix: 'Jelölőnégyzetrács',
 			number: 'Numerikus válasz (bepötyögős)',

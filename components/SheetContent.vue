@@ -191,10 +191,21 @@ export default {
 		visitorAnswers: {
 			handler(answers) {
 				Object.entries(answers || {})
-					.filter(
-						([k, v]) =>
-							v === null || (Array.isArray(v) && !v.length)
-					)
+					.filter(([k, v]) => {
+						if (v === null || v === undefined) return true;
+						if (Array.isArray(v) && !v.length) return true;
+						if (typeof v === 'object') {
+							if (Object.keys(v).length === 0) return true;
+							if (Object.values(v).every(x => !x)) return true;
+							if (
+								Object.values(v).every(
+									x => Array.isArray(x) && !x.length
+								)
+							)
+								return true;
+						}
+						return false;
+					})
 					.forEach(([k]) => delete answers[k]);
 				const payload = {
 					answers,

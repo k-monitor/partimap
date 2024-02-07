@@ -481,6 +481,7 @@ export default {
 		questionType: 'Tipo de pregunta',
 		questionTypes: {
 			checkbox: 'Casillas de verificación',
+			distributeUnits: 'Distribute 100 units', // TODO
 			dropdown: 'Desplegable (una respuesta)',
 			multipleChoiceMatrix: 'Matriz de opciones múltiples',
 			number: 'Cuadro de texto numérico',

@@ -340,6 +340,7 @@ export default {
 				rating: 'fa-star-half-alt',
 				singleChoiceMatrix: 'fa-dot-circle',
 				multipleChoiceMatrix: 'fa-check-square',
+				distributeUnits: 'fa-balance-scale',
 			},
 			questionTypes: [
 				{
@@ -382,6 +383,10 @@ export default {
 						'SurveyEditor.questionTypes.multipleChoiceMatrix'
 					),
 				},
+				{
+					value: 'distributeUnits',
+					text: this.$t('SurveyEditor.questionTypes.distributeUnits'),
+				},
 			],
 			questionIndex: 0,
 			question: {},
@@ -392,7 +397,9 @@ export default {
 	},
 	computed: {
 		hasOptions() {
-			return 'checkbox|radiogroup|dropdown'.includes(this.question.type);
+			return 'checkbox|distributeUnits|dropdown|radiogroup'.includes(
+				this.question.type
+			);
 		},
 		questionsFromPrevSheets() {
 			return (this.project?.sheets || [])
@@ -420,10 +427,10 @@ export default {
 				return t.length > limit ? `${t.substring(0, limit)}...` : t;
 			}
 			return this.testableQuestions.map(q => {
-				if (q.type.includes('Matrix')) {
+				if (q.type.includes('Matrix') || q.type === 'distributeUnits') {
 					return {
 						label: clampText(q.label),
-						options: q.rows.map(r => ({
+						options: (q.rows || q.options).map(r => ({
 							value: [q.id, r],
 							text: clampText(r),
 						})),
