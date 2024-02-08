@@ -8,7 +8,7 @@
 			<div class="d-flex flex-grow-1 align-items-center">{{ o }}</div>
 			<div class="d-flex flex-shrink-0 align-items-center py-1">
 				<b-button
-					:disabled="innerValue[0] === 0"
+					:disabled="innerValue[o] === 0"
 					size="sm"
 					variant="light"
 					@click="decrease(o)"
