@@ -6,8 +6,8 @@
 			class="my-4"
 		>
 			<template #label>
-				<div class="row">
-					<div class="col-9">
+				<div class="d-flex">
+					<div class="flex-grow-1">
 						<span
 							v-if="q.required"
 							class="text-danger"
@@ -17,14 +17,9 @@
 						<strong class="text-primary">{{ q.label }}</strong>
 					</div>
 					<div
-						v-if="
-							answers[q.id] &&
-							'distributeUnits|dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(
-								q.type
-							)
-						"
-						class="col small text-muted text-right"
+						class="ml-3 small text-muted text-right"
 						role="button"
+						style="{ opacity: canRemoveAnswer(q) ? 1 : 0 }"
 						@click="removeAnswer(q.id)"
 					>
 						{{ $t('Survey.removeAnswer') }}
@@ -197,6 +192,14 @@ export default {
 		},
 	},
 	methods: {
+		canRemoveAnswer(q) {
+			return (
+				this.answers[q.id] &&
+				'distributeUnits|dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(
+					q.type
+				)
+			);
+		},
 		canShowQuestion(question) {
 			return canShowQuestion(question, this.getAllVisitorAnswers);
 		},
