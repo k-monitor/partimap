@@ -8,7 +8,7 @@
 			<div class="d-flex flex-grow-1 align-items-center">{{ o }}</div>
 			<div class="d-flex flex-shrink-0 align-items-center py-1">
 				<b-button
-					:disabled="innerValue[o] === 0"
+					:disabled="inputValues[o] === 0"
 					size="sm"
 					variant="light"
 					@click="decrease(o)"
@@ -16,7 +16,7 @@
 					<i class="fas fa-fw fa-minus text-primary" />
 				</b-button>
 				<input
-					v-model.number="innerValue[o]"
+					v-model.number="inputValues[o]"
 					class="form-control form-control-sm mx-1 text-center"
 					:max="max"
 					:min="0"
@@ -71,53 +71,57 @@ export default {
 		},
 	},
 	data() {
-		const innerValue = {};
-		this.question.options.forEach(o => {
-			innerValue[o] = (this.value || {})[o] || 0;
-		});
 		return {
-			innerValue,
+			inputValues: {},
 		};
 	},
 	computed: {
 		max() {
 			return this.question.max || 100;
 		},
+		actualValues() {
+			return Object.entries(this.inputValues).reduce((a, [k, v]) => {
+				a[k] = v || 0;
+				return a;
+			}, {});
+		},
 		sum() {
-			return Object.values(this.innerValue).reduce((a, b) => a + b, 0);
+			return Object.values(this.actualValues).reduce((a, b) => a + b, 0);
 		},
 	},
 	watch: {
-		value(v) {
-			const innerValue = v || {};
-			this.question.options.forEach(o => {
-				innerValue[o] = innerValue[o] || 0;
-			});
-			this.innerValue = innerValue;
+		value() {
+			this.initInputValues();
 		},
-		innerValue: {
-			handler(a) {
-				this.$emit('input', a);
-			},
-			deep: true,
+		sum() {
+			this.$emit('input', this.actualValues);
 		},
 	},
+	mounted() {
+		this.initInputValues();
+	},
 	methods: {
+		initInputValues() {
+			const inputValues = {};
+			this.question.options.forEach(o => {
+				inputValues[o] = (this.value || {})[o] || null;
+			});
+			this.inputValues = inputValues;
+		},
 		increase(o) {
 			if (this.sum >= this.max) return;
-			this.innerValue[o] = (this.innerValue[o] || 0) + 1;
-			// this.$emit('input', this.innerValue);
+			this.inputValues[o] = (this.inputValues[o] || 0) + 1;
 		},
 		decrease(o) {
-			this.innerValue[o] = Math.max((this.innerValue[o] || 0) - 1, 0);
-			// this.$emit('input', this.innerValue);
+			this.inputValues[o] = Math.max((this.inputValues[o] || 0) - 1, 0);
 		},
 		handleChange(o) {
 			if (this.sum > this.max) {
-				const excess = this.sum - this.max;
-				this.innerValue[o] = Math.max(this.innerValue[o] - excess, 0);
+				const excess = Math.max(this.sum - this.max, 0);
+				this.inputValues[o] = Math.max(this.inputValues[o] - excess, 0);
+			} else if (this.inputValues[o] < 0) {
+				this.inputValues[o] = null;
 			}
-			// this.$emit('input', this.innerValue);
 		},
 	},
 };
