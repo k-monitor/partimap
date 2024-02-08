@@ -10,10 +10,10 @@
 				<b-button
 					:disabled="innerValue[0] === 0"
 					size="sm"
-					variant="primary"
+					variant="light"
 					@click="decrease(o)"
 				>
-					<i class="fas fa-fw fa-minus" />
+					<i class="fas fa-fw fa-minus text-primary" />
 				</b-button>
 				<input
 					v-model.number="innerValue[o]"
@@ -26,10 +26,10 @@
 				<b-button
 					:disabled="sum >= max"
 					size="sm"
-					variant="primary"
+					variant="light"
 					@click="increase(o)"
 				>
-					<i class="fas fa-fw fa-plus" />
+					<i class="fas fa-fw fa-plus text-primary" />
 				</b-button>
 			</div>
 		</div>
