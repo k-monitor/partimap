@@ -20,6 +20,7 @@
 					class="form-control form-control-sm mx-1 text-center"
 					:max="max"
 					:min="0"
+					placeholder="0"
 					style="width: 4rem"
 					@input="handleChange(o, $event.target.value)"
 				/>
@@ -109,6 +110,7 @@ export default {
 				const rv = (this.value || {})[o];
 				const cv = Number.parseInt(rv, 10);
 				iv[o] = Number.isInteger(cv) ? cv : null;
+				iv[o] = cv || null;
 			});
 			this.inputValues = iv;
 		},
