@@ -465,7 +465,7 @@ export default {
 		questionType: 'Kérdés típusa',
 		questionTypes: {
 			checkbox: 'Jelölőnégyzetek',
-			distributeUnits: '100 egység elosztása',
+			distributeUnits: 'N db egység elosztása',
 			dropdown: 'Opciók lenyíló listában (egyet lehet vál.)',
 			multipleChoiceMatrix: 'Jelölőnégyzetrács',
 			number: 'Numerikus válasz (bepötyögős)',
@@ -479,6 +479,7 @@ export default {
 		required: 'Kötelező megválaszolni',
 		showIf: 'Megjelenik, ha...',
 		showResult: 'Kitöltés után válasz statisztika megjelenítése',
+		units: 'Elosztandó egységek száma',
 		warnForReferencedQuestion:
 			'Ettől a kérdéstől legalább egy másik kérdés megjelenítése függ, így bizonyos tulajdonságai nem módosíthatók.',
 	},

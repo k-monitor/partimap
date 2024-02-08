@@ -481,7 +481,7 @@ export default {
 		questionType: 'Tipo de pregunta',
 		questionTypes: {
 			checkbox: 'Casillas de verificación',
-			distributeUnits: 'Distribute 100 units', // TODO
+			distributeUnits: 'Distribute N units', // TODO
 			dropdown: 'Desplegable (una respuesta)',
 			multipleChoiceMatrix: 'Matriz de opciones múltiples',
 			number: 'Cuadro de texto numérico',
@@ -497,6 +497,7 @@ export default {
 		showIf: 'Mostrar solamente si...',
 		showResult:
 			'Mostrar resultados a los visitantes después de enviar la hoja de trabajo',
+		units: 'Number of units to distribute', // TODO
 		warnForReferencedQuestion:
 			'Los atributos son de solo lectura porque se hace referencia a la pregunta en una pregunta condicionalmente visible debajo de ella.',
 	},
