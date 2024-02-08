@@ -16,13 +16,18 @@
 						</span>
 						<strong class="text-primary">{{ q.label }}</strong>
 					</div>
-					<div
-						class="ml-3 small text-muted text-right"
-						role="button"
-						style="{ opacity: canRemoveAnswer(q) ? 1 : 0 }"
-						@click="removeAnswer(q.id)"
-					>
-						{{ $t('Survey.removeAnswer') }}
+					<div>
+						<b-button
+							v-b-tooltip.hover.bottom
+							class="ml-4 small text-muted text-right"
+							size="sm"
+							:style="{ opacity: canRemoveAnswer(q) ? 1 : 0 }"
+							:title="$t('Survey.removeAnswer')"
+							variant="light"
+							@click="removeAnswer(q.id)"
+						>
+							<i class="fas fa-fw fa-eraser text-danger" />
+						</b-button>
 					</div>
 				</div>
 			</template>
