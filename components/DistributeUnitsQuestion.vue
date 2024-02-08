@@ -44,18 +44,17 @@
 				style="opacity: 0; width: 1px"
 			/>
 			<div
-				class="d-flex flex-shrink-0 align-items-center py-1 font-weight-bold"
+				class="flex-shrink-0 pr-2 pt-2 font-weight-bold"
 				:class="{
 					'text-muted': 0 === sum,
 					'text-danger': sum !== max,
 					'text-success': sum === max,
 				}"
 			>
-				{{ sum }} / {{ max }}
+				<span class="mr-2">{{ sum }}</span>
+				/ {{ max }}
 			</div>
 		</div>
-		<p>{{ JSON.stringify(inputValues) }}</p>
-		<p>{{ JSON.stringify(actualValues) }}</p>
 	</div>
 </template>
 
