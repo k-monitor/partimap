@@ -122,11 +122,11 @@ export default {
 			this.inputValues[o] = Math.max((this.inputValues[o] || 0) - 1, 0);
 		},
 		handleChange(o) {
-			if (this.sum > this.max) {
+			if (!String(this.inputValues[o]).match(/^\d+$/)) {
+				this.inputValues[o] = null;
+			} else if (this.sum > this.max) {
 				const excess = Math.max(this.sum - this.max, 0);
 				this.inputValues[o] = Math.max(this.inputValues[o] - excess, 0);
-			} else if (this.inputValues[o] < 0) {
-				this.inputValues[o] = null;
 			}
 		},
 	},
