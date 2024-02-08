@@ -3,7 +3,7 @@
 		<div
 			v-for="o in question.options"
 			:key="o"
-			class="d-flex"
+			class="border-bottom d-flex mb-1 pb-1"
 		>
 			<div class="d-flex flex-grow-1 align-items-center">{{ o }}</div>
 			<div class="d-flex flex-shrink-0 align-items-center py-1">
