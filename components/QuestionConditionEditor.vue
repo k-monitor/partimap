@@ -41,7 +41,6 @@
 				/>
 			</div>
 		</b-form-group>
-		{{ JSON.stringify(condition) }}
 	</div>
 </template>
 

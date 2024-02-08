@@ -196,6 +196,18 @@
 						</b-form-group>
 					</b-col>
 				</b-row>
+				<b-row v-if="question.type === 'distributeUnits'">
+					<b-col>
+						<b-form-group :label="$t('SurveyEditor.units')">
+							<b-form-input
+								v-model.number="question.max"
+								type="number"
+								min="1"
+								max="100"
+							/>
+						</b-form-group>
+					</b-col>
+				</b-row>
 				<OptionsEditor
 					v-if="hasOptions"
 					v-model="question.options"

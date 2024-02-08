@@ -40,7 +40,9 @@ export default {
 					return a;
 				});
 			if (
-				'checkbox|dropdown|radiogroup'.includes(q.type) ||
+				'checkbox|distributeUnits|dropdown|radiogroup'.includes(
+					q.type
+				) ||
 				q.type.includes('Matrix')
 			) {
 				data = data.sort((a, b) => b.y - a.y);
@@ -79,7 +81,7 @@ export default {
 						if (q.type === 'checkbox')
 							return `${this.y}x ${this.x}`;
 						if (q.type === 'distributeUnits')
-							return `${this.y}% ${this.x}`;
+							return `${this.y} ${this.x}`;
 						const pct = Math.round((100 * this.y) / q.count);
 						return `${this.y}x (${pct}%) ${this.point.name}`;
 					},

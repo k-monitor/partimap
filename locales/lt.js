@@ -467,7 +467,7 @@ export default {
 		questionType: 'Klausimo tipas',
 		questionTypes: {
 			checkbox: 'Keli pasirinkimai',
-			distributeUnits: 'Distribute 100 units', // TODO
+			distributeUnits: 'Distribute N units', // TODO
 			dropdown: 'Išskleidžiamasis meniu',
 			multipleChoiceMatrix: 'Kelių pasirinkimų lentelė',
 			number: 'Skaičiaus įvedimas tekstu',
@@ -482,6 +482,7 @@ export default {
 		required: 'Privalomas klausimas',
 		showIf: 'Rodyti tik jeigu...',
 		showResult: 'Pateikus atsakymus rodyti rezultatus lankytojams',
+		units: 'Number of units to distribute', // TODO
 		warnForReferencedQuestion:
 			'Šiuos atributus galima tik peržiūrėti, nes nuo šio klausimo atsakymo priklauso, ar bus užduodamas klausimas einantis po jo',
 	},
