@@ -54,6 +54,8 @@
 				{{ sum }} / {{ max }}
 			</div>
 		</div>
+		<p>{{ JSON.stringify(inputValues) }}</p>
+		<p>{{ JSON.stringify(actualValues) }}</p>
 	</div>
 </template>
 
@@ -80,10 +82,11 @@ export default {
 			return this.question.max || 100;
 		},
 		actualValues() {
-			return Object.entries(this.inputValues).reduce((a, [k, v]) => {
-				a[k] = v || 0;
-				return a;
-			}, {});
+			const av = {};
+			this.question.options.forEach(o => {
+				av[o] = Number.parseInt(this.inputValues[o], 10) || 0;
+			});
+			return av;
 		},
 		sum() {
 			return Object.values(this.actualValues).reduce((a, b) => a + b, 0);
@@ -102,11 +105,13 @@ export default {
 	},
 	methods: {
 		initInputValues() {
-			const inputValues = {};
+			const iv = {};
 			this.question.options.forEach(o => {
-				inputValues[o] = (this.value || {})[o] || null;
+				const rv = (this.value || {})[o];
+				const cv = Number.parseInt(rv, 10);
+				iv[o] = Number.isInteger(cv) ? cv : null;
 			});
-			this.inputValues = inputValues;
+			this.inputValues = iv;
 		},
 		increase(o) {
 			if (this.sum >= this.max) return;
