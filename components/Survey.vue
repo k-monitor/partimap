@@ -6,8 +6,8 @@
 			class="my-4"
 		>
 			<template #label>
-				<div class="d-flex">
-					<div class="flex-grow-1">
+				<div class="position-relative pr-5">
+					<div>
 						<span
 							v-if="q.required"
 							class="text-danger"
@@ -16,19 +16,18 @@
 						</span>
 						<strong class="text-primary">{{ q.label }}</strong>
 					</div>
-					<div>
-						<b-button
-							v-b-tooltip.hover.bottom
-							class="ml-4 small text-muted text-right"
-							size="sm"
-							:style="{ opacity: canRemoveAnswer(q) ? 1 : 0 }"
-							:title="$t('Survey.removeAnswer')"
-							variant="light"
-							@click="removeAnswer(q.id)"
-						>
-							<i class="fas fa-fw fa-eraser text-danger" />
-						</b-button>
-					</div>
+					<b-button
+						v-if="canRemoveAnswer(q)"
+						v-b-tooltip.hover.bottom
+						class="position-absolute ml-4 small text-muted text-right"
+						size="sm"
+						style="top: 0; right: 0"
+						:title="$t('Survey.removeAnswer')"
+						variant="light"
+						@click="removeAnswer(q.id)"
+					>
+						<i class="fas fa-fw fa-eraser text-danger" />
+					</b-button>
 				</div>
 			</template>
 			<CheckboxGroup
