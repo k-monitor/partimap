@@ -235,11 +235,14 @@ export default {
 			Polygon: 'Dibujar polígonos',
 			naming: 'Agregar título al Punto',
 			Rating: 'Calificar características estáticas',
+			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
+			RatingProsCons: 'Érvek mellette / ellene', // TODO
 			RatingResults: 'Mostrar resultados de calificación',
 			ShowResultsOnly: 'Mostrar solo los resultados',
 			SocialSharing: 'Compartir página en redes sociales',
 		},
 		numberOfStars: 'Establecer escala (1-10)',
+		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratingType: 'Tipo de calificación:',
 		ratingTypes: {
 			stars: 'Calificación con estrellas',

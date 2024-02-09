@@ -157,6 +157,12 @@
 						type="number"
 					/>
 				</b-form-group>
+				<b-form-group
+					v-if="interactions.enabled.includes('RatingExplanation')"
+					:label="$t('sheetEditor.ratingQuestion')"
+				>
+					<b-form-input v-model="interactions.ratingQuestion" />
+				</b-form-group>
 			</div>
 
 			<b-form-group v-if="canHaveResults">
@@ -351,8 +357,23 @@ export default {
 					}
 				} else {
 					options.push(ia('Rating'));
-					if (this.isRatingSelected)
+					if (this.isRatingSelected) {
 						options.push(ia('RatingResults'));
+						if (
+							!this.interactions.enabled.includes(
+								'RatingProsCons'
+							)
+						) {
+							options.push(ia('RatingExplanation'));
+						}
+						if (
+							!this.interactions.enabled.includes(
+								'RatingExplanation'
+							)
+						) {
+							options.push(ia('RatingProsCons'));
+						}
+					}
 				}
 			} else {
 				options.push(ia('SocialSharing'));

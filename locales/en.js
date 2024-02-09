@@ -226,11 +226,14 @@ export default {
 			Polygon: 'Draw polygons',
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
+			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
+			RatingProsCons: 'Érvek mellette / ellene', // TODO
 			RatingResults: 'Show rating results',
 			ShowResultsOnly: 'Display only the results',
 			SocialSharing: 'Share page on social media',
 		},
 		numberOfStars: 'Set scale (1-10)',
+		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratingType: 'Type of rating:',
 		ratingTypes: {
 			stars: 'Star-rating',

@@ -9,6 +9,7 @@ export class Interactions {
 	 * @param {{Point: String, LineString: String, Polygon: String}} data.descriptionLabels Custom labels for description field of features
 	 * @param {{Point: String, LineString: String, Polygon: String}} data.featureLabels Custom labels for features in report (export)
 	 * @param {{Point: Object, LineString: Object, Polygon: Object}} data.featureQuestions Question to be displayed in feature boxes
+	 * @param {String} data.ratingQuestion Question to be displayed for rating explanation.
 	 * @param {Number} data.stars Number of stars for Rating interaction
 	 */
 	constructor(data) {
@@ -35,6 +36,7 @@ export class Interactions {
 			LineString: data.featureQuestions?.LineString || {},
 			Polygon: data.featureQuestions?.Polygon || {},
 		};
+		this.ratingQuestion = data.ratingQuestion || '';
 		this.stars = data.stars || 5;
 	}
 }
