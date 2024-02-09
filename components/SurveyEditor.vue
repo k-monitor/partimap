@@ -203,7 +203,6 @@
 								v-model.number="question.max"
 								type="number"
 								min="1"
-								max="100"
 							/>
 						</b-form-group>
 					</b-col>
