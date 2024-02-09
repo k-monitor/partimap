@@ -468,7 +468,7 @@ export default {
 		questionType: 'Question type',
 		questionTypes: {
 			checkbox: 'Checkboxes',
-			distributeUnits: 'Distribute N units',
+			distributeUnits: 'Allocate units (weighting)',
 			dropdown: 'Drop-down (one answer)',
 			multipleChoiceMatrix: 'Multiple choice grid',
 			number: 'Numeric text box',
@@ -483,7 +483,7 @@ export default {
 		required: 'Required question',
 		showIf: 'Show only if...',
 		showResult: 'Display results to visitors after submitting the sheet',
-		units: 'Number of units to distribute',
+		units: 'Number of units to allocate',
 		warnForReferencedQuestion:
 			'The attributes are read-only because the question is referenced in a conditionally visible question below it.',
 	},

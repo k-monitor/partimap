@@ -288,7 +288,7 @@ export default {
 		creationFailed: 'Paskyros sukurti nepavyko',
 		filter: 'Ieškoti',
 		inactive: 'Neaktyvi',
-		lastLogin: 'Paskutinis prisijungimas', // TODO Google Translate, needs review
+		lastLogin: 'Paskutinis prisijungimas',
 		newUsersEmail: 'Įvesti naują paskyros el.paštą',
 		registered: 'Aktyvi',
 		title: 'Vartotojai',
@@ -467,7 +467,7 @@ export default {
 		questionType: 'Klausimo tipas',
 		questionTypes: {
 			checkbox: 'Keli pasirinkimai',
-			distributeUnits: 'Distribute N units', // TODO
+			distributeUnits: 'Vienetų paskirstymas (svoris)',
 			dropdown: 'Išskleidžiamasis meniu',
 			multipleChoiceMatrix: 'Kelių pasirinkimų lentelė',
 			number: 'Skaičiaus įvedimas tekstu',
@@ -482,7 +482,7 @@ export default {
 		required: 'Privalomas klausimas',
 		showIf: 'Rodyti tik jeigu...',
 		showResult: 'Pateikus atsakymus rodyti rezultatus lankytojams',
-		units: 'Number of units to distribute', // TODO
+		units: 'Vienetų skaičius',
 		warnForReferencedQuestion:
 			'Šiuos atributus galima tik peržiūrėti, nes nuo šio klausimo atsakymo priklauso, ar bus užduodamas klausimas einantis po jo',
 	},

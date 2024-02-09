@@ -298,7 +298,7 @@ export default {
 		creationFailed: 'Error en la creación de la cuenta',
 		filter: 'Buscar',
 		inactive: 'Inactivo',
-		lastLogin: 'Último acceso', // TODO Google Translate, needs review
+		lastLogin: 'Último acceso',
 		newUsersEmail:
 			'Ingresa la dirección de correo electrónico del nuevo usuario',
 		registered: 'Activo',
@@ -481,7 +481,7 @@ export default {
 		questionType: 'Tipo de pregunta',
 		questionTypes: {
 			checkbox: 'Casillas de verificación',
-			distributeUnits: 'Distribute N units', // TODO
+			distributeUnits: 'Asignación de unidades (ponderación)',
 			dropdown: 'Desplegable (una respuesta)',
 			multipleChoiceMatrix: 'Matriz de opciones múltiples',
 			number: 'Cuadro de texto numérico',
@@ -497,7 +497,7 @@ export default {
 		showIf: 'Mostrar solamente si...',
 		showResult:
 			'Mostrar resultados a los visitantes después de enviar la hoja de trabajo',
-		units: 'Number of units to distribute', // TODO
+		units: 'Número de unidades a asignar',
 		warnForReferencedQuestion:
 			'Los atributos son de solo lectura porque se hace referencia a la pregunta en una pregunta condicionalmente visible debajo de ella.',
 	},
