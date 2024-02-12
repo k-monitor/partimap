@@ -3,51 +3,23 @@
 		class="mt-1 rounded"
 		:class="{ highlight: selectedFeature }"
 	>
-		<b-list-group-item
+		<FeatureListElementHeader
 			ref="feature"
-			button
-			:class="[
-				{
-					selected: selectedFeature,
-					disabled: onEditMode,
-					rated: !selectedFeature && !editable && rated,
-				},
-			]"
-			class="px-2 rounded"
-			:style="{ borderLeftColor: form.color }"
-			@click="featureClicked()"
-		>
-			<span class="text-break">
-				<i
-					class="fas fa-fw mr-1"
-					:class="icons[feature.getGeometry().getType()]"
-				/>
-				<i
-					v-if="form.hidden"
-					class="fas fa-eye-slash fa-fw mr-1"
-				/>
-				{{ form.name }}
-			</span>
-			<span v-if="selectedFeature">
-				<i class="fas fa-fw fa-times" />
-			</span>
-			<span
-				v-else-if="editable"
-				class="ml-auto text-danger"
-				role="button"
-				@click.stop="deleteFeature"
-			>
-				<i class="fas fa-fw fa-trash" />
-			</span>
-			<span v-else-if="rated">
-				<i class="fas fa-fw fa-check" />
-			</span>
-			<span
-				v-else-if="showResults"
-				class="flex-shrink-0"
-				>{{ ratingResult }}</span
-			>
-		</b-list-group-item>
+			:color="form.color"
+			:geometry-type="feature?.getGeometry()?.getType()"
+			:is-deletable="!selectedFeature && editable"
+			:is-hidden="form.hidden"
+			:is-rated="!selectedFeature && !editable && rated"
+			:is-selected="selectedFeature"
+			:name="form.name"
+			:rating="
+				!selectedFeature && !editable && showResults
+					? ratingResult
+					: null
+			"
+			@click="featureClicked"
+			@delete="deleteFeature"
+		/>
 		<b-collapse
 			:id="`collapse-${feature.getId()}`"
 			:visible="selectedFeature"
@@ -496,9 +468,6 @@ export default {
 		selectedFeature() {
 			return this.getSelectedFeature === this.feature;
 		},
-		onEditMode() {
-			return this.$store.getters.getEditState;
-		},
 		rated() {
 			const r = this.rating;
 			return Number.isInteger(r) && r !== 0 && !this.showResults;
@@ -676,7 +645,7 @@ export default {
 		},
 		expandFinished() {
 			// custom scrollIntoView as its more accurate:
-			const t = this.$refs.feature?.offsetTop || 0;
+			const t = this.$refs.feature?.$el?.offsetTop || 0;
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =
 				t - 75;
 
@@ -700,20 +669,6 @@ export default {
 	z-index: 9999;
 }
 
-.rated {
-	opacity: 0.6;
-}
-
-.list-group-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0.5rem 1rem;
-	border-left: 5px solid transparent;
-}
-.selected > span:first-child {
-	font-weight: bold;
-}
 .collapse-content {
 	border-top: none;
 	border-radius: 0 0 0.25rem 0.25rem;
