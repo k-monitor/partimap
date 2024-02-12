@@ -224,7 +224,7 @@ export default {
 			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez',
-			RatingProsCons: 'Érvek mellette / ellene',
+			RatingProsCons: 'Szempontok mellette / ellene',
 			RatingResults: 'Értékelés eredmények megjelenítése',
 			ShowResultsOnly: 'Csak az eredmények megjelenítése',
 			SocialSharing: 'Megosztás gombok',

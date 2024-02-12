@@ -236,7 +236,7 @@ export default {
 			naming: 'Agregar título al Punto',
 			Rating: 'Calificar características estáticas',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
-			RatingProsCons: 'Érvek mellette / ellene', // TODO
+			RatingProsCons: 'Szempontok mellette / ellene', // TODO
 			RatingResults: 'Mostrar resultados de calificación',
 			ShowResultsOnly: 'Mostrar solo los resultados',
 			SocialSharing: 'Compartir página en redes sociales',

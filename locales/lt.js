@@ -229,7 +229,7 @@ export default {
 			naming: 'Pridėkite žymeklio pavadinimą',
 			Rating: 'Įvertinkite statiškus elementus',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
-			RatingProsCons: 'Érvek mellette / ellene', // TODO
+			RatingProsCons: 'Szempontok mellette / ellene', // TODO
 			RatingResults: 'Rodyti įvertinimo rezultatus',
 			ShowResultsOnly: 'Rodyti tik rezultatus',
 			SocialSharing: 'Bendrinkite puslapį socialinėje erdvėje',

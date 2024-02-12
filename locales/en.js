@@ -227,7 +227,7 @@ export default {
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
-			RatingProsCons: 'Érvek mellette / ellene', // TODO
+			RatingProsCons: 'Szempontok mellette / ellene', // TODO
 			RatingResults: 'Show rating results',
 			ShowResultsOnly: 'Display only the results',
 			SocialSharing: 'Share page on social media',
