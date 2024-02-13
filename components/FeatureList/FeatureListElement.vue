@@ -353,14 +353,12 @@
 import Feature from 'ol/Feature';
 import { mapGetters, mapMutations } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
-import TipTapDisplay from './TipTapDisplay.vue';
 
 // TODO visitor, editable & readonly - all mean slightly different things here, need a cleanup (separate components)
 
 export default {
 	components: {
 		VueTypeaheadBootstrap,
-		TipTapDisplay,
 	},
 	props: {
 		categories: {
