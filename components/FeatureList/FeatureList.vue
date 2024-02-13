@@ -98,6 +98,7 @@
 			:label="$t('FeatureList.ownFeatures')"
 		>
 			<b-list-group>
+				<!-- only on public interactive sheets -->
 				<FeatureListElement
 					v-for="feature in filteredVisitorFeatures"
 					:key="feature.getId()"

@@ -39,16 +39,14 @@
 						!visitorCanRate,
 				}"
 			>
-				<b-form-group v-if="readonly && form.questionAnswer">
-					<template #label>
-						<strong>{{
-							feature.get('partimapFeatureQuestion')
-						}}</strong>
-					</template>
-					{{ form.questionAnswer.join(', ') }}
-				</b-form-group>
-
-				<div v-if="editable">
+				<!-- submitted features page -->
+				<SubmittedFeatureCard
+					v-if="readonly"
+					:feature="feature"
+					@delete="deleteFeature"
+					@jump="setSidebarVisible(false)"
+				/>
+				<div v-else-if="editable">
 					<b-row
 						v-if="!visitor && !readonly"
 						align-h="between"
@@ -104,7 +102,6 @@
 					<b-form-group
 						v-if="
 							!visitor &&
-							!readonly &&
 							feature.getGeometry().getType() !== 'Point'
 						"
 						:label="$t('FeatureListElement.dashType')"
@@ -115,20 +112,11 @@
 							:options="dashOptions"
 						/>
 					</b-form-group>
-					<b-form-group v-if="!visitor || visitorCanName">
-						<template #label>
-							<span :class="readonly && 'font-weight-bold'">{{
-								$t('FeatureListElement.name')
-							}}</span>
-						</template>
-						<p
-							v-if="readonly"
-							class="mb-0"
-						>
-							{{ form.name }}
-						</p>
+					<b-form-group
+						v-if="!visitor || visitorCanName"
+						:label="$t('FeatureListElement.name')"
+					>
 						<b-form-input
-							v-else
 							v-model="form.name"
 							size="sm"
 							type="text"
@@ -136,7 +124,7 @@
 					</b-form-group>
 
 					<b-form-group
-						v-if="!visitor && !readonly"
+						v-if="!visitor"
 						:label="$t('FeatureListElement.mapLabel')"
 					>
 						<b-form-input
@@ -161,7 +149,7 @@
 					</b-form-group>
 
 					<b-form-group
-						v-if="!visitor && !readonly"
+						v-if="!visitor"
 						:label="$t('FeatureListElement.category')"
 					>
 						<vue-typeahead-bootstrap
@@ -195,25 +183,13 @@
 						<b-textarea v-model="form.description" />
 					</b-form-group>
 					<b-form-group
-						v-else-if="!readonly"
+						v-else
 						class="rich"
 						:label="$t('FeatureListElement.description')"
 					>
 						<client-only>
 							<tiptap v-model="form.description" />
 						</client-only>
-					</b-form-group>
-					<b-form-group v-else>
-						<template #label>
-							<strong>{{
-								$t('FeatureListElement.description')
-							}}</strong>
-							<!-- TODO these would be much better with DL tag -->
-						</template>
-						<TipTapDisplay
-							v-if="readonly"
-							:html="form.description"
-						/>
 					</b-form-group>
 				</div>
 				<div v-else>
@@ -333,7 +309,7 @@
 				</b-form-group>
 
 				<div
-					v-else
+					v-else-if="!readonly"
 					class="d-sm-none mb-3 text-center"
 				>
 					<b-button
