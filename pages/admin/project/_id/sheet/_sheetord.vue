@@ -261,16 +261,10 @@ import {
 	serializeInteractions,
 } from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
-import InteractionSettingsModal from '~/components/InteractionSettingsModal.vue';
-import SaveButton from '~/components/SaveButton.vue';
-import NewSheetModal from '~/components/NewSheetModal.vue';
 
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
-		SaveButton,
-		NewSheetModal,
-		InteractionSettingsModal,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {

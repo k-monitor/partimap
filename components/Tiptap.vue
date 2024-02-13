@@ -128,10 +128,10 @@
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2';
-import Image from '@tiptap/extension-image';
-import Link from '@tiptap/extension-link';
-import Youtube from '@tiptap/extension-youtube';
-import StarterKit from '@tiptap/starter-kit';
+import { Image } from '@tiptap/extension-image';
+import { Link } from '@tiptap/extension-link';
+import { Youtube } from '@tiptap/extension-youtube';
+import { StarterKit } from '@tiptap/starter-kit';
 
 export default {
 	components: {

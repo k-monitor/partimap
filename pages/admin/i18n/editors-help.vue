@@ -6,10 +6,7 @@
 </template>
 
 <script>
-import HelpEditor from '~/components/HelpEditor.vue';
-
 export default {
-	components: { HelpEditor },
 	middleware: ['auth', 'admin'],
 	head() {
 		return {

@@ -41,12 +41,10 @@
 <script>
 import GeoJSON from 'ol/format/GeoJSON';
 import { mapGetters } from 'vuex';
-import SaveButton from '~/components/SaveButton.vue';
 
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
-		SaveButton,
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect, localePath }) {

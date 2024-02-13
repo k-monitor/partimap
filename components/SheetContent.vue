@@ -123,11 +123,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import TipTapDisplay from './TipTapDisplay.vue';
 import { deserializeInteractions } from '~/assets/interactions';
 
 export default {
-	components: { TipTapDisplay },
 	props: {
 		brandColor: {
 			type: String,
