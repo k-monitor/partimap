@@ -17,7 +17,7 @@
 				:class="icons[geometryType]"
 			/>
 			<i
-				v-if="isHidden"
+				v-if="hidden"
 				class="fas fa-eye-slash fa-fw mr-1"
 			/>
 			{{ nonEmptyName }}
@@ -51,16 +51,9 @@
 
 <script>
 export default {
+	inject: ['feature'],
 	props: {
-		feature: {
-			type: Object,
-			required: true,
-		},
 		isDeletable: {
-			type: Boolean,
-			default: false,
-		},
-		isHidden: {
 			type: Boolean,
 			default: false,
 		},
@@ -81,6 +74,7 @@ export default {
 		return {
 			color: this.feature.get('color'),
 			geometryType: this.feature.getGeometry().getType(),
+			hidden: this.feature.get('hidden') || false,
 			icons: {
 				Point: 'fa-map-marker-alt',
 				LineString: 'fa-route',
@@ -106,6 +100,7 @@ export default {
 	methods: {
 		handleContentModified() {
 			this.color = this.feature.get('color');
+			this.hidden = this.feature.get('hidden') || false;
 			this.name = this.feature.get('name');
 		},
 	},

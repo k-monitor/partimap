@@ -5,9 +5,7 @@
 	>
 		<FeatureListElementHeader
 			ref="feature"
-			:feature="feature"
 			:is-deletable="!selectedFeature && editable"
-			:is-hidden="form.hidden"
 			:is-rated="!selectedFeature && !editable && rated"
 			:is-selected="selectedFeature"
 			:rating="
@@ -102,14 +100,7 @@
 
 					<!-- TODO rating result if initFeatureRating.count -->
 
-					<b-form-group v-if="!isInteractive">
-						<b-form-checkbox
-							v-model="form.hidden"
-							name="hidden"
-						>
-							{{ $t('FeatureListElement.hidden') }}
-						</b-form-checkbox>
-					</b-form-group>
+					<FeatureHideCheckbox />
 
 					<div
 						class="align-items-center d-flex justify-content-between"
@@ -272,7 +263,6 @@ export default {
 		return {
 			confirmedClose: false,
 			form: {
-				hidden: this.feature.get('hidden') || false,
 				questionAnswer: JSON.parse(
 					this.feature.get('partimapFeatureQuestion_ans') || '[]'
 				),
@@ -319,13 +309,6 @@ export default {
 		getSidebarVisible(v) {
 			if (v && this.selectedFeature) {
 				this.expandFinished();
-			}
-		},
-		'form.hidden'(h) {
-			if (h) {
-				this.feature.set('hidden', true);
-			} else {
-				this.feature.unset('hidden');
 			}
 		},
 		'form.questionAnswer'() {
