@@ -38,8 +38,8 @@
 				}"
 			>
 				<template v-if="isOnSubmittedView">
-					<SubmittedFeatureCard @delete="deleteFeature" />
-					<!-- TODO move delete button here -->
+					<SubmittedFeatureCard />
+					<FeatureDeleteButton @click="deleteFeature" />
 					<JumpToMapButton />
 				</template>
 
@@ -66,7 +66,17 @@
 							<b-textarea v-model="form.description" />
 						</b-form-group>
 
-						<!-- TODO delete + save -->
+						<div
+							class="align-items-center d-flex justify-content-between"
+						>
+							<FeatureDeleteButton @click="deleteFeature" />
+							<b-button
+								variant="success"
+								@click="featureClicked"
+							>
+								{{ $t('SaveButton.save') }}
+							</b-button>
+						</div>
 					</template>
 
 					<template v-else>
@@ -116,7 +126,17 @@
 						</b-form-checkbox>
 					</b-form-group>
 
-					<!-- TODO delete + save -->
+					<div
+						class="align-items-center d-flex justify-content-between"
+					>
+						<FeatureDeleteButton @click="deleteFeature" />
+						<b-button
+							variant="success"
+							@click="featureClicked"
+						>
+							{{ $t('SaveButton.save') }}
+						</b-button>
+					</div>
 				</template>
 
 				<b-form-group
@@ -189,27 +209,6 @@
 							(<small class="fas fa-user fa-fw" />
 							{{ initFeatureRating.count || 0 }})
 						</span>
-					</div>
-				</b-form-group>
-
-				<b-form-group v-if="editable && !isOnSubmittedView">
-					<div
-						class="align-items-center d-flex justify-content-between"
-					>
-						<span
-							class="mr-auto text-danger"
-							role="button"
-							@click.stop="deleteFeature"
-						>
-							<i class="fas fa-fw fa-trash mr-1" />
-							{{ $t('FeatureListElement.deleteFeature') }}
-						</span>
-						<b-button
-							variant="success"
-							@click="featureClicked"
-						>
-							{{ $t('SaveButton.save') }}
-						</b-button>
 					</div>
 				</b-form-group>
 			</b-card>

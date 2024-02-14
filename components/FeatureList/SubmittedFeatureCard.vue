@@ -23,17 +23,6 @@
 				<p>{{ feature.get('description') }}</p>
 			</dd>
 		</dl>
-
-		<div>
-			<span
-				class="text-danger"
-				role="button"
-				@click="$emit('delete')"
-			>
-				<i class="fas fa-fw fa-trash mr-1" />
-				{{ $t('FeatureListElement.deleteFeature') }}
-			</span>
-		</div>
 	</div>
 </template>
 
