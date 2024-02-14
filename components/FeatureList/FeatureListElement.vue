@@ -98,15 +98,7 @@
 						:categories="categories"
 						@change="$emit('categoryEdited')"
 					/>
-
-					<!-- TOOD <b-form-group
-						class="rich"
-						:label="$t('FeatureListElement.description')"
-					>
-						<client-only>
-							<tiptap v-model="form.description" />
-						</client-only>
-					</b-form-group> -->
+					<FeatureDescriptionRichEditor />
 
 					<!-- TODO rating result if initFeatureRating.count -->
 
