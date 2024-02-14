@@ -105,10 +105,7 @@
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
 					:is-on-sheet-view="isOnSheetView"
-					:question="questionFor(feature)"
-					:stars="interactions?.stars"
 					:visitor="visitor"
-					:visitor-can-name="interactions?.enabled.includes('naming')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -133,9 +130,7 @@
 					:is-on-sheet-view="isOnSheetView"
 					:is-on-submitted-view="isOnSubmittedView"
 					:show-results="showResults"
-					:stars="interactions?.stars"
 					:visitor="visitor"
-					:visitor-can-rate="interactions?.enabled.includes('Rating')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -277,11 +272,6 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
-		questionFor(feature) {
-			const dt = feature.getGeometry().getType();
-			const q = this.interactions?.featureQuestions[dt] || {};
-			return q.label ? q : null;
-		},
 		getFeatureRating(featureId) {
 			const dict = this.initFeatureRatings || {};
 			const rating = dict[featureId.toString()];

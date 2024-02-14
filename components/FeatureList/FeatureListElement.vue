@@ -36,7 +36,7 @@
 				}"
 			>
 				<template v-if="isOnSubmittedView">
-					<SubmittedFeatureCard />
+					<SubmittedFeatureInfo />
 					<FeatureDeleteButton @click="deleteFeature" />
 					<JumpToMapButton />
 				</template>
@@ -61,17 +61,7 @@
 					</template>
 
 					<template v-else>
-						<!-- static sheet -->
-						<b-badge
-							v-if="feature.get('category')"
-							class="border border-secondary mb-2"
-							variant="light"
-							v-text="feature.get('category')"
-						/>
-						<TipTapDisplay
-							class="mb-3"
-							:html="feature.get('description')"
-						/>
+						<StaticFeatureInfo />
 
 						<!-- TODO rating input if visitorCanRate -->
 
@@ -232,19 +222,7 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		stars: {
-			type: Number,
-			default: 5,
-		},
 		visitor: {
-			type: Boolean,
-			default: false,
-		},
-		visitorCanRate: {
-			type: Boolean,
-			default: false,
-		},
-		visitorCanName: {
 			type: Boolean,
 			default: false,
 		},
@@ -280,6 +258,15 @@ export default {
 				const avg = Math.round(r.average * 10) / 10;
 				return `⭐ ${Number(avg).toFixed(1)}`;
 			}
+		},
+		stars() {
+			return this.interactions?.stars;
+		},
+		visitorCanName() {
+			return this.interactions?.enabled.includes('naming');
+		},
+		visitorCanRate() {
+			return this.interactions?.enabled.includes('Rating');
 		},
 	},
 	watch: {
