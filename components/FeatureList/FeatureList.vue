@@ -24,7 +24,7 @@
 					KML
 				</b-button>
 				<b-button
-					v-if="!readonly"
+					v-if="!isSubmittedView"
 					class="m-2"
 					size="sm"
 					variant="success"
@@ -35,7 +35,7 @@
 					KML
 				</b-button>
 				<b-button
-					v-if="!readonly"
+					v-if="!isSubmittedView"
 					class="m-2"
 					size="sm"
 					variant="success"
@@ -46,7 +46,7 @@
 					{{ $t('FeatureList.importFromSheet') }}
 				</b-button>
 				<b-button
-					v-if="!readonly"
+					v-if="!isSubmittedView"
 					class="m-2"
 					size="sm"
 					variant="danger"
@@ -130,7 +130,7 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
-					:readonly="readonly"
+					:is-submitted-view="isSubmittedView"
 					:show-results="showResults"
 					:stars="interactions?.stars"
 					:visitor="visitor"
@@ -169,7 +169,7 @@ export default {
 			type: Object, // TODO Interactions actually, but throws warnings on console
 			default: null,
 		},
-		readonly: {
+		isSubmittedView: {
 			type: Boolean,
 			default: false,
 		},
@@ -220,7 +220,7 @@ export default {
 		onStaticMapSheetEditor() {
 			return (
 				!this.visitor && // not visitor
-				!this.readonly && // not results page
+				!this.isSubmittedView && // not results page
 				!!this.interactions && // sheet editor
 				!this.isInteractive // not interactive sheet -> static sheet
 			);

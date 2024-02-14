@@ -41,14 +41,14 @@
 			>
 				<!-- submitted features page -->
 				<SubmittedFeatureCard
-					v-if="readonly"
+					v-if="isSubmittedView"
 					:feature="feature"
 					@delete="deleteFeature"
 					@jump="setSidebarVisible(false)"
 				/>
 				<div v-else-if="editable">
 					<b-row
-						v-if="!visitor && !readonly"
+						v-if="!visitor && !isSubmittedView"
 						align-h="between"
 						align-v="center"
 					>
@@ -287,7 +287,7 @@
 					</b-form-checkbox>
 				</b-form-group>
 
-				<b-form-group v-if="editable && !readonly">
+				<b-form-group v-if="editable && !isSubmittedView">
 					<div
 						class="align-items-center d-flex justify-content-between"
 					>
@@ -309,7 +309,7 @@
 				</b-form-group>
 
 				<div
-					v-else-if="!readonly"
+					v-else-if="!isSubmittedView"
 					class="d-sm-none mb-3 text-center"
 				>
 					<b-button
@@ -330,7 +330,7 @@ import Feature from 'ol/Feature';
 import { mapGetters, mapMutations } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
-// TODO visitor, editable & readonly - all mean slightly different things here, need a cleanup (separate components)
+// TODO visitor, editable & isSubmittedView - all mean slightly different things here, need a cleanup (separate components)
 
 export default {
 	components: {
@@ -357,7 +357,7 @@ export default {
 			type: Object,
 			default: null,
 		},
-		readonly: {
+		isSubmittedView: {
 			type: Boolean,
 			default: false,
 		},
