@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="d-flex flex-column pb-3"
+		class="d-flex flex-column"
 		style="gap: 1rem"
 	>
 		<dl class="mb-0">
@@ -35,15 +35,7 @@
 			</span>
 		</div>
 
-		<div class="d-sm-none text-center">
-			<button
-				class="btn btn-primary"
-				@click="$emit('jump')"
-			>
-				<i class="fas fa-map-marked-alt position-relative" />
-				{{ $t('FeatureListElement.jumpToMap') }}
-			</button>
-		</div>
+		<JumpToMapButton />
 	</div>
 </template>
 

@@ -29,7 +29,7 @@
 			<b-card
 				v-if="selectedFeature"
 				ref="card"
-				body-class="pb-0"
+				body-class="pb-3"
 				class="collapse-content py-0"
 				:class="{
 					'd-sm-none':
@@ -44,7 +44,6 @@
 					v-if="isSubmittedView"
 					:feature="feature"
 					@delete="deleteFeature"
-					@jump="setSidebarVisible(false)"
 				/>
 				<div v-else-if="editable">
 					<b-row
@@ -308,18 +307,7 @@
 					</div>
 				</b-form-group>
 
-				<div
-					v-else-if="!isSubmittedView"
-					class="d-sm-none mb-3 text-center"
-				>
-					<b-button
-						variant="primary"
-						@click="setSidebarVisible(false)"
-					>
-						<i class="fas fa-map-marked-alt position-relative" />
-						{{ $t('FeatureListElement.jumpToMap') }}
-					</b-button>
-				</div>
+				<JumpToMapButton v-else-if="!isSubmittedView" />
 			</b-card>
 		</b-collapse>
 	</div>
@@ -327,7 +315,7 @@
 
 <script>
 import Feature from 'ol/Feature';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
 // TODO visitor, editable & isSubmittedView - all mean slightly different things here, need a cleanup (separate components)
@@ -550,7 +538,6 @@ export default {
 		this.$nuxt.$off('selectAttempt', this.handleSelectAttempt);
 	},
 	methods: {
-		...mapMutations(['setSidebarVisible']),
 		emitChangeStyle() {
 			this.$nuxt.$emit(
 				'changeStyle',
