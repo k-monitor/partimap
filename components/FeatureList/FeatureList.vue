@@ -23,39 +23,38 @@
 					<br />
 					KML
 				</b-button>
-				<b-button
-					v-if="!isSubmittedView"
-					class="m-2"
-					size="sm"
-					variant="success"
-					@click="importKML"
-				>
-					<i class="fas fa-fw fa-upload" />
-					<br />
-					KML
-				</b-button>
-				<b-button
-					v-if="!isSubmittedView"
-					class="m-2"
-					size="sm"
-					variant="success"
-					@click="$bvModal.show('featureImportModal')"
-				>
-					<i class="fas fa-fw fa-file-import" />
-					<br />
-					{{ $t('FeatureList.importFromSheet') }}
-				</b-button>
-				<b-button
-					v-if="!isSubmittedView"
-					class="m-2"
-					size="sm"
-					variant="danger"
-					@click="deleteAll"
-				>
-					<i class="fas fa-fw fa-trash" />
-					<br />
-					{{ $t('FeatureList.deleteAll') }}
-				</b-button>
+				<template v-if="!isOnSubmittedView">
+					<b-button
+						class="m-2"
+						size="sm"
+						variant="success"
+						@click="importKML"
+					>
+						<i class="fas fa-fw fa-upload" />
+						<br />
+						KML
+					</b-button>
+					<b-button
+						class="m-2"
+						size="sm"
+						variant="success"
+						@click="$bvModal.show('featureImportModal')"
+					>
+						<i class="fas fa-fw fa-file-import" />
+						<br />
+						{{ $t('FeatureList.importFromSheet') }}
+					</b-button>
+					<b-button
+						class="m-2"
+						size="sm"
+						variant="danger"
+						@click="deleteAll"
+					>
+						<i class="fas fa-fw fa-trash" />
+						<br />
+						{{ $t('FeatureList.deleteAll') }}
+					</b-button>
+				</template>
 			</div>
 			<div v-if="!hideAdminFeatures">
 				<b-input-group class="mt-3">
@@ -130,7 +129,7 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
-					:is-submitted-view="isSubmittedView"
+					:is-on-submitted-view="isOnSubmittedView"
 					:show-results="showResults"
 					:stars="interactions?.stars"
 					:visitor="visitor"
@@ -169,7 +168,7 @@ export default {
 			type: Object, // TODO Interactions actually, but throws warnings on console
 			default: null,
 		},
-		isSubmittedView: {
+		isOnSubmittedView: {
 			type: Boolean,
 			default: false,
 		},
@@ -220,7 +219,7 @@ export default {
 		onStaticMapSheetEditor() {
 			return (
 				!this.visitor && // not visitor
-				!this.isSubmittedView && // not results page
+				!this.isOnSubmittedView && // not results page
 				!!this.interactions && // sheet editor
 				!this.isInteractive // not interactive sheet -> static sheet
 			);

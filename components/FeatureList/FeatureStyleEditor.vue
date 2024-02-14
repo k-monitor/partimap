@@ -72,12 +72,7 @@
 
 <script>
 export default {
-	props: {
-		feature: {
-			type: Object,
-			required: true,
-		},
-	},
+	inject: ['feature'],
 	data() {
 		return {
 			angle: parseInt(this.feature.get('partimapMapLabelAngle'), 10) || 0,

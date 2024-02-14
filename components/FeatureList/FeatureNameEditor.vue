@@ -10,12 +10,7 @@
 
 <script>
 export default {
-	props: {
-		feature: {
-			type: Object,
-			required: true,
-		},
-	},
+	inject: ['feature'],
 	data() {
 		const anon = this.$t('FeatureListElement.defaultName')[
 			this.feature.getGeometry().getType()

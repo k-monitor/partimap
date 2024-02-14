@@ -37,22 +37,14 @@
 						!visitorCanRate,
 				}"
 			>
-				<!-- submitted features page -->
-				<SubmittedFeatureCard
-					v-if="isSubmittedView"
-					:feature="feature"
-					@delete="deleteFeature"
-				/>
+				<template v-if="isOnSubmittedView">
+					<SubmittedFeatureCard @delete="deleteFeature" />
+					<JumpToMapButton />
+				</template>
 				<div v-else-if="editable">
-					<FeatureNameEditor
-						v-if="!visitor || visitorCanName"
-						:feature="feature"
-					/>
+					<FeatureNameEditor v-if="!visitor || visitorCanName" />
 
-					<FeatureStyleEditor
-						v-if="!visitor"
-						:feature="feature"
-					/>
+					<FeatureStyleEditor v-if="!visitor" />
 
 					<b-form-group
 						v-if="!visitor"
@@ -193,7 +185,7 @@
 					</b-form-checkbox>
 				</b-form-group>
 
-				<b-form-group v-if="editable && !isSubmittedView">
+				<b-form-group v-if="editable && !isOnSubmittedView">
 					<div
 						class="align-items-center d-flex justify-content-between"
 					>
@@ -214,7 +206,7 @@
 					</div>
 				</b-form-group>
 
-				<JumpToMapButton v-else-if="!isSubmittedView" />
+				<JumpToMapButton v-else-if="!isOnSubmittedView" />
 			</b-card>
 		</b-collapse>
 	</div>
@@ -225,11 +217,16 @@ import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
-// TODO visitor, editable & isSubmittedView - all mean slightly different things here, need a cleanup (separate components)
+// TODO visitor, editable & isOnSubmittedView - all mean slightly different things here, need a cleanup (separate components)
 
 export default {
 	components: {
 		VueTypeaheadBootstrap,
+	},
+	provide() {
+		return {
+			feature: this.feature,
+		};
 	},
 	props: {
 		categories: {
@@ -252,7 +249,7 @@ export default {
 			type: Object,
 			default: null,
 		},
-		isSubmittedView: {
+		isOnSubmittedView: {
 			type: Boolean,
 			default: false,
 		},

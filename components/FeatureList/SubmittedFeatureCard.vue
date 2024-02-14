@@ -34,19 +34,12 @@
 				{{ $t('FeatureListElement.deleteFeature') }}
 			</span>
 		</div>
-
-		<JumpToMapButton />
 	</div>
 </template>
 
 <script>
 export default {
-	props: {
-		feature: {
-			type: Object,
-			required: true,
-		},
-	},
+	inject: ['feature'],
 	computed: {
 		answer() {
 			try {
