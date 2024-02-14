@@ -37,8 +37,8 @@
 			>
 				<template v-if="isOnSubmittedView">
 					<SubmittedFeatureInfo />
-					<FeatureDeleteButton @click="deleteFeature" />
-					<JumpToMapButton />
+					<JumpToMapButton class="mb-3" />
+					<FeatureListElementFooter @delete="deleteFeature" />
 				</template>
 
 				<template v-if="isOnSheetView">
@@ -46,18 +46,11 @@
 						<FeatureNameEditor v-if="visitorCanName" />
 						<FeatureQuestionDisplay />
 						<FeatureDescriptionPlainEditor />
-
-						<div
-							class="align-items-center d-flex justify-content-between"
-						>
-							<FeatureDeleteButton @click="deleteFeature" />
-							<b-button
-								variant="success"
-								@click="featureClicked"
-							>
-								{{ $t('SaveButton.save') }}
-							</b-button>
-						</div>
+						<FeatureListElementFooter
+							save
+							@delete="deleteFeature"
+							@save="featureClicked"
+						/>
 					</template>
 
 					<template v-else>
@@ -81,18 +74,11 @@
 					<!-- TODO rating result if initFeatureRating.count -->
 
 					<FeatureHideCheckbox />
-
-					<div
-						class="align-items-center d-flex justify-content-between"
-					>
-						<FeatureDeleteButton @click="deleteFeature" />
-						<b-button
-							variant="success"
-							@click="featureClicked"
-						>
-							{{ $t('SaveButton.save') }}
-						</b-button>
-					</div>
+					<FeatureListElementFooter
+						save
+						@delete="deleteFeature"
+						@save="featureClicked"
+					/>
 				</template>
 
 				<b-form-group
