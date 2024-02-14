@@ -44,40 +44,15 @@
 					@delete="deleteFeature"
 				/>
 				<div v-else-if="editable">
-					<FeatureStyleEditor
-						v-if="!visitor"
-						:feature="feature"
-					/>
-
 					<FeatureNameEditor
 						v-if="!visitor || visitorCanName"
 						:feature="feature"
 					/>
 
-					<b-form-group
+					<FeatureStyleEditor
 						v-if="!visitor"
-						:label="$t('FeatureListElement.mapLabel')"
-					>
-						<b-form-input
-							v-model.trim="form.partimapMapLabel"
-							size="sm"
-							type="text"
-						/>
-					</b-form-group>
-					<b-form-group v-if="!!form.partimapMapLabel">
-						<div class="d-flex align-items-center">
-							<div>-90°</div>
-							<b-form-input
-								v-model.number="form.partimapMapLabelAngle"
-								class="mx-2 mb-1"
-								max="90"
-								min="-90"
-								step="5"
-								type="range"
-							/>
-							<div>90°</div>
-						</div>
-					</b-form-group>
+						:feature="feature"
+					/>
 
 					<b-form-group
 						v-if="!visitor"
@@ -313,10 +288,6 @@ export default {
 				category: this.feature.get('category') || '', // empty string is important for typeahead comp
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
-				partimapMapLabel: this.feature.get('partimapMapLabel') || '',
-				partimapMapLabelAngle: Number(
-					this.feature.get('partimapMapLabelAngle') || 0
-				),
 				questionAnswer: JSON.parse(
 					this.feature.get('partimapFeatureQuestion_ans') || '[]'
 				),
@@ -381,15 +352,6 @@ export default {
 				this.feature.unset('hidden');
 			}
 		},
-		'form.partimapMapLabel'() {
-			this.feature.set('partimapMapLabel', this.form.partimapMapLabel);
-		},
-		'form.partimapMapLabelAngle'() {
-			this.feature.set(
-				'partimapMapLabelAngle',
-				this.form.partimapMapLabelAngle
-			);
-		},
 		'form.description'() {
 			this.feature.set('description', this.form.description);
 		},
@@ -402,7 +364,6 @@ export default {
 		},
 		form: {
 			handler(val) {
-				// this.emitChangeStyle();
 				this.$nuxt.$emit('contentModified');
 			},
 			deep: true,
@@ -441,15 +402,6 @@ export default {
 		this.$nuxt.$off('selectAttempt', this.handleSelectAttempt);
 	},
 	methods: {
-		emitChangeStyle() {
-			this.$nuxt.$emit(
-				'changeStyle',
-				this.feature,
-				this.form.color,
-				this.form.dash,
-				this.form.width
-			);
-		},
 		async handleSelectAttempt(clickedFeature) {
 			const currentId = this.feature?.getId();
 			const selectedId = this.getSelectedFeature?.getId();

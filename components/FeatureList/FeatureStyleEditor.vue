@@ -33,6 +33,7 @@
 				</b-form-group>
 			</b-col>
 		</b-row>
+
 		<b-form-group
 			v-if="feature.getGeometry().getType() !== 'Point'"
 			:label="$t('FeatureListElement.dashType')"
@@ -42,6 +43,29 @@
 				size="sm"
 				:options="dashOptions"
 			/>
+		</b-form-group>
+
+		<b-form-group :label="$t('FeatureListElement.mapLabel')">
+			<b-form-input
+				v-model.trim="label"
+				size="sm"
+				type="text"
+			/>
+		</b-form-group>
+
+		<b-form-group v-if="label">
+			<div class="d-flex align-items-center">
+				<div>-90°</div>
+				<b-form-input
+					v-model.number="angle"
+					class="mx-2 mb-1"
+					max="90"
+					min="-90"
+					step="5"
+					type="range"
+				/>
+				<div>90°</div>
+			</div>
 		</b-form-group>
 	</div>
 </template>
@@ -56,6 +80,7 @@ export default {
 	},
 	data() {
 		return {
+			angle: parseInt(this.feature.get('partimapMapLabelAngle'), 10) || 0,
 			color: this.feature.get('color'),
 			colors: [
 				'#F44336',
@@ -102,18 +127,21 @@ export default {
 					value: '1,1,3,1',
 				},
 			],
+			label: this.feature.get('partimapMapLabel') || '',
 			width: this.feature.get('width'),
 		};
 	},
 	computed: {
 		style() {
-			return [this.color, this.width, this.dash];
+			return [this.angle, this.color, this.dash, this.label, this.width];
 		},
 	},
 	watch: {
 		style() {
+			this.feature.set('partimapMapLabelAngle', this.angle);
 			this.feature.set('color', this.color);
 			this.feature.set('dash', this.dash);
+			this.feature.set('partimapMapLabel', this.label);
 			this.feature.set('width', this.width);
 			this.$nuxt.$emit(
 				'changeStyle',
