@@ -32,13 +32,14 @@
 				:class="{
 					'd-sm-none':
 						!editable &&
-						!form.category &&
+						!feature.get('category') &&
 						!form.description &&
 						!visitorCanRate,
 				}"
 			>
 				<template v-if="isOnSubmittedView">
 					<SubmittedFeatureCard @delete="deleteFeature" />
+					<!-- TODO move delete button here -->
 					<JumpToMapButton />
 				</template>
 
@@ -64,15 +65,17 @@
 						>
 							<b-textarea v-model="form.description" />
 						</b-form-group>
+
+						<!-- TODO delete + save -->
 					</template>
 
 					<template v-else>
 						<!-- static sheet -->
 						<b-badge
-							v-if="form.category"
+							v-if="feature.get('category')"
 							class="border border-secondary mb-2"
 							variant="light"
-							v-text="form.category"
+							v-text="feature.get('category')"
 						/>
 						<TipTapDisplay
 							class="mb-3"
@@ -88,18 +91,10 @@
 				<template v-if="isOnEditorView">
 					<FeatureNameEditor />
 					<FeatureStyleEditor />
-
-					<b-form-group :label="$t('FeatureListElement.category')">
-						<vue-typeahead-bootstrap
-							v-model="form.category"
-							:placeholder="$t('FeatureListElement.category')"
-							size="sm"
-							:data="categories"
-							:min-matching-chars="0"
-							show-all-results
-							show-on-focus
-						/>
-					</b-form-group>
+					<FeatureCategoryEditor
+						:categories="categories"
+						@change="$emit('categoryEdited')"
+					/>
 
 					<b-form-group
 						class="rich"
@@ -111,6 +106,17 @@
 					</b-form-group>
 
 					<!-- TODO rating result if initFeatureRating.count -->
+
+					<b-form-group v-if="!isInteractive">
+						<b-form-checkbox
+							v-model="form.hidden"
+							name="hidden"
+						>
+							{{ $t('FeatureListElement.hidden') }}
+						</b-form-checkbox>
+					</b-form-group>
+
+					<!-- TODO delete + save -->
 				</template>
 
 				<b-form-group
@@ -186,15 +192,6 @@
 					</div>
 				</b-form-group>
 
-				<b-form-group v-if="adminCanHide">
-					<b-form-checkbox
-						v-model="form.hidden"
-						name="hidden"
-					>
-						{{ $t('FeatureListElement.hidden') }}
-					</b-form-checkbox>
-				</b-form-group>
-
 				<b-form-group v-if="editable && !isOnSubmittedView">
 					<div
 						class="align-items-center d-flex justify-content-between"
@@ -223,14 +220,10 @@
 <script>
 import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
-import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
 
 // TODO visitor, editable & isOnSubmittedView - all mean slightly different things here, need a cleanup (separate components)
 
 export default {
-	components: {
-		VueTypeaheadBootstrap,
-	},
 	provide() {
 		return {
 			feature: this.feature,
@@ -293,16 +286,11 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		adminCanHide: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	data() {
 		return {
 			confirmedClose: false,
 			form: {
-				category: this.feature.get('category') || '', // empty string is important for typeahead comp
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
 				questionAnswer: JSON.parse(
@@ -357,10 +345,6 @@ export default {
 			if (v && this.selectedFeature) {
 				this.expandFinished();
 			}
-		},
-		'form.category'() {
-			this.feature.set('category', this.form.category);
-			this.$emit('categoryEdited');
 		},
 		'form.hidden'(h) {
 			if (h) {
