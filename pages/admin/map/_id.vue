@@ -24,7 +24,10 @@
 					size="lg"
 				/>
 			</b-form-group>
-			<FeatureList :filename="mapData.title" />
+			<FeatureList
+				:filename="mapData.title"
+				is-on-editor-view
+			/>
 
 			<template #footer>
 				<div class="p-2 text-center">

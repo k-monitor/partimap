@@ -108,6 +108,8 @@
 						:init-feature-ratings="featureRatings"
 						:interactions="interactions"
 						:show-results="resultsShown"
+						:is-interactive="isInteractive"
+						is-on-sheet-view
 						visitor
 					/>
 

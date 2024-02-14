@@ -41,15 +41,55 @@
 					<SubmittedFeatureCard @delete="deleteFeature" />
 					<JumpToMapButton />
 				</template>
-				<div v-else-if="editable">
-					<FeatureNameEditor v-if="!visitor || visitorCanName" />
 
-					<FeatureStyleEditor v-if="!visitor" />
+				<template v-if="isOnSheetView">
+					<template v-if="isInteractive">
+						<FeatureNameEditor v-if="visitorCanName" />
 
-					<b-form-group
-						v-if="!visitor"
-						:label="$t('FeatureListElement.category')"
-					>
+						<b-form-group
+							v-if="question"
+							:label="question.label"
+						>
+							<CheckboxGroup
+								v-model="visitorAnswer"
+								:q="question"
+							/>
+						</b-form-group>
+
+						<b-form-group
+							:label="
+								descriptionLabel ||
+								$t('sheetEditor.defaultDescriptionLabel')
+							"
+						>
+							<b-textarea v-model="form.description" />
+						</b-form-group>
+					</template>
+
+					<template v-else>
+						<!-- static sheet -->
+						<b-badge
+							v-if="form.category"
+							class="border border-secondary mb-2"
+							variant="light"
+							v-text="form.category"
+						/>
+						<TipTapDisplay
+							class="mb-3"
+							:html="form.description"
+						/>
+
+						<!-- TODO rating input if visitorCanRate -->
+
+						<JumpToMapButton />
+					</template>
+				</template>
+
+				<template v-if="isOnEditorView">
+					<FeatureNameEditor />
+					<FeatureStyleEditor />
+
+					<b-form-group :label="$t('FeatureListElement.category')">
 						<vue-typeahead-bootstrap
 							v-model="form.category"
 							:placeholder="$t('FeatureListElement.category')"
@@ -62,26 +102,6 @@
 					</b-form-group>
 
 					<b-form-group
-						v-if="visitor && question"
-						:label="question.label"
-					>
-						<CheckboxGroup
-							v-model="visitorAnswer"
-							:q="question"
-						/>
-					</b-form-group>
-
-					<b-form-group
-						v-if="visitor"
-						:label="
-							descriptionLabel ||
-							$t('sheetEditor.defaultDescriptionLabel')
-						"
-					>
-						<b-textarea v-model="form.description" />
-					</b-form-group>
-					<b-form-group
-						v-else
 						class="rich"
 						:label="$t('FeatureListElement.description')"
 					>
@@ -89,19 +109,9 @@
 							<tiptap v-model="form.description" />
 						</client-only>
 					</b-form-group>
-				</div>
-				<div v-else>
-					<b-badge
-						v-if="form.category"
-						class="border border-secondary mb-2"
-						variant="light"
-						v-text="form.category"
-					/>
-					<TipTapDisplay
-						class="mb-3"
-						:html="form.description"
-					/>
-				</div>
+
+					<!-- TODO rating result if initFeatureRating.count -->
+				</template>
 
 				<b-form-group
 					v-if="
@@ -205,8 +215,6 @@
 						</b-button>
 					</div>
 				</b-form-group>
-
-				<JumpToMapButton v-else-if="!isOnSubmittedView" />
 			</b-card>
 		</b-collapse>
 	</div>
@@ -248,6 +256,18 @@ export default {
 		question: {
 			type: Object,
 			default: null,
+		},
+		isInteractive: {
+			type: Boolean,
+			default: true,
+		},
+		isOnEditorView: {
+			type: Boolean,
+			default: false,
+		},
+		isOnSheetView: {
+			type: Boolean,
+			default: false,
 		},
 		isOnSubmittedView: {
 			type: Boolean,

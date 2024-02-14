@@ -201,6 +201,7 @@
 				:filename="sheet.title"
 				:init-feature-ratings="submittedRatings"
 				:interactions="interactions"
+				is-on-editor-view
 			/>
 
 			<template #footer>

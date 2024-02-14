@@ -129,6 +129,9 @@
 					:categories="categories"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:is-interactive="isInteractive"
+					:is-on-editor-view="isOnEditorView"
+					:is-on-sheet-view="isOnSheetView"
 					:is-on-submitted-view="isOnSubmittedView"
 					:show-results="showResults"
 					:stars="interactions?.stars"
@@ -167,6 +170,18 @@ export default {
 		interactions: {
 			type: Object, // TODO Interactions actually, but throws warnings on console
 			default: null,
+		},
+		isInteractive: {
+			type: Boolean,
+			default: false,
+		},
+		isOnEditorView: {
+			type: Boolean,
+			default: false,
+		},
+		isOnSheetView: {
+			type: Boolean,
+			default: false,
 		},
 		isOnSubmittedView: {
 			type: Boolean,
@@ -222,14 +237,6 @@ export default {
 				!this.isOnSubmittedView && // not results page
 				!!this.interactions && // sheet editor
 				!this.isInteractive // not interactive sheet -> static sheet
-			);
-		},
-		isInteractive() {
-			return (
-				this.interactions &&
-				(this.interactions.enabled.includes('Point') ||
-					this.interactions.enabled.includes('LineString') ||
-					this.interactions.enabled.includes('Polygon'))
 			);
 		},
 		answers() {
