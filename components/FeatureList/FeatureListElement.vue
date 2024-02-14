@@ -10,7 +10,6 @@
 			:is-hidden="form.hidden"
 			:is-rated="!selectedFeature && !editable && rated"
 			:is-selected="selectedFeature"
-			:name="form.name"
 			:rating="
 				!selectedFeature && !editable && showResults
 					? ratingResult
@@ -50,16 +49,10 @@
 						:feature="feature"
 					/>
 
-					<b-form-group
+					<FeatureNameEditor
 						v-if="!visitor || visitorCanName"
-						:label="$t('FeatureListElement.name')"
-					>
-						<b-form-input
-							v-model="form.name"
-							size="sm"
-							type="text"
-						/>
-					</b-form-group>
+						:feature="feature"
+					/>
 
 					<b-form-group
 						v-if="!visitor"
@@ -317,7 +310,6 @@ export default {
 		return {
 			confirmedClose: false,
 			form: {
-				name: this.getFeatureName(),
 				category: this.feature.get('category') || '', // empty string is important for typeahead comp
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
@@ -389,9 +381,6 @@ export default {
 				this.feature.unset('hidden');
 			}
 		},
-		'form.name'() {
-			this.feature.set('name', this.form.name);
-		},
 		'form.partimapMapLabel'() {
 			this.feature.set('partimapMapLabel', this.form.partimapMapLabel);
 		},
@@ -413,7 +402,7 @@ export default {
 		},
 		form: {
 			handler(val) {
-				this.emitChangeStyle();
+				// this.emitChangeStyle();
 				this.$nuxt.$emit('contentModified');
 			},
 			deep: true,
@@ -461,12 +450,6 @@ export default {
 				this.form.width
 			);
 		},
-		getFeatureName() {
-			const anon = this.$t('FeatureListElement.defaultName')[
-				this.feature.getGeometry().getType()
-			];
-			return this.feature.get('name') || anon;
-		},
 		async handleSelectAttempt(clickedFeature) {
 			const currentId = this.feature?.getId();
 			const selectedId = this.getSelectedFeature?.getId();
@@ -511,8 +494,12 @@ export default {
 			}
 		},
 		async deleteFeature() {
+			const anon = this.$t('FeatureListElement.defaultName')[
+				this.feature.getGeometry().getType()
+			];
+			const nonEmptyName = this.feature.get('name') || anon;
 			const confirmed = await this.confirmDeletion(
-				this.form.name || this.feature.id
+				nonEmptyName || this.feature.id
 			);
 			if (confirmed) {
 				this.$nuxt.$emit('clearFeature', this.feature);

@@ -20,7 +20,7 @@
 				v-if="isHidden"
 				class="fas fa-eye-slash fa-fw mr-1"
 			/>
-			{{ name }}
+			{{ nonEmptyName }}
 		</span>
 
 		<span v-if="isSelected">
@@ -72,10 +72,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		name: {
-			type: String,
-			default: null,
-		},
 		rating: {
 			type: String,
 			default: null,
@@ -90,17 +86,27 @@ export default {
 				LineString: 'fa-route',
 				Polygon: 'fa-draw-polygon',
 			},
+			name: this.feature.get('name'),
 		};
 	},
+	computed: {
+		nonEmptyName() {
+			const anon = this.$t('FeatureListElement.defaultName')[
+				this.feature.getGeometry().getType()
+			];
+			return this.name || anon;
+		},
+	},
 	mounted() {
-		this.$nuxt.$on('changeStyle', this.handleChangeStyle);
+		this.$nuxt.$on('contentModified', this.handleContentModified);
 	},
 	beforeDestroy() {
-		this.$nuxt.$off('changeStyle', this.handleChangeStyle);
+		this.$nuxt.$off('contentModified', this.handleContentModified);
 	},
 	methods: {
-		handleChangeStyle() {
+		handleContentModified() {
 			this.color = this.feature.get('color');
+			this.name = this.feature.get('name');
 		},
 	},
 };
