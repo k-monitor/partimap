@@ -52,13 +52,9 @@
 <script>
 export default {
 	props: {
-		color: {
-			type: String,
-			default: null,
-		},
-		geometryType: {
-			type: String,
-			default: null,
+		feature: {
+			type: Object,
+			required: true,
 		},
 		isDeletable: {
 			type: Boolean,
@@ -87,12 +83,25 @@ export default {
 	},
 	data() {
 		return {
+			color: this.feature.get('color'),
+			geometryType: this.feature.getGeometry().getType(),
 			icons: {
 				Point: 'fa-map-marker-alt',
 				LineString: 'fa-route',
 				Polygon: 'fa-draw-polygon',
 			},
 		};
+	},
+	mounted() {
+		this.$nuxt.$on('changeStyle', this.handleChangeStyle);
+	},
+	beforeDestroy() {
+		this.$nuxt.$off('changeStyle', this.handleChangeStyle);
+	},
+	methods: {
+		handleChangeStyle() {
+			this.color = this.feature.get('color');
+		},
 	},
 };
 </script>

@@ -5,8 +5,7 @@
 	>
 		<FeatureListElementHeader
 			ref="feature"
-			:color="form.color"
-			:geometry-type="feature?.getGeometry()?.getType()"
+			:feature="feature"
 			:is-deletable="!selectedFeature && editable"
 			:is-hidden="form.hidden"
 			:is-rated="!selectedFeature && !editable && rated"
@@ -46,71 +45,11 @@
 					@delete="deleteFeature"
 				/>
 				<div v-else-if="editable">
-					<b-row
-						v-if="!visitor && !isSubmittedView"
-						align-h="between"
-						align-v="center"
-					>
-						<b-col>
-							<b-form-group
-								:label="$t('FeatureListElement.color')"
-							>
-								<b-form-input
-									id="type-color"
-									v-model="form.color"
-									size="sm"
-									type="color"
-									list="presetColors"
-								/>
-								<datalist id="presetColors">
-									<option>#F44336</option>
-									<option>#E91E63</option>
-									<option>#9C27B0</option>
-									<option>#673AB7</option>
-									<option>#3F51B5</option>
-									<option>#2196F3</option>
-									<option>#03A9F4</option>
-									<option>#00BCD4</option>
-									<option>#009688</option>
-									<option>#4CAF50</option>
-									<option>#8BC34A</option>
-									<option>#CDDC39</option>
-									<option>#FFEB3B</option>
-									<option>#ffc107</option>
-									<option>#FF9800</option>
-									<option>#FF5722</option>
-									<option>#795548</option>
-									<option>#9E9E9E</option>
-									<option>#000000</option>
-									<option>#607D8B</option>
-								</datalist>
-							</b-form-group>
-						</b-col>
-						<b-col>
-							<b-form-group
-								:label="$t('FeatureListElement.size')"
-							>
-								<b-form-input
-									v-model="form.width"
-									size="sm"
-									type="number"
-								/>
-							</b-form-group>
-						</b-col>
-					</b-row>
-					<b-form-group
-						v-if="
-							!visitor &&
-							feature.getGeometry().getType() !== 'Point'
-						"
-						:label="$t('FeatureListElement.dashType')"
-					>
-						<b-form-select
-							v-model="form.dash"
-							size="sm"
-							:options="dashOptions"
-						/>
-					</b-form-group>
+					<FeatureStyleEditor
+						v-if="!visitor"
+						:feature="feature"
+					/>
+
 					<b-form-group
 						v-if="!visitor || visitorCanName"
 						:label="$t('FeatureListElement.name')"
@@ -380,8 +319,6 @@ export default {
 			form: {
 				name: this.getFeatureName(),
 				category: this.feature.get('category') || '', // empty string is important for typeahead comp
-				color: this.feature.get('color'),
-				dash: this.feature.get('dash'),
 				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
 				partimapMapLabel: this.feature.get('partimapMapLabel') || '',
@@ -391,31 +328,8 @@ export default {
 				questionAnswer: JSON.parse(
 					this.feature.get('partimapFeatureQuestion_ans') || '[]'
 				),
-				width: this.feature.get('width'),
 			},
 			rating: Number(this.initFeatureRating.average || 0),
-			dashOptions: [
-				{
-					text: this.$t('FeatureListElement.dashTypes.p0'),
-					value: '0',
-				},
-				{
-					text: this.$t('FeatureListElement.dashTypes.p11'),
-					value: '1,1',
-				},
-				{
-					text: this.$t('FeatureListElement.dashTypes.p21'),
-					value: '2,1',
-				},
-				{
-					text: this.$t('FeatureListElement.dashTypes.p41'),
-					value: '4,1',
-				},
-				{
-					text: this.$t('FeatureListElement.dashTypes.p1131'),
-					value: '1,1,3,1',
-				},
-			],
 			editable: !this.visitor || this.feature.get('visitorFeature'),
 			icons: {
 				Point: 'fa-map-marker-alt',
