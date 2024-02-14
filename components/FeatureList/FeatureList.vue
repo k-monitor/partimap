@@ -102,9 +102,9 @@
 					v-for="feature in filteredVisitorFeatures"
 					:key="feature.getId()"
 					:categories="categories"
-					:description-label="descriptionLabelFor(feature)"
 					:feature="feature"
 					:init-feature-rating="getFeatureRating(feature.getId())"
+					:is-on-sheet-view="isOnSheetView"
 					:question="questionFor(feature)"
 					:stars="interactions?.stars"
 					:visitor="visitor"
@@ -157,6 +157,12 @@ import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
 
 export default {
+	provide() {
+		return {
+			interactions: this.interactions,
+			sheet: this.sheet,
+		};
+	},
 	props: {
 		filename: {
 			type: String,
@@ -271,11 +277,6 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
-		descriptionLabelFor(feature) {
-			const dt = feature.getGeometry().getType();
-			const lab = this.interactions?.descriptionLabels[dt];
-			return lab || this.sheet?.descriptionLabel || '';
-		},
 		questionFor(feature) {
 			const dt = feature.getGeometry().getType();
 			const q = this.interactions?.featureQuestions[dt] || {};

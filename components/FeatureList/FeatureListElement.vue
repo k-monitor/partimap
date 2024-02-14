@@ -33,7 +33,7 @@
 					'd-sm-none':
 						!editable &&
 						!feature.get('category') &&
-						!form.description &&
+						!feature.get('description') &&
 						!visitorCanRate,
 				}"
 			>
@@ -57,14 +57,7 @@
 							/>
 						</b-form-group>
 
-						<b-form-group
-							:label="
-								descriptionLabel ||
-								$t('sheetEditor.defaultDescriptionLabel')
-							"
-						>
-							<b-textarea v-model="form.description" />
-						</b-form-group>
+						<FeatureDescriptionPlainEditor />
 
 						<div
 							class="align-items-center d-flex justify-content-between"
@@ -89,7 +82,7 @@
 						/>
 						<TipTapDisplay
 							class="mb-3"
-							:html="form.description"
+							:html="feature.get('description')"
 						/>
 
 						<!-- TODO rating input if visitorCanRate -->
@@ -106,14 +99,14 @@
 						@change="$emit('categoryEdited')"
 					/>
 
-					<b-form-group
+					<!-- TOOD <b-form-group
 						class="rich"
 						:label="$t('FeatureListElement.description')"
 					>
 						<client-only>
 							<tiptap v-model="form.description" />
 						</client-only>
-					</b-form-group>
+					</b-form-group> -->
 
 					<!-- TODO rating result if initFeatureRating.count -->
 
@@ -228,14 +221,11 @@ export default {
 			feature: this.feature,
 		};
 	},
+	inject: ['interactions'],
 	props: {
 		categories: {
 			type: Array,
 			default: () => [],
-		},
-		descriptionLabel: {
-			type: String,
-			default: null,
 		},
 		feature: {
 			type: Feature,
@@ -290,7 +280,6 @@ export default {
 		return {
 			confirmedClose: false,
 			form: {
-				description: this.feature.get('description'),
 				hidden: this.feature.get('hidden') || false,
 				questionAnswer: JSON.parse(
 					this.feature.get('partimapFeatureQuestion_ans') || '[]'
@@ -333,11 +322,6 @@ export default {
 				this.form.questionAnswer = answer;
 			},
 		},
-		visitorFilledEverything() {
-			if (!this.form.description) return false;
-			if (this.question && !this.visitorAnswer?.length) return false;
-			return true;
-		},
 	},
 	watch: {
 		getSidebarVisible(v) {
@@ -351,9 +335,6 @@ export default {
 			} else {
 				this.feature.unset('hidden');
 			}
-		},
-		'form.description'() {
-			this.feature.set('description', this.form.description);
 		},
 		'form.questionAnswer'() {
 			this.feature.set('partimapFeatureQuestion', this.question.label);
@@ -389,7 +370,6 @@ export default {
 	mounted() {
 		// notify feature list to initialize category tags/autocomplete
 		this.$emit('categoryEdited');
-
 		// When an element is created, scroll to it
 		if (this.selectedFeature) {
 			this.expandFinished();
@@ -406,7 +386,6 @@ export default {
 			const currentId = this.feature?.getId();
 			const selectedId = this.getSelectedFeature?.getId();
 			const clickedId = clickedFeature?.getId();
-
 			if (!selectedId && clickedId === currentId) {
 				// no feature selected currently
 				// this feature was clicked on map
@@ -422,11 +401,16 @@ export default {
 				}
 			}
 		},
+		visitorFilledEverything() {
+			if (!this.feature.get('description')) return false;
+			if (this.question && !this.visitorAnswer?.length) return false;
+			return true;
+		},
 		async canDeselectFeature() {
 			if (
-				this.visitor &&
-				this.editable &&
-				!this.visitorFilledEverything &&
+				this.isOnSheetView &&
+				this.isInteractive &&
+				!this.visitorFilledEverything() &&
 				!this.confirmedClose
 			) {
 				const confirmed = await this.confirmFeatureClose();
@@ -462,7 +446,6 @@ export default {
 			const t = this.$refs.feature?.$el?.offsetTop || 0;
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =
 				t - 75;
-
 			if (this.visitor && this.$refs.card) {
 				const firstInput =
 					this.$refs.card.querySelector('input,textarea');
