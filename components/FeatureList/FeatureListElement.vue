@@ -184,10 +184,6 @@ export default {
 			type: Object,
 			default: () => {}, // { average, count, ... }
 		},
-		question: {
-			type: Object,
-			default: null,
-		},
 		isInteractive: {
 			type: Boolean,
 			default: true,
@@ -230,6 +226,11 @@ export default {
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		selectedFeature() {
 			return this.getSelectedFeature === this.feature;
+		},
+		question() {
+			const dt = this.feature.getGeometry().getType();
+			const q = this.interactions?.featureQuestions[dt] || {};
+			return q.label ? q : null;
 		},
 		rated() {
 			const r = this.rating;
