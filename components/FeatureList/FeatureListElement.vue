@@ -44,17 +44,7 @@
 				<template v-if="isOnSheetView">
 					<template v-if="isInteractive">
 						<FeatureNameEditor v-if="visitorCanName" />
-
-						<b-form-group
-							v-if="question"
-							:label="question.label"
-						>
-							<CheckboxGroup
-								v-model="visitorAnswer"
-								:q="question"
-							/>
-						</b-form-group>
-
+						<FeatureQuestionDisplay />
 						<FeatureDescriptionPlainEditor />
 
 						<div
@@ -262,11 +252,6 @@ export default {
 	data() {
 		return {
 			confirmedClose: false,
-			form: {
-				questionAnswer: JSON.parse(
-					this.feature.get('partimapFeatureQuestion_ans') || '[]'
-				),
-			},
 			rating: Number(this.initFeatureRating.average || 0),
 			editable: !this.visitor || this.feature.get('visitorFeature'),
 			icons: {
@@ -296,33 +281,12 @@ export default {
 				return `⭐ ${Number(avg).toFixed(1)}`;
 			}
 		},
-		visitorAnswer: {
-			get() {
-				return this.form.questionAnswer;
-			},
-			set(answer) {
-				this.form.questionAnswer = answer;
-			},
-		},
 	},
 	watch: {
 		getSidebarVisible(v) {
 			if (v && this.selectedFeature) {
 				this.expandFinished();
 			}
-		},
-		'form.questionAnswer'() {
-			this.feature.set('partimapFeatureQuestion', this.question.label);
-			this.feature.set(
-				'partimapFeatureQuestion_ans',
-				JSON.stringify(this.form.questionAnswer)
-			);
-		},
-		form: {
-			handler(val) {
-				this.$nuxt.$emit('contentModified');
-			},
-			deep: true,
 		},
 		showResults(v) {
 			if (v) {
@@ -378,7 +342,15 @@ export default {
 		},
 		visitorFilledEverything() {
 			if (!this.feature.get('description')) return false;
-			if (this.question && !this.visitorAnswer?.length) return false;
+			if (!this.question) return true;
+			try {
+				const answer = JSON.parse(
+					this.feature.get('partimapFeatureQuestion_ans')
+				);
+				if (!Array.isArray(answer) || !answer.length) return false;
+			} catch {
+				return false;
+			}
 			return true;
 		},
 		async canDeselectFeature() {
