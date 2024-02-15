@@ -23,6 +23,19 @@ async function aggregateBySheetId(sheetId) {
 }
 
 /**
+ * @param {Number} sheetId
+ * @return {Object<Number, AggregatedRating>}
+ */
+async function aggregateBySheetIdToDict(sheetId) {
+	const ratings = await aggregateBySheetId(sheetId);
+	const result = {};
+	for (const rating of ratings) {
+		result[rating.featureId] = rating;
+	}
+	return result;
+}
+
+/**
  * @param {Number} projectId
  * @returns {Rating[]}
  */
@@ -36,5 +49,6 @@ async function findByProjectId(projectId) {
 
 module.exports = {
 	aggregateBySheetId,
+	aggregateBySheetIdToDict,
 	findByProjectId,
 };

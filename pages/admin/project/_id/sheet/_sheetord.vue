@@ -199,7 +199,6 @@
 			<FeatureList
 				v-if="sheet.features"
 				:filename="sheet.title"
-				:init-feature-ratings="submittedRatings"
 				is-on-editor-view
 			/>
 
@@ -280,9 +279,6 @@ export default {
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
 			const interactions = deserializeInteractions(sheet?.interactions);
 			const ratingType = interactions.stars === -2 ? 1 : 0;
-			const submittedRatings = await $axios.$get(
-				`/api/submission/ratings/${sheet.id}`
-			);
 
 			// BEGIN backward compatibility for #2437
 			const descriptionLabel = sheet?.descriptionLabel || '';
@@ -305,11 +301,13 @@ export default {
 			} catch {}
 			// END backward compatibility for #2434
 
+			sheet.ratings = await $axios.$get(
+				`/api/submission/ratings/${sheet.id}`
+			);
 			return {
 				project,
 				sheet,
 				interactions,
-				submittedRatings,
 				ratingType,
 			};
 		} catch (error) {

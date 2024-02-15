@@ -7,7 +7,6 @@
 			ref="feature"
 			:is-deletable="isDeletable"
 			:is-selected="selectedFeature"
-			:rating-result="ratingResult"
 			:show-result="showResults"
 			@click="featureClicked"
 			@delete="deleteFeature"
@@ -80,7 +79,7 @@
 					/>
 				</template>
 
-				<b-form-group
+				<!-- <b-form-group
 					v-if="
 						(visitor && !editable && visitorCanRate) ||
 						(!visitor && initFeatureRating.count)
@@ -151,7 +150,7 @@
 							{{ initFeatureRating.count || 0 }})
 						</span>
 					</div>
-				</b-form-group>
+				</b-form-group> -->
 			</b-card>
 		</b-collapse>
 	</div>
@@ -166,11 +165,16 @@ import { mapGetters } from 'vuex';
 export default {
 	provide() {
 		return {
+			aggregatedRating: this.aggregatedRating,
 			feature: this.feature,
 		};
 	},
 	inject: ['interactions'],
 	props: {
+		aggregatedRating: {
+			type: Object,
+			default: () => {},
+		},
 		categories: {
 			type: Array,
 			default: () => [],
@@ -178,10 +182,6 @@ export default {
 		feature: {
 			type: Feature,
 			default: new Feature(),
-		},
-		initFeatureRating: {
-			type: Object,
-			default: () => {}, // { average, count, ... }
 		},
 		isInteractive: {
 			type: Boolean,
@@ -211,7 +211,6 @@ export default {
 	data() {
 		return {
 			confirmedClose: false,
-			rating: Number(this.initFeatureRating.average || 0),
 			editable: !this.visitor || this.feature.get('visitorFeature'),
 			icons: {
 				Point: 'fa-map-marker-alt',
@@ -238,16 +237,6 @@ export default {
 			const q = this.interactions?.featureQuestions[dt] || {};
 			return q.label ? q : null;
 		},
-		ratingResult() {
-			const r = this.initFeatureRating;
-			if (!r.count) return;
-			if (this.stars === -2) {
-				return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
-			} else {
-				const avg = Math.round(r.average * 10) / 10;
-				return `⭐ ${Number(avg).toFixed(1)}`;
-			}
-		},
 		stars() {
 			return this.interactions?.stars;
 		},
@@ -263,23 +252,6 @@ export default {
 			if (v && this.selectedFeature) {
 				this.expandFinished();
 			}
-		},
-		showResults(v) {
-			if (v) {
-				// need reinitialization...
-				this.rating = Number(this.initFeatureRating.average || 0);
-			}
-		},
-		rating(rating) {
-			if (this.showResults) {
-				return;
-			}
-			this.feature.set('rating', rating);
-			this.$nuxt.$emit(
-				'featureRatedByVisitor',
-				this.feature.getId(),
-				rating
-			);
 		},
 	},
 	mounted() {

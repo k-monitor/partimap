@@ -122,9 +122,9 @@
 				<FeatureListElement
 					v-for="feature in filteredAdminFeatures"
 					:key="feature.getId()"
+					:aggregated-rating="getAggregatedRating(feature.getId())"
 					:categories="categories"
 					:feature="feature"
-					:init-feature-rating="getFeatureRating(feature.getId())"
 					:is-interactive="isInteractive"
 					:is-on-editor-view="isOnEditorView"
 					:is-on-sheet-view="isOnSheetView"
@@ -152,14 +152,11 @@ import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
 
 export default {
+	inject: ['sheet'],
 	props: {
 		filename: {
 			type: String,
 			default: '',
-		},
-		initFeatureRatings: {
-			type: Object,
-			default: () => {},
 		},
 		isInteractive: {
 			type: Boolean,
@@ -207,8 +204,8 @@ export default {
 			);
 			if (this.showResults) {
 				arr = arr.sort((a, b) => {
-					const ra = this.getAggregatedFeatureRating(a);
-					const rb = this.getAggregatedFeatureRating(b);
+					const ra = this.getAggregatedRatingValue(a);
+					const rb = this.getAggregatedRatingValue(b);
 					return rb - ra;
 				});
 			}
@@ -262,20 +259,12 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
-		getFeatureRating(featureId) {
-			const dict = this.initFeatureRatings || {};
-			const rating = dict[featureId.toString()];
-			if (Number.isInteger(rating)) {
-				// public sheet gets rating from store
-				// which is a pure integer value
-				return { average: rating, count: 1, sum: rating };
-			} else {
-				// admin sheet gets AggregatedRating object
-				return rating || {};
-			}
+		getAggregatedRating(featureId) {
+			const dict = this.sheet?.ratings || {};
+			return dict[featureId.toString()] || {};
 		},
-		getAggregatedFeatureRating(feature) {
-			const r = this.getFeatureRating(feature.getId());
+		getAggregatedRatingValue(feature) {
+			const r = this.getAggregatedRating(feature.getId());
 			return this.interactions?.stars === -2 ? r.sum : r.average;
 		},
 		updateCategories() {

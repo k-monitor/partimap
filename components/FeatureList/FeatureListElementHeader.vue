@@ -51,7 +51,7 @@
 
 <script>
 export default {
-	inject: ['feature'],
+	inject: ['aggregatedRating', 'feature', 'interactions'],
 	props: {
 		isDeletable: {
 			type: Boolean,
@@ -60,10 +60,6 @@ export default {
 		isSelected: {
 			type: Boolean,
 			default: false,
-		},
-		ratingResult: {
-			type: String,
-			default: null,
 		},
 		showResult: {
 			type: Boolean,
@@ -94,6 +90,16 @@ export default {
 				this.feature.getGeometry().getType()
 			];
 			return this.name || anon;
+		},
+		ratingResult() {
+			const r = this.aggregatedRating;
+			if (!r.count) return;
+			if (this.interactions?.stars === -2) {
+				return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
+			} else {
+				const avg = Math.round(r.average * 10) / 10;
+				return `⭐ ${Number(avg).toFixed(1)}`;
+			}
 		},
 	},
 	mounted() {

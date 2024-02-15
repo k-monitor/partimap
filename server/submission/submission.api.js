@@ -129,14 +129,8 @@ router.get(
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
-		/** @type {AggregatedRating[]} */
-		const ars = await rdb.aggregateBySheetId(req.sheet.id);
-		const frs = {};
-		ars.forEach(ar => {
-			frs[ar.featureId] = { ...ar };
-			delete frs[ar.featureId].featureId;
-		});
-		res.json(frs);
+		const dict = await rdb.aggregateBySheetIdToDict(req.sheet.id);
+		res.json(dict);
 	}
 );
 

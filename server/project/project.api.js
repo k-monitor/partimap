@@ -236,11 +236,7 @@ async function addResultsToProject(project) {
 		const promises = project.sheets
 			.filter(doesSheetNeedRatingResults)
 			.map(async s => {
-				const arr = await rdb.aggregateBySheetId(s.id);
-				const dict = {};
-				arr.forEach(ar => {
-					dict[ar.featureId] = ar;
-				});
+				const dict = await rdb.aggregateBySheetIdToDict(s.id);
 				s.ratings = dict;
 			});
 		await Promise.all(promises);

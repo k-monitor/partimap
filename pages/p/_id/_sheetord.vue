@@ -105,7 +105,6 @@
 					/>
 					<FeatureList
 						v-if="!submitted"
-						:init-feature-ratings="featureRatings"
 						:show-results="resultsShown"
 						:is-interactive="isInteractive"
 						is-on-sheet-view
@@ -273,11 +272,6 @@ export default {
 			'getVisitorRatings',
 			'getSubmissionData',
 		]),
-		featureRatings() {
-			return this.resultsShown
-				? this.sheet.ratings
-				: this.getVisitorRatings(this.sheet.id);
-		},
 		availableSheetOrds() {
 			return this.project.sheets
 				.filter(sheet => {
@@ -372,6 +366,11 @@ export default {
 		}
 		this.$store.commit('selected/clear');
 		this.loading = false;
+
+		console.log(
+			'PUBLIC SHEET sheet.ratings',
+			JSON.stringify(this.sheet.ratings)
+		);
 	},
 	beforeDestroy() {
 		this.$recaptcha.destroy();
