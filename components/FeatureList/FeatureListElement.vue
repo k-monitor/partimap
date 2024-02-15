@@ -5,14 +5,10 @@
 	>
 		<FeatureListElementHeader
 			ref="feature"
-			:is-deletable="!selectedFeature && editable"
-			:is-rated="!selectedFeature && !editable && rated"
+			:is-deletable="isDeletable"
 			:is-selected="selectedFeature"
-			:rating="
-				!selectedFeature && !editable && showResults
-					? ratingResult
-					: null
-			"
+			:rating-result="ratingResult"
+			:show-result="showResults"
 			@click="featureClicked"
 			@delete="deleteFeature"
 		/>
@@ -56,7 +52,8 @@
 					<template v-else>
 						<StaticFeatureInfo />
 
-						<!-- TODO rating input if visitorCanRate -->
+						<FeatureRatingControls />
+						<!-- TODO ^ need results + show results -->
 
 						<JumpToMapButton />
 					</template>
@@ -71,7 +68,9 @@
 					/>
 					<FeatureDescriptionRichEditor />
 
-					<!-- TODO rating result if initFeatureRating.count -->
+					<FeatureRatingControls />
+					<!-- TODO ^ v-if initFeatureRating.count -->
+					<!-- TODO ^ need results + readonly/disabled/results -->
 
 					<FeatureHideCheckbox />
 					<FeatureListElementFooter
@@ -224,6 +223,13 @@ export default {
 	computed: {
 		...mapGetters(['getSidebarVisible']),
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
+		isDeletable() {
+			return (
+				this.isOnEditorView ||
+				(this.isOnSheetView && this.isInteractive) ||
+				this.isOnSubmittedView
+			);
+		},
 		selectedFeature() {
 			return this.getSelectedFeature === this.feature;
 		},
@@ -231,10 +237,6 @@ export default {
 			const dt = this.feature.getGeometry().getType();
 			const q = this.interactions?.featureQuestions[dt] || {};
 			return q.label ? q : null;
-		},
-		rated() {
-			const r = this.rating;
-			return Number.isInteger(r) && r !== 0 && !this.showResults;
 		},
 		ratingResult() {
 			const r = this.initFeatureRating;

@@ -200,7 +200,6 @@
 				v-if="sheet.features"
 				:filename="sheet.title"
 				:init-feature-ratings="submittedRatings"
-				:interactions="interactions"
 				is-on-editor-view
 			/>
 
@@ -266,6 +265,12 @@ import { baseMapList } from '@/assets/basemaps';
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
+	},
+	provide() {
+		return {
+			interactions: this.interactions,
+			sheet: this.sheet,
+		};
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {

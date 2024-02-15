@@ -103,7 +103,7 @@
 					:key="feature.getId()"
 					:categories="categories"
 					:feature="feature"
-					:init-feature-rating="getFeatureRating(feature.getId())"
+					is-interactive
 					:is-on-sheet-view="isOnSheetView"
 					:visitor="visitor"
 					@categoryEdited="updateCategories"
@@ -152,12 +152,6 @@ import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
 
 export default {
-	provide() {
-		return {
-			interactions: this.interactions,
-			sheet: this.sheet,
-		};
-	},
 	props: {
 		filename: {
 			type: String,
@@ -166,10 +160,6 @@ export default {
 		initFeatureRatings: {
 			type: Object,
 			default: () => {},
-		},
-		interactions: {
-			type: Object, // TODO Interactions actually, but throws warnings on console
-			default: null,
 		},
 		isInteractive: {
 			type: Boolean,

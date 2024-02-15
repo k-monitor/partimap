@@ -106,7 +106,6 @@
 					<FeatureList
 						v-if="!submitted"
 						:init-feature-ratings="featureRatings"
-						:interactions="interactions"
 						:show-results="resultsShown"
 						:is-interactive="isInteractive"
 						is-on-sheet-view
@@ -194,6 +193,12 @@ import { canShowQuestion } from '~/assets/questionUtil';
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
+	},
+	provide() {
+		return {
+			interactions: this.interactions,
+			sheet: this.sheet,
+		};
 	},
 	async asyncData({ $auth, $axios, params, redirect, route, store }) {
 		const forcedSheetOrd = $auth.user && !!route.query.force;
@@ -337,8 +342,7 @@ export default {
 			if (this.showOnlyResults) return this.sheet?.answers || [];
 			// Show results for only those questions that has been answered.
 			const answeredIds = Object.keys(this.visitorAnswers || {}).filter(
-				id =>
-					!!this.visitorAnswers[id] && this.visitorAnswers[id] !== []
+				id => !!this.visitorAnswers[id]
 			);
 			return (
 				this.sheet?.answers?.filter(e =>
@@ -369,21 +373,7 @@ export default {
 		this.$store.commit('selected/clear');
 		this.loading = false;
 	},
-	created() {
-		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
-			const ratings = this.getVisitorRatings(this.sheet.id) || {};
-			if (rating) {
-				ratings[featureId] = rating;
-			} else {
-				// zero or empty
-				delete ratings[featureId];
-			}
-			const payload = { ratings, sheetId: this.sheet.id };
-			this.$store.commit('visitordata/addRatings', payload);
-		});
-	},
 	beforeDestroy() {
-		this.$nuxt.$off('featureRatedByVisitor');
 		this.$recaptcha.destroy();
 	},
 	methods: {
