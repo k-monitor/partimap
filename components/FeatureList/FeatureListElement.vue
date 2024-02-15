@@ -50,10 +50,10 @@
 
 					<template v-else>
 						<StaticFeatureInfo />
-
-						<FeatureRatingControls />
-						<!-- TODO ^ need results + show results -->
-
+						<FeatureRatingControls
+							v-if="visitorCanRate"
+							:show-results="showResults"
+						/>
 						<JumpToMapButton />
 					</template>
 				</template>
@@ -67,9 +67,10 @@
 					/>
 					<FeatureDescriptionRichEditor />
 
-					<FeatureRatingControls />
-					<!-- TODO ^ v-if initFeatureRating.count -->
-					<!-- TODO ^ need results + readonly/disabled/results -->
+					<FeatureRatingControls
+						v-if="aggregatedRating.count"
+						show-results
+					/>
 
 					<FeatureHideCheckbox />
 					<FeatureListElementFooter
@@ -78,79 +79,6 @@
 						@save="featureClicked"
 					/>
 				</template>
-
-				<!-- <b-form-group
-					v-if="
-						(visitor && !editable && visitorCanRate) ||
-						(!visitor && initFeatureRating.count)
-					"
-				>
-					<b-button-group
-						v-if="stars === -2"
-						class="w-100"
-					>
-						<b-button
-							:disabled="!visitor || showResults"
-							:variant="
-								rating === 1 ? 'success' : 'outline-success'
-							"
-							@click="rating === 1 ? (rating = 0) : (rating = 1)"
-						>
-							<i class="fas fa-thumbs-up" />
-							<span
-								v-if="!visitor || showResults"
-								class="ml-2"
-							>
-								{{ initFeatureRating.likeCount || 0 }}
-							</span>
-						</b-button>
-						<div class="flex-grow-1" />
-						<b-button
-							:disabled="!visitor || showResults"
-							:variant="
-								rating === -1 ? 'danger' : 'outline-danger'
-							"
-							@click="
-								rating === -1 ? (rating = 0) : (rating = -1)
-							"
-						>
-							<i class="fas fa-thumbs-up fa-flip-both" />
-							<span
-								v-if="!visitor || showResults"
-								class="ml-2"
-							>
-								{{ initFeatureRating.dislikeCount || 0 }}
-							</span>
-						</b-button>
-					</b-button-group>
-					<div
-						v-else
-						class="border d-flex font-weight-bold justify-content-center p-1"
-					>
-						<StarRating
-							v-model="rating"
-							active-color="var(--brand)"
-							:animate="visitor && !showResults"
-							border-color="var(--brand)"
-							:border-width="2"
-							clearable
-							inactive-color="#fff"
-							:max-rating="stars"
-							:read-only="!visitor || showResults"
-							:round-start-rating="false"
-							:show-rating="false"
-							:star-size="16"
-						/>
-						<span
-							v-if="!visitor || showResults"
-							class="ml-2"
-						>
-							{{ rating ? Number(rating).toFixed(1) : '-' }}
-							(<small class="fas fa-user fa-fw" />
-							{{ initFeatureRating.count || 0 }})
-						</span>
-					</div>
-				</b-form-group> -->
 			</b-card>
 		</b-collapse>
 	</div>
