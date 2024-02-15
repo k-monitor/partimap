@@ -10,7 +10,7 @@
 				</h6>
 			</template>
 			<div
-				v-if="!visitor"
+				v-if="!isOnSheetView"
 				class="d-flex justify-content-center mb-3"
 			>
 				<b-button
@@ -105,7 +105,6 @@
 					:feature="feature"
 					is-interactive
 					:is-on-sheet-view="isOnSheetView"
-					:visitor="visitor"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -130,7 +129,6 @@
 					:is-on-sheet-view="isOnSheetView"
 					:is-on-submitted-view="isOnSubmittedView"
 					:show-results="showResults"
-					:visitor="visitor"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -178,10 +176,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		visitor: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	data() {
 		return {
@@ -200,7 +194,7 @@ export default {
 			let arr = this.filteredFeatures.filter(
 				f =>
 					!f.get('visitorFeature') &&
-					(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
+					(!this.isOnSheetView || !f.get('hidden')) // hiding hidden features on public sheet
 			);
 			if (this.showResults) {
 				arr = arr.sort((a, b) => {
@@ -216,7 +210,7 @@ export default {
 			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
 		},
 		hideAdminFeatures() {
-			return this.visitor && this.isInteractive;
+			return this.isOnSheetView && this.isInteractive;
 		},
 		answers() {
 			const answers = [];

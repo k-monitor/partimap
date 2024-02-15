@@ -23,8 +23,10 @@
 				body-class="pb-3"
 				class="collapse-content py-0"
 				:class="{
+					/* only hiding above 'sm' because below we have the jump btn */
 					'd-sm-none':
-						!editable &&
+						isOnSheetView &&
+						!isInteractive &&
 						!feature.get('category') &&
 						!feature.get('description') &&
 						!visitorCanRate,
@@ -88,8 +90,6 @@
 import Feature from 'ol/Feature';
 import { mapGetters } from 'vuex';
 
-// TODO visitor, editable & isOnSubmittedView - all mean slightly different things here, need a cleanup (separate components)
-
 export default {
 	provide() {
 		return {
@@ -131,15 +131,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		visitor: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	data() {
 		return {
 			confirmedClose: false,
-			editable: !this.visitor || this.feature.get('visitorFeature'),
 			icons: {
 				Point: 'fa-map-marker-alt',
 				LineString: 'fa-route',
@@ -269,7 +264,7 @@ export default {
 			const t = this.$refs.feature?.$el?.offsetTop || 0;
 			document.getElementsByClassName('b-sidebar-body')[0].scrollTop =
 				t - 75;
-			if (this.visitor && this.$refs.card) {
+			if (this.isOnSheetView && this.$refs.card) {
 				const firstInput =
 					this.$refs.card.querySelector('input,textarea');
 				if (
