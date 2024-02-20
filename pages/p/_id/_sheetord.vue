@@ -366,11 +366,6 @@ export default {
 		}
 		this.$store.commit('selected/clear');
 		this.loading = false;
-
-		console.log(
-			'PUBLIC SHEET sheet.ratings',
-			JSON.stringify(this.sheet.ratings)
-		);
 	},
 	beforeDestroy() {
 		this.$recaptcha.destroy();

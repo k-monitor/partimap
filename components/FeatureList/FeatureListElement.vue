@@ -146,6 +146,7 @@ export default {
 	computed: {
 		...mapGetters(['getSidebarVisible']),
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
+		...mapGetters('visitordata', ['getVisitorRatings']),
 		isDeletable() {
 			return (
 				this.isOnEditorView ||
@@ -213,22 +214,36 @@ export default {
 			}
 		},
 		visitorFilledEverything() {
-			if (!this.feature.get('description')) return false;
-			if (!this.question) return true;
-			try {
-				const answer = JSON.parse(
-					this.feature.get('partimapFeatureQuestion_ans')
-				);
-				if (!Array.isArray(answer) || !answer.length) return false;
-			} catch {
-				return false;
+			if (this.isInteractive) {
+				if (!this.feature.get('description')) return false;
+				if (!this.question) return true;
+				try {
+					const answer = JSON.parse(
+						this.feature.get('partimapFeatureQuestion_ans')
+					);
+					if (!Array.isArray(answer) || !answer.length) return false;
+				} catch {
+					return false;
+				}
+			} else if (this.feature.get('rating')) {
+				const ratingObj = this.getRatingObj();
+				const ias = this.interactions?.enabled;
+				if (ias.includes('RatingExplanation')) {
+					if (!ratingObj.answer) return false;
+				} else if (ias.includes('RatingProsCons')) {
+					if (!ratingObj.pros || !ratingObj.cons) return false;
+				}
 			}
+
 			return true;
+		},
+		getRatingObj() {
+			const ratings = this.getVisitorRatings(this.sheet.id) || {};
+			return ratings[this.feature.getId()] || { value: undefined };
 		},
 		async canDeselectFeature() {
 			if (
 				this.isOnSheetView &&
-				this.isInteractive &&
 				!this.visitorFilledEverything() &&
 				!this.confirmedClose
 			) {
