@@ -71,10 +71,11 @@
 
 					<FeatureRatingControls
 						v-if="aggregatedRating.count"
+						class="mb-3"
 						show-results
 					/>
 
-					<FeatureHideCheckbox />
+					<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 					<FeatureListElementFooter
 						save
 						@delete="deleteFeature"
@@ -97,7 +98,7 @@ export default {
 			feature: this.feature,
 		};
 	},
-	inject: ['interactions'],
+	inject: ['interactions', 'sheet'],
 	props: {
 		aggregatedRating: {
 			type: Object,

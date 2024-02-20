@@ -199,6 +199,7 @@
 			<FeatureList
 				v-if="sheet.features"
 				:filename="sheet.title"
+				:is-interactive="isInteractive"
 				is-on-editor-view
 			/>
 
