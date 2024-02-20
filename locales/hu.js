@@ -356,6 +356,10 @@ export default {
 		name: 'Név',
 		size: 'Méret',
 	},
+	FeatureRatingControls: {
+		cons: 'Szempontok ellene',
+		pros: 'Szempontok mellette',
+	},
 	FooterButtons: {
 		submit: 'Beküldés',
 		submitted: 'Beküldve',

@@ -1,6 +1,9 @@
 <template>
 	<b-form-group :label="label">
-		<b-textarea v-model="description" />
+		<b-textarea
+			v-model="description"
+			size="sm"
+		/>
 	</b-form-group>
 </template>
 

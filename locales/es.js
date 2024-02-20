@@ -372,6 +372,10 @@ export default {
 		name: 'Nombre',
 		size: 'Tamaño',
 	},
+	FeatureRatingControls: {
+		// TODO cons: '',
+		// TODO pros: '',
+	},
 	FooterButtons: {
 		submit: 'Enviar',
 		submitted: '¡Enviado!',

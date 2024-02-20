@@ -14,9 +14,46 @@
 			:show-results="showResults"
 		/>
 
-		<!-- <FeatureRatingExplanation
-			v-if="interactions.enabled.includes('RatingExplanation')"
-		/> -->
+		<template v-if="ratingValue">
+			<template v-if="interactions.enabled.includes('RatingExplanation')">
+				<b-form-group :label="interactions.ratingQuestion">
+					<b-textarea
+						v-model="ratingAnswers.answer"
+						size="sm"
+					/>
+				</b-form-group>
+			</template>
+			<template
+				v-else-if="interactions.enabled.includes('RatingProsCons')"
+			>
+				<b-form-group>
+					<template #label>
+						<span class="text-success">
+							<i class="fas fa-fw fa-thumbs-up mr-1" />
+							{{ $t('FeatureRatingControls.pros') }}
+						</span>
+					</template>
+					<b-textarea
+						v-model="ratingAnswers.pros"
+						size="sm"
+					/>
+				</b-form-group>
+				<b-form-group>
+					<template #label>
+						<span class="text-danger">
+							<i
+								class="fas fa-fw fa-thumbs-up fa-flip-both mr-1"
+							/>
+							{{ $t('FeatureRatingControls.cons') }}
+						</span>
+					</template>
+					<b-textarea
+						v-model="ratingAnswers.cons"
+						size="sm"
+					/>
+				</b-form-group>
+			</template>
+		</template>
 	</div>
 </template>
 
@@ -32,7 +69,13 @@ export default {
 	},
 	data() {
 		return {
-			ratingValue: undefined, // initialized on mount
+			ratingValue: undefined,
+			ratingAnswers: {
+				answer: undefined,
+				pros: undefined,
+				cons: undefined,
+			},
+			// ^ initialized on mount
 		};
 	},
 	computed: {
@@ -51,9 +94,23 @@ export default {
 			this.feature.set('rating', newValue);
 			this.$nuxt.$emit('contentModified');
 		},
+		ratingAnswers: {
+			handler(newValue) {
+				const ratingObj = this.getRatingObj();
+				ratingObj.answer = newValue.answer;
+				ratingObj.pros = newValue.pros;
+				ratingObj.cons = newValue.cons;
+				this.storeRating(ratingObj);
+			},
+			deep: true,
+		},
 	},
 	mounted() {
-		this.ratingValue = this.getRatingObj().value;
+		const ratingObj = this.getRatingObj();
+		this.ratingValue = ratingObj.value;
+		this.ratingAnswers.answer = ratingObj.answer;
+		this.ratingAnswers.pros = ratingObj.pros;
+		this.ratingAnswers.cons = ratingObj.cons;
 	},
 	methods: {
 		...mapMutations('visitordata', ['addRatings']),

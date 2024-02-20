@@ -361,6 +361,10 @@ export default {
 		name: 'Pavadinimas',
 		size: 'Dydis',
 	},
+	FeatureRatingControls: {
+		// TODO cons: '',
+		// TODO pros: '',
+	},
 	FooterButtons: {
 		submit: 'Pateikti',
 		submitted: 'Pateikta!',
