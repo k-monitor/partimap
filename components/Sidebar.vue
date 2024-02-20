@@ -209,8 +209,16 @@ export default {
 }
 
 .b-sidebar-header {
+	background: white;
+
 	/* does not work in scoped style block */
 	font-size: 1rem;
+}
+
+.b-sidebar-header,
+.b-sidebar-footer {
+	/* above highlighted feature */
+	z-index: 200;
 }
 
 .sidebar-button {

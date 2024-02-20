@@ -295,8 +295,17 @@ export default {
 
 <style scoped>
 .highlight {
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5), 0 0 0 10000px rgba(0, 0, 0, 0.5);
-	z-index: 9999;
+	z-index: 100;
+}
+
+.highlight::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .collapse-content {
