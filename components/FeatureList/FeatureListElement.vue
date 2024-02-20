@@ -50,7 +50,10 @@
 						/>
 					</template>
 					<template v-else>
-						<StaticFeatureInfo />
+						<TipTapDisplay
+							class="mb-3"
+							:html="feature.get('description')"
+						/>
 						<FeatureRatingControls
 							v-if="visitorCanRate"
 							:show-results="showResults"
