@@ -49,7 +49,6 @@
 							@save="featureClicked"
 						/>
 					</template>
-
 					<template v-else>
 						<StaticFeatureInfo />
 						<FeatureRatingControls
@@ -61,6 +60,11 @@
 				</template>
 
 				<template v-if="isOnEditorView">
+					<FeatureRatingControls
+						v-if="aggregatedRating.count"
+						class="mb-3"
+						show-results
+					/>
 					<FeatureNameEditor />
 					<FeatureStyleEditor />
 					<FeatureCategoryEditor
@@ -68,13 +72,6 @@
 						@change="$emit('categoryEdited')"
 					/>
 					<FeatureDescriptionRichEditor />
-
-					<FeatureRatingControls
-						v-if="aggregatedRating.count"
-						class="mb-3"
-						show-results
-					/>
-
 					<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 					<FeatureListElementFooter
 						save
