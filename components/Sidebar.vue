@@ -13,12 +13,10 @@
 		<b-sidebar
 			v-model="visible"
 			bg-variant="white"
-			class="admin-sidebar"
 			header-class="p-0"
 			no-close-on-esc
 			shadow="sm"
 			sidebar-class="border-right border-secondary"
-			width="360px"
 		>
 			<template #header>
 				<div class="border-bottom d-flex flex-grow-1 shadow-sm">
@@ -197,8 +195,20 @@ export default {
 };
 </script>
 
-<style>
-.admin-sidebar .b-sidebar-header {
+<style lang="scss">
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+
+.b-sidebar {
+	width: 360px;
+
+	@include media-breakpoint-up(lg) {
+		width: 42%;
+	}
+}
+
+.b-sidebar-header {
 	/* does not work in scoped style block */
 	font-size: 1rem;
 }
@@ -206,9 +216,9 @@ export default {
 .sidebar-button {
 	border-top-right-radius: 0.5rem;
 	border-bottom-right-radius: 0.5rem;
-	border-top-left-radius: 0px !important;
-	border-bottom-left-radius: 0px !important;
-	border-left-width: 0px !important;
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-left-width: 0 !important;
 	font-size: 1.25rem;
 	top: 0.5rem;
 	transition: left 0.3s ease;
