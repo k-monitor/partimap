@@ -1,11 +1,12 @@
 <template>
-	<b-form-checkbox
-		v-model="hidden"
-		class="mb-3"
-		name="hidden"
-	>
-		{{ $t('FeatureListElement.hidden') }}
-	</b-form-checkbox>
+	<b-form-group>
+		<b-form-checkbox
+			v-model="hidden"
+			name="hidden"
+		>
+			{{ $t('FeatureListElement.hidden') }}
+		</b-form-checkbox>
+	</b-form-group>
 </template>
 
 <script>

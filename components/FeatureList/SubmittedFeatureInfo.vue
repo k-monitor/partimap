@@ -1,29 +1,18 @@
 <template>
-	<div
-		class="d-flex flex-column"
-		style="gap: 1rem"
-	>
-		<dl class="mb-0">
-			<template v-if="answer">
-				<dt>{{ feature.get('partimapFeatureQuestion') }}</dt>
-				<dd>
-					<p>{{ answer.join(', ') }}</p>
-				</dd>
-			</template>
+	<dl class="mb-0">
+		<template v-if="answer">
+			<dt>{{ feature.get('partimapFeatureQuestion') }}</dt>
+			<dd class="mb-3">{{ answer.join(', ') }}</dd>
+		</template>
 
-			<template v-if="name">
-				<dt>{{ $t('FeatureListElement.name') }}</dt>
-				<dd>
-					<p>{{ name }}</p>
-				</dd>
-			</template>
+		<template v-if="name">
+			<dt>{{ $t('FeatureListElement.name') }}</dt>
+			<dd class="mb-3">{{ name }}</dd>
+		</template>
 
-			<dt>{{ $t('FeatureListElement.description') }}</dt>
-			<dd>
-				<p>{{ feature.get('description') }}</p>
-			</dd>
-		</dl>
-	</div>
+		<dt>{{ $t('FeatureListElement.description') }}</dt>
+		<dd>{{ feature.get('description') }}</dd>
+	</dl>
 </template>
 
 <script>

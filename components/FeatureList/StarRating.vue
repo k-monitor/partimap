@@ -7,7 +7,7 @@
 			border-color="var(--brand)"
 			:border-width="2"
 			clearable
-			inactive-color="#fff"
+			inactive-color="#eee"
 			:max-rating="interactions.stars"
 			:read-only="showResults"
 			:round-start-rating="false"

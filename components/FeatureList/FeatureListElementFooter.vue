@@ -1,7 +1,7 @@
 <template>
 	<div class="align-items-center d-flex justify-content-between">
 		<button
-			class="btn btn-light text-danger"
+			class="btn btn-outline-danger"
 			@click="$emit('delete')"
 		>
 			<i class="fas fa-fw fa-trash mr-1" />

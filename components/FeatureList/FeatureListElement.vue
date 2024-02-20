@@ -32,56 +32,55 @@
 						!visitorCanRate,
 				}"
 			>
-				<template v-if="isOnSubmittedView">
-					<SubmittedFeatureInfo />
-					<JumpToMapButton class="mb-3" />
-					<FeatureListElementFooter @delete="deleteFeature" />
-				</template>
-
-				<template v-if="isOnSheetView">
-					<template v-if="isInteractive">
-						<FeatureNameEditor v-if="visitorCanName" />
-						<FeatureQuestionDisplay />
-						<FeatureDescriptionPlainEditor />
+				<div
+					class="d-flex flex-column"
+					style="gap: 1rem"
+				>
+					<template v-if="isOnSubmittedView">
+						<SubmittedFeatureInfo />
+						<JumpToMapButton />
+						<FeatureListElementFooter @delete="deleteFeature" />
+					</template>
+					<template v-if="isOnSheetView">
+						<template v-if="isInteractive">
+							<FeatureNameEditor v-if="visitorCanName" />
+							<FeatureQuestionDisplay />
+							<FeatureDescriptionPlainEditor />
+							<FeatureListElementFooter
+								save
+								@delete="deleteFeature"
+								@save="featureClicked"
+							/>
+						</template>
+						<template v-else>
+							<TipTapDisplay :html="feature.get('description')" />
+							<FeatureRatingControls
+								v-if="visitorCanRate"
+								:show-results="showResults"
+							/>
+							<JumpToMapButton />
+						</template>
+					</template>
+					<template v-if="isOnEditorView">
+						<FeatureRatingControls
+							v-if="aggregatedRating.count"
+							show-results
+						/>
+						<FeatureNameEditor />
+						<FeatureStyleEditor />
+						<FeatureCategoryEditor
+							:categories="categories"
+							@change="$emit('categoryEdited')"
+						/>
+						<FeatureDescriptionRichEditor />
+						<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 						<FeatureListElementFooter
 							save
 							@delete="deleteFeature"
 							@save="featureClicked"
 						/>
 					</template>
-					<template v-else>
-						<TipTapDisplay
-							class="mb-3"
-							:html="feature.get('description')"
-						/>
-						<FeatureRatingControls
-							v-if="visitorCanRate"
-							:show-results="showResults"
-						/>
-						<JumpToMapButton />
-					</template>
-				</template>
-
-				<template v-if="isOnEditorView">
-					<FeatureRatingControls
-						v-if="aggregatedRating.count"
-						class="mb-3"
-						show-results
-					/>
-					<FeatureNameEditor />
-					<FeatureStyleEditor />
-					<FeatureCategoryEditor
-						:categories="categories"
-						@change="$emit('categoryEdited')"
-					/>
-					<FeatureDescriptionRichEditor />
-					<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
-					<FeatureListElementFooter
-						save
-						@delete="deleteFeature"
-						@save="featureClicked"
-					/>
-				</template>
+				</div>
 			</b-card>
 		</b-collapse>
 	</div>
