@@ -420,13 +420,11 @@ export default {
 			const visitorFeatures =
 				this.getVisitorFeatures(this.sheet.id) || [];
 
-			// adding "rating" to feature objects for map graying effect
+			// adding "rating" to feature objects for graying effect on map and in FLE header
 			const visitorRatings = this.getVisitorRatings(this.sheet.id) || {};
 			adminFeatures.forEach(f => {
-				const r = visitorRatings[f.getId()];
-				if (r) {
-					f.set('rating', r);
-				}
+				const ratingObj = visitorRatings[f.getId()];
+				if (ratingObj?.value) f.set('rating', ratingObj.value);
 			});
 
 			return [...visitorFeatures, ...adminFeatures];

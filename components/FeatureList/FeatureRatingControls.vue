@@ -1,14 +1,23 @@
 <template>
-	<LikeDislikeRating
-		v-if="interactions.stars === -2"
-		v-model="rating"
-		:show-results="showResults"
-	/>
-	<StarRating
-		v-else
-		v-model="rating"
-		:show-results="showResults"
-	/>
+	<div
+		class="d-flex flex-column"
+		style="gap: 1rem"
+	>
+		<LikeDislikeRating
+			v-if="interactions.stars === -2"
+			v-model="ratingValue"
+			:show-results="showResults"
+		/>
+		<StarRating
+			v-else
+			v-model="ratingValue"
+			:show-results="showResults"
+		/>
+
+		<!-- <FeatureRatingExplanation
+			v-if="interactions.enabled.includes('RatingExplanation')"
+		/> -->
+	</div>
 </template>
 
 <script>
@@ -23,7 +32,7 @@ export default {
 	},
 	data() {
 		return {
-			rating: this.feature.get('rating'),
+			ratingValue: undefined, // initialized on mount
 		};
 	},
 	computed: {
@@ -33,19 +42,30 @@ export default {
 		},
 	},
 	watch: {
-		rating(newRating) {
-			this.feature.set('rating', newRating);
-			this.storeRating(newRating);
+		ratingValue(newValue) {
+			const ratingObj = this.getRatingObj();
+			ratingObj.value = newValue;
+			this.storeRating(ratingObj);
+
+			// update map and FLE header
+			this.feature.set('rating', newValue);
 			this.$nuxt.$emit('contentModified');
 		},
 	},
+	mounted() {
+		this.ratingValue = this.getRatingObj().value;
+	},
 	methods: {
 		...mapMutations('visitordata', ['addRatings']),
-		storeRating(newRating) {
-			const featureId = this.feature.getId();
+		getRatingObj() {
 			const ratings = this.getVisitorRatings(this.sheet.id) || {};
+			return ratings[this.feature.getId()] || { value: undefined };
+		},
+		storeRating(ratingObj) {
+			const ratings = this.getVisitorRatings(this.sheet.id) || {};
+			const featureId = this.feature.getId();
 			delete ratings[featureId];
-			if (newRating) ratings[featureId] = newRating;
+			if (ratingObj.value) ratings[featureId] = ratingObj;
 			this.addRatings({ ratings, sheetId: this.sheet.id });
 		},
 	},
