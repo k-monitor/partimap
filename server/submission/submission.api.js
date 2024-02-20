@@ -236,7 +236,10 @@ router.get(
 		rs.cell(1, 2).string(m.feature);
 		rs.cell(1, 3).string(m.featureName);
 		rs.cell(1, 4).string(m.rating);
-		// TODO i18n for new fields
+		rs.cell(1, 5).string(m.ratingQuestion);
+		rs.cell(1, 6).string(m.ratingAnswer);
+		rs.cell(1, 7).string(m.ratingPros);
+		rs.cell(1, 8).string(m.ratingCons);
 		ratings.forEach((r, i) => {
 			rs.cell(i + 2, 1).number(r.submissionId);
 			rs.cell(i + 2, 2).string(String(r.featureId));

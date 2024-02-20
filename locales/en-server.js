@@ -43,7 +43,11 @@ module.exports = {
 		isMobileYes: 'mobile',
 		likeCount: 'Upvote count',
 		rating: 'Rating',
+		ratingAnswer: 'Szöveges értékelés', // TODO
+		ratingCons: 'Szempontok ellene', // TODO
 		ratingCount: 'Rating count',
+		ratingPros: 'Szempontok mellette', // TODO
+		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratings: 'Ratings',
 		sheetTitle: 'Sheet title',
 		submissionId: 'Submission ID',
