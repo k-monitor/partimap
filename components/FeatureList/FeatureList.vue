@@ -56,7 +56,7 @@
 					</b-button>
 				</template>
 			</div>
-			<div v-if="!hideAdminFeatures">
+			<div v-if="showSearch">
 				<b-input-group class="mt-3">
 					<b-form-input
 						v-model="search"
@@ -190,11 +190,23 @@ export default {
 			getAllFeatures: 'features/getAllFeature',
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
+		availableFeatures() {
+			return this.getAllFeatures.filter(f => {
+				if (this.isOnSheetView && !f.get('visitorFeature')) {
+					// case: admin features on public sheet
+					// static sheet: hide hidden admin features
+					// interactive sheet: hide all admin features
+					return !f.get('hidden') && !this.isInteractive;
+				}
+				return true;
+			});
+		},
+		showSearch() {
+			return !this.isOnSheetView || this.availableFeatures.length > 3;
+		},
 		filteredAdminFeatures() {
 			let arr = this.filteredFeatures.filter(
-				f =>
-					!f.get('visitorFeature') &&
-					(!this.isOnSheetView || !f.get('hidden')) // hiding hidden features on public sheet
+				f => !f.get('visitorFeature')
 			);
 			if (this.showResults) {
 				arr = arr.sort((a, b) => {
@@ -263,43 +275,42 @@ export default {
 		},
 		updateCategories() {
 			const cats = new Set(
-				this.getAllFeatures
+				this.availableFeatures
 					.map(f => (f.get('category') || '').trim())
 					.filter(f => f.length)
 			);
 			this.categories = Array.from(cats);
 		},
+		featureFilter(f) {
+			if (
+				this.categoryFilter &&
+				f.get('category') !== this.categoryFilter
+			) {
+				return false;
+			}
+
+			const needle = this.search.toLowerCase();
+			const haystack = [
+				String(f.getId() || ''),
+				f.get('name') || '',
+				f.get('category') || '',
+				f.get('partimapFeatureQuestion_ans') || '',
+			]
+				.join('\n')
+				.toLowerCase();
+			return haystack.includes(needle);
+		},
 		updateFilteredFeatures() {
-			this.filteredFeatures = this.getAllFeatures
-				.filter(
-					f =>
-						!this.categoryFilter ||
-						f.get('category') === this.categoryFilter
-				)
-				.filter(
-					f =>
-						String(f.getId() || '')
-							.toLowerCase()
-							.includes(this.search.toLowerCase()) ||
-						(f.get('name') || '')
-							.toLowerCase()
-							.includes(this.search.toLowerCase()) ||
-						(f.get('category') || '')
-							.toLowerCase()
-							.includes(this.search.toLowerCase()) ||
-						f
-							.get('partimapFeatureQuestion_ans')
-							?.includes(this.search)
-				)
+			this.filteredFeatures = this.availableFeatures
+				.filter(this.featureFilter)
 				.sort((a, b) => {
 					const ac = a.get('category') || '';
 					const bc = b.get('category') || '';
-					if (ac === bc) {
-						const an = a.get('name') || a.getId();
-						const bn = b.get('name') || b.getId();
-						return String(an).localeCompare(String(bn));
-					}
-					return String(ac).localeCompare(String(bc));
+					if (ac !== bc) return String(ac).localeCompare(String(bc));
+
+					const an = a.get('name') || a.getId();
+					const bn = b.get('name') || b.getId();
+					return String(an).localeCompare(String(bn));
 				});
 
 			const ids = this.filteredFeatures.map(f => f.getId());
