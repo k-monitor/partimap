@@ -10,12 +10,12 @@ class AggregatedRating {
 	 */
 	constructor(data) {
 		this.id = data.id;
-		this.average = data.average;
-		this.count = data.count;
-		this.dislikeCount = data.dislikeCount;
+		this.average = parseFloat(data.average);
+		this.count = parseInt(data.count, 10);
+		this.dislikeCount = parseInt(data.dislikeCount, 10);
 		this.featureId = data.featureId;
-		this.likeCount = data.likeCount;
-		this.sum = data.sum;
+		this.likeCount = parseInt(data.likeCount, 10);
+		this.sum = parseInt(data.sum, 10);
 	}
 }
 

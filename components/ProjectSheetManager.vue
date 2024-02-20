@@ -133,15 +133,11 @@
 <script>
 import { saveAs } from 'file-saver';
 import GeoJSON from 'ol/format/GeoJSON';
-import NewSheetModal from './NewSheetModal.vue';
 import { deserializeInteractions } from '@/assets/interactions';
 import { featuresToKML } from '@/assets/kml';
 import sheetTypes from '@/assets/sheetTypes';
 
 export default {
-	components: {
-		NewSheetModal,
-	},
 	props: {
 		projectId: {
 			type: Number,

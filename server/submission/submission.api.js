@@ -34,7 +34,13 @@ router.post(
 					},
 					features: [],
 					ratings: {
-						featureID: value,
+						featureID: {
+							value: number,
+							question: string,
+							answer: string,
+							pros: string,
+							cons: string,
+						},
 						...
 					}
 				},
@@ -87,10 +93,15 @@ router.post(
 				for (const fid in s.ratings) {
 					const featureId = Number(fid);
 					if (!featureId) continue;
+					const ratingObj = s.ratings[featureId];
 					ratings.push({
 						sheetId,
 						featureId,
-						rating: s.ratings[featureId],
+						rating: ratingObj.value,
+						question: ratingObj.question,
+						answer: ratingObj.answer,
+						pros: ratingObj.pros,
+						cons: ratingObj.cons,
 					});
 				}
 			}
@@ -129,14 +140,8 @@ router.get(
 	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
 	ensureAdminOr(req => req.project.userId === req.user.id),
 	async (req, res) => {
-		/** @type {AggregatedRating[]} */
-		const ars = await rdb.aggregateBySheetId(req.sheet.id);
-		const frs = {};
-		ars.forEach(ar => {
-			frs[ar.featureId] = { ...ar };
-			delete frs[ar.featureId].featureId;
-		});
-		res.json(frs);
+		const dict = await rdb.aggregateBySheetIdToDict(req.sheet.id);
+		res.json(dict);
 	}
 );
 
@@ -231,10 +236,18 @@ router.get(
 		rs.cell(1, 2).string(m.feature);
 		rs.cell(1, 3).string(m.featureName);
 		rs.cell(1, 4).string(m.rating);
+		rs.cell(1, 5).string(m.ratingQuestion);
+		rs.cell(1, 6).string(m.ratingAnswer);
+		rs.cell(1, 7).string(m.ratingPros);
+		rs.cell(1, 8).string(m.ratingCons);
 		ratings.forEach((r, i) => {
 			rs.cell(i + 2, 1).number(r.submissionId);
 			rs.cell(i + 2, 2).string(String(r.featureId));
 			rs.cell(i + 2, 4).number(r.rating);
+			rs.cell(i + 2, 5).string(r.question || '');
+			rs.cell(i + 2, 6).string(r.answer || '');
+			rs.cell(i + 2, 7).string(r.pros || '');
+			rs.cell(i + 2, 8).string(r.cons || '');
 			const sheet = sheets.filter(sh => sh.id === r.sheetId)[0];
 			if (sheet && sheet.features) {
 				const features = JSON.parse(sheet.features);

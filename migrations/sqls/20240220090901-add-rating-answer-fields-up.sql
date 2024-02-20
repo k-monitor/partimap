@@ -1,0 +1,5 @@
+ALTER TABLE `rating`
+	ADD COLUMN `question` LONGTEXT NULL AFTER `rating`,
+	ADD COLUMN `answer` LONGTEXT NULL AFTER `question`,
+	ADD COLUMN `pros` LONGTEXT NULL AFTER `answer`,
+	ADD COLUMN `cons` LONGTEXT NULL AFTER `pros`;

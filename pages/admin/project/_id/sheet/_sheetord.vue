@@ -157,6 +157,12 @@
 						type="number"
 					/>
 				</b-form-group>
+				<b-form-group
+					v-if="interactions.enabled.includes('RatingExplanation')"
+					:label="$t('sheetEditor.ratingQuestion')"
+				>
+					<b-form-input v-model="interactions.ratingQuestion" />
+				</b-form-group>
 			</div>
 
 			<b-form-group v-if="canHaveResults">
@@ -193,8 +199,8 @@
 			<FeatureList
 				v-if="sheet.features"
 				:filename="sheet.title"
-				:init-feature-ratings="submittedRatings"
-				:interactions="interactions"
+				:is-interactive="isInteractive"
+				is-on-editor-view
 			/>
 
 			<template #footer>
@@ -255,16 +261,16 @@ import {
 	serializeInteractions,
 } from '@/assets/interactions';
 import { baseMapList } from '@/assets/basemaps';
-import InteractionSettingsModal from '~/components/InteractionSettingsModal.vue';
-import SaveButton from '~/components/SaveButton.vue';
-import NewSheetModal from '~/components/NewSheetModal.vue';
 
 export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
-		SaveButton,
-		NewSheetModal,
-		InteractionSettingsModal,
+	},
+	provide() {
+		return {
+			interactions: this.interactions,
+			sheet: this.sheet,
+		};
 	},
 	middleware: ['auth'],
 	async asyncData({ $axios, store, params, redirect }) {
@@ -274,9 +280,6 @@ export default {
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
 			const interactions = deserializeInteractions(sheet?.interactions);
 			const ratingType = interactions.stars === -2 ? 1 : 0;
-			const submittedRatings = await $axios.$get(
-				`/api/submission/ratings/${sheet.id}`
-			);
 
 			// BEGIN backward compatibility for #2437
 			const descriptionLabel = sheet?.descriptionLabel || '';
@@ -299,11 +302,13 @@ export default {
 			} catch {}
 			// END backward compatibility for #2434
 
+			sheet.ratings = await $axios.$get(
+				`/api/submission/ratings/${sheet.id}`
+			);
 			return {
 				project,
 				sheet,
 				interactions,
-				submittedRatings,
 				ratingType,
 			};
 		} catch (error) {
@@ -351,8 +356,23 @@ export default {
 					}
 				} else {
 					options.push(ia('Rating'));
-					if (this.isRatingSelected)
+					if (this.isRatingSelected) {
 						options.push(ia('RatingResults'));
+						if (
+							!this.interactions.enabled.includes(
+								'RatingProsCons'
+							)
+						) {
+							options.push(ia('RatingExplanation'));
+						}
+						if (
+							!this.interactions.enabled.includes(
+								'RatingExplanation'
+							)
+						) {
+							options.push(ia('RatingProsCons'));
+						}
+					}
 				}
 			} else {
 				options.push(ia('SocialSharing'));

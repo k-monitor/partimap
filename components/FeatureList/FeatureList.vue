@@ -10,7 +10,7 @@
 				</h6>
 			</template>
 			<div
-				v-if="!visitor"
+				v-if="!isOnSheetView"
 				class="d-flex justify-content-center mb-3"
 			>
 				<b-button
@@ -23,41 +23,40 @@
 					<br />
 					KML
 				</b-button>
-				<b-button
-					v-if="!readonly"
-					class="m-2"
-					size="sm"
-					variant="success"
-					@click="importKML"
-				>
-					<i class="fas fa-fw fa-upload" />
-					<br />
-					KML
-				</b-button>
-				<b-button
-					v-if="!readonly"
-					class="m-2"
-					size="sm"
-					variant="success"
-					@click="$bvModal.show('featureImportModal')"
-				>
-					<i class="fas fa-fw fa-file-import" />
-					<br />
-					{{ $t('FeatureList.importFromSheet') }}
-				</b-button>
-				<b-button
-					v-if="!readonly"
-					class="m-2"
-					size="sm"
-					variant="danger"
-					@click="deleteAll"
-				>
-					<i class="fas fa-fw fa-trash" />
-					<br />
-					{{ $t('FeatureList.deleteAll') }}
-				</b-button>
+				<template v-if="!isOnSubmittedView">
+					<b-button
+						class="m-2"
+						size="sm"
+						variant="success"
+						@click="importKML"
+					>
+						<i class="fas fa-fw fa-upload" />
+						<br />
+						KML
+					</b-button>
+					<b-button
+						class="m-2"
+						size="sm"
+						variant="success"
+						@click="$bvModal.show('featureImportModal')"
+					>
+						<i class="fas fa-fw fa-file-import" />
+						<br />
+						{{ $t('FeatureList.importFromSheet') }}
+					</b-button>
+					<b-button
+						class="m-2"
+						size="sm"
+						variant="danger"
+						@click="deleteAll"
+					>
+						<i class="fas fa-fw fa-trash" />
+						<br />
+						{{ $t('FeatureList.deleteAll') }}
+					</b-button>
+				</template>
 			</div>
-			<div v-if="!hideAdminFeatures">
+			<div v-if="showSearch">
 				<b-input-group class="mt-3">
 					<b-form-input
 						v-model="search"
@@ -98,17 +97,14 @@
 			:label="$t('FeatureList.ownFeatures')"
 		>
 			<b-list-group>
+				<!-- only on public interactive sheets -->
 				<FeatureListElement
 					v-for="feature in filteredVisitorFeatures"
 					:key="feature.getId()"
 					:categories="categories"
-					:description-label="descriptionLabelFor(feature)"
 					:feature="feature"
-					:init-feature-rating="getFeatureRating(feature.getId())"
-					:question="questionFor(feature)"
-					:stars="interactions?.stars"
-					:visitor="visitor"
-					:visitor-can-name="interactions?.enabled.includes('naming')"
+					is-interactive
+					:is-on-sheet-view="isOnSheetView"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -125,15 +121,14 @@
 				<FeatureListElement
 					v-for="feature in filteredAdminFeatures"
 					:key="feature.getId()"
-					:admin-can-hide="onStaticMapSheetEditor"
+					:aggregated-rating="getAggregatedRating(feature.getId())"
 					:categories="categories"
 					:feature="feature"
-					:init-feature-rating="getFeatureRating(feature.getId())"
-					:readonly="readonly"
+					:is-interactive="isInteractive"
+					:is-on-editor-view="isOnEditorView"
+					:is-on-sheet-view="isOnSheetView"
+					:is-on-submitted-view="isOnSubmittedView"
 					:show-results="showResults"
-					:stars="interactions?.stars"
-					:visitor="visitor"
-					:visitor-can-rate="interactions?.enabled.includes('Rating')"
 					@categoryEdited="updateCategories"
 				/>
 			</b-list-group>
@@ -155,28 +150,29 @@ import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
 
 export default {
+	inject: ['sheet'],
 	props: {
 		filename: {
 			type: String,
 			default: '',
 		},
-		initFeatureRatings: {
-			type: Object,
-			default: () => {},
+		isInteractive: {
+			type: Boolean,
+			default: false,
 		},
-		interactions: {
-			type: Object, // TODO Interactions actually, but throws warnings on console
-			default: null,
+		isOnEditorView: {
+			type: Boolean,
+			default: false,
 		},
-		readonly: {
+		isOnSheetView: {
+			type: Boolean,
+			default: false,
+		},
+		isOnSubmittedView: {
 			type: Boolean,
 			default: false,
 		},
 		showResults: {
-			type: Boolean,
-			default: false,
-		},
-		visitor: {
 			type: Boolean,
 			default: false,
 		},
@@ -194,16 +190,28 @@ export default {
 			getAllFeatures: 'features/getAllFeature',
 			getSelectedFeature: 'selected/getSelectedFeature',
 		}),
+		availableFeatures() {
+			return this.getAllFeatures.filter(f => {
+				if (this.isOnSheetView && !f.get('visitorFeature')) {
+					// case: admin features on public sheet
+					// static sheet: hide hidden admin features
+					// interactive sheet: hide all admin features
+					return !f.get('hidden') && !this.isInteractive;
+				}
+				return true;
+			});
+		},
+		showSearch() {
+			return !this.isOnSheetView || this.availableFeatures.length > 3;
+		},
 		filteredAdminFeatures() {
 			let arr = this.filteredFeatures.filter(
-				f =>
-					!f.get('visitorFeature') &&
-					(!this.visitor || !f.get('hidden')) // hiding hidden features in visitor mode
+				f => !f.get('visitorFeature')
 			);
 			if (this.showResults) {
 				arr = arr.sort((a, b) => {
-					const ra = this.getAggregatedFeatureRating(a);
-					const rb = this.getAggregatedFeatureRating(b);
+					const ra = this.getAggregatedRatingValue(a);
+					const rb = this.getAggregatedRatingValue(b);
 					return rb - ra;
 				});
 			}
@@ -214,23 +222,7 @@ export default {
 			return this.filteredFeatures.filter(f => f.get('visitorFeature'));
 		},
 		hideAdminFeatures() {
-			return this.visitor && this.isInteractive;
-		},
-		onStaticMapSheetEditor() {
-			return (
-				!this.visitor && // not visitor
-				!this.readonly && // not results page
-				!!this.interactions && // sheet editor
-				!this.isInteractive // not interactive sheet -> static sheet
-			);
-		},
-		isInteractive() {
-			return (
-				this.interactions &&
-				(this.interactions.enabled.includes('Point') ||
-					this.interactions.enabled.includes('LineString') ||
-					this.interactions.enabled.includes('Polygon'))
-			);
+			return this.isOnSheetView && this.isInteractive;
 		},
 		answers() {
 			const answers = [];
@@ -273,71 +265,52 @@ export default {
 	},
 	methods: {
 		...mapMutations(['setSidebarVisible']),
-		descriptionLabelFor(feature) {
-			const dt = feature.getGeometry().getType();
-			const lab = this.interactions?.descriptionLabels[dt];
-			return lab || this.sheet?.descriptionLabel || '';
+		getAggregatedRating(featureId) {
+			const dict = this.sheet?.ratings || {};
+			return dict[featureId.toString()] || {};
 		},
-		questionFor(feature) {
-			const dt = feature.getGeometry().getType();
-			const q = this.interactions?.featureQuestions[dt] || {};
-			return q.label ? q : null;
-		},
-		getFeatureRating(featureId) {
-			const dict = this.initFeatureRatings || {};
-			const rating = dict[featureId.toString()];
-			if (Number.isInteger(rating)) {
-				// public sheet gets rating from store
-				// which is a pure integer value
-				return { average: rating, count: 1, sum: rating };
-			} else {
-				// admin sheet gets AggregatedRating object
-				return rating || {};
-			}
-		},
-		getAggregatedFeatureRating(feature) {
-			const r = this.getFeatureRating(feature.getId());
+		getAggregatedRatingValue(feature) {
+			const r = this.getAggregatedRating(feature.getId());
 			return this.interactions?.stars === -2 ? r.sum : r.average;
 		},
 		updateCategories() {
 			const cats = new Set(
-				this.getAllFeatures
+				this.availableFeatures
 					.map(f => (f.get('category') || '').trim())
 					.filter(f => f.length)
 			);
 			this.categories = Array.from(cats);
 		},
+		featureFilter(f) {
+			if (
+				this.categoryFilter &&
+				f.get('category') !== this.categoryFilter
+			) {
+				return false;
+			}
+
+			const needle = this.search.toLowerCase();
+			const haystack = [
+				String(f.getId() || ''),
+				f.get('name') || '',
+				f.get('category') || '',
+				f.get('partimapFeatureQuestion_ans') || '',
+			]
+				.join('\n')
+				.toLowerCase();
+			return haystack.includes(needle);
+		},
 		updateFilteredFeatures() {
-			this.filteredFeatures = this.getAllFeatures
-				.filter(
-					f =>
-						!this.categoryFilter ||
-						f.get('category') === this.categoryFilter
-				)
-				.filter(
-					f =>
-						String(f.getId() || '')
-							.toLowerCase()
-							.includes(this.search.toLowerCase()) ||
-						(f.get('name') || '')
-							.toLowerCase()
-							.includes(this.search.toLowerCase()) ||
-						(f.get('category') || '')
-							.toLowerCase()
-							.includes(this.search.toLowerCase()) ||
-						f
-							.get('partimapFeatureQuestion_ans')
-							?.includes(this.search)
-				)
+			this.filteredFeatures = this.availableFeatures
+				.filter(this.featureFilter)
 				.sort((a, b) => {
 					const ac = a.get('category') || '';
 					const bc = b.get('category') || '';
-					if (ac === bc) {
-						const an = a.get('name') || a.getId();
-						const bn = b.get('name') || b.getId();
-						return String(an).localeCompare(String(bn));
-					}
-					return String(ac).localeCompare(String(bc));
+					if (ac !== bc) return String(ac).localeCompare(String(bc));
+
+					const an = a.get('name') || a.getId();
+					const bn = b.get('name') || b.getId();
+					return String(an).localeCompare(String(bn));
 				});
 
 			const ids = this.filteredFeatures.map(f => f.getId());

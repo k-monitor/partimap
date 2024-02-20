@@ -227,12 +227,15 @@ export default {
 			LineString: 'Linijų braižymas',
 			Polygon: 'Poligono braižymas',
 			naming: 'Pridėkite žymeklio pavadinimą',
-			Rating: 'Įvertinkite statiškus elementus ',
+			Rating: 'Įvertinkite statiškus elementus',
+			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
+			RatingProsCons: 'Taškai už / Taškai prieš',
 			RatingResults: 'Rodyti įvertinimo rezultatus',
 			ShowResultsOnly: 'Rodyti tik rezultatus',
 			SocialSharing: 'Bendrinkite puslapį socialinėje erdvėje',
 		},
 		numberOfStars: 'Skalės ribos (1-10)',
+		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratingType: 'Įvertinimo tipas:',
 		ratingTypes: {
 			stars: 'Įvertinimas žvaigždutėmis',
@@ -357,6 +360,10 @@ export default {
 		mapLabel: 'Etikėte žemėlapyje',
 		name: 'Pavadinimas',
 		size: 'Dydis',
+	},
+	FeatureRatingControls: {
+		cons: 'Taškai prieš',
+		pros: 'Taškai už',
 	},
 	FooterButtons: {
 		submit: 'Pateikti',

@@ -76,14 +76,7 @@
 </template>
 
 <script>
-import ListItem from '../../components/ListItem.vue';
-import LoadingOverlay from '../../components/LoadingOverlay.vue';
-
 export default {
-	components: {
-		ListItem,
-		LoadingOverlay,
-	},
 	middleware: ['auth'],
 	async asyncData({ $axios }) {
 		const projects = await $axios.$get('/api/projects');

@@ -105,9 +105,9 @@
 					/>
 					<FeatureList
 						v-if="!submitted"
-						:init-feature-ratings="featureRatings"
-						:interactions="interactions"
 						:show-results="resultsShown"
+						:is-interactive="isInteractive"
+						is-on-sheet-view
 						visitor
 					/>
 
@@ -193,6 +193,12 @@ export default {
 	components: {
 		Map: () => (process.client ? import('@/components/Map') : null),
 	},
+	provide() {
+		return {
+			interactions: this.interactions,
+			sheet: this.sheet,
+		};
+	},
 	async asyncData({ $auth, $axios, params, redirect, route, store }) {
 		const forcedSheetOrd = $auth.user && !!route.query.force;
 		if (params.sheetord > 0 && !store.state.visitId && !forcedSheetOrd) {
@@ -266,11 +272,6 @@ export default {
 			'getVisitorRatings',
 			'getSubmissionData',
 		]),
-		featureRatings() {
-			return this.resultsShown
-				? this.sheet.ratings
-				: this.getVisitorRatings(this.sheet.id);
-		},
 		availableSheetOrds() {
 			return this.project.sheets
 				.filter(sheet => {
@@ -335,8 +336,7 @@ export default {
 			if (this.showOnlyResults) return this.sheet?.answers || [];
 			// Show results for only those questions that has been answered.
 			const answeredIds = Object.keys(this.visitorAnswers || {}).filter(
-				id =>
-					!!this.visitorAnswers[id] && this.visitorAnswers[id] !== []
+				id => !!this.visitorAnswers[id]
 			);
 			return (
 				this.sheet?.answers?.filter(e =>
@@ -367,21 +367,7 @@ export default {
 		this.$store.commit('selected/clear');
 		this.loading = false;
 	},
-	created() {
-		this.$nuxt.$on('featureRatedByVisitor', (featureId, rating) => {
-			const ratings = this.getVisitorRatings(this.sheet.id) || {};
-			if (rating) {
-				ratings[featureId] = rating;
-			} else {
-				// zero or empty
-				delete ratings[featureId];
-			}
-			const payload = { ratings, sheetId: this.sheet.id };
-			this.$store.commit('visitordata/addRatings', payload);
-		});
-	},
 	beforeDestroy() {
-		this.$nuxt.$off('featureRatedByVisitor');
 		this.$recaptcha.destroy();
 	},
 	methods: {
@@ -429,13 +415,11 @@ export default {
 			const visitorFeatures =
 				this.getVisitorFeatures(this.sheet.id) || [];
 
-			// adding "rating" to feature objects for map graying effect
+			// adding "rating" to feature objects for graying effect on map and in FLE header
 			const visitorRatings = this.getVisitorRatings(this.sheet.id) || {};
 			adminFeatures.forEach(f => {
-				const r = visitorRatings[f.getId()];
-				if (r) {
-					f.set('rating', r);
-				}
+				const ratingObj = visitorRatings[f.getId()];
+				if (ratingObj?.value) f.set('rating', ratingObj.value);
 			});
 
 			return [...visitorFeatures, ...adminFeatures];

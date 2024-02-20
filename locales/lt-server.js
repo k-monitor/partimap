@@ -43,7 +43,11 @@ module.exports = {
 		isMobileYes: 'Mobilusis telefonas',
 		likeCount: 'Atsakymų ‘patinka’ kiekis',
 		rating: 'Įvertinimas',
+		ratingAnswer: 'Szöveges értékelés', // TODO
+		ratingCons: 'Taškai prieš',
 		ratingCount: 'Įvertinimų kiekis',
+		ratingPros: 'Taškai už',
+		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratings: 'Įvertinimai',
 		sheetTitle: 'Darbalapio pavadinimas',
 		submissionId: 'Respondento ID',

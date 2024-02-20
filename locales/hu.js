@@ -223,11 +223,14 @@ export default {
 			Polygon: 'Terület felrajzolása',
 			naming: 'Felrajzolt elemek elnevezése',
 			Rating: 'Fix elemek értékelése',
+			RatingExplanation: 'Szöveges indoklás az értékeléshez',
+			RatingProsCons: 'Szempontok mellette / ellene',
 			RatingResults: 'Értékelés eredmények megjelenítése',
 			ShowResultsOnly: 'Csak az eredmények megjelenítése',
 			SocialSharing: 'Megosztás gombok',
 		},
 		numberOfStars: 'Csillagok száma (1-10)',
+		ratingQuestion: 'Kérdés a szöveges értékeléshez',
 		ratingType: 'Értékelés típusa',
 		ratingTypes: {
 			stars: 'Csillagok',
@@ -352,6 +355,10 @@ export default {
 		mapLabel: 'Térképen megjelenő címke',
 		name: 'Név',
 		size: 'Méret',
+	},
+	FeatureRatingControls: {
+		cons: 'Szempontok ellene',
+		pros: 'Szempontok mellette',
 	},
 	FooterButtons: {
 		submit: 'Beküldés',

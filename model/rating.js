@@ -6,6 +6,10 @@ class Rating {
 	 * @param {Number} data.sheetId
 	 * @param {Number} data.featureId
 	 * @param {Number} data.rating
+	 * @param {String} data.question
+	 * @param {String} data.answer
+	 * @param {String} data.pros
+	 * @param {String} data.cons
 	 */
 	constructor(data) {
 		this.id = data.id;
@@ -13,6 +17,10 @@ class Rating {
 		this.sheetId = data.sheetId;
 		this.featureId = data.featureId;
 		this.rating = data.rating;
+		this.question = data.question;
+		this.answer = data.answer;
+		this.pros = data.pros;
+		this.cons = data.cons;
 	}
 }
 

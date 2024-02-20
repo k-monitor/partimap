@@ -20,7 +20,7 @@
 			</b-navbar>
 			<FeatureList
 				:filename="sheet.title"
-				readonly
+				is-on-submitted-view
 			/>
 		</Sidebar>
 	</div>

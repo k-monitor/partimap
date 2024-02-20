@@ -43,7 +43,11 @@ module.exports = {
 		isMobileYes: 'móvil',
 		likeCount: 'Calificación positiva',
 		rating: 'Calificación por estrellas',
+		ratingAnswer: 'Szöveges értékelés', // TODO
+		ratingCons: 'Puntos en contra',
 		ratingCount: 'Calificación',
+		ratingPros: 'Puntos a favor',
+		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratings: 'Calificación',
 		sheetTitle: 'Título de la ficha',
 		submissionId: 'Número de identificación',
