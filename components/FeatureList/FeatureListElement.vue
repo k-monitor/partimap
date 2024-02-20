@@ -3,6 +3,11 @@
 		class="mt-1 rounded"
 		:class="{ highlight: selectedFeature }"
 	>
+		<div
+			v-if="selectedFeature"
+			class="fle-backdrop"
+			@click="featureClicked"
+		/>
 		<FeatureListElementHeader
 			ref="feature"
 			:is-deletable="isDeletable"
@@ -298,8 +303,7 @@ export default {
 	z-index: 100;
 }
 
-.highlight::before {
-	content: '';
+.fle-backdrop {
 	position: absolute;
 	top: 0;
 	left: 0;
