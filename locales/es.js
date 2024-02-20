@@ -236,7 +236,7 @@ export default {
 			naming: 'Agregar título al Punto',
 			Rating: 'Calificar características estáticas',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
-			RatingProsCons: 'Szempontok mellette / ellene', // TODO
+			RatingProsCons: 'Puntos a favor / Puntos en contra',
 			RatingResults: 'Mostrar resultados de calificación',
 			ShowResultsOnly: 'Mostrar solo los resultados',
 			SocialSharing: 'Compartir página en redes sociales',
@@ -373,8 +373,8 @@ export default {
 		size: 'Tamaño',
 	},
 	FeatureRatingControls: {
-		// TODO cons: '',
-		// TODO pros: '',
+		cons: 'Puntos en contra',
+		pros: 'Puntos a favor',
 	},
 	FooterButtons: {
 		submit: 'Enviar',

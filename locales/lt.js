@@ -229,7 +229,7 @@ export default {
 			naming: 'Pridėkite žymeklio pavadinimą',
 			Rating: 'Įvertinkite statiškus elementus',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
-			RatingProsCons: 'Szempontok mellette / ellene', // TODO
+			RatingProsCons: 'Taškai už / Taškai prieš',
 			RatingResults: 'Rodyti įvertinimo rezultatus',
 			ShowResultsOnly: 'Rodyti tik rezultatus',
 			SocialSharing: 'Bendrinkite puslapį socialinėje erdvėje',
@@ -362,8 +362,8 @@ export default {
 		size: 'Dydis',
 	},
 	FeatureRatingControls: {
-		// TODO cons: '',
-		// TODO pros: '',
+		cons: 'Taškai prieš',
+		pros: 'Taškai už',
 	},
 	FooterButtons: {
 		submit: 'Pateikti',

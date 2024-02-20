@@ -227,7 +227,7 @@ export default {
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
 			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
-			RatingProsCons: 'Szempontok mellette / ellene', // TODO
+			RatingProsCons: 'Points for / Points against',
 			RatingResults: 'Show rating results',
 			ShowResultsOnly: 'Display only the results',
 			SocialSharing: 'Share page on social media',
@@ -362,8 +362,8 @@ export default {
 		size: 'Size',
 	},
 	FeatureRatingControls: {
-		// TODO cons: '',
-		// TODO pros: '',
+		cons: 'Points against',
+		pros: 'Points for',
 	},
 	FooterButtons: {
 		submit: 'Submit',

@@ -44,9 +44,9 @@ module.exports = {
 		likeCount: 'Calificación positiva',
 		rating: 'Calificación por estrellas',
 		ratingAnswer: 'Szöveges értékelés', // TODO
-		ratingCons: 'Szempontok ellene', // TODO
+		ratingCons: 'Puntos en contra',
 		ratingCount: 'Calificación',
-		ratingPros: 'Szempontok mellette', // TODO
+		ratingPros: 'Puntos a favor',
 		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratings: 'Calificación',
 		sheetTitle: 'Título de la ficha',

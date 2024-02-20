@@ -44,9 +44,9 @@ module.exports = {
 		likeCount: 'Atsakymų ‘patinka’ kiekis',
 		rating: 'Įvertinimas',
 		ratingAnswer: 'Szöveges értékelés', // TODO
-		ratingCons: 'Szempontok ellene', // TODO
+		ratingCons: 'Taškai prieš',
 		ratingCount: 'Įvertinimų kiekis',
-		ratingPros: 'Szempontok mellette', // TODO
+		ratingPros: 'Taškai už',
 		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratings: 'Įvertinimai',
 		sheetTitle: 'Darbalapio pavadinimas',

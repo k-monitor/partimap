@@ -44,9 +44,9 @@ module.exports = {
 		likeCount: 'Upvote count',
 		rating: 'Rating',
 		ratingAnswer: 'Szöveges értékelés', // TODO
-		ratingCons: 'Szempontok ellene', // TODO
+		ratingCons: 'Points against',
 		ratingCount: 'Rating count',
-		ratingPros: 'Szempontok mellette', // TODO
+		ratingPros: 'Points for',
 		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
 		ratings: 'Ratings',
 		sheetTitle: 'Sheet title',
