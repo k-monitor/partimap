@@ -101,7 +101,7 @@ export default {
 				drawing: '#607D8B',
 				Point: '#F44336',
 				LineString: '#3F51B5',
-				Polygon: '#4CAF50',
+				Polygon: '#49a238',
 			},
 			defaultStroke: {
 				lineDash: '0',
