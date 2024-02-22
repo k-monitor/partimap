@@ -11,6 +11,7 @@ export default {
 				bodyClass: `${colorClasses} border font-weight-bold rounded shadow-sm text-center`,
 				noCloseButton: true,
 				solid: true,
+				toastClass: 'mb-5',
 				toaster: 'b-toaster-bottom-center',
 			});
 		},
