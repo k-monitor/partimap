@@ -56,8 +56,11 @@
 					</b-button>
 				</template>
 			</div>
-			<div v-if="showSearch">
-				<b-input-group class="mt-3">
+			<div>
+				<b-input-group
+					v-if="showSearch"
+					class="mt-3"
+				>
 					<b-form-input
 						v-model="search"
 						:placeholder="$t('FeatureList.search')"
