@@ -8,7 +8,7 @@
 			:border-width="2"
 			clearable
 			inactive-color="#eee"
-			:max-rating="interactions.stars"
+			:max-rating="interactions?.stars"
 			:read-only="showResults"
 			:round-start-rating="false"
 			:show-rating="false"
@@ -27,7 +27,14 @@
 
 <script>
 export default {
-	inject: ['aggregatedRating', 'interactions'],
+	inject: {
+		aggregatedRating: {
+			default: {},
+		},
+		interactions: {
+			default: null,
+		},
+	},
 	props: {
 		showResults: {
 			type: Boolean,

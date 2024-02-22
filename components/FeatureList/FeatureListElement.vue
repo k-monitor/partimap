@@ -102,7 +102,14 @@ export default {
 			feature: this.feature,
 		};
 	},
-	inject: ['interactions', 'sheet'],
+	inject: {
+		interactions: {
+			default: null,
+		},
+		sheet: {
+			default: null,
+		},
+	},
 	props: {
 		aggregatedRating: {
 			type: Object,
@@ -242,7 +249,7 @@ export default {
 			return true;
 		},
 		getRatingObj() {
-			const ratings = this.getVisitorRatings(this.sheet.id) || {};
+			const ratings = this.getVisitorRatings(this.sheet?.id) || {};
 			return ratings[this.feature.getId()] || { value: undefined };
 		},
 		async canDeselectFeature() {

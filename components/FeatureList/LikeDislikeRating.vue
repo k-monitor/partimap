@@ -40,7 +40,11 @@
 
 <script>
 export default {
-	inject: ['aggregatedRating'],
+	inject: {
+		aggregatedRating: {
+			default: {},
+		},
+	},
 	props: {
 		showResults: {
 			type: Boolean,

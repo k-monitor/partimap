@@ -4,7 +4,7 @@
 		style="gap: 1rem"
 	>
 		<LikeDislikeRating
-			v-if="interactions.stars === -2"
+			v-if="interactions?.stars === -2"
 			v-model="ratingValue"
 			:show-results="showResults"
 		/>
@@ -15,8 +15,10 @@
 		/>
 
 		<template v-if="ratingValue">
-			<template v-if="interactions.enabled.includes('RatingExplanation')">
-				<b-form-group :label="interactions.ratingQuestion">
+			<template
+				v-if="interactions?.enabled?.includes('RatingExplanation')"
+			>
+				<b-form-group :label="interactions?.ratingQuestion">
 					<b-textarea
 						v-model="ratingAnswers.answer"
 						size="sm"
@@ -24,7 +26,7 @@
 				</b-form-group>
 			</template>
 			<div
-				v-else-if="interactions.enabled.includes('RatingProsCons')"
+				v-else-if="interactions?.enabled?.includes('RatingProsCons')"
 				class="row"
 			>
 				<b-form-group class="col-xl-6">
@@ -61,7 +63,17 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 export default {
-	inject: ['feature', 'interactions', 'sheet'],
+	inject: {
+		interactions: {
+			default: null,
+		},
+		feature: {
+			default: null,
+		},
+		sheet: {
+			default: null,
+		},
+	},
 	props: {
 		showResults: {
 			type: Boolean,
@@ -116,10 +128,11 @@ export default {
 	methods: {
 		...mapMutations('visitordata', ['addRatings']),
 		getRatingObj() {
-			const ratings = this.getVisitorRatings(this.sheet.id) || {};
+			const ratings = this.getVisitorRatings(this.sheet?.id) || {};
 			return ratings[this.feature.getId()] || { value: undefined };
 		},
 		storeRating(ratingObj) {
+			if (!this.sheet) return;
 			const ratings = this.getVisitorRatings(this.sheet.id) || {};
 			const featureId = this.feature.getId();
 			delete ratings[featureId];

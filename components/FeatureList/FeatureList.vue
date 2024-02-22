@@ -150,7 +150,11 @@ import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 import { isMobile } from '~/assets/constants';
 
 export default {
-	inject: ['sheet'],
+	inject: {
+		sheet: {
+			default: null,
+		},
+	},
 	props: {
 		filename: {
 			type: String,

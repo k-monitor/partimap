@@ -51,7 +51,17 @@
 
 <script>
 export default {
-	inject: ['aggregatedRating', 'feature', 'interactions'],
+	inject: {
+		aggregatedRating: {
+			default: {},
+		},
+		feature: {
+			default: null,
+		},
+		interactions: {
+			default: null,
+		},
+	},
 	props: {
 		isDeletable: {
 			type: Boolean,
