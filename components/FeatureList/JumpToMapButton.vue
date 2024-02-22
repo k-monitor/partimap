@@ -1,5 +1,5 @@
 <template>
-	<div class="d-sm-none">
+	<div class="d-sm-none text-center">
 		<button
 			class="btn btn-outline-primary"
 			@click="setSidebarVisible(false)"
