@@ -206,6 +206,10 @@ export default {
 	@include media-breakpoint-up(lg) {
 		width: 42%;
 	}
+
+	.b-sidebar-body {
+		scrollbar-gutter: stable;
+	}
 }
 
 .b-sidebar-header {
