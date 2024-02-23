@@ -93,7 +93,7 @@
 
 <script>
 import Feature from 'ol/Feature';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
 	provide() {
@@ -205,6 +205,7 @@ export default {
 		this.$nuxt.$off('selectAttempt', this.handleSelectAttempt);
 	},
 	methods: {
+		...mapMutations(['setSidebarVisible']),
 		async handleSelectAttempt(clickedFeature) {
 			const currentId = this.feature?.getId();
 			const selectedId = this.getSelectedFeature?.getId();
@@ -222,6 +223,11 @@ export default {
 				if (canDeselect) {
 					this.$store.commit('selected/change', clickedFeature);
 				}
+			} else if (this.selectedFeature && clickedId === currentId) {
+				// this feature is selected currently
+				// this feature was clicked on map
+				// --> open sidebar if needed
+				this.setSidebarVisible(true);
 			}
 		},
 		visitorFilledEverything() {
