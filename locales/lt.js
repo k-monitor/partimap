@@ -210,9 +210,10 @@ export default {
 		addFeatureQuestion: 'Pridėkite klausimą su atsakymo variantais',
 		back: 'Atgal į projektą',
 		backgroundImage: 'Fono paveikslėlis',
+		defaultBaseMap: 'Numatytas pagrindo žemėlapis',
 		defaultDescriptionLabel:
 			'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
-		defaultBaseMap: 'Numatytas pagrindo žemėlapis',
+		defaultRatingQuestion: 'Miért adtad ezt az értékelést?', // TODO
 		featureLabel: 'Unikalus užduoties pavadinimas rodomas ataskaitoje',
 		descriptionLabel: 'Papildomas tekstinis klausimas',
 		descriptionLabelDescription:

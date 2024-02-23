@@ -217,9 +217,10 @@ export default {
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
 		back: 'Volver al proyecto',
 		backgroundImage: 'Imagen de fondo',
+		defaultBaseMap: 'Mapa base predeterminado',
 		defaultDescriptionLabel:
 			'Por favor, explica por qué diste esa respuesta.',
-		defaultBaseMap: 'Mapa base predeterminado',
+		defaultRatingQuestion: 'Miért adtad ezt az értékelést?', // TODO
 		featureLabel: 'Nombre de tarea único que se muestra en el informe',
 		descriptionLabel: 'Pregunta de seguimiento de texto',
 		descriptionLabelDescription:

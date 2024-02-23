@@ -161,7 +161,10 @@
 					v-if="interactions.enabled.includes('RatingExplanation')"
 					:label="$t('sheetEditor.ratingQuestion')"
 				>
-					<b-form-input v-model="interactions.ratingQuestion" />
+					<b-form-input
+						v-model="interactions.ratingQuestion"
+						:placeholder="$t('sheetEditor.defaultRatingQuestion')"
+					/>
 				</b-form-group>
 			</div>
 

@@ -206,8 +206,9 @@ export default {
 		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
-		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
+		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
+		defaultRatingQuestion: 'Miért adtad ezt az értékelést?',
 		featureLabel: 'Feladat egyedi neve a riportban',
 		descriptionLabel: 'Szöveges kifejtéshez rendelt kérdés',
 		descriptionLabelDescription:

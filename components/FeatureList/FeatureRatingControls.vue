@@ -18,7 +18,12 @@
 			<template
 				v-if="interactions?.enabled?.includes('RatingExplanation')"
 			>
-				<b-form-group :label="interactions?.ratingQuestion">
+				<b-form-group
+					:label="
+						interactions?.ratingQuestion ||
+						$t('sheetEditor.defaultRatingQuestion')
+					"
+				>
 					<b-textarea
 						v-model="ratingAnswers.answer"
 						size="sm"

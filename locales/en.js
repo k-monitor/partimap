@@ -209,8 +209,9 @@ export default {
 		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',
-		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultBaseMap: 'Default base map',
+		defaultDescriptionLabel: 'Please explain why you gave this response.',
+		defaultRatingQuestion: 'Miért adtad ezt az értékelést?', // TODO
 		featureLabel: 'Unique task name displayed in report',
 		descriptionLabel: 'Follow-up text question',
 		descriptionLabelDescription:
