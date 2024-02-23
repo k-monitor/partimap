@@ -1,5 +1,5 @@
 <template>
-	<div class="border d-flex font-weight-bold justify-content-center p-1">
+	<div class="border d-flex font-weight-bold justify-content-center p-2">
 		<VueStarRating
 			v-model="rating"
 			active-color="var(--brand)"
@@ -12,11 +12,11 @@
 			:read-only="showResults"
 			:round-start-rating="false"
 			:show-rating="false"
-			:star-size="16"
+			:star-size="20"
 		/>
 		<span
-			v-if="showResults"
-			class="ml-2"
+			v-if="showResults && aggregatedRating.count"
+			class="ml-3"
 		>
 			{{ rating ? Number(rating).toFixed(1) : '-' }}
 			(<small class="fas fa-user fa-fw" />
