@@ -222,6 +222,8 @@ export default {
 				const canDeselect = await this.canDeselectFeature();
 				if (canDeselect) {
 					this.$store.commit('selected/change', clickedFeature);
+				} else {
+					this.setSidebarVisible(true);
 				}
 			} else if (this.selectedFeature && clickedId === currentId) {
 				// this feature is selected currently
