@@ -31,6 +31,18 @@
 			>
 				<b-form-group class="col-xl-6">
 					<template #label>
+						<span class="text-success">
+							<i class="fas fa-fw fa-thumbs-up mr-1" />
+							{{ $t('FeatureRatingControls.pros') }}
+						</span>
+					</template>
+					<b-textarea
+						v-model="ratingAnswers.pros"
+						size="sm"
+					/>
+				</b-form-group>
+				<b-form-group class="col">
+					<template #label>
 						<span class="text-danger">
 							<i
 								class="fas fa-fw fa-thumbs-up fa-flip-both mr-1"
@@ -40,18 +52,6 @@
 					</template>
 					<b-textarea
 						v-model="ratingAnswers.cons"
-						size="sm"
-					/>
-				</b-form-group>
-				<b-form-group class="col">
-					<template #label>
-						<span class="text-success">
-							<i class="fas fa-fw fa-thumbs-up mr-1" />
-							{{ $t('FeatureRatingControls.pros') }}
-						</span>
-					</template>
-					<b-textarea
-						v-model="ratingAnswers.pros"
 						size="sm"
 					/>
 				</b-form-group>
