@@ -201,10 +201,10 @@ export default {
 @import '../node_modules/bootstrap/scss/mixins';
 
 .b-sidebar {
-	width: 360px;
+	width: 360px; // Actualize Map::sidebarWidth
 
 	@include media-breakpoint-up(lg) {
-		width: 42%;
+		width: 42%; // Actualize Map::sidebarWidth
 	}
 
 	.b-sidebar-body {

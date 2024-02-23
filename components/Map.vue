@@ -56,7 +56,6 @@ import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
 import createBaseMaps from '@/assets/basemaps';
-import { isMobile } from '@/assets/constants';
 import 'ol/ol.css';
 
 const gm2ol = get('EPSG:4326', 'EPSG:3857');
@@ -111,9 +110,18 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['getBaseMap']),
+		...mapGetters(['getBaseMap', 'getSidebarVisible']),
 		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
+		sidebarWidth() {
+			// See Sidebar <style>
+			const base = 360;
+			const mul = 0.42;
+			const lg = 992;
+			const ww = window.innerWidth;
+			const sidebarWidth = ww >= lg ? ww * mul : base;
+			return this.getSidebarVisible ? sidebarWidth : 0;
+		},
 	},
 	watch: {
 		drawType(type) {
@@ -153,6 +161,9 @@ export default {
 				});
 			}
 
+			this.fitViewToFeatures();
+		},
+		getSidebarVisible() {
 			this.fitViewToFeatures();
 		},
 		labels: {
@@ -278,11 +289,9 @@ export default {
 					? this.getSelectedFeature.getGeometry().getExtent()
 					: this.source.getExtent();
 
-			const leftPadding = isMobile() ? 0 : 400;
-
 			this.map.getView().fit(extent, {
 				duration: 200,
-				padding: [0, 0, 0, leftPadding],
+				padding: [0, 0, 0, this.sidebarWidth],
 			});
 		},
 		addEventListeners() {
