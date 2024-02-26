@@ -296,10 +296,13 @@ export default {
 				return false;
 			}
 
+			const defaultName = this.$t(
+				'FeatureListElement.defaultName.' + f.getGeometry().getType()
+			);
 			const needle = this.search.toLowerCase();
 			const haystack = [
 				String(f.getId() || ''),
-				f.get('name') || '',
+				f.get('name') || defaultName,
 				f.get('category') || '',
 				f.get('partimapFeatureQuestion_ans') || '',
 			]
