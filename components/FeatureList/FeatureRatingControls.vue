@@ -14,7 +14,7 @@
 			:show-results="showResults"
 		/>
 
-		<template v-if="ratingValue">
+		<template v-if="ratingValue && !showResults">
 			<template
 				v-if="interactions?.enabled?.includes('RatingExplanation')"
 			>

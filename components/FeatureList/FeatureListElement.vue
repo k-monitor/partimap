@@ -194,7 +194,7 @@ export default {
 			const rating = ratings[this.feature.getId()] || {
 				value: undefined,
 			};
-			return !!rating.value;
+			return !!rating.value && !this.showResults;
 		},
 		stars() {
 			return this.interactions?.stars;
