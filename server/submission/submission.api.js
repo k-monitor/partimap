@@ -266,6 +266,10 @@ router.get(
 		ars.cell(1, 4).string(m.aggregatedRating);
 		ars.cell(1, 5).string(m.likeCount);
 		ars.cell(1, 6).string(m.dislikeCount);
+		ars.cell(1, 7).string(m.ratingQuestion);
+		ars.cell(1, 8).string(m.ratingAnswer);
+		ars.cell(1, 9).string(m.ratingPros);
+		ars.cell(1, 10).string(m.ratingCons);
 		let row = 1;
 		for (let i = 0; i < sheets.length; i++) {
 			const sheet = sheets[i];
@@ -294,6 +298,32 @@ router.get(
 				} else {
 					ars.cell(row, 4).number(Number(r.average));
 				}
+
+				const rs = ratings.filter(
+					r => r.sheetId === sheet.id && r.featureId === feature.id
+				);
+				ars.cell(row, 7).string(rs[rs.length - 1].question || '');
+				ars.cell(row, 8).string(
+					rs
+						.map(r => r.answer || '')
+						.map(a => a.replace(/\s+/g, ' ').trim())
+						.filter(Boolean)
+						.join(';')
+				);
+				ars.cell(row, 9).string(
+					rs
+						.map(r => r.pros || '')
+						.map(a => a.replace(/\s+/g, ' ').trim())
+						.filter(Boolean)
+						.join(';')
+				);
+				ars.cell(row, 10).string(
+					rs
+						.map(r => r.cons || '')
+						.map(a => a.replace(/\s+/g, ' ').trim())
+						.filter(Boolean)
+						.join(';')
+				);
 			}
 		}
 
