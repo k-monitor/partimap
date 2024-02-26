@@ -360,9 +360,9 @@ export default {
 				const questionsWithResults = questions.filter(
 					q => q.type && q.type !== 'text'
 				);
-				if (!questionsWithResults.find(q => !q.showResult)) return true;
+				if (questionsWithResults.find(q => !q.showResult)) return false;
 			} catch {}
-			return false;
+			return true;
 		},
 		canHaveResults() {
 			if (this.interactions.enabled.includes('Rating')) return true;
