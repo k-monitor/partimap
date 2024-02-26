@@ -132,42 +132,9 @@
 				/>
 				<RatingSettingsModal
 					:interactions="interactions"
-					@modified="handleInteractionModified"
+					@modified="handleRatingInteractionModified"
 				/>
 			</b-form-group>
-
-			<div v-if="isRatingSelected">
-				<b-form-group :label="$t('sheetEditor.ratingType')">
-					<b-form-radio-group
-						v-model="ratingType"
-						:options="ratingTypes"
-						stacked
-					/>
-				</b-form-group>
-				<b-form-group
-					v-if="interactions.stars !== -2"
-					:label="$t('sheetEditor.numberOfStars')"
-					label-cols="7"
-					label-for="stars"
-				>
-					<b-form-input
-						id="stars"
-						v-model.number="interactions.stars"
-						max="10"
-						min="1"
-						type="number"
-					/>
-				</b-form-group>
-				<b-form-group
-					v-if="interactions.enabled.includes('RatingExplanation')"
-					:label="$t('sheetEditor.ratingQuestion')"
-				>
-					<b-form-input
-						v-model="interactions.ratingQuestion"
-						:placeholder="$t('sheetEditor.defaultRatingQuestion')"
-					/>
-				</b-form-group>
-			</div>
 
 			<b-form-group v-if="canHaveResults">
 				<template #label>
@@ -283,7 +250,6 @@ export default {
 			const project = await $axios.$get(`/api/project/${params.id}`);
 			const sheet = project.sheets[params.sheetord]; // sheets are ordered on server
 			const interactions = deserializeInteractions(sheet?.interactions);
-			const ratingType = interactions.stars === -2 ? 1 : 0;
 
 			// BEGIN backward compatibility for #2437
 			const descriptionLabel = sheet?.descriptionLabel || '';
@@ -313,17 +279,12 @@ export default {
 				project,
 				sheet,
 				interactions,
-				ratingType,
 			};
 		} catch (error) {
 			redirect('/admin/project/' + params.id);
 		}
 	},
 	data() {
-		const ratingTypes = [
-			{ value: 0, text: this.$t('sheetEditor.ratingTypes.stars') },
-			{ value: 1, text: this.$t('sheetEditor.ratingTypes.likeDislike') },
-		];
 		return {
 			backgroundImage: null,
 			backgroundImageData: null,
@@ -331,7 +292,6 @@ export default {
 			baseMaps: baseMapList,
 			contentModified: false,
 			loading: true,
-			ratingTypes,
 			showAllResults: false,
 		};
 	},
@@ -360,23 +320,6 @@ export default {
 					}
 				} else {
 					options.push(ia('Rating'));
-					if (this.isRatingSelected) {
-						options.push(ia('RatingResults'));
-						if (
-							!this.interactions.enabled.includes(
-								'RatingProsCons'
-							)
-						) {
-							options.push(ia('RatingExplanation'));
-						}
-						if (
-							!this.interactions.enabled.includes(
-								'RatingExplanation'
-							)
-						) {
-							options.push(ia('RatingProsCons'));
-						}
-					}
 				}
 			} else {
 				options.push(ia('SocialSharing'));
@@ -470,9 +413,6 @@ export default {
 			},
 			deep: true,
 		},
-		ratingType(v) {
-			this.interactions.stars = v === 1 ? -2 : 5;
-		},
 		sheet: {
 			handler() {
 				this.contentModified = true;
@@ -553,6 +493,30 @@ export default {
 			this.interactions.featureLabels[drawType] = featureLabel;
 			this.interactions.featureQuestions[drawType] = featureQuestion;
 		},
+		handleRatingInteractionModified(
+			ratingExplanation,
+			ratingProsCons,
+			ratingQuestion,
+			ratingResults,
+			stars
+		) {
+			this.interactions.ratingQuestion = ratingQuestion;
+			this.interactions.stars = stars;
+			this.toggleInteraction('RatingExplanation', ratingExplanation);
+			this.toggleInteraction('RatingProsCons', ratingProsCons);
+			this.toggleInteraction('RatingResults', ratingResults);
+		},
+		toggleInteraction(ia, enabled) {
+			if (enabled) {
+				if (!this.interactions.enabled.includes(ia)) {
+					this.interactions.enabled.push(ia);
+				}
+			} else {
+				this.interactions.enabled = this.interactions.enabled.filter(
+					i => i !== ia
+				);
+			}
+		},
 		hasSettings(ia) {
 			return ['Point', 'LineString', 'Polygon', 'Rating'].includes(ia);
 		},
@@ -566,22 +530,9 @@ export default {
 		},
 		showAllResultsClicked() {
 			const showResults = this.showAllResults;
-			if (
-				showResults &&
-				!this.interactions.enabled.includes('RatingResults')
-			) {
-				this.interactions.enabled.push('RatingResults');
-			}
-			if (
-				!showResults &&
-				this.interactions.enabled.includes('RatingResults')
-			) {
-				this.interactions.enabled = this.interactions.enabled.filter(
-					i => i !== 'RatingResults'
-				);
-			}
+			this.toggleInteraction('RatingResults', showResults);
 			const survey = JSON.parse(this.sheet.survey);
-			survey.questions.forEach(q => (q.showResult = showResults));
+			survey.questions?.forEach(q => (q.showResult = showResults));
 			this.sheet.survey = JSON.stringify(survey);
 		},
 		loadFeaturesFromStore() {
