@@ -273,7 +273,7 @@ export default {
 				if (ias.includes('RatingExplanation')) {
 					if (!ratingObj.answer) return false;
 				} else if (ias.includes('RatingProsCons')) {
-					if (!ratingObj.pros || !ratingObj.cons) return false;
+					if (!ratingObj.pros && !ratingObj.cons) return false;
 				}
 			}
 
