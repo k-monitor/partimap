@@ -417,7 +417,8 @@ export default {
 
 			// filter
 			const isFilterActive = this.filteredIds !== null;
-			const featureIncluded = this.filteredIds?.includes(feature.getId());
+			const featureIncluded =
+				this.filteredIds?.includes(feature.getId()) || isHidden;
 			if (isFilterActive && !featureIncluded) {
 				return feature.setStyle(() => false); // hide
 			}
