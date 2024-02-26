@@ -42,8 +42,8 @@
 					style="gap: 1rem"
 				>
 					<template v-if="isOnSubmittedView">
-						<SubmittedFeatureInfo />
 						<JumpToMapButton />
+						<SubmittedFeatureInfo />
 						<FeatureListElementFooter
 							show-delete
 							@delete="deleteFeature"
@@ -62,12 +62,12 @@
 							/>
 						</template>
 						<template v-else>
+							<JumpToMapButton />
 							<TipTapDisplay :html="feature.get('description')" />
 							<FeatureRatingControls
 								v-if="visitorCanRate"
 								:show-results="showResults"
 							/>
-							<JumpToMapButton />
 							<FeatureListElementFooter
 								:show-save="showSaveButtonOnStaticSheet"
 								@save="featureClicked"
