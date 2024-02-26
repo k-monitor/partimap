@@ -112,11 +112,7 @@
 							</b-form-checkbox>
 						</div>
 						<b-button
-							v-if="
-								['Point', 'LineString', 'Polygon'].includes(
-									o.value
-								)
-							"
+							v-if="hasSettings(o.value)"
 							class="border-0 ml-auto px-2 py-2 rounded-0"
 							variant="outline-primary"
 							:disabled="!interactions.enabled.includes(o.value)"
@@ -131,6 +127,10 @@
 					:id="dt + '-modal'"
 					:key="dt"
 					:draw-type="dt"
+					:interactions="interactions"
+					@modified="handleInteractionModified"
+				/>
+				<RatingSettingsModal
 					:interactions="interactions"
 					@modified="handleInteractionModified"
 				/>
@@ -553,9 +553,12 @@ export default {
 			this.interactions.featureLabels[drawType] = featureLabel;
 			this.interactions.featureQuestions[drawType] = featureQuestion;
 		},
+		hasSettings(ia) {
+			return ['Point', 'LineString', 'Polygon', 'Rating'].includes(ia);
+		},
 		openInteractionSettings(ia) {
 			if (
-				['Point', 'LineString', 'Polygon'].includes(ia) &&
+				this.hasSettings(ia) &&
 				this.interactions.enabled.includes(ia)
 			) {
 				this.$bvModal.show(ia + '-modal');
