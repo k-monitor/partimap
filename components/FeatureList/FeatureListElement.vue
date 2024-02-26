@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="mt-1 rounded"
+		class="feature-list-element mt-1 rounded"
 		:class="{ highlight: selectedFeature }"
 	>
 		<div

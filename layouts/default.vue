@@ -52,9 +52,15 @@ div#__nuxt,
 }
 
 .rich img {
+	margin-bottom: 1rem;
 	max-width: 100%;
+}
 
-	@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(lg) {
+	.feature-list-element .rich img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
 		max-width: 50%;
 	}
 }
