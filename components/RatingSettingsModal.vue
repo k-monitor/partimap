@@ -36,12 +36,6 @@
 		</div>
 
 		<b-form-group>
-			<b-form-checkbox v-model="ratingResults">
-				{{ $t('sheetEditor.interactions.RatingResults') }}
-			</b-form-checkbox>
-		</b-form-group>
-
-		<b-form-group>
 			<b-form-checkbox v-model="textRating">
 				{{ $t('sheetEditor.interactions.RatingExplanation') }}
 			</b-form-checkbox>
@@ -65,6 +59,12 @@
 				v-model="ratingQuestion"
 				:placeholder="$t('sheetEditor.defaultRatingQuestion')"
 			/>
+		</b-form-group>
+
+		<b-form-group>
+			<b-form-checkbox v-model="ratingResults">
+				{{ $t('sheetEditor.interactions.RatingResults') }}
+			</b-form-checkbox>
 		</b-form-group>
 	</b-modal>
 </template>
