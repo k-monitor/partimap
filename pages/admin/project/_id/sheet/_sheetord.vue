@@ -106,6 +106,7 @@
 							<b-form-checkbox
 								v-model="interactions.enabled"
 								:value="o.value"
+								@change="openInteractionSettings(o.value)"
 							>
 								{{ o.text }}
 							</b-form-checkbox>
@@ -119,7 +120,7 @@
 							class="border-0 ml-auto px-2 py-2 rounded-0"
 							variant="outline-primary"
 							:disabled="!interactions.enabled.includes(o.value)"
-							@click="$bvModal.show(o.value + '-modal')"
+							@click="openInteractionSettings(o.value)"
 						>
 							<i class="fas fa-fw fa-cog" />
 						</b-button>
@@ -551,6 +552,14 @@ export default {
 			this.interactions.descriptionLabels[drawType] = descriptionLabel;
 			this.interactions.featureLabels[drawType] = featureLabel;
 			this.interactions.featureQuestions[drawType] = featureQuestion;
+		},
+		openInteractionSettings(ia) {
+			if (
+				['Point', 'LineString', 'Polygon'].includes(ia) &&
+				this.interactions.enabled.includes(ia)
+			) {
+				this.$bvModal.show(ia + '-modal');
+			}
 		},
 		showAllResultsClicked() {
 			const showResults = this.showAllResults;
