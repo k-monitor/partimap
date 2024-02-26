@@ -1,6 +1,7 @@
 <template>
-	<div class="align-items-center d-flex justify-content-between">
+	<div class="align-items-center d-flex">
 		<button
+			v-if="showDelete"
 			class="btn btn-outline-danger"
 			@click="$emit('delete')"
 		>
@@ -8,8 +9,8 @@
 			{{ $t('FeatureListElement.deleteFeature') }}
 		</button>
 		<button
-			v-if="save"
-			class="btn btn-success"
+			v-if="showSave"
+			class="btn btn-success ml-auto"
 			@click="$emit('save')"
 		>
 			{{ $t('SaveButton.save') }}
@@ -20,7 +21,11 @@
 <script>
 export default {
 	props: {
-		save: {
+		showDelete: {
+			type: Boolean,
+			default: false,
+		},
+		showSave: {
 			type: Boolean,
 			default: false,
 		},

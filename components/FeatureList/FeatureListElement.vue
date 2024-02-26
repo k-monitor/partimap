@@ -44,7 +44,10 @@
 					<template v-if="isOnSubmittedView">
 						<SubmittedFeatureInfo />
 						<JumpToMapButton />
-						<FeatureListElementFooter @delete="deleteFeature" />
+						<FeatureListElementFooter
+							show-delete
+							@delete="deleteFeature"
+						/>
 					</template>
 					<template v-if="isOnSheetView">
 						<template v-if="isInteractive">
@@ -52,7 +55,8 @@
 							<FeatureQuestionDisplay />
 							<FeatureDescriptionPlainEditor />
 							<FeatureListElementFooter
-								save
+								show-delete
+								show-save
 								@delete="deleteFeature"
 								@save="featureClicked"
 							/>
@@ -64,6 +68,10 @@
 								:show-results="showResults"
 							/>
 							<JumpToMapButton />
+							<FeatureListElementFooter
+								:show-save="showSaveButtonOnStaticSheet"
+								@save="featureClicked"
+							/>
 						</template>
 					</template>
 					<template v-if="isOnEditorView">
@@ -172,6 +180,21 @@ export default {
 			const dt = this.feature.getGeometry().getType();
 			const q = this.interactions?.featureQuestions[dt] || {};
 			return q.label ? q : null;
+		},
+		showSaveButtonOnStaticSheet() {
+			const ias = this.interactions?.enabled;
+			if (!ias.includes('Rating')) return false;
+			if (
+				!ias.includes('RatingExplanation') &&
+				!ias.includes('RatingProsCons')
+			) {
+				return false;
+			}
+			const ratings = this.getVisitorRatings(this.sheet?.id) || {};
+			const rating = ratings[this.feature.getId()] || {
+				value: undefined,
+			};
+			return !!rating.value;
 		},
 		stars() {
 			return this.interactions?.stars;
