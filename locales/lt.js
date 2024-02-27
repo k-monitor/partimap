@@ -213,7 +213,8 @@ export default {
 		defaultBaseMap: 'Numatytas pagrindo žemėlapis',
 		defaultDescriptionLabel:
 			'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
-		defaultRatingQuestion: 'Miért adtad ezt az értékelést?', // TODO
+		defaultRatingQuestion:
+			'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
 		featureLabel: 'Unikalus užduoties pavadinimas rodomas ataskaitoje',
 		descriptionLabel: 'Papildomas tekstinis klausimas',
 		descriptionLabelDescription:
@@ -229,14 +230,14 @@ export default {
 			Polygon: 'Poligono braižymas',
 			naming: 'Pridėkite žymeklio pavadinimą',
 			Rating: 'Įvertinkite statiškus elementus',
-			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
+			RatingExplanation: 'Tekstinis laukas',
 			RatingProsCons: 'Taškai už / Taškai prieš',
 			RatingResults: 'Rodyti įvertinimo rezultatus',
 			ShowResultsOnly: 'Rodyti tik rezultatus',
 			SocialSharing: 'Bendrinkite puslapį socialinėje erdvėje',
 		},
 		numberOfStars: 'Skalės ribos (1-10)',
-		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
+		ratingQuestion: 'Papildomas tekstinis klausimas',
 		ratingType: 'Įvertinimo tipas:',
 		ratingTypes: {
 			stars: 'Įvertinimas žvaigždutėmis',
@@ -249,6 +250,7 @@ export default {
 			'Pateikus atsakymus rodyti rezultatus lankytojams (bus pritaikoma visiems klausimams)',
 		success: 'Darbalapio redagavimas sėkmingas',
 		survey: 'Apklausa',
+		textRating: 'Pateikto įvertinimo tekstinis paaiškinimas',
 		visitorInteractions: 'Respondentai gali:',
 	},
 	unsubscribe: {

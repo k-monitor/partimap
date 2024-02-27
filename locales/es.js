@@ -220,7 +220,8 @@ export default {
 		defaultBaseMap: 'Mapa base predeterminado',
 		defaultDescriptionLabel:
 			'Por favor, explica por qué diste esa respuesta.',
-		defaultRatingQuestion: 'Miért adtad ezt az értékelést?', // TODO
+		defaultRatingQuestion:
+			'MPor favor, explica por qué diste esa respuesta.',
 		featureLabel: 'Nombre de tarea único que se muestra en el informe',
 		descriptionLabel: 'Pregunta de seguimiento de texto',
 		descriptionLabelDescription:
@@ -236,14 +237,14 @@ export default {
 			Polygon: 'Dibujar polígonos',
 			naming: 'Agregar título al Punto',
 			Rating: 'Calificar características estáticas',
-			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
+			RatingExplanation: 'Cuadro de texto',
 			RatingProsCons: 'Puntos a favor / Puntos en contra',
 			RatingResults: 'Mostrar resultados de calificación',
 			ShowResultsOnly: 'Mostrar solo los resultados',
 			SocialSharing: 'Compartir página en redes sociales',
 		},
 		numberOfStars: 'Establecer escala (1-10)',
-		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
+		ratingQuestion: 'Pregunta de seguimiento de texto',
 		ratingType: 'Tipo de calificación:',
 		ratingTypes: {
 			stars: 'Calificación con estrellas',
@@ -256,6 +257,7 @@ export default {
 			'Mostrar resultados a los visitantes después de enviar la hoja de trabajo (modifica todas las preguntas)',
 		success: 'Hoja de trabajo modificada exitosamente',
 		survey: 'Encuesta',
+		textRating: 'Explicación de la calificación asignada',
 		visitorInteractions: 'Los respondientes pueden:',
 	},
 	unsubscribe: {

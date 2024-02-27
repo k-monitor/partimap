@@ -211,7 +211,7 @@ export default {
 		backgroundImage: 'Background image',
 		defaultBaseMap: 'Default base map',
 		defaultDescriptionLabel: 'Please explain why you gave this response.',
-		defaultRatingQuestion: 'Miért adtad ezt az értékelést?', // TODO
+		defaultRatingQuestion: 'Please explain why you gave this rating.',
 		featureLabel: 'Unique task name displayed in report',
 		descriptionLabel: 'Follow-up text question',
 		descriptionLabelDescription:
@@ -227,14 +227,14 @@ export default {
 			Polygon: 'Draw polygons',
 			naming: 'Add title to marker',
 			Rating: 'Rate static features',
-			RatingExplanation: 'Szöveges indoklás az értékeléshez', // TODO
+			RatingExplanation: 'Text box',
 			RatingProsCons: 'Points for / Points against',
 			RatingResults: 'Show rating results',
 			ShowResultsOnly: 'Display only the results',
 			SocialSharing: 'Share page on social media',
 		},
 		numberOfStars: 'Set scale (1-10)',
-		ratingQuestion: 'Kérdés a szöveges értékeléshez', // TODO
+		ratingQuestion: 'Follow-up text question',
 		ratingType: 'Type of rating:',
 		ratingTypes: {
 			stars: 'Star-rating',
@@ -247,6 +247,7 @@ export default {
 			'Display results to visitors after submitting the sheet (modifies every question)',
 		success: 'Sheet modified successfully',
 		survey: 'Survey',
+		textRating: 'Textual explanation for the given rating',
 		visitorInteractions: 'Respondents are allowed to:',
 	},
 	unsubscribe: {

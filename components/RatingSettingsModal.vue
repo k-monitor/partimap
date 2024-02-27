@@ -37,7 +37,7 @@
 
 		<b-form-group>
 			<b-form-checkbox v-model="textRating">
-				{{ $t('sheetEditor.interactions.RatingExplanation') }}
+				{{ $t('sheetEditor.textRating') }}
 			</b-form-checkbox>
 		</b-form-group>
 
