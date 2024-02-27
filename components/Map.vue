@@ -59,6 +59,7 @@ import createBaseMaps from '@/assets/basemaps';
 import 'ol/ol.css';
 
 const gm2ol = get('EPSG:4326', 'EPSG:3857');
+const LG_BREAKPOINT = 992;
 
 export default {
 	props: {
@@ -117,9 +118,8 @@ export default {
 			// See Sidebar <style>
 			const base = 360;
 			const mul = 0.42;
-			const lg = 992;
 			const ww = window.innerWidth;
-			const sidebarWidth = ww >= lg ? ww * mul : base;
+			const sidebarWidth = ww >= LG_BREAKPOINT ? ww * mul : base;
 			return this.getSidebarVisible ? sidebarWidth : 0;
 		},
 	},
@@ -164,7 +164,8 @@ export default {
 			this.fitViewToFeatures();
 		},
 		getSidebarVisible() {
-			this.fitViewToFeatures();
+			const ww = window.innerWidth;
+			if (ww > LG_BREAKPOINT) this.fitViewToFeatures();
 		},
 		labels: {
 			handler() {
