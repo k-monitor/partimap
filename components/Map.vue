@@ -56,6 +56,7 @@ import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
 import createBaseMaps from '@/assets/basemaps';
+
 import 'ol/ol.css';
 
 const gm2ol = get('EPSG:4326', 'EPSG:3857');
@@ -120,7 +121,9 @@ export default {
 			const mul = 0.42;
 			const ww = window.innerWidth;
 			const sidebarWidth = ww >= LG_BREAKPOINT ? ww * mul : base;
-			return this.getSidebarVisible ? sidebarWidth : 0;
+			return this.getSidebarVisible && sidebarWidth < ww * 0.5
+				? sidebarWidth
+				: 0;
 		},
 	},
 	watch: {
@@ -164,8 +167,7 @@ export default {
 			this.fitViewToFeatures();
 		},
 		getSidebarVisible() {
-			const ww = window.innerWidth;
-			if (ww > LG_BREAKPOINT) this.fitViewToFeatures();
+			this.fitViewToFeatures();
 		},
 		labels: {
 			handler() {
@@ -279,6 +281,7 @@ export default {
 			this.updateLayers();
 		},
 		fitViewToFeatures() {
+			console.log('fitViewToFeatures');
 			// no need to fit view if no feature is present
 			if (!this.source.getFeatures().length) {
 				return;
