@@ -460,24 +460,24 @@ export default {
 				const isRated = Number.isInteger(rating) && rating !== 0;
 				if (isRated) color = '#666666';
 			}
-			// opacity 0..100 -> 0..255
-			let rawOpacity = parseInt(feature.get('opacity'), 10);
-			if (isNaN(rawOpacity)) rawOpacity = 100;
-			const baseOpacityDec = Math.round(rawOpacity * 2.55);
-			const unselectedOpacityDec = Math.round(baseOpacityDec * 0.35);
-			// opacity 0..255 -> 00..FF
-			const baseOpacity = Number(baseOpacityDec)
-				.toString(16)
-				.padStart(2, '0');
-			const unselectedOpacity = Number(unselectedOpacityDec)
-				.toString(16)
-				.padStart(2, '0');
-			// setting color and opacity
-			const opacity = isUnselected ? unselectedOpacity : baseOpacity; // hex values
-			const colorWithOpacity = color + opacity;
-			console.log('colorWithOpacity', colorWithOpacity);
-			const polygonFillColor = color + '15';
-			const isLight = tinycolor(colorWithOpacity).isLight();
+			let baseOpacity100 = parseInt(feature.get('opacity'), 10);
+			if (isNaN(baseOpacity100)) baseOpacity100 = 100;
+			const unselectedOpacity100 = baseOpacity100 * 0.35;
+			const opacity100 = isUnselected
+				? unselectedOpacity100
+				: baseOpacity100;
+			const polygonOpacity100 = baseOpacity100 * 0.08;
+			function toHex(value100) {
+				const valueDec = Math.round(value100 * 2.55);
+				return valueDec.toString(16).padStart(2, '0');
+			}
+			const opacityHex = toHex(opacity100);
+			const polygonOpacityHex = toHex(polygonOpacity100);
+			const colorWithOpacity = color + opacityHex;
+			const polygonFillColor = color + polygonOpacityHex;
+			const isLight = tinycolor
+				.mix('#ffffff', color, opacity100)
+				.isLight();
 			const textOpacity = isUnselected ? 'CC' : ''; // hex
 			const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
