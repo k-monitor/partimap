@@ -45,6 +45,21 @@
 			/>
 		</b-form-group>
 
+		<b-form-group __label="$t('FeatureListElement.opacity')">
+			<div class="d-flex align-items-center">
+				<div>0%</div>
+				<b-form-input
+					v-model.number="opacity"
+					class="mx-2 mb-1"
+					max="100"
+					min="0"
+					step="10"
+					type="range"
+				/>
+				<div>100%</div>
+			</div>
+		</b-form-group>
+
 		<b-form-group :label="$t('FeatureListElement.mapLabel')">
 			<b-form-input
 				v-model.trim="label"
@@ -74,6 +89,9 @@
 export default {
 	inject: ['feature'],
 	data() {
+		let opacity = parseInt(this.feature.get('opacity'), 10);
+		if (isNaN(opacity)) opacity = 100;
+
 		return {
 			angle: parseInt(this.feature.get('partimapMapLabelAngle'), 10) || 0,
 			color: this.feature.get('color'),
@@ -122,13 +140,21 @@ export default {
 					value: '1,1,3,1',
 				},
 			],
+			opacity,
 			label: this.feature.get('partimapMapLabel') || '',
 			width: this.feature.get('width'),
 		};
 	},
 	computed: {
 		style() {
-			return [this.angle, this.color, this.dash, this.label, this.width];
+			return [
+				this.angle,
+				this.color,
+				this.dash,
+				this.label,
+				this.opacity,
+				this.width,
+			];
 		},
 	},
 	watch: {
@@ -136,6 +162,7 @@ export default {
 			this.feature.set('partimapMapLabelAngle', this.angle);
 			this.feature.set('color', this.color);
 			this.feature.set('dash', this.dash);
+			this.feature.set('opacity', this.opacity);
 			this.feature.set('partimapMapLabel', this.label);
 			this.feature.set('width', this.width);
 			this.$nuxt.$emit(
@@ -143,6 +170,7 @@ export default {
 				this.feature,
 				this.color,
 				this.dash,
+				this.opacity,
 				this.width
 			);
 			this.$nuxt.$emit('contentModified');

@@ -195,9 +195,19 @@ export default {
 				.forEach(f => this.vector.getSource().removeFeature(f));
 		});
 		// handles feature style change, performed in the feature-sidebar
-		this.$nuxt.$on('changeStyle', (feature, color, dash, width) => {
-			this.changeFeatureStyle(feature, color, dash, width, true);
-		});
+		this.$nuxt.$on(
+			'changeStyle',
+			(feature, color, dash, opacity, width) => {
+				this.changeFeatureStyle(
+					feature,
+					color,
+					dash,
+					opacity,
+					width,
+					true
+				);
+			}
+		);
 
 		this.$nuxt.$on('importedFeatures', features => {
 			this.$store.commit('selected/clear');
@@ -328,6 +338,7 @@ export default {
 						this.defaultColor[this.drawType] ||
 							this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
+						100,
 						this.defaultStroke.width,
 						true
 					);
@@ -337,6 +348,7 @@ export default {
 						f,
 						f.get('color') || this.defaultColor.drawing,
 						f.get('dash') || this.defaultStroke.lineDash,
+						parseInt(f.get('opacity'), 10) || 100,
 						f.get('width') || this.defaultStroke.width,
 						false
 					);
@@ -387,15 +399,24 @@ export default {
 					f,
 					f.get('color'),
 					f.get('dash'),
+					parseInt(f.get('opacity'), 10),
 					f.get('width'),
 					false
 				); // apply stored style
 			}
 			return new Collection(features);
 		},
-		changeFeatureStyle(feature, color, lineDash, strokeWidth, select) {
+		changeFeatureStyle(
+			feature,
+			color,
+			lineDash,
+			opacity,
+			strokeWidth,
+			select
+		) {
 			feature.set('color', color);
 			feature.set('dash', lineDash);
+			feature.set('opacity', opacity);
 			feature.set('width', strokeWidth);
 			this.updateFeatureStyle(feature, select ? feature : null);
 		},
@@ -432,15 +453,29 @@ export default {
 			if (isHidden) zIndex = -1;
 			else if (isSelected) zIndex = 1;
 
-			// color
+			// color and opacity
 			let color = feature.get('color');
 			if (this.grayRated) {
 				const rating = feature.get('rating');
 				const isRated = Number.isInteger(rating) && rating !== 0;
 				if (isRated) color = '#666666';
 			}
-			const opacity = isUnselected ? '60' : ''; // hex
+			// opacity 0..100 -> 0..255
+			let rawOpacity = parseInt(feature.get('opacity'), 10);
+			if (isNaN(rawOpacity)) rawOpacity = 100;
+			const baseOpacityDec = Math.round(rawOpacity * 2.55);
+			const unselectedOpacityDec = Math.round(baseOpacityDec * 0.35);
+			// opacity 0..255 -> 00..FF
+			const baseOpacity = Number(baseOpacityDec)
+				.toString(16)
+				.padStart(2, '0');
+			const unselectedOpacity = Number(unselectedOpacityDec)
+				.toString(16)
+				.padStart(2, '0');
+			// setting color and opacity
+			const opacity = isUnselected ? unselectedOpacity : baseOpacity; // hex values
 			const colorWithOpacity = color + opacity;
+			console.log('colorWithOpacity', colorWithOpacity);
 			const polygonFillColor = color + '15';
 			const isLight = tinycolor(colorWithOpacity).isLight();
 			const textOpacity = isUnselected ? 'CC' : ''; // hex
