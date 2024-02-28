@@ -463,8 +463,8 @@ export default {
 			let baseOpacity100 = parseInt(feature.get('opacity'), 10);
 			if (isNaN(baseOpacity100)) baseOpacity100 = 100;
 			const opacity100 = baseOpacity100 * (isUnselected ? 0.35 : 1);
-			const polygonOpacity100 = baseOpacity100 * 0.08;
-			const textOpacity100 = baseOpacity100 * (isUnselected ? 0.8 : 1);
+			const polygonOpacity100 = opacity100 * 0.08;
+			const textOpacity100 = opacity100 * 0.8;
 			function toHex(value100) {
 				const valueDec = Math.round(value100 * 2.55);
 				return valueDec.toString(16).padStart(2, '0');
