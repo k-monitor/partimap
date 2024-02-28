@@ -462,11 +462,9 @@ export default {
 			}
 			let baseOpacity100 = parseInt(feature.get('opacity'), 10);
 			if (isNaN(baseOpacity100)) baseOpacity100 = 100;
-			const unselectedOpacity100 = baseOpacity100 * 0.35;
-			const opacity100 = isUnselected
-				? unselectedOpacity100
-				: baseOpacity100;
+			const opacity100 = baseOpacity100 * (isUnselected ? 0.35 : 1);
 			const polygonOpacity100 = baseOpacity100 * 0.08;
+			const textOpacity100 = baseOpacity100 * (isUnselected ? 0.8 : 1);
 			function toHex(value100) {
 				const valueDec = Math.round(value100 * 2.55);
 				return valueDec.toString(16).padStart(2, '0');
@@ -478,7 +476,7 @@ export default {
 			const isLight = tinycolor
 				.mix('#ffffff', color, opacity100)
 				.isLight();
-			const textOpacity = isUnselected ? 'CC' : ''; // hex
+			const textOpacity = toHex(textOpacity100);
 			const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
 			// size
