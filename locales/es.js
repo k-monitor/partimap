@@ -373,6 +373,7 @@ export default {
 		jumpToMap: 'Mostrar en el mapa',
 		mapLabel: 'Etiqueta en el mapa',
 		name: 'Nombre',
+		opacity: 'Opacidad',
 		size: 'Tamaño',
 	},
 	FeatureRatingControls: {

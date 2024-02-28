@@ -361,6 +361,7 @@ export default {
 		jumpToMap: 'Show on map',
 		mapLabel: 'Label on map',
 		name: 'Name',
+		opacity: 'Opacity',
 		size: 'Size',
 	},
 	FeatureRatingControls: {

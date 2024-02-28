@@ -362,6 +362,7 @@ export default {
 		jumpToMap: 'Parodyti žemėlapyje',
 		mapLabel: 'Etikėte žemėlapyje',
 		name: 'Pavadinimas',
+		opacity: 'Neskaidrumas',
 		size: 'Dydis',
 	},
 	FeatureRatingControls: {

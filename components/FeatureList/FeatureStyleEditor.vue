@@ -45,7 +45,7 @@
 			/>
 		</b-form-group>
 
-		<b-form-group __label="$t('FeatureListElement.opacity')">
+		<b-form-group :label="$t('FeatureListElement.opacity')">
 			<div class="d-flex align-items-center">
 				<div>0%</div>
 				<b-form-input

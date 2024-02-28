@@ -356,6 +356,7 @@ export default {
 		jumpToMap: 'Megnézem a térképen',
 		mapLabel: 'Térképen megjelenő címke',
 		name: 'Név',
+		opacity: 'Átlátszóság',
 		size: 'Méret',
 	},
 	FeatureRatingControls: {
