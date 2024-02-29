@@ -47,6 +47,7 @@
 
 		<b-form-group :label="$t('FeatureListElement.opacity')">
 			<div class="d-flex align-items-center">
+				<i class="far fa-square fa-w mr-2" />
 				<div>0%</div>
 				<b-form-input
 					v-model.number="opacity"
@@ -58,13 +59,11 @@
 				/>
 				<div>100%</div>
 			</div>
-		</b-form-group>
-
-		<b-form-group
-			v-if="feature.getGeometry().getType() === 'Polygon'"
-			:label="$t('FeatureListElement.fillOpacity')"
-		>
-			<div class="d-flex align-items-center">
+			<div
+				v-if="feature.getGeometry().getType() === 'Polygon'"
+				class="d-flex align-items-center mt-2"
+			>
+				<i class="fas fa-square fa-w mr-2" />
 				<div>0%</div>
 				<b-form-input
 					v-model.number="fillOpacity"
@@ -76,6 +75,9 @@
 				/>
 				<div>100%</div>
 			</div>
+		</b-form-group>
+
+		<b-form-group :label="$t('FeatureListElement.fillOpacity')">
 		</b-form-group>
 
 		<b-form-group :label="$t('FeatureListElement.mapLabel')">
