@@ -357,6 +357,7 @@ export default {
 		},
 		deleteFeature: 'Delete feature',
 		description: 'Description',
+		fillOpacity: 'Fill opacity',
 		hidden: 'Hide from the list of features',
 		jumpToMap: 'Show on map',
 		mapLabel: 'Label on map',

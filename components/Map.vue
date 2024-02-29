@@ -197,11 +197,12 @@ export default {
 		// handles feature style change, performed in the feature-sidebar
 		this.$nuxt.$on(
 			'changeStyle',
-			(feature, color, dash, opacity, width) => {
+			(feature, color, dash, fillOpacity, opacity, width) => {
 				this.changeFeatureStyle(
 					feature,
 					color,
 					dash,
+					fillOpacity,
 					opacity,
 					width,
 					true
@@ -337,17 +338,28 @@ export default {
 						this.defaultColor[this.drawType] ||
 							this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
+						10,
 						100,
 						this.defaultStroke.width,
 						true
 					);
 				} else {
+					let fillOpacity = parseInt(
+						this.feature.get('fillOpacity'),
+						10
+					);
+					if (isNaN(fillOpacity)) fillOpacity = 10;
+
+					let opacity = parseInt(this.feature.get('opacity'), 10);
+					if (isNaN(opacity)) opacity = 100;
+
 					// imported feature
 					this.changeFeatureStyle(
 						f,
 						f.get('color') || this.defaultColor.drawing,
 						f.get('dash') || this.defaultStroke.lineDash,
-						parseInt(f.get('opacity'), 10) || 100,
+						fillOpacity,
+						opacity,
 						f.get('width') || this.defaultStroke.width,
 						false
 					);
@@ -398,6 +410,7 @@ export default {
 					f,
 					f.get('color'),
 					f.get('dash'),
+					parseInt(f.get('fillOpacity'), 10),
 					parseInt(f.get('opacity'), 10),
 					f.get('width'),
 					false
@@ -409,12 +422,14 @@ export default {
 			feature,
 			color,
 			lineDash,
+			fillOpacity,
 			opacity,
 			strokeWidth,
 			select
 		) {
 			feature.set('color', color);
 			feature.set('dash', lineDash);
+			feature.set('fillOpacity', fillOpacity);
 			feature.set('opacity', opacity);
 			feature.set('width', strokeWidth);
 			this.updateFeatureStyle(feature, select ? feature : null);
@@ -459,19 +474,23 @@ export default {
 				const isRated = Number.isInteger(rating) && rating !== 0;
 				if (isRated) color = '#666666';
 			}
-			let baseOpacity100 = parseInt(feature.get('opacity'), 10);
-			if (isNaN(baseOpacity100)) baseOpacity100 = 100;
-			const opacity100 = baseOpacity100 * (isUnselected ? 0.35 : 1);
-			const polygonOpacity100 = opacity100 * 0.08;
+			let opacity100 = parseInt(feature.get('opacity'), 10);
+			if (isNaN(opacity100)) opacity100 = 100;
+			opacity100 *= isUnselected ? 0.35 : 1;
+
+			let fillOpacity100 = parseInt(feature.get('fillOpacity'), 10);
+			if (isNaN(fillOpacity100)) fillOpacity100 = 10;
+			fillOpacity100 *= opacity100 / 100;
+
 			const textOpacity100 = opacity100 * 0.8;
 			function toHex(value100) {
 				const valueDec = Math.round(value100 * 2.55);
 				return valueDec.toString(16).padStart(2, '0');
 			}
 			const opacityHex = toHex(opacity100);
-			const polygonOpacityHex = toHex(polygonOpacity100);
+			const fillOpacityHex = toHex(fillOpacity100);
 			const colorWithOpacity = color + opacityHex;
-			const polygonFillColor = color + polygonOpacityHex;
+			const polygonFillColor = color + fillOpacityHex;
 			const isLight = tinycolor
 				.mix('#ffffff', color, opacity100)
 				.isLight();

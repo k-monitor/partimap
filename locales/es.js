@@ -369,6 +369,7 @@ export default {
 		},
 		deleteFeature: 'Eliminar característica',
 		description: 'Descripción',
+		fillOpacity: 'Rellenar opacidad',
 		hidden: 'Ocultar de la lista de características',
 		jumpToMap: 'Mostrar en el mapa',
 		mapLabel: 'Etiqueta en el mapa',

@@ -6,6 +6,7 @@ const DEFAULT_WIDTH = '6';
 const EXPORTED_CATEGORY_NAME = 'partimapCategory';
 const EXPORTED_DASH_NAME = 'partimapLineStyle';
 const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
+const EXPORTED_FILL_OPACITY_NAME = 'partimapFillOpacity';
 const EXPORTED_ID_NAME = 'partimapId';
 const EXPORTED_HIDDEN_NAME = 'partimapHidden';
 const EXPORTED_OPACITY_NAME = 'partimapOpacity';
@@ -87,6 +88,7 @@ function prepareKmlForExport(kmlString) {
 			renameData(ed, 'dash', EXPORTED_DASH_NAME);
 		}
 
+		renameData(ed, 'fillOpacity', EXPORTED_FILL_OPACITY_NAME);
 		renameData(ed, 'hidden', EXPORTED_HIDDEN_NAME);
 		renameData(ed, 'opacity', EXPORTED_OPACITY_NAME);
 
@@ -129,6 +131,7 @@ function prepareKmlForImport(kmlString) {
 		// rename back data entries
 		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
 		renameData(ed, EXPORTED_DASH_NAME, 'dash');
+		renameData(ed, EXPORTED_FILL_OPACITY_NAME, 'fillOpacity');
 		renameData(ed, EXPORTED_HIDDEN_NAME, 'hidden');
 		renameData(ed, EXPORTED_OPACITY_NAME, 'opacity');
 		renameData(ed, EXPORTED_POINT_SIZE, 'width'); // needed for width parsing

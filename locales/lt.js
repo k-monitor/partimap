@@ -358,6 +358,7 @@ export default {
 		},
 		deleteFeature: 'Ištrinti elementą',
 		description: 'Apibūdinimas',
+		fillOpacity: 'Užpildymo neskaidrumas',
 		hidden: 'Panaikinti iš elementų sąrašo',
 		jumpToMap: 'Parodyti žemėlapyje',
 		mapLabel: 'Etikėte žemėlapyje',

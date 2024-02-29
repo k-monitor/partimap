@@ -45,6 +45,24 @@
 			/>
 		</b-form-group>
 
+		<b-form-group
+			v-if="feature.getGeometry().getType() === 'Polygon'"
+			:label="$t('FeatureListElement.fillOpacity')"
+		>
+			<div class="d-flex align-items-center">
+				<div>0%</div>
+				<b-form-input
+					v-model.number="fillOpacity"
+					class="mx-2 mb-1"
+					max="100"
+					min="0"
+					step="10"
+					type="range"
+				/>
+				<div>100%</div>
+			</div>
+		</b-form-group>
+
 		<b-form-group :label="$t('FeatureListElement.opacity')">
 			<div class="d-flex align-items-center">
 				<div>0%</div>
@@ -89,6 +107,9 @@
 export default {
 	inject: ['feature'],
 	data() {
+		let fillOpacity = parseInt(this.feature.get('fillOpacity'), 10);
+		if (isNaN(fillOpacity)) fillOpacity = 10;
+
 		let opacity = parseInt(this.feature.get('opacity'), 10);
 		if (isNaN(opacity)) opacity = 100;
 
@@ -140,8 +161,9 @@ export default {
 					value: '1,1,3,1',
 				},
 			],
-			opacity,
+			fillOpacity,
 			label: this.feature.get('partimapMapLabel') || '',
+			opacity,
 			width: this.feature.get('width'),
 		};
 	},
@@ -151,6 +173,7 @@ export default {
 				this.angle,
 				this.color,
 				this.dash,
+				this.fillOpacity,
 				this.label,
 				this.opacity,
 				this.width,
@@ -162,14 +185,16 @@ export default {
 			this.feature.set('partimapMapLabelAngle', this.angle);
 			this.feature.set('color', this.color);
 			this.feature.set('dash', this.dash);
-			this.feature.set('opacity', this.opacity);
 			this.feature.set('partimapMapLabel', this.label);
+			this.feature.set('fillOpacity', this.fillOpacity);
+			this.feature.set('opacity', this.opacity);
 			this.feature.set('width', this.width);
 			this.$nuxt.$emit(
 				'changeStyle',
 				this.feature,
 				this.color,
 				this.dash,
+				this.fillOpacity,
 				this.opacity,
 				this.width
 			);
