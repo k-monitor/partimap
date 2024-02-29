@@ -479,7 +479,7 @@ export default {
 			const opacity100 =
 				parseOpacity100(feature) * (isUnselected ? 0.35 : 1);
 			const fillOpacity100 =
-				(parseFillOpacity100(feature) * opacity100) / 100;
+				parseFillOpacity100(feature) * (isUnselected ? 0.35 : 1);
 
 			const textOpacity100 = opacity100;
 			function toHex(value100) {
