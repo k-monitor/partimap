@@ -104,14 +104,12 @@
 </template>
 
 <script>
+import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
 export default {
 	inject: ['feature'],
 	data() {
-		let fillOpacity = parseInt(this.feature.get('fillOpacity'), 10);
-		if (isNaN(fillOpacity)) fillOpacity = 10;
-
-		let opacity = parseInt(this.feature.get('opacity'), 10);
-		if (isNaN(opacity)) opacity = 100;
+		const fillOpacity = parseFillOpacity100(this.feature);
+		const opacity = parseOpacity100(this.feature);
 
 		return {
 			angle: parseInt(this.feature.get('partimapMapLabelAngle'), 10) || 0,

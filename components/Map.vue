@@ -56,6 +56,7 @@ import { get } from 'ol/proj/transforms';
 import { Vector as VectorSource } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
 import createBaseMaps from '@/assets/basemaps';
+import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
 
 import 'ol/ol.css';
 
@@ -474,13 +475,11 @@ export default {
 				const isRated = Number.isInteger(rating) && rating !== 0;
 				if (isRated) color = '#666666';
 			}
-			let opacity100 = parseInt(feature.get('opacity'), 10);
-			if (isNaN(opacity100)) opacity100 = 100;
-			opacity100 *= isUnselected ? 0.35 : 1;
 
-			let fillOpacity100 = parseInt(feature.get('fillOpacity'), 10);
-			if (isNaN(fillOpacity100)) fillOpacity100 = 10;
-			fillOpacity100 *= opacity100 / 100;
+			const opacity100 =
+				parseOpacity100(feature) * (isUnselected ? 0.35 : 1);
+			const fillOpacity100 =
+				(parseFillOpacity100(feature) * opacity100) / 100;
 
 			const textOpacity100 = opacity100;
 			function toHex(value100) {
