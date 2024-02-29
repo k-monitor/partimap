@@ -56,6 +56,10 @@ div#__nuxt,
 	max-width: 100%;
 }
 
+.rich p:last-child {
+	margin-bottom: 0;
+}
+
 @include media-breakpoint-up(lg) {
 	.feature-list-element .rich img {
 		display: block;

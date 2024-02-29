@@ -69,7 +69,8 @@
 								:show-results="showResults"
 							/>
 							<FeatureListElementFooter
-								:show-save="showSaveButtonOnStaticSheet"
+								v-if="showSaveButtonOnStaticSheet"
+								show-save
 								@save="featureClicked"
 							/>
 						</template>
