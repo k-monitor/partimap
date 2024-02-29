@@ -238,18 +238,23 @@ export default {
 				// this feature was clicked on map
 				// --> finalize feature selection
 				this.$store.commit('selected/change', clickedFeature);
-			} else if (this.selectedFeature && clickedId !== currentId) {
-				// this feature is selected currently
-				// another feature was clicked on map
+			}
+
+			if (!this.selectedFeature) return;
+			// this feature is selected currently
+
+			if (clickedId !== currentId) {
+				// another feature was clicked
 				// --> confirm as needed
 				const canDeselect = await this.canDeselectFeature();
 				if (canDeselect) {
 					this.$store.commit('selected/change', clickedFeature);
+					// this will also open the sidebar but with delay
+					// logic in Sidebar.vue
 				} else {
 					this.setSidebarVisible(true);
 				}
-			} else if (this.selectedFeature && clickedId === currentId) {
-				// this feature is selected currently
+			} else {
 				// this feature was clicked on map
 				// --> open sidebar if needed
 				this.setSidebarVisible(true);
