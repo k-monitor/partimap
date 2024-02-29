@@ -315,6 +315,8 @@ export default {
 					labels[id] = `👍 ${r.likeCount} 👎 ${Math.abs(
 						r.dislikeCount
 					)}`;
+				} else if (this.interactions.stars === 1) {
+					labels[id] = `⭐ ${r.count}`;
 				} else {
 					const avg = Math.round(r.average * 10) / 10;
 					labels[id] = `⭐ ${Number(avg).toFixed(1)}`;

@@ -154,6 +154,9 @@ import { isMobile } from '~/assets/constants';
 
 export default {
 	inject: {
+		interactions: {
+			default: null,
+		},
 		sheet: {
 			default: null,
 		},
@@ -278,7 +281,14 @@ export default {
 		},
 		getAggregatedRatingValue(feature) {
 			const r = this.getAggregatedRating(feature.getId());
-			return this.interactions?.stars === -2 ? r.sum : r.average;
+			switch (this.interactions?.stars) {
+				case -2:
+					return r.sum;
+				case 1:
+					return r.count;
+				default:
+					return r.average;
+			}
 		},
 		updateCategories() {
 			const cats = new Set(

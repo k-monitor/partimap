@@ -515,9 +515,10 @@ export default {
 				const isInResultsMode = Object.keys(this.labels || {}).length;
 				const angle = Number(feature.get('partimapMapLabelAngle') || 0); // deg
 				rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
-				text = isInResultsMode
-					? this.labels[feature.id_]
-					: feature.get('partimapMapLabel');
+				text =
+					isInResultsMode && !isHidden
+						? this.labels[feature.id_]
+						: feature.get('partimapMapLabel');
 				text = wordWrap(text || '', {
 					indent: '',
 					trim: true,

@@ -103,9 +103,12 @@ export default {
 		},
 		ratingResult() {
 			const r = this.aggregatedRating;
-			if (!r.count) return;
-			if (this.interactions?.stars === -2) {
+			if (!r.count || !this.interactions) return;
+			if (this.interactions.stars === -2) {
 				return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
+			} else if (this.interactions.stars === 1) {
+				const count = r.count;
+				return `⭐ ${count}`;
 			} else {
 				const avg = Math.round(r.average * 10) / 10;
 				return `⭐ ${Number(avg).toFixed(1)}`;

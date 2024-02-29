@@ -18,9 +18,15 @@
 			v-if="showResults && aggregatedRating.count"
 			class="ml-3"
 		>
-			{{ rating ? Number(rating).toFixed(1) : '-' }}
-			(<small class="fas fa-user fa-fw" />
-			{{ aggregatedRating.count || 0 }})
+			<span v-if="interactions?.stars === 1">
+				<small class="fas fa-user fa-fw" />
+				{{ aggregatedRating.count }}
+			</span>
+			<span v-else>
+				{{ Number(rating).toFixed(1) }}
+				(<small class="fas fa-user fa-fw" />
+				{{ aggregatedRating.count || 0 }})
+			</span>
 		</span>
 	</div>
 </template>
