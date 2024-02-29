@@ -481,7 +481,7 @@ export default {
 			const fillOpacity100 =
 				parseFillOpacity100(feature) * (isUnselected ? 0.35 : 1);
 
-			const textOpacity100 = opacity100;
+			const textOpacity100 = 100 * (isUnselected ? 0.8 : 1);
 			function toHex(value100) {
 				const valueDec = Math.round(value100 * 2.55);
 				return valueDec.toString(16).padStart(2, '0');
