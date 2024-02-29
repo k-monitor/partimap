@@ -482,7 +482,7 @@ export default {
 			if (isNaN(fillOpacity100)) fillOpacity100 = 10;
 			fillOpacity100 *= opacity100 / 100;
 
-			const textOpacity100 = opacity100 * 0.8;
+			const textOpacity100 = opacity100;
 			function toHex(value100) {
 				const valueDec = Math.round(value100 * 2.55);
 				return valueDec.toString(16).padStart(2, '0');
