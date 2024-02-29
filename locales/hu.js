@@ -352,7 +352,6 @@ export default {
 		},
 		deleteFeature: 'Elem törlése',
 		description: 'Leírás',
-		fillOpacity: 'Kitöltés átlátszósága',
 		hidden: 'Elem elrejtése a listában',
 		jumpToMap: 'Megnézem a térképen',
 		mapLabel: 'Térképen megjelenő címke',

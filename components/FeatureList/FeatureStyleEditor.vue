@@ -77,9 +77,6 @@
 			</div>
 		</b-form-group>
 
-		<b-form-group :label="$t('FeatureListElement.fillOpacity')">
-		</b-form-group>
-
 		<b-form-group :label="$t('FeatureListElement.mapLabel')">
 			<b-form-input
 				v-model.trim="label"
