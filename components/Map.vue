@@ -291,7 +291,6 @@ export default {
 			this.updateLayers();
 		},
 		fitViewToFeatures() {
-			console.log('fitViewToFeatures');
 			// no need to fit view if no feature is present
 			if (!this.source.getFeatures().length) {
 				return;
@@ -311,10 +310,10 @@ export default {
 		addEventListeners() {
 			this.map.on('click', e => {
 				if (this.drawType) return;
-				const clickedFeature = this.map
-					.getFeaturesAtPixel(e.pixel)
-					.find(f => !f.get('hidden'));
-				this.$nuxt.$emit('selectAttempt', clickedFeature); // feature or null
+				const clicked = this.map.getFeaturesAtPixel(e.pixel);
+				const active = clicked.find(f => !f.get('hidden'));
+				const hidden = clicked.find(f => f.get('hidden'));
+				this.$nuxt.$emit('selectAttempt', active || hidden); // feature or null
 			});
 
 			this.map.on('pointermove', e => {

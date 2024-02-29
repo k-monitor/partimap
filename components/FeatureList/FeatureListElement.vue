@@ -233,6 +233,9 @@ export default {
 			const currentId = this.feature?.getId();
 			const selectedId = this.getSelectedFeature?.getId();
 			const clickedId = clickedFeature?.getId();
+			const isHidden =
+				clickedFeature?.get('hidden') && this.isOnSheetView;
+
 			if (!selectedId && clickedId === currentId) {
 				// no feature selected currently
 				// this feature was clicked on map
@@ -248,9 +251,13 @@ export default {
 				// --> confirm as needed
 				const canDeselect = await this.canDeselectFeature();
 				if (canDeselect) {
-					this.$store.commit('selected/change', clickedFeature);
-					// this will also open the sidebar but with delay
-					// logic in Sidebar.vue
+					if (isHidden) {
+						this.$store.commit('selected/clear');
+					} else {
+						this.$store.commit('selected/change', clickedFeature);
+						// this will also open the sidebar but with delay
+						// logic in Sidebar.vue
+					}
 				} else {
 					this.setSidebarVisible(true);
 				}
