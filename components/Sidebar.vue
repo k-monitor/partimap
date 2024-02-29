@@ -44,7 +44,7 @@
 						</b-navbar-brand>
 						<div
 							v-if="!admin && project && project.user"
-							class="mx-auto"
+							class="mx-auto ml-lg-auto mr-lg-4"
 						>
 							<a
 								:href="project.user.website"
