@@ -1,6 +1,6 @@
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
-	head: {
+	/*head: {
 		title: 'PARTIMAP',
 		meta: [
 			{ charset: 'utf-8' },
@@ -21,7 +21,7 @@ export default {
 				href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css',
 			},
 		],
-	},
+	},*/
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: [
@@ -47,33 +47,33 @@ export default {
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
-	components: [
+	/*components: [
 		{
 			path: '~/components', // will get any components nested in let's say /components/test too
 			pathPrefix: false,
 		},
-	],
+	],*/
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: [
+	/*buildModules: [
 		// https://go.nuxtjs.dev/eslint
 		'@nuxtjs/eslint-module',
-	],
+	],*/
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
-		'@nuxtjs/axios',
-		'@nuxtjs/auth-next',
+		//'@nuxtjs/axios',
+		//'@nuxtjs/auth-next',
 		'@nuxtjs/gtm',
 		'@nuxtjs/i18n',
 		'@nuxtjs/recaptcha',
-		'bootstrap-vue/nuxt',
-		'vue-social-sharing/nuxt',
+		//'bootstrap-vue/nuxt',
+		//'vue-social-sharing/nuxt',
 	],
 
-	axios: {
+	/*axios: {
 		credentials: true,
-	},
+	},*/
 
 	auth: {
 		redirect: {
@@ -112,9 +112,9 @@ export default {
 	},
 
 	publicRuntimeConfig: {
-		axios: {
+		/*axios: {
 			browserBaseURL: '/',
-		},
+		},*/
 		baseURL: process.env.BASE_URL,
 		gtm: {
 			id: process.env.GOOGLE_TAG_MANAGER_ID,
@@ -122,7 +122,7 @@ export default {
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
-	build: {
+	/*build: {
 		babel: {
 			presets: [
 				[
@@ -147,7 +147,7 @@ export default {
 		},
 		postcss: null,
 		transpile: ['defu', 'ol', ({ isServer }) => 'vue-typeahead-bootstrap'],
-	},
+	},*/
 
 	/* server: {
 		host: '0',
