@@ -283,11 +283,13 @@ router.get(
 			const ar = await rdb.aggregateBySheetId(sheet.id);
 			for (let j = 0; j < ar.length; j++) {
 				const r = ar[j];
-				row++;
 				const feature = features.find(
 					f => String(f.id) === String(r.featureId)
 				);
-				const name = feature?.properties?.name || '';
+				if (!feature) continue;
+
+				row++;
+				const name = feature.properties?.name || '';
 				ars.cell(row, 1).string(String(r.featureId));
 				ars.cell(row, 2).string(String(name));
 				ars.cell(row, 3).number(r.count);
