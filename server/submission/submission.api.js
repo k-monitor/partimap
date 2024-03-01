@@ -304,7 +304,7 @@ router.get(
 				const rs = ratings.filter(
 					r => r.sheetId === sheet.id && r.featureId === feature.id
 				);
-				ars.cell(row, 7).string(rs[rs.length - 1].question || '');
+				ars.cell(row, 7).string(rs[rs.length - 1]?.question || '');
 				ars.cell(row, 8).string(
 					rs
 						.map(r => r.answer || '')
