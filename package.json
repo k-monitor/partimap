@@ -19,6 +19,8 @@
 	},
 	"devDependencies": {
 		"@nuxt/eslint-config": "^0.2.0",
+		"db-migrate": "^0.11.14",
+		"db-migrate-mysql": "^2.3.2",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"prettier": "^3.2.5"
