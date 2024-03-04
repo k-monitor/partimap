@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import { createEnv } from '@t3-oss/env-nuxt';
 import { z } from 'zod';
 
@@ -16,8 +15,8 @@ export const env = createEnv({
 		DB_PASS: z.string(),
 
 		// Auth
-		JWT_SECRET: z.string().min(1).default(crypto.randomBytes(64).toString('hex')),
-		SESSION_SECRET: z.string().min(1).default(crypto.randomBytes(64).toString('hex')),
+		JWT_SECRET: z.string().min(32).optional(),
+		SESSION_SECRET: z.string().min(32).optional(),
 
 		// Mail
 		SMTP_FROM: z.string().min(1),
