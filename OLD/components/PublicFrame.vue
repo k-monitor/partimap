@@ -19,7 +19,7 @@
 					id="nav-collapse"
 					is-nav
 				>
-					<b-navbar-nav class="ml-auto">
+					<b-navbar-nav class="ms-auto">
 						<b-nav-item
 							:to="localePath({ name: 'hogyan-mukodik' })"
 						>
@@ -44,7 +44,7 @@
 				>
 					{{ $t('PublicFrame.contactUs') }}
 					<a
-						class="font-weight-bold text-white ml-2"
+						class="fw-bold text-white ms-2"
 						href="mailto:hello@partimap.eu"
 						>hello@partimap.eu</a
 					>
@@ -54,7 +54,7 @@
 					class="d-flex align-items-center mx-auto"
 				>
 					<a
-						class="mr-3"
+						class="me-3"
 						:href="$t('PublicFrame.kmonitorUrl')"
 						target="_blank"
 					>
@@ -65,7 +65,7 @@
 						/>
 					</a>
 					<a
-						class="mr-4"
+						class="me-4"
 						href="https://www.deepdata.hu/"
 						target="_blank"
 					>

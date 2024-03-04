@@ -8,7 +8,7 @@ export default {
 
 			this.$bvToast.toast(message, {
 				autoHideDelay: 2500,
-				bodyClass: `${colorClasses} border font-weight-bold rounded shadow-sm text-center`,
+				bodyClass: `${colorClasses} border fw-bold rounded shadow-sm text-center`,
 				noCloseButton: true,
 				solid: true,
 				toastClass: 'mb-5',

@@ -6,7 +6,7 @@
 					<h5 class="m-0">{{ text }}</h5>
 				</b-navbar-text>
 			</b-navbar-nav>
-			<b-navbar-nav class="ml-auto">
+			<b-navbar-nav class="ms-auto">
 				<LangSwitcher />
 			</b-navbar-nav>
 		</b-navbar>

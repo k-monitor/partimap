@@ -5,7 +5,7 @@
 		@click="$emit('save')"
 	>
 		<i
-			class="fas fa-fw mr-1"
+			class="fas fa-fw me-1"
 			:class="!contentModified ? 'fa-check' : 'fa-save'"
 		/>
 		<span>{{

@@ -31,7 +31,7 @@
 							max-rows="12"
 						></b-form-textarea>
 						<div class="d-flex">
-							<div class="mb-3 mr-3">
+							<div class="mb-3 me-3">
 								<b-button
 									variant="primary"
 									@click="openEditor"

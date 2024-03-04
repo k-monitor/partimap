@@ -3,7 +3,7 @@
 		<div>
 			<NuxtLink
 				:to="link"
-				class="font-weight-bold mr-2"
+				class="fw-bold me-2"
 			>
 				{{ title }}
 			</NuxtLink>
@@ -22,7 +22,7 @@
 			<slot />
 		</div>
 		<b-dropdown
-			class="ml-auto"
+			class="ms-auto"
 			dropleft
 			no-caret
 			variant="link"
@@ -34,14 +34,14 @@
 				variant="dark"
 				@click.prevent="$emit('clone')"
 			>
-				<i class="fas fa-clone fa-fw mr-1" />
+				<i class="fas fa-clone fa-fw me-1" />
 				{{ $t('ListItem.clone') }}
 			</b-dropdown-item>
 			<b-dropdown-item
 				variant="danger"
 				@click.prevent="$emit('del')"
 			>
-				<i class="fas fa-trash fa-fw mr-1" />
+				<i class="fas fa-trash fa-fw me-1" />
 				{{ $t('ListItem.delete') }}
 			</b-dropdown-item>
 		</b-dropdown>

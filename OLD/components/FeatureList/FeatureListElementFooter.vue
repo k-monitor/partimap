@@ -5,12 +5,12 @@
 			class="btn btn-outline-danger"
 			@click="$emit('delete')"
 		>
-			<i class="fas fa-fw fa-trash mr-1" />
+			<i class="fas fa-fw fa-trash me-1" />
 			{{ $t('FeatureListElement.deleteFeature') }}
 		</button>
 		<button
 			v-if="showSave"
-			class="btn btn-success ml-auto"
+			class="btn btn-success ms-auto"
 			@click="$emit('save')"
 		>
 			{{ $t('SaveButton.save') }}

@@ -19,7 +19,7 @@
 					<b-button
 						v-if="canRemoveAnswer(q)"
 						v-b-tooltip.hover.bottom
-						class="position-absolute ml-4 small text-muted text-right"
+						class="position-absolute ms-4 small text-muted text-right"
 						size="sm"
 						style="top: 0; right: 0"
 						:title="$t('Survey.removeAnswer')"
@@ -64,7 +64,7 @@
 					/>
 					<strong
 						v-if="q.type == 'range' && (!q.minLabel || !q.maxLabel)"
-						class="ml-2 text-right"
+						class="ms-2 text-right"
 						style="min-width: 2rem"
 						>{{ answers[q.id] }}</strong
 					>
@@ -109,7 +109,7 @@
 				class="position-relative"
 			>
 				<div
-					class="border d-flex font-weight-bold justify-content-center p-2"
+					class="border d-flex fw-bold justify-content-center p-2"
 				>
 					<VueStarRating
 						v-model="answers[q.id]"

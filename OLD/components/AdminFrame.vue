@@ -41,7 +41,7 @@
 						</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
-				<b-navbar-nav class="ml-auto">
+				<b-navbar-nav class="ms-auto">
 					<b-nav-item :to="localePath('/admin/help')">
 						{{ $t('AdminFrame.help') }}
 					</b-nav-item>

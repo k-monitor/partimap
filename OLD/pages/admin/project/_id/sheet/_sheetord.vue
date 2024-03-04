@@ -113,7 +113,7 @@
 						</div>
 						<b-button
 							v-if="hasSettings(o.value)"
-							class="border-0 ml-auto px-2 py-2 rounded-0"
+							class="border-0 ms-auto px-2 py-2 rounded-0"
 							variant="outline-primary"
 							:disabled="!interactions.enabled.includes(o.value)"
 							@click="openInteractionSettings(o.value)"

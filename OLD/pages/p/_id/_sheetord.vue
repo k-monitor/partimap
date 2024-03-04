@@ -172,7 +172,7 @@
 						<div class="card-footer text-right">
 							<button class="btn btn-primary">
 								{{ $t('sheet.view') }}
-								<i class="fas fa-sign-in-alt ml-1" />
+								<i class="fas fa-sign-in-alt ms-1" />
 							</button>
 						</div>
 						<LoadingOverlay :show="loading" />

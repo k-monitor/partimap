@@ -41,7 +41,7 @@
 			</b-form-checkbox>
 		</b-form-group>
 
-		<b-form-group class="ml-4">
+		<b-form-group class="ms-4">
 			<b-form-radio-group
 				v-if="textRating"
 				v-model="textRatingType"
@@ -52,7 +52,7 @@
 
 		<b-form-group
 			v-if="ratingExplanation"
-			class="ml-4"
+			class="ms-4"
 			:label="$t('sheetEditor.ratingQuestion')"
 		>
 			<b-form-input

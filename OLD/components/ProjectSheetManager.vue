@@ -28,9 +28,9 @@
 						<div class="d-flex flex-shrink-0">
 							<i
 								:class="sheetIcon(sheet)"
-								class="fas fa-fw mr-3 mt-1"
+								class="fas fa-fw me-3 mt-1"
 							/>
-							<span class="d-none d-lg-block mr-3">
+							<span class="d-none d-lg-block me-3">
 								{{ sheet.ord + 1 }}.
 							</span>
 						</div>
@@ -43,15 +43,15 @@
 										sheet.ord
 								)
 							"
-							class="font-weight-bold mr-2"
+							class="fw-bold me-2"
 						>
 							{{ sheet.title }}
 						</NuxtLink>
 
-						<div class="d-flex ml-auto">
+						<div class="d-flex ms-auto">
 							<span
 								v-if="canMoveUp(sheet)"
-								class="mr-3"
+								class="me-3"
 								role="button"
 								@click.prevent="$emit('moveSheet', 'up', sheet)"
 							>
@@ -59,7 +59,7 @@
 							</span>
 							<span
 								v-if="canMoveDown(sheet)"
-								class="mr-3"
+								class="me-3"
 								role="button"
 								@click.prevent="
 									$emit('moveSheet', 'down', sheet)

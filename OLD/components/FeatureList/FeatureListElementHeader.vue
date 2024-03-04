@@ -10,15 +10,15 @@
 	>
 		<span
 			class="text-break"
-			:class="{ 'font-weight-bold': isSelected }"
+			:class="{ 'fw-bold': isSelected }"
 		>
 			<i
-				class="fas fa-fw mr-1"
+				class="fas fa-fw me-1"
 				:class="icons[geometryType]"
 			/>
 			<i
 				v-if="hidden"
-				class="fas fa-eye-slash fa-fw mr-1"
+				class="fas fa-eye-slash fa-fw me-1"
 			/>
 			{{ nonEmptyName }}
 		</span>
@@ -29,7 +29,7 @@
 		<template v-else>
 			<span
 				v-if="isDeletable"
-				class="ml-auto text-danger"
+				class="ms-auto text-danger"
 				role="button"
 				@click.stop="$emit('delete')"
 			>

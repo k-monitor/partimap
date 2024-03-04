@@ -1,5 +1,5 @@
 <template>
-	<div class="border d-flex font-weight-bold justify-content-center p-2">
+	<div class="border d-flex fw-bold justify-content-center p-2">
 		<VueStarRating
 			v-model="rating"
 			active-color="var(--brand)"
@@ -16,7 +16,7 @@
 		/>
 		<span
 			v-if="showResults && aggregatedRating.count"
-			class="ml-3"
+			class="ms-3"
 		>
 			<span v-if="interactions?.stars === 1">
 				<small class="fas fa-user fa-fw" />

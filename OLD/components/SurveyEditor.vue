@@ -24,14 +24,14 @@
 							class="flex-grow-1 overflow-hidden p-2"
 							@click="editQuestion(i)"
 						>
-							<p class="font-weight-bold mb-1 text-truncate">
+							<p class="fw-bold mb-1 text-truncate">
 								<span v-if="q.required">*</span>
 								{{ q.label }}
 							</p>
 							<div class="d-flex align-items-center text-muted">
 								<i
 									v-b-tooltip.hover.bottom
-									class="fas fa-fw mr-2"
+									class="fas fa-fw me-2"
 									:class="icon[q.type]"
 									:title="
 										$t(
@@ -42,13 +42,13 @@
 								<i
 									v-if="q.showResult && canHaveResults(q)"
 									v-b-tooltip.hover.bottom
-									class="fas fa-chart-bar fa-fw mr-2"
+									class="fas fa-chart-bar fa-fw me-2"
 									:title="$t('SurveyEditor.showResult')"
 								/>
 								<i
 									v-if="isQuestionReferenced(q)"
 									v-b-tooltip.hover.bottom
-									class="fas fa-level-up-alt fa-rotate-270 fa-fw mr-2"
+									class="fas fa-level-up-alt fa-rotate-270 fa-fw me-2"
 									:class="
 										cancelledDrag.includes(q.id)
 											? 'alert-danger text-danger rounded'
@@ -61,7 +61,7 @@
 								<i
 									v-if="isQuestionConditional(q)"
 									v-b-tooltip.hover.bottom
-									class="fas fa-level-up-alt fa-fw mr-2"
+									class="fas fa-level-up-alt fa-fw me-2"
 									:class="
 										cancelledDrag.includes(q.id)
 											? 'alert-danger text-danger rounded'
@@ -74,7 +74,7 @@
 								<b-button
 									v-if="!readonly && !isQuestionReferenced(q)"
 									v-b-tooltip.hover.bottom
-									class="border-0 ml-auto text-danger"
+									class="border-0 ms-auto text-danger"
 									size="sm"
 									:title="$t('SurveyEditor.deleteQuestion')"
 									variant="light"
@@ -93,7 +93,7 @@
 					class="d-flex align-items-center text-success"
 					@click="addQuestion"
 				>
-					<i class="fas fa-fw fa-plus mr-2" />
+					<i class="fas fa-fw fa-plus me-2" />
 					{{ $t('SurveyEditor.addQuestion') }}
 				</b-list-group-item>
 			</draggable>
@@ -267,7 +267,7 @@
 					</b-form-group>
 					<div
 						v-if="questionIsConditional"
-						class="ml-5"
+						class="ms-5"
 					>
 						<div v-if="Array.isArray(question.showIf)">
 							<div

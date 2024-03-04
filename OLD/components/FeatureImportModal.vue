@@ -55,7 +55,7 @@
 					}}
 				</b-button>
 				<b-button
-					class="ml-3"
+					class="ms-3"
 					:disabled="!sheet || !sheet.featureCount"
 					variant="success"
 					@click="importFixed"

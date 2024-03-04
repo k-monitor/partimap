@@ -12,7 +12,7 @@
 					</div>
 					<b-button
 						:to="projectPath"
-						class="ml-auto"
+						class="ms-auto"
 						target="_blank"
 						variant="primary"
 					>
@@ -34,7 +34,7 @@
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"
 				>
-					<p class="d-md-none font-weight-bold mb-1 small text-muted">
+					<p class="d-md-none fw-bold mb-1 small text-muted">
 						{{ projectBaseURL }}
 					</p>
 					<b-input-group

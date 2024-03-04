@@ -92,7 +92,7 @@
 						/>
 						<span
 							v-if="isTooBright"
-							class="font-weight-bold text-danger ml-3"
+							class="fw-bold text-danger ms-3"
 							>{{ $t('userEditor.colorTooBright') }}</span
 						>
 					</div>

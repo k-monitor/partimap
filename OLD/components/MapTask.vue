@@ -4,7 +4,7 @@
 		class="map-task-container position-absolute text-center w-100"
 	>
 		<div
-			class="map-task d-inline-block font-weight-bold m-0 px-3 py-2 rounded shadow-sm text-white"
+			class="map-task d-inline-block fw-bold m-0 px-3 py-2 rounded shadow-sm text-white"
 			:class="bgClass"
 		>
 			{{ task }}

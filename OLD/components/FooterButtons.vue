@@ -30,7 +30,7 @@
 				@click="$emit('submit')"
 			>
 				<i
-					class="fas fa-fw mr-1"
+					class="fas fa-fw me-1"
 					:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
 				/>
 				<span>{{

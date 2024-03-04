@@ -47,7 +47,7 @@
 
 		<b-form-group :label="$t('FeatureListElement.opacity')">
 			<div class="d-flex align-items-center">
-				<i class="far fa-square fa-w mr-2" />
+				<i class="far fa-square fa-w me-2" />
 				<div>0%</div>
 				<b-form-input
 					v-model.number="opacity"
@@ -63,7 +63,7 @@
 				v-if="feature.getGeometry().getType() === 'Polygon'"
 				class="d-flex align-items-center mt-2"
 			>
-				<i class="fas fa-square fa-w mr-2" />
+				<i class="fas fa-square fa-w me-2" />
 				<div>0%</div>
 				<b-form-input
 					v-model.number="fillOpacity"

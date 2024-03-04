@@ -98,7 +98,7 @@
 				variant="primary"
 			>
 				{{ $t('SheetContent.next') }}
-				<i class="fas fa-chevron-right ml-2" />
+				<i class="fas fa-chevron-right ms-2" />
 			</b-button>
 		</div>
 		<div

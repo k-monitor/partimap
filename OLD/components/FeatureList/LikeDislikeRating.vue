@@ -12,7 +12,7 @@
 			<i class="fas fa-thumbs-up" />
 			<span
 				v-if="showResults"
-				class="ml-2"
+				class="ms-2"
 			>
 				{{ aggregatedRating.likeCount || 0 }}
 			</span>
@@ -30,7 +30,7 @@
 			<i class="fas fa-thumbs-up fa-flip-both" />
 			<span
 				v-if="showResults"
-				class="ml-2"
+				class="ms-2"
 			>
 				{{ aggregatedRating.dislikeCount || 0 }}
 			</span>
