@@ -20,6 +20,8 @@
 		"@zadigetvoltaire/nuxt-gtm": "^0.0.13",
 		"bootstrap": "^5.3.3",
 		"bootstrap-vue-next": "^0.16.6",
+		"markdown-it": "^14.0.0",
+		"markdown-it-attrs": "^4.1.6",
 		"nuxt": "^3.10.3",
 		"sass": "^1.71.1",
 		"vue": "^3.4.21",
