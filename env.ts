@@ -4,7 +4,6 @@ import { z } from 'zod';
 export const env = createEnv({
 	server: {
 		// Server
-		BASE_URL: z.string().url().default('http://localhost:3000'),
 		NITRO_PORT: z.coerce.number().default(3000),
 
 		// Database
@@ -35,6 +34,8 @@ export const env = createEnv({
 		SUB_EVENTS_DEBOUNCE_MINS: z.coerce.number().min(1).default(60),
 	},
 	client: {
+		NUXT_PUBLIC_BASE_URL: z.string().url().default('http://localhost:3000'),
+
 		// Analytics
 		NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: z.string().min(1).optional(),
 	},

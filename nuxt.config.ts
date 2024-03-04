@@ -18,7 +18,7 @@ export default defineNuxtConfig({
 		},
 	},
 	devtools: { enabled: true },
-	modules: ['@zadigetvoltaire/nuxt-gtm'],
+	modules: ['@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
 	runtimeConfig: {
 		public: {
 			gtm: {
@@ -27,5 +27,21 @@ export default defineNuxtConfig({
 				loadScript: true,
 			},
 		},
+	},
+
+	i18n: {
+		baseUrl: env.NUXT_PUBLIC_BASE_URL,
+		defaultLocale: 'hu',
+		compilation: {
+			strictMessage: false,
+		},
+		locales: [
+			{ code: 'hu', iso: 'hu-HU', name: 'Magyar' },
+			{ code: 'en', iso: 'en-GB', name: 'English' },
+			{ code: 'es', iso: 'es-ES', name: 'Español' },
+			{ code: 'lt', iso: 'lt-LT', name: 'Lietuvių' },
+		],
+		strategy: 'prefix',
+		vueI18n: 'i18n.config.ts',
 	},
 });
