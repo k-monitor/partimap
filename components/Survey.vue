@@ -111,7 +111,7 @@
 				<div
 					class="border font-weight-bold p-2 vue-star-rating-wrapper"
 				>
-					<StarRating
+					<VueStarRating
 						v-model="answers[q.id]"
 						active-color="var(--brand)"
 						animate
