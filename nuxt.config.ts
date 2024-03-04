@@ -1,23 +1,7 @@
 import { env } from './env';
 
 export default defineNuxtConfig({
-	app: {
-		head: {
-			title: 'PARTIMAP',
-			link: [
-				{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-				{
-					rel: 'stylesheet',
-					href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css',
-				},
-				{
-					rel: 'stylesheet',
-					href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css',
-				},
-			],
-		},
-	},
-	css: ['bootstrap/dist/css/bootstrap.min.css'],
+	css: ['@fortawesome/fontawesome-free/css/all.min.css', 'bootstrap/dist/css/bootstrap.min.css'],
 	devtools: { enabled: true },
 	modules: ['@bootstrap-vue-next/nuxt', '@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
 	runtimeConfig: {
