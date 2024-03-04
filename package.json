@@ -13,9 +13,12 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
+		"@bootstrap-vue-next/nuxt": "^0.16.6",
 		"@nuxtjs/i18n": "^8.1.1",
 		"@t3-oss/env-nuxt": "^0.9.2",
 		"@zadigetvoltaire/nuxt-gtm": "^0.0.13",
+		"bootstrap": "^5.3.3",
+		"bootstrap-vue-next": "^0.16.6",
 		"nuxt": "^3.10.3",
 		"vue": "^3.4.21",
 		"vue-router": "^4.3.0",

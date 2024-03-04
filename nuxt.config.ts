@@ -17,8 +17,9 @@ export default defineNuxtConfig({
 			],
 		},
 	},
+	css: ['bootstrap/dist/css/bootstrap.min.css'],
 	devtools: { enabled: true },
-	modules: ['@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
+	modules: ['@bootstrap-vue-next/nuxt', '@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
 	runtimeConfig: {
 		public: {
 			gtm: {
