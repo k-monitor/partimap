@@ -8,6 +8,9 @@ dependencies:
   '@t3-oss/env-nuxt':
     specifier: ^0.9.2
     version: 0.9.2(typescript@5.3.3)(zod@3.22.4)
+  '@zadigetvoltaire/nuxt-gtm':
+    specifier: ^0.0.13
+    version: 0.0.13(nuxt@3.10.3)(vue@3.4.21)
   nuxt:
     specifier: ^3.10.3
     version: 3.10.3(eslint@8.57.0)(typescript@5.3.3)(vite@5.1.4)
@@ -999,6 +1002,24 @@ packages:
   /@fastify/busboy@2.1.0:
     resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@gtm-support/core@2.3.0:
+    resolution: {integrity: sha512-TIC1IGNdWbQRp+ipfxwanxIIMSzGf5D9mc9eyDxJ5iJch8vHwkq4DU46UBhbkVSpoI55esNPt514G3d5KaFp8Q==}
+    dev: false
+
+  /@gtm-support/vue-gtm@2.2.0(vue@3.4.21):
+    resolution: {integrity: sha512-7nhBTRkTG0mD+7r7JvNalJz++YwszZk0oP1HIY6fCgz6wNKxT6LuiXCqdPrZmNPe/WbPIKuqxGZN5s+i6NZqow==}
+    peerDependencies:
+      vue: '>= 3.2.0 < 4.0.0'
+    peerDependenciesMeta:
+      vue-router:
+        optional: true
+    dependencies:
+      '@gtm-support/core': 2.3.0
+      vue: 3.4.21(typescript@5.3.3)
+    optionalDependencies:
+      vue-router: 4.3.0(vue@3.4.21)
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
@@ -2415,6 +2436,22 @@ packages:
 
   /@vue/shared@3.4.21:
     resolution: {integrity: sha512-PuJe7vDIi6VYSinuEbUIQgMIRZGgM8e4R+G+/dQTk0X1NEdvgvvgv7m+rfmDH1gZzyA1OjjoWskvHlfRNfQf3g==}
+    dev: false
+
+  /@zadigetvoltaire/nuxt-gtm@0.0.13(nuxt@3.10.3)(vue@3.4.21):
+    resolution: {integrity: sha512-7SgXtIB8uLdLGJaoUAQSGCSbRnNzplNkNVFKIHaVI4We0vqghstBoVPlJCJ9VdwsfdNyk3/C+Lh1uKpzTrtEuw==}
+    peerDependencies:
+      nuxt: ^3.0.0
+    dependencies:
+      '@gtm-support/vue-gtm': 2.2.0(vue@3.4.21)
+      '@nuxt/kit': 3.10.3
+      defu: 6.1.4
+      nuxt: 3.10.3(eslint@8.57.0)(typescript@5.3.3)(vite@5.1.4)
+      sirv: 2.0.4
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
     dev: false
 
   /abbrev@1.1.1:

@@ -36,6 +36,7 @@ export const env = createEnv({
 		SUB_EVENTS_DEBOUNCE_MINS: z.coerce.number().min(1).default(60),
 	},
 	client: {
-		//GOOGLE_TAG_MANAGER_ID: z.string().min(1).optional(),
+		// Analytics
+		NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: z.string().min(1).optional(),
 	},
 });

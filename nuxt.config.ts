@@ -1,4 +1,4 @@
-import './env';
+import { env } from './env';
 
 export default defineNuxtConfig({
 	app: {
@@ -18,4 +18,14 @@ export default defineNuxtConfig({
 		},
 	},
 	devtools: { enabled: true },
+	modules: ['@zadigetvoltaire/nuxt-gtm'],
+	runtimeConfig: {
+		public: {
+			gtm: {
+				id: env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || [],
+				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
+				loadScript: true,
+			},
+		},
+	},
 });
