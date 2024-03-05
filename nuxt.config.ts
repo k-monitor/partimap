@@ -14,6 +14,7 @@ export default defineNuxtConfig({
 		},
 	},
 
+	// module settings
 	i18n: {
 		baseUrl: env.NUXT_PUBLIC_BASE_URL,
 		defaultLocale: 'hu',

@@ -169,7 +169,7 @@
 								</b-input-group>
 							</div>
 						</div>
-						<div class="card-footer text-right">
+						<div class="card-footer text-end">
 							<button class="btn btn-primary">
 								{{ $t('sheet.view') }}
 								<i class="fas fa-sign-in-alt ms-1" />

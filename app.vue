@@ -58,6 +58,14 @@ body,
 	min-height: 100%;
 }
 
+a {
+	text-decoration: none;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
 .rich img {
 	margin-bottom: 1rem;
 	max-width: 100%;

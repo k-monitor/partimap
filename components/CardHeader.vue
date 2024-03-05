@@ -1,10 +1,16 @@
+<script setup lang="ts">
+defineProps<{
+	text: string;
+}>();
+</script>
+
 <template>
 	<div class="card-header p-0">
 		<b-navbar>
 			<b-navbar-nav>
-				<b-navbar-text>
+				<b-nav-text>
 					<h5 class="m-0">{{ text }}</h5>
-				</b-navbar-text>
+				</b-nav-text>
 			</b-navbar-nav>
 			<b-navbar-nav class="ms-auto">
 				<LangSwitcher />
@@ -12,14 +18,3 @@
 		</b-navbar>
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		text: {
-			type: String,
-			default: '',
-		},
-	},
-};
-</script>

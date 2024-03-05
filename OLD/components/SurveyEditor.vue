@@ -282,7 +282,7 @@
 										questionOptionsForCond(i)
 									"
 								/>
-								<p class="small text-right">
+								<p class="small text-end">
 									<a
 										href="javascript:void(0)"
 										@click="deleteCondition(i)"

@@ -19,7 +19,7 @@
 					<b-button
 						v-if="canRemoveAnswer(q)"
 						v-b-tooltip.hover.bottom
-						class="position-absolute ms-4 small text-muted text-right"
+						class="position-absolute ms-4 small text-muted text-end"
 						size="sm"
 						style="top: 0; right: 0"
 						:title="$t('Survey.removeAnswer')"
@@ -50,7 +50,7 @@
 					<strong class="mx-2">{{
 						answers[q.id] || '&nbsp;'
 					}}</strong>
-					<span class="text-right">{{ q.maxLabel }}</span>
+					<span class="text-end">{{ q.maxLabel }}</span>
 				</div>
 				<div class="align-items-center d-flex position-relative">
 					<b-form-input
@@ -64,7 +64,7 @@
 					/>
 					<strong
 						v-if="q.type == 'range' && (!q.minLabel || !q.maxLabel)"
-						class="ms-2 text-right"
+						class="ms-2 text-end"
 						style="min-width: 2rem"
 						>{{ answers[q.id] }}</strong
 					>
