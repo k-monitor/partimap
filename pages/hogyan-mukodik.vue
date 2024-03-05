@@ -13,8 +13,8 @@ useHead({
 	title: t('help.title'),
 });
 
-const editorsHelp = ref(''); // TODO GET /api/i18n/get/${lang}/editorsHelp
-const visitorsHelp = ref(''); // TODO GET /api/i18n/get/${lang}/visitorsHelp
+const editorsHelp = await useMessageFromDatabase('editorsHelp');
+const visitorsHelp = await useMessageFromDatabase('visitorsHelp');
 </script>
 
 <template>

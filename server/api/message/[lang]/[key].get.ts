@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
 	}
 	if (!value) {
 		setResponseStatus(event, StatusCodes.NOT_FOUND);
-		return;
 	}
 	return { lang, key, value };
 });
@@ -32,6 +31,6 @@ async function getValue(lang: string, key: string) {
 	return value;
 }
 
-function clean(s: any) {
+function clean(s: string | undefined) {
 	return (s || '').trim();
 }
