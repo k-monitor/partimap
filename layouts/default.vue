@@ -82,7 +82,10 @@ div#__nuxt,
 
 .vue-star-rating-star {
 	margin-top: -2px;
-	margin-left: 2px;
+}
+
+.vue-star-rating-star:not(:first-child) {
+	margin-left: 0.5rem;
 }
 
 [data-youtube-video] {

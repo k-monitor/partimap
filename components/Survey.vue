@@ -109,7 +109,7 @@
 				class="position-relative"
 			>
 				<div
-					class="border font-weight-bold p-2 vue-star-rating-wrapper"
+					class="border d-flex font-weight-bold justify-content-center p-2"
 				>
 					<VueStarRating
 						v-model="answers[q.id]"
@@ -120,7 +120,7 @@
 						clearable
 						inactive-color="#fff"
 						:max-rating="5"
-						:star-size="16"
+						:star-size="20"
 						:show-rating="false"
 					/>
 				</div>
@@ -219,23 +219,3 @@ export default {
 	},
 };
 </script>
-
-<style>
-.vue-star-rating-wrapper {
-	display: block;
-	width: 100%;
-}
-.vue-star-rating-wrapper > .vue-star-rating {
-	display: block;
-	width: 100%;
-}
-.vue-star-rating > .vue-star-rating {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	width: 100%;
-}
-span.vue-star-rating-star {
-	text-align: center;
-	width: 100%;
-}
-</style>
