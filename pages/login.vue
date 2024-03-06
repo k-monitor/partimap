@@ -14,6 +14,14 @@ const loading = ref(true);
 const errorMessage = ref('');
 const successMessage = ref('');
 
+async function submit() {
+	try {
+		await authLogin(email.value, password.value);
+	} catch {
+		errorMessage.value = t('login.invalidEmailOrPassword');
+	}
+}
+
 // OLD STUFF
 
 /*const params = Object.keys(this.$route.query);
@@ -101,20 +109,18 @@ function forgot() {
 					<div class="card shadow-sm">
 						<CardHeader :text="$t('login.title')" />
 						<div class="card-body">
-							<b-alert
+							<div
 								v-if="successMessage"
-								show
-								variant="success"
+								class="alert alert-success"
 							>
 								{{ successMessage }}
-							</b-alert>
-							<b-alert
+							</div>
+							<div
 								v-if="errorMessage"
-								show
-								variant="danger"
+								class="alert alert-danger"
 							>
 								{{ errorMessage }}
-							</b-alert>
+							</div>
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-text">

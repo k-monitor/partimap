@@ -3,7 +3,7 @@ module.exports = {
 	extends: ['@nuxt/eslint-config', 'prettier'],
 	overrides: [
 		{
-			files: ['pages/*.vue'],
+			files: ['pages/**/*.vue'],
 			rules: {
 				'vue/multi-word-component-names': 'off',
 			},

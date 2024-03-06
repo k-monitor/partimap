@@ -20,12 +20,18 @@ dependencies:
   '@zadigetvoltaire/nuxt-gtm':
     specifier: ^0.0.13
     version: 0.0.13(nuxt@3.10.3)(rollup@4.12.0)(vue@3.4.21)
+  bcryptjs:
+    specifier: ^2.4.3
+    version: 2.4.3
   bootstrap:
     specifier: ^5.3.3
     version: 5.3.3(@popperjs/core@2.11.8)
   bootstrap-vue-next:
     specifier: ^0.16.6
     version: 0.16.6(vue@3.4.21)
+  h3:
+    specifier: ^1.11.1
+    version: 1.11.1
   http-status-codes:
     specifier: ^2.3.0
     version: 2.3.0
@@ -58,6 +64,9 @@ devDependencies:
   '@nuxt/eslint-config':
     specifier: ^0.2.0
     version: 0.2.0(eslint@8.57.0)
+  '@types/bcryptjs':
+    specifier: ^2.4.6
+    version: 2.4.6
   db-migrate:
     specifier: ^0.11.14
     version: 0.11.14
@@ -2247,6 +2256,10 @@ packages:
       minimatch: 9.0.3
     dev: false
 
+  /@types/bcryptjs@2.4.6:
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+    dev: true
+
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: false
@@ -2962,6 +2975,10 @@ packages:
     dependencies:
       tweetnacl: 0.14.5
     dev: true
+
+  /bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
+    dev: false
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
