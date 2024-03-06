@@ -483,9 +483,12 @@ export default {
 			const fillOpacityHex = toHex(fillOpacity100);
 			const colorWithOpacity = color + opacityHex;
 			const polygonFillColor = color + fillOpacityHex;
-			const isLight = tinycolor
-				.mix('#ffffff', color, opacity100)
-				.isLight();
+
+			let reference = tinycolor.mix('#ffffff', color, opacity100);
+			if (feature.getGeometry().getType() === 'Polygon') {
+				reference = tinycolor.mix(reference, color, fillOpacity100);
+			}
+			const isLight = reference.isLight();
 			const textOpacity = toHex(textOpacity100);
 			const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
