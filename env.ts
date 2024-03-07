@@ -26,8 +26,7 @@ export const env = createEnv({
 		SMTP_PASS: z.string().min(1).optional(),
 
 		// Captcha
-		//RECAPTCHA_SECRET: z.string().min(1).optional(),
-		//RECAPTCHA_SITE_KEY: z.string().min(1).optional(),
+		RECAPTCHA_SECRET_KEY: z.string().min(1).optional(),
 
 		// Email subscription
 		SUB_DAILY_HOUR: z.coerce.number().min(0).max(23).default(8),
@@ -35,8 +34,7 @@ export const env = createEnv({
 	},
 	client: {
 		NUXT_PUBLIC_BASE_URL: z.string().url().default('http://localhost:3000'),
-
-		// Analytics
 		NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: z.string().min(1).optional(),
+		NUXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1).optional(),
 	},
 });

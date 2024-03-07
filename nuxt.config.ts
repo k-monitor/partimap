@@ -11,6 +11,7 @@ export default defineNuxtConfig({
 				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
 				loadScript: true,
 			},
+			recaptchaSiteKey: env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY,
 		},
 	},
 

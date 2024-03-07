@@ -6,6 +6,8 @@ useHead({
 	title: t('login.title'),
 });
 
+const { executeReCaptcha } = useReCaptcha();
+
 const forgotMode = ref(false);
 const emailInput = ref();
 const email = ref('');
@@ -16,7 +18,8 @@ const successMessage = ref('');
 
 async function submit() {
 	try {
-		await authLogin(email.value, password.value);
+		const token = await executeReCaptcha('login');
+		await authLogin(email.value, password.value, token || '');
 	} catch {
 		errorMessage.value = t('login.invalidEmailOrPassword');
 	}

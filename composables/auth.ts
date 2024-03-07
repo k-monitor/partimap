@@ -1,12 +1,9 @@
 export const useAuth = () => useNuxtApp().$auth;
 
-export const authLogin = async (email: string, password: string) => {
+export const authLogin = async (email: string, password: string, token: string) => {
 	await $fetch('/api/auth/login', {
 		method: 'POST',
-		body: {
-			email: email,
-			password: password,
-		},
+		body: { email, password, token },
 	});
 	await useAuth().updateSession();
 };
@@ -14,12 +11,8 @@ export const authLogin = async (email: string, password: string) => {
 export const authRegister = async (email: string, password: string) => {
 	await $fetch('/api/auth/register', {
 		method: 'POST',
-		body: {
-			email: email,
-			password: password,
-		},
+		body: { email, password },
 	});
-	return await authLogin(email, password);
 };
 
 export const authLogout = async () => {
