@@ -1,21 +1,21 @@
 import bcrypt from 'bcryptjs';
+import { StatusCodes } from 'http-status-codes';
+import { z } from 'zod';
+
+const loginBodySchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(1),
+});
 
 export default defineEventHandler(async (event) => {
-	const session = await useAuthSession(event);
-	const { email, password } = await readBody(event);
+	const { email, password } = await readValidatedBody(event, loginBodySchema.parse);
+
 	const user = await findUserByEmail(email);
-	if (!user) {
-		throw createError({
-			message: 'Email not found! Please register.',
-			statusCode: 401,
-		});
+	if (!user || !user.password || !bcrypt.compareSync(password, user.password)) {
+		throw createError({ statusCode: StatusCodes.UNAUTHORIZED });
 	}
-	if (!user.password || !bcrypt.compareSync(password, user.password)) {
-		throw createError({
-			message: 'Incorrect password!',
-			statusCode: 401,
-		});
-	}
+
+	const session = await useAuthSession(event);
 	await session.update({
 		id: user.id,
 		name: user.name,

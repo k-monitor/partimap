@@ -21,27 +21,21 @@ export const useAuthSession = async (event: H3Event) => {
 };
 
 export const ensureLoggedIn = async (event: H3Event) => {
-	const session = await useAuthSession(event);
-	if (!session.data.id) {
-		throw createError({
-			message: 'Not Authorized',
-			statusCode: StatusCodes.UNAUTHORIZED,
-		});
+	if (getCookie(event, sessionConfig.name!)) {
+		const session = await useAuthSession(event);
+		if (session.data.id) return session.data;
 	}
-	return session.data;
+	throw createError({ statusCode: StatusCodes.UNAUTHORIZED });
 };
 
 export const ensureAdmin = async (event: H3Event) => {
-	const session = await useAuthSession(event);
-	if (!session.data.isAdmin) {
-		throw createError({
-			message: 'Not Authorized',
-			statusCode: StatusCodes.UNAUTHORIZED,
-		});
-	}
-	return session.data;
+	const data = await ensureLoggedIn(event);
+	if (data.isAdmin) return data;
+	throw createError({ statusCode: StatusCodes.FORBIDDEN });
 };
 
-export const ensureAdminOr = (event: H3Event, cond: (context: Object) => boolean) => {
-	return cond(event.context) ? {} : ensureAdmin(event);
+export const ensureAdminOr = async (event: H3Event, cond: (context: Object) => boolean) => {
+	const data = await ensureLoggedIn(event);
+	if (data.isAdmin || cond(event.context)) return data;
+	throw createError({ statusCode: StatusCodes.FORBIDDEN });
 };
