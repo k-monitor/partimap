@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { env } from '~/env';
-
 // TODO modals?
 // TODO toasts?
 
+const { t } = useI18n();
 const i18nHead = useLocaleHead({
 	addSeoAttributes: {
 		canonicalQueries: ['foo'],
 	},
 });
-const { t } = useI18n();
+const {
+	public: { baseUrl },
+} = useRuntimeConfig();
 
 useHead({
 	htmlAttrs: {
@@ -21,7 +22,7 @@ useHead({
 	],
 	meta: [
 		{ name: 'description', content: t('meta.description') },
-		{ property: 'og:image', content: `${env.NUXT_PUBLIC_BASE_URL}/ogimage.png` },
+		{ property: 'og:image', content: `${baseUrl}/ogimage.png` },
 		...(i18nHead.value.meta || []),
 	],
 	title: 'PARTIMAP',

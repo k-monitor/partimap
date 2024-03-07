@@ -6,6 +6,7 @@ export default defineNuxtConfig({
 	modules: ['@bootstrap-vue-next/nuxt', '@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
 	runtimeConfig: {
 		public: {
+			baseUrl: env.NUXT_PUBLIC_BASE_URL,
 			gtm: {
 				id: env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || [],
 				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
