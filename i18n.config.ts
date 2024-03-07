@@ -12,4 +12,5 @@ export default defineI18nConfig(() => ({
 		hu,
 		lt,
 	},
+	warnHtmlMessage: false,
 }));
