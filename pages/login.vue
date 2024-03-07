@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+	middleware: ['public-only'],
+});
+
 const localePath = useLocalePath();
 const { t } = useI18n();
 

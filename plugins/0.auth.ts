@@ -5,7 +5,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
 	const { data: session, refresh: updateSession } =
 		await useFetch<AuthSession>('/api/auth/session');
-	const loggedIn: any = computed(() => !!session.value?.id);
+	const loggedIn = computed(() => !!session.value?.id);
 
 	if (process.client && loggedIn.value) {
 		$fetch('/api/auth/update-session', { method: 'PATCH' });
