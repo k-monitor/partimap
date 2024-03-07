@@ -7,6 +7,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 		await useFetch<AuthSession>('/api/auth/session');
 	const loggedIn: any = computed(() => !!session.value?.id);
 
+	if (process.client && loggedIn.value) {
+		$fetch('/api/auth/update-session', { method: 'PATCH' });
+	}
+
 	const localePath = useLocalePath();
 	const route = useRoute();
 	watch(loggedIn, (loggedIn) => {

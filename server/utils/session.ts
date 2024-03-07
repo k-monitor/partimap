@@ -20,6 +20,18 @@ export const useAuthSession = async (event: H3Event) => {
 	return session;
 };
 
+export const updateSessionExpiration = (event: H3Event) => {
+	const cookie = getCookie(event, sessionConfig.name!);
+	if (!cookie) return;
+	setCookie(event, sessionConfig.name!, cookie, {
+		expires: new Date(Date.now() + 1000 * sessionConfig.maxAge!),
+		httpOnly: true,
+		path: '/',
+		sameSite: 'lax',
+		secure: !process.dev,
+	});
+};
+
 export const ensureLoggedIn = async (event: H3Event) => {
 	if (getCookie(event, sessionConfig.name!)) {
 		const session = await useAuthSession(event);
