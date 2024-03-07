@@ -3,9 +3,8 @@ import type { AuthSession } from '~/server/utils/session';
 export default defineNuxtPlugin(async (nuxtApp) => {
 	if (nuxtApp.payload.error) return {};
 
-	const { data: session, refresh: updateSession } =
-		await useFetch<AuthSession>('/api/auth/session');
-	const loggedIn = computed(() => !!session.value?.id);
+	const { data: user, refresh: updateSession } = await useFetch<AuthSession>('/api/auth/session');
+	const loggedIn = computed(() => !!user.value?.id);
 
 	if (process.client && loggedIn.value) {
 		$fetch('/api/auth/update-session', { method: 'PATCH' });
@@ -26,7 +25,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 		provide: {
 			auth: {
 				loggedIn,
-				session,
+				user,
 				updateSession,
 			},
 		},

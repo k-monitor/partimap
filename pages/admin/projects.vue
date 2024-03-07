@@ -1,3 +1,5 @@
 <template>
-	<h1>Projects</h1>
+	<AdminFrame>
+		<h1>TODO</h1>
+	</AdminFrame>
 </template>

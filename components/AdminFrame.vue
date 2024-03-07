@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const { user } = useAuth();
+const localePath = useLocalePath();
+</script>
+
 <template>
 	<div>
 		<b-navbar
@@ -23,20 +28,16 @@
 						{{ $t('AdminFrame.maps') }}
 					</b-nav-item>
 					<b-nav-item
-						v-if="$auth.user.isAdmin"
+						v-if="user?.isAdmin"
 						:to="localePath('/admin/users')"
 					>
 						{{ $t('AdminFrame.users') }}
 					</b-nav-item>
 					<b-nav-item-dropdown :text="$t('AdminFrame.editHelp')">
-						<b-dropdown-item
-							:to="localePath('/admin/i18n/editors-help/')"
-						>
+						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
 							{{ $t('AdminFrame.editEditorsHelp') }}
 						</b-dropdown-item>
-						<b-dropdown-item
-							:to="localePath('/admin/i18n/visitors-help/')"
-						>
+						<b-dropdown-item :to="localePath('/admin/i18n/visitors-help/')">
 							{{ $t('AdminFrame.editVisitorsHelp') }}
 						</b-dropdown-item>
 					</b-nav-item-dropdown>
@@ -46,15 +47,13 @@
 						{{ $t('AdminFrame.help') }}
 					</b-nav-item>
 					<b-nav-item-dropdown
-						:text="$auth.user.name"
+						:text="user?.name"
 						right
 					>
-						<b-dropdown-item
-							:to="localePath('/admin/user/' + $auth.user.id)"
-						>
+						<b-dropdown-item :to="localePath('/admin/user/' + user?.id)">
 							{{ $t('AdminFrame.profile') }}
 						</b-dropdown-item>
-						<b-dropdown-item @click="$auth.logout('cookie')">
+						<b-dropdown-item @click="authLogout()">
 							{{ $t('AdminFrame.logout') }}
 						</b-dropdown-item>
 					</b-nav-item-dropdown>
