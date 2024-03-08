@@ -15,6 +15,7 @@ export const env = createEnv({
 
 		// Auth
 		JWT_SECRET: z.string().min(32).optional(),
+		SESSION_NAME: z.string().min(1).default('partimap-session'),
 		SESSION_SECRET: z.string().min(32).optional(),
 
 		// Mail

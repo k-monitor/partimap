@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
+import { findByEmail, updateLastLogin } from '~/server/data/users';
 
 const loginBodySchema = z.object({
 	email: z.string().email(),
@@ -13,17 +14,13 @@ export default defineEventHandler(async (event) => {
 
 	await validateCaptcha(event);
 
-	const user = await findUserByEmail(email);
-	if (!user || !user.password || !bcrypt.compareSync(password, user.password)) {
+	const user = await findByEmail(email);
+	if (!user || !user.active || !user.password || !bcrypt.compareSync(password, user.password)) {
 		throw createError({ statusCode: StatusCodes.UNAUTHORIZED });
 	}
 
 	const session = await useAuthSession(event);
-	await session.update({
-		id: user.id,
-		name: user.name,
-		isAdmin: user.isAdmin,
-	});
-	await updateUserLastLogin(user.id);
+	await session.update({ userId: user.id });
+	await updateLastLogin(user.id);
 	return session;
 });

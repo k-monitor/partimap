@@ -4,14 +4,12 @@ import { StatusCodes } from 'http-status-codes';
 import { env } from '~/env';
 
 export type AuthSession = {
-	id: number;
-	name: string;
-	isAdmin: boolean;
+	userId: number;
 };
 
 const sessionConfig: SessionConfig = {
 	maxAge: 60 * 60 * 24 * 7, // 1 week
-	name: 'partimap-session',
+	name: env.SESSION_NAME,
 	password: env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
 };
 
@@ -33,21 +31,19 @@ export const updateSessionExpiration = (event: H3Event) => {
 };
 
 export const ensureLoggedIn = async (event: H3Event) => {
-	if (getCookie(event, sessionConfig.name!)) {
-		const session = await useAuthSession(event);
-		if (session.data.id) return session.data;
+	if (!event.context.user?.id) {
+		throw createError({ statusCode: StatusCodes.UNAUTHORIZED });
 	}
-	throw createError({ statusCode: StatusCodes.UNAUTHORIZED });
 };
 
 export const ensureAdmin = async (event: H3Event) => {
-	const data = await ensureLoggedIn(event);
-	if (data.isAdmin) return data;
-	throw createError({ statusCode: StatusCodes.FORBIDDEN });
+	if (!event.context.user?.isAdmin) {
+		throw createError({ statusCode: StatusCodes.FORBIDDEN });
+	}
 };
 
 export const ensureAdminOr = async (event: H3Event, cond: (context: Object) => boolean) => {
-	const data = await ensureLoggedIn(event);
-	if (data.isAdmin || cond(event.context)) return data;
-	throw createError({ statusCode: StatusCodes.FORBIDDEN });
+	if (!event.context.user?.isAdmin && !cond(event.context)) {
+		throw createError({ statusCode: StatusCodes.FORBIDDEN });
+	}
 };

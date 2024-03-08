@@ -1,9 +1,9 @@
-import type { AuthSession } from '~/server/utils/session';
+import type { PublicUser } from '~/server/data/users';
 
 export default defineNuxtPlugin(async (nuxtApp) => {
 	if (nuxtApp.payload.error) return {};
 
-	const { data: user, refresh: updateSession } = await useFetch<AuthSession>('/api/auth/session');
+	const { data: user, refresh: updateSession } = await useFetch<PublicUser>('/api/auth/me');
 	const loggedIn = computed(() => !!user.value?.id);
 
 	if (process.client && loggedIn.value) {

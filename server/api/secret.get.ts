@@ -1,4 +1,6 @@
 export default defineEventHandler(async (event) => {
-	const user = await ensureLoggedIn(event);
-	return user;
+	await ensureLoggedIn(event);
+	return {
+		eventContextUser: event.context.user,
+	};
 });
