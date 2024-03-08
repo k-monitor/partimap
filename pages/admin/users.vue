@@ -1,3 +1,55 @@
+<script>
+export default {
+	middleware: ['auth', 'admin'],
+	async asyncData({ $axios }) {
+		const users = await $axios.$get('/api/users');
+		return { users };
+	},
+	data() {
+		return {
+			filter: '',
+			newUserEmail: null,
+			users: [],
+		};
+	},
+	head() {
+		return {
+			title: `Admin: ${this.$t('users.title')}`,
+		};
+	},
+	computed: {
+		filteredUsers() {
+			let userById = null;
+			const id = Number(this.filter);
+			if (id) {
+				userById = this.users.find((u) => u.id === id);
+			}
+			if (userById) {
+				return [userById];
+			}
+			return this.users.filter(
+				(u) =>
+					(u.name || '').toLowerCase().includes(this.filter.toLowerCase()) ||
+					u.email.toLowerCase().includes(this.filter.toLowerCase()),
+			);
+		},
+	},
+	methods: {
+		async add() {
+			try {
+				const { id } = await this.$axios.$put('/api/user', {
+					email: this.newUserEmail,
+					name: this.newUserEmail.split('@')[0],
+				});
+				this.$router.push(this.localePath('/admin/user/' + id));
+			} catch (error) {
+				this.errorToast(this.$t('users.creationFailed'));
+			}
+		},
+	},
+};
+</script>
+
 <template>
 	<AdminFrame>
 		<template #header>
@@ -66,67 +118,9 @@
 				<br />
 				<small class="text-muted">
 					{{ $t('users.lastLogin') }}:
-					{{
-						u.lastLogin
-							? new Date(u.lastLogin).toLocaleString()
-							: '?'
-					}}
+					{{ u.lastLogin ? new Date(u.lastLogin).toLocaleString() : '?' }}
 				</small>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
 </template>
-
-<script>
-export default {
-	middleware: ['auth', 'admin'],
-	async asyncData({ $axios }) {
-		const users = await $axios.$get('/api/users');
-		return { users };
-	},
-	data() {
-		return {
-			filter: '',
-			newUserEmail: null,
-			users: [],
-		};
-	},
-	head() {
-		return {
-			title: `Admin: ${this.$t('users.title')}`,
-		};
-	},
-	computed: {
-		filteredUsers() {
-			let userById = null;
-			const id = Number(this.filter);
-			if (id) {
-				userById = this.users.find(u => u.id === id);
-			}
-			if (userById) {
-				return [userById];
-			}
-			return this.users.filter(
-				u =>
-					(u.name || '')
-						.toLowerCase()
-						.includes(this.filter.toLowerCase()) ||
-					u.email.toLowerCase().includes(this.filter.toLowerCase())
-			);
-		},
-	},
-	methods: {
-		async add() {
-			try {
-				const { id } = await this.$axios.$put('/api/user', {
-					email: this.newUserEmail,
-					name: this.newUserEmail.split('@')[0],
-				});
-				this.$router.push(this.localePath('/admin/user/' + id));
-			} catch (error) {
-				this.errorToast(this.$t('users.creationFailed'));
-			}
-		},
-	},
-};
-</script>

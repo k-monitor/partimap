@@ -1,3 +1,5 @@
+import * as db from '../utils/database';
+
 export type User = {
 	id: number;
 	active: boolean;
@@ -16,14 +18,68 @@ export type User = {
 
 export type PublicUser = Pick<User, 'id' | 'name' | 'isAdmin'>;
 
-export async function findByEmail(email: string): Promise<User | null> {
-	const rows = await query('SELECT * FROM user WHERE email = ?', [email]);
-	return (rows[0] as User) || null;
+export function createUser(data: any): any {
+	return {
+		id: data.id,
+		active: data.active,
+		email: data.email,
+		password: data.password,
+		name: data.name,
+		color: data.color,
+		logo: data.logo,
+		website: data.website,
+		registered: data.registered || new Date().getTime(),
+		lastLogin: data.lastLogin || 0,
+		isAdmin: data.isAdmin || false,
+		token: data.token,
+		tokenExpires: data.tokenExpires,
+	};
 }
 
-export async function findById(id: number) {
-	const rows = await query('SELECT * FROM user WHERE id = ?', [id]);
-	return (rows[0] as User) || null;
+export function create(user: User) {
+	return db.create('user', user, createUser);
+}
+
+export async function del(id: number) {
+	//const delProjectQueries = [];
+
+	/*const projects = await pdb.findByUserId(id);
+	for (const project of projects) {
+		delProjectQueries.push(...pdb.delQueries(project.id));
+	}*/
+
+	await db.transaction([
+		{
+			statement: 'DELETE FROM user WHERE id = ?',
+			args: [id],
+		},
+		{
+			statement: 'DELETE FROM map WHERE userId = ?',
+			args: [id],
+		},
+		//...delProjectQueries,
+		// TODO
+	]);
+}
+
+export function findAll() {
+	return db.findAll('user', createUser) as Promise<User[]>;
+}
+
+export function findByEmail(email: string) {
+	return db.findBy('user', 'email', email, createUser) as Promise<User>;
+}
+
+export function findByToken(token: string) {
+	return db.findBy('user', 'token', token, createUser) as Promise<User>;
+}
+
+export function update(user: User) {
+	return db.update('user', user, createUser);
+}
+
+export function findById(id: number) {
+	return db.findBy('user', 'id', id, createUser) as Promise<User>;
 }
 
 export function updateLastLogin(id: number) {
