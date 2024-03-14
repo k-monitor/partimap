@@ -69,16 +69,16 @@ export function findByEmail(email: string) {
 	return db.findBy('user', 'email', email, createUser) as Promise<User>;
 }
 
+export function findById(id: number) {
+	return db.findBy('user', 'id', id, createUser) as Promise<User>;
+}
+
 export function findByToken(token: string) {
 	return db.findBy('user', 'token', token, createUser) as Promise<User>;
 }
 
 export function update(user: User) {
 	return db.update('user', user, createUser);
-}
-
-export function findById(id: number) {
-	return db.findBy('user', 'id', id, createUser) as Promise<User>;
 }
 
 export function updateLastLogin(id: number) {

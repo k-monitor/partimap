@@ -40,6 +40,14 @@ export function createProject(data: any) {
 	};
 }
 
+export function create(project: Project) {
+	return db.create('project', project, createProject);
+}
+
+export function del(id: number) {
+	return db.transaction(delQueries(id));
+}
+
 export function delQueries(id: number) {
 	return [
 		{
@@ -72,8 +80,34 @@ export function delQueries(id: number) {
 	];
 }
 
+export async function findAll() {
+	const rows = await db.query(
+		`SELECT p.*, COUNT(s.id) submissions
+		FROM project p
+		LEFT JOIN submission s ON s.projectId = p.id
+		GROUP BY p.id`,
+	);
+	return rows.map((r) => createProject(r));
+}
+
 export function findById(id: number) {
 	return db.findBy('project', 'id', id, createProject) as Promise<Project>;
+}
+
+export async function findByIdOrSlug(idOrSlug: number | string) {
+	let project;
+	if (Number(idOrSlug) > 0) {
+		project = await findById(Number(idOrSlug));
+	}
+	if (!project) {
+		// we got slug OR no match for ID
+		project = await findBySlug(String(idOrSlug));
+	}
+	return project;
+}
+
+export function findBySlug(slug: string) {
+	return db.findBy('project', 'slug', slug, createProject);
 }
 
 export async function findByUserId(userId: number) {
@@ -86,4 +120,95 @@ export async function findByUserId(userId: number) {
 		[userId],
 	);
 	return rows.map((r) => createProject(r));
+}
+
+export function incrementViewsById(id: number) {
+	return db.query('UPDATE project SET views = views + 1 WHERE id = ?', [id]);
+}
+
+export function update(project: Project) {
+	return db.update('project', project, createProject);
+}
+
+export function updateLastSent(id: number) {
+	return db.query('UPDATE project SET lastSent = ? WHERE id = ?', [Date.now(), id]);
+}
+
+export async function attemptToUnsubscribe(id: number, token: string) {
+	const sql = `
+		UPDATE project
+		SET subscribe = "N"
+		WHERE id = ?
+		AND unsubscribeToken = ?`;
+	const r = await db.query(sql, [id, token]);
+	return !!(r as any).affectedRows;
+}
+
+type NotificationData = {
+	id: number;
+	lang: string;
+	title: string;
+	unsubscribeToken: string;
+	email: string;
+	submissions: number;
+	newSubmissions: number;
+};
+
+export function dataForDailyNotifications() {
+	const sql = `
+		SELECT
+			p.id,
+			p.lang,
+			p.title,
+			p.unsubscribeToken,
+			COUNT(s.id) submissions,
+			SUM(CASE
+				WHEN s.timestamp > p.lastSent
+				THEN 1
+				ELSE 0
+			END) newSubmissions,
+			u.email,
+			u.name
+		FROM project p
+		INNER JOIN submission s ON s.projectId = p.id
+		INNER JOIN user u ON u.id = p.userId
+		WHERE subscribe = 'D'
+		GROUP BY p.id
+		HAVING newSubmissions > 0;`;
+	return db.query(sql) as Promise<NotificationData[]>;
+}
+
+/**
+ * @param {Number} debounceMins Only return projects where last submission is older than X minutes
+ * @returns {Promise<NotificationData[]>}
+ */
+export function dataForEventBasedNotifications(debounceMins: number) {
+	const sql = `
+		SELECT
+			u.email,
+			u.name,
+			p.id,
+			p.lang,
+			p.lastSent,
+			p.title,
+			p.unsubscribeToken,
+			MAX(s.timestamp) lastSubmission,
+			SUM(CASE
+				WHEN s.timestamp > p.lastSent
+				THEN 1
+				ELSE 0
+			END) newSubmissions,
+			COUNT(s.id) submissions
+		FROM project p
+		INNER JOIN submission s ON s.projectId = p.id
+		INNER JOIN user u ON u.id = p.userId
+		WHERE subscribe = 'E'
+		GROUP BY p.id
+		HAVING newSubmissions > 0
+		AND (
+			lastSubmission/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?
+			OR p.lastSent/1000 < UNIX_TIMESTAMP(NOW()) - 60 * ?
+		);
+	`;
+	return db.query(sql, [debounceMins, debounceMins]) as Promise<NotificationData[]>;
 }
