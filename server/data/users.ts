@@ -1,4 +1,5 @@
 import * as db from '../utils/database';
+import * as pdb from './projects';
 
 export type User = {
 	id: number;
@@ -41,12 +42,11 @@ export function create(user: User) {
 }
 
 export async function del(id: number) {
-	//const delProjectQueries = [];
-
-	/*const projects = await pdb.findByUserId(id);
+	const delProjectQueries = [];
+	const projects = await pdb.findByUserId(id);
 	for (const project of projects) {
 		delProjectQueries.push(...pdb.delQueries(project.id));
-	}*/
+	}
 
 	await db.transaction([
 		{
@@ -57,8 +57,7 @@ export async function del(id: number) {
 			statement: 'DELETE FROM map WHERE userId = ?',
 			args: [id],
 		},
-		//...delProjectQueries,
-		// TODO
+		...delProjectQueries,
 	]);
 }
 

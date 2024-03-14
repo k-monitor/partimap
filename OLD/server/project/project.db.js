@@ -17,7 +17,7 @@ function del(id) {
 	return db.transaction(delQueries(id));
 }
 
-function delQueries(id) {
+/*function delQueries(id) {
 	return [
 		{
 			statement: 'DELETE FROM project WHERE id = ?',
@@ -47,7 +47,7 @@ function delQueries(id) {
 			args: [id],
 		},
 	];
-}
+}*/
 
 /**
  * @returns {Project[]}
