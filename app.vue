@@ -59,7 +59,8 @@ body,
 	min-height: 100%;
 }
 
-a {
+a,
+.btn-link {
 	text-decoration: none;
 }
 

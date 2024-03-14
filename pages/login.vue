@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const localePath = useLocalePath();
-const { t } = useI18n();
+const { locale, t } = useI18n();
 
 useHead({
 	title: t('login.title'),
@@ -12,97 +12,70 @@ useHead({
 
 const { executeReCaptcha } = useReCaptcha();
 
-const forgotMode = ref(false);
-const emailInput = ref();
+const form = ref<HTMLFormElement>();
+const emailInput = ref<HTMLInputElement>();
 const email = ref('');
 const password = ref('');
 const loading = ref(true);
 const errorMessage = ref('');
 const successMessage = ref('');
 
-async function submit() {
+const { currentRoute } = useRouter();
+const params = Object.keys(currentRoute.value.query);
+// TODO move param keys to constants from here and from reg/pwch too!
+['registered', 'pwchanged', 'pwchangefailed'].forEach((key) => {
+	if (params.includes(key)) successMessage.value = t(`login.${key}`);
+});
+
+onMounted(async () => {
+	const { token } = currentRoute.value.query;
+	if (token) {
+		try {
+			await $fetch('/api/user/activate', {
+				method: 'POST',
+				body: { token },
+			});
+			successMessage.value = t('login.activated');
+		} catch {
+			errorMessage.value = t('login.activationFailed');
+		}
+	}
+	loading.value = false;
+	emailInput.value?.focus();
+});
+
+async function login() {
 	try {
+		loading.value = true;
 		const token = await executeReCaptcha('login');
 		await authLogin(email.value, password.value, token || '');
 	} catch {
 		errorMessage.value = t('login.invalidEmailOrPassword');
+	} finally {
+		loading.value = false;
 	}
 }
 
-// OLD STUFF
-
-/*const params = Object.keys(this.$route.query);
-// TODO move param keys to constants from here and from reg/pwch too!
-if (params.includes('registered')) {
-	successMessage = this.$t('login.registered');
-}
-if (params.includes('pwchanged')) {
-	successMessage = this.$t('login.pwchanged');
-}
-if (params.includes('pwchangefailed')) {
-	errorMessage = this.$t('login.pwchangefailed');
-}*/
-
-//const forgotMode = false;
-
-onMounted(() => {
-	// TODO handle activation token
-	/*const token = this.$route.query.t;
-	if (token) {
-		try {
-			await this.$axios.$post('/api/user/activate', { token });
-			this.successMessage = this.$t('login.activated');
-		} catch {
-			this.errorMessage = this.$t('login.activationFailed');
-		}
-	}*/
-
-	// TODO init captcha
-	// await this.$recaptcha.init();
-
-	loading.value = false;
-	emailInput.value.focus();
-});
-
-onBeforeUnmount(() => {
-	// this.$recaptcha.destroy();
-});
-
-function forgot() {
-	/*this.forgotMode = true;
-	this.$refs.form.reportValidity() && this.submit();*/
-	// for this to work properly, do NOT mark
-	// password field as required in the template
-}
-/*async function submit() {
-	this.loading = true;
-	this.errorMessage = '';
-	this.successMessage = '';
-	const catpcha = 'TODO'; // TODO
-	// const captcha = await this.$recaptcha.execute(this.forgotMode ? 'forgot' : 'login');
-	if (this.forgotMode) {
-		try {
-			await this.$axios.$post('/api/user/forgot', {
-				email: this.login.email,
-				captcha,
-				locale: this.$i18n.locale,
-			});
-			this.successMessage = this.$t('login.passwordChangeRequested');
-		} catch {
-			this.errorMessage = this.$t('login.invalidEmail');
-		}
-	} else {
-		try {
-			await this.$auth.loginWith('cookie', {
-				data: { ...this.login, captcha },
-			});
-		} catch (err) {
-			this.errorMessage = this.$t('login.invalidEmailOrPassword');
-		}
+async function forgot() {
+	if (!form.value?.reportValidity()) return; // password is NOT required
+	try {
+		loading.value = true;
+		const token = await executeReCaptcha('login');
+		await $fetch('/api/user/forgot', {
+			method: 'POST',
+			body: {
+				captcha: token,
+				email: email.value,
+				locale: locale.value,
+			},
+		});
+		successMessage.value = t('login.passwordChangeRequested');
+	} catch {
+		errorMessage.value = t('login.invalidEmail');
+	} finally {
+		loading.value = false;
 	}
-	this.forgotMode = false;
-	this.loading = false;
-}*/
+}
 </script>
 
 <template>
@@ -111,7 +84,7 @@ function forgot() {
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form
 					ref="form"
-					@submit.prevent="submit"
+					@submit.prevent="login"
 				>
 					<div class="card shadow-sm">
 						<CardHeader :text="$t('login.title')" />
