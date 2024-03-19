@@ -47,57 +47,6 @@ router.put(
 	}
 );
 
-router.patch(
-	'/user',
-	ensureLoggedIn,
-	ensureAdminOr(req => req.body.id === req.user.id),
-	resolveRecord(req => req.body.id, db.findById, '_user'),
-	async (req, res) => {
-		const changes = req.body;
-		delete changes.password;
-		delete changes.registered;
-		delete changes.token;
-		delete changes.tokenExpires;
-
-		if (!req.user.isAdmin) {
-			delete changes.active;
-			delete changes.isAdmin;
-
-			if (changes.newPassword || changes.email !== req._user.email) {
-				if (
-					!changes.oldPassword ||
-					!bcrypt.compareSync(changes.oldPassword, req._user.password)
-				) {
-					return res
-						.status(StatusCodes.FORBIDDEN)
-						.json({ error: 'OLDPASSWORD_INVALID' });
-				}
-			}
-		}
-
-		if (changes.newPassword) {
-			changes.password = bcrypt.hashSync(changes.newPassword, 10);
-		}
-
-		if (changes.logo === null || changes.logo === '') {
-			removeUserLogoFile(req._user);
-		} else {
-			delete changes.logo;
-		}
-
-		let user = new User(Object.assign(req._user, changes));
-		if (!emailValidator.validate(user.email)) {
-			return res
-				.status(StatusCodes.BAD_REQUEST)
-				.json({ error: 'EMAIL_INVALID' });
-		}
-		await db.update(user);
-
-		user = await db.findById(user.id);
-		res.json(hidePasswordField(user));
-	}
-);
-
 router.put(
 	'/user',
 	validateCaptcha(req => !req.user || !req.user.isAdmin), // no captcha on admin page

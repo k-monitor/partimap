@@ -7,7 +7,7 @@ export type User = {
 	email: string;
 	password: string;
 	name: string;
-	color: string;
+	color: string | null;
 	logo: string;
 	website: string;
 	registered: number;

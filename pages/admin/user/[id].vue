@@ -1,0 +1,348 @@
+<script setup lang="ts">
+import tinycolor from 'tinycolor2';
+import type { User } from '~/server/data/users';
+
+const { user, updateSession } = useAuth();
+const { t } = useI18n();
+const localePath = useLocalePath();
+
+const route = useRoute();
+const { data: u, refresh } = await useFetch<User>('/api/user/' + route.params.id);
+
+useHead({
+	title: computed(() => 'Admin: ' + (u.value?.name || u.value?.email)),
+});
+
+const m = ref({
+	...u.value,
+	newPassword: '',
+	oldPassword: '',
+});
+
+/*const delConfirm = ref(false);
+const delPassword = ref('');
+const image = ref(null);
+const imageState = ref(null);
+const loading = ref(false);
+*/
+
+const isTooBright = computed(() => {
+	if (!m.value.color) return false;
+	const cr =
+		(0.05 + tinycolor('white').getLuminance()) /
+		(0.05 + tinycolor(m.value.color).getLuminance());
+	return cr < 4.5; // WCAG AA
+});
+
+/*watch(image, (val) => {
+	if (!val) {
+		// clear validation error message on file removal
+		imageState.value = null;
+	} else {
+		imageState.value = val.size < 5 * 1024 * 1024;
+	}
+});*/
+
+function deleteAccount(e) {
+	e.preventDefault(); // do not close modal automatically, user must wait
+	/*loading.value = true;
+	try {
+		await this.$axios.$post('/api/user/delete', {
+			id: this.u.id,
+			password: this.delPassword,
+		});
+		if (this.u.id === this.$auth.user.id) {
+			this.$auth.logout('cookie');
+		} else {
+			this.$router.push(this.localePath('/admin/users'));
+		}
+	} catch {
+		this.errorToast(this.$t('userEditor.deletionFailed'));
+	} finally {
+		this.delConfirm = false;
+		this.delPassword = '';
+		this.loading = false;
+		this.$nextTick(() => {
+			this.$bvModal.hide('delete-user-modal');
+		});
+	}*/
+}
+
+function removeImage() {
+	//this.image = null;
+	//this.m.logo = null;
+}
+
+const { errorToast, successToast } = useToasts();
+async function update() {
+	try {
+		/*if (this.image) {
+			await this.uploadImage();
+		}*/
+		const user = await $fetch<User>(`/api/user/${u.value?.id}`, {
+			method: 'PATCH',
+			body: m.value,
+		});
+		m.value = { ...user, newPassword: '', oldPassword: '' };
+		await refresh(); // need to update page title
+		await updateSession();
+		successToast(t('userEditor.changeSuccessful'));
+	} catch (error) {
+		errorToast(t('userEditor.changeFailed'));
+	}
+}
+
+async function uploadImage() {
+	/*if (!this.imageState) {
+		return;
+	}
+	const formData = new FormData();
+	formData.append('image', this.image);
+	try {
+		this.m = await this.$axios.$put('/api/user/' + this.m.id + '/logo', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+		this.image = null;
+	} catch (error) {
+		this.errorToast(this.$t('imageUpload.failed'));
+	}*/
+}
+</script>
+
+<template>
+	<AdminFrame>
+		<template #header>
+			<span v-if="user?.isAdmin">
+				<NuxtLink :to="localePath('/admin/users')">{{ $t('userEditor.back') }}</NuxtLink>
+				<span class="ms-2 text-muted">&raquo;</span>
+			</span>
+			{{ u?.email }}
+		</template>
+
+		<form
+			id="userForm"
+			@submit.prevent="update"
+		>
+			<form-group label="Email">
+				<input
+					v-model="m.email"
+					class="form-control"
+					required
+					type="email"
+				/>
+			</form-group>
+
+			<form-group :label="$t('userEditor.name')">
+				<input
+					v-model="m.name"
+					class="form-control"
+					required
+				/>
+			</form-group>
+
+			<!-- <b-form-group
+				:invalid-feedback="$t('imageUpload.maxFileSize')"
+				:label="$t('userEditor.logo')"
+				:description="$t('userEditor.logoDescription')"
+				:state="imageState"
+			>
+				<b-input-group v-if="!m.logo">
+					<b-form-file
+						v-model="image"
+						accept="image/jpeg, image/png, image/webp"
+						class="project-image-input"
+						browse-text=""
+						:drop-placeholder="$t('imageUpload.dropzone')"
+						:placeholder="$t('imageUpload.browse')"
+						:state="imageState"
+					/>
+					<template #append>
+						<b-button
+							:disabled="!image"
+							variant="outline-danger"
+							@click="removeImage"
+						>
+							<i class="fas fa-backspace" />
+						</b-button>
+					</template>
+				</b-input-group>
+				<div v-else>
+					<figure class="figure">
+						<img
+							:src="m.logo"
+							:alt="$t('userEditor.altLogo')"
+							class="figure-img rounded"
+							height="30"
+						/>
+						<figcaption class="figure-caption">
+							<a
+								class="text-danger"
+								href="javascript:void(0)"
+								@click="removeImage"
+								>{{ $t('imageUpload.remove') }}</a
+							>
+						</figcaption>
+					</figure>
+				</div>
+			</b-form-group> -->
+
+			<form-group
+				:label="$t('userEditor.color')"
+				:description="$t('userEditor.colorDescription')"
+			>
+				<div v-if="!m.color">
+					<button
+						class="btn btn-outline-primary"
+						type="button"
+						@click="m.color = '#000000'"
+					>
+						{{ $t('userEditor.colorAdd') }}
+					</button>
+				</div>
+				<div v-else>
+					<div class="d-flex align-items-center">
+						<input
+							v-model="m.color"
+							class="form-control"
+							style="height: 2.5rem; width: 100px; min-width: 100px"
+							type="color"
+						/>
+						<span
+							v-if="isTooBright"
+							class="fw-bold text-danger ms-3"
+							>{{ $t('userEditor.colorTooBright') }}</span
+						>
+					</div>
+					<a
+						class="small text-danger"
+						href="javascript:void(0)"
+						@click="m.color = null"
+						>{{ $t('userEditor.colorDel') }}</a
+					>
+				</div>
+			</form-group>
+
+			<form-group
+				:label="$t('userEditor.website')"
+				:description="$t('userEditor.websiteDescription')"
+			>
+				<input
+					v-model="m.website"
+					class="form-control"
+				/>
+			</form-group>
+
+			<form-group :label="$t('userEditor.newPassword')">
+				<input
+					v-model="m.newPassword"
+					class="form-control"
+					type="password"
+				/>
+			</form-group>
+
+			<form-group
+				v-if="!user?.isAdmin"
+				:label="$t('userEditor.oldPassword')"
+			>
+				<input
+					v-model="m.oldPassword"
+					class="form-control"
+					:required="!!m.newPassword || m.email !== u?.email"
+					type="password"
+				/>
+			</form-group>
+
+			<client-only v-if="user?.isAdmin">
+				<form-group>
+					<b-form-checkbox
+						v-model="m.active"
+						class="text-danger"
+						:disabled="m.id === user?.id"
+						:value="1"
+						:unchecked-value="0"
+					>
+						{{ $t('userEditor.activated') }}
+					</b-form-checkbox>
+				</form-group>
+				<form-group>
+					<b-form-checkbox
+						v-model="m.isAdmin"
+						class="text-danger"
+						:disabled="m.id === user?.id"
+						:value="1"
+						:unchecked-value="0"
+					>
+						{{ $t('userEditor.administrator') }}
+					</b-form-checkbox>
+				</form-group>
+			</client-only>
+		</form>
+
+		<template #footer>
+			<div class="d-flex justify-content-between">
+				<button
+					v-b-modal.delete-user-modal
+					class="btn btn-outline-danger"
+					type="button"
+				>
+					{{ $t('userEditor.deleteUser') }}
+				</button>
+				<button
+					class="btn btn-primary"
+					form="userForm"
+					type="submit"
+				>
+					{{ $t('userEditor.save') }}
+				</button>
+			</div>
+		</template>
+
+		<!-- <b-modal
+			id="delete-user-modal"
+			:busy="loading"
+			:cancel-title="$t('modals.cancel')"
+			cancel-variant="success"
+			centered
+			footer-class="d-flex justify-content-between"
+			hide-header
+			no-close-on-backdrop
+			no-close-on-esc
+			no-enforce-focus
+			:ok-disabled="!delConfirm || !delPassword"
+			:ok-title="$t('userEditor.confirmDeleteUser')"
+			ok-variant="danger"
+			@ok="deleteAccount"
+			@shown="$refs.delPassword.focus()"
+		>
+			<b-form-group :label="$t('userEditor.enterPassword')">
+				<b-form-input
+					ref="delPassword"
+					v-model="delPassword"
+					:disabled="loading"
+					type="password"
+					@update="delConfirm = false"
+				/>
+			</b-form-group>
+			<b-alert
+				show
+				variant="danger"
+			>
+				<b-form-checkbox
+					v-model="delConfirm"
+					:disabled="loading || !delPassword"
+					name="confirm"
+				>
+					<span
+						v-html="
+							$t('userEditor.deleteConfirmation', {
+								email: u.email,
+							})
+						"
+					/>
+				</b-form-checkbox>
+			</b-alert>
+		</b-modal> -->
+	</AdminFrame>
+</template>

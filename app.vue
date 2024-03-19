@@ -35,7 +35,9 @@ useHead({
 		class="bg-light d-flex flex-column"
 	>
 		<NuxtPage />
-		<BToastOrchestrator />
+		<client-only>
+			<BToastOrchestrator />
+		</client-only>
 	</div>
 </template>
 
@@ -64,6 +66,7 @@ a,
 	text-decoration: none;
 }
 
+fieldset,
 .form-group {
 	margin-bottom: 1rem;
 }
@@ -95,6 +98,12 @@ a,
 }
 .help h4 {
 	font-size: 1.25rem;
+}
+
+.toast,
+.toast-container,
+.toast-header {
+	transition: none !important;
 }
 
 .toast-header {
