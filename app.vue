@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // TODO modals?
-// TODO toasts?
 
 const { t } = useI18n();
 const i18nHead = useLocaleHead({
@@ -36,6 +35,7 @@ useHead({
 		class="bg-light d-flex flex-column"
 	>
 		<NuxtPage />
+		<BToastOrchestrator />
 	</div>
 </template>
 
@@ -95,6 +95,12 @@ a,
 }
 .help h4 {
 	font-size: 1.25rem;
+}
+
+.toast-header {
+	border: none;
+	background: none;
+	color: inherit;
 }
 
 .vue-star-rating-star {
