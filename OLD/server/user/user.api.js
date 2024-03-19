@@ -47,19 +47,6 @@ router.put(
 	}
 );
 
-router.get('/users', ensureLoggedIn, ensureAdmin, async (_, res) => {
-	const users = await db.findAll();
-	res.json(hidePasswordField(users));
-});
-
-router.get(
-	'/user/:id',
-	ensureLoggedIn,
-	ensureAdminOr(req => Number(req.params.id) === req.user.id),
-	resolveRecord(req => req.params.id, db.findById, '_user'),
-	(req, res) => res.json(hidePasswordField(req._user))
-);
-
 router.patch(
 	'/user',
 	ensureLoggedIn,
@@ -177,20 +164,6 @@ router.put(
 		}
 	}
 );
-
-router.post('/user/activate', async (req, res) => {
-	const user = await db.findByToken(req.body.token);
-	if (!user || user.tokenExpires < new Date().getTime()) {
-		return res
-			.status(StatusCodes.BAD_REQUEST)
-			.json({ error: 'TOKEN_INVALID' });
-	}
-	user.active = true;
-	user.token = null;
-	user.tokenExpires = null;
-	await db.update(user);
-	res.end();
-});
 
 router.post('/user/forgot', validateCaptcha(), async (req, res) => {
 	const m = i18n(req.body.locale).forgotEmail;

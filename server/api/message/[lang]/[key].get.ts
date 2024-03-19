@@ -1,10 +1,16 @@
 import fs from 'fs';
 import StatusCodes from 'http-status-codes';
+import { z } from 'zod';
 import { query } from '~/server/utils/database';
 
+const paramsSchema = z.object({
+	lang: z.string().length(2),
+	key: z.string().min(1),
+});
+
 export default defineEventHandler(async (event) => {
-	const lang = getRouterParam(event, 'lang') || 'en';
-	const key = getRouterParam(event, 'key') || ''; // nuxt handles if empty
+	const { lang, key } = await getValidatedRouterParams(event, paramsSchema.parse);
+
 	let value = await getValue(lang, key);
 	if (!value) {
 		value = await getValue('en', key);

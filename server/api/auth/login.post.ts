@@ -3,14 +3,14 @@ import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 import { findByEmail, updateLastLogin } from '~/server/data/users';
 
-const loginBodySchema = z.object({
+const bodySchema = z.object({
 	email: z.string().email(),
 	password: z.string().min(1),
 	token: z.string().min(1),
 });
 
 export default defineEventHandler(async (event) => {
-	const { email, password } = await readValidatedBody(event, loginBodySchema.parse);
+	const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
 	await validateCaptcha(event);
 

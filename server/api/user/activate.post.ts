@@ -2,12 +2,12 @@ import { z } from 'zod';
 import * as db from '../../data/users';
 import { StatusCodes } from 'http-status-codes';
 
-const activateBodySchema = z.object({
+const bodySchema = z.object({
 	token: z.string().min(1),
 });
 
 export default defineEventHandler(async (event) => {
-	const { token } = await readValidatedBody(event, activateBodySchema.parse);
+	const { token } = await readValidatedBody(event, bodySchema.parse);
 	const user = await db.findByToken(token);
 
 	if (!user || (user.tokenExpires || 0) < Date.now()) {

@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import type { H3Event, SessionConfig } from 'h3';
+import type { H3Event, H3EventContext, SessionConfig } from 'h3';
 import { StatusCodes } from 'http-status-codes';
 import { env } from '~/env';
 
@@ -42,7 +42,7 @@ export const ensureAdmin = async (event: H3Event) => {
 	}
 };
 
-export const ensureAdminOr = async (event: H3Event, cond: (context: Object) => boolean) => {
+export const ensureAdminOr = async (event: H3Event, cond: (context: H3EventContext) => boolean) => {
 	if (!event.context.user?.isAdmin && !cond(event.context)) {
 		throw createError({ statusCode: StatusCodes.FORBIDDEN });
 	}
