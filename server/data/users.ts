@@ -12,8 +12,8 @@ export type User = {
 	website: string;
 	registered: number;
 	lastLogin: number;
-	token: string;
-	tokenExpires: number;
+	token: string | null;
+	tokenExpires: number | null;
 	isAdmin: boolean;
 };
 
