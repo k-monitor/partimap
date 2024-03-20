@@ -4,7 +4,7 @@ import emailValidator from 'email-validator';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 import * as db from '~/server/data/users';
-import { User } from '~/server/data/users';
+import type { User } from '~/server/data/users';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
@@ -63,12 +63,3 @@ export default defineEventHandler(async (event) => {
 	user = await db.findById(user.id);
 	return hideSecrets(user);
 });
-
-function removeUserLogoFile(user: User) {
-	if (user.logo) {
-		const fn = `.${user.logo}`; // make it relative for server
-		if (fs.existsSync(fn)) {
-			fs.unlinkSync(fn);
-		}
-	}
-}

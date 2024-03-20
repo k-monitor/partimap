@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileTypeFromBuffer } from 'file-type';
-import { H3Event, NodeIncomingMessage, NodeServerResponse } from 'h3';
+import { H3Event } from 'h3';
 import { StatusCodes } from 'http-status-codes';
 import multer from 'multer';
 import sharp from 'sharp';

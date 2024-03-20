@@ -1,9 +1,9 @@
 import { env } from '~/env';
-import { type PublicUser, findById } from '~/server/data/users';
+import { type User, findById } from '~/server/data/users';
 
 declare module 'h3' {
 	interface H3EventContext {
-		user?: PublicUser;
+		user?: User;
 	}
 }
 
@@ -16,9 +16,5 @@ export default defineEventHandler(async (event) => {
 	const user = await findById(data.userId);
 	if (!user || !user.active) return;
 
-	event.context.user = {
-		id: user.id,
-		name: user.name,
-		isAdmin: user.isAdmin,
-	};
+	event.context.user = user;
 });
