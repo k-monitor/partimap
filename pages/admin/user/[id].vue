@@ -5,6 +5,7 @@ import type { User } from '~/server/data/users';
 const { user, updateSession } = useAuth();
 const { t } = useI18n();
 const localePath = useLocalePath();
+const { errorToast, successToast } = useToasts();
 
 const route = useRoute();
 const { data: u, refresh } = await useFetch<User>('/api/user/' + route.params.id);
@@ -21,8 +22,6 @@ const m = ref({
 
 /*const delConfirm = ref(false);
 const delPassword = ref('');
-const image = ref(null);
-const imageState = ref(null);
 const loading = ref(false);
 */
 
@@ -34,14 +33,56 @@ const isTooBright = computed(() => {
 	return cr < 4.5; // WCAG AA
 });
 
-/*watch(image, (val) => {
+const image = ref<any>(null);
+const imageState = ref<boolean | null>(null);
+watch(image, (val) => {
 	if (!val) {
 		// clear validation error message on file removal
 		imageState.value = null;
 	} else {
 		imageState.value = val.size < 5 * 1024 * 1024;
 	}
-});*/
+});
+
+function removeImage() {
+	image.value = null;
+	m.value.logo = null;
+}
+
+async function uploadImage() {
+	if (!imageState.value) return;
+
+	const formData = new FormData();
+	formData.append('image', image.value);
+	try {
+		const { url } = await $fetch<{ url: string }>(`/api/user/${u.value?.id}/logo`, {
+			method: 'PUT',
+			body: formData,
+		});
+		m.value.logo = url;
+		image.value = null;
+	} catch (error) {
+		errorToast(t('imageUpload.failed'));
+	}
+}
+
+async function update() {
+	try {
+		if (image.value) {
+			await uploadImage();
+		}
+		const user = await $fetch<User>(`/api/user/${u.value?.id}`, {
+			method: 'PATCH',
+			body: m.value,
+		});
+		m.value = { ...user, newPassword: '', oldPassword: '' };
+		await refresh(); // need to update page title
+		await updateSession();
+		successToast(t('userEditor.changeSuccessful'));
+	} catch (error) {
+		errorToast(t('userEditor.changeFailed'));
+	}
+}
 
 function deleteAccount(e) {
 	e.preventDefault(); // do not close modal automatically, user must wait
@@ -65,48 +106,6 @@ function deleteAccount(e) {
 		this.$nextTick(() => {
 			this.$bvModal.hide('delete-user-modal');
 		});
-	}*/
-}
-
-function removeImage() {
-	//this.image = null;
-	//this.m.logo = null;
-}
-
-const { errorToast, successToast } = useToasts();
-async function update() {
-	try {
-		/*if (this.image) {
-			await this.uploadImage();
-		}*/
-		const user = await $fetch<User>(`/api/user/${u.value?.id}`, {
-			method: 'PATCH',
-			body: m.value,
-		});
-		m.value = { ...user, newPassword: '', oldPassword: '' };
-		await refresh(); // need to update page title
-		await updateSession();
-		successToast(t('userEditor.changeSuccessful'));
-	} catch (error) {
-		errorToast(t('userEditor.changeFailed'));
-	}
-}
-
-async function uploadImage() {
-	/*if (!this.imageState) {
-		return;
-	}
-	const formData = new FormData();
-	formData.append('image', this.image);
-	try {
-		this.m = await this.$axios.$put('/api/user/' + this.m.id + '/logo', formData, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-			},
-		});
-		this.image = null;
-	} catch (error) {
-		this.errorToast(this.$t('imageUpload.failed'));
 	}*/
 }
 </script>
@@ -142,51 +141,53 @@ async function uploadImage() {
 				/>
 			</form-group>
 
-			<!-- <b-form-group
-				:invalid-feedback="$t('imageUpload.maxFileSize')"
-				:label="$t('userEditor.logo')"
-				:description="$t('userEditor.logoDescription')"
-				:state="imageState"
-			>
-				<b-input-group v-if="!m.logo">
-					<b-form-file
-						v-model="image"
-						accept="image/jpeg, image/png, image/webp"
-						class="project-image-input"
-						browse-text=""
-						:drop-placeholder="$t('imageUpload.dropzone')"
-						:placeholder="$t('imageUpload.browse')"
-						:state="imageState"
-					/>
-					<template #append>
-						<b-button
-							:disabled="!image"
-							variant="outline-danger"
-							@click="removeImage"
-						>
-							<i class="fas fa-backspace" />
-						</b-button>
-					</template>
-				</b-input-group>
-				<div v-else>
-					<figure class="figure">
-						<img
-							:src="m.logo"
-							:alt="$t('userEditor.altLogo')"
-							class="figure-img rounded"
-							height="30"
+			<client-only>
+				<b-form-group
+					:invalid-feedback="$t('imageUpload.maxFileSize')"
+					:label="$t('userEditor.logo')"
+					:description="$t('userEditor.logoDescription')"
+					:state="imageState"
+				>
+					<b-input-group v-if="!m.logo">
+						<b-form-file
+							v-model="image"
+							accept="image/jpeg, image/png, image/webp"
+							class="project-image-input"
+							browse-text=""
+							:drop-placeholder="$t('imageUpload.dropzone')"
+							:placeholder="$t('imageUpload.browse')"
+							:state="imageState"
 						/>
-						<figcaption class="figure-caption">
-							<a
-								class="text-danger"
-								href="javascript:void(0)"
+						<template #append>
+							<b-button
+								:disabled="!image"
+								variant="outline-danger"
 								@click="removeImage"
-								>{{ $t('imageUpload.remove') }}</a
 							>
-						</figcaption>
-					</figure>
-				</div>
-			</b-form-group> -->
+								<i class="fas fa-backspace" />
+							</b-button>
+						</template>
+					</b-input-group>
+					<div v-else>
+						<figure class="figure">
+							<img
+								:src="m.logo"
+								:alt="$t('userEditor.altLogo')"
+								class="figure-img rounded"
+								height="30"
+							/>
+							<figcaption class="figure-caption">
+								<a
+									class="text-danger"
+									href="javascript:void(0)"
+									@click="removeImage"
+									>{{ $t('imageUpload.remove') }}</a
+								>
+							</figcaption>
+						</figure>
+					</div>
+				</b-form-group>
+			</client-only>
 
 			<form-group
 				:label="$t('userEditor.color')"

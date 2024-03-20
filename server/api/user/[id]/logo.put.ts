@@ -15,5 +15,9 @@ export default defineEventHandler(async (event) => {
 	const user = await db.findById(id);
 	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
 
-	return hideSecrets(user);
+	const url = await acceptImage(event, 'u', 120, 30);
+	user.logo = url;
+	await db.update(user);
+
+	return { url };
 });

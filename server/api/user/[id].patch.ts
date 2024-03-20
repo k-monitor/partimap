@@ -1,10 +1,10 @@
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 import emailValidator from 'email-validator';
-import { z } from 'zod';
-import * as db from '../../data/users';
-import { User } from '../../data/users';
 import { StatusCodes } from 'http-status-codes';
+import { z } from 'zod';
+import * as db from '~/server/data/users';
+import { User } from '~/server/data/users';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),

@@ -1,5 +1,5 @@
 import { env } from '~/env';
-import { type PublicUser, findById } from '../data/users';
+import { type PublicUser, findById } from '~/server/data/users';
 
 declare module 'h3' {
 	interface H3EventContext {

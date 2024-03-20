@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import * as db from '../../data/users';
 import { StatusCodes } from 'http-status-codes';
+import { z } from 'zod';
+import * as db from '~/server/data/users';
 
 const bodySchema = z.object({
 	token: z.string().min(1),

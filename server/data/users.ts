@@ -8,7 +8,7 @@ export type User = {
 	password: string;
 	name: string;
 	color: string | null;
-	logo: string;
+	logo: string | null;
 	website: string;
 	registered: number;
 	lastLogin: number;

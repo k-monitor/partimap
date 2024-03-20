@@ -1,4 +1,4 @@
-import * as db from '../../data/users';
+import * as db from '~/server/data/users';
 
 export default defineEventHandler(async (event) => {
 	await ensureLoggedIn(event);
