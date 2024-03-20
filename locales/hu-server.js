@@ -1,6 +1,4 @@
-// Yes, it's a CommonJS module, as it is needed on the server.
-
-module.exports = {
+export default {
 	activationEmail: {
 		subject: 'Új fiók aktiválása',
 		body: '<p><b>Kedves {user}!</b></p><p>Kérlek véglegesítsd PARTIMAP regisztrációdat az alábbi hivatkozás megnyitásával:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell regisztrálnod.</p>',

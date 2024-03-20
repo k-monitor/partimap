@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const emailValidator = require('email-validator');
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
-const { v4: uuid } = require('uuid');
 const User = require('../../model/user');
 const i18n = require('../common/i18n');
 const {
@@ -79,24 +78,6 @@ router.put(
 	}
 );
 
-router.post('/user/forgot', validateCaptcha(), async (req, res) => {
-	const m = i18n(req.body.locale).forgotEmail;
-	const user = await db.findByEmail(req.body.email);
-	if (!user) {
-		return res
-			.status(StatusCodes.BAD_REQUEST)
-			.json({ error: 'EMAIL_INVALID' });
-	}
-	addToken(user);
-	await db.update(user);
-	const url = `${conf.BASE_URL}/${req.body.locale}/pwch?t=${user.token}`;
-	const body = m.body
-		.replace(/\{user\}/g, user.name)
-		.replace(/\{url\}/g, url);
-	await sendEmail(user.email, m.subject, body);
-	res.end();
-});
-
 router.post('/user/pwch', validateCaptcha(), async (req, res) => {
 	const { password, token } = req.body;
 	const user = await db.findByToken(token);
@@ -116,10 +97,5 @@ router.post('/user/pwch', validateCaptcha(), async (req, res) => {
 	await db.update(user);
 	res.end();
 });
-
-function addToken(user) {
-	user.token = uuid();
-	user.tokenExpires = new Date().getTime() + 24 * 60 * 60 * 1000;
-}
 
 module.exports = router;

@@ -60,13 +60,13 @@ async function forgot() {
 	if (!form.value?.reportValidity()) return; // password is NOT required
 	try {
 		loading.value = true;
-		const token = await executeReCaptcha('login');
+		const token = await executeReCaptcha('forgot');
 		await $fetch('/api/user/forgot', {
 			method: 'POST',
 			body: {
-				captcha: token,
 				email: email.value,
 				locale: locale.value,
+				token,
 			},
 		});
 		successMessage.value = t('login.passwordChangeRequested');
