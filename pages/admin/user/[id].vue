@@ -20,11 +20,6 @@ const m = ref({
 	oldPassword: '',
 });
 
-/*const delConfirm = ref(false);
-const delPassword = ref('');
-const loading = ref(false);
-*/
-
 const isTooBright = computed(() => {
 	if (!m.value.color) return false;
 	const cr =
@@ -84,33 +79,40 @@ async function update() {
 	}
 }
 
-function deleteAccount(e) {
+const delModal = ref(false);
+const delConfirm = ref(false);
+const delPassword = ref('');
+const delPasswordInput = ref<HTMLInputElement>();
+const loading = ref(false);
+async function deleteAccount(e: any) {
 	e.preventDefault(); // do not close modal automatically, user must wait
-	/*loading.value = true;
+	loading.value = true;
 	try {
-		await this.$axios.$post('/api/user/delete', {
-			id: this.u.id,
-			password: this.delPassword,
+		await $fetch('/api/user/delete', {
+			method: 'POST',
+			body: {
+				id: u.value?.id,
+				password: delPassword.value,
+			},
 		});
-		if (this.u.id === this.$auth.user.id) {
-			this.$auth.logout('cookie');
+		if (u.value?.id === user.value?.id) {
+			authLogout();
 		} else {
-			this.$router.push(this.localePath('/admin/users'));
+			navigateTo(localePath('/admin/users'));
 		}
 	} catch {
-		this.errorToast(this.$t('userEditor.deletionFailed'));
+		errorToast(t('userEditor.deletionFailed'));
 	} finally {
-		this.delConfirm = false;
-		this.delPassword = '';
-		this.loading = false;
-		this.$nextTick(() => {
-			this.$bvModal.hide('delete-user-modal');
-		});
-	}*/
+		delConfirm.value = false;
+		delPassword.value = '';
+		loading.value = false;
+		delModal.value = false;
+	}
 }
 </script>
 
 <template>
+	<!-- eslint-disable vue/no-v-html -->
 	<AdminFrame>
 		<template #header>
 			<span v-if="user?.isAdmin">
@@ -284,9 +286,9 @@ function deleteAccount(e) {
 		<template #footer>
 			<div class="d-flex justify-content-between">
 				<button
-					v-b-modal.delete-user-modal
 					class="btn btn-outline-danger"
 					type="button"
+					@click="delModal = true"
 				>
 					{{ $t('userEditor.deleteUser') }}
 				</button>
@@ -300,50 +302,50 @@ function deleteAccount(e) {
 			</div>
 		</template>
 
-		<!-- <b-modal
-			id="delete-user-modal"
-			:busy="loading"
-			:cancel-title="$t('modals.cancel')"
-			cancel-variant="success"
-			centered
-			footer-class="d-flex justify-content-between"
-			hide-header
-			no-close-on-backdrop
-			no-close-on-esc
-			no-enforce-focus
-			:ok-disabled="!delConfirm || !delPassword"
-			:ok-title="$t('userEditor.confirmDeleteUser')"
-			ok-variant="danger"
-			@ok="deleteAccount"
-			@shown="$refs.delPassword.focus()"
-		>
-			<b-form-group :label="$t('userEditor.enterPassword')">
-				<b-form-input
-					ref="delPassword"
-					v-model="delPassword"
-					:disabled="loading"
-					type="password"
-					@update="delConfirm = false"
-				/>
-			</b-form-group>
-			<b-alert
-				show
-				variant="danger"
+		<client-only>
+			<b-modal
+				v-model="delModal"
+				:busy="loading"
+				:cancel-title="$t('modals.cancel')"
+				cancel-variant="success"
+				centered
+				footer-class="d-flex justify-content-between"
+				hide-header
+				no-close-on-backdrop
+				no-close-on-esc
+				no-enforce-focus
+				:ok-disabled="!delConfirm || !delPassword"
+				:ok-title="$t('userEditor.confirmDeleteUser')"
+				ok-variant="danger"
+				@ok="deleteAccount"
+				@shown="delPasswordInput?.focus()"
 			>
-				<b-form-checkbox
-					v-model="delConfirm"
-					:disabled="loading || !delPassword"
-					name="confirm"
-				>
-					<span
-						v-html="
-							$t('userEditor.deleteConfirmation', {
-								email: u.email,
-							})
-						"
+				<form-group :label="$t('userEditor.enterPassword')">
+					<input
+						ref="delPasswordInput"
+						v-model="delPassword"
+						class="form-control"
+						:disabled="loading"
+						type="password"
+						@update="delConfirm = false"
 					/>
-				</b-form-checkbox>
-			</b-alert>
-		</b-modal> -->
+				</form-group>
+				<div class="alert alert-danger">
+					<b-form-checkbox
+						v-model="delConfirm"
+						:disabled="loading || !delPassword"
+						name="confirm"
+					>
+						<span
+							v-html="
+								$t('userEditor.deleteConfirmation', {
+									email: u?.email,
+								})
+							"
+						/>
+					</b-form-checkbox>
+				</div>
+			</b-modal>
+		</client-only>
 	</AdminFrame>
 </template>
