@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
 	if (!user || (user.tokenExpires || 0) < Date.now()) {
 		throw createError({
-			message: 'Invalid activation token',
+			message: 'TOKEN_INVALID',
 			statusCode: StatusCodes.BAD_REQUEST,
 		});
 	}

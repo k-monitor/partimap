@@ -29,9 +29,6 @@ dependencies:
   bootstrap-vue-next:
     specifier: ^0.16.6
     version: 0.16.6(vue@3.4.21)
-  email-validator:
-    specifier: ^2.0.4
-    version: 2.0.4
   file-type:
     specifier: ^19.0.0
     version: 19.0.0
@@ -4125,11 +4122,6 @@ packages:
 
   /electron-to-chromium@1.4.673:
     resolution: {integrity: sha512-zjqzx4N7xGdl5468G+vcgzDhaHkaYgVcf9MqgexcTqsl2UHSCmOj/Bi3HAprg4BZCpC7HyD8a6nZl6QAZf72gw==}
-    dev: false
-
-  /email-validator@2.0.4:
-    resolution: {integrity: sha512-gYCwo7kh5S3IDyZPLZf6hSS0MnZT8QmJFqYvbqlDZSbwdZlY6QZWxJ4i/6UhITOJ4XzyI647Bm2MXKCLqnJ4nQ==}
-    engines: {node: '>4.0'}
     dev: false
 
   /emoji-regex@8.0.0:

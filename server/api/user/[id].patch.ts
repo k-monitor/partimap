@@ -1,13 +1,11 @@
-import fs from 'fs';
 import bcrypt from 'bcryptjs';
-import emailValidator from 'email-validator';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 import * as db from '~/server/data/users';
-import type { User } from '~/server/data/users';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
+	email: z.string().email().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -48,13 +46,6 @@ export default defineEventHandler(async (event) => {
 		removeUserLogoFile(user);
 	} else {
 		delete changes.logo;
-	}
-
-	if (!emailValidator.validate(changes.email)) {
-		throw createError({
-			message: 'EMAIL_INVALID',
-			status: StatusCodes.BAD_REQUEST,
-		});
 	}
 
 	user = db.createUser({ ...user, ...changes });

@@ -47,8 +47,8 @@ onMounted(async () => {
 async function login() {
 	try {
 		loading.value = true;
-		const token = await executeReCaptcha('login');
-		await authLogin(email.value, password.value, token || '');
+		const captcha = await executeReCaptcha('login');
+		await authLogin(email.value, password.value, captcha || '');
 	} catch {
 		errorMessage.value = t('login.invalidEmailOrPassword');
 	} finally {
@@ -60,13 +60,13 @@ async function forgot() {
 	if (!form.value?.reportValidity()) return; // password is NOT required
 	try {
 		loading.value = true;
-		const token = await executeReCaptcha('forgot');
+		const captcha = await executeReCaptcha('forgot');
 		await $fetch('/api/user/forgot', {
 			method: 'POST',
 			body: {
+				captcha,
 				email: email.value,
 				locale: locale.value,
-				token,
 			},
 		});
 		successMessage.value = t('login.passwordChangeRequested');

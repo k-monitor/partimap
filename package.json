@@ -21,7 +21,6 @@
 		"bcryptjs": "^2.4.3",
 		"bootstrap": "^5.3.3",
 		"bootstrap-vue-next": "^0.16.6",
-		"email-validator": "^2.0.4",
 		"file-type": "^19.0.0",
 		"h3": "^1.11.1",
 		"http-status-codes": "^2.3.0",

@@ -4,16 +4,17 @@ import * as db from '~/server/data/users';
 import { env } from '~/env';
 
 const bodySchema = z.object({
+	captcha: z.string().min(1),
 	email: z.string().email(),
 	locale: z.string().min(1),
 });
 
 export default defineEventHandler(async (event) => {
-	await validateCaptcha(event);
-
 	const { email, locale } = await readValidatedBody(event, bodySchema.parse);
 
 	const m = i18n(locale).forgotEmail;
+
+	await validateCaptcha(event);
 
 	const user = await db.findByEmail(email);
 	if (!user) {

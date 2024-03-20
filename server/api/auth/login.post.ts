@@ -4,9 +4,9 @@ import { z } from 'zod';
 import { findByEmail, updateLastLogin } from '~/server/data/users';
 
 const bodySchema = z.object({
+	captcha: z.string().min(1),
 	email: z.string().email(),
 	password: z.string().min(1),
-	token: z.string().min(1),
 });
 
 export default defineEventHandler(async (event) => {

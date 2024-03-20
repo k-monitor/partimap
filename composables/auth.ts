@@ -1,9 +1,9 @@
 export const useAuth = () => useNuxtApp().$auth;
 
-export const authLogin = async (email: string, password: string, token: string) => {
+export const authLogin = async (email: string, password: string, captcha: string) => {
 	await $fetch('/api/auth/login', {
 		method: 'POST',
-		body: { email, password, token },
+		body: { email, password, captcha },
 	});
 	await useAuth().updateSession();
 };
