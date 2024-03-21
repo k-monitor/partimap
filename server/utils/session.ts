@@ -42,8 +42,8 @@ export const ensureAdmin = async (event: H3Event) => {
 	}
 };
 
-export const ensureAdminOr = async (event: H3Event, cond: (context: H3EventContext) => boolean) => {
-	if (!event.context.user?.isAdmin && !cond(event.context)) {
+export const ensureAdminOr = async (event: H3Event, userId: number) => {
+	if (!event.context.user?.isAdmin && event.context.user?.id !== userId) {
 		throw createError({ statusCode: StatusCodes.FORBIDDEN });
 	}
 };

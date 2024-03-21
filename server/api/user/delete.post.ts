@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 	const { id, password } = await readValidatedBody(event, bodySchema.parse);
 
 	await ensureLoggedIn(event);
-	await ensureAdminOr(event, (context) => context.user?.id === id);
+	await ensureAdminOr(event, id);
 
 	// checking CURRENT user's password (not the selected user's)
 	if (!password || !bcrypt.compareSync(password, event.context.user!.password)) {
@@ -25,6 +25,8 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const user = await udb.findById(id);
+	if (!user) throw createError({ statusCode: StatusCodes.NOT_FOUND });
+
 	removeUserLogoFile(user);
 
 	const projects = await pdb.findByUserId(id);

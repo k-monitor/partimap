@@ -24,6 +24,7 @@
 		"file-type": "^19.0.0",
 		"h3": "^1.11.1",
 		"http-status-codes": "^2.3.0",
+		"jsonrepair": "^3.6.0",
 		"markdown-it": "^14.0.0",
 		"markdown-it-attrs": "^4.1.6",
 		"multer": "1.4.5-lts.1",

@@ -1,6 +1,6 @@
-const { jsonrepair } = require('jsonrepair');
+import { jsonrepair } from 'jsonrepair';
 
-function safeParseJSON(json) {
+export function safeParseJSON(json: string) {
 	try {
 		return JSON.parse(json);
 	} catch {
@@ -8,7 +8,7 @@ function safeParseJSON(json) {
 	}
 }
 
-function repairAndParseJSON(json) {
+export function repairAndParseJSON(json: string) {
 	try {
 		return safeParseJSON(jsonrepair(json));
 	} catch {
@@ -16,13 +16,7 @@ function repairAndParseJSON(json) {
 	}
 }
 
-function safeParseJSONArray(json) {
+export function safeParseJSONArray(json: string) {
 	const o = safeParseJSON(json) || repairAndParseJSON(json);
 	return Array.isArray(o) ? o : [];
 }
-
-module.exports = {
-	safeParseJSON,
-	repairAndParseJSON,
-	safeParseJSONArray,
-};

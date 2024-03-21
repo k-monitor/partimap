@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 	const { id } = await getValidatedRouterParams(event, paramsSchema.parse);
 
 	await ensureLoggedIn(event);
-	await ensureAdminOr(event, (context) => context.user?.id === id);
+	await ensureAdminOr(event, id);
 
 	let user = await db.findById(id);
 	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
