@@ -1,7 +1,6 @@
 import fs from 'fs';
 import StatusCodes from 'http-status-codes';
 import { z } from 'zod';
-import { query } from '~/server/utils/database';
 
 const paramsSchema = z.object({
 	lang: z.string().length(2),
