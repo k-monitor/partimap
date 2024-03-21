@@ -23,8 +23,11 @@ const successMessage = ref('');
 const { currentRoute } = useRouter();
 const params = Object.keys(currentRoute.value.query);
 // TODO move param keys to constants from here and from reg/pwch too!
-['registered', 'pwchanged', 'pwchangefailed'].forEach((key) => {
+['registered', 'pwchanged'].forEach((key) => {
 	if (params.includes(key)) successMessage.value = t(`login.${key}`);
+});
+['pwchangefailed'].forEach((key) => {
+	if (params.includes(key)) errorMessage.value = t(`login.${key}`);
 });
 
 onMounted(async () => {
@@ -47,6 +50,8 @@ onMounted(async () => {
 async function login() {
 	try {
 		loading.value = true;
+		errorMessage.value = '';
+		successMessage.value = '';
 		const captcha = await executeReCaptcha('login');
 		await authLogin(email.value, password.value, captcha || '');
 	} catch {
@@ -60,6 +65,8 @@ async function forgot() {
 	if (!form.value?.reportValidity()) return; // password is NOT required
 	try {
 		loading.value = true;
+		errorMessage.value = '';
+		successMessage.value = '';
 		const captcha = await executeReCaptcha('forgot');
 		await $fetch('/api/user/forgot', {
 			method: 'POST',
