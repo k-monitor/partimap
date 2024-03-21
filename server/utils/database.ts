@@ -91,31 +91,26 @@ export async function del(table: string, id: number) {
 	return (res as any).affectedRows === 1;
 }
 
-/**
- * @param {String} table
- * @param {Function} Model
- */
 export async function findAll(table: string, Model: (data: any) => any) {
 	const rows = await query(`SELECT * FROM ${table}`);
 	return rows.map((r) => Model(r));
 }
 
-/**
- * @param {String} table
- * @param {String} field
- * @param {any} value
- * @param {Function} Model
- */
+export async function findAllBy(
+	table: string,
+	field: string,
+	value: any,
+	Model: (data: any) => any,
+) {
+	const rows = await query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value]);
+	return rows.map((r) => Model(r));
+}
+
 export async function findBy(table: string, field: string, value: any, Model: (data: any) => any) {
 	const rows = await query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value]);
 	return rows.map((r) => Model(r))[0];
 }
 
-/**
- * @param {String} table
- * @param {Object} record
- * @param {Function} Model
- */
 export function update(table: string, record: any, Model: (data: any) => any) {
 	const model = Model(record);
 	const { id } = model;

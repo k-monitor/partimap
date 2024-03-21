@@ -1,5 +1,5 @@
-import * as db from '../utils/database';
-import * as pdb from './projects';
+import * as db from '~/server/utils/database';
+import * as pdb from '~/server/data/projects';
 
 export type User = {
 	id: number;
@@ -19,7 +19,7 @@ export type User = {
 
 export type PublicUser = Pick<User, 'id' | 'name' | 'isAdmin'>;
 
-export function createUser(data: any): any {
+export function createUser(data: any): User {
 	return {
 		id: data.id,
 		active: data.active,

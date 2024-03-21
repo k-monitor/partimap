@@ -1,4 +1,4 @@
-import * as db from '../utils/database';
+import * as db from '~/server/utils/database';
 
 export type Project = {
 	id: number;
@@ -19,7 +19,7 @@ export type Project = {
 	lastSent: number;
 };
 
-export function createProject(data: any) {
+export function createProject(data: any): Project {
 	return {
 		id: data.id,
 		userId: data.userId,
