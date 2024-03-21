@@ -63,9 +63,10 @@ async function clone(map: Map) {
 	}
 }
 
+const { confirmDeletion } = useConfirmation();
 async function del(map: Map) {
-	//const confirmed = await this.confirmDeletion(map.title);
-	//if (!confirmed) return;
+	const confirmed = await confirmDeletion(map.title);
+	if (!confirmed) return;
 	try {
 		loading.value = true;
 		await $fetch(`/api/map/${map.id}`, { method: 'DELETE' });

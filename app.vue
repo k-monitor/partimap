@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// TODO modals?
-
 const { t } = useI18n();
 const i18nHead = useLocaleHead({
 	addSeoAttributes: {
@@ -36,6 +34,7 @@ useHead({
 	>
 		<NuxtPage />
 		<client-only>
+			<BModalOrchestrator />
 			<BToastOrchestrator />
 		</client-only>
 	</div>
