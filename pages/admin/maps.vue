@@ -55,7 +55,7 @@ async function clone(map: Map) {
 				title: `${map.title} ${new Date().toLocaleString()}`,
 			},
 		});
-		refresh();
+		await refresh();
 	} catch (error) {
 		errorToast(t('maps.creationFailed'));
 	} finally {
@@ -70,7 +70,7 @@ async function del(map: Map) {
 	try {
 		loading.value = true;
 		await $fetch(`/api/map/${map.id}`, { method: 'DELETE' });
-		refresh();
+		await refresh();
 	} catch (error) {
 		errorToast(t('maps.deleteFailed'));
 	} finally {

@@ -11,7 +11,7 @@ const route = useRoute();
 const { data: u, refresh } = await useFetch<User>('/api/user/' + route.params.id);
 
 useHead({
-	title: computed(() => 'Admin: ' + (u.value?.name || u.value?.email)),
+	title: () => 'Admin: ' + (u.value?.name || u.value?.email),
 });
 
 const m = ref({

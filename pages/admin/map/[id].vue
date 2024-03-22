@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import type { Map } from '~/server/data/maps';
 // import GeoJSON from 'ol/format/GeoJSON';
 
+const localePath = useLocalePath();
 const { currentRoute } = useRouter();
+const { t } = useI18n();
 
 // FIXME ? store.commit('features/clear');
-const { data: mapData, refresh } = await useFetch('/api/map/' + currentRoute.value.params.id);
+const { data: mapData, refresh } = await useFetch<Map>('/api/map/' + currentRoute.value.params.id);
 
 useHead({
-	title: `Admin: ${mapData.title}`,
+	title: () => `Admin: ${mapData.value?.title}`,
 });
 
 const contentModified = ref(false);
@@ -18,14 +21,39 @@ onMounted(() => {
 	loading.value = false;
 });
 
+function back() {
+	navigateTo(localePath('/admin/maps'));
+}
+
+const title = ref(mapData.value?.title);
+watch(title, () => (contentModified.value = true));
+
+const { errorToast, successToast } = useToasts();
+async function save() {
+	try {
+		loading.value = true;
+		// FIXME this.loadFeaturesFromStore();
+		await $fetch(`/api/map/${mapData.value?.id}`, {
+			method: 'PATCH',
+			body: {
+				// FIXME add features
+				title: title.value,
+			},
+		});
+		await refresh();
+		contentModified.value = false;
+		successToast(t('mapEditor.success'));
+	} catch (error) {
+		errorToast(t('mapEditor.error'));
+	} finally {
+		loading.value = false;
+	}
+}
+
 /*
+	FIXME
 	computed: {
 		...mapGetters('features', ['getAllFeature']),
-	},
-	watch: {
-		'mapData.title'() {
-			this.$nuxt.$emit('contentModified');
-		},
 	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
@@ -37,12 +65,6 @@ onMounted(() => {
 		this.$nuxt.$off('contentModified');
 		this.$nuxt.$off('toggleLoading');
 	},
-*/
-
-/*
-function back() {
-	navigateTo(localePath('/admin/maps'));
-}
 
 function featuresFromRaw(featuresRaw) {
 	// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
@@ -63,61 +85,32 @@ function loadFeaturesFromStore() {
 function loadInitFeatures() {
 	return this.featuresFromRaw(this.mapData.features);
 }
-
-async function save() {
-	this.loading = true;
-	this.loadFeaturesFromStore();
-	try {
-		this.mapData = await this.$axios.$patch('/api/map', this.mapData);
-		this.contentModified = false;
-		this.success(this.$t('mapEditor.success'));
-	} catch (error) {
-		this.errorToast(this.$t('mapEditor.error'));
-	}
-	this.loading = false;
-}
 */
 </script>
 
 <template>
 	<div class="d-flex h-100 position-relative">
-		<Sidebar admin> Sidebar content </Sidebar>
-		<!-- <div
-			class="bg-secondary"
-			style="width: 40%; margin-left: -40%; transition: margin 0.2s ease"
-		>
-			Sidebar content
-		</div> -->
-		<div class="bg-light flex-grow-1">Map content</div>
-
-		<!-- <client-only>
-			<Map
-				:key="$route.path"
-				:features="loadInitFeatures()"
-				fit-selected
-			/>
-		</client-only>
-		<MapToolbar />
-		<MapHint />
 		<Sidebar
+			v-if="mapData"
 			admin
 			:back-label="$t('mapEditor.back')"
 			:loading="loading"
 			@back="back"
 		>
-			<b-form-group class="mb-4">
-				<template #label>
-					<h6 class="mb-0">{{ $t('mapEditor.name') }}</h6>
-				</template>
-				<b-form-input
-					v-model="mapData.title"
-					size="lg"
+			<form-group
+				class="mb-4"
+				:label="$t('mapEditor.name')"
+			>
+				<input
+					v-model="title"
+					class="form-control form-control-lg"
 				/>
-			</b-form-group>
-			<FeatureList
+			</form-group>
+
+			<!-- FIXME <FeatureList
 				:filename="mapData.title"
 				is-on-editor-view
-			/>
+			/> -->
 
 			<template #footer>
 				<div class="p-2 text-center">
@@ -127,6 +120,18 @@ async function save() {
 					/>
 				</div>
 			</template>
-		</Sidebar> -->
+		</Sidebar>
+
+		<div class="bg-light flex-grow-1">
+			<!-- FIXME <client-only>
+				<Map
+					:key="$route.path"
+					:features="loadInitFeatures()"
+					fit-selected
+				/>
+				<MapToolbar />
+				<MapHint />
+			</client-only> -->
+		</div>
 	</div>
 </template>

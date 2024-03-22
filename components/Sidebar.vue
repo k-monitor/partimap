@@ -2,11 +2,11 @@
 const localePath = useLocalePath();
 
 const props = defineProps<{
-	admin: boolean;
-	backLabel: string;
-	fixed: boolean;
-	loading: boolean;
-	project: Record<string, unknown> | null; // FIXME Project type
+	admin?: boolean;
+	backLabel?: string;
+	fixed?: boolean;
+	loading?: boolean;
+	project?: any; // FIXME Project type
 }>();
 
 const mounted = ref(false);
@@ -110,7 +110,7 @@ defineEmits<{
 					v-if="!admin && project && project.user"
 					class="mx-auto ml-lg-auto mr-lg-4"
 				>
-					<!-- FIXME check/fix project.user.* access below-->
+					<!-- FIXME check/fix project.user.* access below -->
 					<a
 						:href="project.user.website"
 						target="_blank"
