@@ -6,17 +6,12 @@ import type View from 'ol/View';
 // import wordWrap from 'word-wrap';
 // import Collection from 'ol/Collection';
 // import Feature from 'ol/Feature';
-// import Map from 'ol/Map';
-// import View from 'ol/View';
 // import { Attribution, defaults as defaultControls } from 'ol/control';
 // import { Draw, Snap } from 'ol/interaction';
 // import { Vector as VectorLayer } from 'ol/layer';
-// import { get } from 'ol/proj/transforms';
 // import { Vector as VectorSource } from 'ol/source';
 // import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
-// import createBaseMaps from '@/assets/basemaps';
 // import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
-// import 'ol/ol.css';
 
 const GOOGLEMAPS_PROJECTION = 'EPSG:4326';
 const PARTIMAP_PROJECTION = 'EPSG:3857'; // OL default
@@ -25,13 +20,20 @@ const gm2ol = (coords: number[]) => transform(coords, GOOGLEMAPS_PROJECTION, PAR
 
 // const LG_BREAKPOINT = 992;
 
-const view = ref<{ view: View }>();
-
 const { t } = useI18n();
 const coords = t('Map.initialCenter').split(',');
 const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
 const initialZoom = Number(t('Map.initialZoom')) || 10;
 
+const { baseMap } = useStore();
+function changeBaseMap() {
+	const keys = baseMaps.map((bm) => bm.id);
+	const index = (keys.indexOf(baseMap.value) + 1) % keys.length;
+	console.log('Changing base map from', baseMap.value, 'to', keys[index]);
+	baseMap.value = keys[index];
+}
+
+const view = ref<{ view: View }>();
 function changeZoom(delta: number) {
 	const zoom = view.value?.view.getZoom() || 0;
 	view.value?.view.animate({
@@ -91,7 +93,6 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['getBaseMap', 'getSidebarVisible']),
 		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		sidebarWidth() {
@@ -124,9 +125,6 @@ export default {
 				});
 				this.map.addInteraction(this.snap);
 			}
-		},
-		getBaseMap() {
-			this.updateLayers();
 		},
 		getSelectedFeature(selFeature) {
 			// selFeature Is null if the map is clicked
@@ -194,19 +192,6 @@ export default {
 		this.$nuxt.$off('filterFeatures');
 	},
 	methods: {
-		...mapMutations(['setBaseMap']),
-		changeBaseMap() {
-			const keys = Object.keys(this.baseMaps);
-			const index = (keys.indexOf(this.getBaseMap) + 1) % keys.length;
-			this.setBaseMap(keys[index]);
-			// watcher will call updateLayers
-		},
-		updateLayers() {
-			const key = this.baseMaps[this.getBaseMap] ? this.getBaseMap : 'osm';
-			Object.keys(this.baseMaps).forEach((k) => {
-				this.baseMaps[k].forEach((l) => l.setVisible(k === key));
-			});
-		},
 		initMapComponents() {
 			if (this.initialBaseMapKey) {
 				this.setBaseMap(this.initialBaseMapKey);
@@ -225,14 +210,8 @@ export default {
 			});
 
 			this.map = new Map({
-				controls: defaultControls({ attribution: false }).extend([
-					new Attribution({ collapsible: false }),
-				]),
 				layers: [...Object.values(this.baseMaps).flat(), this.vector],
-				target: this.$refs['map-root'],
-				view: this.view,
 			});
-			this.updateLayers();
 		},
 		fitViewToFeatures() {
 			// no need to fit view if no feature is present
@@ -515,9 +494,28 @@ export default {
 			:projection="PARTIMAP_PROJECTION"
 		/>
 
-		<ol-tile-layer>
-			<ol-source-osm attributions="TODO Custom attribution where needed" />
-		</ol-tile-layer>
+		<template
+			v-for="bm in baseMaps"
+			:key="bm.id"
+		>
+			<ol-tile-layer
+				v-if="bm.id === 'osm'"
+				:visible="bm.id === baseMap"
+			>
+				<ol-source-osm />
+			</ol-tile-layer>
+
+			<ol-tile-layer
+				v-for="xyzUrl in bm.xyzUrls || []"
+				:key="xyzUrl"
+				:visible="bm.id === baseMap"
+			>
+				<ol-source-xyz
+					:url="xyzUrl"
+					:attributions="bm.attribution"
+				/>
+			</ol-tile-layer>
+		</template>
 
 		<ol-attribution-control />
 	</ol-map>
@@ -526,15 +524,14 @@ export default {
 			class="shadow-sm"
 			vertical
 		>
-			<!-- <b-button
+			<button
 				v-b-tooltip.hover.left
-				class="border border-secondary py-2"
-				variant="dark"
+				class="btn btn-dark border border-secondary py-2"
 				:title="$t('Map.changeBaseMap')"
 				@click="changeBaseMap()"
 			>
 				<i class="fas fa-map" />
-			</b-button> -->
+			</button>
 			<button
 				class="btn btn-dark border border-secondary py-2"
 				@click="changeZoom(1)"

@@ -127,7 +127,7 @@ function loadInitFeatures() {
 				<Map
 					:key="$route.path"
 					__:features="loadInitFeatures()"
-					fit-selected
+					__fit-selected
 				/>
 				<!-- FIXME
 					<MapToolbar />
