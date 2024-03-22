@@ -502,6 +502,7 @@ export default {
 
 <template>
 	<ol-map
+		:controls="[]"
 		:load-tiles-while-animating="true"
 		:load-tiles-while-interacting="true"
 		style="height: 100%"
@@ -513,9 +514,12 @@ export default {
 			:zoom="initialZoom"
 			:projection="PARTIMAP_PROJECTION"
 		/>
+
 		<ol-tile-layer>
-			<ol-source-osm />
+			<ol-source-osm attributions="TODO Custom attribution where needed" />
 		</ol-tile-layer>
+
+		<ol-attribution-control />
 	</ol-map>
 	<div>
 		<!-- <div
@@ -568,12 +572,5 @@ export default {
 	border-bottom-right-radius: 0 !important;
 	border-right-width: 0 !important;
 	font-size: 1.25rem;
-}
-</style>
-
-<style>
-.ol-zoom {
-	/* does not work in scoped style block */
-	display: none;
 }
 </style>
