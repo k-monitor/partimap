@@ -122,16 +122,18 @@ function loadInitFeatures() {
 			</template>
 		</Sidebar>
 
-		<div class="bg-light flex-grow-1">
-			<!-- FIXME <client-only>
+		<div class="flex-grow-1">
+			<client-only>
 				<Map
 					:key="$route.path"
-					:features="loadInitFeatures()"
+					__:features="loadInitFeatures()"
 					fit-selected
 				/>
-				<MapToolbar />
-				<MapHint />
-			</client-only> -->
+				<!-- FIXME
+					<MapToolbar />
+					<MapHint />
+			 	-->
+			</client-only>
 		</div>
 	</div>
 </template>

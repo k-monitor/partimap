@@ -209,6 +209,7 @@ defineEmits<{
 	font-size: 1.25rem;
 	top: 0.5rem;
 	transition: left 0.3s ease;
+	z-index: 1; // above map
 }
 
 .sidebar-button.sidebar-visible {

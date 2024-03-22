@@ -1,74 +1,52 @@
-/* Use only inside
-<client-only> </client-only>
-tags! */
+<script setup lang="ts">
+import { transform } from 'ol/proj';
+import type View from 'ol/View';
 
-<template>
-	<div>
-		<div
-			ref="map-root"
-			class="h-100 position-absolute w-100 map"
-		/>
-		<div class="map-zoom-toolbar">
-			<b-button-group
-				class="shadow-sm"
-				vertical
-			>
-				<b-button
-					v-b-tooltip.hover.left
-					class="border border-secondary py-2"
-					variant="dark"
-					:title="$t('Map.changeBaseMap')"
-					@click="changeBaseMap()"
-				>
-					<i class="fas fa-map" />
-				</b-button>
-				<b-button
-					class="border border-secondary py-2"
-					variant="dark"
-					@click="changeZoom(1)"
-				>
-					<i class="fas fa-fw fa-plus" />
-				</b-button>
-				<b-button
-					class="border border-secondary py-2"
-					variant="dark"
-					@click="changeZoom(-1)"
-				>
-					<i class="fas fa-fw fa-minus" />
-				</b-button>
-			</b-button-group>
-		</div>
-	</div>
-</template>
+// import tinycolor from 'tinycolor2';
+// import wordWrap from 'word-wrap';
+// import Collection from 'ol/Collection';
+// import Feature from 'ol/Feature';
+// import Map from 'ol/Map';
+// import View from 'ol/View';
+// import { Attribution, defaults as defaultControls } from 'ol/control';
+// import { Draw, Snap } from 'ol/interaction';
+// import { Vector as VectorLayer } from 'ol/layer';
+// import { get } from 'ol/proj/transforms';
+// import { Vector as VectorSource } from 'ol/source';
+// import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
+// import createBaseMaps from '@/assets/basemaps';
+// import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
+// import 'ol/ol.css';
 
-<script>
-import tinycolor from 'tinycolor2';
-import wordWrap from 'word-wrap';
-import { mapGetters, mapMutations } from 'vuex';
-import Collection from 'ol/Collection';
-import Feature from 'ol/Feature';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import { Attribution, defaults as defaultControls } from 'ol/control';
-import { Draw, Snap } from 'ol/interaction';
-import { Vector as VectorLayer } from 'ol/layer';
-import { get } from 'ol/proj/transforms';
-import { Vector as VectorSource } from 'ol/source';
-import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
-import createBaseMaps from '@/assets/basemaps';
-import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
+const GOOGLEMAPS_PROJECTION = 'EPSG:4326';
+const PARTIMAP_PROJECTION = 'EPSG:3857'; // OL default
 
-import 'ol/ol.css';
+const gm2ol = (coords: number[]) => transform(coords, GOOGLEMAPS_PROJECTION, PARTIMAP_PROJECTION);
 
-const gm2ol = get('EPSG:4326', 'EPSG:3857');
-const LG_BREAKPOINT = 992;
+// const LG_BREAKPOINT = 992;
 
+const view = ref<{ view: View }>();
+
+const { t } = useI18n();
+const coords = t('Map.initialCenter').split(',');
+const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
+const initialZoom = Number(t('Map.initialZoom')) || 10;
+
+function changeZoom(delta: number) {
+	const zoom = view.value?.view.getZoom() || 0;
+	view.value?.view.animate({
+		duration: 200,
+		zoom: zoom + delta,
+	});
+}
+
+/*
 export default {
 	props: {
 		features: {
 			type: Array,
 			default: null,
-			validator: container => container.every(f => f instanceof Feature),
+			validator: (container) => container.every((f) => f instanceof Feature),
 		},
 		fitSelected: {
 			type: Boolean,
@@ -122,9 +100,7 @@ export default {
 			const mul = 0.42;
 			const ww = window.innerWidth;
 			const sidebarWidth = ww >= LG_BREAKPOINT ? ww * mul : base;
-			return this.getSidebarVisible && sidebarWidth < ww * 0.5
-				? sidebarWidth
-				: 0;
+			return this.getSidebarVisible && sidebarWidth < ww * 0.5 ? sidebarWidth : 0;
 		},
 	},
 	watch: {
@@ -152,15 +128,13 @@ export default {
 		getBaseMap() {
 			this.updateLayers();
 		},
-		/**
-		 * @param selFeature Is null if the map is clicked
-		 * without clicking on a feature.
-		 */
 		getSelectedFeature(selFeature) {
+			// selFeature Is null if the map is clicked
+		 	// without clicking on a feature.
 			if (!selFeature) {
 				this.removeBlur();
 			} else {
-				this.source.getFeatures().forEach(feature => {
+				this.source.getFeatures().forEach((feature) => {
 					this.updateFeatureStyle(feature, selFeature);
 				});
 			}
@@ -185,45 +159,34 @@ export default {
 	},
 	created() {
 		// handles feature deletion, performed in the feature-sidebar
-		this.$nuxt.$on('clearFeature', feature => {
+		this.$nuxt.$on('clearFeature', (feature) => {
 			this.vector.getSource().removeFeature(feature);
 		});
-		this.$nuxt.$on('clearFeatures', ids => {
+		this.$nuxt.$on('clearFeatures', (ids) => {
 			this.vector
 				.getSource()
 				.getFeatures()
-				.filter(f => ids.includes(f.getId()))
-				.forEach(f => this.vector.getSource().removeFeature(f));
+				.filter((f) => ids.includes(f.getId()))
+				.forEach((f) => this.vector.getSource().removeFeature(f));
 		});
 		// handles feature style change, performed in the feature-sidebar
-		this.$nuxt.$on(
-			'changeStyle',
-			(feature, color, dash, fillOpacity, opacity, width) => {
-				this.changeFeatureStyle(
-					feature,
-					color,
-					dash,
-					fillOpacity,
-					opacity,
-					width,
-					true
-				);
-			}
-		);
+		this.$nuxt.$on('changeStyle', (feature, color, dash, fillOpacity, opacity, width) => {
+			this.changeFeatureStyle(feature, color, dash, fillOpacity, opacity, width, true);
+		});
 
-		this.$nuxt.$on('importedFeatures', features => {
+		this.$nuxt.$on('importedFeatures', (features) => {
 			this.$store.commit('selected/clear');
 			// TODO would be nice to remove/overwrite already existing feature by ID
-			features.forEach(f => this.vector.getSource().addFeature(f));
+			features.forEach((f) => this.vector.getSource().addFeature(f));
 			this.fitViewToFeatures();
 		});
 
-		this.$nuxt.$on('filterFeatures', ids => {
+		this.$nuxt.$on('filterFeatures', (ids) => {
 			this.filteredIds = ids;
 			this.updateAllFeatures();
 		});
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		this.$nuxt.$off('clearFeature');
 		this.$nuxt.$off('clearFeatures');
 		this.$nuxt.$off('changeStyle');
@@ -239,19 +202,9 @@ export default {
 			// watcher will call updateLayers
 		},
 		updateLayers() {
-			const key = this.baseMaps[this.getBaseMap]
-				? this.getBaseMap
-				: 'osm';
-			Object.keys(this.baseMaps).forEach(k => {
-				this.baseMaps[k].forEach(l => l.setVisible(k === key));
-			});
-		},
-		changeZoom(delta) {
-			const view = this.map.getView();
-			const newZoom = view.getZoom() + delta;
-			view.animate({
-				duration: 200,
-				zoom: newZoom,
+			const key = this.baseMaps[this.getBaseMap] ? this.getBaseMap : 'osm';
+			Object.keys(this.baseMaps).forEach((k) => {
+				this.baseMaps[k].forEach((l) => l.setVisible(k === key));
 			});
 		},
 		initMapComponents() {
@@ -259,17 +212,6 @@ export default {
 				this.setBaseMap(this.initialBaseMapKey);
 			}
 
-			// localized map init
-			const coords = this.$t('Map.initialCenter').split(',');
-			const center = gm2ol(coords.reverse());
-			const zoom = Number(this.$t('Map.initialZoom')) || 10;
-
-			this.view = new View({
-				center,
-				constrainResolution: true,
-				maxZoom: 19,
-				zoom,
-			});
 			this.view.on('change:resolution', () => {
 				this.updateAllFeatures();
 			});
@@ -310,22 +252,20 @@ export default {
 			});
 		},
 		addEventListeners() {
-			this.map.on('click', e => {
+			this.map.on('click', (e) => {
 				if (this.drawType) return;
 				const clicked = this.map.getFeaturesAtPixel(e.pixel);
-				const active = clicked.find(f => !f.get('hidden'));
-				const hidden = clicked.find(f => f.get('hidden'));
+				const active = clicked.find((f) => !f.get('hidden'));
+				const hidden = clicked.find((f) => f.get('hidden'));
 				this.$nuxt.$emit('selectAttempt', active || hidden); // feature or null
 			});
 
-			this.map.on('pointermove', e => {
-				const hit = this.map
-					.getFeaturesAtPixel(e.pixel)
-					.find(f => !f.get('hidden'));
+			this.map.on('pointermove', (e) => {
+				const hit = this.map.getFeaturesAtPixel(e.pixel).find((f) => !f.get('hidden'));
 				this.map.getTargetElement().style.cursor = hit ? 'pointer' : '';
 			});
 
-			this.source.on('addfeature', e => {
+			this.source.on('addfeature', (e) => {
 				const f = e.feature;
 				if (!f.getId()) {
 					f.setId(new Date().getTime());
@@ -336,13 +276,12 @@ export default {
 					// drawn feature
 					this.changeFeatureStyle(
 						f,
-						this.defaultColor[this.drawType] ||
-							this.defaultColor.drawing,
+						this.defaultColor[this.drawType] || this.defaultColor.drawing,
 						this.defaultStroke.lineDash,
 						10,
 						100,
 						this.defaultStroke.width,
-						true
+						true,
 					);
 				} else {
 					// imported feature
@@ -355,7 +294,7 @@ export default {
 						fillOpacity,
 						opacity,
 						f.get('width') || this.defaultStroke.width,
-						false
+						false,
 					);
 				}
 
@@ -379,7 +318,7 @@ export default {
 				this.$nuxt.$emit('contentModified');
 			});
 
-			this.source.on('removefeature', f => {
+			this.source.on('removefeature', (f) => {
 				if (f.feature === this.getSelectedFeature) {
 					this.removeBlur();
 				}
@@ -407,20 +346,12 @@ export default {
 					parseInt(f.get('fillOpacity'), 10),
 					parseInt(f.get('opacity'), 10),
 					f.get('width'),
-					false
+					false,
 				); // apply stored style
 			}
 			return new Collection(features);
 		},
-		changeFeatureStyle(
-			feature,
-			color,
-			lineDash,
-			fillOpacity,
-			opacity,
-			strokeWidth,
-			select
-		) {
+		changeFeatureStyle(feature, color, lineDash, fillOpacity, opacity, strokeWidth, select) {
 			feature.set('color', color);
 			feature.set('dash', lineDash);
 			feature.set('fillOpacity', fillOpacity);
@@ -432,13 +363,13 @@ export default {
 			if (feature) {
 				this.updateFeatureStyle(feature);
 			} else {
-				this.source.getFeatures().forEach(feature => {
+				this.source.getFeatures().forEach((feature) => {
 					this.updateFeatureStyle(feature);
 				});
 			}
 		},
 		updateAllFeatures() {
-			this.source.getFeatures().forEach(feature => {
+			this.source.getFeatures().forEach((feature) => {
 				this.updateFeatureStyle(feature, this.getSelectedFeature);
 			});
 		},
@@ -450,8 +381,7 @@ export default {
 
 			// filter
 			const isFilterActive = this.filteredIds !== null;
-			const featureIncluded =
-				this.filteredIds?.includes(feature.getId()) || isHidden;
+			const featureIncluded = this.filteredIds?.includes(feature.getId()) || isHidden;
 			if (isFilterActive && !featureIncluded) {
 				return feature.setStyle(() => false); // hide
 			}
@@ -469,10 +399,8 @@ export default {
 				if (isRated) color = '#666666';
 			}
 
-			const opacity100 =
-				parseOpacity100(feature) * (isUnselected ? 0.35 : 1);
-			const fillOpacity100 =
-				parseFillOpacity100(feature) * (isUnselected ? 0.35 : 1);
+			const opacity100 = parseOpacity100(feature) * (isUnselected ? 0.35 : 1);
+			const fillOpacity100 = parseFillOpacity100(feature) * (isUnselected ? 0.35 : 1);
 
 			const textOpacity100 = 100 * (isUnselected ? 0.8 : 1);
 			function toHex(value100) {
@@ -493,10 +421,7 @@ export default {
 			const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
 			// size
-			const baseFeatureSize = Math.max(
-				1,
-				Number(feature.get('width') || 1)
-			);
+			const baseFeatureSize = Math.max(1, Number(feature.get('width') || 1));
 			let featureSize = baseFeatureSize;
 			if (this.visitor) {
 				const isPoint = feature.getGeometry().getType() === 'Point';
@@ -532,7 +457,7 @@ export default {
 			// line style
 			const lineDash = (feature.get('dash') || '1')
 				.split(',')
-				.map(w => Number(w) * featureSize);
+				.map((w) => Number(w) * featureSize);
 
 			function fill(color) {
 				if (!color) return null;
@@ -572,7 +497,63 @@ export default {
 		},
 	},
 };
+*/
 </script>
+
+<template>
+	<ol-map
+		:load-tiles-while-animating="true"
+		:load-tiles-while-interacting="true"
+		style="height: 100%"
+	>
+		<ol-view
+			ref="view"
+			:center="initialCenter"
+			max-zoom="19"
+			:zoom="initialZoom"
+			:projection="PARTIMAP_PROJECTION"
+		/>
+		<ol-tile-layer>
+			<ol-source-osm />
+		</ol-tile-layer>
+	</ol-map>
+	<div>
+		<!-- <div
+			ref="map-root"
+			class="h-100 position-absolute w-100 map"
+		/>
+		<div class="map-zoom-toolbar">
+			<b-button-group
+				class="shadow-sm"
+				vertical
+			>
+				<b-button
+					v-b-tooltip.hover.left
+					class="border border-secondary py-2"
+					variant="dark"
+					:title="$t('Map.changeBaseMap')"
+					@click="changeBaseMap()"
+				>
+					<i class="fas fa-map" />
+				</b-button>
+				<b-button
+					class="border border-secondary py-2"
+					variant="dark"
+					@click="changeZoom(1)"
+				>
+					<i class="fas fa-fw fa-plus" />
+				</b-button>
+				<b-button
+					class="border border-secondary py-2"
+					variant="dark"
+					@click="changeZoom(-1)"
+				>
+					<i class="fas fa-fw fa-minus" />
+				</b-button>
+			</b-button-group>
+		</div> -->
+	</div>
+</template>
 
 <style scoped>
 .map-zoom-toolbar {
@@ -583,9 +564,9 @@ export default {
 
 .btn {
 	border-radius: 0.5rem;
-	border-top-right-radius: 0px !important;
-	border-bottom-right-radius: 0px !important;
-	border-right-width: 0px !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	border-right-width: 0 !important;
 	font-size: 1.25rem;
 }
 </style>
