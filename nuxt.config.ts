@@ -1,7 +1,11 @@
 import { env } from './env';
 
 export default defineNuxtConfig({
-	css: ['@fortawesome/fontawesome-free/css/all.min.css', 'bootstrap/dist/css/bootstrap.min.css'],
+	css: [
+		'@fortawesome/fontawesome-free/css/all.min.css',
+		'animate.css/animate.min.css',
+		'bootstrap/dist/css/bootstrap.min.css',
+	],
 	devtools: { enabled: true },
 	modules: ['@bootstrap-vue-next/nuxt', '@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
 	runtimeConfig: {

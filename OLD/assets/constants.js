@@ -14,8 +14,4 @@ module.exports = {
 	 * contains the additional user input.
 	 */
 	OTHER_PREFIX: 'other: ',
-
-	isMobile() {
-		return window.innerWidth < 576;
-	},
 };

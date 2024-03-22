@@ -3,7 +3,7 @@
 
 const { currentRoute } = useRouter();
 
-// TODO ? store.commit('features/clear');
+// FIXME ? store.commit('features/clear');
 const { data: mapData, refresh } = await useFetch('/api/map/' + currentRoute.value.params.id);
 
 useHead({
@@ -14,7 +14,7 @@ const contentModified = ref(false);
 const loading = ref(true);
 
 onMounted(() => {
-	// TOOD ? this.$store.commit('selected/clear');
+	// FIXME ? this.$store.commit('selected/clear');
 	loading.value = false;
 });
 
@@ -80,14 +80,15 @@ async function save() {
 </script>
 
 <template>
-	<div class="d-flex h-100">
-		<div
+	<div class="d-flex h-100 position-relative">
+		<Sidebar admin> Sidebar content </Sidebar>
+		<!-- <div
 			class="bg-secondary"
 			style="width: 40%; margin-left: -40%; transition: margin 0.2s ease"
 		>
 			Sidebar content
-		</div>
-		<div class="bg-primary flex-grow-1">Map content</div>
+		</div> -->
+		<div class="bg-light flex-grow-1">Map content</div>
 
 		<!-- <client-only>
 			<Map
