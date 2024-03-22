@@ -521,41 +521,33 @@ export default {
 
 		<ol-attribution-control />
 	</ol-map>
-	<div>
-		<!-- <div
-			ref="map-root"
-			class="h-100 position-absolute w-100 map"
-		/>
-		<div class="map-zoom-toolbar">
-			<b-button-group
-				class="shadow-sm"
-				vertical
+	<div class="map-zoom-toolbar">
+		<b-button-group
+			class="shadow-sm"
+			vertical
+		>
+			<!-- <b-button
+				v-b-tooltip.hover.left
+				class="border border-secondary py-2"
+				variant="dark"
+				:title="$t('Map.changeBaseMap')"
+				@click="changeBaseMap()"
 			>
-				<b-button
-					v-b-tooltip.hover.left
-					class="border border-secondary py-2"
-					variant="dark"
-					:title="$t('Map.changeBaseMap')"
-					@click="changeBaseMap()"
-				>
-					<i class="fas fa-map" />
-				</b-button>
-				<b-button
-					class="border border-secondary py-2"
-					variant="dark"
-					@click="changeZoom(1)"
-				>
-					<i class="fas fa-fw fa-plus" />
-				</b-button>
-				<b-button
-					class="border border-secondary py-2"
-					variant="dark"
-					@click="changeZoom(-1)"
-				>
-					<i class="fas fa-fw fa-minus" />
-				</b-button>
-			</b-button-group>
-		</div> -->
+				<i class="fas fa-map" />
+			</b-button> -->
+			<button
+				class="btn btn-dark border border-secondary py-2"
+				@click="changeZoom(1)"
+			>
+				<i class="fas fa-fw fa-plus" />
+			</button>
+			<button
+				class="btn btn-dark border border-secondary py-2"
+				@click="changeZoom(-1)"
+			>
+				<i class="fas fa-fw fa-minus" />
+			</button>
+		</b-button-group>
 	</div>
 </template>
 
