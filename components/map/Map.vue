@@ -23,7 +23,7 @@ const props = defineProps<{
 	visitor?: boolean;
 }>();
 
-const { baseMapToShow, changeBaseMap, sidebarVisible } = useStore();
+const { changeBaseMap, sidebarVisible } = useStore();
 
 // map initialization
 
@@ -291,28 +291,7 @@ export default {
 			:projection="PARTIMAP_PROJECTION"
 		/>
 
-		<template
-			v-for="bm in baseMaps"
-			:key="bm.id"
-		>
-			<ol-tile-layer
-				v-if="bm.id === 'osm'"
-				:visible="bm.id === baseMapToShow"
-			>
-				<ol-source-osm />
-			</ol-tile-layer>
-
-			<ol-tile-layer
-				v-for="xyzUrl in bm.xyzUrls || []"
-				:key="xyzUrl"
-				:visible="bm.id === baseMapToShow"
-			>
-				<ol-source-xyz
-					:url="xyzUrl"
-					:attributions="bm.attribution"
-				/>
-			</ol-tile-layer>
-		</template>
+		<BaseMaps />
 
 		<ol-vector-layer>
 			<ol-source-vector ref="sourceRef">
@@ -324,8 +303,6 @@ export default {
 				</ol-feature>
 			</ol-source-vector>
 		</ol-vector-layer>
-
-		<ol-attribution-control />
 	</ol-map>
 	<MapControls @change-zoom="changeZoom" />
 </template>
