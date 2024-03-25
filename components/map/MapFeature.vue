@@ -1,60 +1,76 @@
 <script setup lang="ts">
 import type { Feature } from 'geojson';
+import tinycolor from 'tinycolor2';
+import wordWrap from 'word-wrap';
 
-defineProps<{
+const props = defineProps<{
 	f: Feature;
+	grayRated?: boolean;
 }>();
 
 // FIXME feature styling
 // FIXME should also accept label
-/*
-const isSomeFeatureSelected = !!selFeature;
-const isSelected = selFeature?.getId() === feature.getId();
-const isUnselected = isSomeFeatureSelected && !isSelected;
-const isHidden = feature.get('hidden');
 
+const selFeatureId = ref(0); // FIXME read selected feature ID from store
+const isSomeFeatureSelected = computed(() => !!selFeatureId.value);
+const isSelected = computed(() => selFeatureId.value === props.f.id);
+const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
+const isHidden = computed(() => props.f.properties?.hidden);
+
+// FIXME filter... maybe on Map level?
+/*
 // filter
 const isFilterActive = this.filteredIds !== null;
 const featureIncluded = this.filteredIds?.includes(feature.getId()) || isHidden;
 if (isFilterActive && !featureIncluded) {
 	return feature.setStyle(() => false); // hide
 }
+*/
 
 // z-index
-let zIndex = 0;
-if (isHidden) zIndex = -1;
-else if (isSelected) zIndex = 1;
+const zIndex = computed(() => {
+	if (isHidden.value) return -1;
+	if (isSelected.value) return 1;
+	return 0;
+});
 
 // color and opacity
-let color = feature.get('color');
-if (this.grayRated) {
-	const rating = feature.get('rating');
-	const isRated = Number.isInteger(rating) && rating !== 0;
-	if (isRated) color = '#666666';
-}
+const color = computed(() => {
+	if (props.grayRated) {
+		const rating = props.f.properties?.rating;
+		const isRated = Number.isInteger(rating) && rating !== 0;
+		if (isRated) return '#666666';
+	}
+	return props.f.properties?.color;
+});
 
-const opacity100 = parseOpacity100(feature) * (isUnselected ? 0.35 : 1);
-const fillOpacity100 = parseFillOpacity100(feature) * (isUnselected ? 0.35 : 1);
+const opacity100 = computed(() => parseOpacity100(props.f) * (isUnselected.value ? 0.35 : 1));
+const fillOpacity100 = computed(
+	() => parseFillOpacity100(props.f) * (isUnselected.value ? 0.35 : 1),
+);
+const textOpacity100 = computed(() => 100 * (isUnselected.value ? 0.8 : 1));
+const textOpacity = computed(() => toHex(textOpacity100.value));
 
-const textOpacity100 = 100 * (isUnselected ? 0.8 : 1);
-function toHex(value100) {
+function toHex(value100: number) {
 	const valueDec = Math.round(value100 * 2.55);
 	return valueDec.toString(16).padStart(2, '0');
 }
-const opacityHex = toHex(opacity100);
-const fillOpacityHex = toHex(fillOpacity100);
-const colorWithOpacity = color + opacityHex;
-const polygonFillColor = color + fillOpacityHex;
 
-let reference = tinycolor.mix('#ffffff', color, opacity100);
-if (feature.getGeometry().getType() === 'Polygon') {
-	reference = tinycolor.mix(reference, color, fillOpacity100);
-}
-const isLight = reference.isLight();
-const textOpacity = toHex(textOpacity100);
-const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
+const colorWithOpacity = computed(() => color.value + toHex(opacity100.value));
+const polygonFillColor = computed(() => color.value + toHex(fillOpacity100.value));
+
+const textColor = computed(() => {
+	let reference = tinycolor.mix('#ffffff', color, opacity100);
+	if (props.f.geometry.type === 'Polygon') {
+		reference = tinycolor.mix(reference, color, fillOpacity100);
+	}
+	const isLight = reference.isLight();
+	return (isLight ? '#000000' : '#ffffff') + textOpacity;
+});
 
 // size
+// FIXME need to update when zoom changes
+/*
 const baseFeatureSize = Math.max(1, Number(feature.get('width') || 1));
 let featureSize = baseFeatureSize;
 if (this.visitor) {
@@ -93,25 +109,14 @@ const lineDash = (feature.get('dash') || '1')
 	.split(',')
 	.map((w) => Number(w) * featureSize);
 
-function fill(color) {
-	if (!color) return null;
-	return new Fill({ color });
-}
-
 const style = new Style({
-	geometry(feature) {
-		return feature.getGeometry();
-	},
-	fill: fill(polygonFillColor),
 	stroke: new Stroke({
-		color: colorWithOpacity,
 		lineCap: 'butt',
 		lineDash,
 		width: featureSize,
 	}),
 	image: new CircleStyle({
 		radius: featureSize * 3,
-		fill: fill(colorWithOpacity),
 	}),
 	text: new Text({
 		font: `bold ${fontSize}px sans-serif`,
@@ -124,7 +129,6 @@ const style = new Style({
 		padding: [3, 3, 3, 3],
 		rotation,
 	}),
-	zIndex,
 });
  */
 </script>
@@ -132,18 +136,22 @@ const style = new Style({
 <template>
 	<template v-if="f.geometry.type === 'Point'">
 		<ol-geom-point :coordinates="f.geometry.coordinates" />
-		<ol-style>
+		<ol-style :z-index="zIndex">
 			<ol-style-circle :radius="5">
-				<ol-style-fill :color="f.properties?.color" />
+				<ol-style-fill :color="colorWithOpacity" />
+				<ol-style-stroke
+					:color="null"
+					:width="0"
+				/>
 			</ol-style-circle>
 		</ol-style>
 	</template>
 
 	<template v-else-if="f.geometry.type === 'LineString'">
 		<ol-geom-line-string :coordinates="f.geometry.coordinates" />
-		<ol-style>
+		<ol-style :z-index="zIndex">
 			<ol-style-stroke
-				:color="f.properties?.color"
+				:color="colorWithOpacity"
 				:width="f.properties?.width * 2"
 			/>
 		</ol-style>
@@ -151,12 +159,12 @@ const style = new Style({
 
 	<template v-else-if="f.geometry.type === 'Polygon'">
 		<ol-geom-polygon :coordinates="f.geometry.coordinates" />
-		<ol-style>
+		<ol-style :z-index="zIndex">
 			<ol-style-stroke
-				:color="f.properties?.color"
+				:color="colorWithOpacity"
 				:width="f.properties?.width * 2"
 			/>
-			<ol-style-fill :color="f.properties?.color" />
+			<ol-style-fill :color="polygonFillColor" />
 		</ol-style>
 	</template>
 </template>

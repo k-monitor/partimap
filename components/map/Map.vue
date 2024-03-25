@@ -4,17 +4,6 @@ import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
 import type View from 'ol/View';
 
-// import tinycolor from 'tinycolor2';
-// import wordWrap from 'word-wrap';
-// import Collection from 'ol/Collection';
-// import Feature from 'ol/Feature';
-// import { Attribution, defaults as defaultControls } from 'ol/control';
-// import { Draw, Snap } from 'ol/interaction';
-// import { Vector as VectorLayer } from 'ol/layer';
-// import { Vector as VectorSource } from 'ol/source';
-// import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
-// import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
-
 const props = defineProps<{
 	features?: Feature[];
 	fitSelected?: boolean;
@@ -276,7 +265,10 @@ export default {
 					v-for="f in features"
 					:key="f.id"
 				>
-					<MapFeature :f="f" />
+					<MapFeature
+						:f="f"
+						:gray-rated="grayRated"
+					/>
 				</ol-feature>
 			</ol-source-vector>
 		</ol-vector-layer>
