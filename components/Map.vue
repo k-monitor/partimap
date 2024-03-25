@@ -26,6 +26,9 @@ const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
 const initialZoom = Number(t('Map.initialZoom')) || 10;
 
 const { baseMap } = useStore();
+const baseMapToShow = computed(() =>
+	baseMaps.find((bm) => bm.id === baseMap.value) ? baseMap.value : 'osm',
+);
 function changeBaseMap() {
 	const keys = baseMaps.map((bm) => bm.id);
 	const index = (keys.indexOf(baseMap.value) + 1) % keys.length;
@@ -42,6 +45,7 @@ function changeZoom(delta: number) {
 	});
 }
 
+// FIXME
 /*
 export default {
 	props: {
@@ -500,7 +504,7 @@ export default {
 		>
 			<ol-tile-layer
 				v-if="bm.id === 'osm'"
-				:visible="bm.id === baseMap"
+				:visible="bm.id === baseMapToShow"
 			>
 				<ol-source-osm />
 			</ol-tile-layer>
@@ -508,7 +512,7 @@ export default {
 			<ol-tile-layer
 				v-for="xyzUrl in bm.xyzUrls || []"
 				:key="xyzUrl"
-				:visible="bm.id === baseMap"
+				:visible="bm.id === baseMapToShow"
 			>
 				<ol-source-xyz
 					:url="xyzUrl"
