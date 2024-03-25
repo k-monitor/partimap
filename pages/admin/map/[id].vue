@@ -28,15 +28,26 @@ function back() {
 const title = ref(mapData.value?.title);
 watch(title, () => (contentModified.value = true));
 
+function parseFeatures() {
+	try {
+		return JSON.parse(mapData.value?.features || '[]');
+	} catch {
+		return [];
+	}
+}
+
+const features = ref(parseFeatures()); // TODO type: geojson Feature[]
+watch(mapData, () => (features.value = parseFeatures()));
+watch(features, () => (contentModified.value = true));
+
 const { errorToast, successToast } = useToasts();
 async function save() {
 	try {
 		loading.value = true;
-		// FIXME this.loadFeaturesFromStore();
 		await $fetch(`/api/map/${mapData.value?.id}`, {
 			method: 'PATCH',
 			body: {
-				// FIXME add features
+				features: JSON.stringify(features.value),
 				title: title.value,
 			},
 		});
@@ -52,9 +63,6 @@ async function save() {
 
 /*
 	FIXME
-	computed: {
-		...mapGetters('features', ['getAllFeature']),
-	},
 	created() {
 		this.$nuxt.$on('contentModified', () => {
 			this.contentModified = true;
@@ -65,26 +73,6 @@ async function save() {
 		this.$nuxt.$off('contentModified');
 		this.$nuxt.$off('toggleLoading');
 	},
-
-function featuresFromRaw(featuresRaw) {
-	// TODO this function was copied from Sheet.vue, would be nicer to centralize it...
-	const features = JSON.parse(featuresRaw);
-	const featureCollection = { type: 'FeatureCollection', features };
-	return features ? new GeoJSON().readFeatures(featureCollection) : null;
-}
-
-function loadFeaturesFromStore() {
-	const features = [];
-	for (const f of this.getAllFeature) {
-		const featureStr = new GeoJSON().writeFeature(f);
-		features.push(JSON.parse(featureStr));
-	}
-	this.mapData.features = JSON.stringify(features);
-}
-
-function loadInitFeatures() {
-	return this.featuresFromRaw(this.mapData.features);
-}
 */
 </script>
 
@@ -107,6 +95,8 @@ function loadInitFeatures() {
 				/>
 			</form-group>
 
+			<!-- {{ JSON.stringify(features) }} -->
+
 			<!-- FIXME <FeatureList
 				:filename="mapData.title"
 				is-on-editor-view
@@ -124,11 +114,12 @@ function loadInitFeatures() {
 
 		<div class="flex-grow-1">
 			<client-only>
-				<Map :key="$route.path" />
-				<!-- FIXME
-					:features="loadInitFeatures()"
+				<Map
+					:key="$route.path"
+					:features="features"
 					fit-selected
-
+				/>
+				<!-- FIXME
 					<MapToolbar />
 					<MapHint />
 			 	-->

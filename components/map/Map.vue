@@ -13,19 +13,32 @@ import type View from 'ol/View';
 // import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
 // import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
 
+const props = defineProps<{
+	features?: any[]; // TODO type geojson Feature[]
+	fitSelected?: boolean;
+	grayRated?: boolean;
+	initialBaseMapKey?: string;
+	visitor?: boolean;
+}>();
+
+const { baseMapToShow, changeBaseMap, sidebarVisible } = useStore();
+
+// map initialization
+
 const GOOGLEMAPS_PROJECTION = 'EPSG:4326';
 const PARTIMAP_PROJECTION = 'EPSG:3857'; // OL default
 
-const gm2ol = (coords: number[]) => transform(coords, GOOGLEMAPS_PROJECTION, PARTIMAP_PROJECTION);
-
-// const LG_BREAKPOINT = 992;
-
 const { t } = useI18n();
 const coords = t('Map.initialCenter').split(',');
+const gm2ol = (coords: number[]) => transform(coords, GOOGLEMAPS_PROJECTION, PARTIMAP_PROJECTION);
 const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
 const initialZoom = Number(t('Map.initialZoom')) || 10;
 
-const { baseMapToShow } = useStore();
+onBeforeMount(() => {
+	changeBaseMap(props.initialBaseMapKey || 'osm');
+});
+
+// zoom control
 
 const view = ref<{ view: View }>();
 function changeZoom(delta: number) {
@@ -37,42 +50,18 @@ function changeZoom(delta: number) {
 }
 
 // FIXME
+
 /*
+const LG_BREAKPOINT = 992;
 export default {
 	props: {
-		features: {
-			type: Array,
-			default: null,
-			validator: (container) => container.every((f) => f instanceof Feature),
-		},
-		fitSelected: {
-			type: Boolean,
-			default: false,
-		},
-		grayRated: {
-			type: Boolean,
-			default: false,
-		},
-		initialBaseMapKey: {
-			type: String,
-			default: '',
-		},
 		labels: {
 			type: Object,
 			default: () => {},
 		},
-		visitor: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	data() {
 		return {
-			// ol/Map object
-			map: null,
-			baseMaps: createBaseMaps(),
-			baseMapKey: this.initialBaseMapKey,
-
 			// default color for drawn features
 			defaultColor: {
 				drawing: '#607D8B',
