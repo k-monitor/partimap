@@ -141,7 +141,10 @@ defineEmits<{
 				</span>
 			</button>
 		</nav>
-		<div class="sidebar-body flex-grow-1 p-3">
+		<div
+			class="sidebar-body flex-grow-1 overflow-y-auto p-3"
+			style="scrollbar-gutter: stable"
+		>
 			<slot />
 		</div>
 		<LoadingOverlay :show="loading" />
@@ -183,15 +186,6 @@ defineEmits<{
 			margin-left: -42%;
 		}
 	}
-
-	.sidebar-body {
-		scrollbar-gutter: stable;
-	}
-}
-
-.sidebar-header {
-	background: white;
-	font-size: 1rem;
 }
 
 .sidebar-header,
