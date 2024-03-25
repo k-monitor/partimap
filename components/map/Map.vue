@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Feature } from 'geojson';
 import { transform } from 'ol/proj';
-import type VectorSource from 'ol/source/vector';
+import type { Vector } from 'ol/source';
 import type View from 'ol/View';
 
 // import tinycolor from 'tinycolor2';
@@ -43,6 +43,7 @@ onBeforeMount(() => {
 // zoom control
 
 const viewRef = ref<{ view: View }>();
+
 function changeZoom(delta: number) {
 	const zoom = viewRef.value?.view.getZoom() || 0;
 	viewRef.value?.view.animate({
@@ -53,31 +54,32 @@ function changeZoom(delta: number) {
 
 // fit to features
 
-const sourceRef = ref<{ source: VectorSource }>();
+const sourceRef = ref<{ source: Vector }>();
+
 function fitViewToFeatures() {
-	if (!props.features?.length) return;
-	if (!sourceRef.value) return;
+	if (!sourceRef.value?.source.getFeatures().length) return;
 
 	// fit to selected feature or all features
-
 	const extent = sourceRef.value.source.getExtent();
-	// FIXME if there is a selected feature
+	// FIXME if this.getSelectedFeature && this.fitSelected
 	// extent := getSelectedFeature.getGeometry().getExtent()
 
-	// FIXME not working
 	viewRef.value?.view.fit(extent, {
 		duration: 200,
-		// FIXME we shoul dnot need this: padding: [0, 0, 0, this.sidebarWidth],
+		padding: [80, 80, 80, 80],
 	});
 }
-onMounted(() => {
-	//fitViewToFeatures();
+
+onMounted(async () => {
+	await nextTick(); // wait for OL to have the features
+	fitViewToFeatures();
 });
+
+watch(sidebarVisible, () => fitViewToFeatures());
 
 // FIXME
 
 /*
-const LG_BREAKPOINT = 992;
 export default {
 	props: {
 		labels: {
@@ -104,14 +106,6 @@ export default {
 	computed: {
 		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
 		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
-		sidebarWidth() {
-			// See Sidebar <style>
-			const base = 360;
-			const mul = 0.42;
-			const ww = window.innerWidth;
-			const sidebarWidth = ww >= LG_BREAKPOINT ? ww * mul : base;
-			return this.getSidebarVisible && sidebarWidth < ww * 0.5 ? sidebarWidth : 0;
-		},
 	},
 	watch: {
 		drawType(type) {
