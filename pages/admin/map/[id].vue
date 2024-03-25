@@ -124,12 +124,11 @@ function loadInitFeatures() {
 
 		<div class="flex-grow-1">
 			<client-only>
-				<Map
-					:key="$route.path"
-					__:features="loadInitFeatures()"
-					__fit-selected
-				/>
+				<Map :key="$route.path" />
 				<!-- FIXME
+					:features="loadInitFeatures()"
+					fit-selected
+
 					<MapToolbar />
 					<MapHint />
 			 	-->

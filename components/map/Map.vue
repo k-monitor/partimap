@@ -25,16 +25,7 @@ const coords = t('Map.initialCenter').split(',');
 const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
 const initialZoom = Number(t('Map.initialZoom')) || 10;
 
-const { baseMap } = useStore();
-const baseMapToShow = computed(() =>
-	baseMaps.find((bm) => bm.id === baseMap.value) ? baseMap.value : 'osm',
-);
-function changeBaseMap() {
-	const keys = baseMaps.map((bm) => bm.id);
-	const index = (keys.indexOf(baseMap.value) + 1) % keys.length;
-	console.log('Changing base map from', baseMap.value, 'to', keys[index]);
-	baseMap.value = keys[index];
-}
+const { baseMapToShow } = useStore();
 
 const view = ref<{ view: View }>();
 function changeZoom(delta: number) {
@@ -523,47 +514,5 @@ export default {
 
 		<ol-attribution-control />
 	</ol-map>
-	<div class="map-zoom-toolbar">
-		<b-button-group
-			class="shadow-sm"
-			vertical
-		>
-			<button
-				v-b-tooltip.hover.left
-				class="btn btn-dark border border-secondary py-2"
-				:title="$t('Map.changeBaseMap')"
-				@click="changeBaseMap()"
-			>
-				<i class="fas fa-map" />
-			</button>
-			<button
-				class="btn btn-dark border border-secondary py-2"
-				@click="changeZoom(1)"
-			>
-				<i class="fas fa-fw fa-plus" />
-			</button>
-			<button
-				class="btn btn-dark border border-secondary py-2"
-				@click="changeZoom(-1)"
-			>
-				<i class="fas fa-fw fa-minus" />
-			</button>
-		</b-button-group>
-	</div>
+	<MapControls @change-zoom="changeZoom" />
 </template>
-
-<style scoped>
-.map-zoom-toolbar {
-	position: absolute;
-	right: 0;
-	bottom: 2rem;
-}
-
-.btn {
-	border-radius: 0.5rem;
-	border-top-right-radius: 0 !important;
-	border-bottom-right-radius: 0 !important;
-	border-right-width: 0 !important;
-	font-size: 1.25rem;
-}
-</style>

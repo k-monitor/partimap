@@ -1,6 +1,7 @@
 import { env } from './env';
 
 export default defineNuxtConfig({
+	components: [{ path: '~/components', pathPrefix: false }],
 	css: [
 		'@fortawesome/fontawesome-free/css/all.min.css',
 		'animate.css/animate.min.css',
