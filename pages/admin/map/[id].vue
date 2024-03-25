@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { Feature } from 'geojson';
 import type { Map } from '~/server/data/maps';
-// import GeoJSON from 'ol/format/GeoJSON';
 
 const localePath = useLocalePath();
 const { currentRoute } = useRouter();
@@ -30,15 +30,15 @@ watch(title, () => (contentModified.value = true));
 
 function parseFeatures() {
 	try {
-		return JSON.parse(mapData.value?.features || '[]');
+		return JSON.parse(mapData.value?.features || '[]') as Feature[];
 	} catch {
 		return [];
 	}
 }
 
-const features = ref(parseFeatures()); // TODO type: geojson Feature[]
-watch(mapData, () => (features.value = parseFeatures()));
-watch(features, () => (contentModified.value = true));
+const features = ref<Feature[]>(parseFeatures());
+// watch(mapData, () => (features.value = parseFeatures()));
+// watch(features, () => (contentModified.value = true));
 
 const { errorToast, successToast } = useToasts();
 async function save() {
