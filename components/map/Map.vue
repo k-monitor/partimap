@@ -40,20 +40,9 @@ onBeforeMount(() => {
 	changeBaseMap(props.initialBaseMapKey || 'osm');
 });
 
-// zoom control
-
-const viewRef = ref<{ view: View }>();
-
-function changeZoom(delta: number) {
-	const zoom = viewRef.value?.view.getZoom() || 0;
-	viewRef.value?.view.animate({
-		duration: 200,
-		zoom: zoom + delta,
-	});
-}
-
 // fit to features
 
+const viewRef = ref<{ view: View }>();
 const sourceRef = ref<{ source: Vector }>();
 
 function fitViewToFeatures() {
@@ -132,15 +121,9 @@ export default {
 		getSelectedFeature(selFeature) {
 			this.fitViewToFeatures();
 		},
-		getSidebarVisible() {
-			this.fitViewToFeatures();
-		},
 	},
 	mounted() {
 		this.$store.commit('selected/clear');
-		this.initMapComponents();
-		this.fitViewToFeatures();
-		this.addEventListeners();
 	},
 	created() {
 		this.$nuxt.$on('importedFeatures', (features) => {
@@ -297,6 +280,7 @@ export default {
 				</ol-feature>
 			</ol-source-vector>
 		</ol-vector-layer>
+
+		<MapControls />
 	</ol-map>
-	<MapControls @change-zoom="changeZoom" />
 </template>

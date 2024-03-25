@@ -1,15 +1,24 @@
 <script setup lang="ts">
+import type Map from 'ol/Map';
+
 const { changeBaseMap } = useStore();
 
-defineEmits<{
-	(e: 'changeZoom', delta: number): void;
-}>();
+const map = inject<Map | undefined>('map');
+
+function changeZoom(delta: number) {
+	const view = map?.getView();
+	const zoom = view?.getZoom() || 0;
+	view?.animate({
+		duration: 200,
+		zoom: zoom + delta,
+	});
+}
 </script>
 
 <template>
 	<div
 		class="position-absolute"
-		style="bottom: 2rem; right: 0"
+		style="bottom: 2rem; right: 0; z-index: 1"
 	>
 		<div class="d-flex flex-column shadow-sm">
 			<button
@@ -24,14 +33,14 @@ defineEmits<{
 			<button
 				class="btn btn-dark border border-secondary border-end-0 rounded-0 py-2"
 				style="font-size: 1.25rem"
-				@click="$emit('changeZoom', 1)"
+				@click="changeZoom(1)"
 			>
 				<i class="fas fa-fw fa-plus" />
 			</button>
 			<button
 				class="btn btn-dark border border-secondary border-end-0 border-top-0 rounded-0 py-2"
 				style="font-size: 1.25rem; border-bottom-left-radius: 0.5rem !important"
-				@click="$emit('changeZoom', -1)"
+				@click="changeZoom(-1)"
 			>
 				<i class="fas fa-fw fa-minus" />
 			</button>
