@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Feature } from 'geojson';
+import type { ObjectEvent } from 'ol/Object';
 import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
 import type View from 'ol/View';
@@ -9,10 +10,11 @@ const props = defineProps<{
 	fitSelected?: boolean;
 	grayRated?: boolean;
 	initialBaseMapKey?: string;
+	labelOverrides?: Record<number, string>;
 	visitor?: boolean;
 }>();
 
-const { changeBaseMap, sidebarVisible } = useStore();
+const { changeBaseMap, currentZoom, sidebarVisible } = useStore();
 
 // map initialization
 
@@ -28,6 +30,10 @@ const initialZoom = Number(t('Map.initialZoom')) || 10;
 onBeforeMount(() => {
 	changeBaseMap(props.initialBaseMapKey || 'osm');
 });
+
+function updateCurrentZoom(e: ObjectEvent) {
+	currentZoom.value = (e.target as View).getZoom() || 0;
+}
 
 // fit to features
 
@@ -59,12 +65,6 @@ watch(sidebarVisible, () => fitViewToFeatures());
 
 /*
 export default {
-	props: {
-		labels: {
-			type: Object,
-			default: () => {},
-		},
-	},
 	data() {
 		return {
 			// default color for drawn features
@@ -255,6 +255,7 @@ export default {
 			max-zoom="19"
 			:zoom="initialZoom"
 			:projection="PARTIMAP_PROJECTION"
+			@change:resolution="updateCurrentZoom"
 		/>
 
 		<BaseMaps />
@@ -268,6 +269,8 @@ export default {
 					<MapFeature
 						:f="f"
 						:gray-rated="grayRated"
+						:label-override="(labelOverrides || {})[Number(f.id)] || ''"
+						:visitor="visitor"
 					/>
 				</ol-feature>
 			</ol-source-vector>

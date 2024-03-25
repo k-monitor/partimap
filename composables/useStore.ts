@@ -10,12 +10,14 @@ export default function useStore() {
 		baseMap.value = keys[index];
 	}
 
+	const currentZoom = useState<number>('currentZoom', () => 0);
 	const drawType = useState<'' | 'Point' | 'LineString' | 'Polygon'>('drawType', () => '');
 	const sidebarVisible = useState('sidebarVisible', () => true);
 
 	return {
 		baseMapToShow,
 		changeBaseMap,
+		currentZoom,
 		drawType,
 		sidebarVisible,
 	};
