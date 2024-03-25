@@ -74,7 +74,7 @@ defineEmits<{
 <template>
 	<button
 		ref="sidebarButton"
-		class="sidebar-button bg-dark border border-secondary position-absolute pl-1 py-2 shadow-sm text-white"
+		class="sidebar-button btn btn-dark border-secondary border-start-0 position-absolute ps-1 py-2 rounded-0 shadow-sm text-white"
 		:class="visible ? 'sidebar-visible' : 'sidebar-hidden'"
 		@click="showSidebarAndCancelDrawing"
 	>
@@ -195,11 +195,8 @@ defineEmits<{
 }
 
 .sidebar-button {
-	border-top-right-radius: 0.5rem;
-	border-bottom-right-radius: 0.5rem;
-	border-top-left-radius: 0 !important;
-	border-bottom-left-radius: 0 !important;
-	border-left-width: 0 !important;
+	border-top-right-radius: 0.5rem !important;
+	border-bottom-right-radius: 0.5rem !important;
 	font-size: 1.25rem;
 	top: 0.5rem;
 	transition: left 0.3s ease;
