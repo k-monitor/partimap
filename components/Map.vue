@@ -59,6 +59,7 @@ import createBaseMaps from '@/assets/basemaps';
 import { parseFillOpacity100, parseOpacity100 } from '@/assets/colorUtil';
 
 import 'ol/ol.css';
+import { isMobile } from '~/assets/constants';
 
 const gm2ol = get('EPSG:4326', 'EPSG:3857');
 const LG_BREAKPOINT = 992;
@@ -364,9 +365,11 @@ export default {
 				if (drawing) {
 					this.$nextTick(() => {
 						// after FLE is created
-						this.$nuxt.$emit('selectAttempt', f);
+						const timeout = isMobile() ? 500 : 0;
+						setTimeout(() => {
+							this.$nuxt.$emit('selectAttempt', f);
+						}, timeout);
 					});
-					// this.$store.commit('selected/change', f);
 				}
 
 				if (this.visitor) {
