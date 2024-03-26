@@ -94,12 +94,11 @@ async function save() {
 				/>
 			</form-group>
 
-			<!-- {{ JSON.stringify(features) }} -->
-
-			<!-- FIXME <FeatureList
-				:filename="mapData.title"
+			<FeatureList
+				:features="features"
+				:filename="title"
 				is-on-editor-view
-			/> -->
+			/>
 
 			<template #footer>
 				<div class="p-2 text-center">
