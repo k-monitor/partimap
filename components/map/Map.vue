@@ -192,9 +192,11 @@ export default {
 				if (drawing) {
 					this.$nextTick(() => {
 						// after FLE is created
-						this.$nuxt.$emit('selectAttempt', f);
+						const timeout = isMobile() ? 500 : 0;
+						setTimeout(() => {
+							this.$nuxt.$emit('selectAttempt', f);
+						}, timeout);
 					});
-					// this.$store.commit('selected/change', f);
 				}
 
 				if (this.visitor) {
