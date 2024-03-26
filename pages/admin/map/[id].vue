@@ -95,7 +95,7 @@ async function save() {
 			</form-group>
 
 			<FeatureList
-				:features="features"
+				v-model="features"
 				:filename="title"
 				is-on-editor-view
 			/>

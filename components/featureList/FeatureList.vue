@@ -3,8 +3,9 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 
 const { t } = useI18n();
 
+const features = defineModel<GeoJsonFeature[]>();
+
 const props = defineProps<{
-	features: GeoJsonFeature[];
 	filename: string;
 	isInteractive?: boolean;
 	isOnEditorView?: boolean;
@@ -16,7 +17,7 @@ const props = defineProps<{
 const hideAdminFeatures = computed(() => props.isOnSheetView && props.isInteractive);
 
 const availableFeatures = computed(() => {
-	return props.features.filter((f) => {
+	return (features.value || []).filter((f) => {
 		if (props.isOnSheetView && !f.properties?.visitorFeature) {
 			// case: admin features on public sheet
 			// static sheet: hide hidden admin features
@@ -58,6 +59,7 @@ function featureFilter(f: GeoJsonFeature): boolean {
 		f.properties?.name || defaultName,
 		f.properties?.category || '',
 		f.properties?.partimapFeatureQuestion_ans || '',
+		// TODO add partimapMapLabel too?
 	]
 		.join('|')
 		.toLowerCase();
@@ -71,7 +73,8 @@ watch(filteredFeatures, () => {
 
 watch(selectedFeatureId, (id) => {
 	if (!id) return;
-	const ids = filteredFeatures.value.map((f) => f.id);
+	const ids = filteredFeatureIds.value || [];
+	if (!ids) return;
 	if (!ids.includes(id)) {
 		// selected feature doesn't match current search filter
 		// it means that click was on the map, we must show the
@@ -186,17 +189,19 @@ export default {
 		handleImportFeatures(features) {
 			this.$nuxt.$emit('importedFeatures', features);
 		},
-		async deleteAll() {
-			const ids = this.filteredFeatures.map((f) => f.getId());
-			const confirmed = await this.confirmDeleteFeatures(ids.length);
-			if (confirmed) {
-				this.$nuxt.$emit('clearFeatures', ids);
-				this.categoryFilter = '';
-				this.search = '';
-			}
-		},
 	},
 };*/
+
+const { confirmDeleteFeatures } = useConfirmation();
+
+async function deleteAll() {
+	const ids = filteredFeatures.value.map((f) => f.id);
+	const confirmed = await confirmDeleteFeatures(ids.length);
+	if (!confirmed) return;
+	features.value = (features.value || []).filter((f) => !ids.includes(f.id));
+	categoryFilter.value = '';
+	search.value = '';
+}
 </script>
 
 <template>
@@ -207,21 +212,23 @@ export default {
 		>
 			{{ $t('FeatureList.features') }}
 		</h6>
-		<!-- FIXME -->
-		<!-- <div
+
+		<div
 			v-if="!isOnSheetView"
 			class="d-flex justify-content-center mb-3"
 		>
-			<button
+			<!-- FIXME -->
+			<!-- <button
 				class="btn btn-sm btn-primary m-2"
 				@click="exportKML"
 			>
 				<i class="fas fa-fw fa-download" />
 				<br />
 				KML
-			</button>
+			</button> -->
 			<template v-if="!isOnSubmittedView">
-				<button
+				<!-- FIXME -->
+				<!-- <button
 					class="btn btn-sm btn-success m-2"
 					@click="importKML"
 				>
@@ -236,7 +243,7 @@ export default {
 					<i class="fas fa-fw fa-file-import" />
 					<br />
 					{{ $t('FeatureList.importFromSheet') }}
-				</button>
+				</button> -->
 				<button
 					class="btn btn-sm btn-danger m-2"
 					@click="deleteAll"
@@ -246,7 +253,7 @@ export default {
 					{{ $t('FeatureList.deleteAll') }}
 				</button>
 			</template>
-		</div> -->
+		</div>
 		<div>
 			<div
 				v-if="showSearch"
