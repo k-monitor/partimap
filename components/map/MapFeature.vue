@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Feature } from 'geojson';
+import type { Feature as GeoJsonFeature } from 'geojson';
 import tinycolor from 'tinycolor2';
 import wordWrap from 'word-wrap';
 
 const props = defineProps<{
-	f: Feature;
+	f: GeoJsonFeature;
 	labelOverride?: string;
 	grayRated?: boolean;
 	visitor?: boolean;
@@ -99,7 +99,7 @@ const textParams = computed(() => {
 
 // line style
 const lineDash = computed(() => {
-	const dash = props.f.properties?.dash || '1';
+	const dash = props.f.properties?.dash || '1'; // FIXME shouldn't this be 0? see Map.vue default
 	return dash.split(',').map((w: string) => Number(w) * sizes.value.featureSize);
 });
 </script>

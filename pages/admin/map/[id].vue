@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { Feature } from 'geojson';
+import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Map } from '~/server/data/maps';
 
 const localePath = useLocalePath();
 const { currentRoute } = useRouter();
 const { t } = useI18n();
 
-// FIXME ? store.commit('features/clear');
 const { data: mapData, refresh } = await useFetch<Map>('/api/map/' + currentRoute.value.params.id);
 
 useHead({
@@ -17,7 +16,7 @@ const contentModified = ref(false);
 const loading = ref(true);
 
 onMounted(() => {
-	// FIXME ? this.$store.commit('selected/clear');
+	// FIXME there was `$store.commit('selected/clear');` but Map does it too, do we need it here?
 	loading.value = false;
 });
 
@@ -30,15 +29,15 @@ watch(title, () => (contentModified.value = true));
 
 function parseFeatures() {
 	try {
-		return JSON.parse(mapData.value?.features || '[]') as Feature[];
+		return JSON.parse(mapData.value?.features || '[]') as GeoJsonFeature[];
 	} catch {
 		return [];
 	}
 }
 
-const features = ref<Feature[]>(parseFeatures());
-// watch(mapData, () => (features.value = parseFeatures()));
-// watch(features, () => (contentModified.value = true));
+const features = ref<GeoJsonFeature[]>(parseFeatures());
+watch(mapData, () => (features.value = parseFeatures()));
+watch(features, () => (contentModified.value = true));
 
 const { errorToast, successToast } = useToasts();
 async function save() {
