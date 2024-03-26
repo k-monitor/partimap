@@ -12,6 +12,8 @@ export default function useStore() {
 
 	const currentZoom = useState<number>('currentZoom', () => 0);
 	const drawType = useState<'' | 'Point' | 'LineString' | 'Polygon'>('drawType', () => '');
+	const filteredFeatureIds = useState<number[] | null>('filteredIds', () => null);
+	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);
 	const sidebarVisible = useState('sidebarVisible', () => true);
 
 	return {
@@ -19,6 +21,8 @@ export default function useStore() {
 		changeBaseMap,
 		currentZoom,
 		drawType,
+		filteredFeatureIds,
+		selectedFeatureId,
 		sidebarVisible,
 	};
 }

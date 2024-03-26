@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Feature } from 'geojson';
+import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Feature as OlFeature, View } from 'ol';
 import type { ObjectEvent } from 'ol/Object';
 import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
-import type View from 'ol/View';
 
 const props = defineProps<{
-	features?: Feature[];
+	features?: GeoJsonFeature[];
 	fitSelected?: boolean;
 	grayRated?: boolean;
 	initialBaseMapKey?: string;
@@ -14,7 +14,8 @@ const props = defineProps<{
 	visitor?: boolean;
 }>();
 
-const { changeBaseMap, currentZoom, sidebarVisible } = useStore();
+const { changeBaseMap, currentZoom, filteredFeatureIds, selectedFeatureId, sidebarVisible } =
+	useStore();
 
 // map initialization
 
@@ -29,6 +30,7 @@ const initialZoom = Number(t('Map.initialZoom')) || 10;
 
 onBeforeMount(() => {
 	changeBaseMap(props.initialBaseMapKey || 'osm');
+	selectedFeatureId.value = null;
 });
 
 function updateCurrentZoom(e: ObjectEvent) {
@@ -41,13 +43,19 @@ const viewRef = ref<{ view: View }>();
 const sourceRef = ref<{ source: Vector }>();
 
 function fitViewToFeatures() {
-	if (!sourceRef.value?.source.getFeatures().length) return;
+	const olFeatures = sourceRef.value?.source.getFeatures();
+	if (!olFeatures || !olFeatures.length) return;
 
 	// fit to selected feature or all features
-	const extent = sourceRef.value.source.getExtent();
-	// FIXME if this.getSelectedFeature && this.fitSelected
-	// extent := getSelectedFeature.getGeometry().getExtent()
+	let selectedFeature: OlFeature | undefined = undefined;
+	if (selectedFeatureId.value) {
+		selectedFeature = olFeatures.find((f) => f.getId() === selectedFeatureId.value);
+	}
+	const extent = selectedFeature
+		? selectedFeature?.getGeometry()?.getExtent()
+		: sourceRef.value?.source.getExtent();
 
+	if (!extent) return;
 	viewRef.value?.view.fit(extent, {
 		duration: 200,
 		padding: [80, 80, 80, 80],
@@ -59,7 +67,20 @@ onMounted(async () => {
 	fitViewToFeatures();
 });
 
-watch(sidebarVisible, () => fitViewToFeatures());
+watch([selectedFeatureId, sidebarVisible], () => fitViewToFeatures());
+// TODO add filteredFeatureIds too?
+
+// filter
+
+const visibleFeatures = computed(() => {
+	const isFilterActive = filteredFeatureIds.value !== null;
+	return (props.features || []).filter((f) => {
+		const isHidden = f.properties?.hidden;
+		const included = (filteredFeatureIds.value || []).includes(Number(f.id)) || isHidden;
+		if (isFilterActive && !included) return false;
+		return true;
+	});
+});
 
 // FIXME
 
@@ -78,12 +99,7 @@ export default {
 				lineDash: '0',
 				width: 6,
 			},
-			filteredIds: null, // null means no filter, otherwise it's an ID array
 		};
-	},
-	computed: {
-		...mapGetters({ drawType: 'getDrawType' }), // if truthy, a feature is currently drawn
-		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 	},
 	watch: {
 		drawType(type) {
@@ -107,12 +123,6 @@ export default {
 				this.map.addInteraction(this.snap);
 			}
 		},
-		getSelectedFeature(selFeature) {
-			this.fitViewToFeatures();
-		},
-	},
-	mounted() {
-		this.$store.commit('selected/clear');
 	},
 	created() {
 		this.$nuxt.$on('importedFeatures', (features) => {
@@ -120,11 +130,6 @@ export default {
 			// TODO would be nice to remove/overwrite already existing feature by ID
 			features.forEach((f) => this.vector.getSource().addFeature(f));
 			this.fitViewToFeatures();
-		});
-
-		this.$nuxt.$on('filterFeatures', (ids) => {
-			this.filteredIds = ids;
-			this.updateAllFeatures();
 		});
 	},
 	beforeUnmount() {
@@ -135,11 +140,6 @@ export default {
 		this.$nuxt.$off('filterFeatures');
 	},
 	methods: {
-		initMapComponents() {
-			this.view.on('change:resolution', () => {
-				this.updateAllFeatures();
-			});
-		},
 		addEventListeners() {
 			this.map.on('click', (e) => {
 				if (this.drawType) return;
@@ -219,26 +219,6 @@ export default {
 				this.$nuxt.$emit('contentModified');
 			});
 		},
-		loadInitFeatures(features) {
-			// flush the store before initialization
-			this.$store.commit('features/clear');
-			if (!features) {
-				return null;
-			}
-			for (const f of features) {
-				this.$store.commit('features/add', f);
-				this.changeFeatureStyle(
-					f,
-					f.get('color'),
-					f.get('dash'),
-					parseInt(f.get('fillOpacity'), 10),
-					parseInt(f.get('opacity'), 10),
-					f.get('width'),
-					false,
-				); // apply stored style
-			}
-			return new Collection(features);
-		},
 	},
 };
 */
@@ -265,7 +245,7 @@ export default {
 		<ol-vector-layer>
 			<ol-source-vector ref="sourceRef">
 				<ol-feature
-					v-for="f in features"
+					v-for="f in visibleFeatures"
 					:key="f.id"
 				>
 					<MapFeature

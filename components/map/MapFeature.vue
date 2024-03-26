@@ -10,23 +10,12 @@ const props = defineProps<{
 	visitor?: boolean;
 }>();
 
-const { currentZoom } = useStore();
+const { currentZoom, selectedFeatureId } = useStore();
 
-const selFeatureId = ref(0); // FIXME read selected feature ID from store
-const isSomeFeatureSelected = computed(() => !!selFeatureId.value);
-const isSelected = computed(() => selFeatureId.value === props.f.id);
+const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
+const isSelected = computed(() => selectedFeatureId.value === props.f.id);
 const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
 const isHidden = computed(() => props.f.properties?.hidden);
-
-// FIXME filter... maybe on Map level?
-/*
-// filter
-const isFilterActive = this.filteredIds !== null;
-const featureIncluded = this.filteredIds?.includes(feature.getId()) || isHidden;
-if (isFilterActive && !featureIncluded) {
-	return feature.setStyle(() => false); // hide
-}
-*/
 
 // z-index
 const zIndex = computed(() => {
@@ -103,7 +92,9 @@ const textParams = computed(() => {
 			width: 25, // chars
 		});
 	}
-	return { rotation, text };
+
+	const font = `bold ${sizes.value.fontSize}px sans-serif`;
+	return { font, rotation, text };
 });
 
 // line style
@@ -111,29 +102,24 @@ const lineDash = computed(() => {
 	const dash = props.f.properties?.dash || '1';
 	return dash.split(',').map((w: string) => Number(w) * sizes.value.featureSize);
 });
-
-// FIXME
-/*
-const style = new Style({
-	text: new Text({
-		font: `bold ${fontSize}px sans-serif`,
-		text,
-		placement: 'point',
-		backgroundFill: fill(colorWithOpacity),
-		fill: fill(textColor),
-		offsetY: 1,
-		overflow: true,
-		padding: [3, 3, 3, 3],
-		rotation,
-	}),
-});
- */
 </script>
 
 <template>
-	<template v-if="f.geometry.type === 'Point'">
-		<ol-geom-point :coordinates="f.geometry.coordinates" />
-		<ol-style :z-index="zIndex">
+	<ol-geom-point
+		v-if="f.geometry.type === 'Point'"
+		:coordinates="f.geometry.coordinates"
+	/>
+	<ol-geom-line-string
+		v-else-if="f.geometry.type === 'LineString'"
+		:coordinates="f.geometry.coordinates"
+	/>
+	<ol-geom-polygon
+		v-else-if="f.geometry.type === 'Polygon'"
+		:coordinates="f.geometry.coordinates"
+	/>
+
+	<ol-style :z-index="zIndex">
+		<template v-if="f.geometry.type === 'Point'">
 			<ol-style-circle :radius="sizes.featureSize * 3">
 				<ol-style-fill :color="colors.colorWithOpacity" />
 				<ol-style-stroke
@@ -141,31 +127,32 @@ const style = new Style({
 					:width="0"
 				/>
 			</ol-style-circle>
-		</ol-style>
-	</template>
-
-	<template v-else-if="f.geometry.type === 'LineString'">
-		<ol-geom-line-string :coordinates="f.geometry.coordinates" />
-		<ol-style :z-index="zIndex">
+		</template>
+		<template v-else>
+			<!-- LineString or Polygon -->
 			<ol-style-stroke
 				:color="colors.colorWithOpacity"
 				line-cap="butt"
 				:line-dash="lineDash"
 				:width="sizes.featureSize"
 			/>
-		</ol-style>
-	</template>
+		</template>
 
-	<template v-else-if="f.geometry.type === 'Polygon'">
-		<ol-geom-polygon :coordinates="f.geometry.coordinates" />
-		<ol-style :z-index="zIndex">
-			<ol-style-stroke
-				:color="colors.colorWithOpacity"
-				line-cap="butt"
-				:line-dash="lineDash"
-				:width="sizes.featureSize"
-			/>
-			<ol-style-fill :color="colors.polygonFillColor" />
-		</ol-style>
-	</template>
+		<ol-style-fill
+			v-if="f.geometry.type === 'Polygon'"
+			:color="colors.polygonFillColor"
+		/>
+
+		<ol-style-text
+			:background-fill="colors.colorWithOpacity"
+			:fill="colors.textColor"
+			:font="textParams.font"
+			:offset-y="1"
+			:overflow="true"
+			:padding="[3, 3, 3, 3]"
+			placement="point"
+			:rotation="textParams.rotation"
+			:text="textParams.text"
+		/>
+	</ol-style>
 </template>
