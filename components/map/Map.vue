@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
-import type { Feature as OlFeature, View } from 'ol';
+import type { Feature as OlFeature, Map, MapBrowserEvent, View } from 'ol';
 import type { ObjectEvent } from 'ol/Object';
 import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
@@ -33,7 +33,13 @@ onBeforeMount(() => {
 	selectedFeatureId.value = null;
 });
 
-function updateCurrentZoom(e: ObjectEvent) {
+function handlePointermove(e: MapBrowserEvent<UIEvent>) {
+	const map = e.target as Map;
+	const hit = map.getFeaturesAtPixel(e.pixel).find((f) => !f.get('hidden'));
+	map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+}
+
+function handleResolutionChange(e: ObjectEvent) {
 	currentZoom.value = (e.target as View).getZoom() || 0;
 }
 
@@ -149,11 +155,6 @@ export default {
 				this.$nuxt.$emit('selectAttempt', active || hidden); // feature or null
 			});
 
-			this.map.on('pointermove', (e) => {
-				const hit = this.map.getFeaturesAtPixel(e.pixel).find((f) => !f.get('hidden'));
-				this.map.getTargetElement().style.cursor = hit ? 'pointer' : '';
-			});
-
 			this.source.on('addfeature', (e) => {
 				const f = e.feature;
 				if (!f.getId()) {
@@ -230,6 +231,7 @@ export default {
 		:load-tiles-while-animating="true"
 		:load-tiles-while-interacting="true"
 		style="height: 100%"
+		@pointermove="handlePointermove"
 	>
 		<ol-view
 			ref="viewRef"
@@ -237,24 +239,21 @@ export default {
 			max-zoom="19"
 			:zoom="initialZoom"
 			:projection="PARTIMAP_PROJECTION"
-			@change:resolution="updateCurrentZoom"
+			@change:resolution="handleResolutionChange"
 		/>
 
 		<BaseMaps />
 
 		<ol-vector-layer>
 			<ol-source-vector ref="sourceRef">
-				<ol-feature
+				<MapFeature
 					v-for="f in visibleFeatures"
 					:key="f.id"
-				>
-					<MapFeature
-						:f="f"
-						:gray-rated="grayRated"
-						:label-override="(labelOverrides || {})[Number(f.id)] || ''"
-						:visitor="visitor"
-					/>
-				</ol-feature>
+					:f="f"
+					:gray-rated="grayRated"
+					:label-override="(labelOverrides || {})[Number(f.id)] || ''"
+					:visitor="visitor"
+				/>
 			</ol-source-vector>
 		</ol-vector-layer>
 

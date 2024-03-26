@@ -105,54 +105,56 @@ const lineDash = computed(() => {
 </script>
 
 <template>
-	<ol-geom-point
-		v-if="f.geometry.type === 'Point'"
-		:coordinates="f.geometry.coordinates"
-	/>
-	<ol-geom-line-string
-		v-else-if="f.geometry.type === 'LineString'"
-		:coordinates="f.geometry.coordinates"
-	/>
-	<ol-geom-polygon
-		v-else-if="f.geometry.type === 'Polygon'"
-		:coordinates="f.geometry.coordinates"
-	/>
+	<ol-feature>
+		<ol-geom-point
+			v-if="f.geometry.type === 'Point'"
+			:coordinates="f.geometry.coordinates"
+		/>
+		<ol-geom-line-string
+			v-else-if="f.geometry.type === 'LineString'"
+			:coordinates="f.geometry.coordinates"
+		/>
+		<ol-geom-polygon
+			v-else-if="f.geometry.type === 'Polygon'"
+			:coordinates="f.geometry.coordinates"
+		/>
 
-	<ol-style :z-index="zIndex">
-		<template v-if="f.geometry.type === 'Point'">
-			<ol-style-circle :radius="sizes.featureSize * 3">
-				<ol-style-fill :color="colors.colorWithOpacity" />
+		<ol-style :z-index="zIndex">
+			<template v-if="f.geometry.type === 'Point'">
+				<ol-style-circle :radius="sizes.featureSize * 3">
+					<ol-style-fill :color="colors.colorWithOpacity" />
+					<ol-style-stroke
+						:color="null"
+						:width="0"
+					/>
+				</ol-style-circle>
+			</template>
+			<template v-else>
+				<!-- LineString or Polygon -->
 				<ol-style-stroke
-					:color="null"
-					:width="0"
+					:color="colors.colorWithOpacity"
+					line-cap="butt"
+					:line-dash="lineDash"
+					:width="sizes.featureSize"
 				/>
-			</ol-style-circle>
-		</template>
-		<template v-else>
-			<!-- LineString or Polygon -->
-			<ol-style-stroke
-				:color="colors.colorWithOpacity"
-				line-cap="butt"
-				:line-dash="lineDash"
-				:width="sizes.featureSize"
+			</template>
+
+			<ol-style-fill
+				v-if="f.geometry.type === 'Polygon'"
+				:color="colors.polygonFillColor"
 			/>
-		</template>
 
-		<ol-style-fill
-			v-if="f.geometry.type === 'Polygon'"
-			:color="colors.polygonFillColor"
-		/>
-
-		<ol-style-text
-			:background-fill="colors.colorWithOpacity"
-			:fill="colors.textColor"
-			:font="textParams.font"
-			:offset-y="1"
-			:overflow="true"
-			:padding="[3, 3, 3, 3]"
-			placement="point"
-			:rotation="textParams.rotation"
-			:text="textParams.text"
-		/>
-	</ol-style>
+			<ol-style-text
+				:background-fill="colors.colorWithOpacity"
+				:fill="colors.textColor"
+				:font="textParams.font"
+				:offset-y="1"
+				:overflow="true"
+				:padding="[3, 3, 3, 3]"
+				placement="point"
+				:rotation="textParams.rotation"
+				:text="textParams.text"
+			/>
+		</ol-style>
+	</ol-feature>
 </template>
