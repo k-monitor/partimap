@@ -37,7 +37,7 @@ function parseFeatures() {
 
 const features = ref<GeoJsonFeature[]>(parseFeatures());
 watch(mapData, () => (features.value = parseFeatures()));
-watch(features, () => (contentModified.value = true));
+watch(features, () => (contentModified.value = true), { deep: true });
 
 const { errorToast, successToast } = useToasts();
 async function save() {

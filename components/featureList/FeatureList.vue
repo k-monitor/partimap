@@ -6,10 +6,19 @@ const { t } = useI18n();
 
 const { filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
 
-const sheet: Record<string, any> | undefined = inject('sheet'); // FIXME Sheet type
-const interactions: Record<string, any> | undefined = inject('interactions'); // FIXME Interactions type
+// FIXME
+//const sheet: Record<string, any> | undefined = inject('sheet'); // FIXME Sheet type
+//const interactions: Record<string, any> | undefined = inject('interactions'); // FIXME Interactions type
 
 const features = defineModel<GeoJsonFeature[]>();
+
+function handleFeatureChange(feature: GeoJsonFeature) {
+	const _features = features.value || [];
+	const index = _features.findIndex((f) => f.id === feature.id);
+	if (index === -1) return;
+	_features[index] = feature;
+	features.value = _features;
+}
 
 const props = defineProps<{
 	filename: string;
@@ -117,7 +126,7 @@ watch(selectedFeatureId, (id) => {
 });
 
 const filteredAdminFeatures = computed(() => {
-	let arr = filteredFeatures.value.filter((f) => f.properties?.visitorFeature);
+	let arr = filteredFeatures.value.filter((f) => !f.properties?.visitorFeature);
 	if (props.showResults) {
 		arr = arr.sort((a, b) => {
 			const ra = getAggregatedRatingValue(Number(a.id));
@@ -133,12 +142,16 @@ const filteredVisitorFeatures = computed(() => {
 });
 
 function getAggregatedRating(featureId: number) {
-	const dict = sheet?.ratings || {};
-	return dict[String(featureId)] || {};
+	// FIXME
+	return {};
+	//const dict = sheet?.ratings || {};
+	//return dict[String(featureId)] || {};
 }
 
 function getAggregatedRatingValue(featureId: number) {
-	const r = getAggregatedRating(featureId);
+	// FIXME
+	return 0;
+	/*const r = getAggregatedRating(featureId);
 	switch (interactions?.stars) {
 		case -2:
 			return r.sum;
@@ -146,7 +159,7 @@ function getAggregatedRatingValue(featureId: number) {
 			return r.count;
 		default:
 			return r.average;
-	}
+	}*/
 }
 
 // FIXME
@@ -316,18 +329,21 @@ async function deleteAll() {
 		:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
 	>
 		<div class="list-group">
-			<!-- <FeatureListElement
+			<FeatureListElement
 				v-for="feature in filteredAdminFeatures"
 				:key="feature.id"
+				:feature="feature"
+				@change="handleFeatureChange"
+			/>
+			<!--
 				:aggregated-rating="getAggregatedRating(Number(feature.id))"
 				:categories="categories"
-				:feature="feature"
 				:is-interactive="isInteractive"
 				:is-on-editor-view="isOnEditorView"
 				:is-on-sheet-view="isOnSheetView"
 				:is-on-submitted-view="isOnSubmittedView"
 				:show-results="showResults"
-			/> -->
+			-->
 		</div>
 	</form-group>
 
