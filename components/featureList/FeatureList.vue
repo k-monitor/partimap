@@ -6,9 +6,8 @@ const { t } = useI18n();
 
 const { filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
 
-// FIXME
-//const sheet: Record<string, any> | undefined = inject('sheet'); // FIXME Sheet type
-//const interactions: Record<string, any> | undefined = inject('interactions'); // FIXME Interactions type
+const sheet = inject<Record<string, any>>('sheet', {}); // FIXME Sheet type
+const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
 
 const features = defineModel<GeoJsonFeature[]>();
 
@@ -17,6 +16,14 @@ function handleFeatureChange(feature: GeoJsonFeature) {
 	const index = _features.findIndex((f) => f.id === feature.id);
 	if (index === -1) return;
 	_features[index] = feature;
+	features.value = _features;
+}
+
+function handleFeatureDelete(featureId: number) {
+	const _features = features.value || [];
+	const index = _features.findIndex((f) => f.id === featureId);
+	if (index === -1) return;
+	_features.splice(index, 1);
 	features.value = _features;
 }
 
@@ -142,24 +149,20 @@ const filteredVisitorFeatures = computed(() => {
 });
 
 function getAggregatedRating(featureId: number) {
-	// FIXME
-	return {};
-	//const dict = sheet?.ratings || {};
-	//return dict[String(featureId)] || {};
+	const dict = sheet.ratings || {};
+	return dict[String(featureId)] || {};
 }
 
 function getAggregatedRatingValue(featureId: number) {
-	// FIXME
-	return 0;
-	/*const r = getAggregatedRating(featureId);
-	switch (interactions?.stars) {
+	const r = getAggregatedRating(featureId);
+	switch (interactions.stars) {
 		case -2:
 			return r.sum;
 		case 1:
 			return r.count;
 		default:
 			return r.average;
-	}*/
+	}
 }
 
 // FIXME
@@ -313,14 +316,16 @@ async function deleteAll() {
 	>
 		<div class="list-group">
 			<!-- only on public interactive sheets -->
-			<!-- <FeatureListElement
+			<FeatureListElement
 				v-for="feature in filteredVisitorFeatures"
 				:key="feature.id"
 				:categories="categories"
 				:feature="feature"
 				is-interactive
 				:is-on-sheet-view="isOnSheetView"
-			/> -->
+				@change="handleFeatureChange"
+				@delete="handleFeatureDelete"
+			/>
 		</div>
 	</form-group>
 
@@ -332,18 +337,17 @@ async function deleteAll() {
 			<FeatureListElement
 				v-for="feature in filteredAdminFeatures"
 				:key="feature.id"
-				:feature="feature"
-				@change="handleFeatureChange"
-			/>
-			<!--
 				:aggregated-rating="getAggregatedRating(Number(feature.id))"
 				:categories="categories"
+				:feature="feature"
 				:is-interactive="isInteractive"
 				:is-on-editor-view="isOnEditorView"
 				:is-on-sheet-view="isOnSheetView"
 				:is-on-submitted-view="isOnSubmittedView"
 				:show-results="showResults"
-			-->
+				@change="handleFeatureChange"
+				@delete="handleFeatureDelete(Number(feature.id))"
+			/>
 		</div>
 	</form-group>
 

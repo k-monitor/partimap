@@ -1,131 +1,113 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
 
-const props = defineProps<{
-	feature: GeoJsonFeature;
-}>();
+const { t } = useI18n();
+
+const { selectedFeatureId, sidebarVisible } = useStore();
+
+const sheet = inject<Record<string, any>>('sheet', {}); // FIXME Sheet type
+const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
+
+const props = withDefaults(
+	defineProps<{
+		aggregatedRating: Record<string, number>; // FIXME need type
+		categories: string[];
+		feature: GeoJsonFeature;
+		isInteractive: boolean;
+		isOnEditorView: boolean;
+		isOnSheetView: boolean;
+		isOnSubmittedView: boolean;
+		showResults: boolean;
+	}>(),
+	{
+		isInteractive: true,
+	},
+);
+
+provide('feature', props.feature);
+provide('aggregatedRating', props.aggregatedRating);
 
 const emit = defineEmits<{
 	(e: 'change', f: GeoJsonFeature): void;
+	(e: 'delete'): void;
 }>();
 
-/*import Feature from 'ol/Feature';
-import { mapGetters, mapMutations } from 'vuex';
+const feature = toRef(props, 'feature');
+watch(feature, (f) => emit('change', f), { deep: true });
 
+const isSelected = computed(() => selectedFeatureId.value === props.feature.id);
+const isDeletable = computed(
+	() =>
+		props.isOnEditorView ||
+		(props.isOnSheetView && props.isInteractive) ||
+		props.isOnSubmittedView,
+);
+
+const confirmedClose = ref(false);
+
+const question = computed(() => {
+	const dt = feature.value.geometry.type;
+	const q = interactions.featureQuestions?.[dt] || {};
+	return q.label ? q : null;
+});
+
+const showSaveButtonOnStaticSheet = computed(() => {
+	const ias = interactions.enabled;
+	if (!ias.includes('Rating')) return false;
+	if (!ias.includes('RatingExplanation') && !ias.includes('RatingProsCons')) {
+		return false;
+	}
+	const ratings: any = /*this.getVisitorRatings(this.sheet?.id) ||*/ {}; // FIXME
+	const rating = ratings[String(props.feature.id)] || {
+		value: undefined,
+	};
+	return !!rating.value && !props.showResults;
+});
+
+const stars = computed(() => {
+	return interactions.stars;
+});
+
+const visitorCanName = computed(() => {
+	return interactions.enabled.includes('naming');
+});
+
+const visitorCanRate = computed(() => {
+	return interactions.enabled.includes('Rating');
+});
+
+watch(sidebarVisible, (v) => {
+	if (v && isSelected.value) {
+		expandFinished();
+	}
+});
+
+onMounted(() => {
+	if (isSelected.value) {
+		expandFinished();
+	}
+});
+
+const featureRef = ref<HTMLElement>();
+const cardRef = ref<HTMLElement>();
+
+function expandFinished() {
+	// custom scrollIntoView as its more accurate:
+	const t = featureRef.value?.offsetTop || 0;
+	document.getElementsByClassName('sidebar-body')[0].scrollTop = t - 75;
+	if (props.isOnSheetView && cardRef.value) {
+		const firstInput = cardRef.value.querySelector('input,textarea') as
+			| HTMLInputElement
+			| HTMLTextAreaElement;
+		if (firstInput?.tagName === 'TEXTAREA' || firstInput?.getAttribute('type') === 'text')
+			firstInput.focus();
+	}
+}
+
+/*
 export default {
-	provide() {
-		return {
-			aggregatedRating: this.aggregatedRating,
-			feature: this.feature,
-		};
-	},
-	inject: {
-		interactions: {
-			default: null,
-		},
-		sheet: {
-			default: null,
-		},
-	},
-	props: {
-		aggregatedRating: {
-			type: Object,
-			default: () => {},
-		},
-		categories: {
-			type: Array,
-			default: () => [],
-		},
-		feature: {
-			type: Feature,
-			default: new Feature(),
-		},
-		isInteractive: {
-			type: Boolean,
-			default: true,
-		},
-		isOnEditorView: {
-			type: Boolean,
-			default: false,
-		},
-		isOnSheetView: {
-			type: Boolean,
-			default: false,
-		},
-		isOnSubmittedView: {
-			type: Boolean,
-			default: false,
-		},
-		showResults: {
-			type: Boolean,
-			default: false,
-		},
-	},
-	data() {
-		return {
-			confirmedClose: false,
-			icons: {
-				Point: 'fa-map-marker-alt',
-				LineString: 'fa-route',
-				Polygon: 'fa-draw-polygon',
-			},
-		};
-	},
 	computed: {
-		...mapGetters(['getSidebarVisible']),
-		...mapGetters({ getSelectedFeature: 'selected/getSelectedFeature' }),
 		...mapGetters('visitordata', ['getVisitorRatings']),
-		isDeletable() {
-			return (
-				this.isOnEditorView ||
-				(this.isOnSheetView && this.isInteractive) ||
-				this.isOnSubmittedView
-			);
-		},
-		selectedFeature() {
-			return this.getSelectedFeature === this.feature;
-		},
-		question() {
-			const dt = this.feature.getGeometry().getType();
-			const q = this.interactions?.featureQuestions[dt] || {};
-			return q.label ? q : null;
-		},
-		showSaveButtonOnStaticSheet() {
-			const ias = this.interactions?.enabled;
-			if (!ias.includes('Rating')) return false;
-			if (!ias.includes('RatingExplanation') && !ias.includes('RatingProsCons')) {
-				return false;
-			}
-			const ratings = this.getVisitorRatings(this.sheet?.id) || {};
-			const rating = ratings[this.feature.getId()] || {
-				value: undefined,
-			};
-			return !!rating.value && !this.showResults;
-		},
-		stars() {
-			return this.interactions?.stars;
-		},
-		visitorCanName() {
-			return this.interactions?.enabled.includes('naming');
-		},
-		visitorCanRate() {
-			return this.interactions?.enabled.includes('Rating');
-		},
-	},
-	watch: {
-		getSidebarVisible(v) {
-			if (v && this.selectedFeature) {
-				this.expandFinished();
-			}
-		},
-	},
-	mounted() {
-		// notify feature list to initialize category tags/autocomplete
-		this.$emit('categoryEdited');
-		// When an element is created, scroll to it
-		if (this.selectedFeature) {
-			this.expandFinished();
-		}
 	},
 	created() {
 		this.$nuxt.$on('selectAttempt', this.handleSelectAttempt);
@@ -134,7 +116,6 @@ export default {
 		this.$nuxt.$off('selectAttempt', this.handleSelectAttempt);
 	},
 	methods: {
-		...mapMutations(['setSidebarVisible']),
 		async handleSelectAttempt(clickedFeature) {
 			const currentId = this.feature?.getId();
 			const selectedId = this.getSelectedFeature?.getId();
@@ -216,57 +197,48 @@ export default {
 				this.$nuxt.$emit('selectAttempt', this.feature);
 			}
 		},
-		async deleteFeature() {
-			const anon = this.$t('FeatureListElement.defaultName')[
-				this.feature.getGeometry().getType()
-			];
-			const nonEmptyName = this.feature.get('name') || anon;
-			const confirmed = await this.confirmDeletion(nonEmptyName || this.feature.id);
-			if (confirmed) {
-				this.$nuxt.$emit('clearFeature', this.feature);
-			}
-		},
-		expandFinished() {
-			// custom scrollIntoView as its more accurate:
-			const t = this.$refs.feature?.$el?.offsetTop || 0;
-			document.getElementsByClassName('b-sidebar-body')[0].scrollTop = t - 75;
-			if (this.isOnSheetView && this.$refs.card) {
-				const firstInput = this.$refs.card.querySelector('input,textarea');
-				if (firstInput?.tagName === 'TEXTAREA' || firstInput?.type === 'text')
-					firstInput.focus();
-			}
-		},
 	},
 };*/
+
+const { confirmDeletion } = useConfirmation();
+
+async function deleteFeature() {
+	const anon = t(`FeatureListElement.defaultName.${feature.value.geometry.type}`);
+	const nonEmptyName = feature.value.properties?.name || anon;
+	const confirmed = await confirmDeletion(nonEmptyName || props.feature.id);
+	if (!confirmed) return;
+	emit('delete');
+}
 </script>
 
 <template>
-	<!-- <div
+	<div
 		class="feature-list-element mt-1 rounded"
-		:class="{ highlight: selectedFeature }"
+		:class="{ highlight: isSelected }"
 	>
 		<div
-			v-if="selectedFeature"
+			v-if="isSelected"
 			class="fle-backdrop"
 			@click="featureClicked"
 		/>
 		<FeatureListElementHeader
-			ref="feature"
+			ref="featureRef"
 			:is-deletable="isDeletable"
-			:is-selected="selectedFeature"
+			:is-selected="isSelected"
 			:show-result="showResults"
 			@click="featureClicked"
 			@delete="deleteFeature"
 		/>
-		<b-collapse
-			:id="`collapse-${feature.getId()}`"
-			:visible="selectedFeature"
+		<!-- FIXME -->
+		<!-- <b-collapse
+			:id="`collapse-${feature.id}`"
+			:visible="isSelected"
 			accordion="my-accordion"
 			@shown="expandFinished()"
 		>
 			<b-card
-				v-if="selectedFeature"
-				ref="card"
+				v-if="isSelected"
+				ref="cardRef"
 				body-class="pb-3"
 				class="collapse-content py-0"
 				:class="{
@@ -274,8 +246,8 @@ export default {
 					'd-sm-none':
 						isOnSheetView &&
 						!isInteractive &&
-						!feature.get('category') &&
-						!feature.get('description') &&
+						!feature.properties?.category &&
+						!feature.properties?.description &&
 						!visitorCanRate,
 				}"
 			>
@@ -305,7 +277,7 @@ export default {
 						</template>
 						<template v-else>
 							<JumpToMapButton />
-							<TipTapDisplay :html="feature.get('description')" />
+							<TipTapDisplay :html="feature.properties?.description" />
 							<FeatureRatingControls
 								v-if="visitorCanRate"
 								:show-results="showResults"
@@ -338,8 +310,8 @@ export default {
 					</template>
 				</div>
 			</b-card>
-		</b-collapse>
-	</div> -->
+		</b-collapse> -->
+	</div>
 </template>
 
 <style scoped>
