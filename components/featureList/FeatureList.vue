@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import { safeParseJSONArray } from '~/server/utils/json';
 
 const { t } = useI18n();
+
+const { filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
+
+const sheet: Record<string, any> | undefined = inject('sheet'); // FIXME Sheet type
+const interactions: Record<string, any> | undefined = inject('interactions'); // FIXME Interactions type
 
 const features = defineModel<GeoJsonFeature[]>();
 
@@ -29,11 +35,37 @@ const availableFeatures = computed(() => {
 });
 
 const showSearch = computed(() => !props.isOnSheetView || availableFeatures.value.length > 3);
-
-const { filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
-const categories = ref<string[]>([]);
-const categoryFilter = ref('');
 const search = ref('');
+const categoryFilter = ref('');
+
+function toggleCategoryFilter(c: string) {
+	categoryFilter.value = categoryFilter.value === c ? '' : c;
+	setTimeout(() => {
+		if (isMobile()) sidebarVisible.value = false;
+	}, 500);
+}
+
+const categories = computed<string[]>(() => {
+	const cats = new Set(
+		availableFeatures.value
+			.map((f) => (f.properties?.category || '').trim())
+			.filter((f) => f.length),
+	);
+	return Array.from(cats);
+});
+
+const answers = computed(() => {
+	const answers: any[] = [];
+	(features.value || []).forEach((f) => {
+		const json = f.properties?.partimapFeatureQuestion_ans;
+		const arr = safeParseJSONArray(json);
+		arr.forEach((a) => {
+			if (!answers.includes(a)) answers.push(a);
+		});
+	});
+	answers.sort();
+	return answers;
+});
 
 const filteredFeatures = computed(() => {
 	return availableFeatures.value.filter(featureFilter).sort((a, b) => {
@@ -84,79 +116,45 @@ watch(selectedFeatureId, (id) => {
 	}
 });
 
+const filteredAdminFeatures = computed(() => {
+	let arr = filteredFeatures.value.filter((f) => f.properties?.visitorFeature);
+	if (props.showResults) {
+		arr = arr.sort((a, b) => {
+			const ra = getAggregatedRatingValue(Number(a.id));
+			const rb = getAggregatedRatingValue(Number(b.id));
+			return rb - ra;
+		});
+	}
+	return arr;
+});
+
+const filteredVisitorFeatures = computed(() => {
+	return filteredFeatures.value.filter((f) => f.properties?.visitorFeature);
+});
+
+function getAggregatedRating(featureId: number) {
+	const dict = sheet?.ratings || {};
+	return dict[String(featureId)] || {};
+}
+
+function getAggregatedRatingValue(featureId: number) {
+	const r = getAggregatedRating(featureId);
+	switch (interactions?.stars) {
+		case -2:
+			return r.sum;
+		case 1:
+			return r.count;
+		default:
+			return r.average;
+	}
+}
+
 // FIXME
 /*import { saveAs } from 'file-saver';
 import { featuresToKML, KMLToFeatures } from '@/assets/kml';
 
 export default {
-	inject: {
-		interactions: {
-			default: null,
-		},
-		sheet: {
-			default: null,
-		},
-	},
-	computed: {
-		filteredAdminFeatures() {
-			let arr = this.filteredFeatures.filter((f) => !f.get('visitorFeature'));
-			if (this.showResults) {
-				arr = arr.sort((a, b) => {
-					const ra = this.getAggregatedRatingValue(a);
-					const rb = this.getAggregatedRatingValue(b);
-					return rb - ra;
-				});
-			}
-
-			return arr;
-		},
-		filteredVisitorFeatures() {
-			return this.filteredFeatures.filter((f) => f.get('visitorFeature'));
-		},
-		answers() {
-			const answers = [];
-			this.getAllFeatures.forEach((f) => {
-				const json = f.get('partimapFeatureQuestion_ans');
-				try {
-					const arr = JSON.parse(json);
-					arr.forEach((a) => {
-						if (!answers.includes(a)) answers.push(a);
-					});
-				} catch {}
-			});
-			return answers.sort();
-		},
-	},
 	methods: {
-		getAggregatedRating(featureId) {
-			const dict = this.sheet?.ratings || {};
-			return dict[featureId.toString()] || {};
-		,
-		getAggregatedRatingValue(feature) {
-			const r = this.getAggregatedRating(feature.getId());
-			switch (this.interactions?.stars) {
-				case -2:
-					return r.sum;
-				case 1:
-					return r.count;
-				default:
-					return r.average;
-			}
-		},
-		updateCategories() {
-			const cats = new Set(
-				this.availableFeatures
-					.map((f) => (f.get('category') || '').trim())
-					.filter((f) => f.length),
-			);
-			this.categories = Array.from(cats);
-		},
-		toggleCategoryFilter(c) {
-			this.categoryFilter = this.categoryFilter === c ? '' : c;
-			setTimeout(() => {
-				if (isMobile()) this.setSidebarVisible(false);
-			}, 500);
-		},
 		exportKML() {
 			this.$nuxt.$emit('toggleLoading', true);
 			const kml = featuresToKML(this.filteredFeatures);
@@ -273,8 +271,7 @@ async function deleteAll() {
 					<i class="fas fa-backspace" />
 				</button>
 			</div>
-			<!-- FIXME -->
-			<!-- <div
+			<div
 				v-for="c in categories"
 				:key="c"
 				class="badge border border-secondary m-2"
@@ -293,54 +290,54 @@ async function deleteAll() {
 				@click="search === a ? (search = '') : (search = a)"
 			>
 				{{ a }}
-			</div> -->
+			</div>
 		</div>
 	</div>
+
+	<form-group
+		v-if="filteredVisitorFeatures.length"
+		:label="$t('FeatureList.ownFeatures')"
+	>
+		<div class="list-group">
+			<!-- only on public interactive sheets -->
+			<!-- <FeatureListElement
+				v-for="feature in filteredVisitorFeatures"
+				:key="feature.id"
+				:categories="categories"
+				:feature="feature"
+				is-interactive
+				:is-on-sheet-view="isOnSheetView"
+			/> -->
+		</div>
+	</form-group>
+
+	<form-group
+		v-if="!hideAdminFeatures"
+		:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
+	>
+		<div class="list-group">
+			<!-- <FeatureListElement
+				v-for="feature in filteredAdminFeatures"
+				:key="feature.id"
+				:aggregated-rating="getAggregatedRating(Number(feature.id))"
+				:categories="categories"
+				:feature="feature"
+				:is-interactive="isInteractive"
+				:is-on-editor-view="isOnEditorView"
+				:is-on-sheet-view="isOnSheetView"
+				:is-on-submitted-view="isOnSubmittedView"
+				:show-results="showResults"
+			/> -->
+		</div>
+	</form-group>
+
+	<p
+		v-if="search && !filteredFeatures.length"
+		class="font-italic text-muted"
+	>
+		{{ $t('FeatureList.notFound') }}
+	</p>
+
 	<!-- FIXME -->
-	<!--
-		<b-form-group
-			v-if="filteredVisitorFeatures.length"
-			:label="$t('FeatureList.ownFeatures')"
-		>
-			<b-list-group>
-				only on public interactive sheets
-				<FeatureListElement
-					v-for="feature in filteredVisitorFeatures"
-					:key="feature.getId()"
-					:categories="categories"
-					:feature="feature"
-					is-interactive
-					:is-on-sheet-view="isOnSheetView"
-					@category-edited="updateCategories"
-				/>
-			</b-list-group>
-		</b-form-group>
-		<b-form-group
-			v-if="!hideAdminFeatures"
-			:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
-		>
-			<b-list-group>
-				<FeatureListElement
-					v-for="feature in filteredAdminFeatures"
-					:key="feature.getId()"
-					:aggregated-rating="getAggregatedRating(feature.getId())"
-					:categories="categories"
-					:feature="feature"
-					:is-interactive="isInteractive"
-					:is-on-editor-view="isOnEditorView"
-					:is-on-sheet-view="isOnSheetView"
-					:is-on-submitted-view="isOnSubmittedView"
-					:show-results="showResults"
-					@category-edited="updateCategories"
-				/>
-			</b-list-group>
-		</b-form-group>
-		<p
-			v-if="search && !filteredFeatures.length"
-			class="font-italic text-muted"
-		>
-			{{ $t('FeatureList.notFound') }}
-		</p>
-		<FeatureImportModal @import-features="handleImportFeatures" />
-	-->
+	<!-- <FeatureImportModal @import-features="handleImportFeatures" /> -->
 </template>
