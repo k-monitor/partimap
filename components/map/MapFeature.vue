@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Style } from 'ol/style';
 import tinycolor from 'tinycolor2';
 import wordWrap from 'word-wrap';
 
@@ -23,6 +24,11 @@ const zIndex = computed(() => {
 	if (isSelected.value) return 1;
 	return 0;
 });
+function styleOverride(_feature: any, currentStyle: Style) {
+	// for some reason ol-style :z-index was buggy for points
+	currentStyle.setZIndex(zIndex.value);
+	return currentStyle;
+}
 
 // color and opacity
 function toHex(value100: number) {
@@ -119,7 +125,7 @@ const lineDash = computed(() => {
 			:coordinates="f.geometry.coordinates"
 		/>
 
-		<ol-style :z-index="zIndex">
+		<ol-style :override-style-function="styleOverride">
 			<template v-if="f.geometry.type === 'Point'">
 				<ol-style-circle :radius="sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
