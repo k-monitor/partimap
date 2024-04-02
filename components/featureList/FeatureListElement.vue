@@ -104,101 +104,98 @@ function expandFinished() {
 	}
 }
 
-/*
-export default {
-	computed: {
-		...mapGetters('visitordata', ['getVisitorRatings']),
-	},
-	created() {
-		this.$nuxt.$on('selectAttempt', this.handleSelectAttempt);
-	},
-	beforeUnmount() {
-		this.$nuxt.$off('selectAttempt', this.handleSelectAttempt);
-	},
-	methods: {
-		async handleSelectAttempt(clickedFeature) {
-			const currentId = this.feature?.getId();
-			const selectedId = this.getSelectedFeature?.getId();
-			const clickedId = clickedFeature?.getId();
-			const isHidden = clickedFeature?.get('hidden') && this.isOnSheetView;
+function getRatingObj() {
+	// FIXME
+	//const ratings = this.getVisitorRatings(this.sheet?.id) || {};
+	const ratings = {} as any;
+	return ratings[String(feature.value.id)] || { value: undefined };
+}
 
-			if (!selectedId && clickedId === currentId) {
-				// no feature selected currently
-				// this feature was clicked on map
-				// --> finalize feature selection
-				this.$store.commit('selected/change', clickedFeature);
-			}
+const visitorFilledEverything = computed(() => {
+	if (props.isInteractive) {
+		if (!feature.value.properties?.description) return false;
+		if (!question.value) return true;
+		try {
+			const answer = JSON.parse(feature.value.properties?.partimapFeatureQuestion_ans);
+			if (!Array.isArray(answer) || !answer.length) return false;
+		} catch {
+			return false;
+		}
+	} else if (feature.value.properties?.rating) {
+		const ratingObj = getRatingObj();
+		const ias = interactions?.enabled || [];
+		if (ias.includes('RatingExplanation')) {
+			if (!ratingObj.answer) return false;
+		} else if (ias.includes('RatingProsCons')) {
+			if (!ratingObj.pros && !ratingObj.cons) return false;
+		}
+	}
+	return true;
+});
 
-			if (!this.selectedFeature) return;
-			// this feature is selected currently
+const { confirmFeatureClose } = useConfirmation();
 
-			if (clickedId !== currentId) {
-				// another feature was clicked
-				// --> confirm as needed
-				const canDeselect = await this.canDeselectFeature();
-				if (canDeselect) {
-					if (isHidden) {
-						this.$store.commit('selected/clear');
-					} else {
-						this.$store.commit('selected/change', clickedFeature);
-						// this will also open the sidebar but with delay
-						// logic in Sidebar.vue
-					}
-				} else {
-					this.setSidebarVisible(true);
-				}
+async function canDeselectFeature() {
+	if (props.isOnSheetView && !visitorFilledEverything.value && !confirmedClose.value) {
+		const confirmed = await confirmFeatureClose();
+		if (!confirmed) return false;
+		confirmedClose.value = true;
+	}
+	return true;
+}
+
+const { emitSelectAttempt, onSelectAttempt } = useSelectAttempt();
+
+async function featureClicked() {
+	if (isSelected.value) {
+		const canDeselect = await canDeselectFeature();
+		if (!canDeselect) return;
+		selectedFeatureId.value = null;
+		document.querySelector('.sidebar-body')?.scrollTo(0, 0);
+	} else {
+		emitSelectAttempt(feature.value);
+	}
+}
+
+onSelectAttempt(async (clickedFeature) => {
+	// TODO would be nice to make it clearer (e.g. work only with curr = clicked case) and move it up to FL
+
+	const currentId = Number(feature.value.id);
+	const selectedId = selectedFeatureId.value;
+	const clickedId = Number(clickedFeature?.id);
+	const isHidden = clickedFeature?.properties?.hidden && props.isOnSheetView;
+
+	if (!selectedId && clickedId === currentId) {
+		// no feature selected currently
+		// this feature was clicked on map
+		// --> finalize feature selection
+		selectedFeatureId.value = clickedId;
+	}
+
+	if (!isSelected.value) return;
+	// this feature is selected currently
+
+	if (clickedId !== currentId) {
+		// another feature was clicked
+		// --> confirm as needed
+		const canDeselect = await canDeselectFeature();
+		if (canDeselect) {
+			if (isHidden) {
+				selectedFeatureId.value = null;
 			} else {
-				// this feature was clicked on map
-				// --> open sidebar if needed
-				this.setSidebarVisible(true);
+				selectedFeatureId.value = clickedId;
+				// this will also open the sidebar but with delay
+				// logic in Sidebar.vue
 			}
-		},
-		visitorFilledEverything() {
-			if (this.isInteractive) {
-				if (!this.feature.get('description')) return false;
-				if (!this.question) return true;
-				try {
-					const answer = JSON.parse(this.feature.get('partimapFeatureQuestion_ans'));
-					if (!Array.isArray(answer) || !answer.length) return false;
-				} catch {
-					return false;
-				}
-			} else if (this.feature.get('rating')) {
-				const ratingObj = this.getRatingObj();
-				const ias = this.interactions?.enabled;
-				if (ias.includes('RatingExplanation')) {
-					if (!ratingObj.answer) return false;
-				} else if (ias.includes('RatingProsCons')) {
-					if (!ratingObj.pros && !ratingObj.cons) return false;
-				}
-			}
-
-			return true;
-		},
-		getRatingObj() {
-			const ratings = this.getVisitorRatings(this.sheet?.id) || {};
-			return ratings[this.feature.getId()] || { value: undefined };
-		},
-		async canDeselectFeature() {
-			if (this.isOnSheetView && !this.visitorFilledEverything() && !this.confirmedClose) {
-				const confirmed = await this.confirmFeatureClose();
-				if (!confirmed) return false;
-				this.confirmedClose = true;
-			}
-			return true;
-		},
-		async featureClicked() {
-			if (this.selectedFeature) {
-				const canDeselect = await this.canDeselectFeature();
-				if (!canDeselect) return;
-				this.$store.commit('selected/remove', this.feature);
-				document.querySelector('.b-sidebar-body').scrollTo(0, 0);
-			} else {
-				this.$nuxt.$emit('selectAttempt', this.feature);
-			}
-		},
-	},
-};*/
+		} else {
+			sidebarVisible.value = true;
+		}
+	} else {
+		// this feature was clicked on map
+		// --> open sidebar if needed
+		sidebarVisible.value = true;
+	}
+});
 
 const { confirmDeletion } = useConfirmation();
 

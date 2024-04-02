@@ -88,6 +88,21 @@ const visibleFeatures = computed(() => {
 	});
 });
 
+// select
+
+const { emitSelectAttempt } = useSelectAttempt();
+
+function handleClick(e: MapBrowserEvent<UIEvent>) {
+	const map = e.target as Map;
+	const clicked = map.getFeaturesAtPixel(e.pixel);
+	const active = clicked.find((f) => !f.get('hidden'));
+	const hidden = clicked.find((f) => f.get('hidden'));
+	const id = active?.get('id') || hidden?.get('id'); // see MapFeature :properties
+
+	const feature = props.features?.find((f) => f.id === id);
+	emitSelectAttempt(feature || null);
+}
+
 // FIXME
 
 /*
@@ -147,14 +162,6 @@ export default {
 	},
 	methods: {
 		addEventListeners() {
-			this.map.on('click', (e) => {
-				if (this.drawType) return;
-				const clicked = this.map.getFeaturesAtPixel(e.pixel);
-				const active = clicked.find((f) => !f.get('hidden'));
-				const hidden = clicked.find((f) => f.get('hidden'));
-				this.$nuxt.$emit('selectAttempt', active || hidden); // feature or null
-			});
-
 			this.source.on('addfeature', (e) => {
 				const f = e.feature;
 				if (!f.getId()) {
@@ -231,6 +238,7 @@ export default {
 		:load-tiles-while-animating="true"
 		:load-tiles-while-interacting="true"
 		style="height: 100%"
+		@click="handleClick"
 		@pointermove="handlePointermove"
 	>
 		<ol-view

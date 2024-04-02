@@ -8,7 +8,12 @@ export default defineNuxtConfig({
 		'bootstrap/dist/css/bootstrap.min.css',
 	],
 	devtools: { enabled: true },
-	modules: ['@bootstrap-vue-next/nuxt', '@nuxtjs/i18n', '@zadigetvoltaire/nuxt-gtm'],
+	modules: [
+		'@bootstrap-vue-next/nuxt',
+		'@nuxtjs/i18n',
+		'@vueuse/nuxt',
+		'@zadigetvoltaire/nuxt-gtm',
+	],
 	runtimeConfig: {
 		public: {
 			baseUrl: env.NUXT_PUBLIC_BASE_URL,

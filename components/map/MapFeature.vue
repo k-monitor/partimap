@@ -105,7 +105,7 @@ const lineDash = computed(() => {
 </script>
 
 <template>
-	<ol-feature>
+	<ol-feature :properties="{ id: f.id }">
 		<ol-geom-point
 			v-if="f.geometry.type === 'Point'"
 			:coordinates="f.geometry.coordinates"
