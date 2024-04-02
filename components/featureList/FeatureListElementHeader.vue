@@ -53,8 +53,10 @@ const ratingResult = computed(() => {
 	<button
 		class="list-group-item list-group-item-action align-items-center d-flex justify-content-between p-2 rounded"
 		:style="{
-			borderLeftWidth: '5px',
+			borderBottomLeftRadius: isSelected ? '0 !important' : 'inherit',
+			borderBottomRightRadius: isSelected ? '0 !important' : 'inherit',
 			borderLeftColor: feature?.properties?.color,
+			borderLeftWidth: '5px',
 			opacity: !isSelected && !showResult && isRated ? 0.6 : 1,
 		}"
 		@click="$emit('click')"

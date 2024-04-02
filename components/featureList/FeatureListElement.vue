@@ -226,88 +226,86 @@ async function deleteFeature() {
 			@click="featureClicked"
 			@delete="deleteFeature"
 		/>
-		<!-- FIXME -->
-		<!-- <b-collapse
-			:id="`collapse-${feature.id}`"
-			:visible="isSelected"
-			accordion="my-accordion"
-			@shown="expandFinished()"
-		>
-			<b-card
-				v-if="isSelected"
-				ref="cardRef"
-				body-class="pb-3"
-				class="collapse-content py-0"
-				:class="{
-					/* only hiding above 'sm' because below we have the jump btn */
-					'd-sm-none':
-						isOnSheetView &&
-						!isInteractive &&
-						!feature.properties?.category &&
-						!feature.properties?.description &&
-						!visitorCanRate,
-				}"
+		<client-only>
+			<b-collapse
+				accordion="feature-list-accordion"
+				:visible="isSelected"
+				@shown="expandFinished()"
 			>
-				<div
-					class="d-flex flex-column"
-					style="gap: 1rem"
+				<b-card
+					v-if="isSelected"
+					ref="cardRef"
+					body-class="pb-3"
+					class="collapse-content py-0"
+					:class="{
+						/* only hiding above 'sm' because below we have the jump btn */
+						'd-sm-none':
+							isOnSheetView &&
+							!isInteractive &&
+							!feature.properties?.category &&
+							!feature.properties?.description &&
+							!visitorCanRate,
+					}"
 				>
-					<template v-if="isOnSubmittedView">
-						<JumpToMapButton />
-						<SubmittedFeatureInfo />
-						<FeatureListElementFooter
-							show-delete
-							@delete="deleteFeature"
-						/>
-					</template>
-					<template v-if="isOnSheetView">
-						<template v-if="isInteractive">
-							<FeatureNameEditor v-if="visitorCanName" />
-							<FeatureQuestionDisplay />
-							<FeatureDescriptionPlainEditor />
+					<div
+						class="d-flex flex-column"
+						style="gap: 1rem"
+					>
+						<!-- FIXME -->
+						<!-- <template v-if="isOnSubmittedView">
+							<JumpToMapButton />
+							<SubmittedFeatureInfo />
 							<FeatureListElementFooter
 								show-delete
-								show-save
+								@delete="deleteFeature"
+							/>
+						</template>
+						<template v-if="isOnSheetView">
+							<template v-if="isInteractive">
+								<FeatureNameEditor v-if="visitorCanName" />
+								<FeatureQuestionDisplay />
+								<FeatureDescriptionPlainEditor />
+								<FeatureListElementFooter
+									show-delete
+									show-save
+									@delete="deleteFeature"
+									@save="featureClicked"
+								/>
+							</template>
+							<template v-else>
+								<JumpToMapButton />
+								<TipTapDisplay :html="feature.properties?.description" />
+								<FeatureRatingControls
+									v-if="visitorCanRate"
+									:show-results="showResults"
+								/>
+								<FeatureListElementFooter
+									v-if="showSaveButtonOnStaticSheet"
+									show-save
+									@save="featureClicked"
+								/>
+							</template>
+						</template> -->
+						<template v-if="isOnEditorView">
+							<!-- <FeatureRatingControls
+								v-if="aggregatedRating.count"
+								show-results
+							/> -->
+							<FeatureNameEditor />
+							<!-- <FeatureStyleEditor />
+							<FeatureCategoryEditor :categories="categories" />
+							<FeatureDescriptionRichEditor />
+							<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
+							<FeatureListElementFooter
+								save
 								@delete="deleteFeature"
 								@save="featureClicked"
-							/>
+							/> -->
 						</template>
-						<template v-else>
-							<JumpToMapButton />
-							<TipTapDisplay :html="feature.properties?.description" />
-							<FeatureRatingControls
-								v-if="visitorCanRate"
-								:show-results="showResults"
-							/>
-							<FeatureListElementFooter
-								v-if="showSaveButtonOnStaticSheet"
-								show-save
-								@save="featureClicked"
-							/>
-						</template>
-					</template>
-					<template v-if="isOnEditorView">
-						<FeatureRatingControls
-							v-if="aggregatedRating.count"
-							show-results
-						/>
-						<FeatureNameEditor />
-						<FeatureStyleEditor />
-						<FeatureCategoryEditor
-							:categories="categories"
-							@change="$emit('categoryEdited')"
-						/>
-						<FeatureDescriptionRichEditor />
-						<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
-						<FeatureListElementFooter
-							save
-							@delete="deleteFeature"
-							@save="featureClicked"
-						/>
-					</template>
-				</div>
-			</b-card>
-		</b-collapse> -->
+					</div>
+				</b-card>
+			</b-collapse>
+		</client-only>
 	</div>
 </template>
 
