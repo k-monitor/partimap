@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { BCard } from 'bootstrap-vue-next';
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type FeatureListElementHeader from '~/components/featureList/FeatureListElementHeader.vue';
 
 const { t } = useI18n();
 
@@ -88,19 +90,20 @@ onMounted(() => {
 	}
 });
 
-const featureRef = ref<HTMLElement>();
-const cardRef = ref<HTMLElement>();
+const featureRef = ref<InstanceType<typeof FeatureListElementHeader> | null>();
+const cardRef = ref<InstanceType<typeof BCard> | null>();
 
-function expandFinished() {
+async function expandFinished() {
 	// custom scrollIntoView as its more accurate:
-	const t = featureRef.value?.offsetTop || 0;
+	await nextTick();
+	const t = featureRef.value?.$el?.offsetTop || 0;
 	document.getElementsByClassName('sidebar-body')[0].scrollTop = t - 75;
 	if (props.isOnSheetView && cardRef.value) {
-		const firstInput = cardRef.value.querySelector('input,textarea') as
+		const firstInput = cardRef.value?.$el?.querySelector('input[type="text"],textarea') as
 			| HTMLInputElement
-			| HTMLTextAreaElement;
-		if (firstInput?.tagName === 'TEXTAREA' || firstInput?.getAttribute('type') === 'text')
-			firstInput.focus();
+			| HTMLTextAreaElement
+			| undefined;
+		firstInput?.focus();
 	}
 }
 
@@ -230,7 +233,7 @@ async function deleteFeature() {
 			<b-collapse
 				accordion="feature-list-accordion"
 				:visible="isSelected"
-				@shown="expandFinished()"
+				@show="expandFinished"
 			>
 				<b-card
 					v-if="isSelected"
