@@ -48,7 +48,7 @@ function handleResolutionChange(e: ObjectEvent) {
 const viewRef = ref<{ view: View }>();
 const sourceRef = ref<{ source: Vector }>();
 
-function fitViewToFeatures() {
+function fitViewToFeatures(immediate?: boolean) {
 	const olFeatures = sourceRef.value?.source.getFeatures();
 	if (!olFeatures || !olFeatures.length) return;
 
@@ -63,14 +63,14 @@ function fitViewToFeatures() {
 
 	if (!extent) return;
 	viewRef.value?.view.fit(extent, {
-		duration: 200,
+		duration: immediate ? 0 : 200,
 		padding: [80, 80, 80, 80],
 	});
 }
 
 onMounted(async () => {
 	await nextTick(); // wait for OL to have the features
-	fitViewToFeatures();
+	fitViewToFeatures(true);
 });
 
 watch([selectedFeatureId, sidebarVisible], () => fitViewToFeatures());

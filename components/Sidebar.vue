@@ -9,26 +9,18 @@ const props = defineProps<{
 	project?: any; // FIXME Project type
 }>();
 
-const mounted = ref(false);
-onMounted(() => {
-	const delay = isMobile() ? 500 : 0;
-	setTimeout(() => (mounted.value = true), delay);
-});
-
 const { drawType, sidebarVisible } = useStore();
 
-const visible = computed({
-	// TODO this logic might go into useStore (or a specific useSidebar composable)
-	get() {
-		const isMob = typeof window !== 'undefined' && isMobile();
-		return props.fixed ? true : sidebarVisible.value && (mounted.value || !isMob);
-	},
-	set(v) {
-		if (!props.fixed) {
-			sidebarVisible.value = v;
-		}
-	},
+onMounted(() => {
+	if (props.fixed || !isMobile()) return;
+	// on mobile we show how sidebar appears:
+	sidebarVisible.value = false;
+	setTimeout(() => {
+		sidebarVisible.value = true;
+	}, 500);
 });
+
+const visible = computed(() => props.fixed || sidebarVisible.value);
 const visibleAndLoaded = computed(() => visible.value && !props.loading);
 
 const sidebarButtonInsideIcons = ref<HTMLElement>();
