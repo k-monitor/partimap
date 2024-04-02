@@ -252,9 +252,9 @@ async function deleteFeature() {
 						style="gap: 1rem"
 					>
 						<!-- FIXME -->
-						<!-- <template v-if="isOnSubmittedView">
+						<template v-if="isOnSubmittedView">
 							<JumpToMapButton />
-							<SubmittedFeatureInfo />
+							<!-- <SubmittedFeatureInfo /> -->
 							<FeatureListElementFooter
 								show-delete
 								@delete="deleteFeature"
@@ -263,8 +263,8 @@ async function deleteFeature() {
 						<template v-if="isOnSheetView">
 							<template v-if="isInteractive">
 								<FeatureNameEditor v-if="visitorCanName" />
-								<FeatureQuestionDisplay />
-								<FeatureDescriptionPlainEditor />
+								<!-- <FeatureQuestionDisplay />
+								<FeatureDescriptionPlainEditor /> -->
 								<FeatureListElementFooter
 									show-delete
 									show-save
@@ -274,18 +274,18 @@ async function deleteFeature() {
 							</template>
 							<template v-else>
 								<JumpToMapButton />
-								<TipTapDisplay :html="feature.properties?.description" />
+								<!-- <TipTapDisplay :html="feature.properties?.description" />
 								<FeatureRatingControls
 									v-if="visitorCanRate"
 									:show-results="showResults"
-								/>
+								/> -->
 								<FeatureListElementFooter
 									v-if="showSaveButtonOnStaticSheet"
 									show-save
 									@save="featureClicked"
 								/>
 							</template>
-						</template> -->
+						</template>
 						<template v-if="isOnEditorView">
 							<!-- <FeatureRatingControls
 								v-if="aggregatedRating.count"
@@ -294,14 +294,13 @@ async function deleteFeature() {
 							<FeatureNameEditor />
 							<FeatureStyleEditor />
 							<!-- <FeatureCategoryEditor :categories="categories" />
-							<FeatureDescriptionRichEditor />
+							<FeatureDescriptionRichEditor /> -->
 							<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 							<FeatureListElementFooter
 								save
 								@delete="deleteFeature"
 								@save="featureClicked"
 							/>
-							-->
 						</template>
 					</div>
 				</b-card>

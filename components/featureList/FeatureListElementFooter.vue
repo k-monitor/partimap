@@ -1,3 +1,15 @@
+<script setup lang="ts">
+defineProps<{
+	showDelete?: boolean;
+	showSave?: boolean;
+}>();
+
+defineEmits<{
+	(e: 'delete'): void;
+	(e: 'save'): void;
+}>();
+</script>
+
 <template>
 	<div class="align-items-center d-flex">
 		<button
@@ -17,18 +29,3 @@
 		</button>
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		showDelete: {
-			type: Boolean,
-			default: false,
-		},
-		showSave: {
-			type: Boolean,
-			default: false,
-		},
-	},
-};
-</script>
