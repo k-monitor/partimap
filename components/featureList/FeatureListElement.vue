@@ -292,15 +292,16 @@ async function deleteFeature() {
 								show-results
 							/> -->
 							<FeatureNameEditor />
-							<!-- <FeatureStyleEditor />
-							<FeatureCategoryEditor :categories="categories" />
+							<FeatureStyleEditor />
+							<!-- <FeatureCategoryEditor :categories="categories" />
 							<FeatureDescriptionRichEditor />
 							<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 							<FeatureListElementFooter
 								save
 								@delete="deleteFeature"
 								@save="featureClicked"
-							/> -->
+							/>
+							-->
 						</template>
 					</div>
 				</b-card>

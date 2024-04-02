@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
-import type { Style } from 'ol/style';
+import { Fill, type Style } from 'ol/style';
 import tinycolor from 'tinycolor2';
 import wordWrap from 'word-wrap';
 
@@ -108,6 +108,15 @@ const lineDash = computed(() => {
 	const dash = props.f.properties?.dash || '1'; // FIXME shouldn't this be 0? see Map.vue default
 	return dash.split(',').map((w: string) => Number(w) * sizes.value.featureSize);
 });
+
+const stylePresent = ref(true);
+const polygonFillColor = computed(() => colors.value.polygonFillColor);
+watch([polygonFillColor, lineDash], () => {
+	// ol-style-stroke :line-dash and ol-style-fill :color was not reactive for polygons
+	// so we recreate the style basically to redraw it on map
+	stylePresent.value = false;
+	nextTick(() => (stylePresent.value = true));
+});
 </script>
 
 <template>
@@ -125,7 +134,10 @@ const lineDash = computed(() => {
 			:coordinates="f.geometry.coordinates"
 		/>
 
-		<ol-style :override-style-function="styleOverride">
+		<ol-style
+			v-if="stylePresent"
+			:override-style-function="styleOverride"
+		>
 			<template v-if="f.geometry.type === 'Point'">
 				<ol-style-circle :radius="sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
