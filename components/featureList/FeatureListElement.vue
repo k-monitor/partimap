@@ -164,18 +164,19 @@ onSelectAttempt(async (clickedFeature) => {
 	// TODO would be nice to make it clearer (e.g. work only with curr = clicked case) and move it up to FL
 
 	const currentId = Number(feature.value.id);
-	const selectedId = selectedFeatureId.value;
 	const clickedId = Number(clickedFeature?.id);
 	const isHidden = clickedFeature?.properties?.hidden && props.isOnSheetView;
 
-	if (!selectedId && clickedId === currentId) {
-		// no feature selected currently
-		// this feature was clicked on map
-		// --> finalize feature selection
-		selectedFeatureId.value = clickedId;
+	if (!selectedFeatureId.value) {
+		if (clickedId === currentId) {
+			// no feature selected currently
+			// this feature was clicked on map
+			// --> finalize feature selection
+			selectedFeatureId.value = clickedId;
+		}
+		return;
 	}
 
-	if (!isSelected.value) return;
 	// this feature is selected currently
 
 	if (clickedId !== currentId) {
