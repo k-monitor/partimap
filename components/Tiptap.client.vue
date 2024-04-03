@@ -1,9 +1,62 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<script setup lang="ts">
+import { Image } from '@tiptap/extension-image';
+import { Link } from '@tiptap/extension-link';
+import { Youtube } from '@tiptap/extension-youtube';
+
+const html = defineModel<string>();
+
+const editor = useEditor({
+	content: html.value || '',
+	extensions: [
+		TiptapStarterKit,
+		Image,
+		Link.configure({
+			openOnClick: false,
+		}),
+		Youtube.configure({
+			height: 180,
+			width: 240,
+		}),
+	],
+	onUpdate: () => (html.value = editor.value?.getHTML()),
+});
+
+watch(html, (v) => {
+	if (!editor.value) return;
+	if (editor.value.getHTML() === v) return;
+	editor.value.commands.setContent(v || '', false);
+});
+
+function addImage() {
+	if (!editor.value) return;
+	const src = window.prompt('URL');
+	if (src) editor.value.chain().focus().setImage({ src }).run();
+}
+
+function addYoutube() {
+	if (!editor.value) return;
+	const src = window.prompt('YouTube video URL');
+	if (src) editor.value.commands.setYoutubeVideo({ src });
+}
+
+function setLink() {
+	if (!editor.value) return;
+	const previousUrl = editor.value.getAttributes('link').href;
+	const url = window.prompt('URL', previousUrl);
+	if (url === null) return;
+	if (url === '') {
+		editor.value.chain().focus().extendMarkRange('link').unsetLink().run();
+		return;
+	}
+	editor.value.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+}
+</script>
+
 <template>
 	<div v-if="editor">
-		<div
-			class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar"
-		>
-			<div class="border-bottom border-right px-1">
+		<div class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar">
+			<div class="border-bottom border-end px-1">
 				<b-button
 					size="sm"
 					variant="light"
@@ -19,16 +72,14 @@
 					<i class="fas fa-fw fa-redo" />
 				</b-button>
 			</div>
-			<div class="border-bottom border-right px-1">
+			<div class="border-bottom border-end px-1">
 				<b-button
 					:class="{
 						active: editor.isActive('heading', { level: 4 }),
 					}"
 					size="sm"
 					variant="light"
-					@click="
-						editor.chain().focus().toggleHeading({ level: 4 }).run()
-					"
+					@click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
 				>
 					<i class="fas _fa-fw fa-heading" />
 					<strong>1</strong>
@@ -39,9 +90,7 @@
 					}"
 					size="sm"
 					variant="light"
-					@click="
-						editor.chain().focus().toggleHeading({ level: 5 }).run()
-					"
+					@click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
 				>
 					<i class="fas _fa-fw fa-heading" />
 					<strong>2</strong>
@@ -63,7 +112,7 @@
 					<i class="fas fa-fw fa-list-ul" />
 				</b-button>
 			</div>
-			<div class="border-bottom border-right px-1 flex-grow-1">
+			<div class="border-bottom border-end px-1 flex-grow-1">
 				<b-button
 					:class="{ active: editor.isActive('bold') }"
 					size="sm"
@@ -107,133 +156,24 @@
 				<b-button
 					size="sm"
 					variant="light"
-					@click="
-						editor
-							.chain()
-							.focus()
-							.clearNodes()
-							.unsetAllMarks()
-							.run()
-					"
+					@click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
 				>
 					<i class="fas fa-fw fa-remove-format" />
 				</b-button>
 			</div>
 		</div>
 		<div class="border-top-0 form-control tiptap-editor">
-			<editor-content :editor="editor" />
+			<TiptapEditorContent :editor="editor" />
 		</div>
 	</div>
 </template>
-
-<script>
-import { Editor, EditorContent } from '@tiptap/vue-2';
-import { Image } from '@tiptap/extension-image';
-import { Link } from '@tiptap/extension-link';
-import { Youtube } from '@tiptap/extension-youtube';
-import { StarterKit } from '@tiptap/starter-kit';
-
-export default {
-	components: {
-		EditorContent,
-	},
-
-	props: {
-		value: {
-			type: String,
-			default: '',
-		},
-	},
-
-	data() {
-		return {
-			editor: null,
-		};
-	},
-
-	watch: {
-		value(value) {
-			if (!this.editor) {
-				return;
-			}
-			const isSame = this.editor.getHTML() === value;
-			if (isSame) {
-				return;
-			}
-			this.editor.commands.setContent(value, false);
-		},
-	},
-
-	mounted() {
-		this.editor = new Editor({
-			content: this.value,
-			extensions: [
-				StarterKit,
-				Image,
-				Link.configure({
-					openOnClick: false,
-				}),
-				Youtube.configure({
-					height: 180,
-					width: 240,
-				}),
-			],
-			onUpdate: () => {
-				this.$emit('input', this.editor.getHTML());
-			},
-		});
-	},
-
-	beforeDestroy() {
-		if (this.editor) {
-			this.editor.destroy();
-		}
-	},
-
-	methods: {
-		addImage() {
-			const src = window.prompt('URL');
-			if (src) {
-				this.editor.chain().focus().setImage({ src }).run();
-			}
-		},
-		addYoutube() {
-			const src = window.prompt('YouTube video URL');
-			if (src) {
-				this.editor.commands.setYoutubeVideo({ src });
-			}
-		},
-		setLink() {
-			const previousUrl = this.editor.getAttributes('link').href;
-			const url = window.prompt('URL', previousUrl);
-			if (url === null) {
-				return;
-			}
-			if (url === '') {
-				this.editor
-					.chain()
-					.focus()
-					.extendMarkRange('link')
-					.unsetLink()
-					.run();
-				return;
-			}
-			this.editor
-				.chain()
-				.focus()
-				.extendMarkRange('link')
-				.setLink({ href: url })
-				.run();
-		},
-	},
-};
-</script>
 
 <style>
 .tiptap-editor {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 	height: auto;
+	min-height: 50px;
 }
 
 .tiptap-editor .ProseMirror {

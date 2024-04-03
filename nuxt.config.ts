@@ -13,6 +13,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/i18n',
 		'@vueuse/nuxt',
 		'@zadigetvoltaire/nuxt-gtm',
+		'nuxt-tiptap-editor',
 	],
 	runtimeConfig: {
 		public: {
@@ -41,5 +42,8 @@ export default defineNuxtConfig({
 		],
 		strategy: 'prefix',
 		vueI18n: 'i18n.config.ts',
+	},
+	tiptap: {
+		prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
 	},
 });
