@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import { saveAs } from 'file-saver';
 import { safeParseJSONArray } from '~/server/utils/json';
 
 const { t } = useI18n();
 
-const { filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
+const { filteredFeatureIds, loading, selectedFeatureId, sidebarVisible } = useStore();
 
 const sheet = inject<Record<string, any>>('sheet', {}); // FIXME Sheet type
 const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
@@ -165,21 +166,21 @@ function getAggregatedRatingValue(featureId: number) {
 	}
 }
 
-// FIXME
-/*import { saveAs } from 'file-saver';
-import { featuresToKML, KMLToFeatures } from '@/assets/kml';
+async function exportKML() {
+	loading.value = true;
+	await nextTick();
+	const kml = featuresToKML(filteredFeatures.value);
+	const blob = new Blob([kml], {
+		type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
+	});
+	saveAs(blob, (props.filename || 'partimap') + '.kml');
+	loading.value = false;
+}
 
+// FIXME
+/*
 export default {
 	methods: {
-		exportKML() {
-			this.$nuxt.$emit('toggleLoading', true);
-			const kml = featuresToKML(this.filteredFeatures);
-			const blob = new Blob([kml], {
-				type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
-			});
-			this.$nuxt.$emit('toggleLoading', false);
-			saveAs(blob, (this.filename || 'partimap') + '.kml');
-		},
 		importKML() {
 			const input = document.createElement('input');
 			input.setAttribute('type', 'file');
@@ -231,15 +232,14 @@ async function deleteAll() {
 			v-if="!isOnSheetView"
 			class="d-flex justify-content-center mb-3"
 		>
-			<!-- FIXME -->
-			<!-- <button
+			<button
 				class="btn btn-sm btn-primary m-2"
 				@click="exportKML"
 			>
 				<i class="fas fa-fw fa-download" />
 				<br />
 				KML
-			</button> -->
+			</button>
 			<template v-if="!isOnSubmittedView">
 				<!-- FIXME -->
 				<!-- <button

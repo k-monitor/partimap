@@ -38,12 +38,18 @@ dependencies:
   bootstrap-vue-next:
     specifier: ^0.16.6
     version: 0.16.6(vue@3.4.21)
+  file-saver:
+    specifier: ^2.0.5
+    version: 2.0.5
   file-type:
     specifier: ^19.0.0
     version: 19.0.0
   h3:
     specifier: ^1.11.1
     version: 1.11.1
+  html-entities:
+    specifier: ^2.5.2
+    version: 2.5.2
   http-status-codes:
     specifier: ^2.3.0
     version: 2.3.0
@@ -118,6 +124,9 @@ devDependencies:
   '@types/bcryptjs':
     specifier: ^2.4.6
     version: 2.4.6
+  '@types/file-saver':
+    specifier: ^2.0.7
+    version: 2.0.7
   '@types/geojson':
     specifier: ^7946.0.14
     version: 7946.0.14
@@ -2984,6 +2993,10 @@ packages:
       '@types/serve-static': 1.15.5
     dev: true
 
+  /@types/file-saver@2.0.7:
+    resolution: {integrity: sha512-dNKVfHd/jk0SkR/exKGj2ggkB45MAkzvWCaqLUUgkyjITkGNzH8H+yUwr+BLJUBjZOe9w8X3wgmXhZDRg1ED6A==}
+    dev: true
+
   /@types/geojson@7946.0.14:
     resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
     dev: true
@@ -5462,6 +5475,10 @@ packages:
     engines: {node: ^16.14.0 || >=18.0.0}
     dependencies:
       lru-cache: 10.2.0
+    dev: false
+
+  /html-entities@2.5.2:
+    resolution: {integrity: sha512-K//PSRMQk4FZ78Kyau+mZurHn3FH0Vwr+H36eE0rPbeYkRRi9YxceYPhuN60UwWorxyKHhqoAJl2OFKa4BVtaA==}
     dev: false
 
   /html-tags@3.3.1:

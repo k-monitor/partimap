@@ -1,5 +1,7 @@
+import type { Feature as GeoJsonFeature } from 'geojson';
 import { decode } from 'html-entities';
-import KML from 'ol/format/KML';
+import type { Feature as OlFeature } from 'ol';
+import { GeoJSON, KML } from 'ol/format';
 
 const DEFAULT_COLOR = '#000000';
 const DEFAULT_WIDTH = '6';
@@ -17,43 +19,43 @@ const options = {
 	featureProjection: 'EPSG:3857',
 };
 
-export function featuresToKML(features) {
-	const kml = new KML().writeFeatures(features, options);
+export function featuresToKML(features: GeoJsonFeature[]) {
+	const geoJson = new GeoJSON();
+	const olFeatures = features.map((f) => geoJson.readFeature(f));
+	const kml = new KML().writeFeatures(olFeatures, options);
 	return prepareKmlForExport('<?xml version="1.0" encoding="UTF-8"?>' + kml);
 }
 
-export function KMLToFeatures(kml) {
+export function KMLToFeatures(kml: string) {
 	const preparedKml = prepareKmlForImport(kml);
-	const features = new KML().readFeatures(preparedKml, options);
-	fixDescriptionsAfterImport(features);
-	return features;
+	const olFeatures = new KML().readFeatures(preparedKml, options);
+	fixDescriptionsAfterImport(olFeatures);
+	return new GeoJSON().writeFeaturesObject(olFeatures);
 }
 
-/**
- * @param {import('ol').Feature[]} features
- */
-function fixDescriptionsAfterImport(features) {
-	features.forEach(f => {
+function fixDescriptionsAfterImport(features: OlFeature[]) {
+	features.forEach((f) => {
 		const d = f.get('description') || '';
 		f.set('description', decode(d));
 	});
 }
 
-function prepareKmlForExport(kmlString) {
+function prepareKmlForExport(kmlString: string) {
 	const kml = deserializeXML(kmlString);
-	kml.querySelectorAll('Placemark').forEach(p => {
+	kml.querySelectorAll('Placemark').forEach((p) => {
 		const ed = ensureElement(kml, p, 'ExtendedData');
 
-		ensureData(kml, ed, EXPORTED_ID_NAME, p.getAttribute('id'));
+		ensureData(kml, ed, EXPORTED_ID_NAME, p.getAttribute('id') || '');
+		// TODO should we handle missing ID?
 
 		if (p.querySelector('Point')) {
 			// fix missing IconStyle
 			const width =
-				p.querySelector('ExtendedData Data[name="width"] value')
-					?.innerHTML || DEFAULT_WIDTH;
+				p.querySelector('ExtendedData Data[name="width"] value')?.innerHTML ||
+				DEFAULT_WIDTH;
 			const rgb =
-				p.querySelector('ExtendedData Data[name="color"] value')
-					?.innerHTML || DEFAULT_COLOR;
+				p.querySelector('ExtendedData Data[name="color"] value')?.innerHTML ||
+				DEFAULT_COLOR;
 			const argb = rgbToAbgr(rgb);
 			const style = ensureElement(kml, p, 'Style');
 			style.innerHTML = `
@@ -93,19 +95,17 @@ function prepareKmlForExport(kmlString) {
 		renameData(ed, 'opacity', EXPORTED_OPACITY_NAME);
 
 		// cleanup ExtendedData
-		ed.querySelectorAll('Data').forEach(d => {
+		ed.querySelectorAll('Data').forEach((d) => {
 			const name = d.getAttribute('name');
-			if (!name.startsWith('partimap')) {
+			if (!name?.startsWith('partimap')) {
 				d.remove();
 			}
 
 			// formatting partimapFeatureQuestion_ans
-			if (name === 'partimapFeatureQuestion_ans') {
-				const value = d.querySelector('value');
-				try {
-					const v = JSON.parse(value.innerHTML);
-					if (Array.isArray(v)) value.innerHTML = v.join(', ');
-				} catch {}
+			const value = d.querySelector('value');
+			if (name === 'partimapFeatureQuestion_ans' && value) {
+				const arr = safeParseJSONArray(value.innerHTML);
+				value.innerHTML = arr.join(', ');
 			}
 		});
 	});
@@ -113,7 +113,7 @@ function prepareKmlForExport(kmlString) {
 	return serializeXML(kml);
 }
 
-function prepareKmlForImport(kmlString) {
+function prepareKmlForImport(kmlString: string) {
 	const kml = deserializeXML(kmlString);
 	const placemarks = kml.querySelectorAll('Placemark');
 
@@ -122,11 +122,9 @@ function prepareKmlForImport(kmlString) {
 		const ed = ensureElement(kml, p, 'ExtendedData');
 
 		// ensure ID
-		const idValueEl = ed.querySelector(
-			`Data[name="${EXPORTED_ID_NAME}"] value`
-		);
+		const idValueEl = ed.querySelector(`Data[name="${EXPORTED_ID_NAME}"] value`);
 		const pId = idValueEl?.innerHTML || p.getAttribute('id') || idBase + i;
-		p.setAttribute('id', pId);
+		p.setAttribute('id', String(pId));
 
 		// rename back data entries
 		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
@@ -152,11 +150,9 @@ function prepareKmlForImport(kmlString) {
 
 		// move back `description` from `ExtendedData` (see exporter)
 		const descEl = ensureElement(kml, p, 'description');
-		const descValueEl = ed.querySelector(
-			`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`
-		);
+		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
 		if (descValueEl && descValueEl.innerHTML) {
-			descValueEl.parentElement.remove();
+			descValueEl.parentElement?.remove();
 			descEl.innerHTML = descValueEl.innerHTML;
 		} else {
 			// no partimapDescription, using <description>
@@ -176,17 +172,14 @@ function prepareKmlForImport(kmlString) {
 		descEl.innerHTML = descEl.innerHTML
 			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
 			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
-			.replace(
-				/\s(https?:[^ <>"\s]+)/g,
-				'<a href="$1" target="_blank">$1</a>'
-			);
+			.replace(/\s(https?:[^ <>"\s]+)/g, '<a href="$1" target="_blank">$1</a>');
 		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
 	});
 
 	return serializeXML(kml);
 }
 
-function parseStyleColor(kml, pId, sId) {
+function parseStyleColor(kml: Document, pId: string | number, sId: string | number) {
 	const el =
 		kml.querySelector(`Style[id="${sId}-normal"] LineStyle color`) ||
 		kml.querySelector(`Style[id="${sId}"] LineStyle color`) ||
@@ -198,7 +191,7 @@ function parseStyleColor(kml, pId, sId) {
 	return val ? abgrToRgb(val) : null;
 }
 
-function parseStyleWidth(kml, pId, sId) {
+function parseStyleWidth(kml: Document, pId: string | number, sId: string | number) {
 	const el =
 		kml.querySelector(`Style[id="${sId}-normal"] LineStyle width`) ||
 		kml.querySelector(`Style[id="${sId}"] LineStyle width`) ||
@@ -208,7 +201,7 @@ function parseStyleWidth(kml, pId, sId) {
 	return Math.round(Number(val)); // parsing error will yield NaN which is falsy
 }
 
-function ensureData(kml, ed, key, value) {
+function ensureData(kml: Document, ed: Element, key: string, value: string | number) {
 	let d = ed.querySelector(`Data[name="${key}"]`);
 	if (!d) {
 		d = kml.createElement('Data');
@@ -217,36 +210,33 @@ function ensureData(kml, ed, key, value) {
 	}
 
 	const v = ensureElement(kml, d, 'value');
-	v.innerHTML = value;
+	v.innerHTML = String(value);
 }
 
-function ensureElement(doc, parent, tagName) {
-	return (
-		parent.querySelector(tagName) ||
-		parent.appendChild(doc.createElement(tagName))
-	);
+function ensureElement(doc: Document, parent: Element, tagName: string) {
+	return parent.querySelector(tagName) || parent.appendChild(doc.createElement(tagName));
 }
 
-function renameData(ed, oldKey, newKey) {
+function renameData(ed: Element, oldKey: string, newKey: string) {
 	const dataEl = ed.querySelector(`Data[name="${oldKey}"]`);
 	if (dataEl) {
 		dataEl.setAttribute('name', newKey);
 	}
 }
 
-function abgrToRgb(abgr) {
+function abgrToRgb(abgr: string) {
 	// we omit alpha value as it is used dynamically in PARTIMAP
 	return abgr.replace(/(\w\w)(\w\w)(\w\w)(\w\w)/, '#$4$3$2');
 }
 
-function rgbToAbgr(rgb) {
+function rgbToAbgr(rgb: string) {
 	return rgb.replace(/#(\w\w)(\w\w)(\w\w)/, 'ff$3$2$1');
 }
 
-function deserializeXML(str) {
+function deserializeXML(str: string) {
 	return new DOMParser().parseFromString(str, 'text/xml');
 }
 
-function serializeXML(xml) {
+function serializeXML(xml: Document) {
 	return new XMLSerializer().serializeToString(xml);
 }
