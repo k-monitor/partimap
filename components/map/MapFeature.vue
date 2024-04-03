@@ -31,10 +31,6 @@ function styleOverride(_feature: any, currentStyle: Style) {
 }
 
 // color and opacity
-function toHex(value100: number) {
-	const valueDec = Math.round(value100 * 2.55);
-	return valueDec.toString(16).padStart(2, '0');
-}
 const colors = computed(() => {
 	let color = props.f.properties?.color || '#000000';
 	if (props.grayRated) {
@@ -47,15 +43,15 @@ const colors = computed(() => {
 	const fillOpacity100 = parseFillOpacity100(props.f) * (isUnselected.value ? 0.35 : 1);
 	const textOpacity100 = 100 * (isUnselected.value ? 0.8 : 1);
 
-	const colorWithOpacity = color + toHex(opacity100);
-	const polygonFillColor = color + toHex(fillOpacity100);
+	const colorWithOpacity = color + percentToHex(opacity100);
+	const polygonFillColor = color + percentToHex(fillOpacity100);
 
 	let reference = tinycolor.mix('#ffffff', color, opacity100);
 	if (props.f.geometry.type === 'Polygon') {
 		reference = tinycolor.mix(reference, color, fillOpacity100);
 	}
 	const isLight = reference.isLight();
-	const textOpacity = toHex(textOpacity100);
+	const textOpacity = percentToHex(textOpacity100);
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
 	return { colorWithOpacity, polygonFillColor, textColor };
@@ -105,7 +101,7 @@ const textParams = computed(() => {
 
 // line style
 const lineDash = computed(() => {
-	const dash = props.f.properties?.dash || '1'; // FIXME shouldn't this be 0? see Map.vue default
+	const dash = props.f.properties?.dash || '0';
 	return dash.split(',').map((w: string) => Number(w) * sizes.value.featureSize);
 });
 

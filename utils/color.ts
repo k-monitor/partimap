@@ -36,3 +36,8 @@ export function parseOpacity100(f: GeoJsonFeature) {
 	const opacity = parseInt(f.properties?.opacity, 10);
 	return isNaN(opacity) ? 100 : opacity;
 }
+
+export function percentToHex(value100: number) {
+	const valueDec = Math.round(value100 * 2.55);
+	return valueDec.toString(16).padStart(2, '0');
+}

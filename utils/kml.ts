@@ -2,6 +2,9 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 import { decode } from 'html-entities';
 import type { Feature as OlFeature } from 'ol';
 import { GeoJSON, KML } from 'ol/format';
+import CircleStyle from 'ol/style/Circle';
+import { Fill, Stroke, Style } from 'ol/style';
+import type { Options } from 'ol/style/Style';
 
 const DEFAULT_COLOR = '#000000';
 const DEFAULT_WIDTH = '6';
@@ -15,13 +18,13 @@ const EXPORTED_OPACITY_NAME = 'partimapOpacity';
 const EXPORTED_POINT_SIZE = 'partimapPointSize';
 
 const options = {
+	// TODO should use the same constants as in Map
 	dataProjection: 'EPSG:4326',
 	featureProjection: 'EPSG:3857',
 };
 
 export function featuresToKML(features: GeoJsonFeature[]) {
-	const geoJson = new GeoJSON();
-	const olFeatures = features.map((f) => geoJson.readFeature(f));
+	const olFeatures = features.map(pm2ol);
 	const kml = new KML().writeFeatures(olFeatures, options);
 	return prepareKmlForExport('<?xml version="1.0" encoding="UTF-8"?>' + kml);
 }
@@ -30,7 +33,41 @@ export function KMLToFeatures(kml: string) {
 	const preparedKml = prepareKmlForImport(kml);
 	const olFeatures = new KML().readFeatures(preparedKml, options);
 	fixDescriptionsAfterImport(olFeatures);
-	return new GeoJSON().writeFeaturesObject(olFeatures);
+	const geoJson = new GeoJSON();
+	return olFeatures.map((f) => geoJson.writeFeatureObject(f));
+}
+
+function pm2ol(pmf: GeoJsonFeature): OlFeature {
+	const olf = new GeoJSON().readFeature(pmf);
+	// since GeoJSON does not describe styles in a standard way,
+	// we need to set it here similarly as in <ol-style>
+
+	const options: Options = {
+		geometry: olf.getGeometry(),
+	};
+	if (pmf.geometry.type === 'Point') {
+		options.image = new CircleStyle({
+			radius: pmf.properties?.width || DEFAULT_WIDTH,
+			fill: new Fill({ color: pmf.properties?.color || DEFAULT_COLOR }),
+		});
+	} else {
+		// LineString and Polygon
+		options.stroke = new Stroke({
+			color: pmf.properties?.color || DEFAULT_COLOR,
+			lineCap: 'butt',
+			lineDash: pmf.properties?.dash || '0',
+			width: pmf.properties?.width || DEFAULT_WIDTH,
+		});
+		if (pmf.geometry.type === 'Polygon') {
+			const fillOpacity100 = parseFillOpacity100(pmf);
+			const polygonFillColor = pmf.properties?.color + percentToHex(fillOpacity100);
+			options.fill = new Fill({
+				color: polygonFillColor,
+			});
+		}
+	}
+	olf.setStyle(new Style(options));
+	return olf;
 }
 
 function fixDescriptionsAfterImport(features: OlFeature[]) {

@@ -177,35 +177,32 @@ async function exportKML() {
 	loading.value = false;
 }
 
-// FIXME
-/*
-export default {
-	methods: {
-		importKML() {
-			const input = document.createElement('input');
-			input.setAttribute('type', 'file');
-			input.addEventListener('change', (e) => {
-				const f = e.target.files[0];
-				if (!f) return;
-				this.$nuxt.$emit('toggleLoading', true);
-				const reader = new FileReader();
-				reader.onload = ((e) => {
-					return (e) => {
-						const kmlString = e.target.result;
-						const features = KMLToFeatures(kmlString);
-						this.$nuxt.$emit('importedFeatures', features);
-						this.$nuxt.$emit('toggleLoading', false);
-					};
-				})(f);
-				reader.readAsText(f);
-			});
-			input.click();
-		},
-		handleImportFeatures(features) {
-			this.$nuxt.$emit('importedFeatures', features);
-		},
-	},
-};*/
+async function importKML() {
+	const input = document.createElement('input');
+	input.setAttribute('type', 'file');
+	input.addEventListener('change', async (e: Event) => {
+		const fileInputEl = e.target as HTMLInputElement;
+		const file = fileInputEl.files?.[0];
+		if (!file) return;
+
+		const fileReader = new FileReader();
+		fileReader.onload = async (e: Event) => {
+			const kmlString = (e.target as FileReader).result?.toString() || '';
+			const importedFeatures = KMLToFeatures(kmlString);
+			features.value?.push(...importedFeatures);
+			await nextTick();
+			loading.value = false;
+
+			// FIXME need to call fit to view on map
+		};
+		fileReader.readAsText(file);
+	});
+
+	selectedFeatureId.value = null;
+	loading.value = true;
+	await nextTick();
+	input.click();
+}
 
 const { confirmDeleteFeatures } = useConfirmation();
 
@@ -241,8 +238,7 @@ async function deleteAll() {
 				KML
 			</button>
 			<template v-if="!isOnSubmittedView">
-				<!-- FIXME -->
-				<!-- <button
+				<button
 					class="btn btn-sm btn-success m-2"
 					@click="importKML"
 				>
@@ -250,7 +246,8 @@ async function deleteAll() {
 					<br />
 					KML
 				</button>
-				<button
+				<!-- FIXME -->
+				<!-- <button
 					class="btn btn-sm btn-success m-2"
 					@click="$bvModal.show('featureImportModal')"
 				>
