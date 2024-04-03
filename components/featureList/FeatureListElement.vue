@@ -7,7 +7,7 @@ const { t } = useI18n();
 
 const { selectedFeatureId, sidebarVisible } = useStore();
 
-const sheet = inject<Record<string, any>>('sheet', {}); // FIXME Sheet type
+const sheet = inject<Record<string, any> | null>('sheet', null); // FIXME Sheet type
 const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
 
 const props = withDefaults(

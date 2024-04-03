@@ -33,6 +33,10 @@ watch(mapData, () => (features.value = parseFeatures()));
 const contentModified = ref(false);
 watch(features, () => (contentModified.value = true), { deep: true });
 
+function handleFeatureDrawn(feature: GeoJsonFeature) {
+	features.value.push(feature);
+}
+
 const { loading } = useStore();
 const { errorToast, successToast } = useToasts();
 async function save() {
@@ -97,6 +101,7 @@ async function save() {
 					:key="$route.path"
 					:features="features"
 					fit-selected
+					@feature-drawn="handleFeatureDrawn"
 				/>
 				<MapToolbar />
 				<MapHint />

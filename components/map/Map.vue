@@ -2,6 +2,7 @@
 import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Feature as OlFeature, Map, MapBrowserEvent, View } from 'ol';
 import type { ObjectEvent } from 'ol/Object';
+import { GeoJSON } from 'ol/format';
 import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
 
@@ -14,8 +15,14 @@ const props = defineProps<{
 	visitor?: boolean;
 }>();
 
-const { changeBaseMap, currentZoom, filteredFeatureIds, selectedFeatureId, sidebarVisible } =
-	useStore();
+const {
+	changeBaseMap,
+	currentZoom,
+	drawType,
+	filteredFeatureIds,
+	selectedFeatureId,
+	sidebarVisible,
+} = useStore();
 
 // map initialization
 
@@ -34,6 +41,8 @@ onBeforeMount(() => {
 });
 
 function handlePointermove(e: MapBrowserEvent<UIEvent>) {
+	if (drawType.value) return;
+
 	const map = e.target as Map;
 	const hit = map.getFeaturesAtPixel(e.pixel).find((f) => !f.get('hidden'));
 	map.getTargetElement().style.cursor = hit ? 'pointer' : '';
@@ -93,6 +102,8 @@ const visibleFeatures = computed(() => {
 const { emitSelectAttempt } = useSelectAttempt();
 
 function handleClick(e: MapBrowserEvent<UIEvent>) {
+	if (drawType.value) return;
+
 	const map = e.target as Map;
 	const clicked = map.getFeaturesAtPixel(e.pixel);
 	const active = clicked.find((f) => !f.get('hidden'));
@@ -103,48 +114,63 @@ function handleClick(e: MapBrowserEvent<UIEvent>) {
 	emitSelectAttempt(feature || null);
 }
 
+// draw
+
+watch(drawType, (dt) => {
+	if (dt) selectedFeatureId.value = null;
+});
+
+const drawSourceRef = ref<{ source: Vector }>();
+
+const emit = defineEmits<{
+	(e: 'featureDrawn', feature: GeoJsonFeature): void;
+}>();
+
+async function handleDrawEnd() {
+	await nextTick(); // wait for source to be updated
+
+	const source = drawSourceRef.value?.source;
+	if (!source) return;
+
+	const olFeature = source.getFeatures()[0];
+	if (!olFeature) return;
+
+	const geoJsonFeatureStr = new GeoJSON().writeFeature(olFeature);
+	const feature = JSON.parse(geoJsonFeatureStr);
+	feature.id = Date.now();
+
+	const defaultColors: Record<DrawType, string> = {
+		'': '',
+		Point: '#F44336',
+		LineString: '#3F51B5',
+		Polygon: '#49a238',
+	};
+	feature.properties = {
+		color: defaultColors[drawType.value],
+		opacity: 100,
+		width: 6,
+	};
+	if (drawType.value === 'Polygon') feature.properties.fillOpacity = 10;
+	if (['LineString', 'Polygon'].includes(drawType.value)) feature.properties.dash = '0';
+	if (props.visitor) feature.properties.visitorFeature = true;
+
+	drawType.value = '';
+	source.clear();
+
+	emit('featureDrawn', feature);
+
+	await nextTick(); // wait for FLE to be created
+	const timeout = isMobile() ? 500 : 0;
+	setTimeout(() => emitSelectAttempt(feature), timeout);
+
+	// FIXME maybe this should be handled on sheet, no?
+	// if (props.visitor) emit('visitorFeatureAdded', f);
+}
+
 // FIXME
 
 /*
 export default {
-	data() {
-		return {
-			// default color for drawn features
-			defaultColor: {
-				drawing: '#607D8B',
-				Point: '#F44336',
-				LineString: '#3F51B5',
-				Polygon: '#49a238',
-			},
-			defaultStroke: {
-				lineDash: '0',
-				width: 6,
-			},
-		};
-	},
-	watch: {
-		drawType(type) {
-			// when drawing, feature selection is disabled
-			if (type) {
-				this.$store.commit('selected/clear');
-			}
-
-			// set draw type on OL map
-			this.map.removeInteraction(this.draw);
-			this.map.removeInteraction(this.snap);
-			if (type) {
-				this.draw = new Draw({
-					source: this.source,
-					type,
-				});
-				this.map.addInteraction(this.draw);
-				this.snap = new Snap({
-					source: this.source,
-				});
-				this.map.addInteraction(this.snap);
-			}
-		},
-	},
 	created() {
 		this.$nuxt.$on('importedFeatures', (features) => {
 			this.$store.commit('selected/clear');
@@ -154,33 +180,12 @@ export default {
 		});
 	},
 	beforeUnmount() {
-		this.$nuxt.$off('clearFeature');
-		this.$nuxt.$off('clearFeatures');
-		this.$nuxt.$off('changeStyle');
 		this.$nuxt.$off('importedFeatures');
-		this.$nuxt.$off('filterFeatures');
 	},
 	methods: {
 		addEventListeners() {
 			this.source.on('addfeature', (e) => {
-				const f = e.feature;
-				if (!f.getId()) {
-					f.setId(new Date().getTime());
-				}
-
-				const drawing = !!this.drawType; // otherwise importing
-				if (drawing) {
-					// drawn feature
-					this.changeFeatureStyle(
-						f,
-						this.defaultColor[this.drawType] || this.defaultColor.drawing,
-						this.defaultStroke.lineDash,
-						10,
-						100,
-						this.defaultStroke.width,
-						true,
-					);
-				} else {
+				{
 					// imported feature
 					const fillOpacity = parseFillOpacity100(f);
 					const opacity = parseOpacity100(f);
@@ -197,15 +202,6 @@ export default {
 
 				this.$store.commit('setDrawType', '');
 				this.$store.commit('features/add', f);
-				if (drawing) {
-					this.$nextTick(() => {
-						// after FLE is created
-						const timeout = isMobile() ? 500 : 0;
-						setTimeout(() => {
-							this.$nuxt.$emit('selectAttempt', f);
-						}, timeout);
-					});
-				}
 
 				if (this.visitor) {
 					f.set('visitorFeature', true);
@@ -261,6 +257,16 @@ export default {
 					:gray-rated="grayRated"
 					:label-override="(labelOverrides || {})[Number(f.id)] || ''"
 					:visitor="visitor"
+				/>
+			</ol-source-vector>
+		</ol-vector-layer>
+
+		<ol-vector-layer>
+			<ol-source-vector ref="drawSourceRef">
+				<ol-interaction-draw
+					v-if="drawType"
+					:type="drawType"
+					@drawend="handleDrawEnd"
 				/>
 			</ol-source-vector>
 		</ol-vector-layer>
