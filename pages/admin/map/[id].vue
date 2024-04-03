@@ -99,9 +99,7 @@ async function save() {
 					fit-selected
 				/>
 				<MapToolbar />
-				<!-- FIXME
-					<MapHint />
-			 	-->
+				<MapHint />
 			</client-only>
 		</div>
 	</div>

@@ -1,7 +1,18 @@
+<script setup lang="ts">
+const { t, te } = useI18n();
+const { drawType } = useStore();
+
+const hint = computed(() => {
+	const key = `MapHint.${drawType.value}`;
+	return te(key) ? t(key) : '';
+});
+</script>
+
 <template>
 	<div
 		v-if="hint"
 		class="map-hint-container position-absolute text-center w-100"
+		style="bottom: 2rem; padding: 0 75px; z-index: 1"
 	>
 		<div
 			class="map-hint bg-dark border border-secondary d-inline-block fw-bold m-0 px-3 py-2 rounded shadow-sm text-white"
@@ -11,25 +22,7 @@
 	</div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
-
-export default {
-	computed: {
-		...mapGetters(['getDrawType']),
-		hint() {
-			return this.$t('MapHint')[this.getDrawType] || '';
-		},
-	},
-};
-</script>
-
 <style scoped>
-.map-hint-container {
-	bottom: 2rem;
-	padding: 0 75px;
-}
-
 @media screen and (max-width: 767.98px) {
 	/* BS v4 sm */
 	.map-hint {
