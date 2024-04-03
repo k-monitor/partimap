@@ -191,9 +191,10 @@ async function importKML() {
 			const importedFeatures = KMLToFeatures(kmlString);
 			features.value?.push(...importedFeatures);
 			await nextTick();
+			selectedFeatureId.value = -1; // triggering fitToView pt.1
 			loading.value = false;
-
-			// FIXME need to call fit to view on map
+			await nextTick();
+			selectedFeatureId.value = null; // triggering fitToView pt.2
 		};
 		fileReader.readAsText(file);
 	});
