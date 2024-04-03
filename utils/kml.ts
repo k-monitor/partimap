@@ -32,7 +32,7 @@ export function featuresToKML(features: GeoJsonFeature[]) {
 export function KMLToFeatures(kml: string) {
 	const preparedKml = prepareKmlForImport(kml);
 	const olFeatures = new KML().readFeatures(preparedKml, options);
-	fixDescriptionsAfterImport(olFeatures);
+	fixFeaturesAfterImport(olFeatures);
 	const geoJson = new GeoJSON();
 	return olFeatures.map((f) => geoJson.writeFeatureObject(f));
 }
@@ -70,8 +70,10 @@ function pm2ol(pmf: GeoJsonFeature): OlFeature {
 	return olf;
 }
 
-function fixDescriptionsAfterImport(features: OlFeature[]) {
+function fixFeaturesAfterImport(features: OlFeature[]) {
 	features.forEach((f) => {
+		const id = f.getId();
+		f.setId(Number(id));
 		const d = f.get('description') || '';
 		f.set('description', decode(d));
 	});
