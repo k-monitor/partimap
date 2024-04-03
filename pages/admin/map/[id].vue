@@ -12,14 +12,6 @@ useHead({
 	title: () => `Admin: ${mapData.value?.title}`,
 });
 
-const contentModified = ref(false);
-const loading = ref(true);
-
-onMounted(() => {
-	// FIXME there was `$store.commit('selected/clear');` but Map does it too, do we need it here?
-	loading.value = false;
-});
-
 function back() {
 	navigateTo(localePath('/admin/maps'));
 }
@@ -37,8 +29,11 @@ function parseFeatures() {
 
 const features = ref<GeoJsonFeature[]>(parseFeatures());
 watch(mapData, () => (features.value = parseFeatures()));
+
+const contentModified = ref(false);
 watch(features, () => (contentModified.value = true), { deep: true });
 
+const { loading } = useStore();
 const { errorToast, successToast } = useToasts();
 async function save() {
 	try {
@@ -59,20 +54,6 @@ async function save() {
 		loading.value = false;
 	}
 }
-
-/*
-	FIXME
-	created() {
-		this.$nuxt.$on('contentModified', () => {
-			this.contentModified = true;
-		});
-		this.$nuxt.$on('toggleLoading', (value) => (this.loading = value));
-	},
-	beforeUnmount() {
-		this.$nuxt.$off('contentModified');
-		this.$nuxt.$off('toggleLoading');
-	},
-*/
 </script>
 
 <template>
@@ -117,8 +98,8 @@ async function save() {
 					:features="features"
 					fit-selected
 				/>
+				<MapToolbar />
 				<!-- FIXME
-					<MapToolbar />
 					<MapHint />
 			 	-->
 			</client-only>

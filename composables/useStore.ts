@@ -1,3 +1,5 @@
+export type DrawType = '' | 'Point' | 'LineString' | 'Polygon';
+
 export default function useStore() {
 	const baseMap = useState<string>('baseMap', () => 'osm');
 	const baseMapToShow = computed(() =>
@@ -11,10 +13,13 @@ export default function useStore() {
 	}
 
 	const currentZoom = useState<number>('currentZoom', () => 0);
-	const drawType = useState<'' | 'Point' | 'LineString' | 'Polygon'>('drawType', () => '');
+	const drawType = useState<DrawType>('drawType', () => '');
 	const filteredFeatureIds = useState<number[] | null>('filteredFeatureIds', () => null);
+	const loading = useState<boolean>('loading', () => true);
 	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);
 	const sidebarVisible = useState('sidebarVisible', () => true);
+
+	onMounted(() => (loading.value = false));
 
 	return {
 		baseMapToShow,
@@ -22,6 +27,7 @@ export default function useStore() {
 		currentZoom,
 		drawType,
 		filteredFeatureIds,
+		loading,
 		selectedFeatureId,
 		sidebarVisible,
 	};

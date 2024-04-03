@@ -1,6 +1,6 @@
-import { deserializeInteractions } from './interactions';
+//import { deserializeInteractions } from '../OLD/assets/interactions';
 
-function db(drawType, icon, tooltip, variant) {
+function db(drawType: DrawType, icon: string, tooltip: string, variant: string) {
 	return { drawType, icon, tooltip, variant };
 }
 
@@ -11,15 +11,14 @@ const _buttons = [
 	db('', 'fa-times', 'Mégsem', 'warning'),
 ];
 
-export function buttons(
-	currentDrawType,
-	sheetInteractions,
-	isVisitor,
-	$context
+export function generateDrawButtons(
+	currentDrawType: DrawType,
+	interactions: any, // FIXME need type
+	isVisitor: boolean,
+	t: (key: string) => string,
 ) {
-	const interactions = deserializeInteractions(sheetInteractions);
 	return _buttons
-		.filter(button => {
+		.filter((button) => {
 			const { drawType } = button;
 			const isDrawing = currentDrawType;
 			const isCancel = !drawType;
@@ -29,8 +28,7 @@ export function buttons(
 				return false;
 			}
 
-			const isAllowed =
-				isCancel || interactions.enabled.includes(drawType);
+			const isAllowed = isCancel || interactions?.enabled?.includes?.(drawType);
 			if (isVisitor && !isAllowed) {
 				// hide buttons for visitors unless
 				// enabled in sheet interactions
@@ -39,13 +37,13 @@ export function buttons(
 
 			return true;
 		})
-		.map(button => {
+		.map((button) => {
 			if (button.drawType) {
 				button.tooltip =
-					interactions.buttonLabels[button.drawType] ||
-					$context.$t('sheetEditor.interactions')[button.drawType];
+					interactions?.buttonLabels?.[button.drawType] ||
+					t(`sheetEditor.interactions.${button.drawType}`);
 			} else {
-				button.tooltip = $context.$t('modals.cancel');
+				button.tooltip = t('modals.cancel');
 			}
 			return button;
 		});

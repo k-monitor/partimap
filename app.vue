@@ -65,6 +65,10 @@ a,
 	text-decoration: none;
 }
 
+.btn-blue {
+	@include button-variant($primary, $primary);
+}
+
 fieldset,
 .form-group {
 	margin-bottom: 1rem;
