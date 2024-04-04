@@ -297,7 +297,7 @@ async function deleteFeature() {
 							/> -->
 							<FeatureNameEditor />
 							<FeatureStyleEditor />
-							<!-- <FeatureCategoryEditor :categories="categories" /> -->
+							<FeatureCategoryEditor :categories="categories" />
 							<FeatureDescriptionRichEditor />
 							<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 							<FeatureListElementFooter
