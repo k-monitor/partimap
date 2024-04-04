@@ -112,6 +112,12 @@ const filteredFeatures = computed(() => {
 });
 
 function featureFilter(f: GeoJsonFeature): boolean {
+	if (f.id === selectedFeatureId.value) {
+		// make sure selected feature won't be filtered out
+		// when its name is edited
+		return true;
+	}
+
 	if (categoryFilter.value && f.properties?.category !== categoryFilter.value) {
 		return false;
 	}
