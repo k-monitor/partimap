@@ -28,7 +28,7 @@ export function createSheet(data: any): Sheet {
 	};
 }
 
-export async function create(sheet: Sheet) {
+export async function create(sheet: Partial<Sheet> & Pick<Sheet, 'projectId'>) {
 	sheet.ord = 9999;
 	const id = await db.create('sheet', sheet, createSheet);
 	await reorderSheets(sheet.projectId);

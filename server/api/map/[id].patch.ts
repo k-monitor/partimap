@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
 
 	map = db.createMap({ ...map, ...changes });
 	if (!map.title) {
+		// TODO would be nice to use validated body instead
 		throw createError({ statusCode: StatusCodes.BAD_REQUEST });
 	}
 

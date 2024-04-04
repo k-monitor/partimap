@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 import * as db from '~/server/data/users';
+import { deleteImageFile } from '~/server/utils/uploads';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
@@ -43,7 +44,7 @@ export default defineEventHandler(async (event) => {
 	}
 
 	if (changes.logo === null || changes.logo === '') {
-		removeUserLogoFile(user);
+		deleteImageFile(user.logo);
 	} else {
 		delete changes.logo;
 	}

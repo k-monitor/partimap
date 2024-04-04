@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
 	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
 
 	const url = await acceptImage(event, 'u', 120, 30);
+	deleteImageFile(user.logo);
 	user.logo = url;
 	await db.update(user);
 

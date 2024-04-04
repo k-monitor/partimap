@@ -53,18 +53,6 @@ function getAvailableFeatures() {
 }
 const availableFeatures = ref(getAvailableFeatures());
 watch(features, () => (availableFeatures.value = getAvailableFeatures()), { deep: true });
-/*const availableFeatures = computed(() => {
-	console.log('availableFeatures recomputing');
-	return (features.value || []).filter((f) => {
-		if (props.isOnSheetView && !f.properties?.visitorFeature) {
-			// case: admin features on public sheet
-			// static sheet: hide hidden admin features
-			// interactive sheet: hide all admin features
-			return !f.properties?.hidden && !props.isInteractive;
-		}
-		return true;
-	});
-});*/
 
 const showSearch = computed(() => !props.isOnSheetView || availableFeatures.value.length > 3);
 const search = ref('');

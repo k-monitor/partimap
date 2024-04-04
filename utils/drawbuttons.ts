@@ -1,4 +1,4 @@
-//import { deserializeInteractions } from '../OLD/assets/interactions';
+// FIXME import { deserializeInteractions } from '../OLD/assets/interactions';
 
 function db(drawType: DrawType, icon: string, tooltip: string, variant: string) {
 	return { drawType, icon, tooltip, variant };

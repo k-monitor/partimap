@@ -90,6 +90,18 @@ export async function findAll() {
 	return rows.map((r) => createProject(r));
 }
 
+export async function findAllByUserId(userId: number) {
+	const rows = await db.query(
+		`SELECT p.*, COUNT(s.id) submissions
+		FROM project p
+		LEFT JOIN submission s ON s.projectId = p.id
+		WHERE p.userId = ?
+		GROUP BY p.id`,
+		[userId],
+	);
+	return rows.map((r) => createProject(r));
+}
+
 export function findById(id: number) {
 	return db.findBy('project', 'id', id, createProject) as Promise<Project>;
 }
@@ -108,18 +120,6 @@ export async function findByIdOrSlug(idOrSlug: number | string) {
 
 export function findBySlug(slug: string) {
 	return db.findBy('project', 'slug', slug, createProject);
-}
-
-export async function findByUserId(userId: number) {
-	const rows = await db.query(
-		`SELECT p.*, COUNT(s.id) submissions
-		FROM project p
-		LEFT JOIN submission s ON s.projectId = p.id
-		WHERE p.userId = ?
-		GROUP BY p.id`,
-		[userId],
-	);
-	return rows.map((r) => createProject(r));
 }
 
 export function incrementViewsById(id: number) {

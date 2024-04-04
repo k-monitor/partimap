@@ -4,6 +4,7 @@ import { fileTypeFromBuffer } from 'file-type';
 import { H3Event } from 'h3';
 import { StatusCodes } from 'http-status-codes';
 import multer from 'multer';
+import { rimrafSync as rmrf } from 'rimraf';
 import sharp from 'sharp';
 
 export async function acceptImage(
@@ -55,4 +56,17 @@ export async function acceptImage(
 	await image.jpeg({ mozjpeg: true }).toFile(fn);
 
 	return url; // returning file URL that can be stored and used on frontend
+}
+
+export function deleteImageFile(url: string | null) {
+	if (!url) return;
+	const root = path.resolve(process.cwd());
+	const fn = path.join(root, url);
+	if (fs.existsSync(fn)) fs.unlinkSync(fn);
+}
+
+export function deleteImages(directory: string) {
+	const root = path.resolve(process.cwd());
+	const subdir = path.join(root, 'uploads', directory);
+	rmrf(subdir);
 }

@@ -23,60 +23,6 @@ const sadb = require('../surveyAnswer/surveyAnswer.db');
 const udb = require('../user/user.db');
 const pdb = require('./project.db');
 
-function removeProjectImageFile(project) {
-	if (project.image) {
-		const fn = `.${project.image}`; // make it relative for server
-		if (fs.existsSync(fn)) {
-			fs.unlinkSync(fn);
-		}
-	}
-}
-
-router.put(
-	'/project/:id/image',
-	ensureLoggedIn,
-	resolveRecord(req => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	acceptImage(req => req.project.id, 1200, 1200, 'image'),
-	async (req, res) => {
-		removeProjectImageFile(req.project);
-		req.project.image = req.image.replace(/^\./, ''); // make it absolute for client
-		await pdb.update(req.project);
-		const project = await pdb.findById(req.project.id);
-		res.json(hidePasswordField(project));
-	}
-);
-
-router.delete(
-	'/project/:id',
-	ensureLoggedIn,
-	resolveRecord(req => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	async (req, res) => {
-		await pdb.del(req.params.id);
-		rmrf(`./uploads/${req.project.id}`);
-		res.json({});
-	}
-);
-
-router.get('/projects', ensureLoggedIn, async (req, res) => {
-	const projects = req.user.isAdmin
-		? await pdb.findAll()
-		: await pdb.findByUserId(req.user.id);
-	res.json(hidePasswordField(projects));
-});
-
-router.get(
-	'/project/:idOrSlug', // only used in admin, public endpoint is POST /project/access
-	ensureLoggedIn,
-	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	async (req, res) => {
-		req.project.sheets = await sdb.findByProjectId(req.project.id);
-		res.json(hidePasswordField(req.project));
-	}
-);
-
 router.patch(
 	'/project',
 	ensureLoggedIn,
