@@ -31,7 +31,7 @@ export function transaction(queries: Query[]) {
 }
 
 type inTransactionCallback = (pool: mysql.Connection) => Promise<any>;
-async function inTransaction(callback: inTransactionCallback) {
+export async function inTransaction(callback: inTransactionCallback) {
 	let error: any = false;
 	const pool = await getPool();
 	let connection: mysql.Connection | null = null;

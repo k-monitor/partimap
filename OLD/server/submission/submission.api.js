@@ -14,7 +14,7 @@ const sadb = require('../surveyAnswer/surveyAnswer.db');
 const sfdb = require('../submittedFeatures/submittedFeatures.db');
 const smdb = require('./submission.db');
 
-const OL2GM = transformation('EPSG:3857', 'EPSG:4326');
+const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords) {
 	const { x, y } = OL2GM.forward({ x: coords[0], y: coords[1] });
 	return [y, x];
