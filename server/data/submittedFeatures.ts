@@ -16,7 +16,7 @@ export function createSubmittedFeatures(data: any): SubmittedFeatures {
 	};
 }
 
-export async function findByProjectId(projectId: number) {
+export async function findAllByProjectId(projectId: number) {
 	const rows = await db.query(
 		`SELECT f.*
 		FROM submitted_features f
@@ -28,7 +28,7 @@ export async function findByProjectId(projectId: number) {
 	return rows.map((r) => createSubmittedFeatures(r));
 }
 
-export async function findBySheetId(sheetId: number) {
+export async function findAllBySheetId(sheetId: number) {
 	const rows = await db.query('SELECT * FROM submitted_features WHERE sheetId = ?', [sheetId]);
 	return rows.map((r) => createSubmittedFeatures(r));
 }

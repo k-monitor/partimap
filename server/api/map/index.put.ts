@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
 	if (importSubmittedFeatures) {
 		const features: any[] = [];
-		const sfs = await sfdb.findBySheetId(importSubmittedFeatures);
+		const sfs = await sfdb.findAllBySheetId(importSubmittedFeatures);
 		(sfs || []).forEach((sf) => {
 			const f = safeParseJSONArray(sf.features).filter((f) => !!f.id);
 			features.push(...f);
