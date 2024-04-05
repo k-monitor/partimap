@@ -9,7 +9,7 @@ const paramsSchema = z.object({
 export default defineEventHandler(async (event) => {
 	const { id } = await getValidatedRouterParams(event, paramsSchema.parse);
 
-	await ensureLoggedIn(event);
+	const user = await ensureLoggedIn(event);
 
 	let map = await db.findById(id);
 	if (!map) throw createError({ statusCode: StatusCodes.NOT_FOUND });
@@ -19,9 +19,7 @@ export default defineEventHandler(async (event) => {
 	const changes = await readBody<any>(event);
 	delete changes.id;
 
-	if (!event.context.user?.isAdmin) {
-		delete changes.userId;
-	}
+	if (!user.isAdmin) delete changes.userId;
 
 	map = db.createMap({ ...map, ...changes });
 	if (!map.title) {

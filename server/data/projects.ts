@@ -1,4 +1,5 @@
 import * as db from '~/server/utils/database';
+import type { Sheet } from '~/server/data/sheets';
 
 export type Project = {
 	id: number;
@@ -17,6 +18,8 @@ export type Project = {
 	subscribe: string;
 	unsubscribeToken: string;
 	lastSent: number;
+
+	sheets?: Sheet[];
 };
 
 export function createProject(data: any): Project {
@@ -119,7 +122,7 @@ export async function findByIdOrSlug(idOrSlug: number | string) {
 }
 
 export function findBySlug(slug: string) {
-	return db.findBy('project', 'slug', slug, createProject);
+	return db.findBy('project', 'slug', slug, createProject) as Promise<Project>;
 }
 
 export function incrementViewsById(id: number) {

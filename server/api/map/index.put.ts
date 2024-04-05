@@ -14,14 +14,14 @@ export default defineEventHandler(async (event) => {
 		bodySchema.parse,
 	);
 
+	const user = await ensureLoggedIn(event);
+
 	const map = mdb.createMap({
 		title,
-		userId: event.context.user?.id,
+		userId: user.id,
 	});
 
-	if (event.context.user?.isAdmin && userId) {
-		map.userId = userId;
-	}
+	if (user.isAdmin && userId) map.userId = userId;
 
 	if (importSubmittedFeatures) {
 		const features: any[] = [];
