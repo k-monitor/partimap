@@ -22,10 +22,10 @@ export function createSubmission(data: any): Submission {
 }
 
 export async function create(
-	submission: Submission,
-	ratings: Rating[],
-	answers: SurveyAnswer[],
-	features: SubmittedFeatures[],
+	submission: Partial<Submission>,
+	ratings: Partial<Rating>[],
+	answers: Partial<SurveyAnswer>[],
+	features: Partial<SubmittedFeatures>[],
 ) {
 	let submissionId = -1;
 	await db.inTransaction(async (connection) => {
