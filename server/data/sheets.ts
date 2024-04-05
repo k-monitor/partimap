@@ -1,4 +1,6 @@
 import * as db from '~/server/utils/database';
+import type { AggregatedRating } from '~/server/data/ratings';
+import type { AggregatedAnswers } from '~/server/data/surveyAnswers';
 
 export type Sheet = {
 	id: number;
@@ -11,6 +13,10 @@ export type Sheet = {
 	features: string;
 	interactions: string; // JSON
 	descriptionLabel: string; // legacy
+
+	// only in some API responses
+	answers?: AggregatedAnswers[];
+	ratings?: Record<number, AggregatedRating>;
 };
 
 export function createSheet(data: any): Sheet {

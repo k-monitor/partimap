@@ -20,7 +20,7 @@ export function createSurveyAnswer(data: any): SurveyAnswer {
 	};
 }
 
-type Question = {
+export type Question = {
 	id: number;
 	label: string;
 	options?: string[];
@@ -30,12 +30,12 @@ type Question = {
 	type: string;
 };
 
-type Survey = {
+export type Survey = {
 	questions: Question[];
 	showResults: boolean;
 };
 
-type Result = {
+export type AggregatedAnswers = {
 	questionId: string; // yes, it's string here, see matrix questions
 	question: string;
 	sheetId: number;
@@ -118,7 +118,7 @@ export async function aggregateByProjectId(projectId: number) {
 	const distAnswersByQuestion = await getAnswersByQuestion((q) => q.type === 'distributeUnits');
 	const matrixAnswersByQuestion = await getAnswersByQuestion((q) => q.type.includes('Matrix'));
 
-	const results: Result[] = [];
+	const results: AggregatedAnswers[] = [];
 	for (const q of questions) {
 		if (q.type === 'text') continue;
 
@@ -142,7 +142,7 @@ export async function aggregateByProjectId(projectId: number) {
 				});
 			});
 
-			const result: Result = {
+			const result: AggregatedAnswers = {
 				questionId: `${q.id}`,
 				question: `${q.label}`,
 				sheetId: q.sheetId,
@@ -207,7 +207,7 @@ export async function aggregateByProjectId(projectId: number) {
 			continue;
 		}
 
-		const result: Result = {
+		const result: AggregatedAnswers = {
 			questionId: String(q.id),
 			question: q.label,
 			sheetId: q.sheetId,

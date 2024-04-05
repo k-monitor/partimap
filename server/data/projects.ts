@@ -1,5 +1,6 @@
 import * as db from '~/server/utils/database';
 import type { Sheet } from '~/server/data/sheets';
+import { User } from '~/server/data/users';
 
 export type Project = {
 	id: number;
@@ -19,7 +20,9 @@ export type Project = {
 	unsubscribeToken: string;
 	lastSent: number;
 
+	// only in some API responses
 	sheets?: Sheet[];
+	user?: Partial<User>;
 };
 
 export function createProject(data: any): Project {
