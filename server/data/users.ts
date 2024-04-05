@@ -43,7 +43,7 @@ export function create(user: User) {
 
 export async function del(id: number) {
 	const delProjectQueries = [];
-	const projects = await pdb.findByUserId(id);
+	const projects = await pdb.findAllByUserId(id);
 	for (const project of projects) {
 		delProjectQueries.push(...pdb.delQueries(project.id));
 	}

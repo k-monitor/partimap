@@ -4,16 +4,16 @@ import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
 
 const paramsSchema = z.object({
-	id: z.string().min(1),
+	idOrSlug: z.string().min(1),
 });
 
 export default defineEventHandler(async (event) => {
-	const { id } = await getValidatedRouterParams(event, paramsSchema.parse);
+	const { idOrSlug } = await getValidatedRouterParams(event, paramsSchema.parse);
 
 	await ensureLoggedIn(event);
 	// this endpoint is only used in admin, public endpoint is POST /project/access
 
-	const project = await pdb.findByIdOrSlug(id);
+	const project = await pdb.findByIdOrSlug(idOrSlug);
 	if (!project) throw createError({ statusCode: StatusCodes.NOT_FOUND });
 
 	await ensureAdminOr(event, project.userId);

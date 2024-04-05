@@ -4,6 +4,7 @@ import { fileTypeFromBuffer } from 'file-type';
 import { H3Event } from 'h3';
 import { StatusCodes } from 'http-status-codes';
 import multer from 'multer';
+import copy from 'recursive-copy';
 import { rimrafSync as rmrf } from 'rimraf';
 import sharp from 'sharp';
 
@@ -56,6 +57,13 @@ export async function acceptImage(
 	await image.jpeg({ mozjpeg: true }).toFile(fn);
 
 	return url; // returning file URL that can be stored and used on frontend
+}
+
+export async function cloneImages(sourceDir: string, targetDir: string) {
+	const root = path.resolve(process.cwd());
+	const s = path.join(root, 'uploads', sourceDir);
+	const t = path.join(root, 'uploads', targetDir);
+	if (fs.existsSync(s)) await copy(s, t);
 }
 
 export function deleteImageFile(url: string | null) {

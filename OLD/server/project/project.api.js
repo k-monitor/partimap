@@ -85,42 +85,6 @@ router.patch(
 	}
 );
 
-router.put(
-	'/project/clone',
-	ensureLoggedIn,
-	resolveRecord(req => req.body.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	async (req, res) => {
-		if (req.body.title) req.project.title = req.body.title;
-		req.project.slug = await generateValidSlug(req.project.title);
-		req.project.views = 0;
-
-		const oldId = req.project.id;
-		const id = await pdb.create(req.project);
-
-		const oldDir = `./uploads/${oldId}`;
-		if (fs.existsSync(oldDir)) {
-			copydir.sync(oldDir, `./uploads/${id}`);
-		}
-
-		const project = await pdb.findById(id);
-		if (project.image) {
-			project.image = project.image.replace(`/${oldId}/`, `/${id}/`);
-			await pdb.update(project);
-		}
-
-		const sheets = await sdb.findByProjectId(oldId);
-		for (let i = 0; i < sheets.length; i++) {
-			const s = sheets[i];
-			s.projectId = id;
-			if (s.image) s.image = s.image.replace(`/${oldId}/`, `/${id}/`);
-			await sdb.create(s);
-		}
-
-		res.json(id);
-	}
-);
-
 router.put('/project', ensureLoggedIn, async (req, res) => {
 	delete req.body.image;
 	let project = new Project(req.body);
@@ -275,39 +239,5 @@ router.post(
 		res.json(hidePasswordField(req.project));
 	}
 );
-
-router.post(
-	'/view/:idOrSlug',
-	resolveRecord(req => req.params.idOrSlug, pdb.findByIdOrSlug, 'project'),
-	async (req, res) => {
-		const exp = `/p/${req.params.idOrSlug}/0`;
-		if (!req.headers.referer.endsWith(exp)) {
-			return res.sendStatus(StatusCodes.BAD_REQUEST);
-		}
-		if (req.user && (req.user.isAdmin || req.user.id === req.project.id)) {
-			return res.end();
-		}
-		await pdb.incrementViewsById(req.project.id);
-		res.end();
-	}
-);
-
-router.post('/project/unsubscribe', async (req, res) => {
-	const success = await pdb.attemptToUnsubscribe(req.body.id, req.body.token);
-	if (!success) {
-		res.status(StatusCodes.NOT_FOUND).json({ success: false });
-	} else {
-		res.json({ success: true });
-	}
-});
-
-async function generateValidSlug(seed, currentId) {
-	const slug = slugify(seed);
-	const ep = await pdb.findBySlug(slug);
-	if (!ep || ep.id === currentId) {
-		return slug;
-	}
-	return generateValidSlug(slug + '-1', currentId);
-}
 
 module.exports = router;
