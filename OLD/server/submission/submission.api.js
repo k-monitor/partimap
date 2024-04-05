@@ -117,35 +117,6 @@ router.post(
 );
 
 router.get(
-	'/submission/feature-counts/:id',
-	ensureLoggedIn,
-	resolveRecord(req => req.params.id, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	async (req, res) => {
-		const sfs = await sfdb.findByProjectId(req.project.id);
-		const sfcs = {};
-		sfs.forEach(({ sheetId, features }) => {
-			// Repair is needed because there were some truncated JSONs in the DB.
-			const f = safeParseJSONArray(features).filter(f => !!f.id);
-			sfcs[sheetId] = (sfcs[sheetId] || 0) + f.length;
-		});
-		res.json(sfcs);
-	}
-);
-
-router.get(
-	'/submission/ratings/:id',
-	ensureLoggedIn,
-	resolveRecord(req => req.params.id, sdb.findById, 'sheet'),
-	resolveRecord(req => req.sheet.projectId, pdb.findById, 'project'),
-	ensureAdminOr(req => req.project.userId === req.user.id),
-	async (req, res) => {
-		const dict = await rdb.aggregateBySheetIdToDict(req.sheet.id);
-		res.json(dict);
-	}
-);
-
-router.get(
 	'/submission/export/:lang/:id',
 	ensureLoggedIn,
 	resolveRecord(req => req.params.id, pdb.findById, 'project'),
