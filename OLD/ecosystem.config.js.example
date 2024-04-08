@@ -6,10 +6,6 @@ module.exports = {
 			args: 'start',
 			exec_mode: 'cluster',
 			instances: 'max',
-		},
-		{
-			name: 'partimap-cron',
-			script: './cron.js',
 		}
 	],
 };
