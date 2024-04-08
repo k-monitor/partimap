@@ -11,3 +11,22 @@ export const OTHER_ANSWER = 'other';
  * contains the additional user input.
  */
 export const OTHER_PREFIX = 'other: ';
+
+export const SHEET_TYPES = [
+	{
+		name: 'text',
+		icon: 'fa-paragraph',
+	},
+	{
+		name: 'survey',
+		icon: 'fa-poll',
+	},
+	{
+		name: 'staticMap',
+		icon: 'fa-map',
+	},
+	{
+		name: 'interactiveMap',
+		icon: 'fa-map-marker-alt',
+	},
+];

@@ -20,12 +20,15 @@ export function createSurveyAnswer(data: any): SurveyAnswer {
 	};
 }
 
+export type Condition = [[number, string?], string];
+
 export type Question = {
 	id: number;
 	label: string;
 	options?: string[];
 	rows?: string[];
 	sheetId: number;
+	showIf?: Condition[];
 	showResult: boolean;
 	type: string;
 };
