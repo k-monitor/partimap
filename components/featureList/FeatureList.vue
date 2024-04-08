@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
 import { saveAs } from 'file-saver';
-import { safeParseJSONArray } from '~/server/utils/json';
 
 const { t } = useI18n();
 
