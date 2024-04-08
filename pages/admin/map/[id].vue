@@ -96,16 +96,14 @@ async function save() {
 		</Sidebar>
 
 		<div class="flex-grow-1">
-			<client-only>
-				<Map
-					:key="$route.path"
-					:features="features"
-					fit-selected
-					@feature-drawn="handleFeatureDrawn"
-				/>
-				<MapToolbar />
-				<MapHint />
-			</client-only>
+			<Map
+				:key="$route.path"
+				:features="features"
+				fit-selected
+				@feature-drawn="handleFeatureDrawn"
+			/>
+			<MapToolbar />
+			<MapHint />
 		</div>
 	</div>
 </template>
