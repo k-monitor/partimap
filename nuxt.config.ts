@@ -13,6 +13,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/i18n',
 		'@vueuse/nuxt',
 		'@zadigetvoltaire/nuxt-gtm',
+		'nuxt-scheduler',
 		'nuxt-tiptap-editor',
 	],
 	runtimeConfig: {

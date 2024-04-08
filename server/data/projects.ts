@@ -150,12 +150,13 @@ export async function attemptToUnsubscribe(id: number, token: string) {
 	return !!(r as any).affectedRows;
 }
 
-type NotificationData = {
+export type NotificationData = {
 	id: number;
 	lang: string;
 	title: string;
 	unsubscribeToken: string;
 	email: string;
+	name: string;
 	submissions: number;
 	newSubmissions: number;
 };

@@ -92,6 +92,9 @@ dependencies:
   nuxt:
     specifier: ^3.10.3
     version: 3.10.3(eslint@8.57.0)(rollup@4.13.2)(sass@1.71.1)(typescript@5.3.3)(vite@5.2.7)
+  nuxt-scheduler:
+    specifier: ^0.1.9
+    version: 0.1.9(rollup@4.13.2)
   nuxt-tiptap-editor:
     specifier: ^1.1.0
     version: 1.1.0(@tiptap/core@2.2.4)(@tiptap/extension-code-block@2.2.4)(rollup@4.13.2)(vue@3.4.21)
@@ -7115,6 +7118,13 @@ packages:
     engines: {node: ^16 || ^18 || >= 20}
     dev: false
 
+  /node-cron@3.0.3:
+    resolution: {integrity: sha512-dOal67//nohNgYWb+nWmg5dkFdIwDm8EpeGYMekPMrngV3637lqnX0lbUcCtgibHTz6SEz7DAIjKvKDFYCnO1A==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      uuid: 8.3.2
+    dev: false
+
   /node-fetch-native@1.6.2:
     resolution: {integrity: sha512-69mtXOFZ6hSkYiXAVB5SqaRvrbITC/NPyqv7yuu/qw0nmgPyYbIMYYNIDhNtwPrzk0ptrimrLz/hhjvm4w5Z+w==}
     dev: false
@@ -7313,6 +7323,17 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
+
+  /nuxt-scheduler@0.1.9(rollup@4.13.2):
+    resolution: {integrity: sha512-2WOEBhhVCpDvt0SpxZGMGhtsMVT6PLRI0yRgVFvWLw6mu6NqAPfof6HW9kP7ENOEJ2p5DXIk6CajVBl6LN0Htg==}
+    dependencies:
+      '@nuxt/kit': 3.10.3(rollup@4.13.2)
+      defu: 6.1.4
+      node-cron: 3.0.3
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
     dev: false
 
   /nuxt-tiptap-editor@1.1.0(@tiptap/core@2.2.4)(@tiptap/extension-code-block@2.2.4)(rollup@4.13.2)(vue@3.4.21):
@@ -9660,6 +9681,11 @@ packages:
       base64-arraybuffer: 1.0.2
     dev: false
     optional: true
+
+  /uuid@8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
