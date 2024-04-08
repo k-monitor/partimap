@@ -9,7 +9,7 @@ export type Project = {
 	slug: string;
 	title: string;
 	description: string;
-	image: string;
+	image: string | null;
 	privacyPolicy: string;
 	thanks: string;
 	thanksUrl: string;
@@ -44,10 +44,6 @@ export function createProject(data: any): Project {
 		subscribe: data.subscribe,
 		unsubscribeToken: data.unsubscribeToken,
 		lastSent: data.lastSent,
-
-		sheets: data.sheets,
-		submissions: data.submissions,
-		user: data.user,
 	};
 }
 

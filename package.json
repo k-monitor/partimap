@@ -26,6 +26,7 @@
 		"bcryptjs": "^2.4.3",
 		"bootstrap": "^5.3.3",
 		"bootstrap-vue-next": "^0.16.6",
+		"copy-to-clipboard": "^3.3.3",
 		"excel4node": "^1.8.2",
 		"file-saver": "^2.0.5",
 		"file-type": "^19.0.0",

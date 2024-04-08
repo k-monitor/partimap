@@ -69,6 +69,10 @@ a,
 	@include button-variant($primary, $primary);
 }
 
+.custom-file-label::after {
+	display: none !important;
+}
+
 fieldset,
 .form-group {
 	margin-bottom: 1rem;

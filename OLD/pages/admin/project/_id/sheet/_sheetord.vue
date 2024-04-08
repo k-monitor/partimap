@@ -596,10 +596,3 @@ export default {
 	},
 };
 </script>
-
-<style>
-.sheet-background-input .custom-file-label::after {
-	/* does not work in scoped style block */
-	display: none !important;
-}
-</style>

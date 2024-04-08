@@ -276,7 +276,7 @@ async function deleteAll() {
 		<div>
 			<div
 				v-if="showSearch"
-				class="input-group mb-3 mt-3"
+				class="input-group my-3"
 			>
 				<input
 					v-model="search"
