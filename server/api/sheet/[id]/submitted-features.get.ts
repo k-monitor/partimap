@@ -1,3 +1,4 @@
+import type { Feature as GeoJsonFeature } from 'geojson';
 import StatusCodes from 'http-status-codes';
 import { z } from 'zod';
 import * as pdb from '~/server/data/projects';
@@ -22,9 +23,8 @@ export default defineEventHandler(async (event) => {
 	await ensureAdminOr(event, project.userId);
 
 	const sfs = await sfdb.findAllBySheetId(sheet.id);
-	sfs.forEach((sf) => {
-		const arr = safeParseJSONArray(sf.features).filter((f) => !!f.id);
-		sf.features = JSON.stringify(arr);
-	});
-	return sfs;
+	const features = sfs.flatMap((sf) =>
+		safeParseJSONArray(sf.features).filter((f) => !!f.id),
+	) as GeoJsonFeature[];
+	return features;
 });

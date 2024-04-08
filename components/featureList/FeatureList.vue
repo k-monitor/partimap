@@ -28,7 +28,7 @@ function handleFeatureDelete(featureId: number) {
 }
 
 const props = defineProps<{
-	filename: string;
+	filename?: string;
 	isInteractive?: boolean;
 	isOnEditorView?: boolean;
 	isOnSheetView?: boolean;
@@ -39,7 +39,6 @@ const props = defineProps<{
 const hideAdminFeatures = computed(() => props.isOnSheetView && props.isInteractive);
 
 function getAvailableFeatures() {
-	console.log('getAvailableFeatures');
 	return (features.value || []).filter((f) => {
 		if (props.isOnSheetView && !f.properties?.visitorFeature) {
 			// case: admin features on public sheet
