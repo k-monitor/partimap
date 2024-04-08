@@ -164,68 +164,9 @@ async function handleDrawEnd() {
 	setTimeout(() => emitSelectAttempt(feature), timeout);
 
 	// FIXME maybe this should be handled on sheet, no?
-	// if (props.visitor) emit('visitorFeatureAdded', f);
+	// when adding: if (props.visitor) emit('visitorFeatureAdded', f);
+	// when deleting: if (props.visitor) emit('visitorFeatureRemoved', f);
 }
-
-// FIXME
-
-/*
-export default {
-	created() {
-		this.$nuxt.$on('importedFeatures', (features) => {
-			this.$store.commit('selected/clear');
-			// TODO would be nice to remove/overwrite already existing feature by ID
-			features.forEach((f) => this.vector.getSource().addFeature(f));
-			this.fitViewToFeatures();
-		});
-	},
-	beforeUnmount() {
-		this.$nuxt.$off('importedFeatures');
-	},
-	methods: {
-		addEventListeners() {
-			this.source.on('addfeature', (e) => {
-				{
-					// imported feature
-					const fillOpacity = parseFillOpacity100(f);
-					const opacity = parseOpacity100(f);
-					this.changeFeatureStyle(
-						f,
-						f.get('color') || this.defaultColor.drawing,
-						f.get('dash') || this.defaultStroke.lineDash,
-						fillOpacity,
-						opacity,
-						f.get('width') || this.defaultStroke.width,
-						false,
-					);
-				}
-
-				this.$store.commit('setDrawType', '');
-				this.$store.commit('features/add', f);
-
-				if (this.visitor) {
-					f.set('visitorFeature', true);
-					this.$emit('visitorFeatureAdded', f);
-				} else {
-					f.set('visitorFeature', false);
-				}
-
-				this.$nuxt.$emit('contentModified');
-			});
-
-			this.source.on('removefeature', (f) => {
-				this.$store.commit('selected/remove', f.feature);
-				this.$store.commit('features/remove', f.feature);
-
-				if (this.visitor) {
-					this.$emit('visitorFeatureRemoved', f.feature);
-				}
-				this.$nuxt.$emit('contentModified');
-			});
-		},
-	},
-};
-*/
 </script>
 
 <template>
