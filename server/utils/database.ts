@@ -44,7 +44,8 @@ export async function inTransaction(callback: inTransactionCallback) {
 		error = e;
 		if (connection) await connection.rollback();
 	} finally {
-		if (connection) connection.end();
+		if (connection) (connection as any).release();
+		// TODO upgrading to v3 might solve type issue
 	}
 	if (error) throw error;
 }

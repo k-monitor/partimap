@@ -17,7 +17,7 @@ export type User = {
 	isAdmin: boolean;
 };
 
-export type PublicUser = Pick<User, 'id' | 'name' | 'isAdmin'>;
+export type PublicUser = Pick<User, 'id' | 'email' | 'name' | 'isAdmin'>;
 
 export function createUser(data: any): User {
 	return {

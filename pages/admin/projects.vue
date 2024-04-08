@@ -1,5 +1,178 @@
+<script setup lang="ts">
+import type { Project } from '~/server/data/projects';
+
+const { user } = useAuth();
+const { locale, t } = useI18n();
+const localePath = useLocalePath();
+
+useHead({
+	title: `Admin: ${t('projects.title')}`,
+});
+
+const { loading } = useStore();
+
+const { data: projects, refresh } = await useFetch<Project[]>('/api/project/all');
+
+const filter = ref('');
+const filterOwn = ref(false);
+
+const filteredProjects = computed(() => {
+	const needle = filter.value.toLowerCase();
+	const result = (projects.value || []).filter((p) => {
+		if (p.lang !== locale.value) return false;
+		if (filterOwn.value && user.value?.id !== p.userId) return false;
+		const haystack = `${p.title}|${p.description || ''}`.toLowerCase();
+		return haystack.includes(needle);
+	});
+	result.sort((a, b) => b.id - a.id); // newest first, using the fact that IDs are timestamps
+	return result;
+});
+
+const route = useRoute();
+const router = useRouter();
+
+onMounted(() => {
+	const pid = route.query.dlr;
+	if (pid) {
+		// remove query param
+		router.replace({ path: route.path });
+
+		// start downloading project report
+		const a = document.getElementById(`dlr-${pid}`);
+		const u = a?.getAttribute('href');
+		if (u) window.location.href = u;
+	}
+});
+
+const { errorToast } = useToasts();
+const newProjectTitle = ref(null);
+
+async function add() {
+	try {
+		const { id } = await $fetch<{ id: number }>('/api/project', {
+			method: 'PUT',
+			body: {
+				lang: locale.value,
+				title: newProjectTitle.value,
+				privacyPolicy: `<p>${t('projects.userName')}: ${
+					user.value?.name
+				}</p><p>E-mail: <a href="mailto:${user.value?.email}">${user.value?.email}</a></p>`,
+				thanks: `<h5>${t('projectEditor.thanksDefault')}</h5>`,
+			},
+		});
+		navigateTo(localePath(`/admin/project/${id}`));
+	} catch (error) {
+		errorToast(t('projects.creationFailed'));
+	}
+}
+
+async function clone(project: Project) {
+	try {
+		loading.value = true;
+		await $fetch('/api/project/clone', {
+			method: 'PUT',
+			body: {
+				id: project.id,
+				title: `${project.title} ${new Date().toLocaleString()}`,
+			},
+		});
+		await refresh();
+	} catch (error) {
+		errorToast(t('projects.creationFailed'));
+	} finally {
+		loading.value = false;
+	}
+}
+
+const { confirmDeletion } = useConfirmation();
+async function del(project: Project) {
+	const confirmed = await confirmDeletion(project.title);
+	if (!confirmed) return;
+	try {
+		loading.value = true;
+		await $fetch(`/api/project/${project.id}`, { method: 'DELETE' });
+		await refresh();
+	} catch (error) {
+		errorToast(t('projects.deletionFailed'));
+	} finally {
+		loading.value = false;
+	}
+}
+</script>
+
 <template>
 	<AdminFrame>
-		<h1>TODO</h1>
+		<template #header>
+			{{ $t('projects.title') }}
+		</template>
+
+		<div class="row">
+			<div class="col-12 col-md-7">
+				<form @submit.prevent="add">
+					<div class="input-group mb-3">
+						<input
+							v-model="newProjectTitle"
+							class="form-control"
+							:placeholder="$t('projects.newProjectName')"
+							required
+							type="text"
+						/>
+						<div class="input-group-append">
+							<button
+								class="btn btn-outline-success"
+								type="submit"
+							>
+								{{ $t('projects.add') }}
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col">
+				<div class="form-group mb-3 mx-auto">
+					<input
+						v-model="filter"
+						class="form-control"
+						:placeholder="$t('projects.filter')"
+						type="text"
+					/>
+				</div>
+			</div>
+			<div
+				v-if="user?.isAdmin"
+				class="col col-mr-0"
+			>
+				<input
+					class="btn btn-outline-primary form-control"
+					:class="{ active: filterOwn }"
+					type="button"
+					:value="$t('projects.ownProjects')"
+					@click="filterOwn = !filterOwn"
+				/>
+			</div>
+		</div>
+		<div class="list-group">
+			<ListItem
+				v-for="p in filteredProjects"
+				:key="p.id"
+				:link="localePath('/admin/project/' + p.id)"
+				:title="p.title"
+				:user-id="p.userId"
+				@clone="clone(p)"
+				@del="del(p)"
+			>
+				<br />
+				{{ $t('projects.views') }}: {{ p.views }}, {{ $t('projects.submissions') }}:
+				{{ p.submissions }}
+				<a
+					v-if="p.submissions"
+					:id="`dlr-${p.id}`"
+					:href="`/api/project/${p.id}/report/${locale}`"
+					target="_blank"
+					>{{ $t('projects.export') }}</a
+				>
+			</ListItem>
+		</div>
+		<LoadingOverlay :show="loading" />
 	</AdminFrame>
 </template>

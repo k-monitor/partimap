@@ -5,6 +5,7 @@ export default defineEventHandler(async (event) => {
 
 	const u: PublicUser = {
 		id: event.context.user.id,
+		email: event.context.user.email,
 		name: event.context.user.name,
 		isAdmin: event.context.user.isAdmin,
 	};

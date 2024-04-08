@@ -22,6 +22,7 @@ export type Project = {
 
 	// only in some API responses
 	sheets?: Sheet[];
+	submissions?: number;
 	user?: Partial<User>;
 };
 
@@ -43,6 +44,10 @@ export function createProject(data: any): Project {
 		subscribe: data.subscribe,
 		unsubscribeToken: data.unsubscribeToken,
 		lastSent: data.lastSent,
+
+		sheets: data.sheets,
+		submissions: data.submissions,
+		user: data.user,
 	};
 }
 
