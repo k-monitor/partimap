@@ -1,3 +1,4 @@
+import { Readable } from 'stream';
 import xl from 'excel4node';
 import type { Feature as GeoJsonFeature } from 'geojson';
 import StatusCodes from 'http-status-codes';
@@ -257,5 +258,8 @@ export default defineEventHandler(async (event) => {
 		}
 	}
 
-	wb.write((project.title || 'export') + '.xlsx', event.node.res); // FIXME test
+	const buffer: Buffer = await wb.writeToBuffer();
+	const filename = `${project.title || 'export'}.xlsx`;
+	setHeader(event, 'content-disposition', `attachment; filename=${filename}`);
+	await sendStream(event, Readable.from(buffer, {}));
 });
