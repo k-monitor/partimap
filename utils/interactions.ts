@@ -30,7 +30,7 @@ type Interactions = {
 	stars: number;
 };
 
-function createInteractions(data: any): Interactions {
+export function createInteractions(data: any): Interactions {
 	return {
 		enabled: data.enabled || [],
 		baseMap: data.baseMap || 'osm',

@@ -12,7 +12,7 @@ const props = defineProps<{
 }>();
 const project = toRef(props, 'project');
 
-const endpoint = computed(() => `/api/sheet/${project.value.id}/sheets`);
+const endpoint = computed(() => `/api/project/${project.value.id}/feature-counts`);
 const { data: featureCounts } = await useFetch<Record<number, number>>(endpoint);
 
 function sheetType(sheet: Sheet) {
@@ -86,9 +86,10 @@ function canDelete(sheet: Sheet) {
 	});
 }
 
+const newSheetModalVisible = ref(false);
+
 function openNewSheetModal() {
-	// FIXME
-	//this.$bvModal.show('create-sheet-modal');
+	newSheetModalVisible.value = true;
 }
 
 const emit = defineEmits<{
@@ -112,7 +113,6 @@ async function deleteSheet(sheet: Sheet) {
 
 async function moveSheet(sheet: Sheet, delta: number) {
 	try {
-		console.log('MOVING SHEET', delta);
 		await $fetch(`/api/sheet/${sheet.id}`, {
 			method: 'PATCH',
 			body: { ord: sheet.ord + delta },
@@ -154,10 +154,11 @@ async function submittedFeaturesToKML(sheet: Sheet) {
 					{{ $t('ProjectSheetManager.addSheet') }}
 				</button>
 
-				<!-- FIXME <NewSheetModal
-						:project-id="projectId"
-						@added-sheet="emit('sheetsChanged')"
-					/> -->
+				<NewSheetModal
+					v-model="newSheetModalVisible"
+					:project-id="project.id"
+					@added-sheet="emit('sheetsChanged')"
+				/>
 			</div>
 			<div class="card-body">
 				<div class="list-group">
