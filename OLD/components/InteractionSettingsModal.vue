@@ -111,13 +111,17 @@ export default {
 	methods: {
 		reinit() {
 			this.buttonLabel =
-				this.interactions?.buttonLabels[this.drawType] || '';
+				this.interactions?.buttonLabels[this.drawType] ||
+				this.buttonLabel;
 			this.descriptionLabel =
-				this.interactions?.descriptionLabels[this.drawType] || '';
+				this.interactions?.descriptionLabels[this.drawType] ||
+				this.descriptionLabel;
 			this.featureLabel =
-				this.interactions?.featureLabels[this.drawType] || '';
+				this.interactions?.featureLabels[this.drawType] ||
+				this.featureLabel;
 			this.featureQuestion =
-				this.interactions?.featureQuestions[this.drawType] || {};
+				this.interactions?.featureQuestions[this.drawType] ||
+				this.featureQuestion;
 			// this.hasFeatureQuestion =
 			//	!!this.interactions?.featureQuestions[this.drawType]?.label;
 		},
