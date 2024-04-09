@@ -112,6 +112,7 @@ async function deleteSheet(sheet: Sheet) {
 
 async function moveSheet(sheet: Sheet, delta: number) {
 	try {
+		console.log('MOVING SHEET', delta);
 		await $fetch(`/api/sheet/${sheet.id}`, {
 			method: 'PATCH',
 			body: { ord: sheet.ord + delta },

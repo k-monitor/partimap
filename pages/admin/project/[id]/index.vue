@@ -6,9 +6,6 @@ import type { Project } from '~/server/data/projects';
 const route = useRoute();
 const { id } = route.params;
 const { data: project, refresh } = await useFetch<Project>(`/api/project/${id}`);
-const { data: featureCounts } = await useFetch<Record<number, number>>(
-	`/api/project/${id}/feature-counts`,
-);
 
 useHead({
 	title: () => `Admin: ${project.value?.title}`,
@@ -125,64 +122,11 @@ async function deleteProject() {
 	}
 }
 
-// TODO FIXME
-/*
-import { orderBy } from 'lodash';
+function handleSheetsChanged() {
+	refresh();
+}
 
-export default {
-	methods: {
-		addedSheet(sheet) {
-			this.project.sheets.push(sheet);
-		},
-		async delSheet(sheet) {
-			try {
-				await this.$axios.$delete('/api/sheet/' + sheet.id);
-				this.project.sheets = this.project.sheets.filter(function (s) {
-					if (s.id !== sheet.id) {
-						if (s.ord > sheet.ord) {
-							s.ord--;
-						}
-						return true;
-					} else {
-						return false;
-					}
-				});
-			} catch (error) {
-				this.errorToast(this.$t('projectEditor.sheetDeletionFailed'));
-			}
-		},
-		async moveSheet(dir, sheet) {
-			let otherSheet; // with which the current element is switched
-			if (dir === 'down') {
-				this.project.sheets.forEach((element) => {
-					if (element.ord === sheet.ord + 1) {
-						otherSheet = element;
-					}
-				});
-				otherSheet.ord--;
-				sheet.ord++;
-				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
-			} else if (dir === 'up') {
-				this.project.sheets.forEach((element) => {
-					if (element.ord === sheet.ord - 1) {
-						otherSheet = element;
-					}
-				});
-				otherSheet.ord++;
-				sheet.ord--;
-				this.project.sheets = orderBy(this.project.sheets, 'ord', 'asc');
-			}
-			try {
-				await this.$axios.$patch('/api/sheet/', {
-					id: sheet.id,
-					ord: sheet.ord,
-				});
-			} catch (error) {
-				this.errorToast(this.$t('projectEditor.sheetMovingFailed'));
-			}
-		},
-	},
-};*/
+// TODO loading state + overlay?
 </script>
 
 <template>
@@ -255,14 +199,6 @@ export default {
 					:description="$t('projectEditor.passwordDescription')"
 				>
 					<div class="flex-nowrap input-group">
-						<button
-							v-if="project.password"
-							class="btn btn-danger"
-							type="button"
-							@click="resetPassword"
-						>
-							<i class="fas fa-backspace" />
-						</button>
 						<input
 							v-model="newPassword"
 							class="form-control"
@@ -275,6 +211,14 @@ export default {
 							type="password"
 							@change="passwordModified = true"
 						/>
+						<button
+							v-if="project.password"
+							class="btn btn-danger"
+							type="button"
+							@click="resetPassword"
+						>
+							<i class="fas fa-backspace" />
+						</button>
 					</div>
 				</form-group>
 				<form-group
@@ -408,13 +352,9 @@ export default {
 				</div>
 			</template>
 		</AdminFrame>
-		<!-- <ProjectSheetManager
+		<ProjectSheetManager
 			:project="project"
-			:project-id="project.id"
-			:sheets="project.sheets"
-			@added-sheet="addedSheet"
-			@del-sheet="delSheet"
-			@move-sheet="moveSheet"
-		/> -->
+			@sheets-changed="handleSheetsChanged"
+		/>
 	</div>
 </template>
