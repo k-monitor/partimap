@@ -255,10 +255,9 @@ async function deleteFeature() {
 						class="d-flex flex-column"
 						style="gap: 1rem"
 					>
-						<!-- FIXME -->
 						<template v-if="isOnSubmittedView">
 							<JumpToMapButton />
-							<!-- <SubmittedFeatureInfo /> -->
+							<SubmittedFeatureInfo />
 							<FeatureListElementFooter
 								show-delete
 								@delete="deleteFeature"
@@ -267,6 +266,7 @@ async function deleteFeature() {
 						<template v-if="isOnSheetView">
 							<template v-if="isInteractive">
 								<FeatureNameEditor v-if="visitorCanName" />
+								<!-- FIXME -->
 								<!-- <FeatureQuestionDisplay />
 								<FeatureDescriptionPlainEditor /> -->
 								<FeatureListElementFooter
@@ -278,6 +278,7 @@ async function deleteFeature() {
 							</template>
 							<template v-else>
 								<JumpToMapButton />
+								<!-- FIXME -->
 								<!-- <TipTapDisplay :html="feature.properties?.description" />
 								<FeatureRatingControls
 									v-if="visitorCanRate"
@@ -291,6 +292,7 @@ async function deleteFeature() {
 							</template>
 						</template>
 						<template v-if="isOnEditorView">
+							<!-- FIXME -->
 							<!-- <FeatureRatingControls
 								v-if="aggregatedRating.count"
 								show-results
