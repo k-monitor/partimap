@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Project } from '~/server/data/projects';
+
 const localePath = useLocalePath();
 
 const props = defineProps<{
@@ -6,10 +8,10 @@ const props = defineProps<{
 	backLabel?: string;
 	fixed?: boolean;
 	loading?: boolean;
-	project?: any; // FIXME Project type
+	project?: Project;
 }>();
 
-const { drawType, sidebarVisible } = useStore();
+const { drawType, selectedFeatureId, sidebarVisible } = useStore();
 
 onMounted(() => {
 	if (props.fixed || !isMobile()) return;
@@ -56,7 +58,9 @@ watch(drawType, (t) => {
 	}
 });
 
-// FIXME watch selectedFeature, if feature, call show()
+watch(selectedFeatureId, (id) => {
+	if (id) show();
+});
 
 defineEmits<{
 	(e: 'back'): void;
@@ -102,7 +106,6 @@ defineEmits<{
 					v-if="!admin && project && project.user"
 					class="mx-auto ml-lg-auto mr-lg-4"
 				>
-					<!-- FIXME check/fix project.user.* access below -->
 					<a
 						:href="project.user.website"
 						target="_blank"
