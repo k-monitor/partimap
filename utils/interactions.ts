@@ -80,7 +80,7 @@ export function deserializeInteractions(json: string) {
 	return createInteractions(parsed);
 }
 
-export function isInteractive(interactions: Interactions) {
+export function isItInteractive(interactions: Interactions) {
 	return (
 		interactions.enabled.includes('Point') ||
 		interactions.enabled.includes('LineString') ||

@@ -19,7 +19,7 @@ function sheetType(sheet: Sheet) {
 	// TODO sheet type should be stored explicitly in sheet table, e.g. T/Q/S/I
 	const interactions = deserializeInteractions(sheet.interactions);
 	if (sheet.features) {
-		return isInteractive(interactions) ? 'interactiveMap' : 'staticMap';
+		return isItInteractive(interactions) ? 'interactiveMap' : 'staticMap';
 	} else if (sheet.survey) {
 		return 'survey';
 	} else {
