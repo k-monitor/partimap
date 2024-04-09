@@ -28,7 +28,10 @@
 					>
 						{{ $t('AdminFrame.users') }}
 					</b-nav-item>
-					<b-nav-item-dropdown :text="$t('AdminFrame.editHelp')">
+					<b-nav-item-dropdown
+						v-if="$auth.user.isAdmin"
+						:text="$t('AdminFrame.editHelp')"
+					>
 						<b-dropdown-item
 							:to="localePath('/admin/i18n/editors-help/')"
 						>
