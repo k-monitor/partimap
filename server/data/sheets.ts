@@ -8,7 +8,7 @@ export type Sheet = {
 	ord: number; // index within project
 	title: string;
 	description: string;
-	image: string;
+	image: string | null;
 	survey: string; // JSON
 	features: string;
 	interactions: string; // JSON

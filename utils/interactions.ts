@@ -1,7 +1,7 @@
 // This file handles the (de)serialization of the sheet.interactions field
 // in a backward-compatible way.
 
-type Interactions = {
+export type Interactions = {
 	enabled: string[];
 	baseMap: string;
 	/**
@@ -63,8 +63,8 @@ export function serializeInteractions(interactions: Interactions) {
 	return JSON.stringify(interactions);
 }
 
-export function deserializeInteractions(json: string) {
-	const parsed = safeParseJSONArray(json);
+export function deserializeInteractions(json: string | undefined) {
+	const parsed = safeParseJSON(json || '[]');
 	if (Array.isArray(parsed)) {
 		const enabled = [] as string[];
 		let stars = 5;
