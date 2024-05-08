@@ -1,5 +1,3 @@
-// FIXME import { deserializeInteractions } from '../OLD/assets/interactions';
-
 function db(drawType: DrawType, icon: string, tooltip: string, variant: string) {
 	return { drawType, icon, tooltip, variant };
 }
@@ -13,7 +11,7 @@ const _buttons = [
 
 export function generateDrawButtons(
 	currentDrawType: DrawType,
-	interactions: any, // FIXME need type
+	interactions: Interactions | null | undefined,
 	isVisitor: boolean,
 	t: (key: string) => string,
 ) {

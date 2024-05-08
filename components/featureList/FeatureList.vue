@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
 import { saveAs } from 'file-saver';
+import type { Sheet } from '~/server/data/sheets';
+import type { AggregatedRating } from '~/server/data/ratings';
 
 const { t } = useI18n();
 
 const { filteredFeatureIds, loading, selectedFeatureId, sidebarVisible } = useStore();
 
-const sheet = inject<Record<string, any>>('sheet', {}); // FIXME Sheet type
-const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
+const sheet = inject<Ref<Sheet | null>>('sheet');
+const interactions = inject<Ref<Interactions | null>>('interactions');
 
 const features = defineModel<GeoJsonFeature[]>();
 
@@ -157,13 +159,13 @@ const filteredVisitorFeatures = computed(() => {
 });
 
 function getAggregatedRating(featureId: number) {
-	const dict = sheet.ratings || {};
+	const dict: Record<string, AggregatedRating> = sheet?.value?.ratings || {};
 	return dict[String(featureId)] || {};
 }
 
 function getAggregatedRatingValue(featureId: number) {
 	const r = getAggregatedRating(featureId);
-	switch (interactions.stars) {
+	switch (interactions?.value?.stars) {
 		case -2:
 			return r.sum;
 		case 1:

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { AggregatedRating } from '~/server/data/ratings';
 
 const { t } = useI18n();
 
-const aggregatedRating = inject<Record<string, number>>('aggregatedRating', {}); // FIXME type
+const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating');
 const feature = inject<GeoJsonFeature>('feature');
-const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
+const interactions = inject<Ref<Interactions | null>>('interactions');
 
 defineProps<{
 	isDeletable: boolean;
@@ -36,10 +37,10 @@ const nonEmptyName = computed(() => {
 
 const ratingResult = computed(() => {
 	const r = aggregatedRating;
-	if (!r.count || !interactions) return;
-	if (interactions.stars === -2) {
+	if (!r || !r.count || !interactions) return;
+	if (interactions?.value?.stars === -2) {
 		return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;
-	} else if (interactions.stars === 1) {
+	} else if (interactions?.value?.stars === 1) {
 		const count = r.count;
 		return `⭐ ${count}`;
 	} else {

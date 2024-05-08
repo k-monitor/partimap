@@ -2,17 +2,19 @@
 import type { BCard } from 'bootstrap-vue-next';
 import type { Feature as GeoJsonFeature } from 'geojson';
 import type FeatureListElementHeader from '~/components/featureList/FeatureListElementHeader.vue';
+import type { AggregatedRating } from '~/server/data/ratings';
+import type { Sheet } from '~/server/data/sheets';
 
 const { t } = useI18n();
 
 const { selectedFeatureId, sidebarVisible } = useStore();
 
-const sheet = inject<Record<string, any> | null>('sheet', null); // FIXME Sheet type
-const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
+const sheet = inject<Ref<Sheet | null>>('sheet');
+const interactions = inject<Ref<Interactions | null>>('interactions');
 
 const props = withDefaults(
 	defineProps<{
-		aggregatedRating: Record<string, number>; // FIXME need type
+		aggregatedRating: AggregatedRating;
 		categories: string[];
 		feature: GeoJsonFeature;
 		isInteractive: boolean;
@@ -27,7 +29,9 @@ const props = withDefaults(
 );
 
 provide('feature', props.feature);
-provide('aggregatedRating', props.aggregatedRating);
+
+const aggregatedRating = toRef(props, 'aggregatedRating');
+provide('aggregatedRating', aggregatedRating);
 
 const emit = defineEmits<{
 	(e: 'change', f: GeoJsonFeature): void;
@@ -49,12 +53,12 @@ const confirmedClose = ref(false);
 
 const question = computed(() => {
 	const dt = feature.value.geometry.type;
-	const q = interactions.featureQuestions?.[dt] || {};
+	const q = interactions?.value?.featureQuestions?.[dt] || {};
 	return q.label ? q : null;
 });
 
 const showSaveButtonOnStaticSheet = computed(() => {
-	const ias = interactions.enabled;
+	const ias = interactions?.value?.enabled || [];
 	if (!ias.includes('Rating')) return false;
 	if (!ias.includes('RatingExplanation') && !ias.includes('RatingProsCons')) {
 		return false;
@@ -67,15 +71,15 @@ const showSaveButtonOnStaticSheet = computed(() => {
 });
 
 const stars = computed(() => {
-	return interactions.stars;
+	return interactions?.value?.stars;
 });
 
 const visitorCanName = computed(() => {
-	return interactions.enabled.includes('naming');
+	return interactions?.value?.enabled?.includes('naming');
 });
 
 const visitorCanRate = computed(() => {
-	return interactions.enabled.includes('Rating');
+	return interactions?.value?.enabled?.includes('Rating');
 });
 
 watch(sidebarVisible, (v) => {
@@ -126,7 +130,7 @@ const visitorFilledEverything = computed(() => {
 		}
 	} else if (feature.value.properties?.rating) {
 		const ratingObj = getRatingObj();
-		const ias = interactions?.enabled || [];
+		const ias = interactions?.value?.enabled || [];
 		if (ias.includes('RatingExplanation')) {
 			if (!ratingObj.answer) return false;
 		} else if (ias.includes('RatingProsCons')) {
@@ -279,11 +283,11 @@ async function deleteFeature() {
 							<template v-else>
 								<JumpToMapButton />
 								<!-- FIXME -->
-								<!-- <TipTapDisplay :html="feature.properties?.description" />
+								<!-- <TipTapDisplay :html="feature.properties?.description" /> -->
 								<FeatureRatingControls
 									v-if="visitorCanRate"
 									:show-results="showResults"
-								/> -->
+								/>
 								<FeatureListElementFooter
 									v-if="showSaveButtonOnStaticSheet"
 									show-save
@@ -292,11 +296,10 @@ async function deleteFeature() {
 							</template>
 						</template>
 						<template v-if="isOnEditorView">
-							<!-- FIXME -->
-							<!-- <FeatureRatingControls
+							<FeatureRatingControls
 								v-if="aggregatedRating.count"
 								show-results
-							/> -->
+							/>
 							<FeatureNameEditor />
 							<FeatureStyleEditor />
 							<FeatureCategoryEditor :categories="categories" />

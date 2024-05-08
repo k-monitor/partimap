@@ -140,6 +140,9 @@ dependencies:
   vue-router:
     specifier: ^4.3.0
     version: 4.3.0(vue@3.4.21)
+  vue-star-rating:
+    specifier: ^2.1.0
+    version: 2.1.0(typescript@5.3.3)
   vue3-openlayers:
     specifier: ^6.3.2
     version: 6.3.2(ol-contextmenu@5.4.0)(ol-ext@4.0.17)(ol@9.1.0)(vue@3.4.21)
@@ -10019,6 +10022,14 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.1
       vue: 3.4.21(typescript@5.3.3)
+    dev: false
+
+  /vue-star-rating@2.1.0(typescript@5.3.3):
+    resolution: {integrity: sha512-LnhuQPi4hkRg7egKls+iqtL1U0RTN2gQkdLsJN7acyynMsSc9epHLzk8McJS+bR0OzfG98zNFq7mxAyuSb/okQ==}
+    dependencies:
+      vue: 3.4.21(typescript@5.3.3)
+    transitivePeerDependencies:
+      - typescript
     dev: false
 
   /vue3-openlayers@6.3.2(ol-contextmenu@5.4.0)(ol-ext@4.0.17)(ol@9.1.0)(vue@3.4.21):

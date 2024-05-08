@@ -1,3 +1,20 @@
+<script setup lang="ts">
+const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating');
+
+const rating = defineModel<number>();
+
+defineProps<{
+	showResults: boolean;
+}>();
+
+function handleLike() {
+	rating.value = rating.value === 1 ? 0 : 1;
+}
+function handleDislike() {
+	rating.value = rating.value === -1 ? 0 : -1;
+}
+</script>
+
 <template>
 	<div class="d-flex">
 		<button
@@ -37,44 +54,3 @@
 		</button>
 	</div>
 </template>
-
-<script>
-export default {
-	inject: {
-		aggregatedRating: {
-			default: {},
-		},
-	},
-	props: {
-		showResults: {
-			type: Boolean,
-			default: false,
-		},
-		value: {
-			type: Number,
-			default: 0,
-		},
-	},
-	data() {
-		return {
-			rating: this.value || 0,
-		};
-	},
-	watch: {
-		value(newValue) {
-			this.rating = newValue || 0;
-		},
-		rating(newValue) {
-			this.$emit('input', newValue);
-		},
-	},
-	methods: {
-		handleLike() {
-			this.rating = this.rating === 1 ? 0 : 1;
-		},
-		handleDislike() {
-			this.rating = this.rating === -1 ? 0 : -1;
-		},
-	},
-};
-</script>

@@ -2,14 +2,14 @@
 const { t } = useI18n();
 const { drawType } = useStore();
 
-const interactions = inject<Record<string, any>>('interactions', {}); // FIXME Interactions type
+const interactions = inject<Ref<Interactions | null>>('interactions');
 
 const props = defineProps<{
 	visitor?: boolean;
 }>();
 
 const drawingButtons = computed(() =>
-	generateDrawButtons(drawType.value, interactions, props.visitor, t),
+	generateDrawButtons(drawType.value, interactions?.value, props.visitor, t),
 );
 </script>
 
