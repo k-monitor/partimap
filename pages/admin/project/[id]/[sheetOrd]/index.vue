@@ -435,28 +435,30 @@ async function save() {
 					@modified="handleRatingInteractionModified"
 				/>
 			</b-form-group>
-
-			<b-form-group v-if="canHaveResults">
-				<template #label>
-					<h6 class="mb-0">
-						{{ $t('SheetContent.results') }}
-					</h6>
-				</template>
-				<b-form-checkbox
-					v-model="showAllResults"
-					@change="showAllResultsClicked"
-				>
-					{{ $t('sheetEditor.showAllResults') }}
-				</b-form-checkbox>
-				<b-form-checkbox
-					v-if="someResultsEnabled"
-					v-model="interactions.enabled"
-					value="ShowResultsOnly"
-				>
-					{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
-				</b-form-checkbox>
-			</b-form-group>
 			 -->
+
+			<client-only>
+				<b-form-group v-if="canHaveResults">
+					<template #label>
+						<h6 class="mb-0">
+							{{ $t('SheetContent.results') }}
+						</h6>
+					</template>
+					<b-form-checkbox
+						v-model="showAllResults"
+						@change="showAllResultsClicked"
+					>
+						{{ $t('sheetEditor.showAllResults') }}
+					</b-form-checkbox>
+					<b-form-checkbox
+						v-if="someResultsEnabled"
+						v-model="interactions.enabled"
+						value="ShowResultsOnly"
+					>
+						{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
+					</b-form-checkbox>
+				</b-form-group>
+			</client-only>
 
 			<form-group
 				v-if="isInteractive || sheet.features"
