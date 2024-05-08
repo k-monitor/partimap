@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
@@ -58,6 +59,16 @@ useHead({
 
 const { changeBaseMap, loading } = useStore();
 const contentModified = ref(false);
+
+function parseFeatures() {
+	try {
+		return JSON.parse(sheet.value?.features || '[]') as GeoJsonFeature[];
+	} catch {
+		return [];
+	}
+}
+const features = ref<GeoJsonFeature[]>(parseFeatures());
+watch(features, () => (contentModified.value = true), { deep: true });
 
 const isFirstSheet = computed(() => sheet.value?.ord === 0);
 const isLastSheet = computed(() => sheet.value?.ord === (project.value?.sheets?.length || 0) - 1);
@@ -267,8 +278,7 @@ async function uploadBackground() {
 
 const { errorToast, successToast } = useToasts();
 async function save() {
-	// FIXME make sure sheet.features stays empty if it was empty
-
+	if (!sheet.value) return;
 	try {
 		loading.value = true;
 
@@ -278,7 +288,10 @@ async function save() {
 
 		sheet.value = await $fetch(`/api/sheet/${sheet.value?.id}`, {
 			method: 'PATCH',
-			body: sheet.value,
+			body: {
+				...sheet.value,
+				features: sheet.value.features ? JSON.stringify(features.value) : null,
+			},
 		});
 		await nextTick();
 		contentModified.value = false;
@@ -449,13 +462,15 @@ async function save() {
 					:options="baseMaps"
 				/>
 			</b-form-group>
+			 -->
 
 			<FeatureList
 				v-if="sheet.features"
+				v-model="features"
 				:filename="sheet.title"
 				:is-interactive="isInteractive"
 				is-on-editor-view
-			/> -->
+			/>
 
 			<template #footer>
 				<div class="align-items-center d-flex justify-content-between p-2 w-100">
@@ -505,7 +520,7 @@ async function save() {
 		>
 			<Map
 				:key="$route.path"
-				:features="safeParseJSONArray(sheet.features)"
+				:features="features"
 				:initial-base-map-key="interactions.baseMap"
 			/>
 			<MapToolbar />
