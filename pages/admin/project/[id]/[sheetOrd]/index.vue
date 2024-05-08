@@ -140,9 +140,6 @@ const interactionOptions = computed(() => {
 	}
 	return options;
 });
-function hasSettings(ia: string) {
-	return ['Point', 'LineString', 'Polygon', 'Rating'].includes(ia);
-}
 const surveyQuestions = computed<Question[] | undefined>(() => {
 	const survey = safeParseJSON(sheet.value?.survey || '{}') as Survey;
 	return survey.questions;
@@ -212,9 +209,14 @@ watch(
 );
 
 const settingsModals: Record<string, Ref<boolean>> = {
+	LineString: ref(false),
+	Point: ref(false),
+	Polygon: ref(false),
 	Rating: ref(false),
-	// FIXME handle others, e.g. drawing stuff...
 };
+function hasSettings(ia: string) {
+	return Object.keys(settingsModals).includes(ia);
+}
 function openInteractionSettings(ia: string) {
 	if (hasSettings(ia) && interactions.value.enabled.includes(ia)) {
 		settingsModals[ia].value = true;
@@ -395,8 +397,6 @@ async function save() {
 					/>
 				</client-only>
 			</b-form-group>
-
-
 			 -->
 
 			<form-group
@@ -431,14 +431,14 @@ async function save() {
 						</b-list-group-item>
 					</b-list-group>
 				</client-only>
-				<!-- FIXME <InteractionSettingsModal
+				<InteractionSettingsModal
 					v-for="dt in ['Point', 'LineString', 'Polygon']"
-					:id="dt + '-modal'"
 					:key="dt"
+					v-model="settingsModals[dt].value"
 					:draw-type="dt"
 					:interactions="interactions"
 					@modified="handleInteractionModified"
-				/> -->
+				/>
 				<RatingSettingsModal
 					v-model="settingsModals.Rating.value"
 					:interactions="interactions"
