@@ -10,19 +10,11 @@ const props = defineProps<{
 	features?: GeoJsonFeature[];
 	fitSelected?: boolean;
 	grayRated?: boolean;
-	initialBaseMapKey?: string;
 	labelOverrides?: Record<number, string>;
 	visitor?: boolean;
 }>();
 
-const {
-	changeBaseMap,
-	currentZoom,
-	drawType,
-	filteredFeatureIds,
-	selectedFeatureId,
-	sidebarVisible,
-} = useStore();
+const { currentZoom, drawType, filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
 
 // map initialization
 
@@ -36,7 +28,6 @@ const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
 const initialZoom = Number(t('Map.initialZoom')) || 10;
 
 onBeforeMount(() => {
-	changeBaseMap(props.initialBaseMapKey || 'osm');
 	selectedFeatureId.value = null;
 });
 

@@ -10,6 +10,8 @@ const localePath = useLocalePath();
 const route = useRoute();
 const { id, sheetOrd } = route.params;
 
+const { changeBaseMap, loading } = useStore();
+
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
 const sheet = ref<Sheet | undefined>();
@@ -25,6 +27,7 @@ function init() {
 	if (!sheet.value) return;
 
 	interactions.value = deserializeInteractions(sheet.value.interactions);
+	changeBaseMap(interactions.value.baseMap || 'osm');
 
 	// BEGIN backward compatibility for #2437
 	const descriptionLabel = sheet.value.descriptionLabel || '';
@@ -57,7 +60,6 @@ useHead({
 		`Admin: ${project.value?.title} (${Number(sheetOrd) + 1}/${project.value?.sheets?.length})`,
 });
 
-const { changeBaseMap, loading } = useStore();
 const contentModified = ref(false);
 
 function parseFeatures() {
@@ -195,7 +197,9 @@ watch(
 	(interactions) => {
 		if (!sheet.value) return;
 		sheet.value.interactions = serializeInteractions(interactions);
-		if (interactions.baseMap) changeBaseMap(interactions.baseMap);
+		if (interactions.baseMap) {
+			changeBaseMap(interactions.baseMap);
+		}
 	},
 	{
 		deep: true,
@@ -452,17 +456,19 @@ async function save() {
 					{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
 				</b-form-checkbox>
 			</b-form-group>
+			 -->
 
-			<b-form-group
+			<form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
 			>
-				<b-form-select
-					v-model="interactions.baseMap"
-					:options="baseMaps"
-				/>
-			</b-form-group>
-			 -->
+				<client-only>
+					<b-form-select
+						v-model="interactions.baseMap"
+						:options="baseMaps.map((bm) => bm.id)"
+					/>
+				</client-only>
+			</form-group>
 
 			<FeatureList
 				v-if="sheet.features"
@@ -521,7 +527,6 @@ async function save() {
 			<Map
 				:key="$route.path"
 				:features="features"
-				:initial-base-map-key="interactions.baseMap"
 			/>
 			<MapToolbar />
 			<MapHint />
