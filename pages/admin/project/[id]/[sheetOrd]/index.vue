@@ -244,8 +244,10 @@ watch(backgroundImage, (val) => {
 	}
 });
 
+const newSheetModalVisible = ref(false);
+
 function openNewSheetModal() {
-	// FIXME this.$bvModal.show('create-sheet-modal');
+	newSheetModalVisible.value = true;
 }
 
 async function uploadBackground() {
@@ -510,9 +512,10 @@ async function save() {
 			<MapHint />
 		</div>
 
-		<!-- FIXME <NewSheetModal
+		<NewSheetModal
+			v-model="newSheetModalVisible"
 			:project-id="project.id"
 			@added-sheet="addedSheet"
-		/> -->
+		/>
 	</SheetFrame>
 </template>
