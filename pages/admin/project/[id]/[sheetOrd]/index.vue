@@ -18,7 +18,13 @@ const sheet = ref<Sheet | undefined>();
 const interactions = ref<Interactions>(deserializeInteractions(undefined));
 
 const endpoint = computed(() => `/api/sheet/${sheet.value?.id}/ratings`);
-const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(endpoint);
+const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(endpoint, {
+	immediate: false,
+	onResponse({ response }) {
+		const ratings = response._data;
+		if (sheet.value && ratings) sheet.value.ratings = ratings;
+	},
+});
 
 function init() {
 	// TODO this doesn't feel elegant but now I'm just migrating from asyncData
@@ -47,8 +53,6 @@ function init() {
 		sheet.value.survey = JSON.stringify(survey);
 	}
 	// END backward compatibility for #2434
-
-	if (ratings.value) sheet.value.ratings = ratings.value;
 }
 init();
 
