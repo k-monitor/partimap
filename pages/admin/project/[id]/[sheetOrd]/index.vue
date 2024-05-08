@@ -20,10 +20,6 @@ const interactions = ref<Interactions>(deserializeInteractions(undefined));
 const endpoint = computed(() => `/api/sheet/${sheet.value?.id}/ratings`);
 const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(endpoint, {
 	immediate: false,
-	onResponse({ response }) {
-		const ratings = response._data;
-		if (sheet.value && ratings) sheet.value.ratings = ratings;
-	},
 });
 
 function init() {
@@ -56,8 +52,13 @@ function init() {
 }
 init();
 
+const sheetWithRatings = computed(() => {
+	if (!sheet.value) return null;
+	return { ...sheet.value, ratings: ratings.value };
+});
+
 provide('interactions', interactions);
-provide('sheet', sheet);
+provide('sheet', sheetWithRatings);
 
 useHead({
 	title: () =>
@@ -209,9 +210,14 @@ watch(
 		deep: true,
 	},
 );
+
+const settingsModals: Record<string, Ref<boolean>> = {
+	Rating: ref(false),
+	// FIXME handle others, e.g. drawing stuff...
+};
 function openInteractionSettings(ia: string) {
 	if (hasSettings(ia) && interactions.value.enabled.includes(ia)) {
-		// FIXME this.$bvModal.show(ia + '-modal');
+		settingsModals[ia].value = true;
 	}
 }
 
@@ -264,10 +270,6 @@ watch(backgroundImage, (val) => {
 });
 
 const newSheetModalVisible = ref(false);
-
-function openNewSheetModal() {
-	newSheetModalVisible.value = true;
-}
 
 async function uploadBackground() {
 	if (!backgroundImageState.value) return;
@@ -394,60 +396,61 @@ async function save() {
 				</client-only>
 			</b-form-group>
 
-			<b-form-group v-if="interactionOptions.length">
-				<template #label>
-					<h6 class="mb-0">
-						{{ $t('sheetEditor.visitorInteractions') }}
-					</h6>
-				</template>
-				<b-list-group class="mb-3">
-					<b-list-group-item
-						v-for="o in interactionOptions"
-						:key="o.value"
-						class="d-flex p-0 align-items-center"
-					>
-						<div class="p-2">
-							<b-form-checkbox
-								v-model="interactions.enabled"
-								:value="o.value"
-								@change="openInteractionSettings(o.value)"
-							>
-								{{ o.text }}
-							</b-form-checkbox>
-						</div>
-						<b-button
-							v-if="hasSettings(o.value)"
-							class="border-0 ms-auto px-2 py-2 rounded-0"
-							variant="outline-primary"
-							:disabled="!interactions.enabled.includes(o.value)"
-							@click="openInteractionSettings(o.value)"
+
+			 -->
+
+			<form-group
+				v-if="interactionOptions?.length"
+				:label="$t('sheetEditor.visitorInteractions')"
+			>
+				<client-only>
+					<b-list-group class="mb-3">
+						<b-list-group-item
+							v-for="o in interactionOptions"
+							:key="o.value"
+							class="d-flex p-0 align-items-center"
 						>
-							<i class="fas fa-fw fa-cog" />
-						</b-button>
-					</b-list-group-item>
-				</b-list-group>
-				<InteractionSettingsModal
+							<div class="p-2">
+								<b-form-checkbox
+									v-model="interactions.enabled"
+									:value="o.value"
+									@change="openInteractionSettings(o.value)"
+								>
+									{{ o.text }}
+								</b-form-checkbox>
+							</div>
+							<b-button
+								v-if="hasSettings(o.value)"
+								class="border-0 ms-auto px-2 py-2 rounded-0"
+								variant="outline-primary"
+								:disabled="!interactions.enabled.includes(o.value)"
+								@click="openInteractionSettings(o.value)"
+							>
+								<i class="fas fa-fw fa-cog" />
+							</b-button>
+						</b-list-group-item>
+					</b-list-group>
+				</client-only>
+				<!-- FIXME <InteractionSettingsModal
 					v-for="dt in ['Point', 'LineString', 'Polygon']"
 					:id="dt + '-modal'"
 					:key="dt"
 					:draw-type="dt"
 					:interactions="interactions"
 					@modified="handleInteractionModified"
-				/>
+				/> -->
 				<RatingSettingsModal
+					v-model="settingsModals.Rating.value"
 					:interactions="interactions"
 					@modified="handleRatingInteractionModified"
 				/>
-			</b-form-group>
-			 -->
+			</form-group>
 
-			<client-only>
-				<b-form-group v-if="canHaveResults">
-					<template #label>
-						<h6 class="mb-0">
-							{{ $t('SheetContent.results') }}
-						</h6>
-					</template>
+			<form-group
+				v-if="canHaveResults"
+				:label="$t('SheetContent.results')"
+			>
+				<client-only>
 					<b-form-checkbox
 						v-model="showAllResults"
 						@change="showAllResultsClicked"
@@ -461,8 +464,8 @@ async function save() {
 					>
 						{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
 					</b-form-checkbox>
-				</b-form-group>
-			</client-only>
+				</client-only>
+			</form-group>
 
 			<form-group
 				v-if="isInteractive || sheet.features"
@@ -517,7 +520,7 @@ async function save() {
 						<b-button
 							v-else
 							variant="success"
-							@click="openNewSheetModal"
+							@click="newSheetModalVisible = true"
 						>
 							<i class="fas fa-fw fa-plus" />
 						</b-button>
