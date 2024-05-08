@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
 	await ensureAdminOr(event, project.userId);
 
-	const url = await acceptImage(event, String(project.id), 120, 30);
+	const url = await acceptImage(event, String(project.id), 1920, 1200);
 	deleteImageFile(sheet.image);
 	sheet.image = url;
 	await sdb.update(sheet);

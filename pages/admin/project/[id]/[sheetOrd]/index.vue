@@ -315,46 +315,49 @@ async function save() {
 				<tiptap v-model="sheet.description" />
 			</form-group>
 
-			<!-- FIXME <b-form-group
-				v-if="!sheet.features"
-				:invalid-feedback="$t('imageUpload.maxFileSize')"
-				:state="backgroundImageState"
-			>
-				<template #label>
-					<h6 class="mb-0">
-						{{ $t('sheetEditor.backgroundImage') }}
-					</h6>
-				</template>
-				<b-input-group v-if="!sheet.image">
-					<b-form-file
-						v-model="backgroundImage"
-						accept="image/jpeg, image/png, image/webp"
-						class="sheet-background-input"
-						browse-text=""
-						:drop-placeholder="$t('imageUpload.dropzone')"
-						:placeholder="$t('imageUpload.browse')"
-						:state="backgroundImageState"
-					/>
-					<template #append>
-						<b-button
-							:disabled="!backgroundImage"
-							variant="outline-danger"
-							@click="removeBackground"
-						>
-							<i class="fas fa-backspace" />
-						</b-button>
-					</template>
-				</b-input-group>
-				<b-button
-					v-else
-					class="w-100"
-					variant="outline-danger"
-					@click="removeBackground"
+			<client-only>
+				<b-form-group
+					v-if="!sheet.features"
+					:invalid-feedback="$t('imageUpload.maxFileSize')"
+					:state="backgroundImageState"
 				>
-					{{ $t('imageUpload.remove') }}
-				</b-button>
-			</b-form-group>
+					<template #label>
+						<h6 class="mb-0">
+							{{ $t('sheetEditor.backgroundImage') }}
+						</h6>
+					</template>
+					<b-input-group v-if="!sheet.image">
+						<b-form-file
+							v-model="backgroundImage"
+							accept="image/jpeg, image/png, image/webp"
+							class="sheet-background-input"
+							browse-text=""
+							:drop-placeholder="$t('imageUpload.dropzone')"
+							:placeholder="$t('imageUpload.browse')"
+							:state="backgroundImageState"
+						/>
+						<template #append>
+							<b-button
+								:disabled="!backgroundImage"
+								variant="outline-danger"
+								@click="removeBackground"
+							>
+								<i class="fas fa-backspace" />
+							</b-button>
+						</template>
+					</b-input-group>
+					<b-button
+						v-else
+						class="w-100"
+						variant="outline-danger"
+						@click="removeBackground"
+					>
+						{{ $t('imageUpload.remove') }}
+					</b-button>
+				</b-form-group>
+			</client-only>
 
+			<!-- FIXME
 			<b-form-group v-if="sheet.survey">
 				<template #label>
 					<h6 class="mb-0">{{ $t('sheetEditor.survey') }}</h6>

@@ -231,16 +231,16 @@ function handleSheetsChanged() {
 						maxlength="200"
 					/>
 				</form-group>
-				<form-group
-					:invalid-feedback="$t('imageUpload.maxFileSize')"
-					:label="$t('projectEditor.thumbnail')"
-					:state="imageState"
-				>
-					<div
-						v-if="!project.image"
-						class="input-group"
+				<client-only>
+					<b-form-group
+						:invalid-feedback="$t('imageUpload.maxFileSize')"
+						:label="$t('projectEditor.thumbnail')"
+						:state="imageState"
 					>
-						<client-only>
+						<div
+							v-if="!project.image"
+							class="input-group"
+						>
 							<b-form-file
 								v-model="image"
 								accept="image/jpeg, image/png, image/webp"
@@ -250,35 +250,36 @@ function handleSheetsChanged() {
 								:placeholder="$t('imageUpload.browse')"
 								:state="imageState"
 							/>
-						</client-only>
-						<button
-							class="btn btn-outline-danger"
-							:disabled="!image"
-							type="button"
-							@click="removeImage"
-						>
-							<i class="fas fa-backspace" />
-						</button>
-					</div>
-					<div v-else>
-						<figure class="figure">
-							<img
-								:src="project.image"
-								:alt="$t('projectEditor.altThumbnail')"
-								class="figure-img rounded"
-								height="120"
-							/>
-							<figcaption class="figure-caption">
-								<a
-									class="text-danger"
-									href="javascript:void(0)"
-									@click="removeImage"
-									>{{ $t('imageUpload.remove') }}</a
-								>
-							</figcaption>
-						</figure>
-					</div>
-				</form-group>
+
+							<button
+								class="btn btn-outline-danger"
+								:disabled="!image"
+								type="button"
+								@click="removeImage"
+							>
+								<i class="fas fa-backspace" />
+							</button>
+						</div>
+						<div v-else>
+							<figure class="figure">
+								<img
+									:src="project.image"
+									:alt="$t('projectEditor.altThumbnail')"
+									class="figure-img rounded"
+									height="120"
+								/>
+								<figcaption class="figure-caption">
+									<a
+										class="text-danger"
+										href="javascript:void(0)"
+										@click="removeImage"
+										>{{ $t('imageUpload.remove') }}</a
+									>
+								</figcaption>
+							</figure>
+						</div>
+					</b-form-group>
+				</client-only>
 				<form-group
 					class="rich"
 					:label="$t('projectEditor.privacyPolicy')"
