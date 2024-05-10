@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const localePath = useLocalePath();
+
+// FICXME type error @ b-navbar variant
+</script>
+
 <template>
 	<div
 		class="d-flex flex-column"

@@ -1,6 +1,8 @@
 // This file handles the (de)serialization of the sheet.interactions field
 // in a backward-compatible way.
 
+import type { Question } from '~/server/data/surveyAnswers';
+
 export type Interactions = {
 	enabled: string[];
 	baseMap: string;

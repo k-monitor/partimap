@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { AggregatedRating } from '~/server/data/ratings';
+
 const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating');
 const interactions = inject<Ref<Interactions | null>>('interactions');
 
@@ -38,7 +40,7 @@ watch(rating, (newRating) => {
 			:star-size="20"
 		/>
 		<span
-			v-if="showResults && aggregatedRating.count"
+			v-if="showResults && aggregatedRating?.count"
 			class="ms-3"
 		>
 			<span v-if="interactions?.stars === 1">

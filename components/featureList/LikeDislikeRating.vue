@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { AggregatedRating } from '~/server/data/ratings';
+
 const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating');
 
 const rating = defineModel<number>();
@@ -31,7 +33,7 @@ function handleDislike() {
 				v-if="showResults"
 				class="ms-2"
 			>
-				{{ aggregatedRating.likeCount || 0 }}
+				{{ aggregatedRating?.likeCount || 0 }}
 			</span>
 		</button>
 		<div class="flex-grow-1" />
@@ -49,7 +51,7 @@ function handleDislike() {
 				v-if="showResults"
 				class="ms-2"
 			>
-				{{ aggregatedRating.dislikeCount || 0 }}
+				{{ aggregatedRating?.dislikeCount || 0 }}
 			</span>
 		</button>
 	</div>

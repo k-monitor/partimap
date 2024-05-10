@@ -134,6 +134,9 @@ dependencies:
   vue:
     specifier: ^3.4.21
     version: 3.4.21(typescript@5.3.3)
+  vue-draggable-next:
+    specifier: ^2.2.1
+    version: 2.2.1(sortablejs@1.15.2)(vue@3.4.21)
   vue-recaptcha-v3:
     specifier: ^2.0.1
     version: 2.0.1(vue@3.4.21)
@@ -8943,6 +8946,10 @@ packages:
       smart-buffer: 4.2.0
     dev: false
 
+  /sortablejs@1.15.2:
+    resolution: {integrity: sha512-FJF5jgdfvoKn1MAKSdGs33bIqLi3LmsgVTliuX6iITj834F+JRQZN90Z93yql8h0K2t0RwDPBmxwlbZfDcxNZA==}
+    dev: false
+
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
@@ -9974,6 +9981,16 @@ packages:
 
   /vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
+    dev: false
+
+  /vue-draggable-next@2.2.1(sortablejs@1.15.2)(vue@3.4.21):
+    resolution: {integrity: sha512-EAMS1IRHF0kZO0o5PMOinsQsXIqsrKT1hKmbICxG3UEtn7zLFkLxlAtajcCcUTisNvQ6TtCB5COjD9a1raNADw==}
+    peerDependencies:
+      sortablejs: ^1.14.0
+      vue: ^3.2.2
+    dependencies:
+      sortablejs: 1.15.2
+      vue: 3.4.21(typescript@5.3.3)
     dev: false
 
   /vue-eslint-parser@9.4.2(eslint@8.57.0):

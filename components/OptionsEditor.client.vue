@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const options = defineModel<string[]>();
+const options = defineModel<string[]>({ default: [] });
 
 const props = withDefaults(
 	defineProps<{
@@ -23,13 +23,10 @@ const labelButton = computed(() => {
 });
 
 function addOption() {
-	if (!options.value) {
-		options.value = [];
-	}
 	options.value.push(t('OptionsEditor.optionPrefix') + ` #${options.value.length + 1}`);
 }
 
-function delOption(i) {
+function delOption(i: number) {
 	options.value.splice(i, 1);
 }
 </script>

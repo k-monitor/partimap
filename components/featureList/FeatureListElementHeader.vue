@@ -36,7 +36,7 @@ const nonEmptyName = computed(() => {
 });
 
 const ratingResult = computed(() => {
-	const r = aggregatedRating;
+	const r = aggregatedRating?.value;
 	if (!r || !r.count || !interactions) return;
 	if (interactions?.value?.stars === -2) {
 		return `👍 ${r.likeCount} 👎 ${Math.abs(r.dislikeCount)}`;

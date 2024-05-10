@@ -25,9 +25,10 @@ export type Condition = [[number, string?], string];
 export type Question = {
 	id: number;
 	label: string;
+	max?: number;
 	options?: string[];
+	required?: boolean;
 	rows?: string[];
-	sheetId: number;
 	showIf?: Condition[];
 	showResult: boolean;
 	type: string;
@@ -35,7 +36,7 @@ export type Question = {
 
 export type Survey = {
 	questions: Question[];
-	showResults: boolean;
+	showResults?: boolean;
 };
 
 export type AggregatedAnswers = {
@@ -53,7 +54,7 @@ export type AggregatedAnswers = {
 };
 
 export async function aggregateByProjectId(projectId: number) {
-	const questions: Question[] = [];
+	const questions: (Question & { sheetId: number })[] = [];
 	const sheets = await sdb.findAllByProjectId(projectId);
 	for (const s of sheets) {
 		const survey = JSON.parse(s.survey || '{}') as Survey;

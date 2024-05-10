@@ -12,7 +12,8 @@ const buttonLabel = ref('');
 const descriptionLabel = ref('');
 const hasFeatureQuestion = ref(false);
 const featureLabel = ref('');
-const featureQuestion = ref({});
+const featureQuestion = ref<Record<string, string>>({});
+// TODO would be nice to use Question here, but id field type is string here
 
 function reinit() {
 	buttonLabel.value = interactions.value.buttonLabels[drawType.value] || buttonLabel.value;

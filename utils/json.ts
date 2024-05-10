@@ -1,6 +1,7 @@
 import { jsonrepair } from 'jsonrepair';
 
-export function safeParseJSON(json: string) {
+export function safeParseJSON(json: string | null | undefined) {
+	if (!json) return null;
 	try {
 		return JSON.parse(json);
 	} catch {
@@ -8,7 +9,8 @@ export function safeParseJSON(json: string) {
 	}
 }
 
-export function repairAndParseJSON(json: string) {
+export function repairAndParseJSON(json: string | null | undefined) {
+	if (!json) return null;
 	try {
 		return safeParseJSON(jsonrepair(json));
 	} catch {
@@ -16,7 +18,8 @@ export function repairAndParseJSON(json: string) {
 	}
 }
 
-export function safeParseJSONArray(json: string) {
+export function safeParseJSONArray(json: string | null | undefined) {
+	if (!json) return [];
 	const o = safeParseJSON(json) || repairAndParseJSON(json);
 	return Array.isArray(o) ? o : [];
 }

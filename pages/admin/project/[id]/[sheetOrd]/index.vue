@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// TODO spaghetti, need to decouple into multiple components/composables
+
 import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
@@ -384,20 +386,16 @@ async function save() {
 				</b-form-group>
 			</client-only>
 
-			<!-- FIXME
-			<b-form-group v-if="sheet.survey">
-				<template #label>
-					<h6 class="mb-0">{{ $t('sheetEditor.survey') }}</h6>
-				</template>
-				<client-only>
-					<SurveyEditor
-						v-model="sheet.survey"
-						:project="project"
-						:sheet="sheet"
-					/>
-				</client-only>
-			</b-form-group>
-			 -->
+			<form-group
+				v-if="sheet.survey"
+				:label="$t('sheetEditor.survey')"
+			>
+				<SurveyEditor
+					v-model="sheet.survey"
+					:project="project"
+					:sheet="sheet"
+				/>
+			</form-group>
 
 			<form-group
 				v-if="interactionOptions?.length"
