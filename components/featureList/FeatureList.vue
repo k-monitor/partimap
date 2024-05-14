@@ -8,8 +8,8 @@ const { t } = useI18n();
 
 const { filteredFeatureIds, loading, selectedFeatureId, sidebarVisible } = useStore();
 
-const sheet = inject<Ref<Sheet | null>>('sheet');
-const interactions = inject<Ref<Interactions | null>>('interactions');
+const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
 const features = defineModel<GeoJsonFeature[]>();
 
@@ -224,6 +224,12 @@ async function deleteAll() {
 	categoryFilter.value = '';
 	search.value = '';
 }
+
+const featureImportModalVisible = ref(false);
+
+function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
+	features.value?.push(...importedFeatures);
+}
 </script>
 
 <template>
@@ -256,15 +262,14 @@ async function deleteAll() {
 					<br />
 					KML
 				</button>
-				<!-- FIXME -->
-				<!-- <button
+				<button
 					class="btn btn-sm btn-success m-2"
-					@click="$bvModal.show('featureImportModal')"
+					@click="featureImportModalVisible = true"
 				>
 					<i class="fas fa-fw fa-file-import" />
 					<br />
 					{{ $t('FeatureList.importFromSheet') }}
-				</button> -->
+				</button>
 				<button
 					class="btn btn-sm btn-danger m-2"
 					@click="deleteAll"
@@ -365,6 +370,8 @@ async function deleteAll() {
 		{{ $t('FeatureList.notFound') }}
 	</p>
 
-	<!-- FIXME -->
-	<!-- <FeatureImportModal @import-features="handleImportFeatures" /> -->
+	<FeatureImportModal
+		v-model="featureImportModalVisible"
+		@import-features="handleImportFeatures"
+	/>
 </template>

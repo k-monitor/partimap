@@ -2,7 +2,7 @@
 const { t } = useI18n();
 const { drawType } = useStore();
 
-const interactions = inject<Ref<Interactions | null>>('interactions');
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
 const props = defineProps<{
 	visitor?: boolean;

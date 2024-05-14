@@ -9,8 +9,8 @@ const { t } = useI18n();
 
 const { selectedFeatureId, sidebarVisible } = useStore();
 
-const sheet = inject<Ref<Sheet | null>>('sheet');
-const interactions = inject<Ref<Interactions | null>>('interactions');
+const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
 const props = withDefaults(
 	defineProps<{

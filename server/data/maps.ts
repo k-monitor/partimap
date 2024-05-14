@@ -5,6 +5,7 @@ export type Map = {
 	userId: number;
 	title: string;
 	features: string;
+	featureCount?: number;
 };
 
 export function createMap(data: any): Map {

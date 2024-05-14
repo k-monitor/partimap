@@ -3,8 +3,8 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Sheet } from '~/server/data/sheets';
 
 const feature = inject<GeoJsonFeature | null>('feature');
-const interactions = inject<Ref<Interactions | null>>('interactions');
-const sheet = inject<Ref<Sheet | null>>('sheet');
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
+const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 
 const visitorCanRate = computed(() => interactions?.value?.enabled.includes('Rating'));
 

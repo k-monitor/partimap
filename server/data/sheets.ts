@@ -17,6 +17,10 @@ export type Sheet = {
 	// only in some API responses
 	answers?: AggregatedAnswers[];
 	ratings?: Record<number, AggregatedRating>;
+
+	// only on some UI parts
+	featureCount?: number;
+	submittedFeatureCount?: number;
 };
 
 export function createSheet(data: any): Sheet {

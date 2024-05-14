@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { AggregatedRating } from '~/server/data/ratings';
 
-const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating');
-const interactions = inject<Ref<Interactions | null>>('interactions');
+const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating', ref(null));
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
 const model = defineModel<number>();
 

@@ -4,9 +4,9 @@ import type { AggregatedRating } from '~/server/data/ratings';
 
 const { t } = useI18n();
 
-const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating');
+const aggregatedRating = inject<Ref<AggregatedRating | null>>('aggregatedRating', ref(null));
 const feature = inject<GeoJsonFeature>('feature');
-const interactions = inject<Ref<Interactions | null>>('interactions');
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
 defineProps<{
 	isDeletable: boolean;
