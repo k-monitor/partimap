@@ -19,7 +19,7 @@ const props = defineProps<{
 const survey = ref<Survey>({ questions: [] as Question[] });
 
 function parseSurvey(json: string | null | undefined) {
-	const survey: Survey | null = safeParseJSON(surveyJSON.value);
+	const survey: Survey | null = safeParseJSON(json);
 	if (!survey) return null;
 	if (!survey.questions) survey.questions = [];
 	if (survey.showResults) {
@@ -95,8 +95,10 @@ const questionIndex = ref(0);
 const questionIsConditional = ref(false);
 const testedQuestionId = ref<number | null>(null);
 
-const hasOptions = computed(() =>
-	'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value?.type || ''),
+const hasOptions = computed(
+	() =>
+		question.value?.type &&
+		'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value.type),
 );
 
 const questionsFromPrevSheets = computed(() =>
@@ -130,7 +132,7 @@ function clampText(t: string) {
 	return t.length > limit ? `${t.substring(0, limit)}...` : t;
 }
 
-type TestableQuestionOption = {
+export type TestableQuestionOption = {
 	label?: string;
 	options?: { value: (string | number)[]; text: string }[];
 	qid: number;
@@ -208,6 +210,7 @@ const canAddNewCondition = computed(() => {
 	return questionIsConditional.value && condN === 2 && questionOptionsForCond(condN).length;
 });
 
+const questionEditorVisible = ref(false);
 function editQuestion(i: number) {
 	questionIndex.value = i;
 	question.value = { ...survey.value.questions[i] };
@@ -215,7 +218,7 @@ function editQuestion(i: number) {
 	const showIf = (question.value.showIf || []).filter((c) => c?.length === 2);
 	questionIsConditional.value = !!showIf.length;
 
-	// FIXME this.$bvModal.show('survey-question-editor');
+	questionEditorVisible.value = true;
 }
 
 function emitSurvey() {
@@ -253,7 +256,7 @@ async function delQuestion(i: number) {
 }
 
 const form = ref<HTMLFormElement>();
-function saveQuestion(bvModalEvent: BvTriggerableEvent) {
+function saveQuestion(bvModalEvent: BvTriggerableEvent | Event) {
 	if (!question.value) return;
 
 	if (!form.value?.reportValidity()) {
@@ -261,7 +264,7 @@ function saveQuestion(bvModalEvent: BvTriggerableEvent) {
 		return;
 	}
 
-	// FIXME this.$bvModal.hide('survey-question-editor');
+	questionEditorVisible.value = false;
 	if (!hasOptions.value) {
 		const q: Question = { ...question.value };
 		delete q.options;
@@ -284,7 +287,7 @@ function inputValid(max: number) {
 function addNewCondition() {
 	if (!question.value) return;
 	const existing = question.value.showIf || [];
-	const newCondition: Condition = [[NaN], '']; // FIXME TS workaround, test if working
+	const newCondition: Condition = [[NaN], ''];
 	question.value.showIf = [...existing, newCondition];
 }
 
@@ -366,6 +369,8 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 	cancelledDrag.value.splice(0, cancelledDrag.value.length);
 	return true;
 }
+
+const questionLabelInput = ref<HTMLInputElement>();
 </script>
 
 <template>
@@ -457,13 +462,13 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
-		<!-- FIXME <b-modal
-			id="survey-question-editor"
+		<b-modal
+			v-model="questionEditorVisible"
 			:cancel-title="$t('modals.cancel')"
 			:ok-disabled="props.readonly"
 			:title="$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
 			@ok="saveQuestion"
-			@shown="$refs.questionLabelInput.focus()"
+			@shown="questionLabelInput?.focus()"
 		>
 			<form
 				v-if="question"
@@ -496,7 +501,7 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 					<b-col>
 						<b-form-group :label="$t('SurveyEditor.minValue')">
 							<b-form-input
-								v-model="question.min"
+								v-model.number="question.min"
 								:disabled="!!(props.readonly || isQuestionReferenced(question))"
 								type="number"
 							/>
@@ -631,6 +636,6 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 					</div>
 				</div>
 			</form>
-		</b-modal> -->
+		</b-modal>
 	</div>
 </template>

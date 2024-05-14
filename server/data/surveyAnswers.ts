@@ -24,9 +24,15 @@ export type Condition = [[number, string?], string];
 
 export type Question = {
 	id: number;
+	addToFeatures?: boolean;
+	columns?: string[];
 	label: string;
 	max?: number;
+	maxLabel?: string;
+	min?: number;
+	minLabel?: string;
 	options?: string[];
+	other?: boolean;
 	required?: boolean;
 	rows?: string[];
 	showIf?: Condition[];

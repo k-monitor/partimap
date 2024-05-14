@@ -392,8 +392,8 @@ async function save() {
 			>
 				<SurveyEditor
 					v-model="sheet.survey"
-					:project="project"
 					:sheet="sheet"
+					:sheets="project.sheets"
 				/>
 			</form-group>
 
