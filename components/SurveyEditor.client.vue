@@ -93,7 +93,6 @@ const cancelledDrag = ref<number[]>([]);
 const question = ref<Question | null>(null);
 const questionIndex = ref(0);
 const questionIsConditional = ref(false);
-const testedQuestionId = ref<number | null>(null);
 
 const hasOptions = computed(
 	() =>
@@ -322,10 +321,6 @@ function questionIdsThatReference(question: Question) {
 			return refIds.includes(question?.id);
 		})
 		.map((q) => q.id);
-}
-
-function questionById(id: number) {
-	return survey.value.questions.find((q) => q.id === id);
 }
 
 function indexOfQuestionId(id: number) {

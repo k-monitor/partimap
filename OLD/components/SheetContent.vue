@@ -28,12 +28,10 @@
 			class="my-4"
 		>
 			<div v-if="results">
-				<client-only>
-					<SurveyResults
-						:brand-color="brandColor"
-						:data="resultsData"
-					/>
-				</client-only>
+				<SurveyResults
+					:brand-color="brandColor"
+					:data="resultsData"
+				/>
 			</div>
 			<div v-else>
 				<Survey

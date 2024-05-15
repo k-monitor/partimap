@@ -287,18 +287,14 @@ function handleSheetsChanged() {
 					:invalid-feedback="$t('projectEditor.privacyPolicyRequired')"
 					:state="isPrivacyPolicyValid"
 				>
-					<client-only>
-						<tiptap v-model="project.privacyPolicy" />
-					</client-only>
+					<tiptap v-model="project.privacyPolicy" />
 				</form-group>
 				<form-group
 					class="rich"
 					:label="$t('projectEditor.thanks')"
 					:description="$t('projectEditor.thanksDescription')"
 				>
-					<client-only>
-						<tiptap v-model="project.thanks" />
-					</client-only>
+					<tiptap v-model="project.thanks" />
 				</form-group>
 				<form-group
 					:label="$t('projectEditor.thanksUrl')"

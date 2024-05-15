@@ -5,67 +5,68 @@ const localePath = useLocalePath();
 
 <template>
 	<div>
-		<client-only>
-			<b-navbar
-				fixed="top"
-				toggleable="lg"
-				type="light"
-				variant="white"
-				class="border-bottom shadow-sm"
+		<b-navbar
+			class="bg-white border-bottom shadow-sm"
+			fixed="top"
+			toggleable="lg"
+		>
+			<b-navbar-brand :to="localePath('/admin')">
+				<Logo />
+			</b-navbar-brand>
+			<b-navbar-toggle target="nav-collapse" />
+
+			<b-collapse
+				id="nav-collapse"
+				is-nav
 			>
-				<b-navbar-brand :to="localePath('/admin')">
-					<Logo />
-				</b-navbar-brand>
-				<b-navbar-toggle target="nav-collapse" />
-				<b-collapse
-					id="nav-collapse"
-					is-nav
-				>
-					<b-navbar-nav>
-						<b-nav-item :to="localePath('/admin/projects')">
-							{{ $t('AdminFrame.projects') }}
-						</b-nav-item>
-						<b-nav-item :to="localePath('/admin/maps')">
-							{{ $t('AdminFrame.maps') }}
-						</b-nav-item>
-						<b-nav-item
-							v-if="user?.isAdmin"
-							:to="localePath('/admin/users')"
-						>
-							{{ $t('AdminFrame.users') }}
-						</b-nav-item>
-						<b-nav-item-dropdown
-							v-if="user?.isAdmin"
-							:text="$t('AdminFrame.editHelp')"
-						>
-							<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
-								{{ $t('AdminFrame.editEditorsHelp') }}
-							</b-dropdown-item>
-							<b-dropdown-item :to="localePath('/admin/i18n/visitors-help/')">
-								{{ $t('AdminFrame.editVisitorsHelp') }}
-							</b-dropdown-item>
-						</b-nav-item-dropdown>
-					</b-navbar-nav>
-					<b-navbar-nav class="ms-auto">
-						<b-nav-item :to="localePath('/admin/help')">
-							{{ $t('AdminFrame.help') }}
-						</b-nav-item>
-						<b-nav-item-dropdown
-							:text="user?.name"
-							right
-						>
-							<b-dropdown-item :to="localePath('/admin/user/' + user?.id)">
-								{{ $t('AdminFrame.profile') }}
-							</b-dropdown-item>
-							<b-dropdown-item @click="authLogout()">
-								{{ $t('AdminFrame.logout') }}
-							</b-dropdown-item>
-						</b-nav-item-dropdown>
-						<LangSwitcher />
-					</b-navbar-nav>
-				</b-collapse>
-			</b-navbar>
-		</client-only>
+				<b-navbar-nav>
+					<b-nav-item :to="localePath('/admin/projects')">
+						{{ $t('AdminFrame.projects') }}
+					</b-nav-item>
+					<b-nav-item :to="localePath('/admin/maps')">
+						{{ $t('AdminFrame.maps') }}
+					</b-nav-item>
+					<b-nav-item
+						v-if="user?.isAdmin"
+						:to="localePath('/admin/users')"
+					>
+						{{ $t('AdminFrame.users') }}
+					</b-nav-item>
+					<b-nav-item-dropdown
+						v-if="user?.isAdmin"
+						id="ssr-id-AdminFrame-editHelp-dropdown"
+						:text="$t('AdminFrame.editHelp')"
+					>
+						<!-- TODO ^ id attribute is only needed to tackle BootstrapVueNext's SSR issue -->
+						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
+							{{ $t('AdminFrame.editEditorsHelp') }}
+						</b-dropdown-item>
+						<b-dropdown-item :to="localePath('/admin/i18n/visitors-help/')">
+							{{ $t('AdminFrame.editVisitorsHelp') }}
+						</b-dropdown-item>
+					</b-nav-item-dropdown>
+				</b-navbar-nav>
+				<b-navbar-nav class="ms-auto">
+					<b-nav-item :to="localePath('/admin/help')">
+						{{ $t('AdminFrame.help') }}
+					</b-nav-item>
+					<b-nav-item-dropdown
+						id="ssr-id-AdminFrame-profile-dropdown"
+						:text="user?.name"
+						right
+					>
+						<!-- TODO ^ id attribute is only needed to tackle BootstrapVueNext's SSR issue -->
+						<b-dropdown-item :to="localePath('/admin/user/' + user?.id)">
+							{{ $t('AdminFrame.profile') }}
+						</b-dropdown-item>
+						<b-dropdown-item @click="authLogout()">
+							{{ $t('AdminFrame.logout') }}
+						</b-dropdown-item>
+					</b-nav-item-dropdown>
+					<LangSwitcher />
+				</b-navbar-nav>
+			</b-collapse>
+		</b-navbar>
 
 		<div class="container mt-5 pt-5 flex-grow-1">
 			<div class="card mb-5 shadow-sm">

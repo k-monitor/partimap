@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
-
-// FICXME type error @ b-navbar variant
 </script>
 
 <template>
@@ -10,12 +8,10 @@ const localePath = useLocalePath();
 		style="min-height: 100vh; padding-top: 3.75rem"
 	>
 		<b-navbar
-			class="border-bottom shadow-sm"
+			class="bg-white border-bottom shadow-sm"
 			:container="true"
 			fixed="top"
 			toggleable="sm"
-			type="light"
-			variant="white"
 		>
 			<b-navbar-brand :to="localePath('/')">
 				<Logo />
