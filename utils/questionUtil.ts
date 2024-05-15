@@ -1,15 +1,19 @@
-export function canShowQuestion(question, allVisitorAnswers) {
+import type { Question } from '~/server/data/surveyAnswers';
+
+export function canShowQuestion(question: Question, allVisitorAnswers: Record<string, any>) {
+	// FIXME type of allVisitorAnswers
+
 	if (!Array.isArray(question.showIf)) return true;
 	return question.showIf
-		.map(condition => {
+		.map((condition) => {
 			const [[id, row], exp] = condition;
 			let act = allVisitorAnswers[id];
 			if (!act && act !== 0) return false;
-			if (act[row]) act = act[row];
+			if (row && act[row]) act = act[row];
 			if (act === exp) return true;
 			if (Array.isArray(act)) return act.includes(exp);
 			if (Number.isInteger(Number(act))) {
-				let [min, max] = exp.split('-').map(v => Number(v));
+				let [min, max] = exp.split('-').map((v) => Number(v));
 				if (min > max) {
 					const t = min;
 					min = max;
@@ -19,5 +23,5 @@ export function canShowQuestion(question, allVisitorAnswers) {
 			}
 			return false;
 		})
-		.every(condition => !!condition);
+		.every((condition) => !!condition);
 }

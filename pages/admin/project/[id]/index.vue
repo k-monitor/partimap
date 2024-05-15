@@ -141,14 +141,14 @@ function handleSheetsChanged() {
 						<span class="text-muted">&raquo;</span>
 						{{ project.title }}
 					</div>
-					<button
-						:to="projectPath"
+					<a
 						class="btn btn-primary ms-auto"
+						:href="projectPath"
+						role="button"
 						target="_blank"
-						type="button"
 					>
 						{{ $t('projectEditor.view') }}
-					</button>
+					</a>
 				</div>
 			</template>
 			<form

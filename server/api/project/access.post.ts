@@ -16,24 +16,26 @@ const JWT_SECRET = env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
 
 type JwtPayload = {
 	projectId: number;
-	visitId: string;
+	visitId: number;
 	ip: string;
 };
 
 const bodySchema = z.object({
 	idOrSlug: z.string().min(1),
 	password: z.string().min(1).optional(),
-	visitId: z.string().min(1),
+	visitId: z.number().min(1),
 });
 type Body = z.infer<typeof bodySchema>;
 
 export default defineEventHandler(async (event) => {
 	const body = await readValidatedBody(event, bodySchema.parse);
 
-	await validateCaptcha(event);
-
 	const project = await pdb.findByIdOrSlug(body.idOrSlug);
 	if (!project) throw createError({ statusCode: StatusCodes.NOT_FOUND });
+
+	if (project.password && body.password) {
+		await validateCaptcha(event);
+	}
 
 	const accessGranted = isAccessGranted(event, body, project);
 

@@ -60,6 +60,10 @@ body,
 	min-height: 100%;
 }
 
+.alert p:last-child {
+	margin-bottom: 0;
+}
+
 a,
 .btn-link {
 	text-decoration: none;
