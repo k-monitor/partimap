@@ -153,20 +153,18 @@ const availableSheetOrds = computed(() =>
 		.map((sheet) => sheet.ord),
 );
 
-const nextSheetOrd = computed(() =>
-	availableSheetOrds.value.find((o) => o > (sheet.value?.ord || -1)),
-);
-
-const prevSheetOrd = computed(() => {
-	const ords = [...availableSheetOrds.value];
-	ords.reverse();
-	return ords.find((o) => o < (sheet.value?.ord || -1));
+const nextSheetOrd = computed(() => {
+	const o = availableSheetOrds.value.find((o) => o > Number(sheet.value?.ord));
+	return typeof o === 'undefined' ? -1 : o;
 });
 
-const isFirstSheet = computed(() => typeof prevSheetOrd.value === 'undefined');
-const isLastSheet = computed(() => typeof nextSheetOrd.value === 'undefined');
+const prevSheetOrd = computed(() => {
+	const o = availableSheetOrds.value.findLast((o) => o < Number(sheet.value?.ord));
+	return typeof o === 'undefined' ? -1 : o;
+});
 
-const { executeReCaptcha } = useReCaptcha();
+const isFirstSheet = computed(() => prevSheetOrd.value < 0);
+const isLastSheet = computed(() => nextSheetOrd.value < 0);
 
 const password = ref('');
 
@@ -237,24 +235,7 @@ function loadInitFeatures() {
 	return [...visitorFeatures, ...adminFeatures];*/
 }
 
-function next() {
-	// FIXME
-	/*this.$store.commit('selected/clear');
-	const sidebar = document.getElementsByClassName('b-sidebar-body')[0];
-	if (sidebar) sidebar.scrollTop = 0;
-	if (!this.$refs.sheetForm.reportValidity()) {
-		return;
-	}
-	if (this.needToShowResults) {
-		this.resultsShown = true;
-	} else {
-		this.goToSheetOrd(this.nextSheetOrd);
-	}*/
-}
-
-function prev() {
-	goToSheetOrd(prevSheetOrd.value || 0);
-}
+const { executeReCaptcha } = useReCaptcha();
 
 async function sendPassword() {
 	// FIXME
@@ -283,6 +264,25 @@ async function sendPassword() {
 		this.$refs.password.focus();
 		this.loading = false;
 	}*/
+}
+
+function prev() {
+	goToSheetOrd(prevSheetOrd.value);
+}
+
+const sheetForm = ref<HTMLFormElement>();
+
+function next() {
+	// FIXME needed? this.$store.commit('selected/clear');
+	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
+	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
+		return;
+	}
+	if (needToShowResults.value) {
+		resultsShown.value = true;
+	} else {
+		goToSheetOrd(nextSheetOrd.value);
+	}
 }
 
 async function submit() {
