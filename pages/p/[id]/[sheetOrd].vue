@@ -5,7 +5,9 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Project } from '~/server/data/projects';
 import type { Survey } from '~/server/data/surveyAnswers';
 
-const { loading } = useStore();
+const localePath = useLocalePath();
+
+const { consent, drawType, loading } = useStore();
 loading.value = true;
 
 const { user } = useAuth();
@@ -177,8 +179,6 @@ const isInteractive = computed(
 		interactions.value.enabled.includes('Polygon'),
 );
 
-// FIXME
-/*
 function getVisitorFeatures(sheetId: number) {
 	// FIXME
 	return [];
@@ -187,7 +187,8 @@ function getVisitorFeatures(sheetId: number) {
 function addVisitorFeature(feature: GeoJsonFeature) {
 	if (!sheet.value) return;
 
-	const cat = t(
+	// FIXME
+	/*const cat = t(
 		'FeatureListElement.defaultName.' + feature.getGeometry().getType(),
 	);
 	feature.set('category', cat);
@@ -195,27 +196,30 @@ function addVisitorFeature(feature: GeoJsonFeature) {
 	const features = getVisitorFeatures(sheet.value.id) || [];
 	features.push(feature);
 	const payload = { features, sheetId: this.sheet.id };
-	this.$store.commit('visitordata/addFeatures', payload);
+	this.$store.commit('visitordata/addFeatures', payload);*/
 }
 
-function delVisitorFeature(feature) {
-	const features = this.getVisitorFeatures(this.sheet.id) || [];
+function delVisitorFeature(feature: any) {
+	// FIXME
+	/*const features = this.getVisitorFeatures(this.sheet.id) || [];
 	const idx = features.indexOf(feature);
 	if (idx !== -1) {
 		features.splice(idx, 1);
 		const payload = { features, sheetId: this.sheet.id };
 		this.$store.commit('visitordata/addFeatures', payload);
-	}
+	}*/
 }
 
-function featuresFromRaw(featuresRaw) {
-	const features = JSON.parse(featuresRaw);
+function featuresFromRaw(featuresRaw: any) {
+	// FIXME
+	/*const features = JSON.parse(featuresRaw);
 	const featureCollection = { type: 'FeatureCollection', features };
-	return features ? new GeoJSON().readFeatures(featureCollection) : [];
+	return features ? new GeoJSON().readFeatures(featureCollection) : [];*/
 }
 
 function loadInitFeatures() {
-	const adminFeatures = this.featuresFromRaw(this.sheet.features);
+	// FIXME
+	/*const adminFeatures = this.featuresFromRaw(this.sheet.features);
 	if (this.isInteractive) {
 		// on interactive sheets, admin features cannot be selected
 		adminFeatures.forEach((f) => f.set('hidden', true));
@@ -230,11 +234,12 @@ function loadInitFeatures() {
 		if (ratingObj?.value) f.set('rating', ratingObj.value);
 	});
 
-	return [...visitorFeatures, ...adminFeatures];
+	return [...visitorFeatures, ...adminFeatures];*/
 }
 
 function next() {
-	this.$store.commit('selected/clear');
+	// FIXME
+	/*this.$store.commit('selected/clear');
 	const sidebar = document.getElementsByClassName('b-sidebar-body')[0];
 	if (sidebar) sidebar.scrollTop = 0;
 	if (!this.$refs.sheetForm.reportValidity()) {
@@ -244,15 +249,16 @@ function next() {
 		this.resultsShown = true;
 	} else {
 		this.goToSheetOrd(this.nextSheetOrd);
-	}
+	}*/
 }
 
 function prev() {
-	this.goToSheetOrd(this.prevSheetOrd);
+	goToSheetOrd(prevSheetOrd.value || 0);
 }
 
 async function sendPassword() {
-	this.loading = true;
+	// FIXME
+	/*this.loading = true;
 	const { password } = this;
 	const projectId = this.$route.params.id;
 	const visitId = this.$store.state.visitId;
@@ -276,11 +282,12 @@ async function sendPassword() {
 		this.password = null;
 		this.$refs.password.focus();
 		this.loading = false;
-	}
+	}*/
 }
 
 async function submit() {
-	this.$store.commit('selected/clear');
+	// FIXME
+	/*this.$store.commit('selected/clear');
 	const sidebar = document.getElementsByClassName('b-sidebar-body')[0];
 	if (sidebar) sidebar.scrollTop = 0;
 	if (!this.$refs.sheetForm.reportValidity()) {
@@ -303,11 +310,12 @@ async function submit() {
 			this.errorToast(this.$t('sheet.submitFailed'));
 		}
 	}
-	this.loading = false;
+	this.loading = false;*/
 }
 
-function injectDataIntoFeatures(data) {
-	const questions = {};
+function injectDataIntoFeatures(data: any) {
+	// FIXME
+	/*const questions = {};
 	const answers = {};
 
 	// gather questions and answers to inject
@@ -343,109 +351,86 @@ function injectDataIntoFeatures(data) {
 				f.properties[`partimapQuestion_${qid}_ans`] = answers[qid];
 			});
 		}
-	});
-}*/
+	});*/
+}
 </script>
 
 <template>
-	<h1>sheet</h1>
-	<h1>{{ visitId }}</h1>
-	<button @click="navigateTo('3')">GO TO 3</button>
-	<!-- <SheetFrame
+	<SheetFrame
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
-		:class="{ branded: !!project.user.color }"
-		:style="`--brand: ${project.user.color || '#007bff'}`"
+		:class="{ branded: !!project.user?.color }"
+		:style="`--brand: ${project.user?.color || '#007bff'}`"
 	>
 		<form
 			ref="sheetForm"
 			@submit.prevent=""
 		>
-			<b-modal
+			<div
 				v-if="!sheet.features"
-				content-class="shadow-sm"
-				footer-class="d-flex p-0"
-				hide-backdrop
-				no-close-on-backdrop
-				no-close-on-esc
-				no-fade
-				scrollable
-				static
-				visible
+				class="modal show"
+				style="display: block"
 			>
-				<template #modal-header>
-					<div class="d-flex justify-content-between w-100">
-						<a
-							v-b-tooltip.hover.bottom
-							:href="localePath({ name: 'hogyan-mukodik' })"
-							target="_blank"
-							:title="$t('PublicFrame.help')"
-						>
-							<Logo />
-						</a>
-						<a
-							:href="project.user.website"
-							target="_blank"
-						>
-							<img
-								v-if="project.user.logo"
-								:src="project.user.logo"
-								:alt="project.user.website"
-								height="30"
+				<div class="modal-dialog modal-dialog-scrollable">
+					<div class="modal-content shadow-sm">
+						<div class="modal-header">
+							<div class="d-flex justify-content-between w-100">
+								<a
+									v-b-tooltip.hover.bottom
+									:href="localePath({ name: 'hogyan-mukodik' })"
+									target="_blank"
+									:title="$t('PublicFrame.help')"
+								>
+									<Logo />
+								</a>
+								<a
+									:href="project.user?.website"
+									target="_blank"
+								>
+									<img
+										v-if="project.user?.logo"
+										:src="project.user.logo"
+										:alt="project.user?.website"
+										height="30"
+									/>
+								</a>
+							</div>
+						</div>
+						<div class="modal-body">
+							<SheetContent
+								:brand-color="project.user?.color"
+								:project="project"
+								:results="resultsShown"
+								:results-data="resultsData"
+								:sheet="sheet"
+								:show-consent="isFirstSheet"
 							/>
-						</a>
+							<LoadingOverlay :show="loading" />
+						</div>
+						<div class="modal-footer d-flex p-0">
+							<FooterButtons
+								:disable-submit="loading || !consent || submitted"
+								:show-next="!isLastSheet || needToShowResults"
+								:show-prev="!isFirstSheet && !submitted"
+								:show-submit="consent && isLastSheet && !needToShowResults"
+								:step="sheet.ord + 1"
+								:steps="project.sheets?.length || 0"
+								@next="next"
+								@prev="prev"
+								@submit="submit"
+							/>
+						</div>
 					</div>
-				</template>
-				<SheetContent
-					:brand-color="project.user.color"
-					:project="project"
-					:results="resultsShown"
-					:results-data="resultsData"
-					:sheet="sheet"
-					:show-consent="isFirstSheet"
-				/>
-				<LoadingOverlay :show="loading" />
-				<template #modal-footer>
-					<FooterButtons
-						:disable-submit="loading || !getConsent || submitted"
-						:show-next="!isLastSheet || needToShowResults"
-						:show-prev="!isFirstSheet && !submitted"
-						:show-submit="getConsent && isLastSheet && !needToShowResults"
-						:step="sheet.ord + 1"
-						:steps="project.sheets.length"
-						@next="next"
-						@prev="prev"
-						@submit="submit"
-					/>
-				</template>
-			</b-modal>
+				</div>
+			</div>
 			<div v-else>
-				<client-only>
-					<Map
-						:key="$route.path"
-						:features="loadInitFeatures()"
-						fit-selected
-						:gray-rated="!resultsShown"
-						:initial-base-map-key="interactions.baseMap"
-						:labels="labels"
-						visitor
-						@visitor-feature-added="addVisitorFeature"
-						@visitor-feature-removed="delVisitorFeature"
-					/>
-					<template #placeholder>
-						<div class="h-100 position-absolute w-100 map" />
-					</template>
-				</client-only>
-				<MapToolbar v-if="!!getDrawType" />
-				<MapTask :interactions="interactions" />
-				<MapHint />
 				<Sidebar
 					:fixed="!sheet.features"
 					:loading="loading"
 					:project="project"
 				>
 					<SheetContent
-						:brand-color="project.user.color"
+						:brand-color="project.user?.color"
 						class="mb-3"
 						:project="project"
 						:results="resultsShown"
@@ -463,18 +448,37 @@ function injectDataIntoFeatures(data) {
 
 					<template #footer>
 						<FooterButtons
-							:disable-submit="loading || !getConsent || submitted"
+							:disable-submit="loading || !consent || submitted"
 							:show-next="!isLastSheet || needToShowResults"
 							:show-prev="!isFirstSheet && !submitted"
-							:show-submit="getConsent && isLastSheet && !needToShowResults"
+							:show-submit="consent && isLastSheet && !needToShowResults"
 							:step="sheet.ord + 1"
-							:steps="project.sheets.length"
+							:steps="project.sheets?.length || 0"
 							@next="next"
 							@prev="prev"
 							@submit="submit"
 						/>
 					</template>
 				</Sidebar>
+				<div
+					v-if="sheet.features"
+					class="flex-grow-1"
+				>
+					<Map
+						:key="$route.path"
+						:features="loadInitFeatures()"
+						fit-selected
+						:gray-rated="!resultsShown"
+						:initial-base-map-key="interactions.baseMap"
+						:labels="labels"
+						visitor
+						@visitor-feature-added="addVisitorFeature"
+						@visitor-feature-removed="delVisitorFeature"
+					/>
+					<MapToolbar v-if="!!drawType" />
+					<MapTask :interactions="interactions" />
+					<MapHint />
+				</div>
 			</div>
 		</form>
 		<b-modal
@@ -526,5 +530,5 @@ function injectDataIntoFeatures(data) {
 				</form>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </template>

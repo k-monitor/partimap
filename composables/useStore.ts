@@ -12,6 +12,7 @@ export default function useStore() {
 		baseMap.value = keys[index];
 	}
 
+	const consent = useState<boolean>('consent', () => false);
 	const currentZoom = useState<number>('currentZoom', () => 0);
 	const drawType = useState<DrawType>('drawType', () => '');
 	const filteredFeatureIds = useState<number[] | null>('filteredFeatureIds', () => null);
@@ -24,6 +25,7 @@ export default function useStore() {
 	return {
 		baseMapToShow,
 		changeBaseMap,
+		consent,
 		currentZoom,
 		drawType,
 		filteredFeatureIds,

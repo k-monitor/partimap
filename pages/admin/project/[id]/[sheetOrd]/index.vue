@@ -280,7 +280,7 @@ async function uploadBackground() {
 	try {
 		const formData = new FormData();
 		formData.append('image', backgroundImage.value);
-		sheet.value = await $fetch(`/api/sheet/${sheet.value?.id}/image`, {
+		sheet.value = await $fetch<Sheet>(`/api/sheet/${sheet.value?.id}/image`, {
 			method: 'PUT',
 			body: formData,
 		});
@@ -300,7 +300,7 @@ async function save() {
 			await uploadBackground();
 		}
 
-		sheet.value = await $fetch(`/api/sheet/${sheet.value?.id}`, {
+		sheet.value = await $fetch<Sheet>(`/api/sheet/${sheet.value?.id}`, {
 			method: 'PATCH',
 			body: {
 				...sheet.value,
