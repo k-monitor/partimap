@@ -7,8 +7,11 @@ import type { Survey } from '~/server/data/surveyAnswers';
 
 const localePath = useLocalePath();
 
-const { consent, drawType, loading } = useStore();
+const { consent, drawType, loading, submitted } = useStore();
 loading.value = true;
+
+const { getAllVisitorAnswers, getVisitorAnswers, getVisitorFeatures, setVisitorFeatures } =
+	useVisitorData();
 
 const { user } = useAuth();
 const { fullPath, params, query } = useRoute();
@@ -133,11 +136,6 @@ onMounted(async () => {
 	loading.value = false;
 });
 
-function getAllVisitorAnswers() {
-	// FIXME
-	return {};
-}
-
 const availableSheetOrds = computed(() =>
 	(project.value?.sheets || [])
 		.filter((sheet) => {
@@ -159,7 +157,8 @@ const nextSheetOrd = computed(() => {
 });
 
 const prevSheetOrd = computed(() => {
-	const o = availableSheetOrds.value.findLast((o) => o < Number(sheet.value?.ord));
+	const ords = [...availableSheetOrds.value].reverse();
+	const o = ords.find((o) => o < Number(sheet.value?.ord));
 	return typeof o === 'undefined' ? -1 : o;
 });
 
@@ -168,8 +167,6 @@ const isLastSheet = computed(() => nextSheetOrd.value < 0);
 
 const password = ref('');
 
-const submitted = useState('submitted', () => false);
-
 const isInteractive = computed(
 	() =>
 		interactions.value.enabled.includes('Point') ||
@@ -177,35 +174,27 @@ const isInteractive = computed(
 		interactions.value.enabled.includes('Polygon'),
 );
 
-function getVisitorFeatures(sheetId: number) {
-	// FIXME
-	return [];
-}
-
 function addVisitorFeature(feature: GeoJsonFeature) {
 	if (!sheet.value) return;
 
-	// FIXME
-	/*const cat = t(
-		'FeatureListElement.defaultName.' + feature.getGeometry().getType(),
-	);
-	feature.set('category', cat);
+	const cat = t(`FeatureListElement.defaultName.${feature.geometry.type}`);
+	feature.properties = feature.properties || {};
+	feature.properties.category = cat;
 
 	const features = getVisitorFeatures(sheet.value.id) || [];
 	features.push(feature);
-	const payload = { features, sheetId: this.sheet.id };
-	this.$store.commit('visitordata/addFeatures', payload);*/
+	setVisitorFeatures(sheet.value.id, features);
 }
 
-function delVisitorFeature(feature: any) {
-	// FIXME
-	/*const features = this.getVisitorFeatures(this.sheet.id) || [];
-	const idx = features.indexOf(feature);
+function delVisitorFeature(feature: GeoJsonFeature) {
+	if (!sheet.value) return;
+
+	const features = getVisitorFeatures(sheet.value.id) || [];
+	const idx = features.findIndex((f) => f.id === feature.id);
 	if (idx !== -1) {
 		features.splice(idx, 1);
-		const payload = { features, sheetId: this.sheet.id };
-		this.$store.commit('visitordata/addFeatures', payload);
-	}*/
+		setVisitorFeatures(sheet.value.id, features);
+	}
 }
 
 function featuresFromRaw(featuresRaw: any) {
@@ -364,6 +353,7 @@ function injectDataIntoFeatures(data: any) {
 	>
 		<form
 			ref="sheetForm"
+			class="d-flex h-100 w-100"
 			@submit.prevent=""
 		>
 			<div
@@ -423,7 +413,7 @@ function injectDataIntoFeatures(data: any) {
 					</div>
 				</div>
 			</div>
-			<div v-else>
+			<template v-else>
 				<Sidebar
 					:fixed="!sheet.features"
 					:loading="loading"
@@ -479,17 +469,8 @@ function injectDataIntoFeatures(data: any) {
 					<MapTask :interactions="interactions" />
 					<MapHint />
 				</div>
-			</div>
+			</template>
 		</form>
-		<b-modal
-			id="privacy-modal"
-			hide-footer
-			scrollable
-			size="lg"
-			:title="$t('sheet.privacyPolicy')"
-		>
-			<Terms :project-data-processor="project.privacyPolicy" />
-		</b-modal>
 	</SheetFrame>
 	<div
 		v-else

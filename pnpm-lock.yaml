@@ -35,6 +35,9 @@ dependencies:
   animate.css:
     specifier: ^4.1.1
     version: 4.1.1
+  basiclightbox:
+    specifier: ^5.0.4
+    version: 5.0.4
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
@@ -4203,6 +4206,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /basiclightbox@5.0.4:
+    resolution: {integrity: sha512-EsuNWmfcFXWZOe0txKXsllYOC7bDpoaVLc4HHHlYKB/roymlZs+FBdLUU6rx2yPpnJZhulwheKdPjqr2k0+NGQ==}
+    dev: false
 
   /bcrypt-pbkdf@1.0.2:
     resolution: {integrity: sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==}

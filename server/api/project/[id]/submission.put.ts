@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
 
 	const projectSheetIds = (await sdb.findAllByProjectId(project.id)).map((s) => s.id);
 
-	const body = await readBody<any>(event);
+	const body = await readBody<any>(event); // TODO use type in useVisitorData
 	const submittedSheetIds = Object.keys(body).filter((id) =>
 		projectSheetIds.includes(Number(id)),
 	);

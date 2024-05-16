@@ -7,7 +7,7 @@ export type SurveyAnswer = {
 	submissionId: number;
 	sheetId: number;
 	questionId: number; // TODO varchar in db, but only numbers really
-	answer: string;
+	answer: string; // in JSON
 };
 
 export function createSurveyAnswer(data: any): SurveyAnswer {

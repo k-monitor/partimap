@@ -12,13 +12,6 @@ const props = defineProps<{
 	showResults: boolean;
 }>();
 
-type VisitorRating = {
-	value?: number;
-	answer?: string;
-	pros?: string;
-	cons?: string;
-};
-
 function getVisitorRatings(sheetId: number | undefined): Record<string, VisitorRating> {
 	// FIXME
 	return {};
