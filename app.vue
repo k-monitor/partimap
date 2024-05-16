@@ -162,6 +162,10 @@ fieldset,
 		background-color: var(--brand) !important;
 	}
 
+	.btn-link {
+		color: var(--brand) !important;
+	}
+
 	.btn-outline-primary {
 		border-color: var(--brand) !important;
 		color: var(--brand) !important;
@@ -282,7 +286,6 @@ fieldset,
 
 	.alert-primary a,
 	.rich a,
-	.share-icon,
 	.text-primary {
 		color: var(--brand) !important;
 	}

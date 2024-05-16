@@ -13,12 +13,6 @@ const props = defineProps<{
 const sheet = toRef(props, 'sheet');
 const interactions = computed(() => deserializeInteractions(sheet.value?.interactions));
 
-const social = [
-	{ network: 'facebook', icon: 'fab fa-facebook-f'.split(' ') },
-	{ network: 'twitter', icon: 'fab fa-twitter'.split(' ') },
-	{ network: 'email', icon: 'fas fa-envelope'.split(' ') },
-];
-
 const { consent, submitted } = useStore();
 const { getVisitorAnswers, setVisitorAnswers } = useVisitorData();
 
@@ -48,16 +42,11 @@ watch(
 	{ deep: true },
 );
 
-const consented = ref(false);
-const projectUrl = ref<string | null>(null);
-onMounted(() => {
-	projectUrl.value = window.location.href.replace(/\/\d+\/?/, '');
-
-	// FIXME still needed?
-	consented.value = consent.value; // this will disable checkbox on the next mount (next sheet view)
-});
-
 const privacyModalVisible = ref(false);
+
+// FIXME still needed?
+const consented = ref(false);
+onMounted(() => (consented.value = consent.value)); // this will disable checkbox on the next mount (next sheet view)
 </script>
 
 <template>
@@ -90,39 +79,26 @@ const privacyModalVisible = ref(false);
 			class="my-4"
 		>
 			<div v-if="results">
-				<SurveyResults
+				<!-- FIXME <SurveyResults
 					:brand-color="brandColor"
 					:data="resultsData"
-				/>
+				/> -->
 			</div>
 			<div v-else>
-				<Survey
+				<!-- FIXME <Survey
 					v-model="visitorAnswers"
 					:survey="sheet.survey"
-				/>
+				/> -->
 			</div>
 		</div>
-		<DrawButtons
-			class="my-4"
-			:sheet="sheet"
-		/>
-		<div
+
+		<!-- FIXME why doesn't this have v-if? -->
+		<DrawButtons :interactions="interactions" />
+
+		<ShareButtons
 			v-if="interactions.enabled.includes('SocialSharing')"
-			class="d-flex justify-content-around mt-5 mb-4"
-		>
-			<ShareNetwork
-				v-for="s in social"
-				:key="s.network"
-				:network="s.network"
-				:url="projectUrl || ''"
-				title=""
-			>
-				<i
-					class="fa-fw fa-2x share-icon"
-					:class="s.icon"
-				/>
-			</ShareNetwork>
-		</div>
+			class="mt-5 mb-4"
+		/>
 		<b-alert
 			:show="showConsent"
 			variant="dark"
@@ -143,15 +119,17 @@ const privacyModalVisible = ref(false);
 				/>
 			</b-form-checkbox>
 		</b-alert>
-		<b-modal
-			v-model="privacyModalVisible"
-			hide-footer
-			scrollable
-			size="lg"
-			:title="$t('sheet.privacyPolicy')"
-		>
-			<Terms :project-data-processor="project.privacyPolicy" />
-		</b-modal>
+		<client-only>
+			<b-modal
+				v-model="privacyModalVisible"
+				hide-footer
+				scrollable
+				size="lg"
+				:title="$t('sheet.privacyPolicy')"
+			>
+				<Terms :project-data-processor="project.privacyPolicy" />
+			</b-modal>
+		</client-only>
 	</div>
 	<div v-else>
 		<TipTapDisplay
@@ -170,22 +148,10 @@ const privacyModalVisible = ref(false);
 				<i class="fas fa-chevron-right ms-2" />
 			</b-button>
 		</div>
-		<div
+
+		<ShareButtons
 			v-if="project.thanksSocial"
-			class="d-flex justify-content-around mt-5 mb-4"
-		>
-			<ShareNetwork
-				v-for="s in social"
-				:key="s.network"
-				:network="s.network"
-				:url="projectUrl || ''"
-				title=""
-			>
-				<i
-					class="fa-fw fa-2x share-icon"
-					:class="s.icon"
-				/>
-			</ShareNetwork>
-		</div>
+			class="mt-5 mb-4"
+		/>
 	</div>
 </template>

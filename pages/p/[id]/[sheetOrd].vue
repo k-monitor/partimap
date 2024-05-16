@@ -433,8 +433,8 @@ function injectDataIntoFeatures(data: any) {
 						:show-results="resultsShown"
 						:is-interactive="isInteractive"
 						is-on-sheet-view
-						visitor
 					/>
+					<!-- FIXME ^ visitor prop is not used now, but was passed in v1 -->
 
 					<template #footer>
 						<FooterButtons

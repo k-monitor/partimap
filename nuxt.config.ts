@@ -11,6 +11,7 @@ export default defineNuxtConfig({
 	modules: [
 		'@bootstrap-vue-next/nuxt',
 		'@nuxtjs/i18n',
+		'@stefanobartoletti/nuxt-social-share',
 		'@vueuse/nuxt',
 		'@zadigetvoltaire/nuxt-gtm',
 		'nuxt-scheduler',

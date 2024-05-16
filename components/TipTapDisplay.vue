@@ -2,7 +2,7 @@
 import * as basicLightbox from 'basiclightbox';
 
 const props = defineProps<{
-	html: string;
+	html: string | null;
 }>();
 
 const htmlRef = ref<HTMLDivElement>();
