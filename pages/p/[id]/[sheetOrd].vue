@@ -12,6 +12,7 @@ loading.value = true;
 
 const {
 	getAllVisitorAnswers,
+	getSubmissionData,
 	getVisitorAnswers,
 	getVisitorFeatures,
 	getVisitorRatings,
@@ -30,16 +31,17 @@ if (Number(params.sheetOrd) > 0 && !visitId.value && !forcedSheetOrd) {
 	visitId.value = visitId.value || Date.now();
 }
 
+const password = ref('');
 const { data: project } = await useFetch<Project>(`/api/project/access`, {
 	method: 'POST',
 	body: {
 		idOrSlug: params.id,
 		visitId: visitId.value,
 	},
-}); // FIXME test password protected project, should still parse response body when unauthorized
+}); // FIXME need to get project when Unauthorized
 
 watchEffect(() => {
-	if (project.value && params.id !== project.value.slug) {
+	if (project.value?.slug && params.id !== project.value.slug) {
 		navigateTo(`/p/${project.value.slug}/${params.sheetOrd || 0}`);
 	}
 });
@@ -104,10 +106,7 @@ const showOnlyResults = computed(() => {
 	return interactions.value?.enabled?.includes('ShowResultsOnly') || survey.showResultsOnly;
 });
 
-const visitorAnswers = computed(() => {
-	// FIXME return this.getVisitorAnswers(this.sheet?.id);
-	return {} as Record<string, any>;
-});
+const visitorAnswers = computed(() => (sheet.value ? getVisitorAnswers(sheet.value?.id) : {}));
 
 const resultsData = computed(() => {
 	if (showOnlyResults.value) return sheet.value?.answers || [];
@@ -211,7 +210,6 @@ const features = ref<GeoJsonFeature[]>([]);
 watchEffect(() => {
 	if (!sheet.value) return;
 
-	// FIXME test if updates after entering password
 	const adminFeatures = parseFeatures();
 	if (isInteractive.value) {
 		// on interactive sheets, admin features cannot be selected
@@ -236,7 +234,56 @@ watchEffect(() => {
 	features.value = [...visitorFeatures, ...adminFeatures];
 });
 
-function injectDataIntoFeatures(data: any) {
+const { executeReCaptcha } = useReCaptcha();
+
+const { errorToast, successToast } = useToasts();
+
+async function sendPassword() {
+	try {
+		loading.value = true;
+		const captcha = (await executeReCaptcha('access')) || '';
+		project.value = await $fetch<Project>('/api/project/access', {
+			method: 'POST',
+			body: {
+				captcha: captcha,
+				idOrSlug: params.id,
+				password: password.value,
+				visitId: visitId.value,
+			},
+		});
+		registerHit();
+	} catch (error: any) {
+		if (error.message && error.message.endsWith('status code 401')) {
+			errorToast(t('sheet.invalidPassword'));
+		} else {
+			throw error; // let Nuxt handle it
+		}
+	} finally {
+		password.value = '';
+		passwordInput.value?.focus();
+		loading.value = false;
+	}
+}
+
+function prev() {
+	goToSheetOrd(prevSheetOrd.value);
+}
+
+const sheetForm = ref<HTMLFormElement>();
+
+function next() {
+	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
+	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
+		return;
+	}
+	if (needToShowResults.value) {
+		resultsShown.value = true;
+	} else {
+		goToSheetOrd(nextSheetOrd.value);
+	}
+}
+
+function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 	// FIXME
 	/*const questions = {};
 	const answers = {};
@@ -277,81 +324,37 @@ function injectDataIntoFeatures(data: any) {
 	});*/
 }
 
-const { executeReCaptcha } = useReCaptcha();
-const password = ref('');
-
-async function sendPassword() {
-	// FIXME
-	/*this.loading = true;
-	const { password } = this;
-	const projectId = this.$route.params.id;
-	const visitId = this.$store.state.visitId;
-	try {
-		const captcha = await this.$recaptcha.execute('access');
-		this.project = await this.$axios.$post('/api/project/access', {
-			password,
-			projectId,
-			visitId,
-			captcha,
-		});
-		this.sheet = this.project.sheets[this.$route.params.sheetOrd];
-		this.registerHit();
-	} catch (error) {
-		if (error.message && error.message.endsWith('status code 401')) {
-			this.errorToast(this.$t('sheet.invalidPassword'));
-		} else {
-			throw error; // let Nuxt handle it
-		}
-	} finally {
-		this.password = null;
-		this.$refs.password.focus();
-		this.loading = false;
-	}*/
-}
-
-function prev() {
-	goToSheetOrd(prevSheetOrd.value);
-}
-
-const sheetForm = ref<HTMLFormElement>();
-
-function next() {
-	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
-	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
-		return;
-	}
-	if (needToShowResults.value) {
-		resultsShown.value = true;
-	} else {
-		goToSheetOrd(nextSheetOrd.value);
-	}
-}
-
 async function submit() {
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
-	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
+	if (
+		!project.value ||
+		!project.value.sheets ||
+		!sheetForm.value ||
+		!sheetForm.value.reportValidity()
+	) {
 		return;
 	}
 	loading.value = true;
-	// FIXME
-	/*
-	const sheetIds = this.project.sheets.map((s) => s.id);
-	const data = this.getSubmissionData(sheetIds);
+
+	const sheetIds = project.value.sheets.map((s) => s.id);
+	const data = getSubmissionData(sheetIds);
 	if (Object.keys(data).length) {
-		this.injectDataIntoFeatures(data);
+		injectDataIntoFeatures(data);
 		try {
-			const captcha = await this.$recaptcha.execute('submit');
-			await this.$axios.$post('/api/submission/' + this.project.id, {
-				...data,
-				captcha,
+			const captcha = await executeReCaptcha('submit');
+			await $fetch(`/api/${project.value.id}/submission`, {
+				method: 'POST',
+				body: {
+					...data,
+					captcha,
+				},
 			});
-			this.$store.commit('setSubmitted');
-			this.success(this.$t('sheet.submitSuccess'));
+			submitted.value = true;
+			successToast(t('sheet.submitSuccess'));
 		} catch {
-			this.errorToast(this.$t('sheet.submitFailed'));
+			errorToast(t('sheet.submitFailed'));
 		}
 	}
-	*/
 	loading.value = false;
 }
 </script>
@@ -498,19 +501,18 @@ async function submit() {
 							<p>{{ $t('sheet.restricted') }}</p>
 							<p>{{ $t('sheet.passwordRequired') }}</p>
 							<div class="form-group">
-								<b-input-group>
-									<template #prepend>
-										<b-input-group-text>
-											<i class="fas fa-key fa-fw" />
-										</b-input-group-text>
-									</template>
-									<b-form-input
+								<div class="input-group">
+									<div class="input-group-text">
+										<i class="fas fa-key fa-fw" />
+									</div>
+									<input
 										ref="passwordInput"
 										v-model="password"
+										class="form-control"
 										:placeholder="$t('sheet.password')"
 										type="password"
 									/>
-								</b-input-group>
+								</div>
 							</div>
 						</div>
 						<div class="card-footer text-end">

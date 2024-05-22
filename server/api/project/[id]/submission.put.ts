@@ -1,8 +1,10 @@
 import StatusCodes from 'http-status-codes';
 import { z } from 'zod';
+import { SubmissionDataBySheet } from '~/composables/useVisitorData';
 import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
 import * as smdb from '~/server/data/submissions';
+import { SubmittedFeatures } from '~/server/data/submittedFeatures';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
@@ -43,7 +45,7 @@ export default defineEventHandler(async (event) => {
 
 	const projectSheetIds = (await sdb.findAllByProjectId(project.id)).map((s) => s.id);
 
-	const body = await readBody<any>(event); // TODO use type in useVisitorData
+	const body = await readBody<SubmissionDataBySheet>(event);
 	const submittedSheetIds = Object.keys(body).filter((id) =>
 		projectSheetIds.includes(Number(id)),
 	);
@@ -62,10 +64,10 @@ export default defineEventHandler(async (event) => {
 	};
 	const ratings = [];
 	const surveyAnswers = [];
-	const submittedFeatures = [];
+	const submittedFeatures = [] as Partial<SubmittedFeatures>[];
 
 	for (const sheetId of submittedSheetIds) {
-		const s = body[sheetId];
+		const s = body[Number(sheetId)];
 		if (s.answers) {
 			for (const questionId in s.answers) {
 				surveyAnswers.push({
@@ -78,7 +80,7 @@ export default defineEventHandler(async (event) => {
 		if (s.features) {
 			submittedFeatures.push({
 				sheetId: Number(sheetId),
-				features: s.features,
+				features: JSON.stringify(s.features),
 			});
 		}
 		if (s.ratings) {
