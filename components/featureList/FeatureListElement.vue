@@ -39,7 +39,9 @@ const emit = defineEmits<{
 }>();
 
 const feature = toRef(props, 'feature');
-watch(feature, (f) => emit('change', f), { deep: true });
+const featureJSON = computed(() => JSON.stringify(feature.value));
+watch(featureJSON, () => emit('change', feature.value));
+// If I'd change feature itself, it would emit even without changes for some reason
 
 const isSelected = computed(() => selectedFeatureId.value === props.feature.id);
 const isDeletable = computed(
