@@ -100,19 +100,20 @@ const hasOptions = computed(
 		'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value.type),
 );
 
-const questionsFromPrevSheets = computed(() =>
-	(props.sheets || [])
-		.filter((s) => s.ord < (sheet?.value?.ord || -1) && s.survey)
+const questionsFromPrevSheets = computed(() => {
+	if (!sheet?.value) return [];
+	return (props.sheets || [])
+		.filter((s) => s.ord < sheet.value!.ord && s.survey)
 		.map((s) => parseSurvey(s.survey)?.questions || [])
-		.flat(),
-);
-
-const questionsFromNextSheets = computed(() =>
-	(props.sheets || [])
-		.filter((s) => s.ord > (sheet?.value?.ord || -1) && s.survey)
+		.flat();
+});
+const questionsFromNextSheets = computed(() => {
+	if (!sheet?.value) return [];
+	return (props.sheets || [])
+		.filter((s) => s.ord > sheet.value!.ord && s.survey)
 		.map((s) => parseSurvey(s.survey)?.questions || [])
-		.flat(),
-);
+		.flat();
+});
 
 function isQuestionConditional(question: Question) {
 	return Array.isArray(question.showIf) && question.showIf.length;

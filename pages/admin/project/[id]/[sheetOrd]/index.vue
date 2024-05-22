@@ -97,15 +97,17 @@ function goToSheetOrd(ord: number) {
 	navigateTo(localePath(`/admin/project/${project.value?.id}/${ord}`));
 }
 async function next() {
+	if (!sheet.value) return;
 	if (!(await canLeavePage())) return;
-	goToSheetOrd((sheet.value?.ord || -1) + 1);
+	goToSheetOrd(sheet.value.ord + 1);
 }
 async function prev() {
+	if (!sheet.value) return;
 	if (!(await canLeavePage())) return;
 	if (isFirstSheet.value) {
 		back();
 	} else {
-		goToSheetOrd((sheet.value?.ord || 1) - 1);
+		goToSheetOrd(sheet.value?.ord - 1);
 	}
 }
 function addedSheet(sheet: Sheet) {
