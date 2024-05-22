@@ -471,11 +471,10 @@ async function submit() {
 					class="flex-grow-1"
 				>
 					<Map
-						:key="`${$route.path + resultsShown}`"
+						:key="$route.path"
 						:features="features"
 						fit-selected
 						:gray-rated="!resultsShown"
-						:initial-base-map-key="interactions.baseMap"
 						:label-overrides="labels"
 						visitor
 						@visitor-feature-added="addVisitorFeature"

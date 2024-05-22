@@ -162,7 +162,6 @@ async function handleDrawEnd() {
 
 <template>
 	<ol-map
-		:controls="[]"
 		:load-tiles-while-animating="true"
 		:load-tiles-while-interacting="true"
 		style="height: 100%"
@@ -206,3 +205,9 @@ async function handleDrawEnd() {
 		<MapControls />
 	</ol-map>
 </template>
+
+<style>
+.ol-zoom {
+	display: none;
+}
+</style>
