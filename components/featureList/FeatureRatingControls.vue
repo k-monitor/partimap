@@ -12,13 +12,11 @@ const props = defineProps<{
 	showResults: boolean;
 }>();
 
-function getVisitorRatings(sheetId: number | undefined): Record<string, VisitorRating> {
-	// FIXME
-	return {};
-}
+const { getVisitorRatings, setVisitorRatings } = useVisitorData();
 
 function getRatingObj() {
-	const ratings: Record<string, VisitorRating> = getVisitorRatings(sheet?.value?.id) || {};
+	if (!sheet.value) return {};
+	const ratings: Record<string, VisitorRating> = getVisitorRatings(sheet.value.id) || {};
 	return ratings[String(feature?.id)] || ({} as VisitorRating);
 }
 
@@ -42,11 +40,11 @@ onMounted(() => {
 });
 
 function storeRating(ratingObj: VisitorRating) {
-	if (!sheet || !feature) return;
-	const ratings = getVisitorRatings(sheet?.value?.id) || {};
+	if (!sheet.value || !feature) return;
+	const ratings = getVisitorRatings(sheet.value.id) || {};
 	delete ratings[String(feature.id)];
 	if (ratingObj.value) ratings[String(feature.id)] = ratingObj;
-	// FIXME addRatings({ ratings, sheetId: sheet.id });
+	setVisitorRatings(sheet.value.id, ratings);
 }
 
 watch(ratingValue, (newValue) => {
