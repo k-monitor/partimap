@@ -6,9 +6,7 @@ const feature = inject<GeoJsonFeature | null>('feature');
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 
-const visitorCanRate = computed(() => interactions?.value?.enabled.includes('Rating'));
-
-const props = defineProps<{
+defineProps<{
 	showResults: boolean;
 }>();
 
