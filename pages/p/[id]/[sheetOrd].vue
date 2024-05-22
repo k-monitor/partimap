@@ -10,8 +10,13 @@ const localePath = useLocalePath();
 const { consent, drawType, loading, submitted } = useStore();
 loading.value = true;
 
-const { getAllVisitorAnswers, getVisitorAnswers, getVisitorFeatures, setVisitorFeatures } =
-	useVisitorData();
+const {
+	getAllVisitorAnswers,
+	getVisitorAnswers,
+	getVisitorFeatures,
+	getVisitorRatings,
+	setVisitorFeatures,
+} = useVisitorData();
 
 const { user } = useAuth();
 const { fullPath, params, query } = useRoute();
@@ -165,8 +170,6 @@ const prevSheetOrd = computed(() => {
 const isFirstSheet = computed(() => prevSheetOrd.value < 0);
 const isLastSheet = computed(() => nextSheetOrd.value < 0);
 
-const password = ref('');
-
 const isInteractive = computed(
 	() =>
 		interactions.value.enabled.includes('Point') ||
@@ -197,110 +200,41 @@ function delVisitorFeature(feature: GeoJsonFeature) {
 	}
 }
 
-function featuresFromRaw(featuresRaw: any) {
-	// FIXME
-	/*const features = JSON.parse(featuresRaw);
-	const featureCollection = { type: 'FeatureCollection', features };
-	return features ? new GeoJSON().readFeatures(featureCollection) : [];*/
+function parseFeatures() {
+	try {
+		return JSON.parse(sheet.value?.features || '[]') as GeoJsonFeature[];
+	} catch {
+		return [];
+	}
 }
+const features = ref<GeoJsonFeature[]>([]);
+watchEffect(() => {
+	if (!sheet.value) return;
 
-function loadInitFeatures() {
-	// FIXME
-	/*const adminFeatures = this.featuresFromRaw(this.sheet.features);
-	if (this.isInteractive) {
+	// FIXME test if updates after entering password
+	const adminFeatures = parseFeatures();
+	if (isInteractive.value) {
 		// on interactive sheets, admin features cannot be selected
-		adminFeatures.forEach((f) => f.set('hidden', true));
+		adminFeatures.forEach((f) => {
+			f.properties = f.properties || {};
+			f.properties.hidden = true;
+		});
 	}
 
-	const visitorFeatures = this.getVisitorFeatures(this.sheet.id) || [];
+	const visitorFeatures = getVisitorFeatures(sheet.value.id) || [];
 
 	// adding "rating" to feature objects for graying effect on map and in FLE header
-	const visitorRatings = this.getVisitorRatings(this.sheet.id) || {};
+	const visitorRatings = getVisitorRatings(sheet.value.id) || {};
 	adminFeatures.forEach((f) => {
-		const ratingObj = visitorRatings[f.getId()];
-		if (ratingObj?.value) f.set('rating', ratingObj.value);
+		const ratingObj = visitorRatings[Number(f.id)];
+		if (ratingObj?.value) {
+			f.properties = f.properties || {};
+			f.properties.rating = ratingObj.value;
+		}
 	});
 
-	return [...visitorFeatures, ...adminFeatures];*/
-}
-
-const { executeReCaptcha } = useReCaptcha();
-
-async function sendPassword() {
-	// FIXME
-	/*this.loading = true;
-	const { password } = this;
-	const projectId = this.$route.params.id;
-	const visitId = this.$store.state.visitId;
-	try {
-		const captcha = await this.$recaptcha.execute('access');
-		this.project = await this.$axios.$post('/api/project/access', {
-			password,
-			projectId,
-			visitId,
-			captcha,
-		});
-		this.sheet = this.project.sheets[this.$route.params.sheetOrd];
-		this.registerHit();
-	} catch (error) {
-		if (error.message && error.message.endsWith('status code 401')) {
-			this.errorToast(this.$t('sheet.invalidPassword'));
-		} else {
-			throw error; // let Nuxt handle it
-		}
-	} finally {
-		this.password = null;
-		this.$refs.password.focus();
-		this.loading = false;
-	}*/
-}
-
-function prev() {
-	goToSheetOrd(prevSheetOrd.value);
-}
-
-const sheetForm = ref<HTMLFormElement>();
-
-function next() {
-	// FIXME needed? this.$store.commit('selected/clear');
-	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
-	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
-		return;
-	}
-	if (needToShowResults.value) {
-		resultsShown.value = true;
-	} else {
-		goToSheetOrd(nextSheetOrd.value);
-	}
-}
-
-async function submit() {
-	// FIXME
-	/*this.$store.commit('selected/clear');
-	const sidebar = document.getElementsByClassName('b-sidebar-body')[0];
-	if (sidebar) sidebar.scrollTop = 0;
-	if (!this.$refs.sheetForm.reportValidity()) {
-		return;
-	}
-	this.loading = true;
-	const sheetIds = this.project.sheets.map((s) => s.id);
-	const data = this.getSubmissionData(sheetIds);
-	if (Object.keys(data).length) {
-		this.injectDataIntoFeatures(data);
-		try {
-			const captcha = await this.$recaptcha.execute('submit');
-			await this.$axios.$post('/api/submission/' + this.project.id, {
-				...data,
-				captcha,
-			});
-			this.$store.commit('setSubmitted');
-			this.success(this.$t('sheet.submitSuccess'));
-		} catch {
-			this.errorToast(this.$t('sheet.submitFailed'));
-		}
-	}
-	this.loading = false;*/
-}
+	features.value = [...visitorFeatures, ...adminFeatures];
+});
 
 function injectDataIntoFeatures(data: any) {
 	// FIXME
@@ -341,6 +275,84 @@ function injectDataIntoFeatures(data: any) {
 			});
 		}
 	});*/
+}
+
+const { executeReCaptcha } = useReCaptcha();
+const password = ref('');
+
+async function sendPassword() {
+	// FIXME
+	/*this.loading = true;
+	const { password } = this;
+	const projectId = this.$route.params.id;
+	const visitId = this.$store.state.visitId;
+	try {
+		const captcha = await this.$recaptcha.execute('access');
+		this.project = await this.$axios.$post('/api/project/access', {
+			password,
+			projectId,
+			visitId,
+			captcha,
+		});
+		this.sheet = this.project.sheets[this.$route.params.sheetOrd];
+		this.registerHit();
+	} catch (error) {
+		if (error.message && error.message.endsWith('status code 401')) {
+			this.errorToast(this.$t('sheet.invalidPassword'));
+		} else {
+			throw error; // let Nuxt handle it
+		}
+	} finally {
+		this.password = null;
+		this.$refs.password.focus();
+		this.loading = false;
+	}*/
+}
+
+function prev() {
+	goToSheetOrd(prevSheetOrd.value);
+}
+
+const sheetForm = ref<HTMLFormElement>();
+
+function next() {
+	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
+	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
+		return;
+	}
+	if (needToShowResults.value) {
+		resultsShown.value = true;
+	} else {
+		goToSheetOrd(nextSheetOrd.value);
+	}
+}
+
+async function submit() {
+	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
+	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
+		return;
+	}
+	loading.value = true;
+	// FIXME
+	/*
+	const sheetIds = this.project.sheets.map((s) => s.id);
+	const data = this.getSubmissionData(sheetIds);
+	if (Object.keys(data).length) {
+		this.injectDataIntoFeatures(data);
+		try {
+			const captcha = await this.$recaptcha.execute('submit');
+			await this.$axios.$post('/api/submission/' + this.project.id, {
+				...data,
+				captcha,
+			});
+			this.$store.commit('setSubmitted');
+			this.success(this.$t('sheet.submitSuccess'));
+		} catch {
+			this.errorToast(this.$t('sheet.submitFailed'));
+		}
+	}
+	*/
+	loading.value = false;
 }
 </script>
 
@@ -430,6 +442,7 @@ function injectDataIntoFeatures(data: any) {
 					/>
 					<FeatureList
 						v-if="!submitted"
+						v-model="features"
 						:show-results="resultsShown"
 						:is-interactive="isInteractive"
 						is-on-sheet-view
@@ -455,12 +468,12 @@ function injectDataIntoFeatures(data: any) {
 					class="flex-grow-1"
 				>
 					<Map
-						:key="$route.path"
-						:features="loadInitFeatures()"
+						:key="`${$route.path + resultsShown}`"
+						:features="features"
 						fit-selected
 						:gray-rated="!resultsShown"
 						:initial-base-map-key="interactions.baseMap"
-						:labels="labels"
+						:label-overrides="labels"
 						visitor
 						@visitor-feature-added="addVisitorFeature"
 						@visitor-feature-removed="delVisitorFeature"

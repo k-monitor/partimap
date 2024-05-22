@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
-import { Fill, type Style } from 'ol/style';
+import { type Style } from 'ol/style';
 import tinycolor from 'tinycolor2';
 import wordWrap from 'word-wrap';
 
@@ -85,7 +85,7 @@ const textParams = computed(() => {
 		const angle = Number(props.f.properties?.partimapMapLabelAngle || 0); // deg
 		rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
 		text =
-			isInResultsMode && !isHidden
+			isInResultsMode && !isHidden.value
 				? props.labelOverride
 				: props.f.properties?.partimapMapLabel;
 		text = wordWrap(text || '', {
