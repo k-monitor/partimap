@@ -38,7 +38,8 @@ const { data: project } = await useFetch<Project>(`/api/project/access`, {
 		idOrSlug: params.id,
 		visitId: visitId.value,
 	},
-}); // FIXME need to get project when Unauthorized
+	ignoreResponseError: true,
+});
 
 watchEffect(() => {
 	if (project.value?.slug && params.id !== project.value.slug) {
