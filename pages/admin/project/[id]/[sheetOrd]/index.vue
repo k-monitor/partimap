@@ -347,13 +347,8 @@ async function save() {
 						</h6>
 					</template>
 					<b-input-group v-if="!sheet.image">
-						<b-form-file
+						<ImageFileInput
 							v-model="backgroundImage"
-							accept="image/jpeg, image/png, image/webp"
-							class="sheet-background-input"
-							browse-text=""
-							:drop-placeholder="$t('imageUpload.dropzone')"
-							:placeholder="$t('imageUpload.browse')"
 							:state="backgroundImageState"
 						/>
 						<template #append>

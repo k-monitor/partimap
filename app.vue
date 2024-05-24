@@ -92,7 +92,16 @@ fieldset,
 	margin-bottom: 1rem;
 }
 
-.rich img {
+.form-input-file {
+	flex-grow: 1;
+	width: auto;
+
+	label.input-group-text {
+		display: none;
+	}
+}
+
+.form-input-file .rich img {
 	margin-bottom: 1rem;
 	max-width: 100%;
 }

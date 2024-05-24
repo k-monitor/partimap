@@ -151,13 +151,8 @@ async function deleteAccount(e: any) {
 					:state="imageState"
 				>
 					<b-input-group v-if="!m.logo">
-						<b-form-file
+						<ImageFileInput
 							v-model="image"
-							accept="image/jpeg, image/png, image/webp"
-							class="project-image-input"
-							browse-text=""
-							:drop-placeholder="$t('imageUpload.dropzone')"
-							:placeholder="$t('imageUpload.browse')"
 							:state="imageState"
 						/>
 						<template #append>

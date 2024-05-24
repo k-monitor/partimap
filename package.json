@@ -13,7 +13,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@bootstrap-vue-next/nuxt": "^0.16.6",
+		"@bootstrap-vue-next/nuxt": "^0.18.1",
 		"@fortawesome/fontawesome-free": "^5",
 		"@nuxtjs/i18n": "^8.1.1",
 		"@stefanobartoletti/nuxt-social-share": "^0.7.0",
@@ -27,7 +27,7 @@
 		"basiclightbox": "^5.0.4",
 		"bcryptjs": "^2.4.3",
 		"bootstrap": "^5.3.3",
-		"bootstrap-vue-next": "^0.16.6",
+		"bootstrap-vue-next": "^0.18.1",
 		"copy-to-clipboard": "^3.3.3",
 		"excel4node": "^1.8.2",
 		"file-saver": "^2.0.5",
@@ -57,7 +57,7 @@
 		"tinycolor2": "^1.6.0",
 		"transform-coordinates": "^1.0.0",
 		"uuid": "^9.0.1",
-		"vue": "^3.4.21",
+		"vue": "^3.4.27",
 		"vue-draggable-next": "^2.2.1",
 		"vue-recaptcha-v3": "^2.0.1",
 		"vue-router": "^4.3.0",

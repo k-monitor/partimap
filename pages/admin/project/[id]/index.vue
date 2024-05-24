@@ -241,16 +241,10 @@ function handleSheetsChanged() {
 							v-if="!project.image"
 							class="input-group"
 						>
-							<b-form-file
+							<ImageFileInput
 								v-model="image"
-								accept="image/jpeg, image/png, image/webp"
-								class="project-image-input"
-								browse-text=""
-								:drop-placeholder="$t('imageUpload.dropzone')"
-								:placeholder="$t('imageUpload.browse')"
 								:state="imageState"
 							/>
-
 							<button
 								class="btn btn-outline-danger"
 								:disabled="!image"
