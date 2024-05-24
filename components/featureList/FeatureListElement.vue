@@ -8,7 +8,7 @@ import type { Sheet } from '~/server/data/sheets';
 const { t } = useI18n();
 
 const { selectedFeatureId, sidebarVisible } = useStore();
-const { getVisitorAnswers, getVisitorFeatures, getVisitorRatings } = useVisitorData();
+const { getVisitorRatings } = useVisitorData();
 
 const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
@@ -71,10 +71,6 @@ const showSaveButtonOnStaticSheet = computed(() => {
 		value: undefined,
 	};
 	return !!rating.value && !props.showResults;
-});
-
-const stars = computed(() => {
-	return interactions?.value?.stars;
 });
 
 const visitorCanName = computed(() => {
@@ -271,9 +267,8 @@ async function deleteFeature() {
 						<template v-if="isOnSheetView">
 							<template v-if="isInteractive">
 								<FeatureNameEditor v-if="visitorCanName" />
-								<!-- FIXME -->
-								<!-- <FeatureQuestionDisplay />
-								<FeatureDescriptionPlainEditor /> -->
+								<!-- FIXME <FeatureQuestionDisplay /> -->
+								<FeatureDescriptionPlainEditor />
 								<FeatureListElementFooter
 									show-delete
 									show-save
