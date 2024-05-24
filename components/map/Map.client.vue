@@ -163,10 +163,6 @@ async function handleDrawEnd() {
 	await nextTick(); // wait for FLE to be created
 	const timeout = isMobile() ? 500 : 0;
 	setTimeout(() => emitSelectAttempt(feature), timeout);
-
-	// FIXME maybe this should be handled on sheet, no?
-	// when adding: if (props.visitor) emit('visitorFeatureAdded', f);
-	// when deleting: if (props.visitor) emit('visitorFeatureRemoved', f);
 }
 </script>
 

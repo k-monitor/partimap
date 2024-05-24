@@ -27,7 +27,7 @@ const dashOptions = [
 		value: '1,1,3,1',
 	},
 ];
-/*
+
 onMounted(() => {
 	if (!feature) return;
 	const p = feature.properties || {};
@@ -38,7 +38,7 @@ onMounted(() => {
 		fillOpacity: parseFillOpacity100(feature),
 		opacity: parseOpacity100(feature),
 	};
-});*/
+});
 </script>
 
 <template>

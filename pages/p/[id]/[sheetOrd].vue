@@ -7,7 +7,7 @@ import type { Survey } from '~/server/data/surveyAnswers';
 
 const localePath = useLocalePath();
 
-const { consent, drawType, loading, submitted } = useStore();
+const { consent, drawType, loading, selectedFeatureId, submitted } = useStore();
 loading.value = true;
 
 const {
@@ -266,6 +266,7 @@ function prev() {
 const sheetForm = ref<HTMLFormElement>();
 
 function next() {
+	selectedFeatureId.value = null;
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
 		return;

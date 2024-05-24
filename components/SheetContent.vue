@@ -44,9 +44,9 @@ watch(
 
 const privacyModalVisible = ref(false);
 
-// FIXME still needed?
+// disable checkbox later, when user comes back to this sheet
 const consented = ref(false);
-onMounted(() => (consented.value = consent.value)); // this will disable checkbox on the next mount (next sheet view)
+onMounted(() => (consented.value = consent.value));
 </script>
 
 <template>
@@ -92,33 +92,41 @@ onMounted(() => (consented.value = consent.value)); // this will disable checkbo
 			</div>
 		</div>
 
-		<!-- FIXME why doesn't this have v-if? -->
+		<!-- TODO why doesn't this have v-if? -->
 		<DrawButtons :interactions="interactions" />
 
 		<ShareButtons
 			v-if="interactions.enabled.includes('SocialSharing')"
 			class="mt-5 mb-4"
 		/>
-		<b-alert
-			:show="showConsent"
-			variant="dark"
-			class="mt-4"
+		<div
+			v-if="showConsent"
+			class="alert alert-dark mt-4"
 		>
-			<b-form-checkbox
-				v-model="consent"
-				:disabled="consented"
-				name="consent"
-				required
-			>
-				{{ $t('SheetContent.consent1') }}
-				<a
-					class="alert-link"
-					href="javascript:void(0)"
-					@click.stop="privacyModalVisible = true"
-					v-html="$t('SheetContent.consent2')"
+			<div class="form-check">
+				<input
+					id="consent"
+					v-model="consent"
+					class="form-check-input"
+					:disabled="consented"
+					name="consent"
+					required
+					type="checkbox"
 				/>
-			</b-form-checkbox>
-		</b-alert>
+				<label
+					for="consent"
+					class="form-check-lable"
+				>
+					{{ $t('SheetContent.consent1') }}
+					<a
+						class="alert-link"
+						href="javascript:void(0)"
+						@click.stop="privacyModalVisible = true"
+						v-html="$t('SheetContent.consent2')"
+					/>
+				</label>
+			</div>
+		</div>
 		<client-only>
 			<b-modal
 				v-model="privacyModalVisible"

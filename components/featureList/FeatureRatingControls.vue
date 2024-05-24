@@ -52,7 +52,6 @@ watch(ratingValue, (newValue) => {
 
 	// update map and FLE header
 	if (feature && feature.properties) feature.properties.rating = newValue;
-	// FIXME needed? this.$nuxt.$emit('contentModified');
 });
 
 watch(

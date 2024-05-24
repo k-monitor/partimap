@@ -73,6 +73,10 @@ body,
 a,
 .btn-link {
 	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .btn-blue {
