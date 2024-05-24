@@ -3,7 +3,7 @@
 		<b-form-group class="mb-4">
 			<template #label>
 				<h6
-					v-if="!hideAdminFeatures"
+					v-if="showHeader"
 					class="mb-0"
 				>
 					{{ $t('FeatureList.features') }}
@@ -210,6 +210,9 @@ export default {
 				}
 				return true;
 			});
+		},
+		showHeader() {
+			return !this.hideAdminFeatures && this.availableFeatures.length > 0;
 		},
 		showSearch() {
 			return !this.isOnSheetView || this.availableFeatures.length > 3;
