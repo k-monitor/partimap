@@ -57,6 +57,7 @@ function getAvailableFeatures() {
 const availableFeatures = ref(getAvailableFeatures());
 watch(features, () => (availableFeatures.value = getAvailableFeatures()), { deep: true });
 
+const showHeader = computed(() => !hideAdminFeatures.value && availableFeatures.value.length > 0);
 const showSearch = computed(() => !props.isOnSheetView || availableFeatures.value.length > 3);
 const search = ref('');
 const categoryFilter = ref('');
@@ -238,7 +239,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 <template>
 	<div class="mb-4">
 		<h6
-			v-if="!hideAdminFeatures"
+			v-if="showHeader"
 			class="mb-0"
 		>
 			{{ $t('FeatureList.features') }}
