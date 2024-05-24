@@ -43,7 +43,7 @@ function init() {
 	// END backward compatibility for #2437
 
 	// BEGIN backward compatibility for #2434
-	const survey = safeParseJSON(sheet.value.survey);
+	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
 	if (survey?.showResultsOnly) {
 		interactions.value.enabled.push('ShowResultsOnly');
 		delete survey.showResultsOnly;
@@ -137,7 +137,7 @@ const interactionOptions = computed(() => {
 	return options;
 });
 const surveyQuestions = computed<Question[] | undefined>(() => {
-	const survey = safeParseJSON(sheet.value?.survey || '{}') as Survey;
+	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
 	return survey.questions;
 });
 const isAllResultsEnabled = computed(() => {
@@ -221,7 +221,7 @@ function showAllResultsClicked() {
 	if (!sheet.value) return;
 	const showResults = showAllResults.value;
 	toggleInteraction('RatingResults', showResults);
-	const survey = safeParseJSON(sheet.value?.survey || '{}');
+	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
 	survey.questions?.forEach((q: Question) => (q.showResult = showResults));
 	sheet.value.survey = JSON.stringify(survey);
 }

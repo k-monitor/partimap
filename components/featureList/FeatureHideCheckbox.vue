@@ -9,7 +9,8 @@ const hidden = computed({
 	},
 	set(value) {
 		if (value) {
-			feature!.properties = { ...feature?.properties, hidden: true };
+			feature!.properties = feature!.properties || {};
+			feature!.properties.hidden = true;
 		} else if (feature?.properties) {
 			delete feature.properties.hidden;
 		}

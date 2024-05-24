@@ -13,11 +13,9 @@ const question = computed(() => {
 const answer = ref(safeParseJSONArray(feature?.properties?.partimapFeatureQuestion_ans));
 watch(answer, (newAnswer) => {
 	if (!feature || !question.value) return;
-	feature.properties = {
-		...feature.properties,
-		partimapFeatureQuestion: question.value!.label,
-		partimapFeatureQuestion_ans: JSON.stringify(newAnswer),
-	};
+	feature.properties = feature.properties || {};
+	feature.properties.partimapFeatureQuestion = question.value!.label;
+	feature.properties.partimapFeatureQuestion_ans = JSON.stringify(newAnswer);
 });
 </script>
 

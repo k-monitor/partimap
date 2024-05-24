@@ -31,6 +31,7 @@ const dashOptions = [
 onMounted(() => {
 	if (!feature) return;
 	const p = feature.properties || {};
+	feature.properties = feature.properties || {};
 	feature.properties = {
 		...feature.properties,
 		partimapMapLabel: p.partimapMapLabel || '',

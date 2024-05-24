@@ -10,7 +10,8 @@ const name = ref(feature?.properties?.name || defaultName);
 
 watch(name, (newName) => {
 	if (!feature) return;
-	feature.properties = { ...feature.properties, name: newName };
+	feature.properties = feature.properties || {};
+	feature.properties.name = newName;
 });
 </script>
 

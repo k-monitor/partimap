@@ -279,44 +279,45 @@ function next() {
 }
 
 function injectDataIntoFeatures(data: SubmissionDataBySheet) {
-	// FIXME injectDataIntoFeatures
-	/*const questions = {};
-	const answers = {};
+	const questions: Record<string, string> = {};
+	const answers: Record<string, string> = {};
 
 	// gather questions and answers to inject
-	const str = (v) => (Array.isArray(v) ? v.join(', ') : v || '');
-	this.project.sheets.forEach((sheet) => {
-		try {
-			const qs = JSON.parse(sheet.survey).questions;
-			qs.filter((q) => q.addToFeatures).forEach((q) => {
-				const ans = data[sheet.id]?.answers[q.id];
-				if (Object.isExtensible(ans) && !Array.isArray(ans)) {
-					// answer is {...}, so a matrix -> injecting rows separately
-					Object.keys(ans).forEach((k, i) => {
-						const qak = `${q.id}_${i}`;
-						questions[qak] = `${q.label} [${k}]`;
-						answers[qak] = str(ans[k]);
-					});
-				} else {
-					questions[q.id] = q.label;
-					answers[q.id] = str(ans);
-				}
-			});
-		} catch {}
+	const str = (v: any) => (Array.isArray(v) ? v.join(', ') : v || '');
+	(project.value?.sheets || []).forEach((sheet) => {
+		const survey: Survey = safeParseJSON(sheet.survey) || {};
+		const qs = survey.questions;
+		qs.filter((q) => q.addToFeatures).forEach((q) => {
+			const sheetAnswers = data[sheet.id]?.answers || {};
+			if (Object.keys(sheetAnswers).includes(String(q.id))) return;
+			const ans = sheetAnswers[q.id];
+			if (Object.isExtensible(ans) && !Array.isArray(ans)) {
+				// answer is {...}, so a matrix -> injecting rows separately
+				Object.keys(ans).forEach((k, i) => {
+					const qak = `${q.id}_${i}`;
+					questions[qak] = `${q.label} [${k}]`;
+					answers[qak] = str(ans[k]);
+				});
+			} else {
+				questions[q.id] = q.label;
+				answers[q.id] = str(ans);
+			}
+		});
 	});
 
 	// inject into features
 	Object.keys(data).forEach((sid) => {
-		const features = data[sid].features;
+		const features = data[Number(sid)].features;
 		if (!features) return;
 		for (let i = 0; i < features.length; i++) {
 			const f = features[i];
 			Object.keys(questions).forEach((qid) => {
+				f.properties = f.properties || {};
 				f.properties[`partimapQuestion_${qid}`] = questions[qid];
 				f.properties[`partimapQuestion_${qid}_ans`] = answers[qid];
 			});
 		}
-	});*/
+	});
 }
 
 async function submit() {

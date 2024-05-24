@@ -17,7 +17,8 @@ const label = computed(() => {
 const description = ref<string>(feature?.properties?.description || '');
 watch(description, (newDescription) => {
 	if (!feature) return;
-	feature.properties = { ...feature.properties, description: newDescription };
+	feature.properties = feature.properties || {};
+	feature.properties.description = newDescription;
 });
 </script>
 
