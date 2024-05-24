@@ -12,7 +12,7 @@ const localePath = useLocalePath();
 const route = useRoute();
 const { id, sheetOrd } = route.params;
 
-const { changeBaseMap, loading } = useStore();
+const { loading } = useStore();
 
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
@@ -31,7 +31,6 @@ function init() {
 	if (!sheet.value) return;
 
 	interactions.value = deserializeInteractions(sheet.value.interactions);
-	changeBaseMap(interactions.value.baseMap || 'osm');
 
 	// BEGIN backward compatibility for #2437
 	const descriptionLabel = sheet.value.descriptionLabel || '';
@@ -203,9 +202,6 @@ watch(
 	(interactions) => {
 		if (!sheet.value) return;
 		sheet.value.interactions = serializeInteractions(interactions);
-		if (interactions.baseMap) {
-			changeBaseMap(interactions.baseMap);
-		}
 	},
 	{
 		deep: true,

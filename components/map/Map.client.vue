@@ -14,7 +14,14 @@ const props = defineProps<{
 	visitor?: boolean;
 }>();
 
-const { currentZoom, drawType, filteredFeatureIds, selectedFeatureId, sidebarVisible } = useStore();
+const {
+	changeBaseMap,
+	currentZoom,
+	drawType,
+	filteredFeatureIds,
+	selectedFeatureId,
+	sidebarVisible,
+} = useStore();
 
 // map initialization
 
@@ -42,6 +49,9 @@ function handlePointermove(e: MapBrowserEvent<UIEvent>) {
 function handleResolutionChange(e: ObjectEvent) {
 	currentZoom.value = (e.target as View).getZoom() || 0;
 }
+
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
+watchEffect(() => changeBaseMap(interactions.value?.baseMap));
 
 // fit to features
 
