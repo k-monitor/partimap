@@ -8,7 +8,10 @@ const paramsSchema = z.object({
 });
 
 const bodySchema = z.object({
+	features: z.string().optional(),
 	image: z.string().optional(),
+	interactions: z.string().optional(),
+	survey: z.string().optional(),
 	title: z.string().min(1),
 });
 
