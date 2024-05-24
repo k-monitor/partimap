@@ -15,16 +15,17 @@ const interactions = inject<Ref<Interactions | null>>('interactions', ref(null))
 
 const props = withDefaults(
 	defineProps<{
-		aggregatedRating: AggregatedRating;
+		aggregatedRating?: AggregatedRating | null;
 		categories: string[];
 		feature: GeoJsonFeature;
 		isInteractive: boolean;
-		isOnEditorView: boolean;
-		isOnSheetView: boolean;
-		isOnSubmittedView: boolean;
-		showResults: boolean;
+		isOnEditorView?: boolean;
+		isOnSheetView?: boolean;
+		isOnSubmittedView?: boolean;
+		showResults?: boolean;
 	}>(),
 	{
+		aggregatedRating: null,
 		isInteractive: true,
 	},
 );
@@ -56,8 +57,8 @@ const confirmedClose = ref(false);
 
 const question = computed(() => {
 	const dt = feature.value.geometry.type;
-	const q = interactions?.value?.featureQuestions?.[dt] || {};
-	return q.label ? q : null;
+	const q = interactions?.value?.featureQuestions?.[dt];
+	return q?.label ? q : null;
 });
 
 const showSaveButtonOnStaticSheet = computed(() => {
@@ -267,7 +268,7 @@ async function deleteFeature() {
 						<template v-if="isOnSheetView">
 							<template v-if="isInteractive">
 								<FeatureNameEditor v-if="visitorCanName" />
-								<!-- FIXME <FeatureQuestionDisplay /> -->
+								<FeatureQuestionDisplay />
 								<FeatureDescriptionPlainEditor />
 								<FeatureListElementFooter
 									show-delete
@@ -292,7 +293,7 @@ async function deleteFeature() {
 						</template>
 						<template v-if="isOnEditorView">
 							<FeatureRatingControls
-								v-if="aggregatedRating.count"
+								v-if="aggregatedRating?.count"
 								show-results
 							/>
 							<FeatureNameEditor />

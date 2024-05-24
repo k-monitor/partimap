@@ -8,16 +8,16 @@ const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 
 const { t } = useI18n();
 
-const description = ref<string>(feature?.properties?.description || '');
-watch(description, (newDescription) => {
-	if (!feature) return;
-	feature.properties = { ...feature.properties, description: newDescription };
-});
-
 const label = computed(() => {
 	const dt = feature?.geometry?.type || '';
 	const lab = interactions?.value?.descriptionLabels[dt];
 	return lab || sheet?.value?.descriptionLabel || t('sheetEditor.defaultDescriptionLabel');
+});
+
+const description = ref<string>(feature?.properties?.description || '');
+watch(description, (newDescription) => {
+	if (!feature) return;
+	feature.properties = { ...feature.properties, description: newDescription };
 });
 </script>
 

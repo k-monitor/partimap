@@ -182,7 +182,6 @@ watchEffect(() => {
 	if (!isSheetLoaded.value || !sheet.value) return;
 
 	const adminFeatures = safeParseJSONArray(sheet.value.features) as GeoJsonFeature[];
-	console.log('isSheetLoaded watcher TRUE', isInteractive.value);
 	if (isInteractive.value) {
 		// on interactive sheets, admin features cannot be selected
 		adminFeatures.forEach((f) => {
@@ -279,7 +278,7 @@ function next() {
 }
 
 function injectDataIntoFeatures(data: SubmissionDataBySheet) {
-	// FIXME
+	// FIXME injectDataIntoFeatures
 	/*const questions = {};
 	const answers = {};
 

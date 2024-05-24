@@ -21,7 +21,7 @@ export type Interactions = {
 	/**
 	 * Question to be displayed in feature boxes
 	 */
-	featureQuestions: Record<string, Record<string, string>>;
+	featureQuestions: Record<string, Question>;
 	/**
 	 * Question to be displayed for rating explanation
 	 */
