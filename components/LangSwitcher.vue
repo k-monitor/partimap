@@ -1,6 +1,8 @@
 <template>
 	<b-nav-item-dropdown
 		id="ssr-id-LangSwitcher-dropdown"
+		:teleport-disabled="true"
+		teleport-to="body"
 		right
 	>
 		<!-- TODO ^ id attribute is only needed to tackle BootstrapVueNext's SSR issue -->

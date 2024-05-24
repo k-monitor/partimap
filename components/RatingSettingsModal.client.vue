@@ -81,6 +81,8 @@ function handleOk() {
 		v-model="visible"
 		:cancel-title="$t('modals.cancel')"
 		ok-variant="success"
+		:teleport-disabled="true"
+		teleport-to="body"
 		:title="$t(`sheetEditor.interactions.Rating`)"
 		@ok="handleOk"
 		@show="reinit"

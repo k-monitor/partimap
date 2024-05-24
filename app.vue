@@ -34,8 +34,14 @@ useHead({
 	>
 		<NuxtPage />
 		<client-only>
-			<BModalOrchestrator />
-			<BToastOrchestrator />
+			<BModalOrchestrator
+				:teleport-disabled="true"
+				teleport-to="body"
+			/>
+			<BToastOrchestrator
+				:teleport-disabled="true"
+				teleport-to="body"
+			/>
 		</client-only>
 	</div>
 </template>

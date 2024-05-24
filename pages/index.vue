@@ -130,6 +130,8 @@ function showFeature(i: number) {
 								v-model="modals[i]"
 								centered
 								scrollable
+								:teleport-disabled="true"
+								teleport-to="body"
 								:title="f.title"
 							>
 								<div v-html="f.description" />

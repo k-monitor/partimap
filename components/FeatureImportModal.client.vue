@@ -101,6 +101,8 @@ async function importSubmitted() {
 	<b-modal
 		v-model="visible"
 		hide-footer
+		:teleport-disabled="true"
+		teleport-to="body"
 		:title="$t('FeatureImportModal.title')"
 	>
 		<b-form-group :label="$t('FeatureImportModal.importFromMap')">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-	projectDataProcessor: string;
+	projectDataProcessor?: string;
 }>();
 
 const { t } = useI18n();

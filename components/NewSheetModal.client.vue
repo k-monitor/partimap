@@ -132,6 +132,8 @@ async function handleSubmit() {
 		:title="$t('ProjectSheetManager.title')"
 		:cancel-title="$t('modals.cancel')"
 		ok-variant="success"
+		:teleport-disabled="true"
+		teleport-to="body"
 		@show="resetModal"
 		@shown="titleInput?.focus()"
 		@hidden="resetModal"

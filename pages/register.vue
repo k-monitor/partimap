@@ -89,18 +89,27 @@ async function userReg() {
 								/>
 							</form-group>
 							<form-group>
-								<b-form-checkbox
-									v-model="consent"
-									name="consent"
-									required
-								>
-									{{ $t('register.consent1') }}
-									<a
-										href="javascript:void(0)"
-										@click.stop="termsModal = true"
-										v-html="$t('register.consent2')"
+								<div class="form-check">
+									<input
+										id="consent"
+										v-model="consent"
+										class="form-check-input"
+										name="consent"
+										required
+										type="checkbox"
 									/>
-								</b-form-checkbox>
+									<label
+										for="consent"
+										class="form-check-label"
+									>
+										{{ $t('register.consent1') }}
+										<a
+											href="javascript:void(0)"
+											@click.stop="termsModal = true"
+											v-html="$t('register.consent2')"
+										/>
+									</label>
+								</div>
 							</form-group>
 
 							<p class="m-0 small text-muted">
@@ -125,17 +134,18 @@ async function userReg() {
 					</div>
 				</form>
 			</div>
-			<client-only>
-				<b-modal
-					v-model="termsModal"
-					hide-footer
-					scrollable
-					size="lg"
-					:title="$t('register.termsTitle')"
-				>
-					<Terms />
-				</b-modal>
-			</client-only>
+			<b-modal
+				id="ssr-id-register-terms-modal"
+				v-model="termsModal"
+				hide-footer
+				scrollable
+				size="lg"
+				:teleport-disabled="true"
+				teleport-to="body"
+				:title="$t('register.termsTitle')"
+			>
+				<Terms />
+			</b-modal>
 		</div>
 	</div>
 </template>

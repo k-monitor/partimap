@@ -35,9 +35,10 @@ const localePath = useLocalePath();
 					<b-nav-item-dropdown
 						v-if="user?.isAdmin"
 						id="ssr-id-AdminFrame-editHelp-dropdown"
+						:teleport-disabled="true"
+						teleport-to="body"
 						:text="$t('AdminFrame.editHelp')"
 					>
-						<!-- TODO ^ id attribute is only needed to tackle BootstrapVueNext's SSR issue -->
 						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
 							{{ $t('AdminFrame.editEditorsHelp') }}
 						</b-dropdown-item>
@@ -51,11 +52,12 @@ const localePath = useLocalePath();
 						{{ $t('AdminFrame.help') }}
 					</b-nav-item>
 					<b-nav-item-dropdown
-						id="ssr-id-AdminFrame-profile-dropdown"
+						id="ssr-id-AdminFrame-user-dropdown"
+						:teleport-disabled="true"
+						teleport-to="body"
 						:text="user?.name"
 						right
 					>
-						<!-- TODO ^ id attribute is only needed to tackle BootstrapVueNext's SSR issue -->
 						<b-dropdown-item :to="localePath('/admin/user/' + user?.id)">
 							{{ $t('AdminFrame.profile') }}
 						</b-dropdown-item>

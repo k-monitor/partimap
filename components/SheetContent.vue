@@ -115,7 +115,7 @@ onMounted(() => (consented.value = consent.value));
 				/>
 				<label
 					for="consent"
-					class="form-check-lable"
+					class="form-check-label"
 				>
 					{{ $t('SheetContent.consent1') }}
 					<a
@@ -127,17 +127,18 @@ onMounted(() => (consented.value = consent.value));
 				</label>
 			</div>
 		</div>
-		<client-only>
-			<b-modal
-				v-model="privacyModalVisible"
-				hide-footer
-				scrollable
-				size="lg"
-				:title="$t('sheet.privacyPolicy')"
-			>
-				<Terms :project-data-processor="project.privacyPolicy" />
-			</b-modal>
-		</client-only>
+		<b-modal
+			id="ssr-id-sheet-privacy-modal"
+			v-model="privacyModalVisible"
+			hide-footer
+			scrollable
+			size="lg"
+			:teleport-disabled="true"
+			teleport-to="body"
+			:title="$t('sheet.privacyPolicy')"
+		>
+			<Terms :project-data-processor="project.privacyPolicy" />
+		</b-modal>
 	</div>
 	<div v-else>
 		<TipTapDisplay

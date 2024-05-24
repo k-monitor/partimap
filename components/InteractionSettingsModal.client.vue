@@ -72,6 +72,8 @@ function inputValid(max: number) {
 		v-model="visible"
 		:cancel-title="$t('modals.cancel')"
 		ok-variant="success"
+		:teleport-disabled="true"
+		teleport-to="body"
 		:title="$t(`sheetEditor.interactions.${drawType}`)"
 		@ok="handleOk"
 		@show="reinit"
