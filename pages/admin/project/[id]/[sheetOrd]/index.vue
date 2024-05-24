@@ -68,14 +68,7 @@ useHead({
 
 const contentModified = ref(false);
 
-function parseFeatures() {
-	try {
-		return JSON.parse(sheet.value?.features || '[]') as GeoJsonFeature[];
-	} catch {
-		return [];
-	}
-}
-const features = ref<GeoJsonFeature[]>(parseFeatures());
+const features = ref(safeParseJSONArray(sheet.value?.features) as GeoJsonFeature[]);
 watch(features, () => (contentModified.value = true), { deep: true });
 
 const isFirstSheet = computed(() => sheet.value?.ord === 0);

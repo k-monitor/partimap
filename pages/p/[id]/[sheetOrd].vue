@@ -129,7 +129,7 @@ const needToShowResults = computed(() => {
 
 const passwordInput = ref<HTMLInputElement>();
 const resultsShown = ref(false);
-onMounted(async () => {
+onMounted(() => {
 	registerHit(); // no need to wait for it
 	if (!project.value) {
 		passwordInput.value?.focus();
@@ -176,41 +176,12 @@ const isInteractive = computed(
 		interactions.value.enabled.includes('Polygon'),
 );
 
-function addVisitorFeature(feature: GeoJsonFeature) {
-	if (!sheet.value) return;
-
-	const cat = t(`FeatureListElement.defaultName.${feature.geometry.type}`);
-	feature.properties = feature.properties || {};
-	feature.properties.category = cat;
-
-	const features = getVisitorFeatures(sheet.value.id) || [];
-	features.push(feature);
-	setVisitorFeatures(sheet.value.id, features);
-}
-
-function delVisitorFeature(feature: GeoJsonFeature) {
-	if (!sheet.value) return;
-
-	const features = getVisitorFeatures(sheet.value.id) || [];
-	const idx = features.findIndex((f) => f.id === feature.id);
-	if (idx !== -1) {
-		features.splice(idx, 1);
-		setVisitorFeatures(sheet.value.id, features);
-	}
-}
-
-function parseFeatures() {
-	try {
-		return JSON.parse(sheet.value?.features || '[]') as GeoJsonFeature[];
-	} catch {
-		return [];
-	}
-}
 const features = ref<GeoJsonFeature[]>([]);
-watchEffect(() => {
-	if (!sheet.value) return;
+const isSheetLoaded = computed(() => !!sheet.value);
+watch(isSheetLoaded, (loaded) => {
+	if (!loaded || !sheet.value) return;
 
-	const adminFeatures = parseFeatures();
+	const adminFeatures = safeParseJSONArray(sheet.value.features) as GeoJsonFeature[];
 	if (isInteractive.value) {
 		// on interactive sheets, admin features cannot be selected
 		adminFeatures.forEach((f) => {
@@ -232,6 +203,31 @@ watchEffect(() => {
 	});
 
 	features.value = [...visitorFeatures, ...adminFeatures];
+});
+
+function handleFeatureDrawn(feature: GeoJsonFeature) {
+	if (!sheet.value) return;
+
+	const cat = t(`FeatureListElement.defaultName.${feature.geometry.type}`);
+	feature.properties = feature.properties || {};
+	feature.properties.category = cat;
+
+	//const features = getVisitorFeatures(sheet.value.id) || [];
+	features.value.push(feature);
+	//setVisitorFeatures(sheet.value.id, features);
+}
+
+const currentVisitorFeaturesJSON = computed(() => {
+	console.log('Recalculating currentVisitorFeaturesJSON');
+	return JSON.stringify(features.value.filter((f) => f.properties?.visitorFeature));
+});
+watch(currentVisitorFeaturesJSON, () => {
+	console.log('currentVisitorFeaturesJSON changed');
+	if (!sheet.value) return;
+	// visitor features are edited or deleted in FeatureList
+	// or a new visitor feature is drawn on Map
+	const _visitorFeatures = features.value.filter((f) => f.properties?.visitorFeature);
+	setVisitorFeatures(sheet.value?.id, _visitorFeatures);
 });
 
 const { executeReCaptcha } = useReCaptcha();
@@ -450,7 +446,6 @@ async function submit() {
 						:is-interactive="isInteractive"
 						is-on-sheet-view
 					/>
-					<!-- FIXME ^ visitor prop is not used now, but was passed in v1 -->
 
 					<template #footer>
 						<FooterButtons
@@ -477,8 +472,7 @@ async function submit() {
 						:gray-rated="!resultsShown"
 						:label-overrides="labels"
 						visitor
-						@visitor-feature-added="addVisitorFeature"
-						@visitor-feature-removed="delVisitorFeature"
+						@feature-drawn="handleFeatureDrawn"
 					/>
 					<MapToolbar v-if="!!drawType" />
 					<MapTask :interactions="interactions" />

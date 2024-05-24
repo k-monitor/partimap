@@ -22,9 +22,12 @@ function handleFeatureChange(feature: GeoJsonFeature) {
 }
 
 function handleFeatureDelete(featureId: number) {
+	selectedFeatureId.value = null;
+	console.log('FeatureList attempting to delete ID', featureId);
 	const _features = features.value || [];
 	const index = _features.findIndex((f) => f.id === featureId);
 	if (index === -1) return;
+	console.log('FeatureList deleting index', index);
 	_features.splice(index, 1);
 	features.value = _features;
 }
@@ -336,7 +339,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 				is-interactive
 				:is-on-sheet-view="isOnSheetView"
 				@change="handleFeatureChange"
-				@delete="handleFeatureDelete"
+				@delete="handleFeatureDelete(Number(feature.id))"
 			/>
 		</div>
 	</form-group>

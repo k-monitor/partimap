@@ -20,14 +20,10 @@ const title = ref(mapData.value?.title);
 watch(title, () => (contentModified.value = true));
 
 function parseFeatures() {
-	try {
-		return JSON.parse(mapData.value?.features || '[]') as GeoJsonFeature[];
-	} catch {
-		return [];
-	}
+	return safeParseJSONArray(mapData.value?.features) as GeoJsonFeature[];
 }
 
-const features = ref<GeoJsonFeature[]>(parseFeatures());
+const features = ref(parseFeatures());
 watch(mapData, () => (features.value = parseFeatures()));
 
 const contentModified = ref(false);
