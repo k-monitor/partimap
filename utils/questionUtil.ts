@@ -1,8 +1,6 @@
 import type { Question } from '~/server/data/surveyAnswers';
 
-export function canShowQuestion(question: Question, allVisitorAnswers: Record<string, any>) {
-	// FIXME type of allVisitorAnswers
-
+export function canShowQuestion(question: Question, allVisitorAnswers: AnswersByQuestion) {
 	if (!Array.isArray(question.showIf)) return true;
 	return question.showIf
 		.map((condition) => {

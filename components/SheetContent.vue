@@ -6,7 +6,7 @@ const props = defineProps<{
 	brandColor?: string;
 	project: Project;
 	results?: boolean;
-	resultsData?: any[]; // FIXME type
+	resultsData?: any[]; // FIXME results type
 	sheet: Sheet;
 	showConsent?: boolean;
 }>();
@@ -16,7 +16,7 @@ const interactions = computed(() => deserializeInteractions(sheet.value?.interac
 const { consent, submitted } = useStore();
 const { getVisitorAnswers, setVisitorAnswers } = useVisitorData();
 
-const visitorAnswers = ref<Record<string, any>>({}); // FIXME type?
+const visitorAnswers = ref<AnswersByQuestion>({});
 
 onBeforeMount(() => {
 	visitorAnswers.value = getVisitorAnswers(sheet.value.id);

@@ -178,10 +178,11 @@ const isInteractive = computed(
 
 const features = ref<GeoJsonFeature[]>([]);
 const isSheetLoaded = computed(() => !!sheet.value);
-watch(isSheetLoaded, (loaded) => {
-	if (!loaded || !sheet.value) return;
+watchEffect(() => {
+	if (!isSheetLoaded.value || !sheet.value) return;
 
 	const adminFeatures = safeParseJSONArray(sheet.value.features) as GeoJsonFeature[];
+	console.log('isSheetLoaded watcher TRUE', isInteractive.value);
 	if (isInteractive.value) {
 		// on interactive sheets, admin features cannot be selected
 		adminFeatures.forEach((f) => {
@@ -217,12 +218,10 @@ function handleFeatureDrawn(feature: GeoJsonFeature) {
 	//setVisitorFeatures(sheet.value.id, features);
 }
 
-const currentVisitorFeaturesJSON = computed(() => {
-	console.log('Recalculating currentVisitorFeaturesJSON');
-	return JSON.stringify(features.value.filter((f) => f.properties?.visitorFeature));
-});
+const currentVisitorFeaturesJSON = computed(() =>
+	JSON.stringify(features.value.filter((f) => f.properties?.visitorFeature)),
+);
 watch(currentVisitorFeaturesJSON, () => {
-	console.log('currentVisitorFeaturesJSON changed');
 	if (!sheet.value) return;
 	// visitor features are edited or deleted in FeatureList
 	// or a new visitor feature is drawn on Map

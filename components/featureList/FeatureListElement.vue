@@ -8,6 +8,7 @@ import type { Sheet } from '~/server/data/sheets';
 const { t } = useI18n();
 
 const { selectedFeatureId, sidebarVisible } = useStore();
+const { getVisitorAnswers, getVisitorFeatures, getVisitorRatings } = useVisitorData();
 
 const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
@@ -65,7 +66,7 @@ const showSaveButtonOnStaticSheet = computed(() => {
 	if (!ias.includes('RatingExplanation') && !ias.includes('RatingProsCons')) {
 		return false;
 	}
-	const ratings: any = /*this.getVisitorRatings(this.sheet?.id) ||*/ {}; // FIXME
+	const ratings = !sheet.value ? {} : getVisitorRatings(sheet.value.id);
 	const rating = ratings[String(props.feature.id)] || {
 		value: undefined,
 	};
@@ -114,9 +115,7 @@ async function expandFinished() {
 }
 
 function getRatingObj() {
-	// FIXME
-	//const ratings = this.getVisitorRatings(this.sheet?.id) || {};
-	const ratings = {} as any;
+	const ratings = !sheet.value ? {} : getVisitorRatings(sheet.value.id);
 	return ratings[String(feature.value.id)] || { value: undefined };
 }
 
@@ -284,8 +283,7 @@ async function deleteFeature() {
 							</template>
 							<template v-else>
 								<JumpToMapButton />
-								<!-- FIXME -->
-								<!-- <TipTapDisplay :html="feature.properties?.description" /> -->
+								<TipTapDisplay :html="feature.properties?.description" />
 								<FeatureRatingControls
 									v-if="visitorCanRate"
 									:show-results="showResults"
