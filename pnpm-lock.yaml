@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@bootstrap-vue-next/nuxt':
-    specifier: ^0.18.1
-    version: 0.18.1(bootstrap-vue-next@0.18.1)(rollup@4.18.0)
+    specifier: ^0.16.6
+    version: 0.16.6(bootstrap-vue-next@0.16.6)(rollup@4.18.0)
   '@fortawesome/fontawesome-free':
     specifier: ^5
     version: 5.15.4
@@ -48,8 +48,8 @@ dependencies:
     specifier: ^5.3.3
     version: 5.3.3(@popperjs/core@2.11.8)
   bootstrap-vue-next:
-    specifier: ^0.18.1
-    version: 0.18.1(vue@3.4.27)
+    specifier: ^0.16.6
+    version: 0.16.6(vue@3.4.27)
   copy-to-clipboard:
     specifier: ^3.3.3
     version: 3.3.3
@@ -746,13 +746,13 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
-  /@bootstrap-vue-next/nuxt@0.18.1(bootstrap-vue-next@0.18.1)(rollup@4.18.0):
-    resolution: {integrity: sha512-2RLrxmvKXXw8wnmiUeRaulUBI1TuPTGejjkM1OgaIG3Cf8gkZ8BPrhIvBS/6yUwGacHzO0YvOVBkz3/7Q0vPHw==}
+  /@bootstrap-vue-next/nuxt@0.16.6(bootstrap-vue-next@0.16.6)(rollup@4.18.0):
+    resolution: {integrity: sha512-8mCGf11DPsl9/2Z2qADPkeNR5B4PB6tTwb3s5d8msm5+a30OfCOjif66LDDT9NNfe/kuh0j9DTyD5osMIWrWOQ==}
     peerDependencies:
-      bootstrap-vue-next: ^0.18.1
+      bootstrap-vue-next: ^0.16.6
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@4.18.0)
-      bootstrap-vue-next: 0.18.1(vue@3.4.27)
+      bootstrap-vue-next: 0.16.6(vue@3.4.27)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -4402,10 +4402,10 @@ packages:
   /boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  /bootstrap-vue-next@0.18.1(vue@3.4.27):
-    resolution: {integrity: sha512-/NNFwGU1aC1l4MMGGP7ooY4YQtaej1eGKnQBxGskKhZLz05JDCmNdIpy1gKODzeZz8pYeyHF7288h0uLCRqWkQ==}
+  /bootstrap-vue-next@0.16.6(vue@3.4.27):
+    resolution: {integrity: sha512-CDjq3KgIOALJO/Zvmcgxqavv1NznFROUl7yWHAmp4T4R8IRJLfyMj1zizjw2OzCvQ+uJ9PZ28T1Cx7xq8+m2xg==}
     peerDependencies:
-      vue: ^3.4.27
+      vue: ^3.4.18
     dependencies:
       '@floating-ui/vue': 1.0.6(vue@3.4.27)
       '@vueuse/core': 10.9.0(vue@3.4.27)
