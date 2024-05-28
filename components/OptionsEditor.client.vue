@@ -23,7 +23,11 @@ const labelButton = computed(() => {
 });
 
 function addOption() {
-	options.value.push(t('OptionsEditor.optionPrefix') + ` #${options.value.length + 1}`);
+	console.log('addOption');
+	options.value = [
+		...options.value,
+		t('OptionsEditor.optionPrefix') + ` #${options.value.length + 1}`,
+	];
 }
 
 function delOption(i: number) {
