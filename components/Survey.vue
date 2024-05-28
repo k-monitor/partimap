@@ -51,7 +51,7 @@ function removeEmptyAnswers(answers: AnswersByQuestion) {
 
 function canRemoveAnswer(q: Question) {
 	return (
-		answers.value[q.id] &&
+		Object.keys(answers.value).includes(String(q.id)) &&
 		'distributeUnits|dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(q.type)
 	);
 }
@@ -104,7 +104,7 @@ function removeAnswer(questionId: number) {
 			:name="`q${q.id}`"
 			:required="q.required"
 		/>
-		<div v-else-if="'number|range'.includes(q.type)">
+		<template v-else-if="'number|range'.includes(q.type)">
 			<div
 				v-if="q.type === 'range' && q.minLabel && q.maxLabel"
 				class="align-items-end d-flex justify-content-between small"
@@ -116,7 +116,7 @@ function removeAnswer(questionId: number) {
 			<div class="align-items-center d-flex position-relative">
 				<b-form-input
 					:id="`ssr-id-q${q.id}`"
-					v-model="answers[q.id]"
+					v-model.number="answers[q.id]"
 					:min="q.min"
 					:max="q.max"
 					:name="`q${q.id}`"
@@ -137,20 +137,22 @@ function removeAnswer(questionId: number) {
 					style="bottom: 0; left: 50%; width: 50%; height: 0; opacity: 0"
 				/>
 			</div>
-		</div>
-		<!-- FIXME <b-form-radio-group
-			v-else-if="q.type === 'radiogroup'"
-			v-model="answers[q.id]"
-			:name="`q${q.id}`"
-			:options="q.options"
-			:required="q.required"
-			stacked
-		/>
+		</template>
+		<client-only v-else-if="q.type === 'radiogroup'">
+			<b-form-radio-group
+				v-model="answers[q.id]"
+				:name="`q${q.id}`"
+				:options="q.options"
+				:required="q.required"
+				stacked
+			/>
+		</client-only>
 		<DropdownGroup
 			v-else-if="q.type === 'dropdown'"
 			v-model="answers[q.id]"
 			:q="q"
 		/>
+		<!-- FIXME
 		<ChoiceMatrix
 			v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"
 			v-model="answers[q.id]"
