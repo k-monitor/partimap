@@ -158,33 +158,12 @@ function removeAnswer(questionId: number) {
 			v-model="answers[q.id]"
 			:question="q"
 		/>
-		<div
+		-->
+		<RatingQuestion
 			v-else-if="q.type === 'rating'"
-			class="position-relative"
-		>
-			<div class="border d-flex fw-bold justify-content-center p-2">
-				<VueStarRating
-					v-model="answers[q.id]"
-					active-color="var(--brand)"
-					animate
-					border-color="var(--brand)"
-					:border-width="2"
-					clearable
-					inactive-color="#fff"
-					:max-rating="5"
-					:star-size="20"
-					:show-rating="false"
-				/>
-			</div>
-			<input
-				v-if="q.required"
-				v-model="answers[q.id]"
-				class="position-absolute"
-				required
-				style="bottom: 0; left: 0; height: 0; opacity: 0"
-			/>
-		</div>
-		 -->
+			v-model="answers[q.id]"
+			:question="q"
+		/>
 		<DistributeUnitsQuestion
 			v-else-if="q.type === 'distributeUnits'"
 			v-model="answers[q.id]"
