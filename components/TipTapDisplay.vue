@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import * as basicLightbox from 'basiclightbox';
 
-const props = defineProps<{
-	html: string | null;
+defineProps<{
+	html: string | null | undefined;
 }>();
 
 const htmlRef = ref<HTMLDivElement>();
