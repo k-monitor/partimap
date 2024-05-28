@@ -470,9 +470,14 @@ const questionLabelInput = ref<HTMLInputElement>();
 		>
 			<form
 				v-if="question"
+				:key="question.type"
 				ref="form"
 				@submit.prevent="saveQuestion"
 			>
+				<!-- ^
+					:key=q.type is needed because for some reason form group order
+					can change sometimes when q.type is changed
+				-->
 				<div
 					v-if="isQuestionReferenced(question)"
 					class="alert alert-warning"
