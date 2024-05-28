@@ -339,8 +339,8 @@ async function submit() {
 		injectDataIntoFeatures(data);
 		try {
 			const captcha = await executeReCaptcha('submit');
-			await $fetch(`/api/${project.value.id}/submission`, {
-				method: 'POST',
+			await $fetch(`/api/project/${project.value.id}/submission`, {
+				method: 'PUT',
 				body: {
 					...data,
 					captcha,
