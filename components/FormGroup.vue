@@ -13,6 +13,7 @@ defineProps<{
 		>
 			{{ label }}
 		</legend>
+		<slot name="label" />
 		<slot />
 		<small
 			v-if="description"

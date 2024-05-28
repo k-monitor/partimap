@@ -14,33 +14,6 @@ const sheet = toRef(props, 'sheet');
 const interactions = computed(() => deserializeInteractions(sheet.value?.interactions));
 
 const { consent, submitted } = useStore();
-const { getVisitorAnswers, setVisitorAnswers } = useVisitorData();
-
-const visitorAnswers = ref<AnswersByQuestion>({});
-
-onBeforeMount(() => {
-	visitorAnswers.value = getVisitorAnswers(sheet.value.id);
-});
-
-watch(
-	visitorAnswers,
-	(answers) => {
-		Object.entries(answers || {})
-			.filter(([k, v]) => {
-				if (v === null || v === undefined) return true;
-				if (Array.isArray(v) && !v.length) return true;
-				if (typeof v === 'object') {
-					if (Object.keys(v).length === 0) return true;
-					if (Object.values(v).every((x) => !x)) return true;
-					if (Object.values(v).every((x) => Array.isArray(x) && !x.length)) return true;
-				}
-				return false;
-			})
-			.forEach(([k]) => delete answers[k]);
-		setVisitorAnswers(sheet.value.id, answers);
-	},
-	{ deep: true },
-);
 
 const privacyModalVisible = ref(false);
 
@@ -85,14 +58,13 @@ onMounted(() => (consented.value = consent.value));
 				/> -->
 			</div>
 			<div v-else>
-				<!-- FIXME <Survey
-					v-model="visitorAnswers"
-					:survey="sheet.survey"
-				/> -->
+				<Survey
+					:sheet-id="sheet.id"
+					:survey-json="sheet.survey"
+				/>
 			</div>
 		</div>
 
-		<!-- TODO why doesn't this have v-if? -->
 		<DrawButtons :interactions="interactions" />
 
 		<ShareButtons
