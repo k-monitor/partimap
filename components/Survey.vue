@@ -40,7 +40,7 @@ function removeEmptyAnswers(answers: AnswersByQuestion) {
 			if (Array.isArray(v) && !v.length) return true;
 			if (typeof v === 'object') {
 				if (Object.keys(v).length === 0) return true;
-				if (Object.values(v).every((x) => !x)) return true;
+				if (Object.values(v).every((x) => !x)) return true; // removes also if all values are 0
 				if (Object.values(v).every((x) => Array.isArray(x) && !x.length)) return true;
 			}
 			return false;
@@ -184,11 +184,12 @@ function removeAnswer(questionId: number) {
 				style="bottom: 0; left: 0; height: 0; opacity: 0"
 			/>
 		</div>
+		 -->
 		<DistributeUnitsQuestion
 			v-else-if="q.type === 'distributeUnits'"
 			v-model="answers[q.id]"
 			:question="q"
-		/> -->
+		/>
 	</form-group>
 	<div class="bg-warning">{{ JSON.stringify(answers) }}</div>
 </template>
