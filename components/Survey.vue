@@ -152,13 +152,11 @@ function removeAnswer(questionId: number) {
 			v-model="answers[q.id]"
 			:q="q"
 		/>
-		<!-- FIXME
 		<ChoiceMatrix
 			v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"
 			v-model="answers[q.id]"
 			:question="q"
 		/>
-		-->
 		<RatingQuestion
 			v-else-if="q.type === 'rating'"
 			v-model="answers[q.id]"
@@ -170,5 +168,4 @@ function removeAnswer(questionId: number) {
 			:question="q"
 		/>
 	</form-group>
-	<div class="bg-warning">{{ JSON.stringify(answers) }}</div>
 </template>

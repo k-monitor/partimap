@@ -1,3 +1,29 @@
+<script setup lang="ts">
+import type { Question } from '~/server/data/surveyAnswers';
+
+const value = defineModel<string | string[] | null>({ default: null });
+
+const props = defineProps<{
+	question: Question;
+	row: string;
+}>();
+
+const checkSelected = ref<string[]>([]);
+const radioSelected = ref<string | null>(null);
+
+watchEffect(() => {
+	const v = value.value;
+	if (props.question.type === 'singleChoiceMatrix') {
+		radioSelected.value = v as string | null;
+	} else {
+		checkSelected.value = (v as string[] | null) || [];
+	}
+});
+
+watch(checkSelected, () => (value.value = checkSelected.value));
+watch(radioSelected, () => (value.value = radioSelected.value));
+</script>
+
 <template>
 	<div class="d-table-row">
 		<div class="d-table-cell align-middle border-top p-1 position-relative">
@@ -6,11 +32,9 @@
 				v-if="
 					question.type === 'multipleChoiceMatrix' &&
 					question.required &&
-					(checkSelected || []).length < 1
+					(value || []).length < 1
 				"
-				:oninvalid="`this.setCustomValidity('${$t(
-					'CheckboxGroup.required'
-				)}')`"
+				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
 				required
 				type="checkbox"
 				style="bottom: 0; opacity: 0; position: absolute; right: 0"
@@ -24,67 +48,26 @@
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<b-form-radio
 					v-model="radioSelected"
-					:value="column"
 					:name="`${question.id}/${row}`"
 					:required="question.required"
+					:value="column"
 				/>
 			</div>
 			<div v-if="question.type === 'multipleChoiceMatrix'">
 				<b-form-checkbox
 					v-model="checkSelected"
-					:value="column"
 					:name="`${question.id}/${row}`"
+					:value="column"
 				/>
 			</div>
 		</div>
 	</div>
 </template>
 
-<script>
-export default {
-	props: {
-		value: {
-			type: [String, Array],
-			default: () => null,
-		},
-		row: {
-			type: String,
-			default: () => '',
-		},
-		question: {
-			type: Object,
-			default: () => {},
-		},
-	},
-	data() {
-		return {
-			checkSelected: this.value || [],
-			radioSelected: this.value,
-		};
-	},
-	watch: {
-		value(v) {
-			if (this.question.type === 'singleChoiceMatrix') {
-				this.radioSelected = v;
-			} else {
-				// multipleChoiceMatrix
-				this.checkSelected = v || [];
-			}
-		},
-		radioSelected(v) {
-			if (v) {
-				this.$emit('input', v);
-			}
-		},
-		checkSelected(v) {
-			this.$emit('input', v);
-		},
-	},
-};
-</script>
 <style scoped>
-.custom-control {
-	padding-left: 1.75rem;
+.form-check {
+	display: flex;
+	justify-content: center;
 }
 
 .d-table-row:hover .d-table-cell {
