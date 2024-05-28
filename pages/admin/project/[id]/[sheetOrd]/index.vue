@@ -71,6 +71,10 @@ const contentModified = ref(false);
 const features = ref(safeParseJSONArray(sheet.value?.features) as GeoJsonFeature[]);
 watch(features, () => (contentModified.value = true), { deep: true });
 
+function handleFeatureDrawn(feature: GeoJsonFeature) {
+	features.value.push(feature);
+}
+
 const isFirstSheet = computed(() => sheet.value?.ord === 0);
 const isLastSheet = computed(() => sheet.value?.ord === (project.value?.sheets?.length || 0) - 1);
 const previewUrl = computed(() => {
@@ -520,6 +524,7 @@ async function save() {
 			<Map
 				:key="$route.path"
 				:features="features"
+				@feature-drawn="handleFeatureDrawn"
 			/>
 			<MapToolbar />
 			<MapHint />
