@@ -287,7 +287,7 @@ function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 	const str = (v: any) => (Array.isArray(v) ? v.join(', ') : v || '');
 	(project.value?.sheets || []).forEach((sheet) => {
 		const survey: Survey = safeParseJSON(sheet.survey) || {};
-		const qs = survey.questions;
+		const qs = survey.questions || [];
 		qs.filter((q) => q.addToFeatures).forEach((q) => {
 			const sheetAnswers = data[sheet.id]?.answers || {};
 			if (Object.keys(sheetAnswers).includes(String(q.id))) return;
@@ -336,8 +336,8 @@ async function submit() {
 	const sheetIds = project.value.sheets.map((s) => s.id);
 	const data = getSubmissionData(sheetIds);
 	if (Object.keys(data).length) {
-		injectDataIntoFeatures(data);
 		try {
+			injectDataIntoFeatures(data);
 			const captcha = await executeReCaptcha('submit');
 			await $fetch(`/api/project/${project.value.id}/submission`, {
 				method: 'PUT',
