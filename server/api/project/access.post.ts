@@ -46,6 +46,7 @@ export default defineEventHandler(async (event) => {
 			title: project.title,
 			description: project.description,
 			image: project.image,
+			slug: project.slug,
 		};
 	}
 

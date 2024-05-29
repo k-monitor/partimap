@@ -5,20 +5,6 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Project } from '~/server/data/projects';
 import type { Survey } from '~/server/data/surveyAnswers';
 
-const localePath = useLocalePath();
-
-const { consent, drawType, loading, selectedFeatureId, submitted } = useStore();
-loading.value = true;
-
-const {
-	getAllVisitorAnswers,
-	getSubmissionData,
-	getVisitorAnswers,
-	getVisitorFeatures,
-	getVisitorRatings,
-	setVisitorFeatures,
-} = useVisitorData();
-
 const { user } = useAuth();
 const { fullPath, params, query } = useRoute();
 const forcedSheetOrd = user && query.force;
@@ -31,7 +17,7 @@ if (Number(params.sheetOrd) > 0 && !visitId.value && !forcedSheetOrd) {
 	visitId.value = visitId.value || Date.now();
 }
 
-const password = ref('');
+const _error = ref<{ statusCode: number; statusMessage: string } | null>(null);
 const { data: project } = await useFetch<Project>(`/api/project/access`, {
 	method: 'POST',
 	body: {
@@ -39,13 +25,39 @@ const { data: project } = await useFetch<Project>(`/api/project/access`, {
 		visitId: visitId.value,
 	},
 	ignoreResponseError: true,
+	onResponse({ response }) {
+		if (response.status < 400) return; // OK
+		if (response.status === 401) return; // protected project, show password input
+		// otherwise it's actually an error
+		_error.value = {
+			statusCode: response.status,
+			statusMessage: response.statusText,
+		};
+	},
 });
+if (_error.value) {
+	throw createError({
+		statusCode: _error.value.statusCode,
+		statusMessage: _error.value.statusMessage,
+	});
+}
 
 watchEffect(() => {
 	if (project.value?.slug && params.id !== project.value.slug) {
 		navigateTo(`/p/${project.value.slug}/${params.sheetOrd || 0}`);
 	}
 });
+
+const { consent, drawType, loading, selectedFeatureId, submitted } = useStore();
+
+const {
+	getAllVisitorAnswers,
+	getSubmissionData,
+	getVisitorAnswers,
+	getVisitorFeatures,
+	getVisitorRatings,
+	setVisitorFeatures,
+} = useVisitorData();
 
 function goToSheetOrd(ord: number) {
 	navigateTo(fullPath.replace(/[?#].*$/, '').replace(/\d+$/, String(ord)));
@@ -132,12 +144,10 @@ const passwordInput = ref<HTMLInputElement>();
 const resultsShown = ref(false);
 onMounted(() => {
 	registerHit(); // no need to wait for it
-	if (!project.value) {
-		passwordInput.value?.focus();
-	} else if (needToShowResults.value && showOnlyResults.value) {
+	passwordInput.value?.focus();
+	if (project.value && needToShowResults.value && showOnlyResults.value) {
 		resultsShown.value = true;
 	}
-
 	loading.value = false;
 });
 
@@ -232,6 +242,8 @@ watch(currentVisitorFeaturesJSON, () => {
 const { executeReCaptcha } = useReCaptcha();
 
 const { errorToast, successToast } = useToasts();
+
+const password = ref('');
 
 async function sendPassword() {
 	try {
@@ -354,6 +366,8 @@ async function submit() {
 	}
 	loading.value = false;
 }
+
+const localePath = useLocalePath();
 </script>
 
 <template>
