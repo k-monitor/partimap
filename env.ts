@@ -1,5 +1,12 @@
 import { createEnv } from '@t3-oss/env-nuxt';
 import { z } from 'zod';
+import { ensureUploadsDirectoryExists } from './server/utils/uploads';
+
+// TODO would be nice to make uploads dir configurable
+
+if (process.env.APP_ENV !== 'build') {
+	ensureUploadsDirectoryExists();
+}
 
 export const env = createEnv({
 	server: {
