@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
+import type { AggregatedAnswers } from '~/server/data/surveyAnswers';
 
 const props = defineProps<{
 	brandColor?: string;
 	project: Project;
 	results?: boolean;
-	resultsData?: any[]; // FIXME results type
+	resultsData?: AggregatedAnswers[];
 	sheet: Sheet;
 	showConsent?: boolean;
 }>();
@@ -52,10 +53,10 @@ onMounted(() => (consented.value = consent.value));
 			class="my-4"
 		>
 			<div v-if="results">
-				<!-- FIXME <SurveyResults
+				<SurveyResults
 					:brand-color="brandColor"
 					:data="resultsData"
-				/> -->
+				/>
 			</div>
 			<div v-else>
 				<Survey

@@ -12,6 +12,8 @@ export const OTHER_ANSWER = 'other';
  */
 export const OTHER_PREFIX = 'other: ';
 
+export const PARTIMAP_BLUE = '#007bff'; // Bootstrap 4 default primary color actually
+
 export const SHEET_TYPES = [
 	{
 		name: 'text',

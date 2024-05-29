@@ -361,7 +361,7 @@ async function submit() {
 		v-if="project && sheet"
 		:background-image-url="sheet.image"
 		:class="{ branded: !!project.user?.color }"
-		:style="`--brand: ${project.user?.color || '#007bff'}`"
+		:style="`--brand: ${project.user?.color || PARTIMAP_BLUE}`"
 	>
 		<form
 			ref="sheetForm"

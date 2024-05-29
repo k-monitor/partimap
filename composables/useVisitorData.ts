@@ -1,6 +1,6 @@
 import type { Feature as GeoJsonFeature } from 'geojson';
 
-export type VisitorAnswer = any; // FIXME string | number | array/record ?
+export type VisitorAnswer = any; // TODO type: string | number | array | record ?
 export type AnswersByQuestion = Record<string, VisitorAnswer>;
 
 export type VisitorRating = {

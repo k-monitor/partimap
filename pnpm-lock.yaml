@@ -101,6 +101,9 @@ dependencies:
   nuxt:
     specifier: ^3.10.3
     version: 3.10.3(eslint@8.57.0)(rollup@4.18.0)(sass@1.71.1)(typescript@5.3.3)(vite@5.2.11)
+  nuxt-highcharts:
+    specifier: ^3.1.1
+    version: 3.1.1
   nuxt-scheduler:
     specifier: ^0.1.9
     version: 0.1.9(rollup@4.18.0)
@@ -1487,6 +1490,12 @@ packages:
     optionalDependencies:
       vue-router: 4.3.0(vue@3.4.27)
     dev: false
+
+  /@highcharts/map-collection@2.1.0:
+    resolution: {integrity: sha512-oS7ELhgvltY7OVPG4EFHHcdLRSKu2Fwvg2B9eXRo/Get4rZPUoLwv5i+bUcPb5JYLxzhHVNniuw01yMJAnXJ8g==}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -6096,6 +6105,10 @@ packages:
     hasBin: true
     dev: false
 
+  /highcharts@11.4.3:
+    resolution: {integrity: sha512-rMmvYvcdwyUVfnRPfiZ0PnW6TgVhoS0FTBI8fc4Fp8l8ocoC9dMecvxS6E6tm7h7LrnSGoEo3b/0IRHuLatD2w==}
+    dev: false
+
   /highlight.js@11.9.0:
     resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
     engines: {node: '>=12.0.0'}
@@ -7531,6 +7544,14 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
+
+  /nuxt-highcharts@3.1.1:
+    resolution: {integrity: sha512-bHUl8OF1WqJ0vUlDl4AAJHk1H6+sffSAMmB3xGu0oZcav93CQMVjxkjsGabXS321KVOyz+BbOrur3UtXYM4AIA==}
+    dependencies:
+      highcharts: 11.4.3
+    optionalDependencies:
+      '@highcharts/map-collection': 2.1.0
     dev: false
 
   /nuxt-scheduler@0.1.9(rollup@4.18.0):

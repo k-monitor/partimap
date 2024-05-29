@@ -14,6 +14,7 @@ export default defineNuxtConfig({
 		'@stefanobartoletti/nuxt-social-share',
 		'@vueuse/nuxt',
 		'@zadigetvoltaire/nuxt-gtm',
+		'nuxt-highcharts',
 		'nuxt-scheduler',
 		'nuxt-tiptap-editor',
 	],
