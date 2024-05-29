@@ -29,6 +29,7 @@ export default defineNuxtConfig({
 			recaptchaSiteKey: env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY,
 		},
 	},
+	telemetry: false,
 
 	// module settings
 	i18n: {
