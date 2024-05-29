@@ -1,8 +1,7 @@
 import crypto from 'node:crypto';
-import type { H3Event, H3EventContext, SessionConfig } from 'h3';
+import type { H3Event, SessionConfig } from 'h3';
 import { StatusCodes } from 'http-status-codes';
 import { env } from '~/env';
-import user from '../middleware/user';
 
 export type AuthSession = {
 	userId: number;

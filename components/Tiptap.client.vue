@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { Image } from '@tiptap/extension-image';
 import { Link } from '@tiptap/extension-link';

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <!--
 	This component was copied on April 4, 2024 from
 	https://github.com/Devangarde/vue3-bootstrap-typeahead/blob/c00bb361ae24cb3c54f7692656c876fb8c2ab447/src/Typeahead.vue

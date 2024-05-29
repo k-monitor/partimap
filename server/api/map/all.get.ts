@@ -1,4 +1,3 @@
-import { parseQuery } from 'vue-router';
 import { z } from 'zod';
 import * as db from '~/server/data/maps';
 

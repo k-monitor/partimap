@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const image = defineModel<File | null | undefined>();
 
-const props = withDefaults(
+withDefaults(
 	defineProps<{
 		state: boolean | null;
 	}>(),

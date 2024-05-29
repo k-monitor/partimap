@@ -11,7 +11,7 @@ module.exports = {
 	],
 	rules: {
 		'vue/component-tags-order': ['error', { order: ['script', 'template', 'style'] }],
-		'vue/multi-word-component-names': 'warn',
+		'vue/multi-word-component-names': 'off',
 		'vue/padding-line-between-blocks': ['error', 'always'],
 	},
 };

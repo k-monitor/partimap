@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Feature as OlFeature, Map, MapBrowserEvent, View } from 'ol';
