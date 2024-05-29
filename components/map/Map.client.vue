@@ -51,7 +51,9 @@ function handleResolutionChange(e: ObjectEvent) {
 }
 
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
-watchEffect(() => changeBaseMap(interactions.value?.baseMap));
+watchEffect(() => {
+	if (interactions.value?.baseMap) changeBaseMap(interactions.value?.baseMap);
+});
 
 // fit to features
 
