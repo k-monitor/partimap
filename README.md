@@ -41,6 +41,13 @@
 2. Build the application with `pnpm run build`.
 3. Start server with `node --env-file=.env .output/server/index.mjs`.
 
+Or you can set it up as a service and run it with the following steps:
+
+1. Install PM2 process manager with `npm i -g pm2`.
+2. Set it up as a service (to start on boot) with `pm2 startup`.
+3. Create a configuration via `cp ecosystem.config.cjs.example ecosystem.config.cjs` and edit the app name and other options as you wish.
+4. Start the server with `pm2 start ecosystem.config.cjs`
+
 ## Adding a database change (migration)
 
 1. Run `npx db-migrate create <name-of-migration>`.
