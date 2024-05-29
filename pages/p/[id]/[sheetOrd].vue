@@ -411,7 +411,6 @@ async function submit() {
 						</div>
 						<div class="modal-footer d-flex p-0">
 							<FooterButtons
-								:disable-submit="loading || !consent || submitted"
 								:show-next="!isLastSheet || needToShowResults"
 								:show-prev="!isFirstSheet && !submitted"
 								:show-submit="consent && isLastSheet && !needToShowResults"
@@ -450,7 +449,6 @@ async function submit() {
 
 					<template #footer>
 						<FooterButtons
-							:disable-submit="loading || !consent || submitted"
 							:show-next="!isLastSheet || needToShowResults"
 							:show-prev="!isFirstSheet && !submitted"
 							:show-submit="consent && isLastSheet && !needToShowResults"

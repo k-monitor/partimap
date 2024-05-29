@@ -2,7 +2,6 @@
 withDefaults(
 	defineProps<{
 		disableSave?: boolean;
-		disableSubmit?: boolean;
 		showNext?: boolean;
 		showPrev?: boolean;
 		showSubmit?: boolean;
@@ -14,6 +13,10 @@ withDefaults(
 		steps: 0,
 	},
 );
+
+const { consent, loading, submitted } = useStore();
+
+const disableSubmit = computed(() => loading.value || !consent.value || submitted.value);
 
 defineEmits(['next', 'prev', 'submit']);
 </script>
@@ -32,6 +35,7 @@ defineEmits(['next', 'prev', 'submit']);
 			<div class="fixed-width">
 				<b-button
 					v-if="showPrev"
+					:disabled="loading"
 					variant="outline-primary"
 					@click="$emit('prev')"
 				>
@@ -59,6 +63,7 @@ defineEmits(['next', 'prev', 'submit']);
 			>
 				<b-button
 					v-if="showNext"
+					:disabled="loading"
 					variant="primary"
 					@click="$emit('next')"
 				>
