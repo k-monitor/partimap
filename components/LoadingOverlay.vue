@@ -10,13 +10,11 @@ export default {
 </script>
 
 <template>
-	<client-only>
-		<b-overlay
-			no-wrap
-			opacity="0.5"
-			:show="show"
-		/>
-	</client-only>
+	<b-overlay
+		no-wrap
+		opacity="0.5"
+		:show="show"
+	/>
 </template>
 
 <style scoped>
