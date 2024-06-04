@@ -69,7 +69,8 @@ useHead({
 const contentModified = ref(false);
 
 const features = ref(safeParseJSONArray(sheet.value?.features) as GeoJsonFeature[]);
-watch(features, () => (contentModified.value = true), { deep: true });
+const featuresJson = computed(() => JSON.stringify(features.value));
+watch(featuresJson, () => (contentModified.value = true));
 
 function handleFeatureDrawn(feature: GeoJsonFeature) {
 	features.value.push(feature);
