@@ -130,7 +130,7 @@ defineEmits<{
 				<span ref="sidebarButtonInsideIcons">
 					<i class="fas fa-angle-double-left" />
 					<i
-						class="fas fa-map-marked-alt position-relative"
+						class="fas fa-map-marked-alt ms-1"
 						style="font-size: 110%"
 					/>
 				</span>

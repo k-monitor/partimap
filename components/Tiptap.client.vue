@@ -80,7 +80,7 @@ function setLink() {
 					variant="light"
 					@click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
 				>
-					<i class="fas _fa-fw fa-heading" />
+					<i class="fas fa-heading me-1" />
 					<strong>1</strong>
 				</b-button>
 				<b-button
@@ -91,7 +91,7 @@ function setLink() {
 					variant="light"
 					@click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
 				>
-					<i class="fas _fa-fw fa-heading" />
+					<i class="fas fa-heading me-1" />
 					<strong>2</strong>
 				</b-button>
 				<b-button
