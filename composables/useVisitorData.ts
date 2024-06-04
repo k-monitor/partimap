@@ -68,6 +68,12 @@ export default function useVisitorData() {
 			const f = getVisitorFeatures(id);
 			const r = getVisitorRatings(id);
 
+			f.forEach((f) => {
+				if (f.properties?.visitorFeature) {
+					delete f.properties.visitorFeature;
+				}
+			});
+
 			const sd: Record<string, any> = {};
 			if (Object.keys(a).length) sd.answers = a;
 			if (f.length) sd.features = f;
