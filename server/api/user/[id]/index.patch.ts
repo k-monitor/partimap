@@ -53,5 +53,6 @@ export default defineEventHandler(async (event) => {
 	await db.update(user);
 
 	user = await db.findById(user.id);
+	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
 	return hideSecrets(user);
 });

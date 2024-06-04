@@ -33,6 +33,9 @@ export default defineEventHandler(async (event) => {
 	const project = await pdb.findByIdOrSlug(body.idOrSlug);
 	if (!project) throw createError({ statusCode: StatusCodes.NOT_FOUND });
 
+	const user = await udb.findById(project.userId);
+	if (!user) throw createError({ statusCode: StatusCodes.NOT_FOUND });
+
 	if (project.password && body.password) {
 		await validateCaptcha(event);
 	}
@@ -51,7 +54,6 @@ export default defineEventHandler(async (event) => {
 	}
 
 	project.sheets = await sdb.findAllByProjectId(project.id);
-	const user = await udb.findById(project.userId);
 
 	await addResultsToProject(project);
 

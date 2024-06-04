@@ -70,7 +70,7 @@ export function findByEmail(email: string) {
 }
 
 export function findById(id: number) {
-	return db.findBy('user', 'id', id, createUser) as Promise<User>;
+	return db.findBy('user', 'id', id, createUser) as Promise<User | null>;
 }
 
 export function findByToken(token: string) {
