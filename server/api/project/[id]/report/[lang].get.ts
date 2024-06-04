@@ -11,6 +11,7 @@ import * as sdb from '~/server/data/sheets';
 import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
+import { Survey } from '~/server/data/surveyAnswers';
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords: number[]) {
@@ -43,8 +44,8 @@ export default defineEventHandler(async (event) => {
 
 	const questions: sadb.Question[] = [];
 	sheets.forEach((s) => {
-		const survey = safeParseJSON(s.survey) || { questions: [] };
-		questions.push(...survey.questions);
+		const survey: Survey | null = safeParseJSON(s.survey);
+		questions.push(...(survey?.questions || []));
 	});
 
 	const wb = new xl.Workbook({
