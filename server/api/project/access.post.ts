@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import StatusCodes from 'http-status-codes';
 import jwt from 'jsonwebtoken';
+import { getClientIp } from 'request-ip';
 import { z } from 'zod';
 import * as pdb from '~/server/data/projects';
 import * as rdb from '~/server/data/ratings';
@@ -66,8 +67,7 @@ export default defineEventHandler(async (event) => {
 });
 
 function isAccessGranted(event: H3Event, body: Body, project: pdb.Project) {
-	const ip = getHeader(event, 'x-forwarded-for') || event.node.req.socket.remoteAddress;
-	if (!ip) throw createError({ statusCode: StatusCodes.INTERNAL_SERVER_ERROR });
+	const ip = getClientIp(event.node.req) || '';
 
 	// projects without password can be accessed freely:
 	if (!project.password) return true;

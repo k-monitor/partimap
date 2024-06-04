@@ -1,4 +1,5 @@
 import StatusCodes from 'http-status-codes';
+import { getClientIp } from 'request-ip';
 import { z } from 'zod';
 import { SubmissionDataBySheet } from '~/composables/useVisitorData';
 import * as pdb from '~/server/data/projects';
@@ -40,7 +41,7 @@ export default defineEventHandler(async (event) => {
 		}
 	*/
 
-	const ip = getHeader(event, 'x-forwarded-for') || event.node.req.socket.remoteAddress;
+	const ip = getClientIp(event.node.req) || '';
 	const ua = getHeader(event, 'user-agent');
 
 	const projectSheetIds = (await sdb.findAllByProjectId(project.id)).map((s) => s.id);
