@@ -68,7 +68,7 @@ function fitViewToFeatures(immediate?: boolean) {
 	// fit to selected feature or all features
 	let selectedFeature: OlFeature | undefined = undefined;
 	if (selectedFeatureId.value) {
-		selectedFeature = olFeatures.find((f) => f.getId() === selectedFeatureId.value);
+		selectedFeature = olFeatures.find((f) => f.get('id') === selectedFeatureId.value);
 	}
 	const extent = selectedFeature
 		? selectedFeature?.getGeometry()?.getExtent()
