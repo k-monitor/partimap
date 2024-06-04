@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n();
-const { drawType } = useStore();
+const { drawType, sidebarVisible } = useStore();
 
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
@@ -15,7 +15,8 @@ const drawingButtons = computed(() =>
 
 <template>
 	<div
-		class="align-items-end d-flex flex-column position-absolute"
+		class="align-items-end flex-column position-absolute"
+		:class="sidebarVisible ? 'd-none d-sm-flex' : 'd-flex'"
 		style="top: 0.5rem; right: 0; z-index: 1"
 	>
 		<div class="d-flex flex-column shadow-sm">
