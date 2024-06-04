@@ -35,7 +35,7 @@ const ratingExplanation = computed(() => textRatingType.value === 0);
 const ratingProsCons = computed(() => textRatingType.value === 1);
 
 watch(ratingType, (v) => (stars.value = v === 1 ? -2 : 5));
-watch(textRatingType, (v) => (textRatingType.value = v ? 0 : -1));
+watch(textRating, (v) => (textRatingType.value = v ? 0 : -1));
 
 function reinit() {
 	ratingQuestion.value = interactions.value.ratingQuestion;
