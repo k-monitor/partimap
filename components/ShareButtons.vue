@@ -10,7 +10,10 @@ onMounted(() => (projectUrl.value = window.location.href.replace(/\/\d+\/?/, '')
 </script>
 
 <template>
-	<div class="d-flex justify-content-around">
+	<div
+		v-if="projectUrl"
+		class="d-flex justify-content-around"
+	>
 		<SocialShare
 			v-for="s in social"
 			:key="s.network"
