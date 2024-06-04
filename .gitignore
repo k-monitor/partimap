@@ -24,4 +24,4 @@ logs
 !.env.example
 
 # Local PM2 config
-ecosystem.config.js
+ecosystem.config.cjs
