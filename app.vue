@@ -181,7 +181,8 @@ fieldset,
 }
 
 .branded {
-	.bg-primary {
+	.bg-primary,
+	.text-bg-primary {
 		background-color: var(--brand) !important;
 	}
 
