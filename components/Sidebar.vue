@@ -104,7 +104,7 @@ defineEmits<{
 				</a>
 				<div
 					v-if="!admin && project && project.user"
-					class="mx-auto ml-lg-auto mr-lg-4"
+					class="mx-auto ms-lg-auto me-lg-4"
 				>
 					<a
 						:href="project.user.website"

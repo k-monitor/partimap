@@ -143,7 +143,7 @@ async function del(project: Project) {
 			</div>
 			<div
 				v-if="user?.isAdmin"
-				class="col col-mr-0"
+				class="col"
 			>
 				<input
 					class="btn btn-outline-primary form-control"
