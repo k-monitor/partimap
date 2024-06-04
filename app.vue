@@ -150,6 +150,8 @@ fieldset,
 	border: none;
 	background: none;
 	color: inherit;
+	display: block;
+	padding: 0.75rem;
 }
 
 .vue-star-rating-star {
