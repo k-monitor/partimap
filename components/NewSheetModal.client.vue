@@ -39,7 +39,7 @@ const title = ref('');
 const titleInput = ref<HTMLInputElement>();
 const titleState = ref<boolean | null>(null);
 const type = ref('text');
-const sourceMap = ref<number | null>(null);
+const sourceMap = ref<number | null>(0);
 
 const sheetTypes = computed(() => {
 	return SHEET_TYPES.map((st) => ({
