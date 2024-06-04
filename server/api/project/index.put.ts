@@ -8,7 +8,9 @@ export default defineEventHandler(async (event) => {
 
 	const body = await readBody<any>(event);
 	delete body.image;
-	if (!user.isAdmin) body.userId = user.id;
+	if (!body.userId || !user.isAdmin) {
+		body.userId = user.id;
+	}
 
 	let project = pdb.createProject(body);
 	if (!project.title) throw createError({ statusCode: StatusCodes.BAD_REQUEST });
