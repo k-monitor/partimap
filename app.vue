@@ -93,6 +93,10 @@ a,
 	display: none !important;
 }
 
+.form-control[type='password'][readonly] {
+	background: $input-disabled-bg;
+}
+
 fieldset,
 .form-group {
 	margin-bottom: 1rem;
