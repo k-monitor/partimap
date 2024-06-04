@@ -44,6 +44,8 @@ export function createProject(data: any): Project {
 		subscribe: data.subscribe,
 		unsubscribeToken: data.unsubscribeToken,
 		lastSent: data.lastSent,
+
+		submissions: data.submissions,
 	};
 }
 
