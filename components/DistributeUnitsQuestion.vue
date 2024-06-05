@@ -10,6 +10,7 @@ const props = defineProps<{
 const max = computed(() => props.question.max || 100);
 
 const inputValues = ref<Record<string, string | number | null>>({});
+watchEffect(() => (inputValues.value = value.value));
 
 const actualValues = computed(() => {
 	const av: Record<string, number> = {};
@@ -20,10 +21,7 @@ const actualValues = computed(() => {
 });
 
 const sum = computed(() => Object.values(actualValues.value).reduce((a, b) => a + b, 0));
-watch(sum, () => {
-	console.log(actualValues.value);
-	value.value = actualValues.value;
-});
+watch(sum, () => (value.value = actualValues.value));
 
 function increase(o: string) {
 	if (sum.value >= max.value) return;
