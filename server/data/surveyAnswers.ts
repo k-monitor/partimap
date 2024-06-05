@@ -231,11 +231,12 @@ export async function aggregateByProjectId(projectId: number) {
 			countsByAnswer
 				.filter((e) => Number(e.questionId) === q.id)
 				.forEach((e) => {
-					JSON.parse(e.answer).forEach((o: string) => {
+					const options = safeParseJSONArray(e.answer);
+					options.forEach((o: string) => {
 						if (o.startsWith(OTHER_PREFIX)) {
 							o = OTHER_ANSWER;
 						}
-						opts[o] = (opts[o] || 0) + 1;
+						opts[o] = (opts[o] || 0) + e.count;
 					});
 				});
 			result.options = Object.entries(opts).map(([answer, count]) => ({
