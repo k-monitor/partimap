@@ -1,6 +1,4 @@
-// Yes, it's a CommonJS module, as it is needed on the server.
-
-module.exports = {
+export default {
 	activationEmail: {
 		subject: "You're Almost In!",
 		body: '<p><b>Hey there, {user}</b>!</p><p>Please complete your PARTIMAP registration by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, register again.</p>',

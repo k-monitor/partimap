@@ -1,9 +1,8 @@
-import terms from './hu-terms.md';
+import terms from './hu-terms.md?raw';
 
 export default {
 	meta: {
-		description:
-			'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
+		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
 	},
 
 	// pages
@@ -96,8 +95,7 @@ export default {
 		pwchanged: 'Jelszó sikeresen cserélve!',
 		pwchangefailed: 'Jelszócsere sikertelen, próbáld újra!',
 		register: 'Még nincs fiókom',
-		registered:
-			'A fiók aktiválásához szükséges e-mail kiküldve. Ellenőrizze a postafiókját!',
+		registered: 'A fiók aktiválásához szükséges e-mail kiküldve. Ellenőrizze a postafiókját!',
 		submit: 'Bejelentkezés',
 		title: 'Bejelentkezés',
 	},
@@ -147,15 +145,13 @@ export default {
 		slugDescription:
 			'Mentéskor a rendszer módosíthatja a fent beírt értéket, ha már van ilyen útvonal.',
 		subscribe: 'Feliratkozás kitöltésekre',
-		subscribeDescription:
-			'Az emailt arra a címedre küldjük, amivel regisztráltál.',
+		subscribeDescription: 'Az emailt arra a címedre küldjük, amivel regisztráltál.',
 		subscribeD: 'Napi email értesítés kitöltésekről',
 		subscribeE: 'Egyedi email értesítés kitöltésről (óránként)',
 		subscribeN: 'Nem kérek emailt a kitöltésekről',
 		thanks: 'Köszönetnyilvánítás',
 		thanksDefault: 'Köszönjük a kitöltést!',
-		thanksDescription:
-			'A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után.',
+		thanksDescription: 'A látogatóknak az utolsó munkalapon fog megjelenni, beküldés után.',
 		thanksSocial: 'Megosztás gombok a köszönetnyilvánítás alatt.',
 		thanksUrl: 'Tovább URL',
 		thanksUrlDescription:
@@ -178,8 +174,7 @@ export default {
 	},
 	register: {
 		consent1: 'Elolvastam és elfogadom a',
-		consent2:
-			'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
+		consent2: 'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		email: 'Email cím',
 		login: 'Már van fiókom',
 		name: 'Név',
@@ -276,8 +271,7 @@ export default {
 		logoDescription: 'Ez a logó minden projektedben meg fog jelenni.',
 		name: 'Név',
 		newPassword: 'Új jelszó',
-		oldPassword:
-			'Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)',
+		oldPassword: 'Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)',
 		save: 'Mentés',
 		website: 'Weboldal URL',
 		websiteDescription: 'Ha feltöltesz logót, ide fog linkelni.',
@@ -441,8 +435,7 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'Elolvastam és elfogadom a',
-		consent2:
-			'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
+		consent2: 'felhasználási&nbsp;feltételeket és az&nbsp;adatkezelési&nbsp;tájékoztatót.',
 		next: 'Tovább',
 		results: 'Eredmények',
 		resultsDescription:
@@ -458,8 +451,7 @@ export default {
 	SurveyEditor: {
 		addCondition: 'Új feltétel (ÉS)',
 		addQuestion: 'Új kérdés hozzáadása',
-		addToFeatures:
-			'Válaszok hozzáadása a térképes jelölésekhez elemzés céljára',
+		addToFeatures: 'Válaszok hozzáadása a térképes jelölésekhez elemzés céljára',
 		and: 'ÉS',
 		conditionalQuestion: 'Feltételesen jelenik meg',
 		deleteCondition: 'Feltétel törlése',
@@ -517,8 +509,7 @@ export default {
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
 			'A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
-		confirmUnsaved:
-			'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
+		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',
 		yes: 'Igen',

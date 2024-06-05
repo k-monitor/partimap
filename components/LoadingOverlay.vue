@@ -1,20 +1,3 @@
-<template>
-	<client-only>
-		<b-overlay
-			no-wrap
-			opacity="0.5"
-			:show="show"
-		/>
-		<template #placeholder>
-			<b-overlay
-				no-wrap
-				opacity="0.5"
-				show
-			/>
-		</template>
-	</client-only>
-</template>
-
 <script>
 export default {
 	props: {
@@ -25,3 +8,17 @@ export default {
 	},
 };
 </script>
+
+<template>
+	<b-overlay
+		no-wrap
+		opacity="0.5"
+		:show="show"
+	/>
+</template>
+
+<style scoped>
+.b-overlay-wrap {
+	position: static !important;
+}
+</style>

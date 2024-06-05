@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const localePath = useLocalePath();
+const route = useRoute();
+
+const { data: response } = await useFetch<{ success: boolean }>('/api/project/unsubscribe', {
+	method: 'POST',
+	body: route.query,
+});
+
+const successful = computed(() => response.value?.success);
+</script>
+
 <template>
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
@@ -5,20 +19,18 @@
 				<div class="card shadow-sm">
 					<CardHeader :text="$t('unsubscribe.title')" />
 					<div class="card-body">
-						<b-alert
+						<div
 							v-if="successful"
-							show
-							variant="success"
+							class="alert alert-success"
 						>
 							{{ $t('unsubscribe.success') }}
-						</b-alert>
-						<b-alert
+						</div>
+						<div
 							v-else
-							show
-							variant="danger"
+							class="alert alert-danger"
 						>
 							{{ $t('unsubscribe.failed') }}
-						</b-alert>
+						</div>
 					</div>
 					<div class="card-footer d-flex justify-content-end">
 						<b-button
@@ -33,20 +45,3 @@
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	async asyncData({ $axios, route }) {
-		let successful = false;
-		try {
-			const { id, token } = route.query;
-			const res = await $axios.$post(`/api/project/unsubscribe`, {
-				id,
-				token,
-			});
-			successful = res.success;
-		} catch (error) {}
-		return { successful };
-	},
-};
-</script>

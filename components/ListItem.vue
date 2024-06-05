@@ -1,68 +1,66 @@
+<script setup lang="ts">
+defineProps<{
+	link: string;
+	title: string;
+	userId: number;
+}>();
+
+defineEmits<{
+	(e: 'clone'): void;
+	(e: 'del'): void;
+}>();
+
+const { user } = useAuth();
+</script>
+
 <template>
 	<div class="align-items-center d-flex list-group-item px-2">
 		<div>
 			<NuxtLink
 				:to="link"
-				class="font-weight-bold mr-2"
+				class="fw-bold me-2"
 			>
 				{{ title }}
 			</NuxtLink>
 			<span
-				v-if="userId != $auth.user.id"
+				v-if="userId != user?.id"
 				class="badge badge-warning"
 			>
 				{{ $t('ListItem.owner') }}: #{{ userId }}
 			</span>
 			<span
-				v-else-if="$auth.user.isAdmin"
+				v-else-if="user?.isAdmin"
 				class="badge badge-info"
 			>
 				{{ $t('ListItem.own') }}
 			</span>
 			<slot />
 		</div>
-		<b-dropdown
-			class="ml-auto"
-			dropleft
-			no-caret
-			variant="link"
-		>
-			<template #button-content>
-				<i class="fas fa-ellipsis-v text-secondary"></i>
-			</template>
-			<b-dropdown-item
-				variant="dark"
-				@click.prevent="$emit('clone')"
+		<client-only>
+			<b-dropdown
+				class="ms-auto"
+				dropleft
+				no-caret
+				variant="link"
 			>
-				<i class="fas fa-clone fa-fw mr-1" />
-				{{ $t('ListItem.clone') }}
-			</b-dropdown-item>
-			<b-dropdown-item
-				variant="danger"
-				@click.prevent="$emit('del')"
-			>
-				<i class="fas fa-trash fa-fw mr-1" />
-				{{ $t('ListItem.delete') }}
-			</b-dropdown-item>
-		</b-dropdown>
+				<template #button-content>
+					<i class="fas fa-ellipsis-v text-secondary"></i>
+				</template>
+				<b-dropdown-item
+					variant="dark"
+					@click.prevent="$emit('clone')"
+				>
+					<i class="fas fa-clone fa-fw me-1" />
+					{{ $t('ListItem.clone') }}
+				</b-dropdown-item>
+				<b-dropdown-item
+					variant="danger"
+					@click.prevent="$emit('del')"
+				>
+					<i class="fas fa-trash fa-fw me-1" />
+					{{ $t('ListItem.delete') }}
+				</b-dropdown-item>
+			</b-dropdown>
+		</client-only>
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		link: {
-			type: String,
-			default: null,
-		},
-		title: {
-			type: String,
-			default: null,
-		},
-		userId: {
-			type: Number,
-			default: null,
-		},
-	},
-};
-</script>

@@ -1,16 +1,20 @@
+<script setup lang="ts">
+const { user } = useAuth();
+const localePath = useLocalePath();
+</script>
+
 <template>
 	<div>
 		<b-navbar
+			class="bg-white border-bottom shadow-sm"
 			fixed="top"
 			toggleable="lg"
-			type="light"
-			variant="white"
-			class="border-bottom shadow-sm"
 		>
 			<b-navbar-brand :to="localePath('/admin')">
 				<Logo />
 			</b-navbar-brand>
 			<b-navbar-toggle target="nav-collapse" />
+
 			<b-collapse
 				id="nav-collapse"
 				is-nav
@@ -23,41 +27,41 @@
 						{{ $t('AdminFrame.maps') }}
 					</b-nav-item>
 					<b-nav-item
-						v-if="$auth.user.isAdmin"
+						v-if="user?.isAdmin"
 						:to="localePath('/admin/users')"
 					>
 						{{ $t('AdminFrame.users') }}
 					</b-nav-item>
 					<b-nav-item-dropdown
-						v-if="$auth.user.isAdmin"
+						v-if="user?.isAdmin"
+						id="ssr-id-AdminFrame-editHelp-dropdown"
+						:teleport-disabled="true"
+						teleport-to="body"
 						:text="$t('AdminFrame.editHelp')"
 					>
-						<b-dropdown-item
-							:to="localePath('/admin/i18n/editors-help/')"
-						>
+						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
 							{{ $t('AdminFrame.editEditorsHelp') }}
 						</b-dropdown-item>
-						<b-dropdown-item
-							:to="localePath('/admin/i18n/visitors-help/')"
-						>
+						<b-dropdown-item :to="localePath('/admin/i18n/visitors-help/')">
 							{{ $t('AdminFrame.editVisitorsHelp') }}
 						</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
-				<b-navbar-nav class="ml-auto">
+				<b-navbar-nav class="ms-auto">
 					<b-nav-item :to="localePath('/admin/help')">
 						{{ $t('AdminFrame.help') }}
 					</b-nav-item>
 					<b-nav-item-dropdown
-						:text="$auth.user.name"
+						id="ssr-id-AdminFrame-user-dropdown"
+						:teleport-disabled="true"
+						teleport-to="body"
+						:text="user?.name"
 						right
 					>
-						<b-dropdown-item
-							:to="localePath('/admin/user/' + $auth.user.id)"
-						>
+						<b-dropdown-item :to="localePath('/admin/user/' + user?.id)">
 							{{ $t('AdminFrame.profile') }}
 						</b-dropdown-item>
-						<b-dropdown-item @click="$auth.logout('cookie')">
+						<b-dropdown-item @click="authLogout()">
 							{{ $t('AdminFrame.logout') }}
 						</b-dropdown-item>
 					</b-nav-item-dropdown>

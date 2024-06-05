@@ -1,14 +1,66 @@
+<script setup lang="ts">
+const Stackedit = useNuxtApp().$Stackedit;
+
+const props = defineProps<{
+	title: string;
+	valueKey: string;
+}>();
+
+const { locale, t } = useI18n();
+
+const value = ref('');
+
+onMounted(async () => {
+	const record = await $fetch<{ value: string }>(
+		`/api/message/${locale.value}/${props.valueKey}`,
+	);
+	value.value = record.value;
+});
+
+function openEditor() {
+	const stackedit = new Stackedit();
+
+	// Open the iframe
+	stackedit.openFile({
+		name: 'Filename', // with an optional filename
+		content: {
+			text: value.value,
+		},
+	});
+
+	stackedit.on('fileChange', (file: any) => {
+		value.value = file.content.text;
+	});
+}
+
+const { errorToast, successToast } = useToasts();
+async function save() {
+	try {
+		await $fetch(`/api/message/${locale.value}/${props.valueKey}`, {
+			method: 'POST',
+			body: {
+				value: value.value,
+			},
+		});
+		successToast(t('HelpEditor.saveSuccess'));
+	} catch (error) {
+		errorToast(t('HelpEditor.saveFailed'));
+	}
+}
+</script>
+
 <template>
 	<AdminFrame>
 		<template #header>
 			<div class="d-flex align-items-center justify-content-between">
 				<div>{{ title }}</div>
 				<div>
-					<b-button
-						variant="success"
+					<button
+						class="btn btn-success"
 						@click="save"
-						>{{ $t('SaveButton.save') }}</b-button
 					>
+						{{ $t('SaveButton.save') }}
+					</button>
 				</div>
 			</div>
 		</template>
@@ -27,11 +79,11 @@
 							v-model="value"
 							autofocus
 							class="mb-3 text-monospace"
-							rows="3"
+							rows="5"
 							max-rows="12"
-						></b-form-textarea>
+						/>
 						<div class="d-flex">
-							<div class="mb-3 mr-3">
+							<div class="mb-3 me-3">
 								<b-button
 									variant="primary"
 									@click="openEditor"
@@ -40,9 +92,7 @@
 								</b-button>
 							</div>
 							<div>
-								<strong>{{
-									$t('HelpEditor.stackeditButton')
-								}}</strong>
+								<strong>{{ $t('HelpEditor.stackeditButton') }}</strong>
 								<br />
 								{{ $t('HelpEditor.stackeditInfo') }}
 							</div>
@@ -59,55 +109,3 @@
 		</client-only>
 	</AdminFrame>
 </template>
-
-<script>
-export default {
-	props: {
-		title: { type: String, default: '' },
-		valueKey: { type: String, default: '' },
-	},
-	data() {
-		return {
-			value: '',
-		};
-	},
-	async fetch() {
-		const lang = this.$i18n.locale;
-		const key = this.valueKey;
-		const record = await this.$axios.$get(`/api/i18n/get/${lang}/${key}`);
-		this.value = record.value || '';
-	},
-	methods: {
-		openEditor() {
-			const stackedit = new this.$Stackedit();
-
-			// Open the iframe
-			stackedit.openFile({
-				name: 'Filename', // with an optional filename
-				content: {
-					text: this.value,
-				},
-			});
-
-			stackedit.on('fileChange', file => {
-				this.value = file.content.text;
-			});
-		},
-		async save() {
-			try {
-				const lang = this.$i18n.locale;
-				const key = this.valueKey;
-				const value = this.value;
-				await this.$axios.$post('/api/i18n/set', {
-					lang,
-					key,
-					value,
-				});
-				this.success(this.$t('HelpEditor.saveSuccess'));
-			} catch (error) {
-				this.errorToast(this.$t('HelpEditor.saveFailed'));
-			}
-		},
-	},
-};
-</script>

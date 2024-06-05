@@ -1,29 +1,21 @@
+<script setup lang="ts">
+const props = defineProps<{
+	backgroundImageUrl?: string;
+}>();
+
+const style = computed(() =>
+	props.backgroundImageUrl ? { backgroundImage: `url(${props.backgroundImageUrl})` } : null,
+);
+</script>
+
 <template>
 	<div
-		class="flex-grow-1 sheet"
-		:style="{ backgroundImage }"
+		class="d-flex h-100 position-relative sheet"
+		:style="style"
 	>
 		<slot />
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		backgroundImageUrl: {
-			type: String,
-			default: null,
-		},
-	},
-	computed: {
-		backgroundImage() {
-			return this.backgroundImageUrl
-				? `url(${this.backgroundImageUrl})`
-				: null;
-		},
-	},
-};
-</script>
 
 <style>
 .sheet {

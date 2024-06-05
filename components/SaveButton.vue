@@ -1,23 +1,24 @@
+<script setup lang="ts">
+defineProps<{
+	contentModified: boolean;
+}>();
+
+defineEmits<{
+	(e: 'save'): void;
+}>();
+</script>
+
 <template>
-	<b-button
+	<button
+		class="btn"
+		:class="contentModified ? 'btn-success' : 'btn-outline-success'"
 		:disabled="!contentModified"
-		:variant="!contentModified ? 'outline-success' : 'success'"
 		@click="$emit('save')"
 	>
 		<i
-			class="fas fa-fw mr-1"
+			class="fas fa-fw me-1"
 			:class="!contentModified ? 'fa-check' : 'fa-save'"
 		/>
-		<span>{{
-			!contentModified ? $t('SaveButton.saved') : $t('SaveButton.save')
-		}}</span>
-	</b-button>
+		<span>{{ !contentModified ? $t('SaveButton.saved') : $t('SaveButton.save') }}</span>
+	</button>
 </template>
-
-<script>
-export default {
-	props: {
-		contentModified: Boolean,
-	},
-};
-</script>

@@ -1,5 +1,62 @@
-<!-- eslint-disable vue/no-v-html -->
+<script setup lang="ts">
+definePageMeta({
+	middleware: ['public-only'],
+});
+
+const localePath = useLocalePath();
+const { locale, t } = useI18n();
+
+useHead({
+	title: t('register.title'),
+});
+
+const email = ref('');
+const emailInput = ref<HTMLInputElement>();
+const name = ref('');
+const password = ref('');
+const consent = ref(false);
+const loading = ref(true);
+const termsModal = ref(false);
+
+onMounted(async () => {
+	loading.value = false;
+	emailInput.value?.focus();
+});
+
+const { executeReCaptcha } = useReCaptcha();
+const { errorToast } = useToasts();
+
+async function userReg() {
+	try {
+		loading.value = true;
+		const captcha = await executeReCaptcha('register');
+		await $fetch('/api/user/register', {
+			method: 'POST',
+			body: {
+				captcha,
+				consent: consent.value,
+				email: email.value,
+				locale: locale.value,
+				name: name.value,
+				password: password.value,
+			},
+		});
+		navigateTo(
+			localePath({
+				path: 'login',
+				query: { registered: null },
+			}),
+		);
+	} catch (err) {
+		errorToast(t('register.registrationFailed'));
+	} finally {
+		loading.value = false;
+	}
+}
+</script>
+
 <template>
+	<!-- eslint-disable vue/no-v-html -->
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
@@ -7,43 +64,53 @@
 					<div class="card shadow-sm">
 						<CardHeader :text="$t('register.title')" />
 						<div class="card-body">
-							<b-form-group :label="$t('register.email')">
-								<b-form-input
-									ref="email"
-									v-model="reg.email"
+							<form-group :label="$t('register.email')">
+								<input
+									ref="emailInput"
+									v-model="email"
+									class="form-control"
 									required
 									type="email"
 								/>
-							</b-form-group>
-							<b-form-group :label="$t('register.name')">
-								<b-form-input
-									v-model="reg.name"
+							</form-group>
+							<form-group :label="$t('register.name')">
+								<input
+									v-model="name"
+									class="form-control"
 									required
 								/>
-							</b-form-group>
-							<b-form-group :label="$t('register.password')">
-								<b-form-input
-									v-model="reg.password"
+							</form-group>
+							<form-group :label="$t('register.password')">
+								<input
+									v-model="password"
+									class="form-control"
 									required
 									type="password"
 								/>
-							</b-form-group>
-							<b-form-group>
-								<b-form-checkbox
-									v-model="reg.consent"
-									name="consent"
-									required
-								>
-									{{ $t('register.consent1') }}
-									<a
-										href="javascript:void(0)"
-										@click.stop="
-											$bvModal.show('terms-modal')
-										"
-										v-html="$t('register.consent2')"
+							</form-group>
+							<form-group>
+								<div class="form-check">
+									<input
+										id="consent"
+										v-model="consent"
+										class="form-check-input"
+										name="consent"
+										required
+										type="checkbox"
 									/>
-								</b-form-checkbox>
-							</b-form-group>
+									<label
+										for="consent"
+										class="form-check-label"
+									>
+										{{ $t('register.consent1') }}
+										<a
+											href="javascript:void(0)"
+											@click.stop="termsModal = true"
+											v-html="$t('register.consent2')"
+										/>
+									</label>
+								</div>
+							</form-group>
 
 							<p class="m-0 small text-muted">
 								{{ $t('register.procedure') }}
@@ -68,10 +135,13 @@
 				</form>
 			</div>
 			<b-modal
-				id="terms-modal"
+				id="ssr-id-register-terms-modal"
+				v-model="termsModal"
 				hide-footer
 				scrollable
 				size="lg"
+				:teleport-disabled="true"
+				teleport-to="body"
 				:title="$t('register.termsTitle')"
 			>
 				<Terms />
@@ -79,54 +149,3 @@
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	middleware: ['publicOnly'],
-	data() {
-		return {
-			reg: {
-				email: '',
-				name: '',
-				password: '',
-			},
-			loading: true,
-		};
-	},
-	head() {
-		return {
-			title: this.$t('register.title'),
-		};
-	},
-	async mounted() {
-		await this.$recaptcha.init();
-		this.loading = false;
-		this.$refs.email.focus();
-	},
-	beforeDestroy() {
-		this.$recaptcha.destroy();
-	},
-	methods: {
-		async userReg() {
-			this.loading = true;
-			const captcha = await this.$recaptcha.execute('register');
-			try {
-				await this.$axios.$put('/api/user', {
-					...this.reg,
-					captcha,
-					locale: this.$i18n.locale,
-				});
-				this.$router.push(
-					this.localePath({
-						path: 'login',
-						query: { registered: null },
-					})
-				);
-			} catch (err) {
-				this.errorToast(this.$t('register.registrationFailed'));
-			}
-			this.loading = false;
-		},
-	},
-};
-</script>

@@ -1,12 +1,84 @@
+<script setup lang="ts">
+import type { Question } from '~/server/data/surveyAnswers';
+
+const value = defineModel<string>({ default: '' });
+
+const props = defineProps<{
+	q: Question;
+}>();
+
+const selected = ref<string>('');
+const otherValue = ref('');
+
+function parseAnswer() {
+	selected.value = value.value.startsWith(OTHER_PREFIX) ? OTHER_PREFIX : value.value;
+	otherValue.value = value.value.startsWith(OTHER_PREFIX)
+		? value.value.slice(OTHER_PREFIX.length)
+		: '';
+}
+watchEffect(() => parseAnswer());
+
+watch([selected, otherValue], () => {
+	value.value =
+		selected.value === OTHER_PREFIX ? OTHER_PREFIX + otherValue.value : selected.value;
+});
+
+const { t } = useI18n();
+
+const options = computed(() => {
+	const opts = [
+		{
+			text: '',
+			value: '',
+		},
+	];
+
+	(props.q.options || []).forEach((o) =>
+		opts.push({
+			text: o,
+			value: o,
+		}),
+	);
+
+	if (props.q.other) {
+		opts.push({
+			text: t('DropdownGroup.other'),
+			value: OTHER_PREFIX,
+		});
+	}
+
+	return opts;
+});
+
+const otherInput = ref<HTMLInputElement | null>();
+
+const otherSelected = computed(() => selected.value.startsWith(OTHER_PREFIX));
+
+watch(otherSelected, async (s) => {
+	if (s) {
+		await nextTick();
+		otherInput.value?.focus();
+	}
+});
+</script>
+
 <template>
 	<div>
-		<b-form-select
+		<select
 			v-model="selected"
-			:options="options"
+			class="form-select"
 			:required="q.required"
-		/>
+		>
+			<option
+				v-for="o in options"
+				:key="o.value"
+				:value="o.value"
+			>
+				{{ o.text }}
+			</option>
+		</select>
 		<div
-			v-if="selected == other"
+			v-if="selected == OTHER_PREFIX"
 			class="mt-2"
 		>
 			<div class="d-flex">
@@ -22,74 +94,3 @@
 		</div>
 	</div>
 </template>
-
-<script>
-import { OTHER_PREFIX } from '../assets/constants';
-
-export default {
-	props: {
-		q: {
-			type: Object,
-			default: () => {},
-		},
-		value: {
-			type: String,
-			default: () => '',
-		},
-	},
-	data() {
-		return {
-			selected: null,
-			otherValue: null,
-			options: this.q.options,
-			other: OTHER_PREFIX,
-		};
-	},
-	computed: {
-		answer() {
-			return this.selected === this.other
-				? this.other + this.otherValue
-				: this.selected;
-		},
-	},
-	watch: {
-		value() {
-			this.init();
-		},
-		answer() {
-			this.$emit('input', this.answer);
-		},
-		selected(s) {
-			if (s === this.other) {
-				this.$nextTick(() => this.$refs.otherInput.focus());
-			}
-		},
-	},
-	mounted() {
-		this.init();
-		this.options = Object.assign({}, this.q.options);
-		this.options = Object.keys(this.options)
-			.slice(0, this.options.size)
-			.map(key => ({
-				text: this.options[key],
-				value: this.options[key],
-			}));
-		if (this.q.other) {
-			this.options.push({
-				text: this.$t('DropdownGroup.other'),
-				value: this.other,
-			});
-		}
-	},
-	methods: {
-		init() {
-			this.selected = this.value.startsWith(OTHER_PREFIX)
-				? OTHER_PREFIX
-				: this.value;
-			this.otherValue = this.value.startsWith(OTHER_PREFIX)
-				? this.value.slice(OTHER_PREFIX.length)
-				: '';
-		},
-	},
-};
-</script>

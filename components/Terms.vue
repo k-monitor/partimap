@@ -1,28 +1,24 @@
+<script setup lang="ts">
+const props = defineProps<{
+	projectDataProcessor?: string;
+}>();
+
+const { t } = useI18n();
+
+const md = computed(() => {
+	return t('Terms.content').replace(
+		'$_PROJECT_DATA_PROCESSOR_$',
+		props.projectDataProcessor || '',
+	);
+});
+</script>
+
 <template>
 	<Markdown
 		class="terms"
 		:md="md"
 	/>
 </template>
-
-<script>
-export default {
-	props: {
-		projectDataProcessor: {
-			type: String,
-			default: '',
-		},
-	},
-	computed: {
-		md() {
-			return this.$t('Terms.content').replace(
-				'$_PROJECT_DATA_PROCESSOR_$',
-				this.projectDataProcessor
-			);
-		},
-	},
-};
-</script>
 
 <style>
 .terms h1,

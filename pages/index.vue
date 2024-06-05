@@ -1,14 +1,51 @@
+<script setup lang="ts">
+const { defaultLocale, locale, messages, t } = useI18n();
+
+useHead({
+	title: t('landing.title'),
+});
+
+const features = computed(() => {
+	try {
+		const m = messages.value[locale.value]?.landing || ({} as any);
+		return m.features || [];
+	} catch {
+		const m = messages.value[defaultLocale]?.landing || ({} as any);
+		return m.features || [];
+	}
+});
+
+const modals = ref(Array(features.value.length).fill(false));
+
+const featureIndex = ref(-1);
+
+watch(featureIndex, (i, p) => {
+	if (p >= 0) {
+		modals.value[p] = false;
+	}
+	if (i >= 0) {
+		modals.value[i] = true;
+	}
+});
+
+function showFeature(i: number) {
+	featureIndex.value = -1;
+	nextTick(() => (featureIndex.value = i));
+}
+</script>
+
 <template>
+	<!-- eslint-disable vue/no-v-html -->
 	<PublicFrame>
-		<header class="bg-primary text-white">
-			<div class="container my-5 py-lg-3 text-center">
+		<header class="bg-primary py-5 text-white">
+			<div class="container py-lg-3 text-center">
 				<img
 					alt="PARTIMAP"
 					class="mb-5"
-					src="logo-white.png"
+					src="/logo-white.png"
 					style="width: 200px"
 				/>
-				<p class="font-weight-bold lead mb-0">
+				<p class="fw-bold lead mb-0">
 					{{ $t('landing.tagline1') }}
 					<br class="d-none d-lg-inline" />
 					{{ $t('landing.tagline2') }}
@@ -44,7 +81,7 @@
 		</section>
 
 		<section
-			v-if="$i18n.locale === 'hu'"
+			v-if="locale === 'hu'"
 			class="bg-white py-5"
 		>
 			<div class="bg-primary container p-4 text-justify text-white">
@@ -65,7 +102,7 @@
 		</section>
 
 		<section class="bg-white py-5">
-			<div class="container -fluid">
+			<div class="container">
 				<h2 class="mb-5 text-center">
 					{{ $t('landing.featuresTitle') }}
 				</h2>
@@ -81,40 +118,44 @@
 							<img
 								:alt="f.title"
 								class="figure-img img-fluid rounded shadow-sm"
-								:src="`landing/${i}.jpg`"
+								:src="`/landing/${i}.jpg`"
 							/>
 							<figcaption class="figure-caption">
 								<h5 class="text-center">{{ f.title }}</h5>
 							</figcaption>
 						</figure>
 
-						<b-modal
-							:id="`feature-modal-${i}`"
-							centered
-							scrollable
-							:title="f.title"
-						>
-							<div v-html="f.description" />
-							<template #modal-footer>
-								<div class="d-flex w-100">
-									<b-button
-										v-if="i > 0"
-										variant="outline-primary"
-										@click="featureIndex = i - 1"
-									>
-										<i class="fas fa-fw fa-angle-left" />
-									</b-button>
-									<b-button
-										v-if="i < features.length - 1"
-										class="ml-auto"
-										variant="outline-primary"
-										@click="featureIndex = i + 1"
-									>
-										<i class="fas fa-fw fa-angle-right" />
-									</b-button>
-								</div>
-							</template>
-						</b-modal>
+						<client-only>
+							<b-modal
+								v-model="modals[i]"
+								centered
+								scrollable
+								:teleport-disabled="true"
+								teleport-to="body"
+								:title="f.title"
+							>
+								<div v-html="f.description" />
+								<template #footer>
+									<div class="d-flex w-100">
+										<b-button
+											v-if="i > 0"
+											variant="outline-primary"
+											@click="featureIndex = i - 1"
+										>
+											<i class="fas fa-fw fa-angle-left" />
+										</b-button>
+										<b-button
+											v-if="i < features.length - 1"
+											class="ms-auto"
+											variant="outline-primary"
+											@click="featureIndex = i + 1"
+										>
+											<i class="fas fa-fw fa-angle-right" />
+										</b-button>
+									</div>
+								</template>
+							</b-modal>
+						</client-only>
 					</div>
 				</div>
 			</div>
@@ -122,21 +163,21 @@
 
 		<section
 			class="bg-light pb-3 pt-4"
-			style="box-shadow: inset 0px 20px 15px -15px rgba(0, 0, 0, 0.08)"
+			style="box-shadow: inset 0 20px 15px -15px rgba(0, 0, 0, 0.08)"
 		>
 			<div class="container">
 				<div class="row">
 					<div class="col-12 col-md-6 col-lg-5 d-flex">
 						<figure class="figure d-flex align-items-center">
 							<img
-								src="eu-commission-logo-en.svg"
+								src="/eu-commission-logo-en.svg"
 								class="figure-img w-100"
 								:alt="$t('landing.ec')"
 							/>
 						</figure>
 						<figure class="figure d-flex align-items-center">
 							<img
-								src="heinrich-boll-logo.svg"
+								src="/heinrich-boll-logo.svg"
 								class="figure-img w-100"
 								:alt="$t('landing.ec')"
 							/>
@@ -144,7 +185,7 @@
 					</div>
 					<div class="col d-flex align-items-center">
 						<p
-							class="font-weight-bold mb-0"
+							class="fw-bold mb-0"
 							v-html="$t('landing.funding')"
 						/>
 					</div>
@@ -153,51 +194,6 @@
 		</section>
 	</PublicFrame>
 </template>
-
-<script>
-export default {
-	data() {
-		return {
-			featureIndex: -1,
-		};
-	},
-	head() {
-		return {
-			title: this.$t('landing.title'),
-		};
-	},
-	computed: {
-		features() {
-			try {
-				const loc = this.$i18n.locale;
-				return this.$i18n.messages[loc].landing.features;
-			} catch {
-				const loc = this.$i18n.defaultLocale;
-				return this.$i18n.messages[loc].landing.features || [];
-			}
-		},
-		feature() {
-			return this.features[this.featureIndex];
-		},
-	},
-	watch: {
-		featureIndex(i, p) {
-			if (p >= 0) {
-				this.$bvModal.hide('feature-modal-' + p);
-			}
-			if (i >= 0) {
-				this.$bvModal.show('feature-modal-' + i);
-			}
-		},
-	},
-	methods: {
-		showFeature(i) {
-			this.featureIndex = -1;
-			this.$nextTick(() => (this.featureIndex = i));
-		},
-	},
-};
-</script>
 
 <style scoped>
 header {
@@ -217,10 +213,5 @@ strong {
 .features:hover .feature:not(:hover) {
 	filter: grayscale(0.25);
 	opacity: 0.85;
-}
-
-.gap {
-	gap: 2rem;
-	grid-gap: 2rem;
 }
 </style>

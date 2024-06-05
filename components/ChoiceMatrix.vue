@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import type { Question } from '~/server/data/surveyAnswers';
+
+defineProps<{
+	question: Question;
+}>();
+
+const value = defineModel<Record<string, string | string[] | null>>({ default: {} });
+
+function handleUpdate(row: string, answer: string | string[] | null) {
+	const values = { ...value.value };
+	values[row] = answer;
+	value.value = values;
+}
+</script>
+
 <template>
 	<div class="overflow-auto">
 		<div class="matrix d-table small w-100">
@@ -14,46 +30,14 @@
 			<MatrixRow
 				v-for="row in question.rows"
 				:key="row"
-				v-model="selected[row]"
+				:model-value="value[row]"
 				:question="question"
 				:row="row"
+				@update:model-value="handleUpdate(row, $event)"
 			/>
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		value: {
-			type: Object,
-			default: () => {},
-		},
-		question: {
-			type: Object,
-			default: () => {},
-		},
-	},
-	data() {
-		return {
-			selected: this.value || {},
-		};
-	},
-	watch: {
-		value(v) {
-			this.selected = v || {};
-		},
-		selected: {
-			handler(a) {
-				if (Object.keys(a).length) {
-					this.$emit('input', a);
-				}
-			},
-			deep: true,
-		},
-	},
-};
-</script>
 
 <style>
 .border-collapse {

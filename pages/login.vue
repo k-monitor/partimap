@@ -1,59 +1,142 @@
+<script setup lang="ts">
+definePageMeta({
+	middleware: ['public-only'],
+});
+
+const localePath = useLocalePath();
+const { locale, t } = useI18n();
+
+useHead({
+	title: t('login.title'),
+});
+
+const { executeReCaptcha } = useReCaptcha();
+
+const form = ref<HTMLFormElement>();
+const emailInput = ref<HTMLInputElement>();
+const email = ref('');
+const password = ref('');
+const loading = ref(true);
+const errorMessage = ref('');
+const successMessage = ref('');
+
+const { currentRoute } = useRouter();
+const params = Object.keys(currentRoute.value.query);
+// TODO move param keys to constants from here and from reg/pwch too!
+['registered', 'pwchanged'].forEach((key) => {
+	if (params.includes(key)) successMessage.value = t(`login.${key}`);
+});
+['pwchangefailed'].forEach((key) => {
+	if (params.includes(key)) errorMessage.value = t(`login.${key}`);
+});
+
+onMounted(async () => {
+	const { token } = currentRoute.value.query;
+	if (token) {
+		try {
+			await $fetch('/api/user/activate', {
+				method: 'POST',
+				body: { token },
+			});
+			successMessage.value = t('login.activated');
+		} catch {
+			errorMessage.value = t('login.activationFailed');
+		}
+	}
+	loading.value = false;
+	emailInput.value?.focus();
+});
+
+async function login() {
+	try {
+		loading.value = true;
+		errorMessage.value = '';
+		successMessage.value = '';
+		const captcha = await executeReCaptcha('login');
+		await authLogin(email.value, password.value, captcha || '');
+	} catch {
+		errorMessage.value = t('login.invalidEmailOrPassword');
+	} finally {
+		loading.value = false;
+	}
+}
+
+async function forgot() {
+	if (!form.value?.reportValidity()) return; // password is NOT required
+	try {
+		loading.value = true;
+		errorMessage.value = '';
+		successMessage.value = '';
+		const captcha = await executeReCaptcha('forgot');
+		await $fetch('/api/user/forgot', {
+			method: 'POST',
+			body: {
+				captcha,
+				email: email.value,
+				locale: locale.value,
+			},
+		});
+		successMessage.value = t('login.passwordChangeRequested');
+	} catch {
+		errorMessage.value = t('login.invalidEmail');
+	} finally {
+		loading.value = false;
+	}
+}
+</script>
+
 <template>
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form
 					ref="form"
-					@submit.prevent="submit"
+					@submit.prevent="login"
 				>
 					<div class="card shadow-sm">
 						<CardHeader :text="$t('login.title')" />
 						<div class="card-body">
-							<b-alert
+							<div
 								v-if="successMessage"
-								show
-								variant="success"
+								class="alert alert-success"
 							>
 								{{ successMessage }}
-							</b-alert>
-							<b-alert
+							</div>
+							<div
 								v-if="errorMessage"
-								show
-								variant="danger"
+								class="alert alert-danger"
 							>
 								{{ errorMessage }}
-							</b-alert>
-							<b-form-group>
-								<b-input-group>
-									<template #prepend>
-										<b-input-group-text>
-											<i class="fas fa-at fa-fw" />
-										</b-input-group-text>
-									</template>
-									<b-form-input
-										ref="email"
-										v-model="login.email"
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-text">
+										<i class="fas fa-at fa-fw" />
+									</div>
+									<input
+										ref="emailInput"
+										v-model="email"
+										class="form-control"
 										:placeholder="$t('login.email')"
 										required
 										type="email"
 									/>
-								</b-input-group>
-							</b-form-group>
-							<b-form-group>
-								<b-input-group>
-									<template #prepend>
-										<b-input-group-text>
-											<i class="fas fa-key fa-fw" />
-										</b-input-group-text>
-									</template>
-									<b-form-input
-										v-model="login.password"
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-text">
+										<i class="fas fa-key fa-fw" />
+									</div>
+									<input
+										v-model="password"
+										class="form-control"
 										:placeholder="$t('login.password')"
 										type="password"
 									/>
-								</b-input-group>
-							</b-form-group>
-							<div class="text-right">
+								</div>
+							</div>
+							<div class="text-end">
 								<a
 									href="javascript:void(0)"
 									@click="forgot"
@@ -82,97 +165,3 @@
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	middleware: ['publicOnly'],
-	data() {
-		let successMessage = '';
-		let errorMessage = '';
-		const params = Object.keys(this.$route.query);
-		// TODO move param keys to constants from here and from reg/pwch too!
-		if (params.includes('registered')) {
-			successMessage = this.$t('login.registered');
-		}
-		if (params.includes('pwchanged')) {
-			successMessage = this.$t('login.pwchanged');
-		}
-		if (params.includes('pwchangefailed')) {
-			errorMessage = this.$t('login.pwchangefailed');
-		}
-
-		return {
-			forgotMode: false,
-			login: {
-				email: '',
-				password: '',
-			},
-			loading: true,
-			successMessage,
-			errorMessage,
-		};
-	},
-	head() {
-		return {
-			title: this.$t('login.title'),
-		};
-	},
-	async mounted() {
-		const token = this.$route.query.t;
-		if (token) {
-			try {
-				await this.$axios.$post('/api/user/activate', { token });
-				this.successMessage = this.$t('login.activated');
-			} catch {
-				this.errorMessage = this.$t('login.activationFailed');
-			}
-		}
-		await this.$recaptcha.init();
-		this.loading = false;
-		this.$refs.email.focus();
-	},
-	beforeDestroy() {
-		this.$recaptcha.destroy();
-	},
-	methods: {
-		forgot() {
-			this.forgotMode = true;
-			this.$refs.form.reportValidity() && this.submit();
-			// for this to work properly, do NOT mark
-			// password field as required in the template
-		},
-		async submit() {
-			this.loading = true;
-			this.errorMessage = '';
-			this.successMessage = '';
-			const captcha = await this.$recaptcha.execute(
-				this.forgotMode ? 'forgot' : 'login'
-			);
-			if (this.forgotMode) {
-				try {
-					await this.$axios.$post('/api/user/forgot', {
-						email: this.login.email,
-						captcha,
-						locale: this.$i18n.locale,
-					});
-					this.successMessage = this.$t(
-						'login.passwordChangeRequested'
-					);
-				} catch {
-					this.errorMessage = this.$t('login.invalidEmail');
-				}
-			} else {
-				try {
-					await this.$auth.loginWith('cookie', {
-						data: { ...this.login, captcha },
-					});
-				} catch (err) {
-					this.errorMessage = this.$t('login.invalidEmailOrPassword');
-				}
-			}
-			this.forgotMode = false;
-			this.loading = false;
-		},
-	},
-};
-</script>

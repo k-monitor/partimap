@@ -1,3 +1,53 @@
+<script setup lang="ts">
+import useToasts from '~/composables/useToasts';
+import type { User } from '~/server/data/users';
+
+definePageMeta({
+	middleware: ['admin'],
+});
+
+const { t } = useI18n();
+const localePath = useLocalePath();
+
+useHead({
+	title: `Admin: ${t('users.title')}`,
+});
+
+const { data: users } = await useFetch<User[]>('/api/user/all');
+
+const filter = ref('');
+const filteredUsers = computed(() => {
+	if (!users.value) return [];
+	const term = filter.value || '';
+
+	let userById = null;
+	const id = parseInt(term, 10);
+	if (id) userById = users.value.find((u) => u.id === id);
+	if (userById) return [userById];
+
+	return users.value.filter((u) =>
+		`${u.name}|${u.email}`.toLowerCase().includes(term.toLowerCase()),
+	);
+});
+
+const newUserEmail = ref('');
+const { errorToast } = useToasts();
+async function add() {
+	try {
+		const { id } = await $fetch<User>('/api/user', {
+			method: 'PUT',
+			body: {
+				email: newUserEmail.value,
+				name: newUserEmail.value.split('@')[0],
+			},
+		});
+		navigateTo(`/admin/user/${id}`);
+	} catch (error) {
+		errorToast(t('users.creationFailed'));
+	}
+}
+</script>
+
 <template>
 	<AdminFrame>
 		<template #header>
@@ -44,21 +94,22 @@
 				:to="localePath('/admin/user/' + u.id)"
 				class="align-items-center list-group-item list-group-item-action"
 			>
-				<small class="text-muted"> #{{ u.id }} </small>
+				<small class="me-2 text-muted"> #{{ u.id }} </small>
 				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
-				<b-badge
+				<span
 					v-if="u.isAdmin"
-					variant="danger"
+					class="badge text-bg-danger ms-2"
 				>
 					{{ $t('users.admin') }}
-				</b-badge>
-				<b-badge
+				</span>
+				<span
 					v-if="!u.active"
-					variant="warning"
+					class="badge text-bg-warning ms-2"
 				>
 					{{ $t('users.inactive') }}
-				</b-badge>
+				</span>
 				<br />
+
 				<small class="text-muted">
 					{{ $t('users.registered') }}:
 					{{ new Date(u.registered).toLocaleString() }}
@@ -66,67 +117,9 @@
 				<br />
 				<small class="text-muted">
 					{{ $t('users.lastLogin') }}:
-					{{
-						u.lastLogin
-							? new Date(u.lastLogin).toLocaleString()
-							: '?'
-					}}
+					{{ u.lastLogin ? new Date(u.lastLogin).toLocaleString() : '?' }}
 				</small>
 			</NuxtLink>
 		</div>
 	</AdminFrame>
 </template>
-
-<script>
-export default {
-	middleware: ['auth', 'admin'],
-	async asyncData({ $axios }) {
-		const users = await $axios.$get('/api/users');
-		return { users };
-	},
-	data() {
-		return {
-			filter: '',
-			newUserEmail: null,
-			users: [],
-		};
-	},
-	head() {
-		return {
-			title: `Admin: ${this.$t('users.title')}`,
-		};
-	},
-	computed: {
-		filteredUsers() {
-			let userById = null;
-			const id = Number(this.filter);
-			if (id) {
-				userById = this.users.find(u => u.id === id);
-			}
-			if (userById) {
-				return [userById];
-			}
-			return this.users.filter(
-				u =>
-					(u.name || '')
-						.toLowerCase()
-						.includes(this.filter.toLowerCase()) ||
-					u.email.toLowerCase().includes(this.filter.toLowerCase())
-			);
-		},
-	},
-	methods: {
-		async add() {
-			try {
-				const { id } = await this.$axios.$put('/api/user', {
-					email: this.newUserEmail,
-					name: this.newUserEmail.split('@')[0],
-				});
-				this.$router.push(this.localePath('/admin/user/' + id));
-			} catch (error) {
-				this.errorToast(this.$t('users.creationFailed'));
-			}
-		},
-	},
-};
-</script>
