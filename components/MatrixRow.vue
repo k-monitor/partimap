@@ -48,7 +48,7 @@ watch(radioSelected, () => (value.value = radioSelected.value));
 			<div v-if="question.type === 'singleChoiceMatrix'">
 				<input
 					v-model="radioSelected"
-					class="form-radio-input"
+					class="form-check-input"
 					:name="`${question.id}/${row}`"
 					:required="question.required"
 					type="radio"

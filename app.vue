@@ -93,6 +93,10 @@ a,
 	display: none !important;
 }
 
+.form-check-input {
+	border-color: $gray-600;
+}
+
 .form-control[type='password'][readonly] {
 	background: $input-disabled-bg;
 }
