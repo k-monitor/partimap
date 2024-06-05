@@ -46,17 +46,21 @@ watch(radioSelected, () => (value.value = radioSelected.value));
 			class="d-table-cell align-middle border-top py-3 text-center"
 		>
 			<div v-if="question.type === 'singleChoiceMatrix'">
-				<b-form-radio
+				<input
 					v-model="radioSelected"
+					class="form-radio-input"
 					:name="`${question.id}/${row}`"
 					:required="question.required"
+					type="radio"
 					:value="column"
 				/>
 			</div>
 			<div v-if="question.type === 'multipleChoiceMatrix'">
-				<b-form-checkbox
+				<input
 					v-model="checkSelected"
+					class="form-check-input"
 					:name="`${question.id}/${row}`"
+					type="checkbox"
 					:value="column"
 				/>
 			</div>
