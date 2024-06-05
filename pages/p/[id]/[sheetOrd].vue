@@ -280,6 +280,7 @@ const sheetForm = ref<HTMLFormElement>();
 
 function next() {
 	selectedFeatureId.value = null;
+	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
 		return;
