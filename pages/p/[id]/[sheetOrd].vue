@@ -127,7 +127,11 @@ const resultsData = computed(() => {
 	const answeredIds = Object.keys(visitorAnswers.value || {}).filter(
 		(id) => !!visitorAnswers.value?.[id],
 	);
-	return sheet.value?.answers?.filter((e) => answeredIds.includes(String(e.questionId))) || [];
+	return (
+		sheet.value?.answers?.filter((e) =>
+			answeredIds.map((id) => id.split('/')[0]).includes(String(e.questionId.split('/')[0])),
+		) || []
+	);
 });
 
 const needToShowResults = computed(() => {
