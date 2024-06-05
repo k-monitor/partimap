@@ -13,7 +13,6 @@ withDefaults(
 const input = ref<HTMLInputElement>();
 
 function handleChange(e: Event) {
-	console.log('change called');
 	const fileInputEl = e.target as HTMLInputElement;
 	if (fileInputEl.files?.[0]) {
 		image.value = fileInputEl.files[0];
@@ -22,10 +21,7 @@ function handleChange(e: Event) {
 
 function handleDrop(e: DragEvent) {
 	if (e.dataTransfer?.files && input.value) {
-		console.log('e', e.dataTransfer.files);
 		image.value = e.dataTransfer.files[0];
-		console.log('i', image.value);
-		nextTick(() => console.log('i2', image.value));
 	}
 	dropzoneActive.value = false;
 }

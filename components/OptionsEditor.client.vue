@@ -23,7 +23,6 @@ const labelButton = computed(() => {
 });
 
 function addOption() {
-	console.log('addOption');
 	options.value = [
 		...options.value,
 		t('OptionsEditor.optionPrefix') + ` #${options.value.length + 1}`,
