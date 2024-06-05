@@ -6,7 +6,7 @@ definePageMeta({
 	middleware: ['admin'],
 });
 
-const { t } = useI18n();
+const { locale, t } = useI18n();
 const localePath = useLocalePath();
 
 useHead({
@@ -34,14 +34,15 @@ const newUserEmail = ref('');
 const { errorToast } = useToasts();
 async function add() {
 	try {
-		const { id } = await $fetch<User>('/api/user', {
-			method: 'PUT',
+		const { id } = await $fetch<User>('/api/user/register', {
+			method: 'POST',
 			body: {
 				email: newUserEmail.value,
+				locale: locale.value,
 				name: newUserEmail.value.split('@')[0],
 			},
 		});
-		navigateTo(`/admin/user/${id}`);
+		navigateTo(localePath(`/admin/user/${id}`));
 	} catch (error) {
 		errorToast(t('users.creationFailed'));
 	}

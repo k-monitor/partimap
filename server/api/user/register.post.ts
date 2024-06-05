@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
@@ -5,11 +6,14 @@ import * as db from '~/server/data/users';
 import { env } from '~/env';
 
 const bodySchema = z.object({
-	captcha: z.string().min(1),
+	captcha: z.string().min(1).optional(),
 	consent: z.boolean().optional(),
 	email: z.string().email(),
 	name: z.string().min(1),
-	password: z.string().min(1),
+	password: z
+		.string()
+		.min(1)
+		.default(() => crypto.randomBytes(64).toString('hex')),
 	locale: z.string().length(2),
 });
 
@@ -32,9 +36,13 @@ export default defineEventHandler(async (event) => {
 		}
 	}
 
+	// Either no user (/register page) or admin (/admin/users).
+
 	const m = i18n(locale).activationEmail;
 
-	await validateCaptcha(event);
+	if (!event.context.user?.isAdmin) {
+		await validateCaptcha(event);
+	}
 
 	const hashedPassword = bcrypt.hashSync(password, 10);
 	const newUser = db.createUser({
