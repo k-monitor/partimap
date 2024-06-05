@@ -137,14 +137,11 @@ export async function aggregateByProjectId(projectId: number) {
 			const sums: Map<string, number> = new Map();
 			const counts: Map<string, number> = new Map();
 			const answers: Record<string, any>[] = (distAnswersByQuestion.get(q.id) || [])
-				.map((a) => {
-					try {
-						return JSON.parse(a);
-					} catch {
-						return false;
-					}
-				})
+				.map((a) => safeParseJSON(a))
 				.filter((a) => !!a);
+
+			if (!answers.length) continue;
+
 			answers.forEach((a) => {
 				Object.entries(a).forEach(([key, value]) => {
 					if (!(q.options || []).includes(key)) return;
