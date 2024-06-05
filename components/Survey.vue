@@ -110,7 +110,7 @@ function removeAnswer(questionId: number) {
 				class="align-items-end d-flex justify-content-between small"
 			>
 				<span>{{ q.minLabel }}</span>
-				<strong class="mx-2">{{ answers[q.id] || '&nbsp;' }}</strong>
+				<strong class="mx-2">{{ answers[q.id] }}</strong>
 				<span class="text-end">{{ q.maxLabel }}</span>
 			</div>
 			<div class="align-items-center d-flex position-relative">
