@@ -300,9 +300,9 @@ function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 	(project.value?.sheets || []).forEach((sheet) => {
 		const survey: Survey = safeParseJSON(sheet.survey) || {};
 		const qs = survey.questions || [];
+		const sheetAnswers = data[sheet.id]?.answers || {};
 		qs.filter((q) => q.addToFeatures).forEach((q) => {
-			const sheetAnswers = data[sheet.id]?.answers || {};
-			if (Object.keys(sheetAnswers).includes(String(q.id))) return;
+			if (!Object.keys(sheetAnswers).includes(String(q.id))) return;
 			const ans = sheetAnswers[q.id];
 			if (Object.isExtensible(ans) && !Array.isArray(ans)) {
 				// answer is {...}, so a matrix -> injecting rows separately
