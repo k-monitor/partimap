@@ -164,8 +164,9 @@ function removeAnswer(questionId: number) {
 		/>
 		<DistributeUnitsQuestion
 			v-else-if="q.type === 'distributeUnits'"
-			v-model="answers[q.id]"
+			:model-value="answers[q.id] || {}"
 			:question="q"
+			@update:model-value="answers[q.id] = $event"
 		/>
 	</form-group>
 </template>
