@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Coordinate } from 'ol/coordinate';
+import { getCenter } from 'ol/extent';
+import { GeoJSON } from 'ol/format';
+import LineString from 'ol/geom/LineString.js';
 import { type Style } from 'ol/style';
 import tinycolor from 'tinycolor2';
+import type { Map } from 'vue3-openlayers';
 import wordWrap from 'word-wrap';
 
 const props = defineProps<{
@@ -113,6 +118,30 @@ watch([polygonFillColor, lineDash], () => {
 	stylePresent.value = false;
 	nextTick(() => (stylePresent.value = true));
 });
+
+// bubble
+
+const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
+
+const center = computed<Coordinate>(() => {
+	const f = props.f;
+	if (f.geometry.type === 'Point') return f.geometry.coordinates;
+
+	const olf = new GeoJSON().readFeature(props.f);
+	if (!olf.getGeometry()) return [0, 0];
+
+	if (olf.getGeometry()?.getType() === 'LineString') {
+		const g = olf.getGeometry() as LineString;
+		return g.getCoordinateAt(0.5);
+	}
+
+	return getCenter(olf.getGeometry()!.getExtent());
+});
+
+watchEffect(() => {
+	if (!overlay.value) return;
+	overlay.value.$el.parentElement.style.zIndex = `${zIndex.value}`;
+});
 </script>
 
 <template>
@@ -170,5 +199,23 @@ watch([polygonFillColor, lineDash], () => {
 				:text="textParams.text"
 			/>
 		</ol-style>
+
+		<ol-overlay
+			v-if="f.properties?.description"
+			ref="overlay"
+			auto-pan
+			:position="center"
+		>
+			<div
+				class="popover rounded-0 shadow-sm"
+				style="transform: translateX(-50%)"
+			>
+				<div
+					class="popover-body overflow-y-auto h-100"
+					style="max-height: 33vh; scrollbar-gutter: stable"
+					v-html="f.properties.description"
+				/>
+			</div>
+		</ol-overlay>
 	</ol-feature>
 </template>
