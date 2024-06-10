@@ -196,6 +196,7 @@ async function importKML() {
 		const file = fileInputEl.files?.[0];
 		if (!file) return;
 
+		loading.value = true;
 		const fileReader = new FileReader();
 		fileReader.onload = async (e: Event) => {
 			const kmlString = (e.target as FileReader).result?.toString() || '';
@@ -211,7 +212,6 @@ async function importKML() {
 	});
 
 	selectedFeatureId.value = null;
-	loading.value = true;
 	await nextTick();
 	input.click();
 }
