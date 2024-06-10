@@ -163,7 +163,7 @@ const availableSheetOrds = computed(() =>
 			const { questions } = survey;
 			if (!questions || !questions.length) return true;
 			const questionsAvailable = !!questions.find((q) => {
-				return canShowQuestion(q, getAllVisitorAnswers());
+				return canShowQuestion(q, getAllVisitorAnswers.value);
 			});
 			return questionsAvailable;
 		})

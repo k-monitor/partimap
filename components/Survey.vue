@@ -14,7 +14,7 @@ const questions = computed(() => {
 });
 
 const visibleQuestions = computed(() =>
-	questions.value.filter((q) => canShowQuestion(q, getAllVisitorAnswers())),
+	questions.value.filter((q) => canShowQuestion(q, getAllVisitorAnswers.value)),
 );
 watch(visibleQuestions, (vq) => {
 	const visibleIds = vq.map((q) => String(q.id));

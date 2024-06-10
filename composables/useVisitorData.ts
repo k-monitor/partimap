@@ -32,14 +32,15 @@ export default function useVisitorData() {
 			[sheetId]: answers,
 		};
 	};
-	const getAllVisitorAnswers = () =>
+	const getAllVisitorAnswers = computed(() =>
 		Object.values(visitorAnswers.value).reduce(
 			(all, sheetAnswers) => ({
 				...all,
-				sheetAnswers,
+				...sheetAnswers,
 			}),
 			{},
-		);
+		),
+	);
 
 	const visitorFeatures = useState<Record<number, GeoJsonFeature[]>>(
 		'visitorFeatures',
