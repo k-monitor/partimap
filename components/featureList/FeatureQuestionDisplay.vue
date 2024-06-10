@@ -24,7 +24,6 @@ watch(answer, (newAnswer) => {
 		v-if="question"
 		:label="question.label"
 	>
-		<h6>{{ answer }}</h6>
 		<CheckboxGroup
 			v-model="answer"
 			:q="question"
