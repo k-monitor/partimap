@@ -539,3 +539,16 @@ const localePath = useLocalePath();
 		</div>
 	</div>
 </template>
+
+<style lang="scss" scoped>
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+
+.modal-dialog {
+	@include media-breakpoint-up(lg) {
+		max-width: 100%;
+		width: 42%;
+	}
+}
+</style>
