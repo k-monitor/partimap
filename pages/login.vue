@@ -31,7 +31,7 @@ const params = Object.keys(currentRoute.value.query);
 });
 
 onMounted(async () => {
-	const { token } = currentRoute.value.query;
+	const { t: token } = currentRoute.value.query;
 	if (token) {
 		try {
 			await $fetch('/api/user/activate', {
