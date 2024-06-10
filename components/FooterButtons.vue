@@ -14,9 +14,11 @@ withDefaults(
 	},
 );
 
-const { consent, loading, submitted } = useStore();
+const { consent, loading, selectedFeatureId, submitted } = useStore();
 
-const disableSubmit = computed(() => loading.value || !consent.value || submitted.value);
+const disableSubmit = computed(
+	() => loading.value || !consent.value || !!selectedFeatureId.value || submitted.value,
+);
 
 defineEmits(['next', 'prev', 'submit']);
 </script>
@@ -51,10 +53,10 @@ defineEmits(['next', 'prev', 'submit']);
 			>
 				<i
 					class="fas fa-fw me-1"
-					:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
+					:class="submitted ? 'fa-check' : 'fa-paper-plane'"
 				/>
 				<span>{{
-					disableSubmit ? $t('FooterButtons.submitted') : $t('FooterButtons.submit')
+					submitted ? $t('FooterButtons.submitted') : $t('FooterButtons.submit')
 				}}</span>
 			</b-button>
 			<div
