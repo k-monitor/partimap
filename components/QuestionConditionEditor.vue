@@ -41,6 +41,7 @@ const isNumberQuestion = computed(
 
 const minMax = computed(() => {
 	if (!question.value?.type) return '';
+	if (!isNumberQuestion.value) return '';
 	if (question.value.type === 'rating') return '(1-5)';
 	const hasMin = typeof question.value.min !== 'undefined';
 	const hasMax = typeof question.value.max !== 'undefined';
