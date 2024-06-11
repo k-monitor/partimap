@@ -122,6 +122,10 @@ watch([polygonFillColor, lineDash], () => {
 
 // bubble
 
+const isDescriptionEmpty = computed(
+	() => !(props.f.properties?.description || '').replace(/<.*?>/g, '').trim(),
+);
+
 const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
 
 const overlayCenter = computed<Coordinate>(() => {
@@ -214,7 +218,7 @@ function closeBubble() {
 		</ol-style>
 
 		<ol-overlay
-			v-if="showBubble && f.properties?.description && !f.properties.visitorFeature"
+			v-if="showBubble && !isDescriptionEmpty"
 			ref="overlay"
 			auto-pan
 			:offset="overlayOffset"
