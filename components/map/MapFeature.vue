@@ -219,10 +219,11 @@ function closeBubble() {
 			auto-pan
 			:offset="overlayOffset"
 			:position="overlayCenter"
+			positioning="top-center"
 		>
 			<div
 				class="popover rounded-1 shadow-sm"
-				style="max-width: 200px; transform: translateX(-50%)"
+				style="max-width: 200px"
 				:style="{ borderColor: colors.colorWithOpacity }"
 			>
 				<div
