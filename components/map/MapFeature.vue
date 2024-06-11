@@ -123,7 +123,7 @@ watch([polygonFillColor, lineDash], () => {
 
 const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
 
-const center = computed<Coordinate>(() => {
+const overlayCenter = computed<Coordinate>(() => {
 	const f = props.f;
 	if (f.geometry.type === 'Point') return f.geometry.coordinates;
 
@@ -136,6 +136,11 @@ const center = computed<Coordinate>(() => {
 	}
 
 	return getCenter(olf.getGeometry()!.getExtent());
+});
+
+const overlayOffset = computed(() => {
+	if (props.f.geometry.type !== 'Point') return [0, 0];
+	return [0, sizes.value.featureSize * 3.25];
 });
 
 watchEffect(() => {
@@ -204,14 +209,15 @@ watchEffect(() => {
 			v-if="f.properties?.description"
 			ref="overlay"
 			auto-pan
-			:position="center"
+			:offset="overlayOffset"
+			:position="overlayCenter"
 		>
 			<div
 				class="popover rounded-0 shadow-sm"
 				style="transform: translateX(-50%)"
 			>
 				<div
-					class="popover-body overflow-y-auto h-100"
+					class="popover-body overflow-y-auto h-100 p-2"
 					style="max-height: 33vh; scrollbar-gutter: stable"
 					v-html="f.properties.description"
 				/>

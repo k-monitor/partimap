@@ -66,7 +66,8 @@ body,
 	min-height: 100%;
 }
 
-.alert p:last-child {
+.alert p:last-child,
+.popover p:last-child {
 	margin-bottom: 0;
 }
 
