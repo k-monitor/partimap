@@ -193,8 +193,10 @@ const isInteractive = computed(
 
 const features = ref<GeoJsonFeature[]>([]);
 const isSheetLoaded = computed(() => !!sheet.value);
+const isFeaturesReady = ref(false);
 watchEffect(() => {
 	if (!isSheetLoaded.value || !sheet.value) return;
+	if (isFeaturesReady.value) return;
 
 	const adminFeatures = safeParseJSONArray(sheet.value.features) as GeoJsonFeature[];
 	if (isInteractive.value) {
@@ -218,6 +220,7 @@ watchEffect(() => {
 	});
 
 	features.value = [...visitorFeatures, ...adminFeatures];
+	isFeaturesReady.value = true;
 });
 
 function handleFeatureDrawn(feature: GeoJsonFeature) {
