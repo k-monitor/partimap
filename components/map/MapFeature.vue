@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Coordinate } from 'ol/coordinate';
+import { getCenter } from 'ol/extent';
+import { GeoJSON } from 'ol/format';
+import LineString from 'ol/geom/LineString.js';
 import { type Style } from 'ol/style';
 import tinycolor from 'tinycolor2';
+import type { Map } from 'vue3-openlayers';
 import wordWrap from 'word-wrap';
 
 const props = defineProps<{
 	f: GeoJsonFeature;
 	labelOverride?: string;
 	grayRated?: boolean;
+	showBubble?: boolean;
 	visitor?: boolean;
 }>();
 
-const { currentZoom, selectedFeatureId } = useStore();
+const { currentZoom, selectedFeatureId, visibleFeatureBubbles } = useStore();
 
 const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
 const isSelected = computed(() => selectedFeatureId.value === props.f.id);
@@ -113,6 +119,42 @@ watch([polygonFillColor, lineDash], () => {
 	stylePresent.value = false;
 	nextTick(() => (stylePresent.value = true));
 });
+
+// bubble
+
+const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
+
+const overlayCenter = computed<Coordinate>(() => {
+	const f = props.f;
+	if (f.geometry.type === 'Point') return f.geometry.coordinates;
+
+	const olf = new GeoJSON().readFeature(props.f);
+	if (!olf.getGeometry()) return [0, 0];
+
+	if (olf.getGeometry()?.getType() === 'LineString') {
+		const g = olf.getGeometry() as LineString;
+		return g.getCoordinateAt(0.5);
+	}
+
+	return getCenter(olf.getGeometry()!.getExtent());
+});
+
+const overlayOffset = computed(() => {
+	if (props.f.geometry.type !== 'Point') return [0, 0];
+	return [0, sizes.value.featureSize * 3.25];
+});
+
+watchEffect(() => {
+	if (!overlay.value) return;
+	overlay.value.$el.parentElement.style.zIndex = `${zIndex.value}`;
+});
+
+function closeBubble() {
+	const id = Number(props.f.id);
+	if (visibleFeatureBubbles.value.includes(id)) {
+		visibleFeatureBubbles.value = visibleFeatureBubbles.value.filter((i) => i !== id);
+	}
+}
 </script>
 
 <template>
@@ -170,5 +212,39 @@ watch([polygonFillColor, lineDash], () => {
 				:text="textParams.text"
 			/>
 		</ol-style>
+
+		<ol-overlay
+			v-if="showBubble && f.properties?.description && !f.properties.visitorFeature"
+			ref="overlay"
+			auto-pan
+			:offset="overlayOffset"
+			:position="overlayCenter"
+			positioning="top-center"
+		>
+			<div
+				class="popover rounded-1 shadow-sm"
+				style="max-width: 250px"
+				:style="{ borderColor: colors.colorWithOpacity }"
+			>
+				<div
+					class="d-flex align-items-center"
+					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
+				>
+					<div class="flex-grow-1 fw-bold p-1 text-truncate">{{ f.properties.name }}</div>
+					<div
+						role="button"
+						class="ms-2 p-1"
+						@click="closeBubble"
+					>
+						<i class="fas fa-fw fa-times" />
+					</div>
+				</div>
+				<div
+					class="rich h-100 overflow-y-auto p-2"
+					style="max-height: 33vh; scrollbar-gutter: stable"
+					v-html="f.properties.description"
+				/>
+			</div>
+		</ol-overlay>
 	</ol-feature>
 </template>

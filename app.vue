@@ -66,7 +66,8 @@ body,
 	min-height: 100%;
 }
 
-.alert p:last-child {
+.alert p:last-child,
+.popover p:last-child {
 	margin-bottom: 0;
 }
 
@@ -115,7 +116,7 @@ fieldset,
 	}
 }
 
-.form-input-file .rich img {
+.rich img {
 	margin-bottom: 1rem;
 	max-width: 100%;
 }

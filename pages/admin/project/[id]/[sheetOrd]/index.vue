@@ -525,6 +525,7 @@ async function save() {
 			<Map
 				:key="$route.path"
 				:features="features"
+				:show-bubbles="isInteractive"
 				@feature-drawn="handleFeatureDrawn"
 			/>
 			<MapToolbar />

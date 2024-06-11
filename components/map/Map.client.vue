@@ -12,6 +12,7 @@ const props = defineProps<{
 	fitSelected?: boolean;
 	grayRated?: boolean;
 	labelOverrides?: Record<number, string>;
+	showBubbles?: boolean;
 	visitor?: boolean;
 }>();
 
@@ -22,6 +23,7 @@ const {
 	filteredFeatureIds,
 	selectedFeatureId,
 	sidebarVisible,
+	visibleFeatureBubbles,
 } = useStore();
 
 // map initialization
@@ -37,6 +39,7 @@ const initialZoom = Number(t('Map.initialZoom')) || 10;
 
 onBeforeMount(() => {
 	selectedFeatureId.value = null;
+	visibleFeatureBubbles.value = [];
 });
 
 function handlePointermove(e: MapBrowserEvent<UIEvent>) {
@@ -116,6 +119,11 @@ function handleClick(e: MapBrowserEvent<UIEvent>) {
 
 	const feature = props.features?.find((f) => f.id === id);
 	emitSelectAttempt(feature || null);
+
+	if (!props.showBubbles || !feature) return;
+	if (!visibleFeatureBubbles.value.includes(Number(feature.id))) {
+		visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, Number(feature.id)];
+	}
 }
 
 // draw
@@ -196,6 +204,7 @@ async function handleDrawEnd() {
 					:f="f"
 					:gray-rated="grayRated"
 					:label-override="(labelOverrides || {})[Number(f.id)] || ''"
+					:show-bubble="showBubbles && visibleFeatureBubbles.includes(Number(f.id))"
 					:visitor="visitor"
 				/>
 			</ol-source-vector>
