@@ -90,7 +90,11 @@ const answers = computed(() => {
 });
 
 const filteredFeatures = computed(() => {
-	return availableFeatures.value.filter(featureFilter).sort((a, b) => {
+	const ffs = availableFeatures.value.filter(featureFilter);
+
+	if (selectedFeatureId.value) return ffs; // no sorting during editing
+
+	ffs.sort((a, b) => {
 		const ac = a.properties?.category || '';
 		const bc = b.properties?.category || '';
 		if (ac !== bc) return String(ac).localeCompare(String(bc));
@@ -99,6 +103,7 @@ const filteredFeatures = computed(() => {
 		const bn = b.properties?.name || b.id;
 		return String(an).localeCompare(String(bn));
 	});
+	return ffs;
 });
 
 function featureFilter(f: GeoJsonFeature): boolean {
