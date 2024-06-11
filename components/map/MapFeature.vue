@@ -227,7 +227,7 @@ function closeBubble() {
 		>
 			<div
 				class="popover rounded-1 shadow-sm"
-				style="max-width: 250px"
+				style="width: 250px"
 				:style="{ borderColor: colors.colorWithOpacity }"
 			>
 				<div
