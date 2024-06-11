@@ -213,7 +213,7 @@ function closeBubble() {
 				:padding="[3, 3, 3, 3]"
 				placement="point"
 				:rotation="textParams.rotation"
-				:text="textParams.text"
+				:text="showBubble ? '' : textParams.text"
 			/>
 		</ol-style>
 
@@ -234,7 +234,9 @@ function closeBubble() {
 					class="d-flex align-items-center"
 					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
 				>
-					<div class="flex-grow-1 fw-bold p-1 text-truncate">{{ f.properties.name }}</div>
+					<div class="flex-grow-1 fw-bold p-1 text-truncate">
+						{{ f.properties?.name }}
+					</div>
 					<div
 						role="button"
 						class="ms-2 p-1"
@@ -246,7 +248,7 @@ function closeBubble() {
 				<div
 					class="rich h-100 overflow-y-auto p-2"
 					style="max-height: 33vh; scrollbar-gutter: stable"
-					v-html="f.properties.description"
+					v-html="f.properties?.description"
 				/>
 			</div>
 		</ol-overlay>
