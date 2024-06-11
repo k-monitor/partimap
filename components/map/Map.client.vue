@@ -120,10 +120,12 @@ function handleClick(e: MapBrowserEvent<UIEvent>) {
 	const feature = props.features?.find((f) => f.id === id);
 	emitSelectAttempt(feature || null);
 
+	// show bubble if needed
 	if (!props.showBubbles || !feature) return;
-	if (!visibleFeatureBubbles.value.includes(Number(feature.id))) {
-		visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, Number(feature.id)];
-	}
+	if (visibleFeatureBubbles.value.includes(Number(feature.id))) return;
+	if (feature.properties?.visitorFeature) return;
+	if (!(feature.properties?.description || '').replace(/<.*?>/g, '').trim()) return;
+	visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, Number(feature.id)];
 }
 
 // draw

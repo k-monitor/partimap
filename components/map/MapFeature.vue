@@ -122,6 +122,10 @@ watch([polygonFillColor, lineDash], () => {
 
 // bubble
 
+const isDescriptionEmpty = computed(
+	() => !(props.f.properties?.description || '').replace(/<.*?>/g, '').trim(),
+);
+
 const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
 
 const overlayCenter = computed<Coordinate>(() => {
@@ -209,12 +213,12 @@ function closeBubble() {
 				:padding="[3, 3, 3, 3]"
 				placement="point"
 				:rotation="textParams.rotation"
-				:text="textParams.text"
+				:text="showBubble ? '' : textParams.text"
 			/>
 		</ol-style>
 
 		<ol-overlay
-			v-if="showBubble && f.properties?.description && !f.properties.visitorFeature"
+			v-if="showBubble && !isDescriptionEmpty"
 			ref="overlay"
 			auto-pan
 			:offset="overlayOffset"
@@ -223,14 +227,16 @@ function closeBubble() {
 		>
 			<div
 				class="popover rounded-1 shadow-sm"
-				style="max-width: 250px"
+				style="width: 250px"
 				:style="{ borderColor: colors.colorWithOpacity }"
 			>
 				<div
 					class="d-flex align-items-center"
 					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
 				>
-					<div class="flex-grow-1 fw-bold p-1 text-truncate">{{ f.properties.name }}</div>
+					<div class="flex-grow-1 fw-bold p-1 text-truncate">
+						{{ f.properties?.name }}
+					</div>
 					<div
 						role="button"
 						class="ms-2 p-1"
@@ -242,7 +248,7 @@ function closeBubble() {
 				<div
 					class="rich h-100 overflow-y-auto p-2"
 					style="max-height: 33vh; scrollbar-gutter: stable"
-					v-html="f.properties.description"
+					v-html="f.properties?.description"
 				/>
 			</div>
 		</ol-overlay>
