@@ -240,7 +240,7 @@ function closeBubble() {
 					</div>
 				</div>
 				<div
-					class="overflow-y-auto h-100 p-2"
+					class="rich h-100 overflow-y-auto p-2"
 					style="max-height: 33vh; scrollbar-gutter: stable"
 					v-html="f.properties.description"
 				/>

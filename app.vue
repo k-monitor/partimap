@@ -116,7 +116,7 @@ fieldset,
 	}
 }
 
-.form-input-file .rich img {
+.rich img {
 	margin-bottom: 1rem;
 	max-width: 100%;
 }
