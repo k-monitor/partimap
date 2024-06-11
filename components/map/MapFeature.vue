@@ -223,14 +223,14 @@ function closeBubble() {
 		>
 			<div
 				class="popover rounded-1 shadow-sm"
-				style="max-width: 200px"
+				style="max-width: 250px"
 				:style="{ borderColor: colors.colorWithOpacity }"
 			>
 				<div
-					class="d-flex align-items-center justify-content-end"
+					class="d-flex align-items-center"
 					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
 				>
-					<div class="fw-bold p-1 text-truncate">{{ f.properties.name }}</div>
+					<div class="flex-grow-1 fw-bold p-1 text-truncate">{{ f.properties.name }}</div>
 					<div
 						role="button"
 						class="ms-2 p-1"
