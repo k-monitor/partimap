@@ -489,6 +489,7 @@ const localePath = useLocalePath();
 						fit-selected
 						:gray-rated="!resultsShown"
 						:label-overrides="labels"
+						:show-bubbles="isInteractive"
 						visitor
 						@feature-drawn="handleFeatureDrawn"
 					/>

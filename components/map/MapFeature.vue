@@ -13,10 +13,11 @@ const props = defineProps<{
 	f: GeoJsonFeature;
 	labelOverride?: string;
 	grayRated?: boolean;
+	showBubble?: boolean;
 	visitor?: boolean;
 }>();
 
-const { currentZoom, selectedFeatureId } = useStore();
+const { currentZoom, selectedFeatureId, visibleFeatureBubbles } = useStore();
 
 const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
 const isSelected = computed(() => selectedFeatureId.value === props.f.id);
@@ -147,6 +148,13 @@ watchEffect(() => {
 	if (!overlay.value) return;
 	overlay.value.$el.parentElement.style.zIndex = `${zIndex.value}`;
 });
+
+function closeBubble() {
+	const id = Number(props.f.id);
+	if (visibleFeatureBubbles.value.includes(id)) {
+		visibleFeatureBubbles.value = visibleFeatureBubbles.value.filter((i) => i !== id);
+	}
+}
 </script>
 
 <template>
@@ -206,18 +214,32 @@ watchEffect(() => {
 		</ol-style>
 
 		<ol-overlay
-			v-if="f.properties?.description"
+			v-if="showBubble && f.properties?.description && !f.properties.visitorFeature"
 			ref="overlay"
 			auto-pan
 			:offset="overlayOffset"
 			:position="overlayCenter"
 		>
 			<div
-				class="popover rounded-0 shadow-sm"
-				style="transform: translateX(-50%)"
+				class="popover rounded-1 shadow-sm"
+				style="max-width: 200px; transform: translateX(-50%)"
+				:style="{ borderColor: colors.colorWithOpacity }"
 			>
 				<div
-					class="popover-body overflow-y-auto h-100 p-2"
+					class="d-flex align-items-center justify-content-end"
+					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
+				>
+					<div class="fw-bold p-1 text-truncate">{{ f.properties.name }}</div>
+					<div
+						role="button"
+						class="ms-2 p-1"
+						@click="closeBubble"
+					>
+						<i class="fas fa-fw fa-times" />
+					</div>
+				</div>
+				<div
+					class="overflow-y-auto h-100 p-2"
 					style="max-height: 33vh; scrollbar-gutter: stable"
 					v-html="f.properties.description"
 				/>

@@ -20,6 +20,7 @@ export default function useStore() {
 	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);
 	const sidebarVisible = useState('sidebarVisible', () => true);
 	const submitted = useState('submitted', () => false);
+	const visibleFeatureBubbles = useState<number[]>('visibleFeatureBubbles', () => []);
 
 	onMounted(() => (loading.value = false));
 
@@ -34,5 +35,6 @@ export default function useStore() {
 		selectedFeatureId,
 		sidebarVisible,
 		submitted,
+		visibleFeatureBubbles,
 	};
 }
