@@ -177,6 +177,14 @@ async function handleDrawEnd() {
 	const timeout = isMobile() ? 500 : 0;
 	setTimeout(() => emitSelectAttempt(feature), timeout);
 }
+
+// snap
+
+const snapEnabled = ref(false);
+watch(drawType, async (t) => {
+	await nextTick(); // wait for draw interaction to be ready
+	snapEnabled.value = !!t;
+});
 </script>
 
 <template>
@@ -209,6 +217,7 @@ async function handleDrawEnd() {
 					:show-bubble="showBubbles && visibleFeatureBubbles.includes(Number(f.id))"
 					:visitor="visitor"
 				/>
+				<ol-interaction-snap v-if="snapEnabled" />
 			</ol-source-vector>
 		</ol-vector-layer>
 
