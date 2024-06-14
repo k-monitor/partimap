@@ -232,17 +232,21 @@ function closeBubble() {
 			>
 				<div
 					class="d-flex align-items-center"
+					style="height: 30px"
 					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
 				>
-					<div class="flex-grow-1 fw-bold p-1 text-truncate">
+					<div class="flex-grow-1 fw-bold mx-1 text-truncate">
 						{{ f.properties?.name }}
 					</div>
 					<div
 						role="button"
-						class="ms-2 p-1"
+						class="d-flex h-100 ms-1 px-1"
 						@click="closeBubble"
 					>
-						<i class="fas fa-fw fa-times" />
+						<i
+							class="fas fa-fw fa-times m-auto"
+							style="font-size: 1.35rem; height: 1.35rem"
+						/>
 					</div>
 				</div>
 				<div
