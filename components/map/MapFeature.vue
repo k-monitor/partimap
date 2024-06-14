@@ -122,9 +122,7 @@ watch([polygonFillColor, lineDash], () => {
 
 // bubble
 
-const isDescriptionEmpty = computed(
-	() => !(props.f.properties?.description || '').replace(/<.*?>/g, '').trim(),
-);
+const isDescriptionEmpty = computed(() => isFeatureDescriptionEmpty(props.f));
 
 const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
 

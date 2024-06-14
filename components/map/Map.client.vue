@@ -124,7 +124,7 @@ function handleClick(e: MapBrowserEvent<UIEvent>) {
 	if (!props.showBubbles || !feature) return;
 	if (visibleFeatureBubbles.value.includes(Number(feature.id))) return;
 	if (feature.properties?.visitorFeature) return;
-	if (!(feature.properties?.description || '').replace(/<.*?>/g, '').trim()) return;
+	if (isFeatureDescriptionEmpty(feature)) return;
 	visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, Number(feature.id)];
 }
 
