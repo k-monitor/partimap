@@ -234,9 +234,3 @@ watch(drawType, async (t) => {
 		<MapControls />
 	</ol-map>
 </template>
-
-<style>
-.ol-zoom {
-	display: none;
-}
-</style>
