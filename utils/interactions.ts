@@ -82,7 +82,7 @@ export function deserializeInteractions(json: string | undefined) {
 	return createInteractions(parsed);
 }
 
-export function isItInteractive(interactions?: Interactions | null) {
+export function isItInteractive(interactions: Interactions | null) {
 	return (
 		interactions?.enabled?.includes('Point') ||
 		interactions?.enabled?.includes('LineString') ||

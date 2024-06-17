@@ -184,12 +184,7 @@ const prevSheetOrd = computed(() => {
 const isFirstSheet = computed(() => prevSheetOrd.value < 0);
 const isLastSheet = computed(() => nextSheetOrd.value < 0);
 
-const isInteractive = computed(
-	() =>
-		interactions.value.enabled.includes('Point') ||
-		interactions.value.enabled.includes('LineString') ||
-		interactions.value.enabled.includes('Polygon'),
-);
+const isInteractive = computed(() => isItInteractive(interactions.value));
 
 const features = ref<GeoJsonFeature[]>([]);
 const isSheetLoaded = computed(() => !!sheet.value);

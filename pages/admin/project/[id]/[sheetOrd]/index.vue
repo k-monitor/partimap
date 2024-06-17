@@ -112,12 +112,7 @@ function addedSheet(sheet: Sheet) {
 	next();
 }
 
-const isInteractive = computed(
-	() =>
-		interactions.value.enabled.includes('Point') ||
-		interactions.value.enabled.includes('LineString') ||
-		interactions.value.enabled.includes('Polygon'),
-);
+const isInteractive = computed(() => isItInteractive(interactions.value));
 const interactionOptions = computed(() => {
 	const options = [];
 	if (!sheet.value) return;
