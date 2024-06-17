@@ -3,16 +3,16 @@ import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
 import type { AggregatedAnswers } from '~/server/data/surveyAnswers';
 
-const props = defineProps<{
+defineProps<{
 	brandColor?: string;
 	project: Project;
 	results?: boolean;
 	resultsData?: AggregatedAnswers[];
-	sheet: Sheet;
 	showConsent?: boolean;
 }>();
-const sheet = toRef(props, 'sheet');
-const interactions = computed(() => deserializeInteractions(sheet.value?.interactions));
+
+const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
+const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
 const { consent, submitted } = useStore();
 
@@ -31,7 +31,7 @@ onMounted(() => (consented.value = consent.value));
 					{{ $t('SheetContent.results') }}
 				</h1>
 				<h2 class="h4">
-					{{ sheet.title }}
+					{{ sheet?.title }}
 				</h2>
 				<p class="my-4">{{ $t('SheetContent.resultsDescription') }}</p>
 			</div>
@@ -39,17 +39,17 @@ onMounted(() => (consented.value = consent.value));
 				v-else
 				class="h3"
 			>
-				{{ sheet.title }}
+				{{ sheet?.title }}
 			</h1>
 		</b-navbar>
 
 		<TipTapDisplay
 			v-if="!results"
 			class="my-4"
-			:html="sheet.description"
+			:html="sheet?.description"
 		/>
 		<div
-			v-if="sheet.survey"
+			v-if="sheet?.survey"
 			class="my-4"
 		>
 			<div v-if="results">
@@ -69,7 +69,7 @@ onMounted(() => (consented.value = consent.value));
 		<VisitorDrawButtonsInner :interactions="interactions" />
 
 		<ShareButtons
-			v-if="interactions.enabled.includes('SocialSharing')"
+			v-if="interactions?.enabled.includes('SocialSharing')"
 			class="mt-5 mb-4"
 		/>
 		<div

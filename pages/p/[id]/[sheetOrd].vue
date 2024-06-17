@@ -48,7 +48,7 @@ watchEffect(() => {
 	}
 });
 
-const { consent, drawType, loading, selectedFeatureId, submitted } = useStore();
+const { consent, loading, selectedFeatureId, submitted } = useStore();
 
 const {
 	getAllVisitorAnswers,
@@ -421,7 +421,6 @@ const localePath = useLocalePath();
 								:project="project"
 								:results="resultsShown"
 								:results-data="resultsData"
-								:sheet="sheet"
 								:show-consent="isFirstSheet"
 							/>
 							<LoadingOverlay :show="loading" />
