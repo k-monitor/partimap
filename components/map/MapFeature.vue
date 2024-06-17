@@ -122,7 +122,9 @@ watch([polygonFillColor, lineDash], () => {
 
 // bubble
 
-const isDescriptionEmpty = computed(() => isFeatureDescriptionEmpty(props.f));
+const isDescriptionEmpty = computed(() =>
+	isFeatureDescriptionEmpty(props.f.properties?.description),
+);
 
 const overlay = ref<InstanceType<typeof Map.OlOverlay>>();
 
@@ -160,7 +162,7 @@ function closeBubble() {
 </script>
 
 <template>
-	<ol-feature :properties="{ id: f.id }">
+	<ol-feature :properties="{ id: f.id, ...f.properties }">
 		<ol-geom-point
 			v-if="f.geometry.type === 'Point'"
 			:coordinates="f.geometry.coordinates"

@@ -82,10 +82,10 @@ export function deserializeInteractions(json: string | undefined) {
 	return createInteractions(parsed);
 }
 
-export function isItInteractive(interactions: Interactions) {
+export function isItInteractive(interactions?: Interactions | null) {
 	return (
-		interactions.enabled.includes('Point') ||
-		interactions.enabled.includes('LineString') ||
-		interactions.enabled.includes('Polygon')
+		interactions?.enabled?.includes('Point') ||
+		interactions?.enabled?.includes('LineString') ||
+		interactions?.enabled?.includes('Polygon')
 	);
 }

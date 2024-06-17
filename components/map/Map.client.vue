@@ -42,14 +42,6 @@ onBeforeMount(() => {
 	visibleFeatureBubbles.value = [];
 });
 
-function handlePointermove(e: MapBrowserEvent<UIEvent>) {
-	if (drawType.value) return;
-
-	const map = e.target as Map;
-	const hit = map.getFeaturesAtPixel(e.pixel).find((f) => !f.get('hidden'));
-	map.getTargetElement().style.cursor = hit ? 'pointer' : '';
-}
-
 function handleResolutionChange(e: ObjectEvent) {
 	currentZoom.value = (e.target as View).getZoom() || 0;
 }
@@ -106,16 +98,31 @@ const visibleFeatures = computed(() => {
 
 // select
 
+function getFeaturePropertiesAtPixel(e: MapBrowserEvent<UIEvent>) {
+	const map = e.target as Map;
+	const candidates = map.getFeaturesAtPixel(e.pixel);
+	const active = candidates.find((f) => !f.get('hidden'));
+	const hidden = candidates.find((f) => f.get('hidden'));
+	return active?.getProperties() || hidden?.getProperties() || null;
+}
+
+function handlePointermove(e: MapBrowserEvent<UIEvent>) {
+	if (drawType.value) return;
+
+	const fp = getFeaturePropertiesAtPixel(e);
+	const isActive =
+		!!fp && isFeatureActive(fp, !props.visitor, !!isItInteractive(interactions?.value));
+
+	const map = e.target as Map;
+	map.getTargetElement().style.cursor = isActive ? 'pointer' : '';
+}
+
 const { emitSelectAttempt } = useSelectAttempt();
 
 function handleClick(e: MapBrowserEvent<UIEvent>) {
 	if (drawType.value) return;
 
-	const map = e.target as Map;
-	const clicked = map.getFeaturesAtPixel(e.pixel);
-	const active = clicked.find((f) => !f.get('hidden'));
-	const hidden = clicked.find((f) => f.get('hidden'));
-	const id = active?.get('id') || hidden?.get('id'); // see MapFeature :properties
+	const id = getFeaturePropertiesAtPixel(e)?.id || false; // see MapFeature :properties
 
 	const feature = props.features?.find((f) => f.id === id);
 	emitSelectAttempt(feature || null);
@@ -124,7 +131,7 @@ function handleClick(e: MapBrowserEvent<UIEvent>) {
 	if (!props.showBubbles || !feature) return;
 	if (visibleFeatureBubbles.value.includes(Number(feature.id))) return;
 	if (feature.properties?.visitorFeature) return;
-	if (isFeatureDescriptionEmpty(feature)) return;
+	if (isFeatureDescriptionEmpty(feature.properties?.description)) return;
 	visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, Number(feature.id)];
 }
 
