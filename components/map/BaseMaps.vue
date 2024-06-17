@@ -26,5 +26,9 @@ const { baseMapToShow } = useStore();
 		</ol-tile-layer>
 	</template>
 
-	<ol-attribution-control />
+	<ol-attribution-control
+		collapsible
+		:collapsed="false"
+		label="&copy;"
+	/>
 </template>

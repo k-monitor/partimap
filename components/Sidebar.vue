@@ -80,7 +80,6 @@ defineEmits<{
 	<div
 		class="sidebar bg-white border-end border-secondary d-flex flex-column shadow-sm"
 		:class="visible ? 'sidebar-visible' : 'sidebar-hidden'"
-		style="z-index: 1"
 	>
 		<nav class="sidebar-header bg-white border-bottom d-flex shadow-sm">
 			<div class="align-items-center d-flex flex-grow-1 ps-3 py-3">
@@ -161,7 +160,7 @@ defineEmits<{
 .sidebar {
 	max-width: 100%;
 	transition: margin 0.2s ease;
-	z-index: 1; // needed for shadow
+	z-index: 2; // needed for shadow
 
 	bottom: 0;
 	position: absolute;

@@ -145,6 +145,52 @@ fieldset,
 	font-size: 1.25rem;
 }
 
+.ol-attribution {
+	bottom: 0;
+	right: 0;
+}
+
+.ol-attribution.ol-uncollapsible {
+	display: none;
+}
+
+.ol-attribution button {
+	$size: 2rem;
+	align-items: center;
+	background: $gray-900 !important;
+	border: 1px solid $gray-700 !important;
+	border-bottom-width: 0 !important;
+	border-right-width: 0 !important;
+	border-top-left-radius: 0.5rem;
+	color: white !important;
+	display: flex;
+	font-size: 1.25rem;
+	height: $size;
+	justify-content: center;
+	outline: none !important;
+	width: $size;
+
+	&:hover {
+		background: $gray-800 !important;
+		border-color: $gray-700 !important;
+	}
+
+	.ol-attribution-collapse {
+		font-size: 1.5rem;
+		margin-top: -3px;
+	}
+}
+
+.ol-attribution ul {
+	@include media-breakpoint-down(sm) {
+		font-size: 10px;
+	}
+}
+
+.ol-zoom {
+	display: none;
+}
+
 .toast,
 .toast-container,
 .toast-header {

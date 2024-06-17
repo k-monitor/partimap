@@ -18,7 +18,7 @@ function changeZoom(delta: number) {
 <template>
 	<div
 		class="position-absolute"
-		style="bottom: 2rem; right: 0; z-index: 1"
+		style="bottom: 3rem; right: 0; z-index: 1"
 	>
 		<div class="d-flex flex-column shadow-sm">
 			<button
