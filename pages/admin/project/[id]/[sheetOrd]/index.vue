@@ -31,7 +31,7 @@ function init() {
 	sheet.value = project.value?.sheets?.[Number(sheetOrd)]; // sheets are ordered on server
 	if (!sheet.value) return;
 
-	interactions.value = deserializeInteractions(sheet.value.interactions);
+	interactions.value = deserializeInteractions(sheet.value);
 
 	// BEGIN backward compatibility for #2437
 	const descriptionLabel = sheet.value.descriptionLabel || '';

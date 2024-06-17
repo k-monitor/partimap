@@ -121,7 +121,7 @@ function isAccessGranted(event: H3Event, body: Body, project: pdb.Project) {
 
 function doesSheetNeedRatingResults(sheet: sdb.Sheet) {
 	try {
-		const interactions = deserializeInteractions(sheet.interactions);
+		const interactions = deserializeInteractions(sheet);
 		const enabled = interactions.enabled || [];
 		return enabled.includes('RatingResults');
 	} catch {

@@ -94,7 +94,7 @@ function registerHit() {
 }
 
 const sheet = computed(() => project.value?.sheets?.[Number(params.sheetOrd)]);
-const interactions = computed(() => deserializeInteractions(sheet.value?.interactions));
+const interactions = computed(() => deserializeInteractions(sheet.value));
 provide('interactions', interactions);
 provide('sheet', sheet);
 

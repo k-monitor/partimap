@@ -1,6 +1,7 @@
 // This file handles the (de)serialization of the sheet.interactions field
 // in a backward-compatible way.
 
+import type { Sheet } from '~/server/data/sheets';
 import type { Question } from '~/server/data/surveyAnswers';
 
 export type OnOffInteraction =
@@ -45,6 +46,14 @@ export type Interactions = {
 	stars: number;
 };
 
+export function isItInteractive(interactions: Interactions | null) {
+	return (
+		interactions?.enabled?.includes('Point') ||
+		interactions?.enabled?.includes('LineString') ||
+		interactions?.enabled?.includes('Polygon')
+	);
+}
+
 export function createInteractions(data: Partial<Interactions>): Interactions {
 	return {
 		enabled: data.enabled || [],
@@ -78,7 +87,8 @@ export function serializeInteractions(interactions: Interactions) {
 	return JSON.stringify(interactions);
 }
 
-export function deserializeInteractions(json: string | undefined) {
+export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined) {
+	const json = sheet?.interactions;
 	const parsed = safeParseJSON(json || '[]');
 	if (Array.isArray(parsed)) {
 		const enabled: OnOffInteraction[] = [];
@@ -93,12 +103,4 @@ export function deserializeInteractions(json: string | undefined) {
 		return createInteractions({ enabled, stars });
 	}
 	return createInteractions(parsed);
-}
-
-export function isItInteractive(interactions: Interactions | null) {
-	return (
-		interactions?.enabled?.includes('Point') ||
-		interactions?.enabled?.includes('LineString') ||
-		interactions?.enabled?.includes('Polygon')
-	);
 }

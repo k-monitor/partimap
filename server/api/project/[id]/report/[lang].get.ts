@@ -148,7 +148,7 @@ export default defineEventHandler(async (event) => {
 	for (let i = 0; i < sheets.length; i++) {
 		const sheet = sheets[i];
 		const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[]; // TODO redundant
-		const interactions = deserializeInteractions(sheet.interactions);
+		const interactions = deserializeInteractions(sheet);
 		const stars = interactions.stars || 0;
 
 		const ar = await rdb.aggregateBySheetId(sheet.id);
@@ -215,7 +215,7 @@ export default defineEventHandler(async (event) => {
 			const features = ((safeParseJSONArray(sf.features) || []) as GeoJsonFeature[]).filter(
 				(f) => !!f.id,
 			);
-			const interactions = deserializeInteractions(sheet.interactions);
+			const interactions = deserializeInteractions(sheet);
 			for (let j = 0; j < features.length; j++) {
 				const f = features[j];
 				const name = f?.properties?.name || '';
