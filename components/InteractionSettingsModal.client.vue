@@ -2,7 +2,7 @@
 const visible = defineModel<boolean>();
 
 const props = defineProps<{
-	drawType: 'Point' | 'LineString' | 'Polygon';
+	drawType: DrawType;
 	interactions: Interactions;
 }>();
 const drawType = toRef(props, 'drawType');
@@ -12,7 +12,7 @@ const buttonLabel = ref('');
 const descriptionLabel = ref('');
 const hasFeatureQuestion = ref(false);
 const featureLabel = ref('');
-const featureQuestion = ref<Record<string, string>>({});
+const featureQuestion = ref<Record<string, any>>({});
 // TODO would be nice to use Question here, but id field type is string here
 
 function reinit() {

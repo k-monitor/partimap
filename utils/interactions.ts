@@ -4,6 +4,33 @@
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
 
+export type DrawType = 'Point' | 'LineString' | 'Polygon';
+
+export type DrawingInteraction = {
+	id: string;
+	type: DrawType;
+
+	/**
+	 * Custom label for drawing button
+	 */
+	buttonLabel: string;
+
+	/**
+	 * Custom label for description field of features
+	 */
+	descriptionLabel: string;
+
+	/**
+	 * Custom label in report (export)
+	 */
+	featureLabel: string;
+
+	/**
+	 * Question to be displayed in feature box
+	 */
+	featureQuestions: Partial<Question>;
+};
+
 export type OnOffInteraction =
 	| 'Rating'
 	| 'RatingExplanation'
@@ -19,32 +46,31 @@ export type OnOffInteraction =
 	| 'Polygon';
 
 export type Interactions = {
-	enabled: OnOffInteraction[];
+	/**
+	 * Name of basemap to pre-select for visitor
+	 */
 	baseMap: string;
+
 	/**
-	 * Custom labels for drawing buttons
+	 * Enabled non-drawing interactions
 	 */
-	buttonLabels: Record<string, string>;
-	/**
-	 * Custom labels for description field of features
-	 */
-	descriptionLabels: Record<string, string>;
-	/**
-	 * Custom labels for features in report (export)
-	 */
-	featureLabels: Record<string, string>;
-	/**
-	 * Question to be displayed in feature boxes
-	 */
-	featureQuestions: Record<string, Partial<Question>>;
+	enabled: OnOffInteraction[];
+
 	/**
 	 * Question to be displayed for rating explanation
 	 */
 	ratingQuestion: string;
+
 	/**
 	 * Number of stars for Rating interaction
 	 */
 	stars: number;
+
+	// legacy:
+	buttonLabels: Record<DrawType, string>;
+	descriptionLabels: Record<DrawType, string>;
+	featureLabels: Record<DrawType, string>;
+	featureQuestions: Record<DrawType, Partial<Question>>;
 };
 
 export function isItInteractive(interactions: Interactions | null) {
@@ -115,7 +141,8 @@ export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined
 
 	// #2437 backward compatibility
 	const descriptionLabel = sheet?.descriptionLabel || '';
-	['Point', 'LineString', 'Polygon'].forEach((dt) => {
+	const dts: DrawType[] = ['Point', 'LineString', 'Polygon'];
+	dts.forEach((dt) => {
 		if (!interactions.descriptionLabels[dt]) {
 			interactions.descriptionLabels[dt] = descriptionLabel;
 		}

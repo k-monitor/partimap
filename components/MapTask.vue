@@ -6,20 +6,16 @@ const props = defineProps<{
 const { drawType } = useStore();
 
 const bgClasses: Record<DrawType, string> = {
-	'': '',
 	Point: 'bg-danger',
 	LineString: 'bg-primary',
 	Polygon: 'bg-success',
 };
-const bgClass = computed(() => bgClasses[drawType.value]);
 
-const task = computed(() => {
-	try {
-		return props.interactions.buttonLabels[drawType.value];
-	} catch {
-		return '';
-	}
-});
+const bgClass = computed(() => (drawType.value === '' ? '' : bgClasses[drawType.value]));
+
+const task = computed(() =>
+	drawType.value === '' ? '' : props.interactions.buttonLabels[drawType.value],
+);
 </script>
 
 <template>

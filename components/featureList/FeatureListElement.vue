@@ -56,8 +56,9 @@ const isDeletable = computed(
 const confirmedClose = ref(false);
 
 const question = computed(() => {
-	const dt = feature.value.geometry.type;
-	const q = interactions?.value?.featureQuestions?.[dt];
+	const dts: DrawType[] = ['Point', 'LineString', 'Polygon'];
+	const dt: DrawType | null = dts.find((d) => feature.value.geometry.type === d) || null;
+	const q = !dt ? null : interactions?.value?.featureQuestions?.[dt];
 	return q?.label ? q : null;
 });
 

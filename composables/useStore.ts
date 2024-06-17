@@ -1,4 +1,4 @@
-export type DrawType = '' | 'Point' | 'LineString' | 'Polygon';
+export type DrawTypeWithOffState = '' | DrawType;
 
 export default function useStore() {
 	const baseMap = useState<string>('baseMap', () => 'osm');
@@ -14,7 +14,7 @@ export default function useStore() {
 
 	const consent = useState<boolean>('consent', () => false);
 	const currentZoom = useState<number>('currentZoom', () => 0);
-	const drawType = useState<DrawType>('drawType', () => '');
+	const drawType = useState<DrawTypeWithOffState>('drawType', () => '');
 	const filteredFeatureIds = useState<number[] | null>('filteredFeatureIds', () => null);
 	const loading = useState<boolean>('loading', () => true);
 	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);

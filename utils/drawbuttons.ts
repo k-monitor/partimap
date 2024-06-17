@@ -1,4 +1,4 @@
-function db(drawType: DrawType, icon: string, tooltip: string, variant: string) {
+function db(drawType: DrawTypeWithOffState, icon: string, tooltip: string, variant: string) {
 	return { drawType, icon, tooltip, variant };
 }
 
@@ -10,7 +10,7 @@ const _buttons = [
 ];
 
 export function generateDrawButtons(
-	currentDrawType: DrawType,
+	currentDrawType: DrawTypeWithOffState,
 	interactions: Interactions | null | undefined,
 	isVisitor: boolean,
 	t: (key: string) => string,

@@ -6,7 +6,7 @@ import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
-import type { OnOffInteraction } from '~/utils/interactions';
+import type { DrawType, OnOffInteraction } from '~/utils/interactions';
 
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
@@ -158,7 +158,7 @@ function toggleInteraction(ia: OnOffInteraction, enabled: boolean) {
 	}
 }
 function handleInteractionModified(
-	drawType: string,
+	drawType: DrawType,
 	buttonLabel: string,
 	descriptionLabel: string,
 	featureLabel: string,
