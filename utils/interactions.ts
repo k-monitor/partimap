@@ -2,7 +2,7 @@
 // in a backward-compatible way.
 
 import type { Sheet } from '~/server/data/sheets';
-import type { Question } from '~/server/data/surveyAnswers';
+import type { Question, Survey } from '~/server/data/surveyAnswers';
 
 export type OnOffInteraction =
 	| 'Rating'
@@ -13,6 +13,7 @@ export type OnOffInteraction =
 	| 'SocialSharing'
 	// legacy:
 	| 'naming'
+	| `stars=${number}`
 	| 'Point'
 	| 'LineString'
 	| 'Polygon';
@@ -89,18 +90,36 @@ export function serializeInteractions(interactions: Interactions) {
 
 export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined) {
 	const json = sheet?.interactions;
-	const parsed = safeParseJSON(json || '[]');
-	if (Array.isArray(parsed)) {
+	let interactions: Interactions | null = null;
+
+	// #2346 backward compatibility
+	const arr: OnOffInteraction[] = safeParseJSONArray(json);
+	if (arr.length) {
 		const enabled: OnOffInteraction[] = [];
 		let stars = 5;
-		parsed.forEach((ia) => {
+		arr.forEach((ia) => {
 			if (ia.startsWith('stars=')) {
 				stars = Number(ia.split('=')[1]);
 			} else {
 				enabled.push(ia);
 			}
 		});
-		return createInteractions({ enabled, stars });
+		interactions = createInteractions({ enabled, stars });
+	} else {
+		interactions = createInteractions(safeParseJSON(json) || {});
 	}
-	return createInteractions(parsed);
+
+	// #2434 backward compatibility
+	const survey: Survey = safeParseJSON(sheet?.survey) || {};
+	if (survey?.showResultsOnly) interactions.enabled.push('ShowResultsOnly');
+
+	// #2437 backward compatibility
+	const descriptionLabel = sheet?.descriptionLabel || '';
+	['Point', 'LineString', 'Polygon'].forEach((dt) => {
+		if (!interactions.descriptionLabels[dt]) {
+			interactions.descriptionLabels[dt] = descriptionLabel;
+		}
+	});
+
+	return interactions;
 }

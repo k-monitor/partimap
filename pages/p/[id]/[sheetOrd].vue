@@ -115,8 +115,7 @@ const labels = computed(() => {
 });
 
 const showOnlyResults = computed(() => {
-	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	return interactions.value?.enabled?.includes('ShowResultsOnly') || survey.showResultsOnly;
+	return interactions.value?.enabled?.includes?.('ShowResultsOnly');
 });
 
 const visitorAnswers = computed(() => (sheet.value ? getVisitorAnswers(sheet.value?.id) : {}));

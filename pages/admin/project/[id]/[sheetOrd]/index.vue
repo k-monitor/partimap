@@ -33,24 +33,15 @@ function init() {
 
 	interactions.value = deserializeInteractions(sheet.value);
 
-	// BEGIN backward compatibility for #2437
-	const descriptionLabel = sheet.value.descriptionLabel || '';
-	['Point', 'LineString', 'Polygon'].forEach((dt) => {
-		if (!interactions.value.descriptionLabels[dt]) {
-			interactions.value.descriptionLabels[dt] = descriptionLabel;
-		}
-	});
-	sheet.value.descriptionLabel = '';
-	// END backward compatibility for #2437
-
-	// BEGIN backward compatibility for #2434
-	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	if (survey?.showResultsOnly) {
-		interactions.value.enabled.push('ShowResultsOnly');
+	// #2434 cleanup
+	if ((sheet.value?.survey || '').includes('showResultsOnly')) {
+		const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
 		delete survey.showResultsOnly;
 		sheet.value.survey = JSON.stringify(survey);
 	}
-	// END backward compatibility for #2434
+
+	// #2437 cleanup
+	sheet.value.descriptionLabel = '';
 }
 init();
 
