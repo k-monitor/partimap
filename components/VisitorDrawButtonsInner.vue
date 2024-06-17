@@ -1,18 +1,14 @@
 <script setup lang="ts">
-const props = withDefaults(
-	defineProps<{
-		interactions: Interactions;
-		visitor?: boolean;
-	}>(),
-	{ visitor: true },
-);
+const props = defineProps<{
+	interactions: Interactions;
+}>();
 
 const { drawType, selectedFeatureId } = useStore();
 
 const { t } = useI18n();
 
 const drawingButtons = computed(() =>
-	generateDrawButtons(drawType.value, props.interactions, props.visitor, t),
+	generateDrawButtons(drawType.value, props.interactions, true, t),
 );
 </script>
 

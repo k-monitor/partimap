@@ -70,7 +70,7 @@ defineEmits<{
 <template>
 	<button
 		ref="sidebarButton"
-		class="sidebar-button btn btn-dark border-secondary border-start-0 position-absolute ps-1 py-2 rounded-0 shadow-sm text-white"
+		class="sidebar-button btn btn-dark border-secondary border-start-0 position-absolute py-2 rounded-0 shadow-sm text-white"
 		:class="visible ? 'sidebar-visible' : 'sidebar-hidden'"
 		@click="showSidebarAndCancelDrawing"
 	>

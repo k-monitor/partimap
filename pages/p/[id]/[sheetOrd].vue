@@ -496,9 +496,9 @@ const localePath = useLocalePath();
 						visitor
 						@feature-drawn="handleFeatureDrawn"
 					/>
-					<MapToolbar v-if="!!drawType" />
 					<MapTask :interactions="interactions" />
 					<MapHint />
+					<VisitorDrawButtonsOuter :interactions="interactions" />
 				</div>
 			</template>
 		</form>

@@ -66,7 +66,7 @@ onMounted(() => (consented.value = consent.value));
 			</div>
 		</div>
 
-		<DrawButtons :interactions="interactions" />
+		<VisitorDrawButtonsInner :interactions="interactions" />
 
 		<ShareButtons
 			v-if="interactions.enabled.includes('SocialSharing')"
