@@ -3,8 +3,21 @@
 
 import type { Question } from '~/server/data/surveyAnswers';
 
+export type OnOffInteraction =
+	| 'Rating'
+	| 'RatingExplanation'
+	| 'RatingProsCons'
+	| 'RatingResults'
+	| 'ShowResultsOnly'
+	| 'SocialSharing'
+	// legacy:
+	| 'naming'
+	| 'Point'
+	| 'LineString'
+	| 'Polygon';
+
 export type Interactions = {
-	enabled: string[];
+	enabled: OnOffInteraction[];
 	baseMap: string;
 	/**
 	 * Custom labels for drawing buttons
@@ -32,7 +45,7 @@ export type Interactions = {
 	stars: number;
 };
 
-export function createInteractions(data: any): Interactions {
+export function createInteractions(data: Partial<Interactions>): Interactions {
 	return {
 		enabled: data.enabled || [],
 		baseMap: data.baseMap || 'osm',
@@ -68,7 +81,7 @@ export function serializeInteractions(interactions: Interactions) {
 export function deserializeInteractions(json: string | undefined) {
 	const parsed = safeParseJSON(json || '[]');
 	if (Array.isArray(parsed)) {
-		const enabled = [] as string[];
+		const enabled: OnOffInteraction[] = [];
 		let stars = 5;
 		parsed.forEach((ia) => {
 			if (ia.startsWith('stars=')) {

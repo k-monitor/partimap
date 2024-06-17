@@ -6,6 +6,7 @@ import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
+import type { OnOffInteraction } from '~/utils/interactions';
 
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
@@ -117,7 +118,7 @@ const interactionOptions = computed(() => {
 	const options = [];
 	if (!sheet.value) return;
 
-	const ia = (interactionName: string) => ({
+	const ia = (interactionName: OnOffInteraction) => ({
 		value: interactionName,
 		text: t(`sheetEditor.interactions.${interactionName}`),
 	});
@@ -156,7 +157,7 @@ const someResultsEnabled = computed(() => {
 	if (interactions.value.enabled.includes('RatingResults')) return true;
 	return surveyQuestions.value?.some((q) => q.showResult);
 });
-function toggleInteraction(ia: string, enabled: boolean) {
+function toggleInteraction(ia: OnOffInteraction, enabled: boolean) {
 	if (enabled) {
 		if (!interactions.value.enabled.includes(ia)) {
 			interactions.value.enabled.push(ia);
@@ -210,7 +211,7 @@ const settingsModals: Record<string, Ref<boolean>> = {
 function hasSettings(ia: string) {
 	return Object.keys(settingsModals).includes(ia);
 }
-function openInteractionSettings(ia: string) {
+function openInteractionSettings(ia: OnOffInteraction) {
 	if (hasSettings(ia) && interactions.value.enabled.includes(ia)) {
 		settingsModals[ia].value = true;
 	}
