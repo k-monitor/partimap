@@ -48,7 +48,7 @@ describe('general', () => {
 	});
 
 	it('serializes consistently', () => {
-		const interactions = createInteractions({ enabled: ['Point'], stars: 3 });
+		const interactions = createInteractions({ enabled: ['Rating'], stars: 3 });
 		const si = serializeInteractions(interactions);
 		expect(si).toBe(JSON.stringify(interactions));
 	});
@@ -117,9 +117,9 @@ describe('pre-#2437 compatibility', () => {
 });
 
 describe('pre-#2841 compatibility', () => {
-	it('converts from "enabled" to "drawing"', () => {
-		const interactions: Partial<Interactions> = {
-			enabled: ['Polygon', 'Point', 'Rating'],
+	it('converts into "drawing"', () => {
+		const interactions: Partial<LegacyInteractions> = {
+			enabled: ['Polygon', 'Point', 'naming', 'Rating'],
 			buttonLabels: {
 				Point: '',
 				LineString: '',
@@ -132,8 +132,10 @@ describe('pre-#2841 compatibility', () => {
 		expect(di.drawing[0].id).toBe('Polygon');
 		expect(di.drawing[0].type).toBe('Polygon');
 		expect(di.drawing[0].buttonLabel).toBe('label');
+		expect(di.drawing[0].naming).toBe(true);
 		expect(di.drawing[1].id).toBe('Point');
 		expect(di.drawing[1].type).toBe('Point');
+		expect(di.drawing[1].naming).toBe(true);
 		expect(di.enabled).toEqual(['Rating']);
 	});
 });

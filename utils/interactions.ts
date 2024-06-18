@@ -31,6 +31,11 @@ export type DrawingInteraction = {
 	 * Question to be displayed in feature box
 	 */
 	featureQuestion?: Partial<Question> | null;
+
+	/**
+	 * Whether visitor can name their features
+	 */
+	naming?: boolean;
 };
 
 export function createDrawingInteraction(di: Partial<DrawingInteraction>): DrawingInteraction {
@@ -41,6 +46,7 @@ export function createDrawingInteraction(di: Partial<DrawingInteraction>): Drawi
 		descriptionLabel: di.descriptionLabel || '',
 		featureLabel: di.featureLabel || '',
 		featureQuestion: di.featureQuestion || null,
+		naming: !!di.naming,
 	};
 }
 
@@ -50,13 +56,9 @@ export type OnOffInteraction =
 	| 'RatingProsCons'
 	| 'RatingResults'
 	| 'ShowResultsOnly'
-	| 'SocialSharing'
-	// legacy:
-	| 'naming'
-	| `stars=${number}`
-	| 'Point'
-	| 'LineString'
-	| 'Polygon';
+	| 'SocialSharing';
+
+type LegacyOnOffInteraction = OnOffInteraction | DrawType | 'naming' | `stars=${number}`;
 
 export type Interactions = {
 	/**
@@ -83,13 +85,17 @@ export type Interactions = {
 	 * Number of stars for Rating interaction
 	 */
 	stars: number;
-
-	// legacy:
-	buttonLabels?: Record<DrawType, string>;
-	descriptionLabels?: Record<DrawType, string>;
-	featureLabels?: Record<DrawType, string>;
-	featureQuestions?: Record<DrawType, Partial<Question>>;
 };
+
+export type LegacyInteractions =
+	| LegacyOnOffInteraction[]
+	| (Omit<Interactions, 'enabled'> & {
+			enabled: LegacyOnOffInteraction[];
+			buttonLabels: Record<DrawType, string>;
+			descriptionLabels: Record<DrawType, string>;
+			featureLabels: Record<DrawType, string>;
+			featureQuestions: Record<DrawType, Partial<Question>>;
+	  });
 
 export function isItInteractive(interactions: Interactions | null) {
 	return (interactions?.drawing || []).length > 0;
@@ -114,38 +120,47 @@ export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined
 	const json = sheet?.interactions;
 	let interactions: Interactions = createInteractions({});
 
-	const parsed = safeParseJSON(json) || {};
+	const parsed: Partial<LegacyInteractions> = safeParseJSON(json) || {};
 	if (Array.isArray(parsed)) {
-		// #2346 backward compatibility
-		parsed.forEach((ia: string) => {
+		// #2346, #2841 backward compatibility
+		parsed.forEach((ia: LegacyOnOffInteraction | undefined) => {
+			if (!ia) return;
 			if (DRAW_TYPES.includes(ia as DrawType)) {
 				interactions.drawing.push(
 					createDrawingInteraction({
 						id: ia,
 						type: ia as DrawType,
+						naming: parsed.includes('naming'),
 					}),
 				);
 			} else if (ia.startsWith('stars=')) {
 				interactions.stars = Number(ia.split('=')[1]);
-			} else {
+			} else if (ia !== 'naming') {
 				interactions.enabled.push(ia as OnOffInteraction);
 			}
 		});
 	} else {
-		interactions = createInteractions(parsed);
+		interactions = createInteractions(parsed as Interactions);
 
 		// #2841 backward compatibility
 		const filteredEnabled: OnOffInteraction[] = [];
-		(parsed.enabled || []).forEach((ia: string) => {
-			if (!DRAW_TYPES.includes(ia as DrawType)) return filteredEnabled.push(ia as DrawType);
+		(parsed.enabled || []).forEach((ia: LegacyOnOffInteraction) => {
+			if (ia === 'naming') return;
+
+			if (!DRAW_TYPES.includes(ia as DrawType)) {
+				return filteredEnabled.push(ia as OnOffInteraction);
+			}
+
+			const dt = ia as DrawType;
 			interactions.drawing.push(
 				createDrawingInteraction({
 					id: ia,
 					type: ia as DrawType,
-					buttonLabel: parsed.buttonLabels?.[ia],
-					descriptionLabel: parsed.descriptionLabels?.[ia],
-					featureLabel: parsed.featureLabels?.[ia],
-					featureQuestion: parsed.featureQuestions?.[ia],
+					buttonLabel: parsed.buttonLabels?.[dt],
+					descriptionLabel: parsed.descriptionLabels?.[dt],
+					featureLabel: parsed.featureLabels?.[dt],
+					featureQuestion: parsed.featureQuestions?.[dt],
+					naming: parsed.enabled?.includes('naming'),
 				}),
 			);
 		});
