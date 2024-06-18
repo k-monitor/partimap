@@ -62,16 +62,19 @@ describe('pre-#2346 compatibility', () => {
 		expect(typeof interactions).toBe('object');
 	});
 
-	it('moves into "enabled"', () => {
+	it('converts old array format', () => {
 		const array = ['Point', 'Rating'];
 		const sheet = { interactions: JSON.stringify(array) };
 		const di = deserializeInteractions(sheet);
-		expect(di.enabled).toEqual(array);
+		expect(di.drawing.length).toBe(1);
+		expect(di.drawing[0].id).toBe('Point');
+		expect(di.drawing[0].type).toBe('Point');
+		expect(di.enabled).toEqual(['Rating']);
 	});
 
 	it('reads star count', () => {
-		const array = JSON.stringify(['stars=3']);
-		const sheet = { interactions: array };
+		const array = ['stars=3'];
+		const sheet = { interactions: JSON.stringify(array) };
 		const di = deserializeInteractions(sheet);
 		expect(di.enabled).toEqual([]);
 		expect(di.stars).toBe(3);
@@ -90,25 +93,47 @@ describe('pre-#2434 compatibility', () => {
 describe('pre-#2437 compatibility', () => {
 	it('reads descriptionLabel from sheet', () => {
 		const descriptionLabel = 'test';
-		const sheet = { descriptionLabel };
+		const interactions: Partial<Interactions> = {
+			drawing: [{ id: 'Point', type: 'Point' }],
+		};
+		const sheet = { descriptionLabel, interactions: JSON.stringify(interactions) };
 		const di = deserializeInteractions(sheet);
-		expect(di.descriptionLabels.Point).toBe(descriptionLabel);
-		expect(di.descriptionLabels.LineString).toBe(descriptionLabel);
-		expect(di.descriptionLabels.Polygon).toBe(descriptionLabel);
+		expect(di.drawing[0].descriptionLabel).toBe(descriptionLabel);
 	});
 
 	it('prefers new format', () => {
 		const oldLabel = 'old';
 		const newLabel = 'new';
-		const descriptionLabels = { Point: newLabel };
-		const interactions = { descriptionLabels };
+		const interactions: Partial<Interactions> = {
+			drawing: [{ id: 'Point', type: 'Point', descriptionLabel: newLabel }],
+		};
 		const sheet = {
 			descriptionLabel: oldLabel,
 			interactions: JSON.stringify(interactions),
 		};
 		const di = deserializeInteractions(sheet);
-		expect(di.descriptionLabels.Point).toBe(newLabel);
-		expect(di.descriptionLabels.LineString).toBe(oldLabel);
-		expect(di.descriptionLabels.Polygon).toBe(oldLabel);
+		expect(di.drawing[0].descriptionLabel).toBe(newLabel);
+	});
+});
+
+describe('pre-#2841 compatibility', () => {
+	it('converts from "enabled" to "drawing"', () => {
+		const interactions: Partial<Interactions> = {
+			enabled: ['Polygon', 'Point', 'Rating'],
+			buttonLabels: {
+				Point: '',
+				LineString: '',
+				Polygon: 'label',
+			},
+		};
+		const sheet = { interactions: JSON.stringify(interactions) };
+		const di = deserializeInteractions(sheet);
+		expect(di.drawing.length).toBe(2);
+		expect(di.drawing[0].id).toBe('Polygon');
+		expect(di.drawing[0].type).toBe('Polygon');
+		expect(di.drawing[0].buttonLabel).toBe('label');
+		expect(di.drawing[1].id).toBe('Point');
+		expect(di.drawing[1].type).toBe('Point');
+		expect(di.enabled).toEqual(['Rating']);
 	});
 });

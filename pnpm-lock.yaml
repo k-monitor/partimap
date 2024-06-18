@@ -95,6 +95,9 @@ importers:
       mysql2:
         specifier: ^2.3.3
         version: 2.3.3
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
       nodemailer:
         specifier: ^6.9.13
         version: 6.9.13
