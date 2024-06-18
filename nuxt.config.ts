@@ -10,6 +10,7 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	modules: [
 		'@bootstrap-vue-next/nuxt',
+		'@nuxt/test-utils/module',
 		'@nuxtjs/i18n',
 		'@stefanobartoletti/nuxt-social-share',
 		'@vueuse/nuxt',

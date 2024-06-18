@@ -52,6 +52,11 @@ export type Interactions = {
 	baseMap: string;
 
 	/**
+	 * Drawing interactions
+	 */
+	//drawing: DrawingInteraction[];
+
+	/**
 	 * Enabled non-drawing interactions
 	 */
 	enabled: OnOffInteraction[];
@@ -83,8 +88,10 @@ export function isItInteractive(interactions: Interactions | null) {
 
 export function createInteractions(data: Partial<Interactions>): Interactions {
 	return {
-		enabled: data.enabled || [],
 		baseMap: data.baseMap || 'osm',
+		//drawing: [],
+		enabled: data.enabled || [],
+
 		buttonLabels: {
 			Point: data.buttonLabels?.Point || '',
 			LineString: data.buttonLabels?.LineString || '',
@@ -111,6 +118,7 @@ export function createInteractions(data: Partial<Interactions>): Interactions {
 }
 
 export function serializeInteractions(interactions: Interactions) {
+	// TODO would be nice to remove fields that are holding default values
 	return JSON.stringify(interactions);
 }
 
