@@ -44,7 +44,6 @@
 		"mysql2": "^2.3.3",
 		"nodemailer": "^6.9.13",
 		"nodemailer-html-to-text": "^3.2.0",
-		"nuxt": "^3.10.3",
 		"nuxt-highcharts": "^3.1.1",
 		"nuxt-scheduler": "^0.1.9",
 		"nuxt-tiptap-editor": "^1.1.2",
@@ -58,7 +57,7 @@
 		"stackedit-js": "^1.0.7",
 		"tinycolor2": "^1.6.0",
 		"transform-coordinates": "^1.0.0",
-		"uuid": "^9.0.1",
+		"uuid": "^10.0.0",
 		"vue": "^3.4.27",
 		"vue-draggable-next": "^2.2.1",
 		"vue-recaptcha-v3": "^2.0.1",
@@ -86,6 +85,7 @@
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"geojson": "^0.5.0",
+		"nuxt": "^3.12.2",
 		"prettier": "^3.2.5"
 	}
 }
