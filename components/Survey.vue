@@ -80,7 +80,7 @@ function removeAnswer(questionId: number) {
 				</div>
 				<b-button
 					v-if="canRemoveAnswer(q)"
-					v-b-tooltip.hover.bottom
+					v-b-tooltip.hover.left
 					class="position-absolute ms-4 small text-muted text-end"
 					size="sm"
 					style="top: 0; right: 0"

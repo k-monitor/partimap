@@ -145,6 +145,10 @@ fieldset,
 	font-size: 1.25rem;
 }
 
+.modal-body {
+	scrollbar-gutter: stable;
+}
+
 .ol-attribution {
 	bottom: 0;
 	right: 0;
