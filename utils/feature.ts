@@ -29,6 +29,7 @@ export function isFeatureActive(
 
 export function isFeatureDescriptionEmpty(description?: string) {
 	return !(description || '')
+		.replace(/<img.*?>/, 'img')
 		.replace(/<iframe.*?>/, 'iframe')
 		.replace(/<.*?>/g, '')
 		.trim();
