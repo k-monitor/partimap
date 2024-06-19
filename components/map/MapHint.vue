@@ -11,8 +11,8 @@ const hint = computed(() => {
 <template>
 	<div
 		v-if="hint"
-		class="map-hint-container position-absolute text-center w-100"
-		style="bottom: 2rem; padding: 0 75px; z-index: 1"
+		class="map-hint-container position-absolute text-center"
+		style="bottom: 3rem; left: 1rem; right: 4.5rem; z-index: 1"
 	>
 		<div
 			class="map-hint bg-dark border border-secondary d-inline-block fw-bold m-0 px-3 py-2 rounded shadow-sm text-white"
