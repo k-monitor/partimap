@@ -249,10 +249,11 @@ function closeBubble() {
 						/>
 					</div>
 				</div>
-				<div
-					class="rich h-100 overflow-y-auto p-2"
+				<TipTapDisplay
+					:key="f.properties?.description"
+					class="overflow-y-auto p-2"
 					style="max-height: 33vh; scrollbar-gutter: stable"
-					v-html="f.properties?.description"
+					:html="f.properties?.description"
 				/>
 			</div>
 		</ol-overlay>
