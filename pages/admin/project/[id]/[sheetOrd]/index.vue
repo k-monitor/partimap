@@ -157,15 +157,6 @@ function toggleInteraction(ia: OnOffInteraction, enabled: boolean) {
 		interactions.value.enabled = interactions.value.enabled.filter((i) => i !== ia);
 	}
 }
-function handleInteractionModified(
-	drawType: DrawType,
-	buttonLabel: string,
-	descriptionLabel: string,
-	featureLabel: string,
-	featureQuestion: Record<string, string>,
-) {
-	// FIXME
-}
 function handleRatingInteractionModified(
 	ratingExplanation: boolean,
 	ratingProsCons: boolean,
@@ -191,6 +182,7 @@ watch(
 );
 
 const settingsModals: Record<string, Ref<boolean>> = {
+	DrawingInteraction: ref(false),
 	Rating: ref(false),
 };
 function hasSettings(ia: OnOffInteraction) {
@@ -200,6 +192,29 @@ function openInteractionSettings(ia: OnOffInteraction) {
 	if (hasSettings(ia) && interactions.value.enabled.includes(ia)) {
 		settingsModals[ia].value = true;
 	}
+}
+const editedDrawingInteractionIndex = ref<number>(-1);
+function openDrawingInteractionSettings(index: number) {
+	editedDrawingInteractionIndex.value = index;
+	settingsModals.DrawingInteraction.value = true;
+}
+const icons: Record<string, string> = {
+	Point: 'fa-map-marker-alt',
+	LineString: 'fa-route',
+	Polygon: 'fa-draw-polygon',
+};
+function handleDrawingInteractionModified(di: DrawingInteraction) {
+	const dis = interactions.value.drawing;
+	dis[editedDrawingInteractionIndex.value] = di;
+	interactions.value.drawing = dis;
+	editedDrawingInteractionIndex.value = -1;
+}
+function removeDrawingInteraction(index: number) {
+	const dis = interactions.value.drawing;
+	if (dis.length <= 1) return;
+	// FIXME need confirm
+	dis.splice(index, 1);
+	interactions.value.drawing = dis;
 }
 
 const showAllResults = ref(false);
@@ -395,17 +410,44 @@ async function save() {
 								<i class="fas fa-fw fa-cog" />
 							</b-button>
 						</b-list-group-item>
+						<b-list-group-item
+							v-for="(di, i) in interactions.drawing"
+							:key="di.id"
+							action
+							class="d-flex p-0 align-items-center"
+							role="button"
+							@click="openDrawingInteractionSettings(i)"
+						>
+							<div class="p-2 text-truncate">
+								<!-- TODO wire in di.color -->
+								<i
+									class="fas fa-fw mx-1"
+									:class="icons[di.type]"
+								/>
+								{{ di.featureLabel }}
+							</div>
+							<b-button
+								class="border-0 ms-auto px-2 py-2 rounded-0"
+								:disabled="interactions.drawing.length <= 1"
+								variant="outline-danger"
+								@click.stop="removeDrawingInteraction(i)"
+							>
+								<i class="fas fa-fw fa-trash" />
+							</b-button>
+						</b-list-group-item>
 					</b-list-group>
 				</client-only>
-				<!-- FIXME -->
-				<!-- <InteractionSettingsModal
-					v-for="dt in ['Point', 'LineString', 'Polygon']"
-					:key="dt"
-					v-model="settingsModals[dt].value"
-					:draw-type="dt as DrawType"
-					:interactions="interactions"
-					@modified="handleInteractionModified"
-				/>-->
+				<InteractionSettingsModal
+					v-if="interactions.drawing[editedDrawingInteractionIndex]"
+					:key="editedDrawingInteractionIndex"
+					v-model="settingsModals.DrawingInteraction.value"
+					:drawing-interaction="
+						JSON.parse(
+							JSON.stringify(interactions.drawing[editedDrawingInteractionIndex]),
+						)
+					"
+					@modified="handleDrawingInteractionModified"
+				/>
 				<RatingSettingsModal
 					v-model="settingsModals.Rating.value"
 					:interactions="interactions"

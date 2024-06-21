@@ -15,27 +15,27 @@ export type DrawingInteraction = {
 	/**
 	 * Custom label for drawing button
 	 */
-	buttonLabel?: string;
+	buttonLabel: string;
 
 	/**
 	 * Custom label for description field of features
 	 */
-	descriptionLabel?: string;
+	descriptionLabel: string;
 
 	/**
 	 * Custom label in report (export)
 	 */
-	featureLabel?: string;
+	featureLabel: string;
 
 	/**
 	 * Question to be displayed in feature box
 	 */
-	featureQuestion?: Partial<Question> | null;
+	featureQuestion: Partial<Question>;
 
 	/**
 	 * Whether visitor can name their features
 	 */
-	naming?: boolean;
+	naming: boolean;
 };
 
 export function createDrawingInteraction(di: Partial<DrawingInteraction>): DrawingInteraction {
@@ -45,7 +45,7 @@ export function createDrawingInteraction(di: Partial<DrawingInteraction>): Drawi
 		buttonLabel: di.buttonLabel || '',
 		descriptionLabel: di.descriptionLabel || '',
 		featureLabel: di.featureLabel || '',
-		featureQuestion: di.featureQuestion || null,
+		featureQuestion: di.featureQuestion || {},
 		naming: !!di.naming,
 	};
 }
