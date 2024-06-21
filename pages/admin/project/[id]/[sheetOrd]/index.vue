@@ -99,7 +99,8 @@ async function prev() {
 		goToSheetOrd(sheet.value?.ord - 1);
 	}
 }
-function addedSheet(sheet: Sheet) {
+function addedSheet(sheet: Sheet | undefined) {
+	if (!sheet) return;
 	project.value?.sheets?.push(sheet);
 	next();
 }
@@ -118,8 +119,7 @@ const interactionOptions = computed(() => {
 		// map sheet
 		if (!sheet.value.survey) {
 			// interactive map sheet
-			options.push(ia('Point'), ia('LineString'), ia('Polygon'));
-			if (isInteractive.value) options.push(ia('naming'));
+			// drawing interactions handled elsewhere
 		} else {
 			options.push(ia('Rating'));
 		}
@@ -164,10 +164,7 @@ function handleInteractionModified(
 	featureLabel: string,
 	featureQuestion: Record<string, string>,
 ) {
-	interactions.value.buttonLabels[drawType] = buttonLabel;
-	interactions.value.descriptionLabels[drawType] = descriptionLabel;
-	interactions.value.featureLabels[drawType] = featureLabel;
-	interactions.value.featureQuestions[drawType] = featureQuestion;
+	// FIXME
 }
 function handleRatingInteractionModified(
 	ratingExplanation: boolean,
@@ -194,12 +191,9 @@ watch(
 );
 
 const settingsModals: Record<string, Ref<boolean>> = {
-	LineString: ref(false),
-	Point: ref(false),
-	Polygon: ref(false),
 	Rating: ref(false),
 };
-function hasSettings(ia: string) {
+function hasSettings(ia: OnOffInteraction) {
 	return Object.keys(settingsModals).includes(ia);
 }
 function openInteractionSettings(ia: OnOffInteraction) {
@@ -370,15 +364,11 @@ async function save() {
 			>
 				<SurveyEditor
 					v-model="sheet.survey"
-					:sheet="sheet"
-					:sheets="project.sheets"
+					:sheets="project.sheets || []"
 				/>
 			</form-group>
 
-			<form-group
-				v-if="interactionOptions?.length"
-				:label="$t('sheetEditor.visitorInteractions')"
-			>
+			<form-group :label="$t('sheetEditor.visitorInteractions')">
 				<client-only>
 					<b-list-group class="mb-3">
 						<b-list-group-item
@@ -407,14 +397,15 @@ async function save() {
 						</b-list-group-item>
 					</b-list-group>
 				</client-only>
-				<InteractionSettingsModal
+				<!-- FIXME -->
+				<!-- <InteractionSettingsModal
 					v-for="dt in ['Point', 'LineString', 'Polygon']"
 					:key="dt"
 					v-model="settingsModals[dt].value"
-					:draw-type="dt"
+					:draw-type="dt as DrawType"
 					:interactions="interactions"
 					@modified="handleInteractionModified"
-				/>
+				/>-->
 				<RatingSettingsModal
 					v-model="settingsModals.Rating.value"
 					:interactions="interactions"

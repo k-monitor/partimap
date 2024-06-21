@@ -29,7 +29,7 @@ watch(interactions, reinit, { deep: true });
 const emit = defineEmits<{
 	(
 		e: 'modified',
-		drawType: string,
+		drawType: DrawType,
 		buttonLabel: string,
 		descriptionLabel: string,
 		featureLabel: string,
