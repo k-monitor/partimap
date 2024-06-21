@@ -106,5 +106,11 @@ function inputValid(max: number) {
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
 		</b-form-group>
+
+		<b-form-group>
+			<b-form-checkbox v-model="di.naming">
+				{{ $t('sheetEditor.interactions.naming') }}
+			</b-form-checkbox>
+		</b-form-group>
 	</b-modal>
 </template>
