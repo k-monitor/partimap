@@ -104,7 +104,7 @@ async function handleSubmit() {
 			sheetData.features = initialFeatures;
 			sheetData.interactions = serializeInteractions(
 				createInteractions({
-					enabled: ['Point'],
+					drawing: [createDrawingInteraction({})],
 				}),
 			);
 			break;
