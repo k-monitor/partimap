@@ -49,16 +49,14 @@ function inputValid(max: number) {
 		ok-variant="success"
 		:teleport-disabled="true"
 		teleport-to="body"
-		:title="di.featureLabel"
+		:title="di.featureLabel || $t(`sheetEditor.interactions.${di.type}`)"
 		@ok="handleOk"
 	>
-		<b-form-group>
-			<b-form-select
-				v-model="di.type"
-				class="mb-3"
-				:options="typeOptions"
-			/>
-		</b-form-group>
+		<b-form-select
+			v-model="di.type"
+			class="mb-3"
+			:options="typeOptions"
+		/>
 
 		<b-form-group :label="$t('sheetEditor.featureLabel')">
 			<b-form-input

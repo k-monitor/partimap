@@ -214,7 +214,12 @@ function removeDrawingInteraction(index: number) {
 	if (dis.length <= 1) return;
 	// FIXME need confirm
 	dis.splice(index, 1);
-	interactions.value.drawing = dis;
+}
+function addDrawingInteraction() {
+	const dis = interactions.value.drawing;
+	dis.push(createDrawingInteraction({}));
+	editedDrawingInteractionIndex.value = dis.length - 1;
+	settingsModals.DrawingInteraction.value = true;
 }
 
 const showAllResults = ref(false);
@@ -413,9 +418,8 @@ async function save() {
 						<b-list-group-item
 							v-for="(di, i) in interactions.drawing"
 							:key="di.id"
-							action
+							button
 							class="d-flex p-0 align-items-center"
-							role="button"
 							@click="openDrawingInteractionSettings(i)"
 						>
 							<div class="p-2 text-truncate">
@@ -424,16 +428,25 @@ async function save() {
 									class="fas fa-fw mx-1"
 									:class="icons[di.type]"
 								/>
-								{{ di.featureLabel }}
+								{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
 							</div>
 							<b-button
+								v-if="interactions.drawing.length > 1"
 								class="border-0 ms-auto px-2 py-2 rounded-0"
-								:disabled="interactions.drawing.length <= 1"
 								variant="outline-danger"
 								@click.stop="removeDrawingInteraction(i)"
 							>
 								<i class="fas fa-fw fa-trash" />
 							</b-button>
+						</b-list-group-item>
+						<b-list-group-item
+							v-if="interactions.drawing.length"
+							button
+							class="d-flex align-items-center text-success"
+							@click="addDrawingInteraction"
+						>
+							<i class="fas fa-fw fa-plus me-2" />
+							{{ $t('sheetEditor.addDrawingInteraction') }}
 						</b-list-group-item>
 					</b-list-group>
 				</client-only>

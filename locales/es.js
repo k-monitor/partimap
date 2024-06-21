@@ -206,6 +206,7 @@ export default {
 		view: 'Ver Proyecto',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add drawing task', // TODO
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
 		back: 'Volver al proyecto',
 		backgroundImage: 'Imagen de fondo',

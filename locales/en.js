@@ -197,6 +197,7 @@ export default {
 		view: 'View Project',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add drawing task', // TODO
 		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',

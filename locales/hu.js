@@ -198,6 +198,7 @@ export default {
 		view: 'Megtekintés',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Új rajzolós feladat',
 		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',

@@ -201,6 +201,7 @@ export default {
 		view: 'Peržiūrėti projektą',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add drawing task', // TODO
 		addFeatureQuestion: 'Pridėkite klausimą su atsakymo variantais',
 		back: 'Atgal į projektą',
 		backgroundImage: 'Fono paveikslėlis',
