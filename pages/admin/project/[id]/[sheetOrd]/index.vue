@@ -209,10 +209,14 @@ function handleDrawingInteractionModified(di: DrawingInteraction) {
 	interactions.value.drawing = dis;
 	editedDrawingInteractionIndex.value = -1;
 }
-function removeDrawingInteraction(index: number) {
+const { confirmDeletion } = useConfirmation();
+async function removeDrawingInteraction(index: number) {
 	const dis = interactions.value.drawing;
 	if (dis.length <= 1) return;
-	// FIXME need confirm
+	const c = await confirmDeletion(
+		dis[index].featureLabel || t(`sheetEditor.interactions.${dis[index].type}`),
+	);
+	if (!c) return;
 	dis.splice(index, 1);
 }
 function addDrawingInteraction() {
