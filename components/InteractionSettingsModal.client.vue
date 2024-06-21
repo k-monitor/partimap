@@ -6,6 +6,13 @@ const props = defineProps<{
 }>();
 const di = ref(props.drawingInteraction);
 
+const { t } = useI18n();
+
+const typeOptions = DRAW_TYPES.map((dt) => ({
+	value: dt,
+	text: t(`sheetEditor.interactions.${dt}`),
+}));
+
 const hasFeatureQuestion = ref(!!di.value?.featureQuestion.label);
 
 const emit = defineEmits<{
@@ -14,7 +21,7 @@ const emit = defineEmits<{
 
 function handleOk() {
 	if (hasFeatureQuestion.value && di.value.featureQuestion.label) {
-		di.value.featureQuestion.id = 'partimapFeatureQuestion';
+		di.value.featureQuestion.id = 'partimapFeatureQuestion'; // TODO fix type
 		di.value.featureQuestion.type = 'checkbox';
 	} else {
 		di.value.featureQuestion = {};
@@ -45,7 +52,14 @@ function inputValid(max: number) {
 		:title="di.featureLabel"
 		@ok="handleOk"
 	>
-		<div class="bg-warning">{{ di }}</div>
+		<b-form-group>
+			<b-form-select
+				v-model="di.type"
+				class="mb-3"
+				:options="typeOptions"
+			/>
+		</b-form-group>
+
 		<b-form-group :label="$t('sheetEditor.featureLabel')">
 			<b-form-input
 				v-model="di.featureLabel"
