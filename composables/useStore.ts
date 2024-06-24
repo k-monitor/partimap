@@ -12,24 +12,23 @@ export default function useStore() {
 		baseMap.value = keys[index];
 	}
 
-	const consent = useState<boolean>('consent', () => false);
-	const currentZoom = useState<number>('currentZoom', () => 0);
-
 	const currentDrawingInteraction = useState<DrawingInteraction | null>(
 		'currentDrawingInteraction',
 		() => null,
 	);
-	const drawType = useState<DrawTypeWithOffState>('drawType', () => '');
-	function toggleVisitorDrawing(di: DrawingInteraction | null) {
-		if (!di) {
-			drawType.value = '';
-			currentDrawingInteraction.value = null;
-		} else {
-			drawType.value = di.type;
-			currentDrawingInteraction.value = di;
-		}
-	}
+	const drawType = computed<DrawTypeWithOffState>({
+		get() {
+			return currentDrawingInteraction.value?.type || '';
+		},
+		set(dt: DrawTypeWithOffState) {
+			currentDrawingInteraction.value = dt
+				? createDrawingInteraction({ id: dt, type: dt })
+				: null;
+		},
+	});
 
+	const consent = useState<boolean>('consent', () => false);
+	const currentZoom = useState<number>('currentZoom', () => 0);
 	const filteredFeatureIds = useState<number[] | null>('filteredFeatureIds', () => null);
 	const loading = useState<boolean>('loading', () => true);
 	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);
@@ -51,7 +50,6 @@ export default function useStore() {
 		selectedFeatureId,
 		sidebarVisible,
 		submitted,
-		toggleVisitorDrawing,
 		visibleFeatureBubbles,
 	};
 }

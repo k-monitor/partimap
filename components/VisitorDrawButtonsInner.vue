@@ -3,7 +3,7 @@ const props = defineProps<{
 	interactions: Interactions | null;
 }>();
 
-const { selectedFeatureId, toggleVisitorDrawing } = useStore();
+const { currentDrawingInteraction, selectedFeatureId } = useStore();
 
 const drawingButtons = useDrawButtons(true, props.interactions);
 </script>
@@ -23,7 +23,7 @@ const drawingButtons = useDrawButtons(true, props.interactions);
 				:class="[!b.drawType ? 'cancel-button' : '', `btn-${b.variant}`]"
 				:disabled="!!selectedFeatureId"
 				type="button"
-				@click="toggleVisitorDrawing(b.drawingInteraction)"
+				@click="currentDrawingInteraction = b.drawingInteraction"
 			>
 				<i
 					class="fas fa-fw"

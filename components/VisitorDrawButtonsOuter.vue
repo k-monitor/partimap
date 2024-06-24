@@ -3,7 +3,7 @@ const props = defineProps<{
 	interactions: Interactions | null;
 }>();
 
-const { toggleVisitorDrawing } = useStore();
+const { currentDrawingInteraction } = useStore();
 
 const drawingButtons = useDrawButtons(true, props.interactions);
 </script>
@@ -23,7 +23,7 @@ const drawingButtons = useDrawButtons(true, props.interactions);
 				style="font-size: 1.25rem"
 				:style="{ height: b.drawType ? null : '140px' }"
 				:title="b.tooltip"
-				@click="toggleVisitorDrawing(b.drawingInteraction)"
+				@click="currentDrawingInteraction = b.drawingInteraction"
 			>
 				<i
 					class="fas fa-fw"

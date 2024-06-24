@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { currentDrawingInteraction, drawType } = useStore();
+const { currentDrawingInteraction } = useStore();
 
 const bgClasses: Record<DrawTypeWithOffState, string> = {
 	'': '',
@@ -8,7 +8,7 @@ const bgClasses: Record<DrawTypeWithOffState, string> = {
 	Polygon: 'bg-success',
 };
 
-const bgClass = computed(() => bgClasses[drawType.value]);
+const bgClass = computed(() => bgClasses[currentDrawingInteraction.value?.type || '']);
 
 const task = computed(() => currentDrawingInteraction.value?.buttonLabel || '');
 </script>
