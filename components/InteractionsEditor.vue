@@ -3,12 +3,6 @@ import type { Sheet } from '~/server/data/sheets';
 
 const { t } = useI18n();
 
-const icons: Record<string, string> = {
-	Point: 'fa-map-marker-alt',
-	LineString: 'fa-route',
-	Polygon: 'fa-draw-polygon',
-};
-
 const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 const interactions = defineModel<Interactions>({
 	default: deserializeInteractions(undefined),
@@ -157,7 +151,7 @@ async function removeDrawingInteraction(index: number) {
 					<!-- TODO wire in di.color -->
 					<i
 						class="fas fa-fw mx-1"
-						:class="icons[di.type]"
+						:class="DRAW_TYPE_ICONS[di.type]"
 					/>
 					{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
 				</div>

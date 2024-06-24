@@ -1,16 +1,7 @@
 <script setup lang="ts">
-const { t } = useI18n();
 const { drawType } = useStore();
 
-const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
-
-const props = defineProps<{
-	visitor?: boolean;
-}>();
-
-const drawingButtons = computed(() =>
-	generateDrawButtons(drawType.value, interactions?.value, props.visitor, t),
-);
+const drawingButtons = useDrawButtons(false, null);
 </script>
 
 <template>
@@ -21,7 +12,7 @@ const drawingButtons = computed(() =>
 		<div class="d-flex flex-column shadow-sm">
 			<button
 				v-for="b in drawingButtons"
-				:key="b.drawType"
+				:key="b.drawType || 'cancel'"
 				v-b-tooltip.hover.left
 				class="btn border border-secondary border-end-0 rounded-0 py-2"
 				:class="`btn-${b.variant}`"

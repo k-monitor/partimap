@@ -489,7 +489,7 @@ const localePath = useLocalePath();
 						visitor
 						@feature-drawn="handleFeatureDrawn"
 					/>
-					<MapTask :interactions="interactions" />
+					<MapTask />
 					<MapHint />
 					<VisitorDrawButtonsOuter :interactions="interactions" />
 				</div>

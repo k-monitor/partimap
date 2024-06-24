@@ -8,6 +8,13 @@ import type { Question, Survey } from '~/server/data/surveyAnswers';
 export const DRAW_TYPES = ['Point', 'LineString', 'Polygon'] as const;
 export type DrawType = (typeof DRAW_TYPES)[number];
 
+export const DRAW_TYPE_ICONS: Record<DrawTypeWithOffState, string> = {
+	'': 'fa-times',
+	Point: 'fa-map-marker-alt',
+	LineString: 'fa-route',
+	Polygon: 'fa-draw-polygon',
+};
+
 export type DrawingInteraction = {
 	id: string;
 	type: DrawType;

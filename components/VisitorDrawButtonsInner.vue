@@ -1,22 +1,18 @@
 <script setup lang="ts">
 const props = defineProps<{
-	interactions: Interactions;
+	interactions: Interactions | null;
 }>();
 
-const { drawType, selectedFeatureId } = useStore();
+const { selectedFeatureId, toggleVisitorDrawing } = useStore();
 
-const { t } = useI18n();
-
-const drawingButtons = computed(() =>
-	generateDrawButtons(drawType.value, props.interactions, true, t),
-);
+const drawingButtons = useDrawButtons(true, props.interactions);
 </script>
 
 <template>
 	<div class="my-4">
 		<div
 			v-for="b in drawingButtons"
-			:key="b.drawType"
+			:key="b.drawingInteraction?.id || b.drawType || 'cancel'"
 			class="d-flex mb-3"
 		>
 			<div class="d-flex flex-grow-1">
@@ -27,7 +23,7 @@ const drawingButtons = computed(() =>
 				:class="[!b.drawType ? 'cancel-button' : '', `btn-${b.variant}`]"
 				:disabled="!!selectedFeatureId"
 				type="button"
-				@click="drawType = b.drawType"
+				@click="toggleVisitorDrawing(b.drawingInteraction)"
 			>
 				<i
 					class="fas fa-fw"

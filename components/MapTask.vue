@@ -1,21 +1,16 @@
 <script setup lang="ts">
-const props = defineProps<{
-	interactions: Interactions;
-}>();
+const { currentDrawingInteraction, drawType } = useStore();
 
-const { drawType } = useStore();
-
-const bgClasses: Record<DrawType, string> = {
+const bgClasses: Record<DrawTypeWithOffState, string> = {
+	'': '',
 	Point: 'bg-danger',
 	LineString: 'bg-primary',
 	Polygon: 'bg-success',
 };
 
-const bgClass = computed(() => (drawType.value === '' ? '' : bgClasses[drawType.value]));
+const bgClass = computed(() => bgClasses[drawType.value]);
 
-const task = computed(() =>
-	drawType.value === '' ? '' : props.interactions.buttonLabels[drawType.value],
-);
+const task = computed(() => currentDrawingInteraction.value?.buttonLabel || '');
 </script>
 
 <template>

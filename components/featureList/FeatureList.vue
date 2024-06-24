@@ -350,7 +350,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 
 	<form-group
 		v-if="!hideAdminFeatures"
-		:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : null"
+		:label="filteredVisitorFeatures.length ? $t('FeatureList.fixedFeatures') : undefined"
 	>
 		<div class="list-group">
 			<FeatureListElement

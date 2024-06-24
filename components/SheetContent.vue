@@ -55,7 +55,7 @@ onMounted(() => (consented.value = consent.value));
 			<div v-if="results">
 				<SurveyResults
 					:brand-color="brandColor"
-					:data="resultsData"
+					:data="resultsData || []"
 				/>
 			</div>
 			<div v-else>
