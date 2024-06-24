@@ -6,7 +6,7 @@ import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
-import type { DrawType, OnOffInteraction } from '~/utils/interactions';
+import type { OnOffInteraction } from '~/utils/interactions';
 
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
@@ -106,48 +106,31 @@ function addedSheet(sheet: Sheet | undefined) {
 }
 
 const isInteractive = computed(() => isItInteractive(interactions.value));
-const interactionOptions = computed(() => {
-	const options = [];
-	if (!sheet.value) return;
 
-	const ia = (interactionName: OnOffInteraction) => ({
-		value: interactionName,
-		text: t(`sheetEditor.interactions.${interactionName}`),
-	});
-
-	if (sheet.value.features) {
-		// map sheet
-		if (!sheet.value.survey) {
-			// interactive map sheet
-			// drawing interactions handled elsewhere
-		} else {
-			options.push(ia('Rating'));
-		}
-	} else {
-		options.push(ia('SocialSharing'));
-	}
-	return options;
-});
-const surveyQuestions = computed<Question[] | undefined>(() => {
+const surveyQuestions = computed(() => {
 	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	return survey.questions;
+	return survey.questions || [];
 });
+
 const isAllResultsEnabled = computed(() => {
 	if (!interactions.value.enabled.includes('RatingResults')) return false;
-	const questionsWithResults = surveyQuestions.value?.filter(
+	const questionsWithResults = surveyQuestions.value.filter(
 		(q: Question) => q.type && q.type !== 'text',
 	);
 	if (questionsWithResults?.some((q: Question) => !q.showResult)) return false;
 	return true;
 });
+
 const canHaveResults = computed(() => {
 	if (interactions.value.enabled.includes('Rating')) return true;
 	return (surveyQuestions.value?.length || 0) > 0;
 });
+
 const someResultsEnabled = computed(() => {
 	if (interactions.value.enabled.includes('RatingResults')) return true;
-	return surveyQuestions.value?.some((q) => q.showResult);
+	return surveyQuestions.value.some((q) => q.showResult);
 });
+
 function toggleInteraction(ia: OnOffInteraction, enabled: boolean) {
 	if (enabled) {
 		if (!interactions.value.enabled.includes(ia)) {
@@ -157,19 +140,7 @@ function toggleInteraction(ia: OnOffInteraction, enabled: boolean) {
 		interactions.value.enabled = interactions.value.enabled.filter((i) => i !== ia);
 	}
 }
-function handleRatingInteractionModified(
-	ratingExplanation: boolean,
-	ratingProsCons: boolean,
-	ratingQuestion: string,
-	ratingResults: boolean,
-	stars: number,
-) {
-	interactions.value.ratingQuestion = ratingQuestion;
-	interactions.value.stars = stars;
-	toggleInteraction('RatingExplanation', ratingExplanation);
-	toggleInteraction('RatingProsCons', ratingProsCons);
-	toggleInteraction('RatingResults', ratingResults);
-}
+
 watch(
 	interactions,
 	(interactions) => {
@@ -181,63 +152,21 @@ watch(
 	},
 );
 
-const settingsModals: Record<string, Ref<boolean>> = {
-	DrawingInteraction: ref(false),
-	Rating: ref(false),
-};
-function hasSettings(ia: OnOffInteraction) {
-	return Object.keys(settingsModals).includes(ia);
-}
-function openInteractionSettings(ia: OnOffInteraction) {
-	if (hasSettings(ia) && interactions.value.enabled.includes(ia)) {
-		settingsModals[ia].value = true;
-	}
-}
-const editedDrawingInteractionIndex = ref<number>(-1);
-function openDrawingInteractionSettings(index: number) {
-	editedDrawingInteractionIndex.value = index;
-	settingsModals.DrawingInteraction.value = true;
-}
-const icons: Record<string, string> = {
-	Point: 'fa-map-marker-alt',
-	LineString: 'fa-route',
-	Polygon: 'fa-draw-polygon',
-};
-function handleDrawingInteractionModified(di: DrawingInteraction) {
-	const dis = interactions.value.drawing;
-	dis[editedDrawingInteractionIndex.value] = di;
-	interactions.value.drawing = dis;
-	editedDrawingInteractionIndex.value = -1;
-}
-const { confirmDeletion } = useConfirmation();
-async function removeDrawingInteraction(index: number) {
-	const dis = interactions.value.drawing;
-	if (dis.length <= 1) return;
-	const c = await confirmDeletion(
-		dis[index].featureLabel || t(`sheetEditor.interactions.${dis[index].type}`),
-	);
-	if (!c) return;
-	dis.splice(index, 1);
-}
-function addDrawingInteraction() {
-	const dis = interactions.value.drawing;
-	dis.push(createDrawingInteraction({}));
-	editedDrawingInteractionIndex.value = dis.length - 1;
-	settingsModals.DrawingInteraction.value = true;
-}
+const showAllResults = ref(isAllResultsEnabled.value);
 
-const showAllResults = ref(false);
 function showAllResultsClicked() {
 	if (!sheet.value) return;
 	const showResults = showAllResults.value;
 	toggleInteraction('RatingResults', showResults);
 	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	survey.questions?.forEach((q: Question) => (q.showResult = showResults));
+	survey.questions.forEach((q: Question) => (q.showResult = showResults));
 	sheet.value.survey = JSON.stringify(survey);
 }
+
 onMounted(() => {
 	showAllResults.value = isAllResultsEnabled.value;
 });
+
 watch(
 	sheet,
 	() => {
@@ -392,85 +321,7 @@ async function save() {
 				/>
 			</form-group>
 
-			<form-group :label="$t('sheetEditor.visitorInteractions')">
-				<client-only>
-					<b-list-group class="mb-3">
-						<b-list-group-item
-							v-for="o in interactionOptions"
-							:key="o.value"
-							class="d-flex p-0 align-items-center"
-						>
-							<div class="p-2">
-								<b-form-checkbox
-									v-model="interactions.enabled"
-									:value="o.value"
-									@change="openInteractionSettings(o.value)"
-								>
-									{{ o.text }}
-								</b-form-checkbox>
-							</div>
-							<b-button
-								v-if="hasSettings(o.value)"
-								class="border-0 ms-auto px-2 py-2 rounded-0"
-								variant="outline-primary"
-								:disabled="!interactions.enabled.includes(o.value)"
-								@click="openInteractionSettings(o.value)"
-							>
-								<i class="fas fa-fw fa-cog" />
-							</b-button>
-						</b-list-group-item>
-						<b-list-group-item
-							v-for="(di, i) in interactions.drawing"
-							:key="di.id"
-							button
-							class="d-flex p-0 align-items-center"
-							@click="openDrawingInteractionSettings(i)"
-						>
-							<div class="p-2 text-truncate">
-								<!-- TODO wire in di.color -->
-								<i
-									class="fas fa-fw mx-1"
-									:class="icons[di.type]"
-								/>
-								{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
-							</div>
-							<b-button
-								v-if="interactions.drawing.length > 1"
-								class="border-0 ms-auto px-2 py-2 rounded-0"
-								variant="outline-danger"
-								@click.stop="removeDrawingInteraction(i)"
-							>
-								<i class="fas fa-fw fa-trash" />
-							</b-button>
-						</b-list-group-item>
-						<b-list-group-item
-							v-if="interactions.drawing.length"
-							button
-							class="d-flex align-items-center text-success"
-							@click="addDrawingInteraction"
-						>
-							<i class="fas fa-fw fa-plus me-2" />
-							{{ $t('sheetEditor.addDrawingInteraction') }}
-						</b-list-group-item>
-					</b-list-group>
-				</client-only>
-				<InteractionSettingsModal
-					v-if="interactions.drawing[editedDrawingInteractionIndex]"
-					:key="editedDrawingInteractionIndex"
-					v-model="settingsModals.DrawingInteraction.value"
-					:drawing-interaction="
-						JSON.parse(
-							JSON.stringify(interactions.drawing[editedDrawingInteractionIndex]),
-						)
-					"
-					@modified="handleDrawingInteractionModified"
-				/>
-				<RatingSettingsModal
-					v-model="settingsModals.Rating.value"
-					:interactions="interactions"
-					@modified="handleRatingInteractionModified"
-				/>
-			</form-group>
+			<InteractionsEditor v-model="interactions" />
 
 			<form-group
 				v-if="canHaveResults"
