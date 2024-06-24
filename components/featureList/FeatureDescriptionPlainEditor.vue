@@ -8,12 +8,18 @@ const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 
 const { t } = useI18n();
 
-const label = computed(() => {
-	const dts: DrawType[] = ['Point', 'LineString', 'Polygon'];
-	const dt: DrawType | null = dts.find((d) => feature?.geometry?.type === d) || null;
-	const lab = !dt ? '' : interactions?.value?.descriptionLabels[dt];
-	return lab || sheet?.value?.descriptionLabel || t('sheetEditor.defaultDescriptionLabel');
-});
+const drawingInteraction = computed(() =>
+	(interactions?.value?.drawing || []).find(
+		(di) => di.id === feature?.properties?.visitorFeature,
+	),
+);
+
+const label = computed(
+	() =>
+		drawingInteraction.value?.descriptionLabel ||
+		sheet?.value?.descriptionLabel ||
+		t('sheetEditor.defaultDescriptionLabel'),
+);
 
 const description = ref<string>(feature?.properties?.description || '');
 watch(description, (newDescription) => {

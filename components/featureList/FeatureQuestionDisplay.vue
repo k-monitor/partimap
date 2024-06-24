@@ -4,10 +4,14 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 const feature = inject<GeoJsonFeature>('feature');
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
+const drawingInteraction = computed(() =>
+	(interactions?.value?.drawing || []).find(
+		(di) => di.id === feature?.properties?.visitorFeature,
+	),
+);
+
 const question = computed(() => {
-	const dts: DrawType[] = ['Point', 'LineString', 'Polygon'];
-	const dt: DrawType | null = dts.find((d) => feature?.geometry?.type === d) || null;
-	const q = !dt ? null : interactions?.value?.featureQuestions[dt];
+	const q = drawingInteraction.value?.featureQuestion;
 	return q?.label ? q : null;
 });
 

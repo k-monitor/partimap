@@ -18,6 +18,7 @@ const props = defineProps<{
 
 const {
 	changeBaseMap,
+	currentDrawingInteraction,
 	currentZoom,
 	drawType,
 	filteredFeatureIds,
@@ -172,7 +173,14 @@ async function handleDrawEnd() {
 	};
 	if (drawType.value === 'Polygon') feature.properties.fillOpacity = 10;
 	if (['LineString', 'Polygon'].includes(drawType.value)) feature.properties.dash = '0';
-	if (props.visitor) feature.properties.visitorFeature = true;
+
+	if (props.visitor) {
+		feature.properties = {
+			...feature.properties,
+			name: currentDrawingInteraction.value?.featureLabel || '',
+			visitorFeature: currentDrawingInteraction.value?.id || true,
+		};
+	}
 
 	drawType.value = '';
 	source.clear();

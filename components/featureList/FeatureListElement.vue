@@ -55,10 +55,14 @@ const isDeletable = computed(
 
 const confirmedClose = ref(false);
 
+const drawingInteraction = computed(() =>
+	(interactions?.value?.drawing || []).find(
+		(di) => di.id === feature.value.properties?.visitorFeature,
+	),
+);
+
 const question = computed(() => {
-	const dts: DrawType[] = ['Point', 'LineString', 'Polygon'];
-	const dt: DrawType | null = dts.find((d) => feature.value.geometry.type === d) || null;
-	const q = !dt ? null : interactions?.value?.featureQuestions?.[dt];
+	const q = drawingInteraction.value?.featureQuestion;
 	return q?.label ? q : null;
 });
 
@@ -75,9 +79,7 @@ const showSaveButtonOnStaticSheet = computed(() => {
 	return !!rating.value && !props.showResults;
 });
 
-const visitorCanName = computed(() => {
-	return interactions?.value?.enabled?.includes('naming');
-});
+const visitorCanName = computed(() => drawingInteraction.value?.naming);
 
 const visitorCanRate = computed(() => {
 	return interactions?.value?.enabled?.includes('Rating');
@@ -229,7 +231,7 @@ async function deleteFeature() {
 			ref="featureRef"
 			:is-deletable="isDeletable"
 			:is-selected="isSelected"
-			:show-result="showResults"
+			:show-result="!!showResults"
 			@click="featureClicked"
 			@delete="deleteFeature"
 		/>
@@ -283,7 +285,7 @@ async function deleteFeature() {
 								<TipTapDisplay :html="feature.properties?.description" />
 								<FeatureRatingControls
 									v-if="visitorCanRate"
-									:show-results="showResults"
+									:show-results="!!showResults"
 								/>
 								<FeatureListElementFooter
 									v-if="showSaveButtonOnStaticSheet"
