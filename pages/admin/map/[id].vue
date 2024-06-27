@@ -98,7 +98,7 @@ async function save() {
 				fit-selected
 				@feature-drawn="handleFeatureDrawn"
 			/>
-			<MapToolbar />
+			<EdgeDrawingButtons side="right" />
 			<MapHint />
 		</div>
 	</div>

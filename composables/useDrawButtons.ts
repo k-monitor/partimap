@@ -1,41 +1,41 @@
 import type { DrawTypeWithOffState } from './useStore';
 
-const DRAW_BUTTON_VARIANTS: Record<DrawTypeWithOffState, string> = {
-	'': 'warning',
-	Point: 'danger',
-	LineString: 'blue', // because primary can be overriden by brand color
-	Polygon: 'success',
+export type DrawingButton = {
+	color: string;
+	drawingInteraction: DrawingInteraction | null;
+	icon: string;
+	tooltip: string;
 };
 
-export function useDrawButtons(visitor: boolean, interactions: Interactions | null | undefined) {
+export function useDrawButtons(interactions: Interactions | null | undefined) {
 	const { t } = useI18n();
 	const { drawType } = useStore();
 
-	function b(dt: DrawTypeWithOffState, di: DrawingInteraction | null) {
+	function b(di: DrawingInteraction | null): DrawingButton {
+		const dt: DrawTypeWithOffState = di?.type || '';
 		return {
+			color: di?.color || DEFAULT_COLORS[dt],
 			drawingInteraction: di,
-			drawType: dt,
 			icon: DRAW_TYPE_ICONS[dt],
 			tooltip: dt
 				? di?.buttonLabel || t(`sheetEditor.interactions.${dt}`)
 				: t('modals.cancel'),
-			variant: DRAW_BUTTON_VARIANTS[dt],
 		};
 	}
 
 	const drawButtons = computed(() => {
 		if (drawType.value) {
 			// drawing in progress, show cancel button
-			return [b('', null)];
+			return [b(null)];
 		}
 
-		if (!visitor) {
+		if (!interactions) {
 			// admin toolbar shows draw type buttons
-			return DRAW_TYPES.map((dt) => b(dt, null));
+			return DRAW_TYPES.map((dt) => b(createDrawingInteraction({ type: dt })));
 		}
 
 		// visitor toolbar shows drawing interaction buttons
-		return (interactions?.drawing || []).map((di) => b(di.type, di));
+		return (interactions.drawing || []).map((di) => b(di));
 	});
 
 	return drawButtons;

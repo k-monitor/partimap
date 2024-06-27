@@ -416,7 +416,7 @@ async function save() {
 				:show-bubbles="isInteractive"
 				@feature-drawn="handleFeatureDrawn"
 			/>
-			<MapToolbar />
+			<EdgeDrawingButtons side="right" />
 			<MapHint />
 		</div>
 

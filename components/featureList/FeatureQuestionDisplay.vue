@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Question } from '~/server/data/surveyAnswers';
 
 const feature = inject<GeoJsonFeature>('feature');
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
@@ -31,7 +32,7 @@ watch(answer, (newAnswer) => {
 	>
 		<CheckboxGroup
 			v-model="answer"
-			:q="question"
+			:q="question as Question"
 		/>
 	</form-group>
 </template>

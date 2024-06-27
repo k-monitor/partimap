@@ -491,7 +491,10 @@ const localePath = useLocalePath();
 					/>
 					<MapTask />
 					<MapHint />
-					<VisitorDrawButtonsOuter :interactions="interactions" />
+					<EdgeDrawingButtons
+						:interactions="interactions"
+						side="left"
+					/>
 				</div>
 			</template>
 		</form>

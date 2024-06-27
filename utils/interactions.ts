@@ -25,6 +25,11 @@ export type DrawingInteraction = {
 	buttonLabel: string;
 
 	/**
+	 * Color of drawing button and features
+	 */
+	color: string;
+
+	/**
 	 * Custom label for description field of features
 	 */
 	descriptionLabel: string;
@@ -50,6 +55,7 @@ export function createDrawingInteraction(di: Partial<DrawingInteraction>): Drawi
 		id: di.id || nanoid(),
 		type: di.type || 'Point',
 		buttonLabel: di.buttonLabel || '',
+		color: di.color || DEFAULT_COLORS[di.type || 'Point'],
 		descriptionLabel: di.descriptionLabel || '',
 		featureLabel: di.featureLabel || '',
 		featureQuestion: di.featureQuestion || {},

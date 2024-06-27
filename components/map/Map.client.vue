@@ -161,13 +161,8 @@ async function handleDrawEnd() {
 	const feature = JSON.parse(geoJsonFeatureStr);
 	feature.id = Date.now();
 
-	const defaultColors: Record<DrawType, string> = {
-		Point: '#F44336',
-		LineString: '#3F51B5',
-		Polygon: '#49a238',
-	};
 	feature.properties = {
-		color: defaultColors[drawType.value as DrawType],
+		color: DEFAULT_COLORS[drawType.value as DrawType],
 		opacity: 100,
 		width: 6,
 	};
