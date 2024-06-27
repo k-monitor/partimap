@@ -223,7 +223,7 @@ export default {
 			Polygon: 'Instrucciones para dibujar un Polígono',
 		},
 		interactions: {
-			describing: 'Text question',
+			describing: 'Text question', // TODO
 			Point: 'Colocar Punto',
 			LineString: 'Dibujar líneas',
 			Polygon: 'Dibujar polígonos',
@@ -382,6 +382,9 @@ export default {
 		stackeditButton: 'Editar con StackEdit',
 		stackeditInfo:
 			'Interfaz más amigable, aunque su vista previa no puede mostrar todo. Se puede cerrar con el botón en la esquina superior izquierda.',
+	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. number of markers', // TODO
 	},
 	ListItem: {
 		clone: 'Duplicar',

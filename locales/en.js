@@ -214,7 +214,7 @@ export default {
 			Polygon: 'Instruction for drawing a Polygon',
 		},
 		interactions: {
-			describing: 'Text question',
+			describing: 'Text question', // TODO
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',
@@ -371,6 +371,9 @@ export default {
 		stackeditButton: 'Edit with StackEdit',
 		stackeditInfo:
 			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
+	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. number of markers',
 	},
 	ListItem: {
 		clone: 'Duplicate',

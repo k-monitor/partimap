@@ -6,8 +6,17 @@ const props = defineProps<{
 }>();
 
 const { currentDrawingInteraction, selectedFeatureId } = useStore();
+const { featureCountByInteraction } = useVisitorData();
 
 const drawingButtons = useDrawButtons(props.interactions);
+
+function isDisabled(b: DrawingButton) {
+	if (selectedFeatureId.value) return true;
+	const id = b.drawingInteraction?.id || '';
+	const count = featureCountByInteraction.value[id];
+	const max = b.drawingInteraction?.max || Number.MAX_SAFE_INTEGER;
+	return count >= max;
+}
 
 function textColor(b: DrawingButton) {
 	return tinycolor(b.color).isLight() ? '#000000' : '#ffffff';
@@ -22,12 +31,15 @@ function textColor(b: DrawingButton) {
 			class="d-flex mb-3"
 		>
 			<div class="d-flex flex-grow-1">
-				<span class="fw-bold my-auto">{{ b.tooltip }}</span>
+				<span
+					class="fw-bold my-auto"
+					:class="{ 'text-muted': isDisabled(b) }"
+					>{{ b.tooltip }}</span
+				>
 			</div>
 			<button
 				class="btn py-2"
-				:class="!b.drawingInteraction ? 'cancel-button' : ''"
-				:disabled="!!selectedFeatureId"
+				:disabled="isDisabled(b)"
 				:style="{ backgroundColor: b.color, color: textColor(b) }"
 				type="button"
 				@click="currentDrawingInteraction = b.drawingInteraction"

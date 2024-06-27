@@ -26,6 +26,7 @@ const drawingButtons = useDrawButtons(props.interactions);
 				:first="i === 0"
 				:last="i === drawingButtons.length - 1"
 				:side="side"
+				:visitor="interactions !== null"
 			/>
 		</div>
 	</div>

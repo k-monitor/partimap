@@ -58,25 +58,6 @@ function inputValid(max: number) {
 			:options="typeOptions"
 		/>
 
-		<b-form-group :label="$t('FeatureListElement.color')">
-			<b-form-input
-				id="type-color"
-				v-model="di.color"
-				class="w-100"
-				size="sm"
-				type="color"
-				list="presetColors"
-			/>
-			<datalist id="presetColors">
-				<option
-					v-for="c in COLOR_PALETTE"
-					:key="c"
-				>
-					{{ c }}
-				</option>
-			</datalist>
-		</b-form-group>
-
 		<b-form-group :label="$t('sheetEditor.featureLabel')">
 			<b-form-input
 				v-model="di.featureLabel"
@@ -93,6 +74,38 @@ function inputValid(max: number) {
 			/>
 		</b-form-group>
 
+		<div class="row">
+			<b-form-group
+				class="col-lg-8"
+				:label="$t('InteractionSettingsModal.maxDraw')"
+			>
+				<b-form-input
+					v-model.number="di.max"
+					type="number"
+				/>
+			</b-form-group>
+			<b-form-group
+				class="col"
+				:label="$t('FeatureListElement.color')"
+			>
+				<b-form-input
+					id="type-color"
+					v-model="di.color"
+					class="w-100"
+					type="color"
+					list="presetColors"
+				/>
+				<datalist id="presetColors">
+					<option
+						v-for="c in COLOR_PALETTE"
+						:key="c"
+					>
+						{{ c }}
+					</option>
+				</datalist>
+			</b-form-group>
+		</div>
+
 		<hr />
 
 		<b-form-group>
@@ -100,8 +113,10 @@ function inputValid(max: number) {
 				{{ $t('sheetEditor.addFeatureQuestion') }}
 			</b-form-checkbox>
 		</b-form-group>
-
-		<div v-if="hasFeatureQuestion">
+		<div
+			v-if="hasFeatureQuestion"
+			class="ms-4"
+		>
 			<b-form-group :label="$t('SurveyEditor.questionText')">
 				<b-form-input v-model="di.featureQuestion.label" />
 			</b-form-group>

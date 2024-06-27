@@ -205,7 +205,7 @@ export default {
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultRatingQuestion: 'Miért adtad ezt az értékelést?',
-		featureLabel: 'Feladat egyedi neve a riportban',
+		featureLabel: 'Feladat egyedi neve',
 		descriptionLabel: 'Szöveges kifejtéshez rendelt kérdés',
 		descriptionLabelDescription:
 			'A kért elem felrajzolása után a kitöltő szöveges indoklást adhat, az ehhez tartozó kérdés vagy utasítás adható meg itt.',
@@ -373,6 +373,9 @@ export default {
 		stackeditButton: 'Szerkesztés StackEdit-tel',
 		stackeditInfo:
 			'Barátságosabb szerkesztő, de az előnézete nem tud mindent megjeleníteni. A bal felső sarokban levő gombbal zárható be.',
+	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. felrajzolható',
 	},
 	ListItem: {
 		clone: 'Másolat készítése',

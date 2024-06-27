@@ -218,7 +218,7 @@ export default {
 			Polygon: 'Poligono brėžimo instrukcija',
 		},
 		interactions: {
-			describing: 'Text question',
+			describing: 'Text question', // TODO
 			Point: 'Taškų uždėjimas',
 			LineString: 'Linijų braižymas',
 			Polygon: 'Poligono braižymas',
@@ -375,6 +375,9 @@ export default {
 		stackeditButton: 'Redaguoti su StackEdit',
 		stackeditInfo:
 			'Ši sąsaja yra patogesnė, nors negali parodyti visų elementų. Ją galima uždaryti mygtuku viršutiniame kairiajame kampe.',
+	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. number of markers', // TODO
 	},
 	ListItem: {
 		clone: 'Duplikuoti',

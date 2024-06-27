@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import tinycolor from 'tinycolor2';
 
-const { currentDrawingInteraction } = useStore();
+const { currentDrawingInteraction, selectedFeatureId } = useStore();
+const { featureCountByInteraction } = useVisitorData();
 
 const props = defineProps<{
 	first?: boolean;
 	last?: boolean;
 	options: DrawingButton;
 	side: 'left' | 'right';
+	visitor: boolean;
 }>();
 
 const borderStyle = computed(() => {
@@ -26,6 +28,15 @@ const tooltipOptions = computed(() => {
 	const placement = props.side === 'right' ? 'left' : 'right';
 	return { placement };
 });
+
+const disabled = computed(() => {
+	if (!props.visitor) return false; // admin can start drawing anytime
+	if (selectedFeatureId.value) return true;
+	const id = props.options.drawingInteraction?.id || '';
+	const count = featureCountByInteraction.value[id];
+	const max = props.options.drawingInteraction?.max || Number.MAX_SAFE_INTEGER;
+	return count >= max;
+});
 </script>
 
 <template>
@@ -33,6 +44,7 @@ const tooltipOptions = computed(() => {
 		v-b-tooltip.hover="{ ...tooltipOptions }"
 		class="btn border border-secondary rounded-0 py-2"
 		:class="[{ first, last }, side]"
+		:disabled="disabled"
 		style="font-size: 1.25rem"
 		:style="{
 			backgroundColor: options.color,

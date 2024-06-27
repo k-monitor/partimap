@@ -50,6 +50,11 @@ export type DrawingInteraction = {
 	featureQuestion: Partial<Question>;
 
 	/**
+	 * Maximum number of features to be drawn (0 = unlimited)
+	 */
+	max: number;
+
+	/**
 	 * Whether visitor can name their features
 	 */
 	naming: boolean;
@@ -65,6 +70,7 @@ export function createDrawingInteraction(di: Partial<DrawingInteraction>): Drawi
 		descriptionLabel: di.descriptionLabel || '',
 		featureLabel: di.featureLabel || '',
 		featureQuestion: di.featureQuestion || {},
+		max: Math.max(0, di.max || 0),
 		naming: !!di.naming,
 	};
 }
