@@ -79,6 +79,7 @@ const showSaveButtonOnStaticSheet = computed(() => {
 	return !!rating.value && !props.showResults;
 });
 
+const visitorCanDescribe = computed(() => drawingInteraction.value?.describing);
 const visitorCanName = computed(() => drawingInteraction.value?.naming);
 
 const visitorCanRate = computed(() => {
@@ -121,7 +122,9 @@ function getRatingObj() {
 
 const visitorFilledEverything = computed(() => {
 	if (props.isInteractive) {
-		if (!feature.value.properties?.description) return false;
+		const diId = feature.value.properties?.visitorFeature;
+		const di = (interactions?.value?.drawing || []).find((di) => di.id === diId);
+		if (di?.describing && !feature.value.properties?.description) return false;
 		if (!question.value) return true;
 		try {
 			const answer = JSON.parse(feature.value.properties?.partimapFeatureQuestion_ans);
@@ -272,7 +275,7 @@ async function deleteFeature() {
 							<template v-if="isInteractive">
 								<FeatureNameEditor v-if="visitorCanName" />
 								<FeatureQuestionDisplay />
-								<FeatureDescriptionPlainEditor />
+								<FeatureDescriptionPlainEditor v-if="visitorCanDescribe" />
 								<FeatureListElementFooter
 									show-delete
 									show-save

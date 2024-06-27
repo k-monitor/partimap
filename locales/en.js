@@ -214,6 +214,7 @@ export default {
 			Polygon: 'Instruction for drawing a Polygon',
 		},
 		interactions: {
+			describing: 'Text question',
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',

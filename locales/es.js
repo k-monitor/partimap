@@ -223,6 +223,7 @@ export default {
 			Polygon: 'Instrucciones para dibujar un Polígono',
 		},
 		interactions: {
+			describing: 'Text question',
 			Point: 'Colocar Punto',
 			LineString: 'Dibujar líneas',
 			Polygon: 'Dibujar polígonos',

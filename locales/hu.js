@@ -215,6 +215,7 @@ export default {
 			Polygon: 'Instrukció terület felrajzolásához',
 		},
 		interactions: {
+			describing: 'Szöveges indoklás',
 			Point: 'Pont felrajzolása',
 			LineString: 'Vonal felrajzolása',
 			Polygon: 'Terület felrajzolása',

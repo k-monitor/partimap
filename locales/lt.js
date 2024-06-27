@@ -218,6 +218,7 @@ export default {
 			Polygon: 'Poligono brėžimo instrukcija',
 		},
 		interactions: {
+			describing: 'Text question',
 			Point: 'Taškų uždėjimas',
 			LineString: 'Linijų braižymas',
 			Polygon: 'Poligono braižymas',

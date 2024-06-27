@@ -128,7 +128,14 @@ function inputValid(max: number) {
 
 		<hr />
 
+		<b-form-group>
+			<b-form-checkbox v-model="di.describing">
+				{{ $t('sheetEditor.interactions.describing') }}
+			</b-form-checkbox>
+		</b-form-group>
 		<b-form-group
+			v-if="di.describing"
+			class="ms-4"
 			:label="$t('sheetEditor.descriptionLabel')"
 			:description="$t('sheetEditor.descriptionLabelDescription')"
 		>
