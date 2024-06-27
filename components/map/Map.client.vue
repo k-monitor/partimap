@@ -162,7 +162,7 @@ async function handleDrawEnd() {
 	feature.id = Date.now();
 
 	feature.properties = {
-		color: DEFAULT_COLORS[drawType.value as DrawType],
+		color: currentDrawingInteraction.value?.color,
 		opacity: 100,
 		width: 6,
 	};

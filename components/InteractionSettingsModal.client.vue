@@ -58,6 +58,25 @@ function inputValid(max: number) {
 			:options="typeOptions"
 		/>
 
+		<b-form-group :label="$t('FeatureListElement.color')">
+			<b-form-input
+				id="type-color"
+				v-model="di.color"
+				class="w-100"
+				size="sm"
+				type="color"
+				list="presetColors"
+			/>
+			<datalist id="presetColors">
+				<option
+					v-for="c in COLOR_PALETTE"
+					:key="c"
+				>
+					{{ c }}
+				</option>
+			</datalist>
+		</b-form-group>
+
 		<b-form-group :label="$t('sheetEditor.featureLabel')">
 			<b-form-input
 				v-model="di.featureLabel"

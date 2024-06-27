@@ -148,10 +148,10 @@ async function removeDrawingInteraction(index: number) {
 				@click="openDrawingInteractionSettings(i)"
 			>
 				<div class="p-2 text-truncate">
-					<!-- TODO wire in di.color -->
 					<i
 						class="fas fa-fw mx-1"
 						:class="DRAW_TYPE_ICONS[di.type]"
+						:style="{ color: di.color }"
 					/>
 					{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
 				</div>
