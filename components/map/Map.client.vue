@@ -18,6 +18,7 @@ const props = defineProps<{
 
 const {
 	changeBaseMap,
+	currentDrawingInteraction,
 	currentZoom,
 	drawType,
 	filteredFeatureIds,
@@ -160,20 +161,21 @@ async function handleDrawEnd() {
 	const feature = JSON.parse(geoJsonFeatureStr);
 	feature.id = Date.now();
 
-	const defaultColors: Record<DrawType, string> = {
-		'': '',
-		Point: '#F44336',
-		LineString: '#3F51B5',
-		Polygon: '#49a238',
-	};
 	feature.properties = {
-		color: defaultColors[drawType.value],
+		color: currentDrawingInteraction.value?.color,
 		opacity: 100,
 		width: 6,
 	};
 	if (drawType.value === 'Polygon') feature.properties.fillOpacity = 10;
 	if (['LineString', 'Polygon'].includes(drawType.value)) feature.properties.dash = '0';
-	if (props.visitor) feature.properties.visitorFeature = true;
+
+	if (props.visitor) {
+		feature.properties = {
+			...feature.properties,
+			name: currentDrawingInteraction.value?.featureLabel || '',
+			visitorFeature: currentDrawingInteraction.value?.id || true,
+		};
+	}
 
 	drawType.value = '';
 	source.clear();

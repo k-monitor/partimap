@@ -201,6 +201,7 @@ export default {
 		view: 'Peržiūrėti projektą',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add drawing task', // TODO
 		addFeatureQuestion: 'Pridėkite klausimą su atsakymo variantais',
 		back: 'Atgal į projektą',
 		backgroundImage: 'Fono paveikslėlis',
@@ -217,6 +218,7 @@ export default {
 			Polygon: 'Poligono brėžimo instrukcija',
 		},
 		interactions: {
+			describing: 'Text question', // TODO
 			Point: 'Taškų uždėjimas',
 			LineString: 'Linijų braižymas',
 			Polygon: 'Poligono braižymas',
@@ -374,6 +376,9 @@ export default {
 		stackeditInfo:
 			'Ši sąsaja yra patogesnė, nors negali parodyti visų elementų. Ją galima uždaryti mygtuku viršutiniame kairiajame kampe.',
 	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. number of markers', // TODO
+	},
 	ListItem: {
 		clone: 'Duplikuoti',
 		delete: 'Ištrinti',
@@ -511,6 +516,7 @@ export default {
 		confirmDeletion: 'Ar tikrai norite tai ištrinti',
 		confirmFeatureClose:
 			'Reikalingas paaiškinimas. Ar tikrai norite išsaugoti nepateikę atsakymo?',
+		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?', // TODO
 		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',

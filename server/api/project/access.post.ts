@@ -11,6 +11,7 @@ import * as sadb from '~/server/data/surveyAnswers';
 import * as udb from '~/server/data/users';
 import { env } from '~~/env';
 import { H3Event } from 'h3';
+import { deserializeInteractions } from '~/utils/interactions';
 
 const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
 const JWT_SECRET = env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
@@ -120,8 +121,7 @@ function isAccessGranted(event: H3Event, body: Body, project: pdb.Project) {
 
 function doesSheetNeedRatingResults(sheet: sdb.Sheet) {
 	try {
-		// TODO need type here too
-		const interactions = JSON.parse(sheet.interactions || '{}');
+		const interactions = deserializeInteractions(sheet);
 		const enabled = interactions.enabled || [];
 		return enabled.includes('RatingResults');
 	} catch {

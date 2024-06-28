@@ -1,33 +1,48 @@
 <script setup lang="ts">
+import tinycolor from 'tinycolor2';
+
 const props = defineProps<{
-	interactions: Interactions;
+	interactions: Interactions | null;
 }>();
 
-const { drawType, selectedFeatureId } = useStore();
+const { currentDrawingInteraction, selectedFeatureId } = useStore();
+const { featureCountByInteraction } = useVisitorData();
 
-const { t } = useI18n();
+const drawingButtons = useDrawButtons(props.interactions);
 
-const drawingButtons = computed(() =>
-	generateDrawButtons(drawType.value, props.interactions, true, t),
-);
+function isDisabled(b: DrawingButton) {
+	if (selectedFeatureId.value) return true;
+	const id = b.drawingInteraction?.id || '';
+	const count = featureCountByInteraction.value[id];
+	const max = b.drawingInteraction?.max || Number.MAX_SAFE_INTEGER;
+	return count >= max;
+}
+
+function textColor(b: DrawingButton) {
+	return tinycolor(b.color).isLight() ? '#000000' : '#ffffff';
+}
 </script>
 
 <template>
 	<div class="my-4">
 		<div
 			v-for="b in drawingButtons"
-			:key="b.drawType"
+			:key="b.drawingInteraction?.id || 'cancel'"
 			class="d-flex mb-3"
 		>
 			<div class="d-flex flex-grow-1">
-				<span class="fw-bold my-auto">{{ b.tooltip }}</span>
+				<span
+					class="fw-bold my-auto"
+					:class="{ 'text-muted': isDisabled(b) }"
+					>{{ b.tooltip }}</span
+				>
 			</div>
 			<button
 				class="btn py-2"
-				:class="[!b.drawType ? 'cancel-button' : '', `btn-${b.variant}`]"
-				:disabled="!!selectedFeatureId"
+				:disabled="isDisabled(b)"
+				:style="{ backgroundColor: b.color, color: textColor(b) }"
 				type="button"
-				@click="drawType = b.drawType"
+				@click="currentDrawingInteraction = b.drawingInteraction"
 			>
 				<i
 					class="fas fa-fw"

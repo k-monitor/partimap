@@ -206,6 +206,7 @@ export default {
 		view: 'Ver Proyecto',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add drawing task', // TODO
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
 		back: 'Volver al proyecto',
 		backgroundImage: 'Imagen de fondo',
@@ -222,6 +223,7 @@ export default {
 			Polygon: 'Instrucciones para dibujar un Polígono',
 		},
 		interactions: {
+			describing: 'Text question', // TODO
 			Point: 'Colocar Punto',
 			LineString: 'Dibujar líneas',
 			Polygon: 'Dibujar polígonos',
@@ -381,6 +383,9 @@ export default {
 		stackeditInfo:
 			'Interfaz más amigable, aunque su vista previa no puede mostrar todo. Se puede cerrar con el botón en la esquina superior izquierda.',
 	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. number of markers', // TODO
+	},
 	ListItem: {
 		clone: 'Duplicar',
 		delete: 'Eliminar',
@@ -519,6 +524,7 @@ export default {
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',
+		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?', // TODO
 		confirmUnsaved:
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',

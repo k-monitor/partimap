@@ -2,67 +2,42 @@
 const visible = defineModel<boolean>();
 
 const props = defineProps<{
-	drawType: 'Point' | 'LineString' | 'Polygon';
-	interactions: Interactions;
+	drawingInteraction: DrawingInteraction;
 }>();
-const drawType = toRef(props, 'drawType');
-const interactions = toRef(props, 'interactions');
+const di = ref(props.drawingInteraction);
 
-const buttonLabel = ref('');
-const descriptionLabel = ref('');
-const hasFeatureQuestion = ref(false);
-const featureLabel = ref('');
-const featureQuestion = ref<Record<string, string>>({});
-// TODO would be nice to use Question here, but id field type is string here
+const { t } = useI18n();
 
-function reinit() {
-	buttonLabel.value = interactions.value.buttonLabels[drawType.value] || buttonLabel.value;
-	descriptionLabel.value =
-		interactions.value.descriptionLabels[drawType.value] || descriptionLabel.value;
-	featureLabel.value = interactions.value.featureLabels[drawType.value] || featureLabel.value;
-	featureQuestion.value =
-		interactions.value.featureQuestions[drawType.value] || featureQuestion.value;
-	hasFeatureQuestion.value = !!interactions.value.featureQuestions[drawType.value]?.label;
-}
-watch(interactions, reinit, { deep: true });
+const typeOptions = DRAW_TYPES.map((dt) => ({
+	value: dt,
+	text: t(`sheetEditor.interactions.${dt}`),
+}));
+
+const hasFeatureQuestion = ref(!!di.value?.featureQuestion.label);
 
 const emit = defineEmits<{
-	(
-		e: 'modified',
-		drawType: string,
-		buttonLabel: string,
-		descriptionLabel: string,
-		featureLabel: string,
-		featureQuestion: Record<string, string>,
-	): void;
+	(e: 'modified', di: DrawingInteraction): void;
 }>();
 
 function handleOk() {
-	if (hasFeatureQuestion.value && featureQuestion.value.label) {
-		featureQuestion.value.id = 'partimapFeatureQuestion';
-		featureQuestion.value.type = 'checkbox';
+	if (hasFeatureQuestion.value && di.value.featureQuestion.label) {
+		di.value.featureQuestion.id = 'partimapFeatureQuestion'; // TODO fix type
+		di.value.featureQuestion.type = 'checkbox';
 	} else {
-		featureQuestion.value = {};
+		di.value.featureQuestion = {};
 	}
-	emit(
-		'modified',
-		drawType.value,
-		buttonLabel.value,
-		descriptionLabel.value,
-		featureLabel.value,
-		featureQuestion.value,
-	);
+	emit('modified', di.value);
 	visible.value = false;
 }
 
 function inputValid(max: number) {
 	if (
-		!featureQuestion.value.options ||
+		!di.value.featureQuestion.options ||
 		!max ||
 		max < 1 ||
-		max >= featureQuestion.value.options.length
+		max >= di.value.featureQuestion.options.length
 	) {
-		featureQuestion.value.max = '';
+		delete di.value.featureQuestion.max;
 	}
 }
 </script>
@@ -74,25 +49,62 @@ function inputValid(max: number) {
 		ok-variant="success"
 		:teleport-disabled="true"
 		teleport-to="body"
-		:title="$t(`sheetEditor.interactions.${drawType}`)"
+		:title="di.featureLabel || $t(`sheetEditor.interactions.${di.type}`)"
 		@ok="handleOk"
-		@show="reinit"
 	>
+		<b-form-select
+			v-model="di.type"
+			class="mb-3"
+			:options="typeOptions"
+		/>
+
 		<b-form-group :label="$t('sheetEditor.featureLabel')">
 			<b-form-input
-				v-model="featureLabel"
-				:placeholder="$t(`FeatureListElement.defaultName.${drawType}`)"
+				v-model="di.featureLabel"
+				:placeholder="$t(`FeatureListElement.defaultName.${di.type}`)"
 			/>
 		</b-form-group>
 		<b-form-group
-			:label="$t(`sheetEditor.instructions.${drawType}`)"
-			:description="`${buttonLabel.length} / 100`"
+			:label="$t(`sheetEditor.instructions.${di.type}`)"
+			:description="`${(di.buttonLabel || '').length} / 100`"
 		>
 			<b-form-input
-				v-model="buttonLabel"
-				:state="buttonLabel.length > 100 ? false : null"
+				v-model="di.buttonLabel"
+				:state="(di.buttonLabel || '').length > 100 ? false : null"
 			/>
 		</b-form-group>
+
+		<div class="row">
+			<b-form-group
+				class="col-lg-8"
+				:label="$t('InteractionSettingsModal.maxDraw')"
+			>
+				<b-form-input
+					v-model.number="di.max"
+					type="number"
+				/>
+			</b-form-group>
+			<b-form-group
+				class="col"
+				:label="$t('FeatureListElement.color')"
+			>
+				<b-form-input
+					id="type-color"
+					v-model="di.color"
+					class="w-100"
+					type="color"
+					list="presetColors"
+				/>
+				<datalist id="presetColors">
+					<option
+						v-for="c in COLOR_PALETTE"
+						:key="c"
+					>
+						{{ c }}
+					</option>
+				</datalist>
+			</b-form-group>
+		</div>
 
 		<hr />
 
@@ -101,25 +113,28 @@ function inputValid(max: number) {
 				{{ $t('sheetEditor.addFeatureQuestion') }}
 			</b-form-checkbox>
 		</b-form-group>
-		<div v-if="hasFeatureQuestion">
+		<div
+			v-if="hasFeatureQuestion"
+			class="ms-4"
+		>
 			<b-form-group :label="$t('SurveyEditor.questionText')">
-				<b-form-input v-model="featureQuestion.label" />
+				<b-form-input v-model="di.featureQuestion.label" />
 			</b-form-group>
 			<OptionsEditor
-				v-model="featureQuestion.options"
+				v-model="di.featureQuestion.options"
 				label-state="option"
 			/>
 			<b-form-group :label="$t('SurveyEditor.maxSelect')">
 				<b-form-input
-					v-model.number="featureQuestion.max"
+					v-model.number="di.featureQuestion.max"
 					type="number"
 					min="1"
-					:max="!featureQuestion.options ? 0 : featureQuestion.options.length"
+					:max="!di.featureQuestion.options ? 0 : di.featureQuestion.options.length"
 					@change="inputValid"
 				/>
 			</b-form-group>
 			<b-form-group>
-				<b-form-checkbox v-model="featureQuestion.other">
+				<b-form-checkbox v-model="di.featureQuestion.other">
 					{{ $t('SurveyEditor.other') }}
 				</b-form-checkbox>
 			</b-form-group>
@@ -128,14 +143,27 @@ function inputValid(max: number) {
 
 		<hr />
 
+		<b-form-group>
+			<b-form-checkbox v-model="di.describing">
+				{{ $t('sheetEditor.interactions.describing') }}
+			</b-form-checkbox>
+		</b-form-group>
 		<b-form-group
+			v-if="di.describing"
+			class="ms-4"
 			:label="$t('sheetEditor.descriptionLabel')"
 			:description="$t('sheetEditor.descriptionLabelDescription')"
 		>
 			<b-form-input
-				v-model="descriptionLabel"
+				v-model="di.descriptionLabel"
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
+		</b-form-group>
+
+		<b-form-group>
+			<b-form-checkbox v-model="di.naming">
+				{{ $t('sheetEditor.interactions.naming') }}
+			</b-form-checkbox>
 		</b-form-group>
 	</b-modal>
 </template>

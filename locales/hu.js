@@ -198,13 +198,14 @@ export default {
 		view: 'Megtekintés',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Új rajzolós feladat',
 		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultRatingQuestion: 'Miért adtad ezt az értékelést?',
-		featureLabel: 'Feladat egyedi neve a riportban',
+		featureLabel: 'Feladat egyedi neve',
 		descriptionLabel: 'Szöveges kifejtéshez rendelt kérdés',
 		descriptionLabelDescription:
 			'A kért elem felrajzolása után a kitöltő szöveges indoklást adhat, az ehhez tartozó kérdés vagy utasítás adható meg itt.',
@@ -214,6 +215,7 @@ export default {
 			Polygon: 'Instrukció terület felrajzolásához',
 		},
 		interactions: {
+			describing: 'Szöveges indoklás',
 			Point: 'Pont felrajzolása',
 			LineString: 'Vonal felrajzolása',
 			Polygon: 'Terület felrajzolása',
@@ -372,6 +374,9 @@ export default {
 		stackeditInfo:
 			'Barátságosabb szerkesztő, de az előnézete nem tud mindent megjeleníteni. A bal felső sarokban levő gombbal zárható be.',
 	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. felrajzolható',
+	},
 	ListItem: {
 		clone: 'Másolat készítése',
 		delete: 'Törlés',
@@ -509,6 +514,7 @@ export default {
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
 			'A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
+		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?',
 		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',

@@ -197,6 +197,7 @@ export default {
 		view: 'View Project',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add drawing task', // TODO
 		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',
@@ -213,6 +214,7 @@ export default {
 			Polygon: 'Instruction for drawing a Polygon',
 		},
 		interactions: {
+			describing: 'Text question', // TODO
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',
@@ -370,6 +372,9 @@ export default {
 		stackeditInfo:
 			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
 	},
+	InteractionSettingsModal: {
+		maxDraw: 'Max. number of markers',
+	},
 	ListItem: {
 		clone: 'Duplicate',
 		delete: 'Delete',
@@ -506,6 +511,7 @@ export default {
 		confirmDeletion: 'Are you sure you wish to delete this',
 		confirmFeatureClose:
 			'An explanation is expected. Are you sure you want to save without entering a response?',
+		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?', // TODO
 		confirmUnsaved:
 			'There are unsaved changes on this page. Are you sure you want to continue?',
 		delete: 'Delete',

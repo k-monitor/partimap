@@ -48,6 +48,11 @@ Or you can set it up as a service and run it with the following steps:
 3. Create a configuration via `cp ecosystem.config.cjs.example ecosystem.config.cjs` and edit the app name and other options as you wish.
 4. Start the server with `pm2 start ecosystem.config.cjs`
 
+## Running unit tests
+
+1. Create `.env.test` file.
+2. Run `pnpm run test` or you can run `pnpm run dev` and open Vitest in Nuxt DevTools.
+
 ## Adding a database change (migration)
 
 1. Run `npx db-migrate create <name-of-migration>`.

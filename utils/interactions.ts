@@ -1,91 +1,206 @@
 // This file handles the (de)serialization of the sheet.interactions field
 // in a backward-compatible way.
 
-import type { Question } from '~/server/data/surveyAnswers';
+import { nanoid } from 'nanoid';
+import type { Sheet } from '~/server/data/sheets';
+import type { Question, Survey } from '~/server/data/surveyAnswers';
+
+export const DRAW_TYPES = ['Point', 'LineString', 'Polygon'] as const;
+export type DrawType = (typeof DRAW_TYPES)[number];
+
+export const DRAW_TYPE_ICONS: Record<DrawTypeWithOffState, string> = {
+	'': 'fa-times',
+	Point: 'fa-map-marker-alt',
+	LineString: 'fa-route',
+	Polygon: 'fa-draw-polygon',
+};
+
+export type DrawingInteraction = {
+	id: string;
+	type: DrawType;
+
+	/**
+	 * Custom label for drawing button
+	 */
+	buttonLabel: string;
+
+	/**
+	 * Color of drawing button and features
+	 */
+	color: string;
+
+	/**
+	 * Whether visitor can describe features
+	 */
+	describing: boolean;
+
+	/**
+	 * Custom label for description field of features
+	 */
+	descriptionLabel: string;
+
+	/**
+	 * Custom label in report (export)
+	 */
+	featureLabel: string;
+
+	/**
+	 * Question to be displayed in feature box
+	 */
+	featureQuestion: Partial<Question>;
+
+	/**
+	 * Maximum number of features to be drawn (0 = unlimited)
+	 */
+	max: number;
+
+	/**
+	 * Whether visitor can name their features
+	 */
+	naming: boolean;
+};
+
+export function createDrawingInteraction(di: Partial<DrawingInteraction>): DrawingInteraction {
+	return {
+		id: di.id || nanoid(),
+		type: di.type || 'Point',
+		buttonLabel: di.buttonLabel || '',
+		color: di.color || DEFAULT_COLORS[di.type || 'Point'],
+		describing: Object.hasOwn(di, 'describing') ? !!di.describing : true, // true because of backward-compatibility
+		descriptionLabel: di.descriptionLabel || '',
+		featureLabel: di.featureLabel || '',
+		featureQuestion: di.featureQuestion || {},
+		max: Math.max(0, di.max || 0),
+		naming: !!di.naming,
+	};
+}
+
+export type OnOffInteraction =
+	| 'Rating'
+	| 'RatingExplanation'
+	| 'RatingProsCons'
+	| 'RatingResults'
+	| 'ShowResultsOnly'
+	| 'SocialSharing';
+
+type LegacyOnOffInteraction = OnOffInteraction | DrawType | 'naming' | `stars=${number}`;
 
 export type Interactions = {
-	enabled: string[];
+	/**
+	 * Name of basemap to pre-select for visitor
+	 */
 	baseMap: string;
+
 	/**
-	 * Custom labels for drawing buttons
+	 * Drawing interactions
 	 */
-	buttonLabels: Record<string, string>;
+	drawing: DrawingInteraction[];
+
 	/**
-	 * Custom labels for description field of features
+	 * Enabled non-drawing interactions
 	 */
-	descriptionLabels: Record<string, string>;
-	/**
-	 * Custom labels for features in report (export)
-	 */
-	featureLabels: Record<string, string>;
-	/**
-	 * Question to be displayed in feature boxes
-	 */
-	featureQuestions: Record<string, Partial<Question>>;
+	enabled: OnOffInteraction[];
+
 	/**
 	 * Question to be displayed for rating explanation
 	 */
 	ratingQuestion: string;
+
 	/**
 	 * Number of stars for Rating interaction
 	 */
 	stars: number;
 };
 
-export function createInteractions(data: any): Interactions {
+export type LegacyInteractions =
+	| LegacyOnOffInteraction[]
+	| (Omit<Interactions, 'enabled'> & {
+			enabled: LegacyOnOffInteraction[];
+			buttonLabels: Record<DrawType, string>;
+			descriptionLabels: Record<DrawType, string>;
+			featureLabels: Record<DrawType, string>;
+			featureQuestions: Record<DrawType, Partial<Question>>;
+	  });
+
+export function isItInteractive(interactions: Interactions | null) {
+	return (interactions?.drawing || []).length > 0;
+}
+
+export function createInteractions(data: Partial<Interactions>): Interactions {
 	return {
-		enabled: data.enabled || [],
 		baseMap: data.baseMap || 'osm',
-		buttonLabels: {
-			Point: data.buttonLabels?.Point || '',
-			LineString: data.buttonLabels?.LineString || '',
-			Polygon: data.buttonLabels?.Polygon || '',
-		},
-		descriptionLabels: {
-			Point: data.descriptionLabels?.Point || '',
-			LineString: data.descriptionLabels?.LineString || '',
-			Polygon: data.descriptionLabels?.Polygon || '',
-		},
-		featureLabels: {
-			Point: data.featureLabels?.Point || '',
-			LineString: data.featureLabels?.LineString || '',
-			Polygon: data.featureLabels?.Polygon || '',
-		},
-		featureQuestions: {
-			Point: data.featureQuestions?.Point || {},
-			LineString: data.featureQuestions?.LineString || {},
-			Polygon: data.featureQuestions?.Polygon || {},
-		},
+		drawing: Array.isArray(data.drawing) ? data.drawing.map(createDrawingInteraction) : [],
+		enabled: data.enabled || [],
 		ratingQuestion: data.ratingQuestion || '',
 		stars: data.stars || 5,
 	};
 }
 
 export function serializeInteractions(interactions: Interactions) {
+	// TODO would be nice to remove fields that are holding default values
 	return JSON.stringify(interactions);
 }
 
-export function deserializeInteractions(json: string | undefined) {
-	const parsed = safeParseJSON(json || '[]');
+export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined) {
+	const json = sheet?.interactions;
+	let interactions: Interactions = createInteractions({});
+
+	const parsed: Partial<LegacyInteractions> = safeParseJSON(json) || {};
 	if (Array.isArray(parsed)) {
-		const enabled = [] as string[];
-		let stars = 5;
-		parsed.forEach((ia) => {
-			if (ia.startsWith('stars=')) {
-				stars = Number(ia.split('=')[1]);
-			} else {
-				enabled.push(ia);
+		// #2346, #2841 backward compatibility
+		parsed.forEach((ia: LegacyOnOffInteraction | undefined) => {
+			if (!ia) return;
+			if (DRAW_TYPES.includes(ia as DrawType)) {
+				interactions.drawing.push(
+					createDrawingInteraction({
+						id: ia,
+						type: ia as DrawType,
+						naming: parsed.includes('naming'),
+					}),
+				);
+			} else if (ia.startsWith('stars=')) {
+				interactions.stars = Number(ia.split('=')[1]);
+			} else if (ia !== 'naming') {
+				interactions.enabled.push(ia as OnOffInteraction);
 			}
 		});
-		return createInteractions({ enabled, stars });
-	}
-	return createInteractions(parsed);
-}
+	} else {
+		interactions = createInteractions(parsed as Interactions);
 
-export function isItInteractive(interactions?: Interactions | null) {
-	return (
-		interactions?.enabled?.includes('Point') ||
-		interactions?.enabled?.includes('LineString') ||
-		interactions?.enabled?.includes('Polygon')
-	);
+		// #2841 backward compatibility
+		const filteredEnabled: OnOffInteraction[] = [];
+		(parsed.enabled || []).forEach((ia: LegacyOnOffInteraction) => {
+			if (ia === 'naming') return;
+
+			if (!DRAW_TYPES.includes(ia as DrawType)) {
+				return filteredEnabled.push(ia as OnOffInteraction);
+			}
+
+			const dt = ia as DrawType;
+			interactions.drawing.push(
+				createDrawingInteraction({
+					id: ia,
+					type: ia as DrawType,
+					buttonLabel: parsed.buttonLabels?.[dt],
+					descriptionLabel: parsed.descriptionLabels?.[dt],
+					featureLabel: parsed.featureLabels?.[dt],
+					featureQuestion: parsed.featureQuestions?.[dt],
+					naming: parsed.enabled?.includes('naming'),
+				}),
+			);
+		});
+		interactions.enabled = filteredEnabled;
+	}
+
+	// #2434 backward compatibility
+	const survey: Survey = safeParseJSON(sheet?.survey) || {};
+	if (survey?.showResultsOnly) interactions.enabled.push('ShowResultsOnly');
+
+	// #2437 backward compatibility
+	const descriptionLabel = sheet?.descriptionLabel || '';
+	interactions.drawing.forEach((di) => {
+		if (!di.descriptionLabel) di.descriptionLabel = descriptionLabel;
+	});
+
+	return interactions;
 }

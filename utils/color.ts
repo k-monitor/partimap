@@ -2,6 +2,15 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 
 // "opacity100" means opacity on a scale of 0 to 100 :)
 
+export const PARTIMAP_BLUE = '#007bff'; // Bootstrap 4 default primary color actually
+
+export const DEFAULT_COLORS: Record<DrawTypeWithOffState, string> = {
+	'': '#ffc107',
+	Point: '#F44336',
+	LineString: '#3F51B5',
+	Polygon: '#49a238',
+};
+
 export const COLOR_PALETTE = [
 	'#F44336',
 	'#E91E63',

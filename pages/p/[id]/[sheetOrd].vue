@@ -48,7 +48,7 @@ watchEffect(() => {
 	}
 });
 
-const { consent, drawType, loading, selectedFeatureId, submitted } = useStore();
+const { consent, loading, selectedFeatureId, submitted } = useStore();
 
 const {
 	getAllVisitorAnswers,
@@ -57,6 +57,7 @@ const {
 	getVisitorFeatures,
 	getVisitorRatings,
 	setVisitorFeatures,
+	featureCountByInteraction,
 } = useVisitorData();
 
 function goToSheetOrd(ord: number) {
@@ -94,7 +95,7 @@ function registerHit() {
 }
 
 const sheet = computed(() => project.value?.sheets?.[Number(params.sheetOrd)]);
-const interactions = computed(() => deserializeInteractions(sheet.value?.interactions));
+const interactions = computed(() => deserializeInteractions(sheet.value));
 provide('interactions', interactions);
 provide('sheet', sheet);
 
@@ -115,8 +116,7 @@ const labels = computed(() => {
 });
 
 const showOnlyResults = computed(() => {
-	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	return interactions.value?.enabled?.includes('ShowResultsOnly') || survey.showResultsOnly;
+	return interactions.value?.enabled?.includes?.('ShowResultsOnly');
 });
 
 const visitorAnswers = computed(() => (sheet.value ? getVisitorAnswers(sheet.value?.id) : {}));
@@ -184,12 +184,7 @@ const prevSheetOrd = computed(() => {
 const isFirstSheet = computed(() => prevSheetOrd.value < 0);
 const isLastSheet = computed(() => nextSheetOrd.value < 0);
 
-const isInteractive = computed(
-	() =>
-		interactions.value.enabled.includes('Point') ||
-		interactions.value.enabled.includes('LineString') ||
-		interactions.value.enabled.includes('Polygon'),
-);
+const isInteractive = computed(() => isItInteractive(interactions.value));
 
 const features = ref<GeoJsonFeature[]>([]);
 const isSheetLoaded = computed(() => !!sheet.value);
@@ -285,13 +280,23 @@ function prev() {
 
 const sheetForm = ref<HTMLFormElement>();
 
-function next() {
+const { confirmNoFeatures } = useConfirmation();
+
+async function next() {
 	selectedFeatureId.value = null;
 	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
 		return;
 	}
+
+	const ids = interactions.value.drawing.map((di) => di.id);
+	const idsWithoutFeature = ids.filter((id) => !featureCountByInteraction.value[id]);
+	if (idsWithoutFeature.length) {
+		const confirm = await confirmNoFeatures();
+		if (!confirm) return;
+	}
+
 	if (needToShowResults.value) {
 		resultsShown.value = true;
 	} else {
@@ -426,7 +431,6 @@ const localePath = useLocalePath();
 								:project="project"
 								:results="resultsShown"
 								:results-data="resultsData"
-								:sheet="sheet"
 								:show-consent="isFirstSheet"
 							/>
 							<LoadingOverlay :show="loading" />
@@ -496,9 +500,12 @@ const localePath = useLocalePath();
 						visitor
 						@feature-drawn="handleFeatureDrawn"
 					/>
-					<MapTask :interactions="interactions" />
+					<MapTask />
 					<MapHint />
-					<VisitorDrawButtonsOuter :interactions="interactions" />
+					<EdgeDrawingButtons
+						:interactions="interactions"
+						side="left"
+					/>
 				</div>
 			</template>
 		</form>

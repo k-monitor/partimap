@@ -1,25 +1,16 @@
 <script setup lang="ts">
-const props = defineProps<{
-	interactions: Interactions;
-}>();
+const { currentDrawingInteraction } = useStore();
 
-const { drawType } = useStore();
-
-const bgClasses: Record<DrawType, string> = {
+const bgClasses: Record<DrawTypeWithOffState, string> = {
 	'': '',
 	Point: 'bg-danger',
 	LineString: 'bg-primary',
 	Polygon: 'bg-success',
 };
-const bgClass = computed(() => bgClasses[drawType.value]);
 
-const task = computed(() => {
-	try {
-		return props.interactions.buttonLabels[drawType.value];
-	} catch {
-		return '';
-	}
-});
+const bgClass = computed(() => bgClasses[currentDrawingInteraction.value?.type || '']);
+
+const task = computed(() => currentDrawingInteraction.value?.buttonLabel || '');
 </script>
 
 <template>

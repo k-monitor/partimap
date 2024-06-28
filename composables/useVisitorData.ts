@@ -53,6 +53,17 @@ export default function useVisitorData() {
 			[sheetId]: features,
 		};
 	};
+	const featureCountByInteraction = computed(() => {
+		const counts: Record<string, number> = {};
+		Object.values(visitorFeatures.value).forEach((features) => {
+			features.forEach((f) => {
+				const di = f.properties?.visitorFeature || '';
+				if (!counts[di]) counts[di] = 0;
+				counts[di]++;
+			});
+		});
+		return counts;
+	});
 
 	const visitorRatings = useState<Record<number, RatingsByFeature>>('visitorRatings', () => ({}));
 	const getVisitorRatings = (sheetId: number) => visitorRatings.value[sheetId] || {};
@@ -96,5 +107,6 @@ export default function useVisitorData() {
 		setVisitorRatings,
 
 		getSubmissionData,
+		featureCountByInteraction,
 	};
 }

@@ -55,9 +55,14 @@ const isDeletable = computed(
 
 const confirmedClose = ref(false);
 
+const drawingInteraction = computed(() =>
+	(interactions?.value?.drawing || []).find(
+		(di) => di.id === feature.value.properties?.visitorFeature,
+	),
+);
+
 const question = computed(() => {
-	const dt = feature.value.geometry.type;
-	const q = interactions?.value?.featureQuestions?.[dt];
+	const q = drawingInteraction.value?.featureQuestion;
 	return q?.label ? q : null;
 });
 
@@ -74,9 +79,8 @@ const showSaveButtonOnStaticSheet = computed(() => {
 	return !!rating.value && !props.showResults;
 });
 
-const visitorCanName = computed(() => {
-	return interactions?.value?.enabled?.includes('naming');
-});
+const visitorCanDescribe = computed(() => drawingInteraction.value?.describing);
+const visitorCanName = computed(() => drawingInteraction.value?.naming);
 
 const visitorCanRate = computed(() => {
 	return interactions?.value?.enabled?.includes('Rating');
@@ -118,14 +122,16 @@ function getRatingObj() {
 
 const visitorFilledEverything = computed(() => {
 	if (props.isInteractive) {
-		if (!feature.value.properties?.description) return false;
-		if (!question.value) return true;
-		try {
-			const answer = JSON.parse(feature.value.properties?.partimapFeatureQuestion_ans);
-			if (!Array.isArray(answer) || !answer.length) return false;
-		} catch {
-			return false;
-		}
+		const needAnswer = !!question.value;
+		const needDescription = drawingInteraction.value?.describing;
+		if (!needAnswer && !needDescription) return true;
+
+		const hasAnswer =
+			safeParseJSONArray(feature.value.properties?.partimapFeatureQuestion_ans).length > 0;
+		const hasDescription = feature.value.properties?.description;
+		if (hasAnswer || hasDescription) return true;
+
+		return false;
 	} else if (feature.value.properties?.rating) {
 		const ratingObj = getRatingObj();
 		const ias = interactions?.value?.enabled || [];
@@ -228,7 +234,7 @@ async function deleteFeature() {
 			ref="featureRef"
 			:is-deletable="isDeletable"
 			:is-selected="isSelected"
-			:show-result="showResults"
+			:show-result="!!showResults"
 			@click="featureClicked"
 			@delete="deleteFeature"
 		/>
@@ -269,7 +275,7 @@ async function deleteFeature() {
 							<template v-if="isInteractive">
 								<FeatureNameEditor v-if="visitorCanName" />
 								<FeatureQuestionDisplay />
-								<FeatureDescriptionPlainEditor />
+								<FeatureDescriptionPlainEditor v-if="visitorCanDescribe" />
 								<FeatureListElementFooter
 									show-delete
 									show-save
@@ -282,7 +288,7 @@ async function deleteFeature() {
 								<TipTapDisplay :html="feature.properties?.description" />
 								<FeatureRatingControls
 									v-if="visitorCanRate"
-									:show-results="showResults"
+									:show-results="!!showResults"
 								/>
 								<FeatureListElementFooter
 									v-if="showSaveButtonOnStaticSheet"

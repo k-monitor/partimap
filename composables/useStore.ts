@@ -1,4 +1,4 @@
-export type DrawType = '' | 'Point' | 'LineString' | 'Polygon';
+export type DrawTypeWithOffState = '' | DrawType;
 
 export default function useStore() {
 	const baseMap = useState<string>('baseMap', () => 'osm');
@@ -12,9 +12,23 @@ export default function useStore() {
 		baseMap.value = keys[index];
 	}
 
+	const currentDrawingInteraction = useState<DrawingInteraction | null>(
+		'currentDrawingInteraction',
+		() => null,
+	);
+	const drawType = computed<DrawTypeWithOffState>({
+		get() {
+			return currentDrawingInteraction.value?.type || '';
+		},
+		set(dt: DrawTypeWithOffState) {
+			currentDrawingInteraction.value = dt
+				? createDrawingInteraction({ id: dt, type: dt })
+				: null;
+		},
+	});
+
 	const consent = useState<boolean>('consent', () => false);
 	const currentZoom = useState<number>('currentZoom', () => 0);
-	const drawType = useState<DrawType>('drawType', () => '');
 	const filteredFeatureIds = useState<number[] | null>('filteredFeatureIds', () => null);
 	const loading = useState<boolean>('loading', () => true);
 	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);
@@ -28,6 +42,7 @@ export default function useStore() {
 		baseMapToShow,
 		changeBaseMap,
 		consent,
+		currentDrawingInteraction,
 		currentZoom,
 		drawType,
 		filteredFeatureIds,

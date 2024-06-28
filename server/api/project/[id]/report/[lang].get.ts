@@ -12,6 +12,7 @@ import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
 import { Survey } from '~/server/data/surveyAnswers';
+import { deserializeInteractions } from '~/utils/interactions';
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords: number[]) {
@@ -147,7 +148,8 @@ export default defineEventHandler(async (event) => {
 	for (let i = 0; i < sheets.length; i++) {
 		const sheet = sheets[i];
 		const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[]; // TODO redundant
-		const stars = safeParseJSON(sheet.interactions)?.stars || 0;
+		const interactions = deserializeInteractions(sheet);
+		const stars = interactions.stars;
 
 		const ar = await rdb.aggregateBySheetId(sheet.id);
 		for (let j = 0; j < ar.length; j++) {
@@ -213,7 +215,7 @@ export default defineEventHandler(async (event) => {
 			const features = ((safeParseJSONArray(sf.features) || []) as GeoJsonFeature[]).filter(
 				(f) => !!f.id,
 			);
-			const interactions = JSON.parse(sheet.interactions || '{}');
+			const interactions = deserializeInteractions(sheet);
 			for (let j = 0; j < features.length; j++) {
 				const f = features[j];
 				const name = f?.properties?.name || '';

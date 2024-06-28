@@ -41,7 +41,7 @@ function reinit() {
 	ratingQuestion.value = interactions.value.ratingQuestion;
 	ratingResults.value = interactions.value.enabled.includes('RatingResults');
 	ratingType.value = interactions.value.stars === -2 ? 1 : 0;
-	stars.value = interactions.value.stars || 5;
+	stars.value = interactions.value.stars;
 	textRating.value =
 		interactions.value.enabled.includes('RatingExplanation') ||
 		interactions.value.enabled.includes('RatingProsCons');

@@ -6,6 +6,7 @@ import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
+import type { OnOffInteraction } from '~/utils/interactions';
 
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
@@ -30,26 +31,17 @@ function init() {
 	sheet.value = project.value?.sheets?.[Number(sheetOrd)]; // sheets are ordered on server
 	if (!sheet.value) return;
 
-	interactions.value = deserializeInteractions(sheet.value.interactions);
+	interactions.value = deserializeInteractions(sheet.value);
 
-	// BEGIN backward compatibility for #2437
-	const descriptionLabel = sheet.value.descriptionLabel || '';
-	['Point', 'LineString', 'Polygon'].forEach((dt) => {
-		if (!interactions.value.descriptionLabels[dt]) {
-			interactions.value.descriptionLabels[dt] = descriptionLabel;
-		}
-	});
-	sheet.value.descriptionLabel = '';
-	// END backward compatibility for #2437
-
-	// BEGIN backward compatibility for #2434
-	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	if (survey?.showResultsOnly) {
-		interactions.value.enabled.push('ShowResultsOnly');
+	// #2434 cleanup
+	if ((sheet.value?.survey || '').includes('showResultsOnly')) {
+		const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
 		delete survey.showResultsOnly;
 		sheet.value.survey = JSON.stringify(survey);
 	}
-	// END backward compatibility for #2434
+
+	// #2437 cleanup
+	sheet.value.descriptionLabel = '';
 }
 init();
 
@@ -107,61 +99,39 @@ async function prev() {
 		goToSheetOrd(sheet.value?.ord - 1);
 	}
 }
-function addedSheet(sheet: Sheet) {
+function addedSheet(sheet: Sheet | undefined) {
+	if (!sheet) return;
 	project.value?.sheets?.push(sheet);
 	next();
 }
 
-const isInteractive = computed(
-	() =>
-		interactions.value.enabled.includes('Point') ||
-		interactions.value.enabled.includes('LineString') ||
-		interactions.value.enabled.includes('Polygon'),
-);
-const interactionOptions = computed(() => {
-	const options = [];
-	if (!sheet.value) return;
+const isInteractive = computed(() => isItInteractive(interactions.value));
 
-	const ia = (interactionName: string) => ({
-		value: interactionName,
-		text: t(`sheetEditor.interactions.${interactionName}`),
-	});
-
-	if (sheet.value.features) {
-		// map sheet
-		if (!sheet.value.survey) {
-			// interactive map sheet
-			options.push(ia('Point'), ia('LineString'), ia('Polygon'));
-			if (isInteractive.value) options.push(ia('naming'));
-		} else {
-			options.push(ia('Rating'));
-		}
-	} else {
-		options.push(ia('SocialSharing'));
-	}
-	return options;
-});
-const surveyQuestions = computed<Question[] | undefined>(() => {
+const surveyQuestions = computed(() => {
 	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	return survey.questions;
+	return survey.questions || [];
 });
+
 const isAllResultsEnabled = computed(() => {
 	if (!interactions.value.enabled.includes('RatingResults')) return false;
-	const questionsWithResults = surveyQuestions.value?.filter(
+	const questionsWithResults = surveyQuestions.value.filter(
 		(q: Question) => q.type && q.type !== 'text',
 	);
 	if (questionsWithResults?.some((q: Question) => !q.showResult)) return false;
 	return true;
 });
+
 const canHaveResults = computed(() => {
 	if (interactions.value.enabled.includes('Rating')) return true;
 	return (surveyQuestions.value?.length || 0) > 0;
 });
+
 const someResultsEnabled = computed(() => {
 	if (interactions.value.enabled.includes('RatingResults')) return true;
-	return surveyQuestions.value?.some((q) => q.showResult);
+	return surveyQuestions.value.some((q) => q.showResult);
 });
-function toggleInteraction(ia: string, enabled: boolean) {
+
+function toggleInteraction(ia: OnOffInteraction, enabled: boolean) {
 	if (enabled) {
 		if (!interactions.value.enabled.includes(ia)) {
 			interactions.value.enabled.push(ia);
@@ -170,31 +140,7 @@ function toggleInteraction(ia: string, enabled: boolean) {
 		interactions.value.enabled = interactions.value.enabled.filter((i) => i !== ia);
 	}
 }
-function handleInteractionModified(
-	drawType: string,
-	buttonLabel: string,
-	descriptionLabel: string,
-	featureLabel: string,
-	featureQuestion: Record<string, string>,
-) {
-	interactions.value.buttonLabels[drawType] = buttonLabel;
-	interactions.value.descriptionLabels[drawType] = descriptionLabel;
-	interactions.value.featureLabels[drawType] = featureLabel;
-	interactions.value.featureQuestions[drawType] = featureQuestion;
-}
-function handleRatingInteractionModified(
-	ratingExplanation: boolean,
-	ratingProsCons: boolean,
-	ratingQuestion: string,
-	ratingResults: boolean,
-	stars: number,
-) {
-	interactions.value.ratingQuestion = ratingQuestion;
-	interactions.value.stars = stars;
-	toggleInteraction('RatingExplanation', ratingExplanation);
-	toggleInteraction('RatingProsCons', ratingProsCons);
-	toggleInteraction('RatingResults', ratingResults);
-}
+
 watch(
 	interactions,
 	(interactions) => {
@@ -206,33 +152,21 @@ watch(
 	},
 );
 
-const settingsModals: Record<string, Ref<boolean>> = {
-	LineString: ref(false),
-	Point: ref(false),
-	Polygon: ref(false),
-	Rating: ref(false),
-};
-function hasSettings(ia: string) {
-	return Object.keys(settingsModals).includes(ia);
-}
-function openInteractionSettings(ia: string) {
-	if (hasSettings(ia) && interactions.value.enabled.includes(ia)) {
-		settingsModals[ia].value = true;
-	}
-}
+const showAllResults = ref(isAllResultsEnabled.value);
 
-const showAllResults = ref(false);
 function showAllResultsClicked() {
 	if (!sheet.value) return;
 	const showResults = showAllResults.value;
 	toggleInteraction('RatingResults', showResults);
 	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	survey.questions?.forEach((q: Question) => (q.showResult = showResults));
+	survey.questions.forEach((q: Question) => (q.showResult = showResults));
 	sheet.value.survey = JSON.stringify(survey);
 }
+
 onMounted(() => {
 	showAllResults.value = isAllResultsEnabled.value;
 });
+
 watch(
 	sheet,
 	() => {
@@ -383,57 +317,11 @@ async function save() {
 			>
 				<SurveyEditor
 					v-model="sheet.survey"
-					:sheet="sheet"
-					:sheets="project.sheets"
+					:sheets="project.sheets || []"
 				/>
 			</form-group>
 
-			<form-group
-				v-if="interactionOptions?.length"
-				:label="$t('sheetEditor.visitorInteractions')"
-			>
-				<client-only>
-					<b-list-group class="mb-3">
-						<b-list-group-item
-							v-for="o in interactionOptions"
-							:key="o.value"
-							class="d-flex p-0 align-items-center"
-						>
-							<div class="p-2">
-								<b-form-checkbox
-									v-model="interactions.enabled"
-									:value="o.value"
-									@change="openInteractionSettings(o.value)"
-								>
-									{{ o.text }}
-								</b-form-checkbox>
-							</div>
-							<b-button
-								v-if="hasSettings(o.value)"
-								class="border-0 ms-auto px-2 py-2 rounded-0"
-								variant="outline-primary"
-								:disabled="!interactions.enabled.includes(o.value)"
-								@click="openInteractionSettings(o.value)"
-							>
-								<i class="fas fa-fw fa-cog" />
-							</b-button>
-						</b-list-group-item>
-					</b-list-group>
-				</client-only>
-				<InteractionSettingsModal
-					v-for="dt in ['Point', 'LineString', 'Polygon']"
-					:key="dt"
-					v-model="settingsModals[dt].value"
-					:draw-type="dt"
-					:interactions="interactions"
-					@modified="handleInteractionModified"
-				/>
-				<RatingSettingsModal
-					v-model="settingsModals.Rating.value"
-					:interactions="interactions"
-					@modified="handleRatingInteractionModified"
-				/>
-			</form-group>
+			<InteractionsEditor v-model="interactions" />
 
 			<form-group
 				v-if="canHaveResults"
@@ -528,7 +416,7 @@ async function save() {
 				:show-bubbles="isInteractive"
 				@feature-drawn="handleFeatureDrawn"
 			/>
-			<MapToolbar />
+			<EdgeDrawingButtons side="right" />
 			<MapHint />
 		</div>
 

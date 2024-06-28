@@ -43,7 +43,7 @@ export type Question = {
 export type Survey = {
 	questions: Question[];
 	showResults?: boolean;
-	showResultsOnly?: boolean;
+	showResultsOnly?: boolean; // legacy
 };
 
 export type AggregatedAnswers = {
