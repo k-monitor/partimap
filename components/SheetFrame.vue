@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-	backgroundImageUrl?: string;
+	backgroundImageUrl?: string | null;
 }>();
 
 const style = computed(() =>

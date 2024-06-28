@@ -4,7 +4,7 @@ import type { Sheet } from '~/server/data/sheets';
 import type { AggregatedAnswers } from '~/server/data/surveyAnswers';
 
 defineProps<{
-	brandColor?: string;
+	brandColor?: string | null;
 	project: Project;
 	results?: boolean;
 	resultsData?: AggregatedAnswers[];
