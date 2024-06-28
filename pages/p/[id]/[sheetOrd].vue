@@ -57,6 +57,7 @@ const {
 	getVisitorFeatures,
 	getVisitorRatings,
 	setVisitorFeatures,
+	featureCountByInteraction,
 } = useVisitorData();
 
 function goToSheetOrd(ord: number) {
@@ -279,13 +280,23 @@ function prev() {
 
 const sheetForm = ref<HTMLFormElement>();
 
-function next() {
+const { confirmNoFeatures } = useConfirmation();
+
+async function next() {
 	selectedFeatureId.value = null;
 	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
 		return;
 	}
+
+	const ids = interactions.value.drawing.map((di) => di.id);
+	const idsWithoutFeature = ids.filter((id) => !featureCountByInteraction.value[id]);
+	if (idsWithoutFeature.length) {
+		const confirm = await confirmNoFeatures();
+		if (!confirm) return;
+	}
+
 	if (needToShowResults.value) {
 		resultsShown.value = true;
 	} else {

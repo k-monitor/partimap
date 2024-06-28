@@ -516,6 +516,7 @@ export default {
 		confirmDeletion: 'Ar tikrai norite tai ištrinti',
 		confirmFeatureClose:
 			'Reikalingas paaiškinimas. Ar tikrai norite išsaugoti nepateikę atsakymo?',
+		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?', // TODO
 		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',
