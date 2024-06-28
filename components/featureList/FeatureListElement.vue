@@ -122,16 +122,16 @@ function getRatingObj() {
 
 const visitorFilledEverything = computed(() => {
 	if (props.isInteractive) {
-		const diId = feature.value.properties?.visitorFeature;
-		const di = (interactions?.value?.drawing || []).find((di) => di.id === diId);
-		if (di?.describing && !feature.value.properties?.description) return false;
-		if (!question.value) return true;
-		try {
-			const answer = JSON.parse(feature.value.properties?.partimapFeatureQuestion_ans);
-			if (!Array.isArray(answer) || !answer.length) return false;
-		} catch {
-			return false;
-		}
+		const needAnswer = !!question.value;
+		const needDescription = drawingInteraction.value?.describing;
+		if (!needAnswer && !needDescription) return true;
+
+		const hasAnswer =
+			safeParseJSONArray(feature.value.properties?.partimapFeatureQuestion_ans).length > 0;
+		const hasDescription = feature.value.properties?.description;
+		if (hasAnswer || hasDescription) return true;
+
+		return false;
 	} else if (feature.value.properties?.rating) {
 		const ratingObj = getRatingObj();
 		const ias = interactions?.value?.enabled || [];
