@@ -47,7 +47,7 @@ const disabled = computed(() => {
 		:disabled="disabled"
 		style="font-size: 1.25rem"
 		:style="{
-			backgroundColor: disabled ? 'inherit' : options.color,
+			backgroundColor: disabled ? '#eee' : options.color,
 			...borderStyle,
 			color: textColor,
 			height: options.drawingInteraction ? null : '140px',

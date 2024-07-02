@@ -41,7 +41,7 @@ function textColor(b: DrawingButton) {
 				class="btn border border-secondary py-2"
 				:disabled="isDisabled(b)"
 				:style="{
-					backgroundColor: isDisabled(b) ? 'inherit' : b.color,
+					backgroundColor: isDisabled(b) ? '#eee' : b.color,
 					color: textColor(b),
 					opacity: isDisabled(b) ? 0.5 : 1,
 				}"
