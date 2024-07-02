@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-	(e: 'addedSheet'): void;
+	(e: 'addedSheet', sheet: Sheet): void;
 }>();
 
 const { t } = useI18n();
@@ -111,13 +111,13 @@ async function handleSubmit() {
 	}
 
 	try {
-		await $fetch(`/api/project/${props.projectId}/sheet`, {
+		const sheet = await $fetch<Sheet>(`/api/project/${props.projectId}/sheet`, {
 			method: 'PUT',
 			body: sheetData,
 		});
 		await nextTick();
 		visible.value = false;
-		emit('addedSheet');
+		emit('addedSheet', sheet);
 		await nextTick();
 		resetModal();
 	} catch (error) {
