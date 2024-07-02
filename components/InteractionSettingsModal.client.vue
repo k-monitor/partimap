@@ -40,6 +40,11 @@ function inputValid(max: number) {
 		delete di.value.featureQuestion.max;
 	}
 }
+
+async function handleMaxDrawChange() {
+	await nextTick();
+	di.value.max = Math.max(0, di.value.max || 0);
+}
 </script>
 
 <template>
@@ -81,7 +86,9 @@ function inputValid(max: number) {
 			>
 				<b-form-input
 					v-model.number="di.max"
+					min="0"
 					type="number"
+					@change="handleMaxDrawChange"
 				/>
 			</b-form-group>
 			<b-form-group
