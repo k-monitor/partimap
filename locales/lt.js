@@ -313,6 +313,9 @@ export default {
 	DropdownGroup: {
 		other: 'Kita...',
 	},
+	EdgeDrawingButton: {
+		reachedMax: 'Elérted az elvárt számú felrajzolt elemet.', // TODO
+	},
 	FeatureImportModal: {
 		doImportFixed: `Importuoti {n} statišką(us) žymeklį(ius)`,
 		doImportFromMap: 'Importuoti {n} žymeklį(ius)',

@@ -10,12 +10,17 @@ const { featureCountByInteraction } = useVisitorData();
 
 const drawingButtons = useDrawButtons(props.interactions);
 
-function isDisabled(b: DrawingButton) {
-	if (selectedFeatureId.value) return true;
+// TODO quite ugly redundant code, see EdgeDrawingButton
+function isReachedMax(b: DrawingButton) {
 	const id = b.drawingInteraction?.id || '';
 	const count = featureCountByInteraction.value[id];
 	const max = b.drawingInteraction?.max || Number.MAX_SAFE_INTEGER;
 	return count >= max;
+}
+
+function isDisabled(b: DrawingButton) {
+	if (selectedFeatureId.value) return true;
+	return isReachedMax(b);
 }
 
 function textColor(b: DrawingButton) {
@@ -37,22 +42,27 @@ function textColor(b: DrawingButton) {
 					>{{ b.tooltip }}</span
 				>
 			</div>
-			<button
-				class="btn border border-secondary py-2"
-				:disabled="isDisabled(b)"
-				:style="{
-					backgroundColor: isDisabled(b) ? '#eee' : b.color,
-					color: textColor(b),
-					opacity: isDisabled(b) ? 0.5 : 1,
-				}"
-				type="button"
-				@click="currentDrawingInteraction = b.drawingInteraction"
+			<div
+				v-b-tooltip.hover.left
+				:title="isReachedMax(b) ? $t('EdgeDrawingButton.reachedMax') : ''"
 			>
-				<i
-					class="fas fa-fw"
-					:class="b.icon"
-				/>
-			</button>
+				<button
+					class="btn border border-secondary py-2"
+					:disabled="isDisabled(b)"
+					:style="{
+						backgroundColor: isDisabled(b) ? '#eee' : b.color,
+						color: textColor(b),
+						opacity: isDisabled(b) ? 0.5 : 1,
+					}"
+					type="button"
+					@click="currentDrawingInteraction = b.drawingInteraction"
+				>
+					<i
+						class="fas fa-fw"
+						:class="b.icon"
+					/>
+				</button>
+			</div>
 		</div>
 	</div>
 </template>

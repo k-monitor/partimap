@@ -320,6 +320,9 @@ export default {
 	DropdownGroup: {
 		other: 'Otro...',
 	},
+	EdgeDrawingButton: {
+		reachedMax: 'Elérted az elvárt számú felrajzolt elemet.', // TODO
+	},
 	FeatureImportModal: {
 		doImportFixed: 'Importar {n} puntos fijos',
 		doImportFromMap: 'Importar {n} puntos',

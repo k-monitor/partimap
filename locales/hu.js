@@ -310,6 +310,9 @@ export default {
 	DropdownGroup: {
 		other: 'Egyéb...',
 	},
+	EdgeDrawingButton: {
+		reachedMax: 'Elérted az elvárt számú felrajzolt elemet.',
+	},
 	FeatureImportModal: {
 		doImportFixed: `{n} fix elem importálása`,
 		doImportFromMap: '{n} elem importálása',

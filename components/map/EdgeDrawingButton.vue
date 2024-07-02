@@ -29,38 +29,47 @@ const tooltipOptions = computed(() => {
 	return { placement };
 });
 
-const disabled = computed(() => {
-	if (!props.visitor) return false; // admin can start drawing anytime
-	if (selectedFeatureId.value) return true;
+const reachedMax = computed(() => {
 	const id = props.options.drawingInteraction?.id || '';
 	const count = featureCountByInteraction.value[id];
 	const max = props.options.drawingInteraction?.max || Number.MAX_SAFE_INTEGER;
 	return count >= max;
 });
+
+const disabled = computed(() => {
+	if (!props.visitor) return false; // admin can start drawing anytime
+	if (selectedFeatureId.value) return true;
+	return reachedMax.value;
+});
 </script>
 
 <template>
-	<button
+	<div
 		v-b-tooltip.hover="{ ...tooltipOptions }"
-		class="btn border border-secondary rounded-0 py-2"
-		:class="[{ first, last }, side]"
-		:disabled="disabled"
-		style="font-size: 1.25rem"
-		:style="{
-			backgroundColor: disabled ? '#eee' : options.color,
-			...borderStyle,
-			color: textColor,
-			height: options.drawingInteraction ? null : '140px',
-			opacity: disabled ? 0.5 : 1,
-		}"
-		:title="options.tooltip"
-		@click="currentDrawingInteraction = options.drawingInteraction"
+		:title="reachedMax ? $t('EdgeDrawingButton.reachedMax') : ''"
 	>
-		<i
-			class="fas fa-fw"
-			:class="options.icon"
-		/>
-	</button>
+		<button
+			v-b-tooltip.hover="{ ...tooltipOptions }"
+			class="btn border border-secondary rounded-0 py-2"
+			:class="[{ first, last }, side]"
+			:disabled="disabled"
+			style="font-size: 1.25rem"
+			:style="{
+				backgroundColor: disabled ? '#eee' : options.color,
+				...borderStyle,
+				color: textColor,
+				height: options.drawingInteraction ? null : '140px',
+				opacity: disabled ? 0.5 : 1,
+			}"
+			:title="options.tooltip"
+			@click="currentDrawingInteraction = options.drawingInteraction"
+		>
+			<i
+				class="fas fa-fw"
+				:class="options.icon"
+			/>
+		</button>
+	</div>
 </template>
 
 <style scoped>
