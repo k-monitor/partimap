@@ -24,13 +24,13 @@ const { user } = useAuth();
 			</NuxtLink>
 			<span
 				v-if="userId != user?.id"
-				class="badge badge-warning"
+				class="badge text-bg-warning"
 			>
 				{{ $t('ListItem.owner') }}: #{{ userId }}
 			</span>
 			<span
 				v-else-if="user?.isAdmin"
-				class="badge badge-info"
+				class="badge text-bg-info"
 			>
 				{{ $t('ListItem.own') }}
 			</span>
