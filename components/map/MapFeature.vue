@@ -150,7 +150,8 @@ const overlayOffset = computed(() => {
 
 watchEffect(() => {
 	if (!overlay.value) return;
-	overlay.value.$el.parentElement.style.zIndex = `${zIndex.value}`;
+	const bubbleOrd = visibleFeatureBubbles.value.indexOf(Number(props.f.id));
+	overlay.value.$el.parentElement.style.zIndex = bubbleOrd + 2;
 });
 
 function closeBubble() {
