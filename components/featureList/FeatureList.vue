@@ -57,6 +57,7 @@ watch(features, () => (availableFeatures.value = getAvailableFeatures()), { deep
 
 const showHeader = computed(() => !hideAdminFeatures.value && availableFeatures.value.length > 0);
 const showSearch = computed(() => !props.isOnSheetView || availableFeatures.value.length > 3);
+const showCategories = computed(() => !props.isOnSheetView || !props.isInteractive);
 const search = ref('');
 const categoryFilter = ref('');
 
@@ -306,15 +307,17 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 					<i class="fas fa-backspace" />
 				</button>
 			</div>
-			<div
-				v-for="c in categories"
-				:key="c"
-				class="badge border border-secondary m-2"
-				:class="categoryFilter === c ? 'text-bg-dark' : 'text-bg-light'"
-				role="button"
-				@click="toggleCategoryFilter(c)"
-			>
-				{{ c }}
+			<div v-if="showCategories">
+				<div
+					v-for="c in categories"
+					:key="c"
+					class="badge border border-secondary m-2"
+					:class="categoryFilter === c ? 'text-bg-dark' : 'text-bg-light'"
+					role="button"
+					@click="toggleCategoryFilter(c)"
+				>
+					{{ c }}
+				</div>
 			</div>
 			<div
 				v-for="a in answers"
