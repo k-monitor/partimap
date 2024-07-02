@@ -47,10 +47,11 @@ const disabled = computed(() => {
 		:disabled="disabled"
 		style="font-size: 1.25rem"
 		:style="{
-			backgroundColor: options.color,
+			backgroundColor: disabled ? 'inherit' : options.color,
 			...borderStyle,
 			color: textColor,
 			height: options.drawingInteraction ? null : '140px',
+			opacity: disabled ? 0.5 : 1,
 		}"
 		:title="options.tooltip"
 		@click="currentDrawingInteraction = options.drawingInteraction"

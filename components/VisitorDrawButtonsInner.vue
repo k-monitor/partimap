@@ -38,9 +38,13 @@ function textColor(b: DrawingButton) {
 				>
 			</div>
 			<button
-				class="btn py-2"
+				class="btn border border-secondary py-2"
 				:disabled="isDisabled(b)"
-				:style="{ backgroundColor: b.color, color: textColor(b) }"
+				:style="{
+					backgroundColor: isDisabled(b) ? 'inherit' : b.color,
+					color: textColor(b),
+					opacity: isDisabled(b) ? 0.5 : 1,
+				}"
 				type="button"
 				@click="currentDrawingInteraction = b.drawingInteraction"
 			>
