@@ -82,7 +82,10 @@ onMounted(async () => {
 	fitViewToFeatures(true);
 });
 
-watch([selectedFeatureId, sidebarVisible], () => fitViewToFeatures());
+watch([selectedFeatureId, sidebarVisible], async () => {
+	await nextTick();
+	fitViewToFeatures();
+});
 // TODO add filteredFeatureIds too?
 
 // filter
