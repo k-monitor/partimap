@@ -107,7 +107,7 @@ async function expandFinished() {
 	const t = featureRef.value?.$el?.offsetTop || 0;
 	document.getElementsByClassName('sidebar-body')[0].scrollTop = t - 75;
 	if (props.isOnSheetView && cardRef.value) {
-		const firstInput = cardRef.value?.$el?.querySelector('input[type="text"],textarea') as
+		const firstInput = cardRef.value?.$el?.querySelector('input,textarea') as
 			| HTMLInputElement
 			| HTMLTextAreaElement
 			| undefined;
