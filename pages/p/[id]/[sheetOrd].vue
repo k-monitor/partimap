@@ -290,10 +290,11 @@ async function next() {
 		return;
 	}
 
-	const ids = interactions.value.drawing.map((di) => di.id);
-	const idsWithoutFeature = ids.filter((id) => !featureCountByInteraction.value[id]);
-	if (idsWithoutFeature.length) {
-		const confirm = await confirmNoFeatures();
+	const disWithoutFeature = interactions.value.drawing.filter(
+		(di) => !featureCountByInteraction.value[di.id],
+	);
+	if (disWithoutFeature.length) {
+		const confirm = await confirmNoFeatures(disWithoutFeature[0].buttonLabel);
 		if (!confirm) return;
 	}
 

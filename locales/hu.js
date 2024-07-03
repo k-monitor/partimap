@@ -517,7 +517,7 @@ export default {
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
 			'A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
-		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?',
+		confirmNoFeatures: 'Nem adott hozzá helyet itt: {di}. Biztosan folytatja?',
 		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',

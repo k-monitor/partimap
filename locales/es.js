@@ -527,7 +527,7 @@ export default {
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',
-		confirmNoFeatures: 'Nem adott hozzá helyet. Biztosan folytatja?', // TODO
+		confirmNoFeatures: 'Nem adott hozzá helyet itt: {di}. Biztosan folytatja?', // TODO
 		confirmUnsaved:
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',
