@@ -23,6 +23,7 @@ const drawingButtons = useDrawButtons(props.interactions);
 				v-for="(b, i) in drawingButtons"
 				:key="b.drawingInteraction?.id || 'cancel'"
 				:options="b"
+				edge
 				:first="i === 0"
 				:last="i === drawingButtons.length - 1"
 				:side="side"

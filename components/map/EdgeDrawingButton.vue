@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import tinycolor from 'tinycolor2';
+import type { CSSProperties } from 'vue';
 
 const { currentDrawingInteraction, selectedFeatureId } = useStore();
 const { featureCountByInteraction } = useVisitorData();
 
 const props = defineProps<{
+	edge?: boolean;
 	first?: boolean;
 	last?: boolean;
 	options: DrawingButton;
@@ -13,16 +15,41 @@ const props = defineProps<{
 }>();
 
 const borderStyle = computed(() => {
-	if (props.side === 'right') {
-		return { borderRightWidth: '0 !important' };
-	} else {
-		return { borderLeftWidth: '0 !important' };
-	}
-});
+	if (!props.edge) return {};
 
-const textColor = computed(() =>
-	tinycolor(props.options.color).isLight() ? '#000000' : '#ffffff',
-);
+	const style: CSSProperties = {};
+
+	// radius
+
+	style.borderRadius = '0 !important';
+	if (props.first) {
+		if (props.side === 'left') {
+			style.borderTopRightRadius = '0.5rem !important';
+		} else {
+			style.borderTopLeftRadius = '0.5rem !important';
+		}
+	}
+	if (props.last) {
+		if (props.side === 'left') {
+			style.borderBottomRightRadius = '0.5rem !important';
+		} else {
+			style.borderBottomLeftRadius = '0.5rem !important';
+		}
+	}
+
+	// width
+
+	if (!props.first) {
+		style.borderTopWidth = '0 !important';
+	}
+	if (props.side === 'right') {
+		style.borderRightWidth = '0 !important';
+	} else {
+		style.borderLeftWidth = '0 !important';
+	}
+
+	return style;
+});
 
 const tooltipOptions = computed(() => {
 	const placement = props.side === 'right' ? 'left' : 'right';
@@ -41,6 +68,11 @@ const disabled = computed(() => {
 	if (selectedFeatureId.value) return true;
 	return reachedMax.value;
 });
+
+const backgroundColor = computed(() => (disabled.value ? '#eee' : props.options.color));
+const textColor = computed(() =>
+	tinycolor(backgroundColor.value).isLight() ? '#000000' : '#ffffff',
+);
 </script>
 
 <template>
@@ -50,18 +82,17 @@ const disabled = computed(() => {
 	>
 		<button
 			v-b-tooltip.hover="{ ...tooltipOptions }"
-			class="btn border border-secondary rounded-0 py-2"
-			:class="[{ first, last }, side]"
+			class="btn border border-secondary py-2"
 			:disabled="disabled"
-			style="font-size: 1.25rem"
 			:style="{
-				backgroundColor: disabled ? '#eee' : options.color,
+				backgroundColor: backgroundColor,
 				...borderStyle,
 				color: textColor,
-				height: options.drawingInteraction ? null : '140px',
+				fontSize: edge ? '1.25rem' : '1rem',
+				height: options.drawingInteraction ? 'auto' : '140px',
 				opacity: disabled ? 0.5 : 1,
 			}"
-			:title="options.tooltip"
+			:title="edge ? options.tooltip : undefined"
 			@click="currentDrawingInteraction = options.drawingInteraction"
 		>
 			<i
@@ -71,25 +102,3 @@ const disabled = computed(() => {
 		</button>
 	</div>
 </template>
-
-<style scoped>
-button:not(.first) {
-	border-top-width: 0 !important;
-}
-
-button.first.left {
-	border-top-right-radius: 0.5rem !important;
-}
-
-button.first.right {
-	border-top-left-radius: 0.5rem !important;
-}
-
-button.last.left {
-	border-bottom-right-radius: 0.5rem !important;
-}
-
-button.last.right {
-	border-bottom-left-radius: 0.5rem !important;
-}
-</style>
