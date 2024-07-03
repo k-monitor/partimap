@@ -318,16 +318,16 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 				>
 					{{ c }}
 				</div>
-			</div>
-			<div
-				v-for="a in answers"
-				:key="a"
-				class="badge border border-secondary m-2"
-				role="button"
-				:class="search === a ? 'text-bg-dark' : 'text-bg-light'"
-				@click="search === a ? (search = '') : (search = a)"
-			>
-				{{ a }}
+				<div
+					v-for="a in answers"
+					:key="a"
+					class="badge border border-secondary m-2"
+					role="button"
+					:class="search === a ? 'text-bg-dark' : 'text-bg-light'"
+					@click="search === a ? (search = '') : (search = a)"
+				>
+					{{ a }}
+				</div>
 			</div>
 		</div>
 	</div>
