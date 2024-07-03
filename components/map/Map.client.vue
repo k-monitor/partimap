@@ -82,9 +82,21 @@ onMounted(async () => {
 	fitViewToFeatures(true);
 });
 
-watch([selectedFeatureId, sidebarVisible], async () => {
-	await nextTick();
-	fitViewToFeatures();
+watch([selectedFeatureId, sidebarVisible], async (current, previous) => {
+	if (current[0] && !current[1]) {
+		// feature has selected, but sidebar is not yet opening
+		// NOP, to prevent redundant fitting and visible zoom in-out
+		return;
+	}
+
+	if (current[1] && !previous[1]) {
+		// sidebar is opening now, but it has transition
+		// need to wait for it to end to prevent fitting with
+		// incorrect Map size
+		window.setTimeout(fitViewToFeatures, 300);
+	} else {
+		fitViewToFeatures();
+	}
 });
 // TODO add filteredFeatureIds too?
 

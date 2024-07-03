@@ -165,7 +165,7 @@ defineEmits<{
 	bottom: 0;
 	position: absolute;
 	top: 0;
-	@include media-breakpoint-up(md) {
+	@include media-breakpoint-up(sm) {
 		position: relative;
 	}
 
