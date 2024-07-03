@@ -7,6 +7,9 @@ defineI18nRoute({
 	},
 });
 
+const { currentRoute } = useRouter();
+const params = Object.keys(currentRoute.value.query);
+
 const { t } = useI18n();
 
 useHead({
@@ -26,12 +29,13 @@ const visitorsHelp = await useMessageFromDatabase('visitorsHelp');
 
 			<Markdown
 				class="help mb-5"
-				:md="visitorsHelp"
+				:md="visitorsHelp || ''"
 			/>
 
 			<Markdown
+				v-if="!params.includes('visitor')"
 				class="help mb-5"
-				:md="editorsHelp"
+				:md="editorsHelp || ''"
 			/>
 		</div>
 	</PublicFrame>

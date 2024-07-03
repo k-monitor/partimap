@@ -95,7 +95,7 @@ defineEmits<{
 				<a
 					v-else
 					v-b-tooltip.hover.bottom
-					:href="localePath({ name: 'hogyan-mukodik' })"
+					:href="localePath({ name: 'hogyan-mukodik', query: { visitor: 1 } })"
 					target="_blank"
 					:title="$t('PublicFrame.help')"
 				>
