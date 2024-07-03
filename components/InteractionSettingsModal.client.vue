@@ -113,7 +113,11 @@ async function handleMaxDrawChange() {
 			</b-form-group>
 		</div>
 
-		<hr />
+		<b-form-group>
+			<b-form-checkbox v-model="di.naming">
+				{{ $t('sheetEditor.interactions.naming') }}
+			</b-form-checkbox>
+		</b-form-group>
 
 		<b-form-group>
 			<b-form-checkbox v-model="hasFeatureQuestion">
@@ -148,8 +152,6 @@ async function handleMaxDrawChange() {
 			<!-- TODO use SurveyEditor instead of these copied parts -->
 		</div>
 
-		<hr />
-
 		<b-form-group>
 			<b-form-checkbox v-model="di.describing">
 				{{ $t('sheetEditor.interactions.describing') }}
@@ -165,12 +167,6 @@ async function handleMaxDrawChange() {
 				v-model="di.descriptionLabel"
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
-		</b-form-group>
-
-		<b-form-group>
-			<b-form-checkbox v-model="di.naming">
-				{{ $t('sheetEditor.interactions.naming') }}
-			</b-form-checkbox>
 		</b-form-group>
 	</b-modal>
 </template>
