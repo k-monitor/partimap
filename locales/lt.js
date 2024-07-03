@@ -523,6 +523,7 @@ export default {
 		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',
+		warning: 'Figyelmeztetés', // TODO
 		yes: 'Taip',
 	},
 };

@@ -521,6 +521,7 @@ export default {
 		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',
+		warning: 'Figyelmeztetés',
 		yes: 'Igen',
 	},
 };

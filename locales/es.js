@@ -532,6 +532,7 @@ export default {
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',
 		unsaved: 'Advertencia: Cambios no guardados',
+		warning: 'Figyelmeztetés', // TODO
 		yes: 'Sí',
 	},
 };

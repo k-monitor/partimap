@@ -28,7 +28,7 @@ export default function useConfirmation() {
 	}
 
 	function confirmFeatureClose() {
-		return doConfirm(t('modals.unsaved'), t('modals.confirmFeatureClose'));
+		return doConfirm(t('modals.warning'), t('modals.confirmFeatureClose'));
 	}
 
 	function confirmLeavingUnsaved() {
@@ -37,7 +37,7 @@ export default function useConfirmation() {
 
 	function confirmNoFeatures(di: string) {
 		const msg = t('modals.confirmNoFeatures', { di });
-		return doConfirm(t('modals.unsaved'), msg);
+		return doConfirm(t('modals.warning'), msg);
 	}
 
 	return {
