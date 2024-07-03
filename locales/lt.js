@@ -314,7 +314,7 @@ export default {
 		other: 'Kita...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Elérted az elvárt számú felrajzolt elemet.', // TODO
+		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.', // TODO
 	},
 	FeatureImportModal: {
 		doImportFixed: `Importuoti {n} statišką(us) žymeklį(ius)`,

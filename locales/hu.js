@@ -311,7 +311,7 @@ export default {
 		other: 'Egyéb...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Elérted az elvárt számú felrajzolt elemet.',
+		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.',
 	},
 	FeatureImportModal: {
 		doImportFixed: `{n} fix elem importálása`,

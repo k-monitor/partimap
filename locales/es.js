@@ -321,7 +321,7 @@ export default {
 		other: 'Otro...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Elérted az elvárt számú felrajzolt elemet.', // TODO
+		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.', // TODO
 	},
 	FeatureImportModal: {
 		doImportFixed: 'Importar {n} puntos fijos',
