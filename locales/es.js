@@ -206,14 +206,16 @@ export default {
 		view: 'Ver Proyecto',
 	},
 	sheetEditor: {
-		addDrawingInteraction: 'Add drawing task', // TODO
+		addDrawingInteraction: 'Añadir nueva tarea de mapeo',
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
 		back: 'Volver al proyecto',
 		backgroundImage: 'Imagen de fondo',
 		defaultBaseMap: 'Mapa base predeterminado',
 		defaultDescriptionLabel: 'Por favor, explica por qué diste esa respuesta.',
 		defaultRatingQuestion: 'MPor favor, explica por qué diste esa respuesta.',
-		featureLabel: 'Nombre de tarea único que se muestra en el informe',
+		featureLabel: 'Nombre único de la tarea',
+		featureLabelDescription:
+			'Título corto para identificar la tarea. Se muestra en el informe, en la interfaz de administración y, por defecto, como el nombre de los elementos enviados por los encuestados.',
 		descriptionLabel: 'Pregunta de seguimiento de texto',
 		descriptionLabelDescription:
 			'Se muestra una pregunta de texto con esta solicitud después de que un respondiente coloque un Punto.',
@@ -223,7 +225,7 @@ export default {
 			Polygon: 'Instrucciones para dibujar un Polígono',
 		},
 		interactions: {
-			describing: 'Text question', // TODO
+			describing: 'Agregar un cuadro de texto',
 			Point: 'Colocar Punto',
 			LineString: 'Dibujar líneas',
 			Polygon: 'Dibujar polígonos',
@@ -321,7 +323,7 @@ export default {
 		other: 'Otro...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.', // TODO
+		reachedMax: 'Ha alcanzado el número máximo de marcadores permitidos',
 	},
 	FeatureImportModal: {
 		doImportFixed: 'Importar {n} puntos fijos',
@@ -387,7 +389,7 @@ export default {
 			'Interfaz más amigable, aunque su vista previa no puede mostrar todo. Se puede cerrar con el botón en la esquina superior izquierda.',
 	},
 	InteractionSettingsModal: {
-		maxDraw: 'Max. number of markers', // TODO
+		maxDraw: 'Nº previsto de marcadores (máx.)',
 	},
 	ListItem: {
 		clone: 'Duplicar',
@@ -527,12 +529,12 @@ export default {
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',
-		confirmNoFeatures: 'Nem adott hozzá helyet itt: {di}. Biztosan folytatja?', // TODO
+		confirmNoFeatures: 'Tarea no realizada: "{di}" ¿Seguro que quieres continuar?',
 		confirmUnsaved:
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',
 		unsaved: 'Advertencia: Cambios no guardados',
-		warning: 'Figyelmeztetés', // TODO
+		warning: '⚠ ¡Atención!',
 		yes: 'Sí',
 	},
 };

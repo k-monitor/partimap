@@ -198,7 +198,7 @@ export default {
 		view: 'Megtekintés',
 	},
 	sheetEditor: {
-		addDrawingInteraction: 'Új rajzolós feladat',
+		addDrawingInteraction: 'Új térképes feladat',
 		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
@@ -206,6 +206,8 @@ export default {
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultRatingQuestion: 'Miért adtad ezt az értékelést?',
 		featureLabel: 'Feladat egyedi neve',
+		featureLabelDescription:
+			'Rövid név a feladat azonosítására. Megjelenik a riportban, az adminfelületen és alapbeállításként a kitöltők által felrajzolt elemek neveként.',
 		descriptionLabel: 'Szöveges kifejtéshez rendelt kérdés',
 		descriptionLabelDescription:
 			'A kért elem felrajzolása után a kitöltő szöveges indoklást adhat, az ehhez tartozó kérdés vagy utasítás adható meg itt.',
@@ -215,7 +217,7 @@ export default {
 			Polygon: 'Instrukció terület felrajzolásához',
 		},
 		interactions: {
-			describing: 'Szöveges indoklás',
+			describing: 'Szöveges kérdés hozzáadása',
 			Point: 'Pont felrajzolása',
 			LineString: 'Vonal felrajzolása',
 			Polygon: 'Terület felrajzolása',
@@ -311,7 +313,7 @@ export default {
 		other: 'Egyéb...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.',
+		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve',
 	},
 	FeatureImportModal: {
 		doImportFixed: `{n} fix elem importálása`,
@@ -378,7 +380,7 @@ export default {
 			'Barátságosabb szerkesztő, de az előnézete nem tud mindent megjeleníteni. A bal felső sarokban levő gombbal zárható be.',
 	},
 	InteractionSettingsModal: {
-		maxDraw: 'Max. felrajzolható',
+		maxDraw: 'Elvárt darab (max.)',
 	},
 	ListItem: {
 		clone: 'Másolat készítése',
@@ -517,11 +519,11 @@ export default {
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
 			'A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
-		confirmNoFeatures: 'Nem adott hozzá helyet itt: {di}. Biztosan folytatja?',
+		confirmNoFeatures: 'Nem adott hozzá helyet itt: "{di}" Biztosan folytatja?',
 		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',
-		warning: 'Figyelmeztetés',
+		warning: '⚠ Figyelmeztetés',
 		yes: 'Igen',
 	},
 };

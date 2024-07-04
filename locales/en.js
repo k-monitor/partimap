@@ -197,14 +197,16 @@ export default {
 		view: 'View Project',
 	},
 	sheetEditor: {
-		addDrawingInteraction: 'Add drawing task', // TODO
+		addDrawingInteraction: 'Add new map task',
 		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',
 		defaultBaseMap: 'Default base map',
 		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultRatingQuestion: 'Please explain why you gave this rating.',
-		featureLabel: 'Unique task name displayed in report',
+		featureLabel: 'Unique task name',
+		featureLabelDescription:
+			'Short title to identify the task. Displayed in the report, in the admin interface and by default as the name of the items submitted by the respondents.',
 		descriptionLabel: 'Follow-up text question',
 		descriptionLabelDescription:
 			'A text question with this request is displayed after a marker is placed by the respondent.',
@@ -214,7 +216,7 @@ export default {
 			Polygon: 'Instruction for drawing a Polygon',
 		},
 		interactions: {
-			describing: 'Text question', // TODO
+			describing: 'Add text question',
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',
@@ -310,7 +312,7 @@ export default {
 		other: 'Other...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.', // TODO
+		reachedMax: 'You have reached the maximum number of markers allowed',
 	},
 	FeatureImportModal: {
 		doImportFixed: `Import {n} fixed marker(s)`,
@@ -376,7 +378,7 @@ export default {
 			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
 	},
 	InteractionSettingsModal: {
-		maxDraw: 'Max. number of markers',
+		maxDraw: 'Expected nr. of markers (max.)',
 	},
 	ListItem: {
 		clone: 'Duplicate',
@@ -514,12 +516,12 @@ export default {
 		confirmDeletion: 'Are you sure you wish to delete this',
 		confirmFeatureClose:
 			'An explanation is expected. Are you sure you want to save without entering a response?',
-		confirmNoFeatures: 'Nem adott hozzá helyet itt: {di}. Biztosan folytatja?', // TODO
+		confirmNoFeatures: 'Uncompleted task: "{di}" Are you sure you want to continue? ',
 		confirmUnsaved:
 			'There are unsaved changes on this page. Are you sure you want to continue?',
 		delete: 'Delete',
 		unsaved: 'Warning: Unsaved changes',
-		warning: 'Warning',
+		warning: '⚠ Warning',
 		yes: 'Yes',
 	},
 };

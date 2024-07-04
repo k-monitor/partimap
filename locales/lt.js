@@ -201,14 +201,16 @@ export default {
 		view: 'Peržiūrėti projektą',
 	},
 	sheetEditor: {
-		addDrawingInteraction: 'Add drawing task', // TODO
+		addDrawingInteraction: 'Pridėti naują žemėlapio užduotį',
 		addFeatureQuestion: 'Pridėkite klausimą su atsakymo variantais',
 		back: 'Atgal į projektą',
 		backgroundImage: 'Fono paveikslėlis',
 		defaultBaseMap: 'Numatytas pagrindo žemėlapis',
 		defaultDescriptionLabel: 'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
 		defaultRatingQuestion: 'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
-		featureLabel: 'Unikalus užduoties pavadinimas rodomas ataskaitoje',
+		featureLabel: 'Užduoties pavadinimas',
+		featureLabelDescription:
+			'Trumpas užduoties identifikavimo pavadinimas. Rodomas ataskaitoje, administratoriaus sąsajoje ir pagal numatytuosius nustatymus kaip respondentų pateiktų elementų pavadinimas.',
 		descriptionLabel: 'Papildomas tekstinis klausimas',
 		descriptionLabelDescription:
 			'Respondentui padėjus žymeklį, rodomas tekstinis klausimas su šia užklausa.',
@@ -218,7 +220,7 @@ export default {
 			Polygon: 'Poligono brėžimo instrukcija',
 		},
 		interactions: {
-			describing: 'Text question', // TODO
+			describing: 'Pridėti tekstinį klausimą',
 			Point: 'Taškų uždėjimas',
 			LineString: 'Linijų braižymas',
 			Polygon: 'Poligono braižymas',
@@ -314,7 +316,7 @@ export default {
 		other: 'Kita...',
 	},
 	EdgeDrawingButton: {
-		reachedMax: 'Az elvárt számú felrajzolt elem teljesítve.', // TODO
+		reachedMax: 'Pasiekėte maksimalų leistiną žymeklių skaičių',
 	},
 	FeatureImportModal: {
 		doImportFixed: `Importuoti {n} statišką(us) žymeklį(ius)`,
@@ -380,7 +382,7 @@ export default {
 			'Ši sąsaja yra patogesnė, nors negali parodyti visų elementų. Ją galima uždaryti mygtuku viršutiniame kairiajame kampe.',
 	},
 	InteractionSettingsModal: {
-		maxDraw: 'Max. number of markers', // TODO
+		maxDraw: 'MNumatomas žymeklių skaičius (maks.)',
 	},
 	ListItem: {
 		clone: 'Duplikuoti',
@@ -519,11 +521,11 @@ export default {
 		confirmDeletion: 'Ar tikrai norite tai ištrinti',
 		confirmFeatureClose:
 			'Reikalingas paaiškinimas. Ar tikrai norite išsaugoti nepateikę atsakymo?',
-		confirmNoFeatures: 'Nem adott hozzá helyet itt: {di}. Biztosan folytatja?', // TODO
+		confirmNoFeatures: 'Neįvykdyta užduotis: "{di}" Ar tikrai norite tęsti? ',
 		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',
-		warning: 'Figyelmeztetés', // TODO
+		warning: '⚠ Įspėjimas',
 		yes: 'Taip',
 	},
 };

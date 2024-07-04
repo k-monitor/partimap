@@ -26,7 +26,7 @@
 		dislikeCount: 'Atsakymų ‘nepatinka’ kiekis',
 		feature: 'Žymeklis',
 		featureDesc: 'Apibūdinimas',
-		featureLabel: 'Unikalus užduoties pavadinimas',
+		featureLabel: 'Užduoties pavadinimas',
 		featureName: 'Pavadinimas',
 		featureQuestion: 'Klausimas',
 		featureQuestionAnswer: 'Atsakymas',

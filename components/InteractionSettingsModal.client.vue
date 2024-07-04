@@ -63,7 +63,10 @@ async function handleMaxDrawChange() {
 			:options="typeOptions"
 		/>
 
-		<b-form-group :label="$t('sheetEditor.featureLabel')">
+		<b-form-group
+			:label="$t('sheetEditor.featureLabel')"
+			:description="$t('sheetEditor.featureLabelDescription')"
+		>
 			<b-form-input
 				v-model="di.featureLabel"
 				:placeholder="$t(`FeatureListElement.defaultName.${di.type}`)"

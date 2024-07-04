@@ -26,7 +26,7 @@ export default {
 		dislikeCount: 'Calificación negativa',
 		feature: 'Caracteristica',
 		featureDesc: 'Descripción',
-		featureLabel: 'Nombre de tarea único',
+		featureLabel: 'Nombre único de la tarea',
 		featureName: 'Título',
 		featureQuestion: 'Pregunta de la casilla',
 		featureQuestionAnswer: 'Respuesta',
