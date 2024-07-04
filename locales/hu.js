@@ -245,6 +245,7 @@ export default {
 		survey: 'Kérdőív',
 		textRating: 'Szöveges indoklás az értékeléshez',
 		visitorInteractions: 'Látogatói interakciók',
+		visitorMapInteractions: 'A kitöltő térképes feladatai',
 	},
 	unsubscribe: {
 		home: 'Tovább a PARTIMAP-ra',

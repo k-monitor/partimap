@@ -252,7 +252,8 @@ export default {
 		success: 'Hoja de trabajo modificada exitosamente',
 		survey: 'Encuesta',
 		textRating: 'Explicación de la calificación asignada',
-		visitorInteractions: 'Los respondientes pueden:',
+		visitorInteractions: 'Los respondientes pueden',
+		visitorMapInteractions: 'Tareas de mapeo asignadas a los respondientes',
 	},
 	unsubscribe: {
 		home: 'Volver a PARTIMAP',

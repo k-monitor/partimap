@@ -247,7 +247,8 @@ export default {
 		success: 'Darbalapio redagavimas sėkmingas',
 		survey: 'Apklausa',
 		textRating: 'Pateikto įvertinimo tekstinis paaiškinimas',
-		visitorInteractions: 'Respondentai gali:',
+		visitorInteractions: 'Respondentai gali',
+		visitorMapInteractions: 'Respondentams priskirtos užduotys',
 	},
 	unsubscribe: {
 		home: 'Atgal į PARTIMAP',

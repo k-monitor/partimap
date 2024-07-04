@@ -243,7 +243,8 @@ export default {
 		success: 'Sheet modified successfully',
 		survey: 'Survey',
 		textRating: 'Textual explanation for the given rating',
-		visitorInteractions: 'Respondents are allowed to:',
+		visitorInteractions: 'Respondents are allowed to',
+		visitorMapInteractions: 'Map tasks for respondents',
 	},
 	unsubscribe: {
 		home: 'Back to PARTIMAP',

@@ -105,7 +105,15 @@ async function removeDrawingInteraction(index: number) {
 </script>
 
 <template>
-	<form-group :label="$t('sheetEditor.visitorInteractions')">
+	<form-group
+		:label="
+			$t(
+				sheet?.features
+					? 'sheetEditor.visitorMapInteractions'
+					: 'sheetEditor.visitorInteractions',
+			)
+		"
+	>
 		<b-list-group class="mb-3">
 			<b-list-group-item
 				v-for="o in interactionOptions"
