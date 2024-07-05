@@ -308,7 +308,8 @@ async function deleteFeature() {
 							<FeatureDescriptionRichEditor />
 							<FeatureHideCheckbox v-if="!!sheet && !isInteractive" />
 							<FeatureListElementFooter
-								save
+								show-delete
+								show-save
 								@delete="deleteFeature"
 								@save="featureClicked"
 							/>
