@@ -1,4 +1,4 @@
-import terms from './es-terms.md';
+import terms from './es-terms.md?raw';
 
 export default {
 	meta: {
@@ -87,8 +87,7 @@ export default {
 	},
 	login: {
 		activated: 'Cuenta activada con éxito. ¡Bienvenido a PARTIMAP!',
-		activationFailed:
-			'La activación falló. Inténtalo de nuevo o contacta al administrador',
+		activationFailed: 'La activación falló. Inténtalo de nuevo o contacta al administrador',
 		email: 'Correo electrónico',
 		forgotPassword: 'Olvidé mi contraseña',
 		invalidEmail: 'Dirección de correo electrónico no válida',
@@ -141,21 +140,17 @@ export default {
 		privacyPolicyDescription:
 			'Esto se mostrará como información de contacto en el Aviso de Privacidad. Se les pedirá a los visitantes que reconozcan y acepten esto antes de enviar una respuesta.',
 		privacyPolicyRequired: '¡Este es un campo obligatorio!',
-		projectDescription:
-			'Descripción meta (Vista previa del enlace de Facebook)',
+		projectDescription: 'Descripción meta (Vista previa del enlace de Facebook)',
 		projectTitle: 'Título del proyecto',
 		save: 'Guardar',
 		sheetCreationFailed: 'Error al crear la hoja de trabajo',
 		sheetDeletionFailed: 'Error al eliminar la hoja de trabajo',
 		sheetMovingFailed: 'Error al mover la hoja de trabajo',
 		slug: 'URL de la página',
-		slugDescription:
-			'La URL que ingreses puede modificarse si ya se está utilizando.',
+		slugDescription: 'La URL que ingreses puede modificarse si ya se está utilizando.',
 		subscribe: 'Notificaciones sobre respuestas',
-		subscribeDescription:
-			'Se enviarán correos electrónicos a tu dirección registrada.',
-		subscribeD:
-			'Notificaciones diarias por correo electrónico sobre respuestas',
+		subscribeDescription: 'Se enviarán correos electrónicos a tu dirección registrada.',
+		subscribeD: 'Notificaciones diarias por correo electrónico sobre respuestas',
 		subscribeE:
 			'Notificaciones individuales por correo electrónico sobre respuestas (por hora)',
 		subscribeN: 'No quiero recibir notificaciones por correo electrónico',
@@ -167,8 +162,7 @@ export default {
 		thanksUrl: 'URL de redireccionamiento',
 		thanksUrlDescription:
 			'Si se establece, aparecerá un botón de "Más información" debajo de los Agradecimientos, que llevará a la dirección web enlazada aquí.',
-		thumbnail:
-			'Miniatura de Facebook (tamaño recomendado: 1200x630 píxeles)',
+		thumbnail: 'Miniatura de Facebook (tamaño recomendado: 1200x630 píxeles)',
 		view: 'Ver Proyecto',
 	},
 	projects: {
@@ -186,8 +180,7 @@ export default {
 	},
 	register: {
 		consent1: 'Reconozco que he leído y comprendido',
-		consent2:
-			'los&nbsp;Términos&nbsp;de&nbsp;Uso y la&nbsp;Política&nbsp;de&nbsp;Privacidad.',
+		consent2: 'los&nbsp;Términos&nbsp;de&nbsp;Uso y la&nbsp;Política&nbsp;de&nbsp;Privacidad.',
 		email: 'Ingresa un correo válido',
 		login: '¿Ya tienes una cuenta?',
 		name: 'Nombre',
@@ -204,8 +197,7 @@ export default {
 		invalidPassword:
 			'Contraseña incorrecta. Inténtalo de nuevo o haz clic en ‘Olvidé mi contraseña’',
 		password: 'Contraseña',
-		passwordRequired:
-			'Por favor, ingresa la contraseña o contacta al autor de esta encuesta.',
+		passwordRequired: 'Por favor, ingresa la contraseña o contacta al autor de esta encuesta.',
 		privacyPolicy: 'Términos de Uso y Política de Privacidad',
 		restricted: 'Esta encuesta de PARTIMAP está cerrada actualmente.',
 		restrictedTitle: 'Proyecto protegido por contraseña',
@@ -214,15 +206,16 @@ export default {
 		view: 'Ver Proyecto',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Añadir nueva tarea de mapeo',
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
 		back: 'Volver al proyecto',
 		backgroundImage: 'Imagen de fondo',
 		defaultBaseMap: 'Mapa base predeterminado',
-		defaultDescriptionLabel:
-			'Por favor, explica por qué diste esa respuesta.',
-		defaultRatingQuestion:
-			'MPor favor, explica por qué diste esa respuesta.',
-		featureLabel: 'Nombre de tarea único que se muestra en el informe',
+		defaultDescriptionLabel: 'Por favor, explica por qué diste esa respuesta.',
+		defaultRatingQuestion: 'MPor favor, explica por qué diste esa respuesta.',
+		featureLabel: 'Nombre único de la tarea',
+		featureLabelDescription:
+			'Título corto para identificar la tarea. Se muestra en el informe, en la interfaz de administración y, por defecto, como el nombre de los elementos enviados por los encuestados.',
 		descriptionLabel: 'Pregunta de seguimiento de texto',
 		descriptionLabelDescription:
 			'Se muestra una pregunta de texto con esta solicitud después de que un respondiente coloque un Punto.',
@@ -232,6 +225,7 @@ export default {
 			Polygon: 'Instrucciones para dibujar un Polígono',
 		},
 		interactions: {
+			describing: 'Agregar un cuadro de texto',
 			Point: 'Colocar Punto',
 			LineString: 'Dibujar líneas',
 			Polygon: 'Dibujar polígonos',
@@ -258,7 +252,8 @@ export default {
 		success: 'Hoja de trabajo modificada exitosamente',
 		survey: 'Encuesta',
 		textRating: 'Explicación de la calificación asignada',
-		visitorInteractions: 'Los respondientes pueden:',
+		visitorInteractions: 'Los respondientes pueden',
+		visitorMapInteractions: 'Tareas de mapeo asignadas a los respondientes',
 	},
 	unsubscribe: {
 		home: 'Volver a PARTIMAP',
@@ -287,16 +282,14 @@ export default {
 		deletionFailed: 'No se pudo eliminar la cuenta',
 		enterPassword: 'Por favor, ingresa tu contraseña',
 		logo: 'Logotipo (tamaño admitido: 120x30 px)',
-		logoDescription:
-			'Este logotipo se mostrará en el encabezado de todos tus proyectos.',
+		logoDescription: 'Este logotipo se mostrará en el encabezado de todos tus proyectos.',
 		name: 'Nombre',
 		newPassword: 'Nueva contraseña',
 		oldPassword:
 			'Contraseña actual (solo necesaria para cambios de correo electrónico o contraseña)',
 		save: 'Guardar',
 		website: 'Tu sitio web',
-		websiteDescription:
-			'Si aún no lo tienes, el logotipo se vinculará a esa URL.',
+		websiteDescription: 'Si aún no lo tienes, el logotipo se vinculará a esa URL.',
 	},
 	users: {
 		add: 'Agregar',
@@ -305,8 +298,7 @@ export default {
 		filter: 'Buscar',
 		inactive: 'Inactivo',
 		lastLogin: 'Último acceso',
-		newUsersEmail:
-			'Ingresa la dirección de correo electrónico del nuevo usuario',
+		newUsersEmail: 'Ingresa la dirección de correo electrónico del nuevo usuario',
 		registered: 'Activo',
 		title: 'Usuarios',
 	},
@@ -330,6 +322,9 @@ export default {
 	},
 	DropdownGroup: {
 		other: 'Otro...',
+	},
+	EdgeDrawingButton: {
+		reachedMax: 'Ha alcanzado el número máximo de marcadores permitidos',
 	},
 	FeatureImportModal: {
 		doImportFixed: 'Importar {n} puntos fijos',
@@ -386,14 +381,16 @@ export default {
 	},
 	HelpEditor: {
 		editor: 'Editor',
-		instructions:
-			'Los textos de ayuda se almacenan y se pueden editar en Markdown.',
+		instructions: 'Los textos de ayuda se almacenan y se pueden editar en Markdown.',
 		preview: 'Vista previa',
 		saveFailed: 'Error al guardar',
 		saveSuccess: 'Guardado',
 		stackeditButton: 'Editar con StackEdit',
 		stackeditInfo:
 			'Interfaz más amigable, aunque su vista previa no puede mostrar todo. Se puede cerrar con el botón en la esquina superior izquierda.',
+	},
+	InteractionSettingsModal: {
+		maxDraw: 'Nº previsto de marcadores (máx.)',
 	},
 	ListItem: {
 		clone: 'Duplicar',
@@ -458,8 +455,7 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'Reconozco que he leído y comprendido',
-		consent2:
-			'los&nbsp;Términos&nbsp;de&nbsp;Uso y la&nbsp;Política&nbsp;de&nbsp;Privacidad.',
+		consent2: 'los&nbsp;Términos&nbsp;de&nbsp;Uso y la&nbsp;Política&nbsp;de&nbsp;Privacidad.',
 		next: 'Siguiente',
 		results: 'Resultados',
 		resultsDescription:
@@ -475,8 +471,7 @@ export default {
 	SurveyEditor: {
 		addCondition: 'Agregar condición (Y)',
 		addQuestion: 'Agregar pregunta',
-		addToFeatures:
-			'Agregar respuestas a marcadores de mapas con fines de análisis',
+		addToFeatures: 'Agregar respuestas a marcadores de mapas con fines de análisis',
 		and: 'Y',
 		conditionalQuestion: 'Condicionalmente visible',
 		deleteCondition: 'Eliminar condicionante',
@@ -506,8 +501,7 @@ export default {
 			'Contiene una condicionante para la visibilidad de otra pregunta debajo.',
 		required: 'Pregunta obligatoria',
 		showIf: 'Mostrar solamente si...',
-		showResult:
-			'Mostrar resultados a los visitantes después de enviar la hoja de trabajo',
+		showResult: 'Mostrar resultados a los visitantes después de enviar la hoja de trabajo',
 		units: 'Número de unidades a asignar',
 		warnForReferencedQuestion:
 			'Los atributos son de solo lectura porque se hace referencia a la pregunta en una pregunta condicionalmente visible debajo de ella.',
@@ -532,15 +526,16 @@ export default {
 	},
 	modals: {
 		cancel: 'Cancelar',
-		confirmDeleteFeatures:
-			'¿Estás seguro de que deseas eliminar los {count} puntos listados?',
+		confirmDeleteFeatures: '¿Estás seguro de que deseas eliminar los {count} puntos listados?',
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',
+		confirmNoFeatures: 'Tarea no realizada: "{di}" ¿Seguro que quieres continuar?',
 		confirmUnsaved:
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',
 		unsaved: 'Advertencia: Cambios no guardados',
+		warning: '⚠ ¡Atención!',
 		yes: 'Sí',
 	},
 };

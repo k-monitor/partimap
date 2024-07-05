@@ -1,7 +1,10 @@
-<script>
-export default {
-	middleware({ localePath, redirect }) {
-		return redirect(localePath('/admin/projects'));
-	},
-};
+<script setup lang="ts">
+definePageMeta({
+	middleware: [
+		function () {
+			const localePath = useLocalePath();
+			return navigateTo(localePath('/admin/projects'));
+		},
+	],
+});
 </script>

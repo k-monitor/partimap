@@ -1,3 +1,28 @@
+<script setup lang="ts">
+withDefaults(
+	defineProps<{
+		disableSave?: boolean;
+		showNext?: boolean;
+		showPrev?: boolean;
+		showSubmit?: boolean;
+		step?: number;
+		steps?: number;
+	}>(),
+	{
+		step: 0,
+		steps: 0,
+	},
+);
+
+const { consent, loading, selectedFeatureId, submitted } = useStore();
+
+const disableSubmit = computed(
+	() => loading.value || !consent.value || !!selectedFeatureId.value || submitted.value,
+);
+
+defineEmits(['next', 'prev', 'submit']);
+</script>
+
 <template>
 	<div class="m-0 w-100">
 		<b-progress
@@ -8,21 +33,18 @@
 			:max="steps"
 			:variant="showSubmit && disableSubmit ? 'success' : 'primary'"
 		/>
-		<div
-			class="align-items-center d-flex justify-content-between p-2 w-100"
-		>
+		<div class="align-items-center d-flex justify-content-between p-2 w-100">
 			<div class="fixed-width">
 				<b-button
 					v-if="showPrev"
+					:disabled="loading"
 					variant="outline-primary"
 					@click="$emit('prev')"
 				>
 					<i class="fas fa-fw fa-chevron-left" />
 				</b-button>
 			</div>
-			<div v-if="step && steps && !showSubmit">
-				{{ step }} / {{ steps }}
-			</div>
+			<div v-if="step && steps && !showSubmit">{{ step }} / {{ steps }}</div>
 			<b-button
 				v-if="showSubmit"
 				:disabled="disableSubmit"
@@ -30,13 +52,11 @@
 				@click="$emit('submit')"
 			>
 				<i
-					class="fas fa-fw mr-1"
-					:class="disableSubmit ? 'fa-check' : 'fa-paper-plane'"
+					class="fas fa-fw me-1"
+					:class="submitted ? 'fa-check' : 'fa-paper-plane'"
 				/>
 				<span>{{
-					disableSubmit
-						? $t('FooterButtons.submitted')
-						: $t('FooterButtons.submit')
+					submitted ? $t('FooterButtons.submitted') : $t('FooterButtons.submit')
 				}}</span>
 			</b-button>
 			<div
@@ -45,6 +65,7 @@
 			>
 				<b-button
 					v-if="showNext"
+					:disabled="loading"
 					variant="primary"
 					@click="$emit('next')"
 				>
@@ -54,41 +75,6 @@
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	props: {
-		disableSave: {
-			type: Boolean,
-			default: false,
-		},
-		disableSubmit: {
-			type: Boolean,
-			default: false,
-		},
-		showNext: {
-			type: Boolean,
-			default: false,
-		},
-		showPrev: {
-			type: Boolean,
-			default: false,
-		},
-		showSubmit: {
-			type: Boolean,
-			default: false,
-		},
-		step: {
-			type: Number,
-			default: 0,
-		},
-		steps: {
-			type: Number,
-			default: 0,
-		},
-	},
-};
-</script>
 
 <style scoped>
 .fixed-width {

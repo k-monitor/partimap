@@ -1,9 +1,8 @@
-import terms from './en-terms.md';
+import terms from './en-terms.md?raw';
 
 export default {
 	meta: {
-		description:
-			'Engaging the power of community in urban development planning.',
+		description: 'Engaging the power of community in urban development planning.',
 	},
 
 	// pages
@@ -16,8 +15,7 @@ export default {
 	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',
-		tagline1:
-			'PARTIMAP is a free, easy to use and customizable map-based survey for those',
+		tagline1: 'PARTIMAP is a free, easy to use and customizable map-based survey for those',
 		tagline2:
 			'who believe that affected citizens should have a say in public development projects.',
 		column1:
@@ -86,18 +84,15 @@ export default {
 	},
 	login: {
 		activated: 'Account successfully activated. Welcome to PARTIMAP!',
-		activationFailed:
-			'Activation failed. Try again or contact the administrator',
+		activationFailed: 'Activation failed. Try again or contact the administrator',
 		email: 'Email',
 		forgotPassword: 'I forgot my password',
 		invalidEmail: 'Invalid email address',
 		invalidEmailOrPassword: 'Invalid email or password',
 		password: 'Password',
-		passwordChangeRequested:
-			"We've sent you an email with a link to reset your password",
+		passwordChangeRequested: "We've sent you an email with a link to reset your password",
 		pwchanged: 'Password changed successfully!',
-		pwchangefailed:
-			'Password change failed. Please try again or contact the administrator',
+		pwchangefailed: 'Password change failed. Please try again or contact the administrator',
 		register: 'Create new account',
 		registered: 'Verification email sent. Please check your inbox.',
 		submit: 'Log In',
@@ -154,8 +149,7 @@ export default {
 		subscribeN: "Don't want to receive email notifications",
 		thanks: 'Acknowledgements',
 		thanksDefault: 'Thank you for your answers.',
-		thanksDescription:
-			'This message will be displayed on the last sheet, after submission.',
+		thanksDescription: 'This message will be displayed on the last sheet, after submission.',
 		thanksSocial: 'Add share buttons to Acknowledgements.',
 		thanksUrl: 'Exit website',
 		thanksUrlDescription:
@@ -178,8 +172,7 @@ export default {
 	},
 	register: {
 		consent1: 'I acknowledge that I have read and understand',
-		consent2:
-			'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
+		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
 		email: 'Enter a vaild email',
 		login: 'Already have an account?',
 		name: 'Name',
@@ -193,11 +186,9 @@ export default {
 		title: 'Registration',
 	},
 	sheet: {
-		invalidPassword:
-			'Wrong password. Try again or click ‘I forgot my password’',
+		invalidPassword: 'Wrong password. Try again or click ‘I forgot my password’',
 		password: 'Password',
-		passwordRequired:
-			'Please enter the password or contact the author of this survey.',
+		passwordRequired: 'Please enter the password or contact the author of this survey.',
 		privacyPolicy: 'Terms of Use and Privacy Policy',
 		restricted: 'This PARTIMAP survey is currently closed.',
 		restrictedTitle: 'Password protected project',
@@ -206,13 +197,16 @@ export default {
 		view: 'View Project',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Add new map task',
 		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',
 		defaultBaseMap: 'Default base map',
 		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultRatingQuestion: 'Please explain why you gave this rating.',
-		featureLabel: 'Unique task name displayed in report',
+		featureLabel: 'Unique task name',
+		featureLabelDescription:
+			'Short title to identify the task. Displayed in the report, in the admin interface and by default as the name of the items submitted by the respondents.',
 		descriptionLabel: 'Follow-up text question',
 		descriptionLabelDescription:
 			'A text question with this request is displayed after a marker is placed by the respondent.',
@@ -222,6 +216,7 @@ export default {
 			Polygon: 'Instruction for drawing a Polygon',
 		},
 		interactions: {
+			describing: 'Add text question',
 			Point: 'Place point markers',
 			LineString: 'Draw lines',
 			Polygon: 'Draw polygons',
@@ -248,13 +243,13 @@ export default {
 		success: 'Sheet modified successfully',
 		survey: 'Survey',
 		textRating: 'Textual explanation for the given rating',
-		visitorInteractions: 'Respondents are allowed to:',
+		visitorInteractions: 'Respondents are allowed to',
+		visitorMapInteractions: 'Map tasks for respondents',
 	},
 	unsubscribe: {
 		home: 'Back to PARTIMAP',
 		failed: "Unsubscribe failed. Please log in and turn off the email notifications in the project's settings.",
-		success:
-			"You have successfully unsubscribed from this project's email notifications.",
+		success: "You have successfully unsubscribed from this project's email notifications.",
 		title: 'Unsubscribe',
 	},
 	userEditor: {
@@ -277,12 +272,10 @@ export default {
 		deletionFailed: 'Failed to delete account',
 		enterPassword: 'Please enter your password',
 		logo: 'Logo (supported size: 120x30 px)',
-		logoDescription:
-			'This logo will be displayed in the header of all your projects.',
+		logoDescription: 'This logo will be displayed in the header of all your projects.',
 		name: 'Name',
 		newPassword: 'New password',
-		oldPassword:
-			'Current password (only required for email or password changes)',
+		oldPassword: 'Current password (only required for email or password changes)',
 		save: 'Save',
 		website: 'Your website',
 		websiteDescription: 'If yet, the logo will link to that URL.',
@@ -318,6 +311,9 @@ export default {
 	},
 	DropdownGroup: {
 		other: 'Other...',
+	},
+	EdgeDrawingButton: {
+		reachedMax: 'You have reached the maximum number of markers allowed',
 	},
 	FeatureImportModal: {
 		doImportFixed: `Import {n} fixed marker(s)`,
@@ -382,6 +378,9 @@ export default {
 		stackeditInfo:
 			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
 	},
+	InteractionSettingsModal: {
+		maxDraw: 'Expected nr. of markers (max.)',
+	},
 	ListItem: {
 		clone: 'Duplicate',
 		delete: 'Delete',
@@ -397,8 +396,7 @@ export default {
 		Point: 'Click on the map to place a marker',
 		LineString:
 			'Click starting point, optionally click more points. Double-click last point to end and save.',
-		Polygon:
-			'Click border points. Click the starting point again to end and save.',
+		Polygon: 'Click border points. Click the starting point again to end and save.',
 	},
 	OptionsEditor: {
 		addColumn: 'Add column',
@@ -445,8 +443,7 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'I acknowledge that I have read and understand',
-		consent2:
-			'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
+		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
 		next: 'Next',
 		results: 'Results',
 		resultsDescription:
@@ -488,8 +485,7 @@ export default {
 			singleChoiceMatrix: 'Checkbox grid',
 			text: 'Text box',
 		},
-		referencedQuestion:
-			'Contains condition for the visibility of another question below it.',
+		referencedQuestion: 'Contains condition for the visibility of another question below it.',
 		required: 'Required question',
 		showIf: 'Show only if...',
 		showResult: 'Display results to visitors after submitting the sheet',
@@ -517,15 +513,16 @@ export default {
 	},
 	modals: {
 		cancel: 'Cancel',
-		confirmDeleteFeatures:
-			'Are you sure you wish to delete the listed {count} marker(s)?',
+		confirmDeleteFeatures: 'Are you sure you wish to delete the listed {count} marker(s)?',
 		confirmDeletion: 'Are you sure you wish to delete this',
 		confirmFeatureClose:
 			'An explanation is expected. Are you sure you want to save without entering a response?',
+		confirmNoFeatures: 'Uncompleted task: "{di}" Are you sure you want to continue? ',
 		confirmUnsaved:
 			'There are unsaved changes on this page. Are you sure you want to continue?',
 		delete: 'Delete',
 		unsaved: 'Warning: Unsaved changes',
+		warning: '⚠ Warning',
 		yes: 'Yes',
 	},
 };

@@ -1,6 +1,4 @@
-// Yes, it's a CommonJS module, as it is needed on the server.
-
-module.exports = {
+export default {
 	activationEmail: {
 		subject: '¡Ya casi está!',
 		body: '<p><b>Hola, {user}</b>!</p><p>Para confirmar tu inscripción en el PARTIMAP, haz clic en el siguiente enlace:<br><a href="{url}">{url}</a></p><p>Este enlace solo es válido durante 24 horas. Si el enlace caduca, deberás solicitar otro enlace de activación.</p>',
@@ -28,7 +26,7 @@ module.exports = {
 		dislikeCount: 'Calificación negativa',
 		feature: 'Caracteristica',
 		featureDesc: 'Descripción',
-		featureLabel: 'Nombre de tarea único',
+		featureLabel: 'Nombre único de la tarea',
 		featureName: 'Título',
 		featureQuestion: 'Pregunta de la casilla',
 		featureQuestionAnswer: 'Respuesta',

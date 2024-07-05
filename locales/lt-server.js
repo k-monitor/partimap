@@ -1,6 +1,4 @@
-﻿// Yes, it's a CommonJS module, as it is needed on the server.
-
-module.exports = {
+﻿export default {
 	activationEmail: {
 		subject: 'Liko tik vienas žingsnis!',
 		body: '<p><b>Sveiki, {user}</b>!</p><p>Užbaikite PARTIMAP registraciją spustelėdami toliau pateiktą nuorodą:<br><a href="{url}">{ url}</a></p><p>Ši nuoroda galioja tik 24 valandas. Jei nuoroda baigs galioti, užsiregistruokite dar kartą.</p>',
@@ -28,7 +26,7 @@ module.exports = {
 		dislikeCount: 'Atsakymų ‘nepatinka’ kiekis',
 		feature: 'Žymeklis',
 		featureDesc: 'Apibūdinimas',
-		featureLabel: 'Unikalus užduoties pavadinimas',
+		featureLabel: 'Užduoties pavadinimas',
 		featureName: 'Pavadinimas',
 		featureQuestion: 'Klausimas',
 		featureQuestionAnswer: 'Atsakymas',

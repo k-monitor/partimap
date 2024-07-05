@@ -1,3 +1,49 @@
+<script setup lang="ts">
+definePageMeta({
+	middleware: ['public-only'],
+});
+
+const localePath = useLocalePath();
+const { t } = useI18n();
+
+useHead({
+	title: t('passwordChange.title'),
+});
+
+const { executeReCaptcha } = useReCaptcha();
+const { currentRoute } = useRouter();
+
+const password = ref('');
+const passwordInput = ref<HTMLInputElement>();
+const loading = ref(true);
+
+onMounted(async () => {
+	if (!currentRoute.value.query.t) {
+		return navigateTo(localePath('login'));
+	}
+
+	loading.value = false;
+	passwordInput.value?.focus();
+});
+
+async function submit() {
+	try {
+		loading.value = true;
+		const token = currentRoute.value.query.t;
+		const captcha = await executeReCaptcha('pwch');
+		await $fetch('/api/user/pwch', {
+			method: 'POST',
+			body: { password: password.value, token, captcha },
+		});
+		navigateTo(localePath({ path: 'login', query: { pwchanged: null } }));
+	} catch (err) {
+		navigateTo(localePath({ path: 'login', query: { pwchangefailed: null } }));
+	} finally {
+		loading.value = false;
+	}
+}
+</script>
+
 <template>
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
@@ -6,24 +52,23 @@
 					<div class="card shadow-sm">
 						<CardHeader :text="$t('passwordChange.title')" />
 						<div class="card-body">
-							<b-form-group
-								:label="$t('passwordChange.newPassword')"
-							>
-								<b-form-input
-									ref="password"
+							<form-group :label="$t('passwordChange.newPassword')">
+								<input
+									ref="passwordInput"
 									v-model="password"
+									class="form-control"
 									required
 									type="password"
 								/>
-							</b-form-group>
+							</form-group>
 						</div>
 						<div class="card-footer d-flex justify-content-end">
-							<b-button
+							<button
+								class="btn btn-primary"
 								type="submit"
-								variant="primary"
 							>
 								{{ $t('passwordChange.submit') }}
-							</b-button>
+							</button>
 						</div>
 						<LoadingOverlay :show="loading" />
 					</div>
@@ -32,59 +77,3 @@
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
-	middleware: ['publicOnly'],
-	data() {
-		return {
-			password: '',
-			loading: true,
-		};
-	},
-	head() {
-		return {
-			title: this.$t('passwordChange.title'),
-		};
-	},
-	async mounted() {
-		if (!this.$route.query.t) {
-			this.$router.push(this.localePath('login'));
-		}
-		await this.$recaptcha.init();
-		this.loading = false;
-		this.$refs.password.focus();
-	},
-	beforeDestroy() {
-		this.$recaptcha.destroy();
-	},
-	methods: {
-		async submit() {
-			this.loading = true;
-			try {
-				const token = this.$route.query.t;
-				const captcha = await this.$recaptcha.execute('pwch');
-				await this.$axios.$post('/api/user/pwch', {
-					password: this.password,
-					token,
-					captcha,
-				});
-				this.$router.push(
-					this.localePath({
-						path: 'login',
-						query: { pwchanged: null },
-					})
-				);
-			} catch (err) {
-				this.$router.push(
-					this.localePath({
-						path: 'login',
-						query: { pwchangefailed: null },
-					})
-				);
-			}
-			this.loading = false;
-		},
-	},
-};
-</script>

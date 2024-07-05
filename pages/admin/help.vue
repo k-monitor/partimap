@@ -1,3 +1,13 @@
+<script setup lang="ts">
+const { t } = useI18n();
+
+useHead({
+	title: t('adminHelp.title'),
+});
+
+const editorsHelp = await useMessageFromDatabase('editorsHelp');
+</script>
+
 <template>
 	<AdminFrame>
 		<template #header>
@@ -6,24 +16,7 @@
 
 		<Markdown
 			class="help mb-5"
-			:md="editorsHelp.value"
+			:md="editorsHelp"
 		/>
 	</AdminFrame>
 </template>
-
-<script>
-export default {
-	async asyncData({ $axios, i18n }) {
-		const lang = i18n.locale;
-		const editorsHelp = await $axios.$get(
-			`/api/i18n/get/${lang}/editorsHelp`
-		);
-		return { editorsHelp };
-	},
-	head() {
-		return {
-			title: this.$t('adminHelp.title'),
-		};
-	},
-};
-</script>

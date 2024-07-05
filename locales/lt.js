@@ -1,4 +1,4 @@
-import terms from './en-terms.md';
+import terms from './en-terms.md?raw';
 
 export default {
 	meta: {
@@ -17,8 +17,7 @@ export default {
 		title: 'ŽEMĖLAPIŲ APKLAUSOS',
 		tagline1:
 			'PARTIMAP tai nemokama, lengvai redaguojama žemėlapiais paremtų apklausų kūrimo platforma, tiems',
-		tagline2:
-			'kurie tiki, kad gyventojai turi būti įtraukiami į teritorijų planavimo procesą ',
+		tagline2: 'kurie tiki, kad gyventojai turi būti įtraukiami į teritorijų planavimo procesą ',
 		column1:
 			'Kada paskutinį kartą buvo klausiama jūsų nuomonės apie plėtros projektą, kuris turės įtakos jūsų kasdieniniam gyvenimui? Miestų atnaujinimui skiriami milijardai eurų, tačiau gyventojų nuomonės išklausymas ir projektų viešinimas dažnai lieka tik formalumu. Norint, kad projektas būtų sėkmingas, svarbu atsižvelgti ne tik į ekspertų, bet ir į žmonių, kurie kasdien naudosis nauja infrastruktūra, poreikius. Juk stotelių modernizavimo tikslas nėra pats atnaujinimas, bet žmonių, kurie dažniau keliautų viešuoju transportu, pritraukimas.Nauji modernūs suoliukai aikštėse nepaverčia viešosios erdvės bendruomenės vieta, tokia ji tampa, jei taip nusprendžia patys gyventojai.',
 		column2:
@@ -92,14 +91,12 @@ export default {
 		invalidEmail: 'Neteisingas el.pašto adresas',
 		invalidEmailOrPassword: 'Neteisingas slaptažodis arba el.paštas',
 		password: 'Slaptažodis',
-		passwordChangeRequested:
-			'Į jūsų paštą atsiuntėme slaptažodžio pakeitimo nuorodą',
+		passwordChangeRequested: 'Į jūsų paštą atsiuntėme slaptažodžio pakeitimo nuorodą',
 		pwchanged: 'Slaptažodis pakeistas sėkmingai!',
 		pwchangefailed:
 			'Slaptažodžio pakeisti nepavyko. Pabandykite dar kartą arba susisiekite su administratoriumi',
 		register: 'Sukurti naują paskyrą',
-		registered:
-			'Naujas patvirtinimo el. laiškas išsiųstas! Patikrinkite savo pašto dėžutę.',
+		registered: 'Naujas patvirtinimo el. laiškas išsiųstas! Patikrinkite savo pašto dėžutę.',
 		submit: 'Prisijungimas',
 		title: 'Prisijungimas arba registracija',
 	},
@@ -148,11 +145,9 @@ export default {
 		slug: 'Puslapio URL',
 		slugDescription: 'Jei URL jau naudojamas,jis gali būti pakeistas.',
 		subscribe: 'Naujienų prenumeravimas',
-		subscribeDescription:
-			'El. laiškai bus siunčiami nurodytu el.pašto adresu.',
+		subscribeDescription: 'El. laiškai bus siunčiami nurodytu el.pašto adresu.',
 		subscribeD: 'Gauti apibendrintą pranešimą apie atsakymus (kas dieną)',
-		subscribeE:
-			'Gauti pranešimą apie kiekvieną anketos užpildymą (kas valandą)',
+		subscribeE: 'Gauti pranešimą apie kiekvieną anketos užpildymą (kas valandą)',
 		subscribeN: 'Nenoriu gauti pranešimų',
 		thanks: 'Padėkos',
 		thanksDefault: 'Ačiū už atsakymus.',
@@ -197,8 +192,7 @@ export default {
 		invalidPassword:
 			'Neteisingas slaptažodis. Pabandykite dar kartą arba spauskite ‘Pamiršau slaptažodį’',
 		password: 'Slaptažodis',
-		passwordRequired:
-			'Įveskite slaptažodį arba susisiekite su klausimyno autoriumi',
+		passwordRequired: 'Įveskite slaptažodį arba susisiekite su klausimyno autoriumi',
 		privacyPolicy: 'Naudojimo ir privatumo taisyklės',
 		restricted: 'Ši PARTIMAP anketa šiuo metu neprieinama.',
 		restrictedTitle: 'Projektas saugomas slaptažodžiu',
@@ -207,15 +201,16 @@ export default {
 		view: 'Peržiūrėti projektą',
 	},
 	sheetEditor: {
+		addDrawingInteraction: 'Pridėti naują žemėlapio užduotį',
 		addFeatureQuestion: 'Pridėkite klausimą su atsakymo variantais',
 		back: 'Atgal į projektą',
 		backgroundImage: 'Fono paveikslėlis',
 		defaultBaseMap: 'Numatytas pagrindo žemėlapis',
-		defaultDescriptionLabel:
-			'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
-		defaultRatingQuestion:
-			'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
-		featureLabel: 'Unikalus užduoties pavadinimas rodomas ataskaitoje',
+		defaultDescriptionLabel: 'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
+		defaultRatingQuestion: 'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
+		featureLabel: 'Užduoties pavadinimas',
+		featureLabelDescription:
+			'Trumpas užduoties identifikavimo pavadinimas. Rodomas ataskaitoje, administratoriaus sąsajoje ir pagal numatytuosius nustatymus kaip respondentų pateiktų elementų pavadinimas.',
 		descriptionLabel: 'Papildomas tekstinis klausimas',
 		descriptionLabelDescription:
 			'Respondentui padėjus žymeklį, rodomas tekstinis klausimas su šia užklausa.',
@@ -225,6 +220,7 @@ export default {
 			Polygon: 'Poligono brėžimo instrukcija',
 		},
 		interactions: {
+			describing: 'Pridėti tekstinį klausimą',
 			Point: 'Taškų uždėjimas',
 			LineString: 'Linijų braižymas',
 			Polygon: 'Poligono braižymas',
@@ -251,7 +247,8 @@ export default {
 		success: 'Darbalapio redagavimas sėkmingas',
 		survey: 'Apklausa',
 		textRating: 'Pateikto įvertinimo tekstinis paaiškinimas',
-		visitorInteractions: 'Respondentai gali:',
+		visitorInteractions: 'Respondentai gali',
+		visitorMapInteractions: 'Respondentams priskirtos užduotys',
 	},
 	unsubscribe: {
 		home: 'Atgal į PARTIMAP',
@@ -282,8 +279,7 @@ export default {
 		logoDescription: 'Šis logo bus vaizduojamas visų projektų antraštėje .',
 		name: 'Paskyros vardas',
 		newPassword: 'Naujas slaptažodis',
-		oldPassword:
-			'Dabartinis slaptažodis (reikalauja tik keičiant el.paštą arba slaptažodį',
+		oldPassword: 'Dabartinis slaptažodis (reikalauja tik keičiant el.paštą arba slaptažodį',
 		save: 'Išsaugoti',
 		website: 'Jūsų puslapis',
 		websiteDescription: 'Logo nuves į jūsų puslapio url adresą',
@@ -319,6 +315,9 @@ export default {
 	},
 	DropdownGroup: {
 		other: 'Kita...',
+	},
+	EdgeDrawingButton: {
+		reachedMax: 'Pasiekėte maksimalų leistiną žymeklių skaičių',
 	},
 	FeatureImportModal: {
 		doImportFixed: `Importuoti {n} statišką(us) žymeklį(ius)`,
@@ -382,6 +381,9 @@ export default {
 		stackeditButton: 'Redaguoti su StackEdit',
 		stackeditInfo:
 			'Ši sąsaja yra patogesnė, nors negali parodyti visų elementų. Ją galima uždaryti mygtuku viršutiniame kairiajame kampe.',
+	},
+	InteractionSettingsModal: {
+		maxDraw: 'MNumatomas žymeklių skaičius (maks.)',
 	},
 	ListItem: {
 		clone: 'Duplikuoti',
@@ -449,8 +451,7 @@ export default {
 		consent2: 'ir sąlygomis bei su Privatumo politika.',
 		next: 'Kitas',
 		results: 'Rezultatai',
-		resultsDescription:
-			'Prieš tęsiant, galite susipažinti su kitų respondentų atsakymais',
+		resultsDescription: 'Prieš tęsiant, galite susipažinti su kitų respondentų atsakymais',
 	},
 	Sidebar: {
 		back: 'Atgal',
@@ -517,15 +518,15 @@ export default {
 	},
 	modals: {
 		cancel: 'Atšaukti',
-		confirmDeleteFeatures:
-			'Ar tikrai norite ištrinti šiuos {count} žymeklį(ius)?',
+		confirmDeleteFeatures: 'Ar tikrai norite ištrinti šiuos {count} žymeklį(ius)?',
 		confirmDeletion: 'Ar tikrai norite tai ištrinti',
 		confirmFeatureClose:
 			'Reikalingas paaiškinimas. Ar tikrai norite išsaugoti nepateikę atsakymo?',
-		confirmUnsaved:
-			'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
+		confirmNoFeatures: 'Neįvykdyta užduotis: "{di}" Ar tikrai norite tęsti? ',
+		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',
+		warning: '⚠ Įspėjimas',
 		yes: 'Taip',
 	},
 };

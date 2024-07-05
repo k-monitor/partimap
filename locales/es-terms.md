@@ -40,7 +40,7 @@ Dirección de oficina y correspondencia: 1062 Budapest, Bajza utca 23.
 
 Teléfono: +36 1 789 5005
 
-Correo electrónico:  <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;">&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;</a>
+Correo electrónico: <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;">&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;</a>
 
 Sitio web: [k-monitor.hu](https://k-monitor.hu/)
 
@@ -167,7 +167,7 @@ Dirección: 1055 Budapest, Falk Miksa utca 9-11. (Dirección postal: 1363 Budape
 
 Portal de la Autoridad NAIH
 
-Correo electrónico: <ugyfelszolgalat@naih.hu>
+Correo electrónico: <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#111;&#x6c;&#x67;&#x61;&#x6c;&#97;&#x74;&#64;&#110;&#97;&#x69;&#104;&#x2e;&#x68;&#x75;">&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#111;&#x6c;&#x67;&#x61;&#x6c;&#97;&#x74;&#64;&#110;&#97;&#x69;&#104;&#x2e;&#x68;&#x75;</a>
 
 **Instancias judiciales**
 

@@ -1,3 +1,54 @@
+<script setup lang="ts">
+import type { Question } from '~/server/data/surveyAnswers';
+
+const value = defineModel<Record<string, number | null>>({ default: {} });
+
+const props = defineProps<{
+	question: Question;
+}>();
+
+const max = computed(() => props.question.max || 100);
+
+const inputValues = ref<Record<string, string | number | null>>({});
+watchEffect(() => (inputValues.value = value.value));
+
+const actualValues = computed(() => {
+	const av: Record<string, number> = {};
+	(props.question.options || []).forEach((o) => {
+		av[o] = Math.max(0, parseInt(String(inputValues.value[o]).trim(), 10) || 0);
+	});
+	return av;
+});
+
+const sum = computed(() => Object.values(actualValues.value).reduce((a, b) => a + b, 0));
+watch(sum, () => (value.value = actualValues.value));
+
+function increase(o: string) {
+	if (sum.value >= max.value) return;
+	const v = Number(inputValues.value[o]) || 0;
+	inputValues.value[o] = v + 1;
+}
+
+function decrease(o: string) {
+	const v = Number(inputValues.value[o]) || 0;
+	if (v > 0) inputValues.value[o] = v - 1;
+}
+
+function handleChange(o: string) {
+	if (!String(inputValues.value[o]).match(/^\d+$/)) {
+		inputValues.value[o] = null;
+		return;
+	}
+	const v = Math.max(0, parseInt(String(inputValues.value[o]).trim(), 10) || 0);
+	if (sum.value > max.value) {
+		const excess = Math.max(sum.value - max.value, 0);
+		inputValues.value[o] = Math.max(v - excess, 0);
+	} else {
+		inputValues.value[o] = Number(v);
+	}
+}
+</script>
+
 <template>
 	<div class="d-flex flex-column">
 		<div
@@ -16,13 +67,12 @@
 					<i class="fas fa-fw fa-minus text-primary" />
 				</b-button>
 				<input
-					v-model.number="inputValues[o]"
+					v-model="inputValues[o]"
 					class="form-control form-control-sm mx-1 text-center"
-					:max="max"
-					:min="0"
 					placeholder="0"
 					style="width: 4rem"
-					@input="handleChange(o, $event.target.value)"
+					type="text"
+					@input="handleChange(o)"
 				/>
 				<b-button
 					:disabled="sum >= max"
@@ -45,90 +95,16 @@
 				style="opacity: 0; width: 1px"
 			/>
 			<div
-				class="flex-shrink-0 pr-2 pt-2 font-weight-bold"
+				class="flex-shrink-0 pr-2 pt-2 fw-bold"
 				:class="{
 					'text-muted': 0 === sum,
 					'text-danger': sum !== max,
 					'text-success': sum === max,
 				}"
 			>
-				<span class="mr-2">{{ sum }}</span>
+				<span class="me-2">{{ sum }}</span>
 				/ {{ max }}
 			</div>
 		</div>
 	</div>
 </template>
-
-
-<script>
-export default {
-	props: {
-		value: {
-			type: Object,
-			default: () => {},
-		},
-		question: {
-			type: Object,
-			default: () => {},
-		},
-	},
-	data() {
-		return {
-			inputValues: {},
-		};
-	},
-	computed: {
-		max() {
-			return this.question.max || 100;
-		},
-		actualValues() {
-			const av = {};
-			this.question.options.forEach(o => {
-				av[o] = Number.parseInt(this.inputValues[o], 10) || 0;
-			});
-			return av;
-		},
-		sum() {
-			return Object.values(this.actualValues).reduce((a, b) => a + b, 0);
-		},
-	},
-	watch: {
-		value() {
-			this.initInputValues();
-		},
-		sum() {
-			this.$emit('input', this.actualValues);
-		},
-	},
-	mounted() {
-		this.initInputValues();
-	},
-	methods: {
-		initInputValues() {
-			const iv = {};
-			this.question.options.forEach(o => {
-				const rv = (this.value || {})[o];
-				const cv = Number.parseInt(rv, 10);
-				iv[o] = Number.isInteger(cv) ? cv : null;
-				iv[o] = cv || null;
-			});
-			this.inputValues = iv;
-		},
-		increase(o) {
-			if (this.sum >= this.max) return;
-			this.inputValues[o] = (this.inputValues[o] || 0) + 1;
-		},
-		decrease(o) {
-			this.inputValues[o] = Math.max((this.inputValues[o] || 0) - 1, 0);
-		},
-		handleChange(o) {
-			if (!String(this.inputValues[o]).match(/^\d+$/)) {
-				this.inputValues[o] = null;
-			} else if (this.sum > this.max) {
-				const excess = Math.max(this.sum - this.max, 0);
-				this.inputValues[o] = Math.max(this.inputValues[o] - excess, 0);
-			}
-		},
-	},
-};
-</script>

@@ -1,3 +1,84 @@
+<script setup lang="ts">
+import type { Map } from '~/server/data/maps';
+
+const { t } = useI18n();
+const localePath = useLocalePath();
+
+useHead({
+	title: `Admin: ${t('maps.title')}`,
+});
+
+const { data: maps, refresh } = await useFetch<Map[]>('/api/map/all');
+
+const filter = ref('');
+const loading = ref(false);
+const newMapTitle = ref(null);
+const filterOwn = ref(false);
+
+const { user } = useAuth();
+
+const filteredMaps = computed(() => {
+	const f = filter.value.toLowerCase();
+	return (maps.value || [])
+		.filter((m) => {
+			if (filterOwn.value && user.value?.id !== m.userId) {
+				return false;
+			}
+			return m.title.toLowerCase().includes(f);
+		})
+		.sort((a, b) => b.id - a.id);
+});
+
+const { errorToast } = useToasts();
+
+async function add() {
+	try {
+		const { id } = await $fetch<{ id: number }>('/api/map', {
+			method: 'PUT',
+			body: {
+				title: newMapTitle.value,
+			},
+		});
+		navigateTo(localePath(`/admin/map/${id}`));
+	} catch (error) {
+		errorToast(t('maps.creationFailed'));
+	}
+}
+
+async function clone(map: Map) {
+	try {
+		loading.value = true;
+		await $fetch('/api/map/clone', {
+			method: 'POST',
+			body: {
+				id: map.id,
+				title: `${map.title} ${new Date().toLocaleString()}`,
+			},
+		});
+		await refresh();
+	} catch (error) {
+		errorToast(t('maps.creationFailed'));
+	} finally {
+		loading.value = false;
+	}
+}
+
+const { confirmDeletion } = useConfirmation();
+async function del(map: Map) {
+	const confirmed = await confirmDeletion(map.title);
+	if (!confirmed) return;
+	try {
+		loading.value = true;
+		await $fetch(`/api/map/${map.id}`, { method: 'DELETE' });
+		await refresh();
+	} catch (error) {
+		errorToast(t('maps.deleteFailed'));
+	} finally {
+		loading.value = false;
+	}
+}
+</script>
+
 <template>
 	<AdminFrame>
 		<template #header>
@@ -37,15 +118,15 @@
 				</div>
 			</div>
 			<div
-				v-if="$auth.user.isAdmin"
-				class="col col-mr-0"
+				v-if="user?.isAdmin"
+				class="col"
 			>
 				<input
 					class="btn btn-outline-primary form-control"
 					:class="{ active: filterOwn }"
 					type="button"
 					:value="$t('maps.ownMaps')"
-					@click="filteredOwn(filterOwn)"
+					@click="filterOwn = !filterOwn"
 				/>
 			</div>
 		</div>
@@ -63,86 +144,3 @@
 		<LoadingOverlay :show="loading" />
 	</AdminFrame>
 </template>
-
-<script>
-export default {
-	middleware: ['auth'],
-	async asyncData({ $axios }) {
-		const maps = await $axios.$get('/api/maps');
-		return { maps };
-	},
-	data() {
-		return {
-			filter: '',
-			loading: false,
-			newMapTitle: null,
-			maps: [],
-			filterOwn: false,
-		};
-	},
-	head() {
-		return {
-			title: `Admin: ${this.$t('maps.title')}`,
-		};
-	},
-	computed: {
-		filteredMaps() {
-			const maps = this.maps.filter(m => {
-				const f = this.filter.toLowerCase();
-				const t = m.title.toLowerCase();
-				const d = (m.description || '').toLowerCase();
-				if (this.filterOwn && this.$auth.user.id !== m.userId) {
-					return false;
-				}
-				// eslint-disable-next-line no-unreachable
-				return t.includes(f) || d.includes(f);
-			});
-			maps.sort((a, b) => b.id - a.id);
-			return maps;
-		},
-	},
-	methods: {
-		async add() {
-			try {
-				const { id } = await this.$axios.$put('/api/map', {
-					title: this.newMapTitle,
-				});
-				this.$router.push(this.localePath(`/admin/map/${id}`));
-			} catch (error) {
-				this.errorToast(this.$t('maps.creationFailed'));
-			}
-		},
-		async clone(map) {
-			try {
-				this.loading = true;
-				await this.$axios.$put('/api/map/clone', {
-					id: map.id,
-					title: `${map.title} ${new Date().toLocaleString()}`,
-				});
-				this.maps = await this.$axios.$get('/api/maps');
-			} catch (error) {
-				this.errorToast(this.$t('maps.creationFailed'));
-			} finally {
-				this.loading = false;
-			}
-		},
-		async del(map) {
-			const confirmed = await this.confirmDeletion(map.title);
-			if (confirmed) {
-				try {
-					this.loading = true;
-					await this.$axios.$delete('/api/map/' + map.id);
-					this.maps = await this.$axios.$get('/api/maps');
-				} catch (error) {
-					this.errorToast(this.$t('maps.deleteFailed'));
-				} finally {
-					this.loading = false;
-				}
-			}
-		},
-		filteredOwn(toggle) {
-			this.filterOwn = !toggle;
-		},
-	},
-};
-</script>

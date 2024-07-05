@@ -1,3 +1,25 @@
+<script setup lang="ts">
+defineI18nRoute({
+	paths: {
+		en: '/how-it-works',
+		es: '/guia-del-usuario',
+		lt: '/naudojimosi-instrukcija',
+	},
+});
+
+const { currentRoute } = useRouter();
+const params = Object.keys(currentRoute.value.query);
+
+const { t } = useI18n();
+
+useHead({
+	title: t('help.title'),
+});
+
+const editorsHelp = await useMessageFromDatabase('editorsHelp');
+const visitorsHelp = await useMessageFromDatabase('visitorsHelp');
+</script>
+
 <template>
 	<PublicFrame>
 		<div class="container my-5 help">
@@ -7,40 +29,14 @@
 
 			<Markdown
 				class="help mb-5"
-				:md="visitorsHelp.value"
+				:md="visitorsHelp || ''"
 			/>
 
 			<Markdown
+				v-if="!params.includes('visitor')"
 				class="help mb-5"
-				:md="editorsHelp.value"
+				:md="editorsHelp || ''"
 			/>
 		</div>
 	</PublicFrame>
 </template>
-
-<script>
-export default {
-	async asyncData({ $axios, i18n }) {
-		const lang = i18n.locale;
-		const editorsHelp = await $axios.$get(
-			`/api/i18n/get/${lang}/editorsHelp`
-		);
-		const visitorsHelp = await $axios.$get(
-			`/api/i18n/get/${lang}/visitorsHelp`
-		);
-		return { editorsHelp, visitorsHelp };
-	},
-	head() {
-		return {
-			title: this.$t('help.title'),
-		};
-	},
-	nuxtI18n: {
-		paths: {
-			en: '/how-it-works',
-			es: '/guia-del-usuario',
-			lt: '/naudojimosi-instrukcija',
-		},
-	},
-};
-</script>
