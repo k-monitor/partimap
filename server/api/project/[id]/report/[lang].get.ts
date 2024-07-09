@@ -12,7 +12,7 @@ import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
 import { Survey } from '~/server/data/surveyAnswers';
-import { deserializeInteractions } from '~/utils/interactions';
+import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords: number[]) {
@@ -239,9 +239,10 @@ export default defineEventHandler(async (event) => {
 				coords = coords.map((pair: number[]) => pair.join(';')).join('\n');
 
 				const type = (m.geometry as any)[f.geometry.type];
-				const descriptionLabel =
-					(interactions.descriptionLabels || {})[f.geometry.type] || '';
-				const featureLabel = (interactions.featureLabels || {})[f.geometry.type] || type;
+
+				const di = lookupDrawingInteraction(interactions, f);
+				const descriptionLabel = di.descriptionLabel || '';
+				const featureLabel = di.featureLabel || type;
 				const answer = safeParseJSONArray(f?.properties?.partimapFeatureQuestion_ans).join(
 					', ',
 				);

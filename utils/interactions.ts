@@ -5,6 +5,7 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 import { nanoid } from 'nanoid';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
+import { DEFAULT_COLORS } from '~/utils/color'; // not sure why auto-importing doesn't work here
 
 export const DRAW_TYPES = ['Point', 'LineString', 'Polygon'] as const;
 export type DrawType = (typeof DRAW_TYPES)[number];
