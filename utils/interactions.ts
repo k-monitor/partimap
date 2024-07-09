@@ -1,6 +1,7 @@
 // This file handles the (de)serialization of the sheet.interactions field
 // in a backward-compatible way.
 
+import type { Feature as GeoJsonFeature } from 'geojson';
 import { nanoid } from 'nanoid';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
@@ -203,4 +204,17 @@ export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined
 	});
 
 	return interactions;
+}
+
+export function lookupDrawingInteraction(
+	interactions: Interactions | null | undefined,
+	feature: GeoJsonFeature | undefined,
+): DrawingInteraction {
+	if (!feature) return createDrawingInteraction({});
+	const vf = feature.properties?.visitorFeature; // boolean (old) or string (new)
+	const diId: string = !vf || vf === true ? feature.geometry.type : vf;
+	const dis = interactions?.drawing || [];
+	return dis.find((di) => di.id === diId) || createDrawingInteraction({ id: diId });
+
+	// TODO test
 }

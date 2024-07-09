@@ -56,9 +56,7 @@ const isDeletable = computed(
 const confirmedClose = ref(false);
 
 const drawingInteraction = computed(() =>
-	(interactions?.value?.drawing || []).find(
-		(di) => di.id === feature.value.properties?.visitorFeature,
-	),
+	lookupDrawingInteraction(interactions?.value, feature.value),
 );
 
 const question = computed(() => {
