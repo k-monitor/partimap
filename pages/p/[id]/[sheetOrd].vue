@@ -294,7 +294,10 @@ async function next() {
 		(di) => !featureCountByInteraction.value[di.id],
 	);
 	if (disWithoutFeature.length) {
-		const confirm = await confirmNoFeatures(disWithoutFeature[0].buttonLabel);
+		const di = disWithoutFeature[0];
+		const confirm = await confirmNoFeatures(
+			di.buttonLabel || t(`sheetEditor.interactions.${di.type}`),
+		);
 		if (!confirm) return;
 	}
 
