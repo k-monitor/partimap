@@ -79,6 +79,7 @@ const sizes = computed(() => {
 		fontSize += featureSizeAdj * 3.5;
 	}
 	featureSize = Math.max(2, featureSize);
+	fontSize = Math.max(MIN_FONT_SIZE_PX, fontSize);
 	return { featureSize, fontSize };
 });
 
@@ -86,20 +87,23 @@ const sizes = computed(() => {
 const textParams = computed(() => {
 	let rotation = 0;
 	let text = '';
-	if (sizes.value.fontSize >= 8) {
-		const isInResultsMode = !!props.labelOverride;
+	if (sizes.value.fontSize > MIN_FONT_SIZE_PX) {
 		const angle = Number(props.f.properties?.partimapMapLabelAngle || 0); // deg
-		rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
-		text =
-			isInResultsMode && !isHidden.value
-				? props.labelOverride
-				: props.f.properties?.partimapMapLabel;
-		text = wordWrap(text || '', {
-			indent: '',
-			trim: true,
-			width: 25, // chars
-		});
+		rotation = angle * (Math.PI / 180); // rad
+		text = props.f.properties?.partimapMapLabel || '';
 	}
+
+	const isInResultsMode = !!props.labelOverride;
+	if (isInResultsMode && !isHidden.value) {
+		rotation = 0;
+		text = props.labelOverride;
+	}
+
+	text = wordWrap(text || '', {
+		indent: '',
+		trim: true,
+		width: 25, // chars
+	});
 
 	const font = `bold ${sizes.value.fontSize}px sans-serif`;
 	return { font, rotation, text };
