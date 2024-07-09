@@ -20,7 +20,7 @@ const props = defineProps<{
 const { currentZoom, selectedFeatureId, visibleFeatureBubbles } = useStore();
 
 const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
-const isSelected = computed(() => selectedFeatureId.value === props.f.id);
+const isSelected = computed(() => selectedFeatureId.value === String(props.f.id || ''));
 const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
 const isHidden = computed(() => props.f.properties?.hidden);
 
@@ -154,12 +154,12 @@ const overlayOffset = computed(() => {
 
 watchEffect(() => {
 	if (!overlay.value) return;
-	const bubbleOrd = visibleFeatureBubbles.value.indexOf(Number(props.f.id));
+	const bubbleOrd = visibleFeatureBubbles.value.indexOf(String(props.f.id || ''));
 	overlay.value.$el.parentElement.style.zIndex = bubbleOrd + 2;
 });
 
 function closeBubble() {
-	const id = Number(props.f.id);
+	const id = String(props.f.id || '');
 	if (visibleFeatureBubbles.value.includes(id)) {
 		visibleFeatureBubbles.value = visibleFeatureBubbles.value.filter((i) => i !== id);
 	}

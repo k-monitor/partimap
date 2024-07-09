@@ -16,7 +16,7 @@ export type Sheet = {
 
 	// only in some API responses
 	answers?: AggregatedAnswers[];
-	ratings?: Record<number, AggregatedRating>;
+	ratings?: Record<string, AggregatedRating>;
 
 	// only on some UI parts
 	featureCount?: number;

@@ -207,7 +207,7 @@ watchEffect(() => {
 	// adding "rating" to feature objects for graying effect on map and in FLE header
 	const visitorRatings = getVisitorRatings(sheet.value.id) || {};
 	adminFeatures.forEach((f) => {
-		const ratingObj = visitorRatings[Number(f.id)];
+		const ratingObj = visitorRatings[String(f.id || '')];
 		if (ratingObj?.value) {
 			f.properties = f.properties || {};
 			f.properties.rating = ratingObj.value;
