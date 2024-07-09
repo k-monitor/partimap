@@ -13,7 +13,6 @@ export type Rating = {
 };
 
 export type AggregatedRating = {
-	id: number;
 	average: number;
 	count: number;
 	dislikeCount: number;
@@ -38,7 +37,6 @@ export function createRating(data: any): Rating {
 
 export function createAggregatedRating(data: any): AggregatedRating {
 	return {
-		id: data.id,
 		average: parseFloat(data.average),
 		count: parseInt(data.count, 10),
 		dislikeCount: parseInt(data.dislikeCount, 10),
