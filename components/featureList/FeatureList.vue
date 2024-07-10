@@ -91,11 +91,11 @@ const answers = computed(() => {
 	return answers;
 });
 
-const filteredFeatures = computed(() => {
+const filteredFeatures = ref<GeoJsonFeature[]>([]);
+watchEffect(() => {
+	if (selectedFeatureId.value) return; // list should not change while editing
+
 	const ffs = availableFeatures.value.filter(featureFilter);
-
-	if (selectedFeatureId.value) return ffs; // no sorting during editing
-
 	ffs.sort((a, b) => {
 		const ac = a.properties?.category || '';
 		const bc = b.properties?.category || '';
@@ -105,7 +105,7 @@ const filteredFeatures = computed(() => {
 		const bn = b.properties?.name || b.id;
 		return String(an).localeCompare(String(bn));
 	});
-	return ffs;
+	filteredFeatures.value = ffs;
 });
 
 function featureFilter(f: GeoJsonFeature): boolean {
