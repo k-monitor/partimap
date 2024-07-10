@@ -11,7 +11,7 @@ const props = defineProps<{
 	features?: GeoJsonFeature[];
 	fitSelected?: boolean;
 	grayRated?: boolean;
-	labelOverrides?: Record<number, string>;
+	labelOverrides?: Record<string, string>;
 	showBubbles?: boolean;
 	visitor?: boolean;
 }>();
@@ -239,7 +239,7 @@ watch(drawType, async (t) => {
 					:key="f.id"
 					:f="f"
 					:gray-rated="grayRated"
-					:label-override="(labelOverrides || {})[Number(f.id)] || ''"
+					:label-override="(labelOverrides || {})[String(f.id || '')] || ''"
 					:show-bubble="showBubbles && visibleFeatureBubbles.includes(String(f.id || ''))"
 					:visitor="visitor"
 				/>

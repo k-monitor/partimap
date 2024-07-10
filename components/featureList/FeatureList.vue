@@ -167,13 +167,13 @@ const filteredVisitorFeatures = computed(() => {
 	return filteredFeatures.value.filter((f) => f.properties?.visitorFeature);
 });
 
-function getAggregatedRating(featureId: string | number) {
+function getAggregatedRating(featureId: string | number | undefined) {
 	const dict: Record<string, AggregatedRating> = sheet?.value?.ratings || {};
-	return dict[String(featureId)] || {};
+	return dict[String(featureId || '')] || {};
 }
 
-function getAggregatedRatingValue(featureId: string | number) {
-	const r = getAggregatedRating(featureId);
+function getAggregatedRatingValue(featureId: string | number | undefined) {
+	const r = getAggregatedRating(featureId || '');
 	switch (interactions?.value?.stars) {
 		case -2:
 			return r.sum;
@@ -360,7 +360,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 			<FeatureListElement
 				v-for="feature in filteredAdminFeatures"
 				:key="feature.id"
-				:aggregated-rating="getAggregatedRating(Number(feature.id))"
+				:aggregated-rating="getAggregatedRating(feature.id)"
 				:categories="categories"
 				:feature="feature"
 				:is-interactive="isInteractive"
@@ -369,7 +369,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 				:is-on-submitted-view="isOnSubmittedView"
 				:show-results="showResults"
 				@change="handleFeatureChange"
-				@delete="handleFeatureDelete(Number(feature.id))"
+				@delete="handleFeatureDelete(feature.id)"
 			/>
 		</div>
 	</form-group>
