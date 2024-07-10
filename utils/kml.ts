@@ -162,7 +162,8 @@ function prepareKmlForImport(kmlString: string) {
 
 		// ensure ID
 		const idValueEl = ed.querySelector(`Data[name="${EXPORTED_ID_NAME}"] value`);
-		const pId = idValueEl?.innerHTML || p.getAttribute('id') || idBase + i;
+		let pId = (idValueEl?.innerHTML || p.getAttribute('id') || '').trim();
+		if (!pId || pId.length > 255) pId = String(idBase + i);
 		p.setAttribute('id', String(pId));
 
 		// rename back data entries
