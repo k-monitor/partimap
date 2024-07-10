@@ -1,0 +1,1 @@
+ALTER TABLE rating CHANGE COLUMN featureId featureId VARCHAR(255) NOT NULL DEFAULT '' AFTER sheetId;

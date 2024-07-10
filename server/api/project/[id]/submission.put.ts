@@ -85,8 +85,7 @@ export default defineEventHandler(async (event) => {
 			});
 		}
 		if (s.ratings) {
-			for (const fid in s.ratings) {
-				const featureId = Number(fid);
+			for (const featureId in s.ratings) {
 				if (!featureId) continue;
 				const ratingObj = s.ratings[featureId];
 				ratings.push({

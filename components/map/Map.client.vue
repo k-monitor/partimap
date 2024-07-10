@@ -11,7 +11,7 @@ const props = defineProps<{
 	features?: GeoJsonFeature[];
 	fitSelected?: boolean;
 	grayRated?: boolean;
-	labelOverrides?: Record<number, string>;
+	labelOverrides?: Record<string, string>;
 	showBubbles?: boolean;
 	visitor?: boolean;
 }>();
@@ -64,7 +64,9 @@ function fitViewToFeatures(immediate?: boolean) {
 	// fit to selected feature or all features
 	let selectedFeature: OlFeature | undefined = undefined;
 	if (selectedFeatureId.value) {
-		selectedFeature = olFeatures.find((f) => f.get('id') === selectedFeatureId.value);
+		selectedFeature = olFeatures.find(
+			(f) => String(f.get('id') || '') === selectedFeatureId.value,
+		);
 	}
 	const extent = selectedFeature
 		? selectedFeature?.getGeometry()?.getExtent()
@@ -106,7 +108,7 @@ const visibleFeatures = computed(() => {
 	const isFilterActive = filteredFeatureIds.value !== null;
 	return (props.features || []).filter((f) => {
 		const isHidden = f.properties?.hidden;
-		const included = (filteredFeatureIds.value || []).includes(Number(f.id)) || isHidden;
+		const included = (filteredFeatureIds.value || []).includes(String(f.id || '')) || isHidden;
 		if (isFilterActive && !included) return false;
 		return true;
 	});
@@ -145,10 +147,10 @@ function handleClick(e: MapBrowserEvent<UIEvent>) {
 
 	// show bubble if needed
 	if (!props.showBubbles || !feature) return;
-	if (visibleFeatureBubbles.value.includes(Number(feature.id))) return;
+	if (visibleFeatureBubbles.value.includes(String(feature.id || ''))) return;
 	if (feature.properties?.visitorFeature) return;
 	if (isFeatureDescriptionEmpty(feature.properties?.description)) return;
-	visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, Number(feature.id)];
+	visibleFeatureBubbles.value = [...visibleFeatureBubbles.value, String(feature.id)];
 }
 
 // draw
@@ -237,8 +239,8 @@ watch(drawType, async (t) => {
 					:key="f.id"
 					:f="f"
 					:gray-rated="grayRated"
-					:label-override="(labelOverrides || {})[Number(f.id)] || ''"
-					:show-bubble="showBubbles && visibleFeatureBubbles.includes(Number(f.id))"
+					:label-override="(labelOverrides || {})[String(f.id || '')] || ''"
+					:show-bubble="showBubbles && visibleFeatureBubbles.includes(String(f.id || ''))"
 					:visitor="visitor"
 				/>
 				<ol-interaction-snap v-if="snapEnabled" />

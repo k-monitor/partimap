@@ -159,7 +159,7 @@ function showAllResultsClicked() {
 	const showResults = showAllResults.value;
 	toggleInteraction('RatingResults', showResults);
 	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-	survey.questions.forEach((q: Question) => (q.showResult = showResults));
+	(survey.questions || []).forEach((q: Question) => (q.showResult = showResults));
 	sheet.value.survey = JSON.stringify(survey);
 }
 
