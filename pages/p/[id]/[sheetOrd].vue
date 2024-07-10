@@ -282,12 +282,12 @@ const sheetForm = ref<HTMLFormElement>();
 
 const { confirmNoFeatures } = useConfirmation();
 
-async function next() {
+async function canAdvance() {
 	selectedFeatureId.value = null;
 	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
-		return;
+		return false;
 	}
 
 	const disWithoutFeature = interactions.value.drawing.filter(
@@ -298,8 +298,15 @@ async function next() {
 		const confirm = await confirmNoFeatures(
 			di.buttonLabel || t(`sheetEditor.interactions.${di.type}`),
 		);
-		if (!confirm) return;
+		if (!confirm) return false;
 	}
+
+	return true;
+}
+
+async function next() {
+	const ca = await canAdvance();
+	if (!ca) return;
 
 	if (needToShowResults.value) {
 		resultsShown.value = true;
@@ -351,6 +358,9 @@ function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 }
 
 async function submit() {
+	const ca = await canAdvance();
+	if (!ca) return;
+
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (
 		!project.value ||
