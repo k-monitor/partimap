@@ -390,6 +390,8 @@ async function submit() {
 		} catch {
 			errorToast(t('sheet.submitFailed'));
 		}
+	} else {
+		submitted.value = true;
 	}
 	loading.value = false;
 }
