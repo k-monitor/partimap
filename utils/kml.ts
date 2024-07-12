@@ -212,7 +212,7 @@ function prepareKmlForImport(kmlString: string) {
 		const autoLinkedDesc = descEl.innerHTML
 			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
 			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
-			.replace(/\s(https?:[^ <>"\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+			.replace(/(\s)(https?:[^ <>"\s]+)/g, '$1<a href="$2" target="_blank">$2</a>');
 		descEl.innerHTML = `<![CDATA[${autoLinkedDesc}]]>`;
 	});
 
