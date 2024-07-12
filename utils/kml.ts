@@ -209,11 +209,11 @@ function prepareKmlForImport(kmlString: string) {
 		}
 
 		// auto linking
-		descEl.innerHTML = descEl.innerHTML
+		const autoLinkedDesc = descEl.innerHTML
 			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
 			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
 			.replace(/\s(https?:[^ <>"\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
+		descEl.innerHTML = `<![CDATA[${autoLinkedDesc}]]>`;
 	});
 
 	return serializeXML(kml);
