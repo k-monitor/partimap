@@ -180,12 +180,24 @@ function closeBubble() {
 			v-else-if="f.geometry.type === 'Polygon'"
 			:coordinates="f.geometry.coordinates"
 		/>
+		<ol-geom-multi-point
+			v-else-if="f.geometry.type === 'MultiPoint'"
+			:coordinates="f.geometry.coordinates"
+		/>
+		<ol-geom-multi-line-string
+			v-else-if="f.geometry.type === 'MultiLineString'"
+			:coordinates="f.geometry.coordinates"
+		/>
+		<ol-geom-multi-polygon
+			v-else-if="f.geometry.type === 'MultiPolygon'"
+			:coordinates="f.geometry.coordinates"
+		/>
 
 		<ol-style
 			v-if="stylePresent"
 			:override-style-function="styleOverride"
 		>
-			<template v-if="f.geometry.type === 'Point'">
+			<template v-if="f.geometry.type === 'Point' || f.geometry.type === 'MultiPoint'">
 				<ol-style-circle :radius="sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
 					<ol-style-stroke
@@ -205,7 +217,7 @@ function closeBubble() {
 			</template>
 
 			<ol-style-fill
-				v-if="f.geometry.type === 'Polygon'"
+				v-if="f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'"
 				:color="colors.polygonFillColor"
 			/>
 
