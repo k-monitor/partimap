@@ -39,6 +39,7 @@ const initialCenter = gm2ol(coords.reverse().map((p) => Number(p)));
 const initialZoom = Number(t('Map.initialZoom')) || 10;
 
 onBeforeMount(() => {
+	filteredFeatureIds.value = null;
 	selectedFeatureId.value = null;
 	visibleFeatureBubbles.value = [];
 });
