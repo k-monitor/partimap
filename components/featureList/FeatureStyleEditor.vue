@@ -105,7 +105,9 @@ onMounted(() => {
 				<div>100%</div>
 			</div>
 			<div
-				v-if="feature.geometry.type === 'Polygon'"
+				v-if="
+					feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon'
+				"
 				class="d-flex align-items-center mt-2"
 			>
 				<i class="fas fa-square fa-w me-2" />

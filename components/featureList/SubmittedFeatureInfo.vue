@@ -23,7 +23,9 @@ const answer = computed(() =>
 			<dd class="mb-3">{{ feature.properties.name }}</dd>
 		</template>
 
-		<dt>{{ $t('FeatureListElement.description') }}</dt>
-		<dd>{{ feature.properties.description }}</dd>
+		<template v-if="feature.properties.description">
+			<dt>{{ $t('FeatureListElement.description') }}</dt>
+			<dd>{{ feature.properties.description }}</dd>
+		</template>
 	</dl>
 </template>

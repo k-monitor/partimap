@@ -4,7 +4,7 @@ export type Rating = {
 	id: number;
 	submissionId: number;
 	sheetId: number;
-	featureId: number;
+	featureId: string;
 	rating: number;
 	question: string;
 	answer: string;
@@ -13,11 +13,10 @@ export type Rating = {
 };
 
 export type AggregatedRating = {
-	id: number;
 	average: number;
 	count: number;
 	dislikeCount: number;
-	featureId: number;
+	featureId: string;
 	likeCount: number;
 	sum: number;
 };
@@ -27,7 +26,7 @@ export function createRating(data: any): Rating {
 		id: data.id,
 		submissionId: data.submissionId,
 		sheetId: data.sheetId,
-		featureId: data.featureId,
+		featureId: String(data.featureId),
 		rating: data.rating,
 		question: data.question,
 		answer: data.answer,
@@ -38,11 +37,10 @@ export function createRating(data: any): Rating {
 
 export function createAggregatedRating(data: any): AggregatedRating {
 	return {
-		id: data.id,
 		average: parseFloat(data.average),
 		count: parseInt(data.count, 10),
 		dislikeCount: parseInt(data.dislikeCount, 10),
-		featureId: data.featureId,
+		featureId: String(data.featureId),
 		likeCount: parseInt(data.likeCount, 10),
 		sum: parseInt(data.sum, 10),
 		// we need the parseX calls because MySQL client returns strings
@@ -67,7 +65,7 @@ export async function aggregateBySheetId(sheetId: number) {
 
 export async function aggregateBySheetIdToDict(sheetId: number) {
 	const ratings = await aggregateBySheetId(sheetId);
-	const result: Record<number, AggregatedRating> = {};
+	const result: Record<string, AggregatedRating> = {};
 	for (const rating of ratings) {
 		result[rating.featureId] = rating;
 	}

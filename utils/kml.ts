@@ -162,7 +162,8 @@ function prepareKmlForImport(kmlString: string) {
 
 		// ensure ID
 		const idValueEl = ed.querySelector(`Data[name="${EXPORTED_ID_NAME}"] value`);
-		const pId = idValueEl?.innerHTML || p.getAttribute('id') || idBase + i;
+		let pId = (idValueEl?.innerHTML || p.getAttribute('id') || '').trim();
+		if (!pId || pId.length > 255) pId = String(idBase + i);
 		p.setAttribute('id', String(pId));
 
 		// rename back data entries
@@ -188,10 +189,16 @@ function prepareKmlForImport(kmlString: string) {
 		ensureData(kml, ed, 'width', width || DEFAULT_WIDTH);
 
 		// move back `description` from `ExtendedData` (see exporter)
-		const descEl = ensureElement(kml, p, 'description');
+		let descEl = ensureElement(kml, p, 'description');
 		const descValueEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"] value`);
 		if (descValueEl && descValueEl.innerHTML) {
 			descValueEl.parentElement?.remove();
+
+			// in some cases overwritten <description> is not imported
+			// so removing it entirely and recreating it
+			descEl.remove();
+			descEl = ensureElement(kml, p, 'description');
+
 			descEl.innerHTML = descValueEl.innerHTML;
 		} else {
 			// no partimapDescription, using <description>
@@ -208,11 +215,11 @@ function prepareKmlForImport(kmlString: string) {
 		}
 
 		// auto linking
-		descEl.innerHTML = descEl.innerHTML
+		const autoLinkedDesc = descEl.innerHTML
 			.replace(/^<!\[CDATA\[/, '') // remove CDATA header
 			.replace(/\]\]>$/, '') // remove CDATA footer.replace(
-			.replace(/\s(https?:[^ <>"\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-		descEl.innerHTML = `<![CDATA[${descEl.innerHTML}]]>`;
+			.replace(/(\s)(https?:[^ <>"\s]+)/g, '$1<a href="$2" target="_blank">$2</a>');
+		descEl.innerHTML = `<![CDATA[${autoLinkedDesc}]]>`;
 	});
 
 	return serializeXML(kml);

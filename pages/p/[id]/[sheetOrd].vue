@@ -207,7 +207,7 @@ watchEffect(() => {
 	// adding "rating" to feature objects for graying effect on map and in FLE header
 	const visitorRatings = getVisitorRatings(sheet.value.id) || {};
 	adminFeatures.forEach((f) => {
-		const ratingObj = visitorRatings[Number(f.id)];
+		const ratingObj = visitorRatings[String(f.id || '')];
 		if (ratingObj?.value) {
 			f.properties = f.properties || {};
 			f.properties.rating = ratingObj.value;
@@ -282,21 +282,31 @@ const sheetForm = ref<HTMLFormElement>();
 
 const { confirmNoFeatures } = useConfirmation();
 
-async function next() {
+async function canAdvance() {
 	selectedFeatureId.value = null;
 	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
-		return;
+		return false;
 	}
 
 	const disWithoutFeature = interactions.value.drawing.filter(
 		(di) => !featureCountByInteraction.value[di.id],
 	);
 	if (disWithoutFeature.length) {
-		const confirm = await confirmNoFeatures(disWithoutFeature[0].buttonLabel);
-		if (!confirm) return;
+		const di = disWithoutFeature[0];
+		const confirm = await confirmNoFeatures(
+			di.buttonLabel || t(`sheetEditor.interactions.${di.type}`),
+		);
+		if (!confirm) return false;
 	}
+
+	return true;
+}
+
+async function next() {
+	const ca = await canAdvance();
+	if (!ca) return;
 
 	if (needToShowResults.value) {
 		resultsShown.value = true;
@@ -348,6 +358,9 @@ function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 }
 
 async function submit() {
+	const ca = await canAdvance();
+	if (!ca) return;
+
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (
 		!project.value ||
@@ -377,6 +390,8 @@ async function submit() {
 		} catch {
 			errorToast(t('sheet.submitFailed'));
 		}
+	} else {
+		submitted.value = true;
 	}
 	loading.value = false;
 }

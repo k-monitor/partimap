@@ -8,11 +8,7 @@ const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
 
 const { t } = useI18n();
 
-const drawingInteraction = computed(() =>
-	(interactions?.value?.drawing || []).find(
-		(di) => di.id === feature?.properties?.visitorFeature,
-	),
-);
+const drawingInteraction = computed(() => lookupDrawingInteraction(interactions?.value, feature));
 
 const label = computed(
 	() =>

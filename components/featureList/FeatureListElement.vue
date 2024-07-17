@@ -45,7 +45,7 @@ const featureJSON = computed(() => JSON.stringify(feature.value));
 watch(featureJSON, () => emit('change', feature.value));
 // If I'd change feature itself, it would emit even without changes for some reason
 
-const isSelected = computed(() => selectedFeatureId.value === props.feature.id);
+const isSelected = computed(() => selectedFeatureId.value === String(props.feature.id || ''));
 const isDeletable = computed(
 	() =>
 		props.isOnEditorView ||
@@ -56,9 +56,7 @@ const isDeletable = computed(
 const confirmedClose = ref(false);
 
 const drawingInteraction = computed(() =>
-	(interactions?.value?.drawing || []).find(
-		(di) => di.id === feature.value.properties?.visitorFeature,
-	),
+	lookupDrawingInteraction(interactions?.value, feature.value),
 );
 
 const question = computed(() => {
@@ -73,7 +71,7 @@ const showSaveButtonOnStaticSheet = computed(() => {
 		return false;
 	}
 	const ratings = !sheet.value ? {} : getVisitorRatings(sheet.value.id);
-	const rating = ratings[String(props.feature.id)] || {
+	const rating = ratings[String(props.feature.id || '')] || {
 		value: undefined,
 	};
 	return !!rating.value && !props.showResults;
@@ -117,7 +115,7 @@ async function expandFinished() {
 
 function getRatingObj() {
 	const ratings = !sheet.value ? {} : getVisitorRatings(sheet.value.id);
-	return ratings[String(feature.value.id)] || { value: undefined };
+	return ratings[String(feature.value.id || '')] || { value: undefined };
 }
 
 const visitorFilledEverything = computed(() => {
@@ -171,8 +169,8 @@ async function featureClicked() {
 onSelectAttempt(async (clickedFeature) => {
 	// TODO would be nice to make it clearer (e.g. work only with curr = clicked case) and move it up to FL
 
-	const currentId = Number(feature.value.id);
-	const clickedId = Number(clickedFeature?.id);
+	const currentId = String(feature.value.id || '');
+	const clickedId = String(clickedFeature?.id || '');
 	const isHidden = clickedFeature?.properties?.hidden && props.isOnSheetView;
 
 	if (!selectedFeatureId.value) {

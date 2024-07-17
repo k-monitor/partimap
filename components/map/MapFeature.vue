@@ -20,7 +20,7 @@ const props = defineProps<{
 const { currentZoom, selectedFeatureId, visibleFeatureBubbles } = useStore();
 
 const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
-const isSelected = computed(() => selectedFeatureId.value === props.f.id);
+const isSelected = computed(() => selectedFeatureId.value === String(props.f.id || ''));
 const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
 const isHidden = computed(() => props.f.properties?.hidden);
 
@@ -79,6 +79,7 @@ const sizes = computed(() => {
 		fontSize += featureSizeAdj * 3.5;
 	}
 	featureSize = Math.max(2, featureSize);
+	fontSize = Math.max(MIN_FONT_SIZE_PX, fontSize);
 	return { featureSize, fontSize };
 });
 
@@ -86,20 +87,23 @@ const sizes = computed(() => {
 const textParams = computed(() => {
 	let rotation = 0;
 	let text = '';
-	if (sizes.value.fontSize >= 8) {
-		const isInResultsMode = !!props.labelOverride;
+	if (sizes.value.fontSize > MIN_FONT_SIZE_PX) {
 		const angle = Number(props.f.properties?.partimapMapLabelAngle || 0); // deg
-		rotation = isInResultsMode ? 0 : angle * (Math.PI / 180); // rad
-		text =
-			isInResultsMode && !isHidden.value
-				? props.labelOverride
-				: props.f.properties?.partimapMapLabel;
-		text = wordWrap(text || '', {
-			indent: '',
-			trim: true,
-			width: 25, // chars
-		});
+		rotation = angle * (Math.PI / 180); // rad
+		text = props.f.properties?.partimapMapLabel || '';
 	}
+
+	const isInResultsMode = !!props.labelOverride;
+	if (isInResultsMode && !isHidden.value) {
+		rotation = 0;
+		text = props.labelOverride;
+	}
+
+	text = wordWrap(text || '', {
+		indent: '',
+		trim: true,
+		width: 25, // chars
+	});
 
 	const font = `bold ${sizes.value.fontSize}px sans-serif`;
 	return { font, rotation, text };
@@ -150,12 +154,12 @@ const overlayOffset = computed(() => {
 
 watchEffect(() => {
 	if (!overlay.value) return;
-	const bubbleOrd = visibleFeatureBubbles.value.indexOf(Number(props.f.id));
+	const bubbleOrd = visibleFeatureBubbles.value.indexOf(String(props.f.id || ''));
 	overlay.value.$el.parentElement.style.zIndex = bubbleOrd + 2;
 });
 
 function closeBubble() {
-	const id = Number(props.f.id);
+	const id = String(props.f.id || '');
 	if (visibleFeatureBubbles.value.includes(id)) {
 		visibleFeatureBubbles.value = visibleFeatureBubbles.value.filter((i) => i !== id);
 	}
@@ -176,12 +180,24 @@ function closeBubble() {
 			v-else-if="f.geometry.type === 'Polygon'"
 			:coordinates="f.geometry.coordinates"
 		/>
+		<ol-geom-multi-point
+			v-else-if="f.geometry.type === 'MultiPoint'"
+			:coordinates="f.geometry.coordinates"
+		/>
+		<ol-geom-multi-line-string
+			v-else-if="f.geometry.type === 'MultiLineString'"
+			:coordinates="f.geometry.coordinates"
+		/>
+		<ol-geom-multi-polygon
+			v-else-if="f.geometry.type === 'MultiPolygon'"
+			:coordinates="f.geometry.coordinates"
+		/>
 
 		<ol-style
 			v-if="stylePresent"
 			:override-style-function="styleOverride"
 		>
-			<template v-if="f.geometry.type === 'Point'">
+			<template v-if="f.geometry.type === 'Point' || f.geometry.type === 'MultiPoint'">
 				<ol-style-circle :radius="sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
 					<ol-style-stroke
@@ -201,7 +217,7 @@ function closeBubble() {
 			</template>
 
 			<ol-style-fill
-				v-if="f.geometry.type === 'Polygon'"
+				v-if="f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'"
 				:color="colors.polygonFillColor"
 			/>
 

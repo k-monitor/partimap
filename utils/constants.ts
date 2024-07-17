@@ -1,3 +1,5 @@
+export const MIN_FONT_SIZE_PX = 8;
+
 /**
  * This is used where answers are aggregated and results
  * are shown. Additional user input given to 'other' options

@@ -5,11 +5,7 @@ import type { Question } from '~/server/data/surveyAnswers';
 const feature = inject<GeoJsonFeature>('feature');
 const interactions = inject<Ref<Interactions | null>>('interactions', ref(null));
 
-const drawingInteraction = computed(() =>
-	(interactions?.value?.drawing || []).find(
-		(di) => di.id === feature?.properties?.visitorFeature,
-	),
-);
+const drawingInteraction = computed(() => lookupDrawingInteraction(interactions?.value, feature));
 
 const question = computed(() => {
 	const q = drawingInteraction.value?.featureQuestion;

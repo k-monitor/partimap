@@ -29,12 +29,12 @@ export default function useStore() {
 
 	const consent = useState<boolean>('consent', () => false);
 	const currentZoom = useState<number>('currentZoom', () => 0);
-	const filteredFeatureIds = useState<number[] | null>('filteredFeatureIds', () => null);
+	const filteredFeatureIds = useState<string[] | null>('filteredFeatureIds', () => null);
 	const loading = useState<boolean>('loading', () => true);
-	const selectedFeatureId = useState<number | null>('selectedFeatureId', () => null);
+	const selectedFeatureId = useState<string | null>('selectedFeatureId', () => null);
 	const sidebarVisible = useState('sidebarVisible', () => true);
 	const submitted = useState('submitted', () => false);
-	const visibleFeatureBubbles = useState<number[]>('visibleFeatureBubbles', () => []);
+	const visibleFeatureBubbles = useState<string[]>('visibleFeatureBubbles', () => []);
 
 	onMounted(() => (loading.value = false));
 

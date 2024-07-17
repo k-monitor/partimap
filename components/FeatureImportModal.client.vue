@@ -8,7 +8,7 @@ const { t } = useI18n();
 
 const visible = defineModel<boolean>();
 
-const { data: maps } = await useFetch<Map[]>('/api/map/all?onlyFeatureCounts=1');
+const maps = ref<Map[]>([]);
 const mapOptions = computed(() => [
 	{ value: null, text: t('FeatureImportModal.selectMap') },
 	...(maps.value || [])
@@ -19,7 +19,7 @@ const mapOptions = computed(() => [
 		})),
 ]);
 
-const { data: projects } = await useFetch<Project[]>('/api/project/all?onlyOwn=1');
+const projects = ref<Project[]>([]);
 const projectOptions = computed(() => [
 	{
 		value: null,
@@ -30,6 +30,12 @@ const projectOptions = computed(() => [
 		text: p.title,
 	})),
 ]);
+
+watch(visible, async (v) => {
+	if (!v) return;
+	maps.value = await $fetch<Map[]>('/api/map/all?onlyFeatureCounts=1');
+	projects.value = await $fetch<Project[]>('/api/project/all?onlyOwn=1');
+});
 
 const project = ref<Project | null>(null);
 const sheet = ref<Sheet | null>(null);

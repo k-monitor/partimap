@@ -12,7 +12,7 @@ import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
 import { Survey } from '~/server/data/surveyAnswers';
-import { deserializeInteractions } from '~/utils/interactions';
+import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords: number[]) {
@@ -127,7 +127,7 @@ export default defineEventHandler(async (event) => {
 		const sheet = sheets.filter((sh) => sh.id === r.sheetId)[0];
 		if (sheet && sheet.features) {
 			const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[];
-			const feature = features.find((f) => String(f.id) === String(r.featureId));
+			const feature = features.find((f) => String(f.id || '') === String(r.featureId));
 			const name = feature?.properties?.name || '';
 			rs.cell(i + 2, 3).string(String(name));
 		}
@@ -154,7 +154,7 @@ export default defineEventHandler(async (event) => {
 		const ar = await rdb.aggregateBySheetId(sheet.id);
 		for (let j = 0; j < ar.length; j++) {
 			const r = ar[j];
-			const feature = features.find((f) => String(f.id) === String(r.featureId));
+			const feature = features.find((f) => String(f.id || '') === String(r.featureId));
 			if (!feature) continue;
 
 			row++;
@@ -170,7 +170,9 @@ export default defineEventHandler(async (event) => {
 				ars.cell(row, 4).number(Number(r.average));
 			}
 
-			const rs = ratings.filter((r) => r.sheetId === sheet.id && r.featureId === feature.id);
+			const rs = ratings.filter(
+				(r) => r.sheetId === sheet.id && r.featureId === String(feature.id || ''),
+			);
 			ars.cell(row, 7).string(rs[rs.length - 1]?.question || '');
 			ars.cell(row, 8).string(
 				rs
@@ -239,9 +241,10 @@ export default defineEventHandler(async (event) => {
 				coords = coords.map((pair: number[]) => pair.join(';')).join('\n');
 
 				const type = (m.geometry as any)[f.geometry.type];
-				const descriptionLabel =
-					(interactions.descriptionLabels || {})[f.geometry.type] || '';
-				const featureLabel = (interactions.featureLabels || {})[f.geometry.type] || type;
+
+				const di = lookupDrawingInteraction(interactions, f);
+				const descriptionLabel = di.descriptionLabel || '';
+				const featureLabel = di.featureLabel || type;
 				const answer = safeParseJSONArray(f?.properties?.partimapFeatureQuestion_ans).join(
 					', ',
 				);
@@ -251,7 +254,7 @@ export default defineEventHandler(async (event) => {
 				sfs.cell(row, 2).string(featureLabel);
 				sfs.cell(row, 3).string(type);
 				sfs.cell(row, 4).string(coords);
-				sfs.cell(row, 5).string(String(f.id));
+				sfs.cell(row, 5).string(String(f.id || ''));
 				sfs.cell(row, 6).string(String(name));
 				sfs.cell(row, 7).string(descriptionLabel);
 				sfs.cell(row, 8).string(f?.properties?.description || '');

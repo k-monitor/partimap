@@ -23,6 +23,9 @@ const icons: Record<string, string> = {
 	Point: 'fa-map-marker-alt',
 	LineString: 'fa-route',
 	Polygon: 'fa-draw-polygon',
+	MultiPoint: 'fa-map-marker-alt',
+	MultiLineString: 'fa-route',
+	MultiPolygon: 'fa-draw-polygon',
 };
 
 const isRated = computed(() => {

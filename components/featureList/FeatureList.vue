@@ -21,10 +21,11 @@ function handleFeatureChange(feature: GeoJsonFeature) {
 	features.value = _features;
 }
 
-function handleFeatureDelete(featureId: number) {
+function handleFeatureDelete(featureId: string | number | undefined) {
+	if (!featureId) return;
 	selectedFeatureId.value = null;
 	const _features = features.value || [];
-	const index = _features.findIndex((f) => f.id === featureId);
+	const index = _features.findIndex((f) => String(f.id) === String(featureId));
 	if (index === -1) return;
 	_features.splice(index, 1);
 	features.value = _features;
@@ -90,11 +91,11 @@ const answers = computed(() => {
 	return answers;
 });
 
-const filteredFeatures = computed(() => {
+const filteredFeatures = ref<GeoJsonFeature[]>([]);
+watchEffect(() => {
+	if (selectedFeatureId.value) return; // list should not change while editing
+
 	const ffs = availableFeatures.value.filter(featureFilter);
-
-	if (selectedFeatureId.value) return ffs; // no sorting during editing
-
 	ffs.sort((a, b) => {
 		const ac = a.properties?.category || '';
 		const bc = b.properties?.category || '';
@@ -104,11 +105,11 @@ const filteredFeatures = computed(() => {
 		const bn = b.properties?.name || b.id;
 		return String(an).localeCompare(String(bn));
 	});
-	return ffs;
+	filteredFeatures.value = ffs;
 });
 
 function featureFilter(f: GeoJsonFeature): boolean {
-	if (f.id === selectedFeatureId.value) {
+	if (String(f.id || '') === selectedFeatureId.value) {
 		// make sure selected feature won't be filtered out
 		// when its name is edited
 		return true;
@@ -134,7 +135,7 @@ function featureFilter(f: GeoJsonFeature): boolean {
 
 watch(filteredFeatures, () => {
 	// updating map
-	filteredFeatureIds.value = filteredFeatures.value.map((f) => Number(f.id)).filter((id) => !!id);
+	filteredFeatureIds.value = filteredFeatures.value.map((f) => String(f.id)).filter((id) => !!id);
 });
 
 watch(selectedFeatureId, (id) => {
@@ -154,8 +155,8 @@ const filteredAdminFeatures = computed(() => {
 	let arr = filteredFeatures.value.filter((f) => !f.properties?.visitorFeature);
 	if (props.showResults) {
 		arr = arr.sort((a, b) => {
-			const ra = getAggregatedRatingValue(Number(a.id));
-			const rb = getAggregatedRatingValue(Number(b.id));
+			const ra = getAggregatedRatingValue(a.id || '');
+			const rb = getAggregatedRatingValue(b.id || '');
 			return rb - ra;
 		});
 	}
@@ -166,13 +167,13 @@ const filteredVisitorFeatures = computed(() => {
 	return filteredFeatures.value.filter((f) => f.properties?.visitorFeature);
 });
 
-function getAggregatedRating(featureId: number) {
+function getAggregatedRating(featureId: string | number | undefined) {
 	const dict: Record<string, AggregatedRating> = sheet?.value?.ratings || {};
-	return dict[String(featureId)] || {};
+	return dict[String(featureId || '')] || {};
 }
 
-function getAggregatedRatingValue(featureId: number) {
-	const r = getAggregatedRating(featureId);
+function getAggregatedRatingValue(featureId: string | number | undefined) {
+	const r = getAggregatedRating(featureId || '');
 	switch (interactions?.value?.stars) {
 		case -2:
 			return r.sum;
@@ -209,7 +210,7 @@ async function importKML() {
 			const importedFeatures = KMLToFeatures(kmlString);
 			features.value?.push(...importedFeatures);
 			await nextTick();
-			selectedFeatureId.value = -1; // triggering fitToView pt.1
+			selectedFeatureId.value = 'non-existent-but-not-null'; // triggering fitToView pt.1
 			loading.value = false;
 			await nextTick();
 			selectedFeatureId.value = null; // triggering fitToView pt.2
@@ -346,7 +347,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 				is-interactive
 				:is-on-sheet-view="isOnSheetView"
 				@change="handleFeatureChange"
-				@delete="handleFeatureDelete(Number(feature.id))"
+				@delete="handleFeatureDelete(feature.id)"
 			/>
 		</div>
 	</form-group>
@@ -359,7 +360,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 			<FeatureListElement
 				v-for="feature in filteredAdminFeatures"
 				:key="feature.id"
-				:aggregated-rating="getAggregatedRating(Number(feature.id))"
+				:aggregated-rating="getAggregatedRating(feature.id)"
 				:categories="categories"
 				:feature="feature"
 				:is-interactive="isInteractive"
@@ -368,7 +369,7 @@ function handleImportFeatures(importedFeatures: GeoJsonFeature[]) {
 				:is-on-submitted-view="isOnSubmittedView"
 				:show-results="showResults"
 				@change="handleFeatureChange"
-				@delete="handleFeatureDelete(Number(feature.id))"
+				@delete="handleFeatureDelete(feature.id)"
 			/>
 		</div>
 	</form-group>
