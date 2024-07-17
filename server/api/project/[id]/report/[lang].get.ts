@@ -3,6 +3,7 @@ import xl from 'excel4node';
 import type { Feature as GeoJsonFeature } from 'geojson';
 import StatusCodes from 'http-status-codes';
 import isMobile from 'is-mobile';
+import slugify from 'slugify';
 import transformation from 'transform-coordinates';
 import { z } from 'zod';
 import * as pdb from '~/server/data/projects';
@@ -265,7 +266,7 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const buffer: Buffer = await wb.writeToBuffer();
-	const filename = `${project.title || 'export'}.xlsx`;
+	const filename = `${slugify(project.title || 'export')}.xlsx`;
 	setHeader(event, 'content-disposition', `attachment; filename=${filename}`);
 	await sendStream(event, Readable.from(buffer, {}));
 });

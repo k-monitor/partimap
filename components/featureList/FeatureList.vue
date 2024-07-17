@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
 import { saveAs } from 'file-saver';
+import slugify from 'slugify';
 import type { Sheet } from '~/server/data/sheets';
 import type { AggregatedRating } from '~/server/data/ratings';
 
@@ -191,7 +192,7 @@ async function exportKML() {
 	const blob = new Blob([kml], {
 		type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 	});
-	saveAs(blob, (props.filename || 'partimap') + '.kml');
+	saveAs(blob, slugify(props.filename || 'partimap') + '.kml');
 	loading.value = false;
 }
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { saveAs } from 'file-saver';
 import type { Feature as GeoJsonFeature } from 'geojson';
+import slugify from 'slugify';
 import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question } from '~/server/data/surveyAnswers';
@@ -138,7 +139,7 @@ async function submittedFeaturesToKML(sheet: Sheet) {
 	const blob = new Blob([kml], {
 		type: 'application/vnd.google-earth.kml+xml;charset=utf-8',
 	});
-	saveAs(blob, (sheet.title || project.value.title || 'partimap') + '.kml');
+	saveAs(blob, slugify(sheet.title || project.value.title || 'partimap') + '.kml');
 }
 </script>
 
