@@ -244,8 +244,9 @@ export default defineEventHandler(async (event) => {
 				const type = (m.geometry as any)[f.geometry.type];
 
 				const di = lookupDrawingInteraction(interactions, f);
-				const descriptionLabel = di.descriptionLabel || '';
-				const featureLabel = di.featureLabel || type;
+				const descriptionLabel =
+					f?.properties?.descriptionLabel || di.descriptionLabel || '';
+				const featureLabel = f?.properties?.featureLabel || di.featureLabel || type;
 				const answer = safeParseJSONArray(f?.properties?.partimapFeatureQuestion_ans).join(
 					', ',
 				);
@@ -259,7 +260,7 @@ export default defineEventHandler(async (event) => {
 				sfs.cell(row, 6).string(String(name));
 				sfs.cell(row, 7).string(descriptionLabel);
 				sfs.cell(row, 8).string(f?.properties?.description || '');
-				sfs.cell(row, 9).string(f?.properties?.partimapFeatureQuestion);
+				sfs.cell(row, 9).string(f?.properties?.partimapFeatureQuestion || '');
 				sfs.cell(row, 10).string(answer);
 			}
 		}
