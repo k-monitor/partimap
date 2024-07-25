@@ -87,6 +87,9 @@ const answers = computed(() => {
 		arr.forEach((a) => {
 			if (!answers.includes(a)) answers.push(a);
 		});
+
+		const featureLabel = f.properties?.featureLabel;
+		if (!answers.includes(featureLabel)) answers.push(featureLabel);
 	});
 	answers.sort();
 	return answers;
@@ -126,6 +129,7 @@ function featureFilter(f: GeoJsonFeature): boolean {
 		String(f.properties?.id || ''),
 		f.properties?.name || defaultName,
 		f.properties?.category || '',
+		f.properties?.featureLabel || '',
 		f.properties?.partimapFeatureQuestion_ans || '',
 		// TODO add partimapMapLabel too?
 	]
