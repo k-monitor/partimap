@@ -1,14 +1,12 @@
 <script setup lang="ts">
+import tinycolor from 'tinycolor2';
+
 const { currentDrawingInteraction } = useStore();
 
-const bgClasses: Record<DrawTypeWithOffState, string> = {
-	'': '',
-	Point: 'bg-danger',
-	LineString: 'bg-primary',
-	Polygon: 'bg-success',
-};
-
-const bgClass = computed(() => bgClasses[currentDrawingInteraction.value?.type || '']);
+const backgroundColor = computed(() => currentDrawingInteraction.value?.color || '#000000');
+const textColor = computed(() =>
+	tinycolor(backgroundColor.value).isLight() ? '#000000' : '#ffffff',
+);
 
 const task = computed(() => currentDrawingInteraction.value?.buttonLabel || '');
 </script>
@@ -19,8 +17,8 @@ const task = computed(() => currentDrawingInteraction.value?.buttonLabel || '');
 		class="map-task-container position-absolute text-center w-100"
 	>
 		<div
-			class="map-task d-inline-block fw-bold m-0 px-3 py-2 rounded shadow-sm text-white"
-			:class="bgClass"
+			class="map-task d-inline-block fw-bold m-0 px-3 py-2 rounded shadow-sm"
+			:style="{ backgroundColor, color: textColor }"
 		>
 			{{ task }}
 		</div>
