@@ -76,13 +76,16 @@ export default defineEventHandler(async (event) => {
 
 			function writeCell(a: string | number | null) {
 				if (!a && String(a) !== '0') return;
+
+				const c = CELL(COL);
+
+				if (Array.isArray(a)) return c.string(a.join('; '));
+
 				const asNum = Number(a);
 				if (!isNaN(asNum)) {
-					CELL(COL).number(asNum);
-				} else if (Array.isArray(a)) {
-					CELL(COL).string(a.join('; '));
+					c.number(asNum);
 				} else {
-					CELL(COL).string(a);
+					c.string(a);
 				}
 			}
 
