@@ -9,7 +9,11 @@ const value = defineModel<Record<string, string | string[] | null>>({ default: {
 
 function handleUpdate(row: string, answer: string | string[] | null) {
 	const values = { ...value.value };
-	values[row] = answer;
+	if (answer && answer.length > 0) {
+		values[row] = answer;
+	} else {
+		delete values[row];
+	}
 	value.value = values;
 }
 </script>
