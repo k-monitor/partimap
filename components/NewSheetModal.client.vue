@@ -15,23 +15,27 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 
-const { data: maps } = await useFetch<Map[]>('/api/map/all');
-// TODO would be nice to fetch only metadata, without actual features
+const maps = ref<Map[]>([]);
 const mapOptions = computed(() => {
 	const options = [
 		{
-			value: 0,
+			value: null,
 			text: t('ProjectSheetManager.withoutCopying'),
 		},
+		...(maps.value || []).map((map) => {
+			const featureCount = safeParseJSONArray(map.features).length;
+			return {
+				value: map.id,
+				text: `${map.title} (${featureCount})`,
+			};
+		}),
 	];
-	(maps.value || []).forEach((map) => {
-		const featureCount = safeParseJSONArray(map.features).length;
-		options.push({
-			value: map.id,
-			text: `${map.title} (${featureCount})`,
-		});
-	});
 	return options;
+});
+
+watch(visible, async (v) => {
+	if (!v) return;
+	maps.value = await $fetch<Map[]>('/api/map/all?onlyFeatureCounts=1');
 });
 
 const form = ref<HTMLFormElement>();
