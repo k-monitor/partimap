@@ -145,7 +145,12 @@ const visitorFilledEverything = computed(() => {
 const { confirmFeatureClose } = useConfirmation();
 
 async function canDeselectFeature() {
-	if (props.isOnSheetView && !visitorFilledEverything.value && !confirmedClose.value) {
+	if (
+		props.isOnSheetView &&
+		!props.showResults &&
+		!visitorFilledEverything.value &&
+		!confirmedClose.value
+	) {
 		const confirmed = await confirmFeatureClose();
 		if (!confirmed) return false;
 		confirmedClose.value = true;
