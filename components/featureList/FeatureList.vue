@@ -181,11 +181,11 @@ function getAggregatedRatingValue(featureId: string | number | undefined) {
 	const r = getAggregatedRating(featureId || '');
 	switch (interactions?.value?.stars) {
 		case -2:
-			return r.sum;
+			return r.sum || 0;
 		case 1:
-			return r.count;
+			return r.count || 0;
 		default:
-			return r.average;
+			return r.average || 0;
 	}
 }
 
