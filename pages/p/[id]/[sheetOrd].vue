@@ -282,11 +282,19 @@ const sheetForm = ref<HTMLFormElement>();
 
 const { confirmNoFeatures } = useConfirmation();
 
-async function canAdvance() {
-	selectedFeatureId.value = null;
+function scrollToTop() {
 	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
+}
+
+async function canAdvance() {
+	selectedFeatureId.value = null;
 	if (!sheetForm.value || !sheetForm.value.reportValidity()) {
+		// scroll to the top first
+		scrollToTop();
+		// then scroll (again) to the invalid field
+		// so that its label is in the viewport
+		sheetForm.value?.reportValidity();
 		return false;
 	}
 
@@ -309,6 +317,7 @@ async function next() {
 	if (!ca) return;
 
 	if (needToShowResults.value) {
+		scrollToTop();
 		resultsShown.value = true;
 	} else {
 		goToSheetOrd(nextSheetOrd.value);
@@ -361,7 +370,6 @@ async function submit() {
 	const ca = await canAdvance();
 	if (!ca) return;
 
-	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
 	if (
 		!project.value ||
 		!project.value.sheets ||
