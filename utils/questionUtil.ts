@@ -10,7 +10,10 @@ export function parseSurvey(json: string | null | undefined) {
 	return survey;
 }
 
-export function canShowQuestion(question: Question, allVisitorAnswers: AnswersByQuestion) {
+export function canShowQuestion(
+	question: Question | DrawingInteraction,
+	allVisitorAnswers: AnswersByQuestion,
+) {
 	if (!Array.isArray(question.showIf)) return true;
 	return question.showIf
 		.map((condition) => {

@@ -10,6 +10,7 @@ export type DrawingButton = {
 export function useDrawButtons(interactions: Interactions | null | undefined) {
 	const { t } = useI18n();
 	const { drawType } = useStore();
+	const { getAllVisitorAnswers } = useVisitorData();
 
 	function b(di: DrawingInteraction | null): DrawingButton {
 		const dt: DrawTypeWithOffState = di?.type || '';
@@ -35,7 +36,9 @@ export function useDrawButtons(interactions: Interactions | null | undefined) {
 		}
 
 		// visitor toolbar shows drawing interaction buttons
-		return (interactions.drawing || []).map((di) => b(di));
+		return (interactions.drawing || [])
+			.filter((di) => canShowQuestion(di, getAllVisitorAnswers.value))
+			.map((di) => b(di));
 	});
 
 	return drawButtons;
