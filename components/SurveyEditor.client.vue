@@ -3,7 +3,7 @@
 
 import type { BvTriggerableEvent } from 'bootstrap-vue-next';
 import type { Sheet } from '~/server/data/sheets';
-import type { Condition, Question, Survey } from '~/server/data/surveyAnswers';
+import type { Question, Survey } from '~/server/data/surveyAnswers';
 
 const { t } = useI18n();
 
@@ -17,16 +17,6 @@ const props = defineProps<{
 }>();
 
 const survey = ref<Survey>({ questions: [] as Question[] });
-
-function parseSurvey(json: string | null | undefined) {
-	const survey: Survey | null = safeParseJSON(json);
-	if (!survey) return null;
-	if (!survey.questions) survey.questions = [];
-	if (survey.showResults) {
-		survey.questions.forEach((q) => (q.showResult = true));
-	}
-	return survey;
-}
 
 watchEffect(() => {
 	// when survey JSON changes, update survey model
@@ -92,7 +82,6 @@ const questionTypes = [
 const cancelledDrag = ref<number[]>([]);
 const question = ref<Question | null>(null);
 const questionIndex = ref(0);
-const questionIsConditional = ref(false);
 
 const hasOptions = computed(
 	() =>
@@ -100,13 +89,6 @@ const hasOptions = computed(
 		'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value.type),
 );
 
-const questionsFromPrevSheets = computed(() => {
-	if (!sheet?.value) return [];
-	return (props.sheets || [])
-		.filter((s) => s.ord < sheet.value!.ord && s.survey)
-		.map((s) => parseSurvey(s.survey)?.questions || [])
-		.flat();
-});
 const questionsFromNextSheets = computed(() => {
 	if (!sheet?.value) return [];
 	return (props.sheets || [])
@@ -115,109 +97,10 @@ const questionsFromNextSheets = computed(() => {
 		.flat();
 });
 
-function isQuestionConditional(question: Question) {
-	return Array.isArray(question.showIf) && question.showIf.length;
-}
-
-const testableQuestions = computed(() =>
-	[
-		...questionsFromPrevSheets.value,
-		...survey.value.questions.slice(0, questionIndex.value),
-	].filter((q) => !isQuestionConditional(q) && q.type !== 'text'),
-);
-
-function clampText(t: string) {
-	t = t || '';
-	const limit = 26;
-	return t.length > limit ? `${t.substring(0, limit)}...` : t;
-}
-
-export type TestableQuestionOption = {
-	label?: string;
-	options?: { value: (string | number)[]; text: string }[];
-	qid: number;
-	text?: string;
-	type: string;
-	value?: (string | number)[];
-};
-
-const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
-	testableQuestions.value.map((q) => {
-		if (q.type.includes('Matrix') || q.type === 'distributeUnits') {
-			return {
-				label: clampText(q.label),
-				options: (q.rows || q.options || []).map((r) => ({
-					value: [q.id, r],
-					text: clampText(r),
-				})),
-				qid: q.id,
-				type: q.type,
-			};
-		} else {
-			return {
-				value: [q.id],
-				text: clampText(q.label),
-				qid: q.id,
-				type: q.type,
-			};
-		}
-	}),
-);
-
-function questionOptionsForCond(i: number) {
-	if (!question.value || !question.value.showIf || i === 0) return testableQuestionOptions.value;
-
-	const referencedIds: Record<number, string[]> = {}; // { questionId: [row, row], ... }
-	question.value.showIf.slice(0, i).forEach((c) => {
-		if (!c[0]) return;
-		const qid = c[0][0];
-		const row = c[0][1];
-		if (!qid) return;
-		referencedIds[qid] = referencedIds[qid] || [];
-		if (row) referencedIds[qid].push(row);
-	});
-
-	const options: TestableQuestionOption[] = [];
-	testableQuestionOptions.value.forEach((o) => {
-		const oneCondQuestionTypes = 'dropdown|number|radiogroup|range|rating|singleChoiceMatrix';
-
-		if (!oneCondQuestionTypes.includes(o.type) || !referencedIds[o.qid]) {
-			// question can be referenced multiple times
-			// or hasn't been referenced -> available
-			return options.push(o);
-		}
-
-		if (o.type === 'singleChoiceMatrix') {
-			// matrix questions can be used
-			// but their options has to be filtered
-			const option: TestableQuestionOption = JSON.parse(JSON.stringify(o)); // copy
-			option.options = (option.options || []).filter(
-				(r) => !referencedIds[o.qid].includes(String(r.value[1])),
-			);
-			if (option.options.length) options.push(option);
-		} else if (!referencedIds[o.qid]) {
-			// other questions can be added if not referenced
-			options.push(o);
-		}
-	});
-	return options;
-}
-
-const canAddNewCondition = computed(() => {
-	if (!question.value) return false;
-	const showIf = question.value.showIf || [];
-	const condN = showIf[0]?.length || 0;
-	return questionIsConditional.value && condN === 2 && questionOptionsForCond(condN).length;
-});
-
 const questionEditorVisible = ref(false);
 function editQuestion(i: number) {
 	questionIndex.value = i;
 	question.value = { ...survey.value.questions[i] };
-
-	const showIf = (question.value.showIf || []).filter((c) => c?.length === 2);
-	questionIsConditional.value = !!showIf.length;
-
 	questionEditorVisible.value = true;
 }
 
@@ -281,33 +164,6 @@ function inputValid(max: number) {
 	if (!question.value) return;
 	if (!question.value.options || !max || max < 1 || max >= question.value.options.length) {
 		question.value.max = undefined;
-	}
-}
-
-function addNewCondition() {
-	if (!question.value) return;
-	const existing = question.value.showIf || [];
-	const newCondition: Condition = [[NaN], ''];
-	question.value.showIf = [...existing, newCondition];
-}
-
-function toggleConditional() {
-	if (questionIsConditional.value) {
-		addNewCondition();
-	} else if (question.value?.showIf) {
-		const q: Question = { ...question.value };
-		delete q.showIf;
-		question.value = q;
-	}
-}
-
-function deleteCondition(i: number) {
-	if (!question.value?.showIf) return;
-	if (question.value.showIf.length === 1) {
-		questionIsConditional.value = false;
-		toggleConditional();
-	} else {
-		question.value.showIf.splice(i, 1);
 	}
 }
 
@@ -595,49 +451,13 @@ const questionLabelInput = ref<HTMLInputElement>();
 					</b-form-checkbox>
 				</b-form-group>
 
-				<div v-if="testableQuestions.length">
-					<b-form-group>
-						<b-form-checkbox
-							v-model="questionIsConditional"
-							@change="toggleConditional"
-						>
-							{{ $t('SurveyEditor.showIf') }}
-						</b-form-checkbox>
-					</b-form-group>
-					<div
-						v-if="questionIsConditional"
-						class="ms-5"
-					>
-						<div v-if="Array.isArray(question.showIf)">
-							<div
-								v-for="(c, i) in question.showIf"
-								:key="i"
-							>
-								<p v-if="i > 0">{{ $t('SurveyEditor.and') }}</p>
-								<QuestionConditionEditor
-									v-model="question.showIf[i]"
-									:testable-questions="testableQuestions"
-									:testable-question-options="questionOptionsForCond(i)"
-								/>
-								<p class="small text-end">
-									<a
-										href="javascript:void(0)"
-										@click="deleteCondition(i)"
-									>
-										{{ $t('SurveyEditor.deleteCondition') }}
-									</a>
-								</p>
-							</div>
-							<b-button
-								v-if="canAddNewCondition"
-								variant="outline-success"
-								@click="addNewCondition"
-							>
-								{{ $t('SurveyEditor.addCondition') }}
-							</b-button>
-						</div>
-					</div>
-				</div>
+				<ShowIfEditor
+					v-model="question.showIf"
+					:question-index="questionIndex"
+					:sheet-ord="sheet?.ord || 0"
+					:sheets="props.sheets"
+					:survey="survey"
+				/>
 			</form>
 		</b-modal>
 	</div>
