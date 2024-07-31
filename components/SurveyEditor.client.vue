@@ -93,8 +93,12 @@ const hasOptions = computed(
 const questionsFromNextSheets = computed(() => {
 	if (!sheet?.value) return [];
 	return (project?.value?.sheets || [])
-		.filter((s) => s.ord > sheet.value!.ord && s.survey)
-		.map((s) => parseSurvey(s.survey)?.questions || [])
+		.filter((s) => s.ord > sheet.value!.ord)
+		.map((s) => {
+			const questions = parseSurvey(s.survey)?.questions || [];
+			const dis = deserializeInteractions(s).drawing;
+			return [...questions, ...dis];
+		})
 		.flat();
 });
 
@@ -168,7 +172,7 @@ function inputValid(max: number) {
 	}
 }
 
-function referencedQuestionIdsOf(question: Question) {
+function referencedQuestionIdsOf(question: Question | DrawingInteraction) {
 	return Array.isArray(question?.showIf) ? question.showIf.map((c) => c[0][0]) : [];
 }
 
@@ -210,7 +214,9 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 	// those questions that reference them
 	const conIds = questionIdsThatReference(question);
 	if (conIds.length) {
-		const conInd = conIds.map(indexOfQuestionId);
+		const conInd = conIds
+			.map((id) => indexOfQuestionId(Number(id)))
+			.filter((id) => !Number.isNaN(id));
 		const maxInd = Math.min(...conInd);
 		if (futureIndex > maxInd - 1) {
 			cancelledDrag.value.splice(0, cancelledDrag.value.length);

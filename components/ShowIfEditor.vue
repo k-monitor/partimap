@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Project } from '~/server/data/projects';
-import type { Sheet } from '~/server/data/sheets';
 import type { Condition, Survey } from '~/server/data/surveyAnswers';
 
 export type TestableQuestionOption = {
