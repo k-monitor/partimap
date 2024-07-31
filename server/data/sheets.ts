@@ -10,7 +10,7 @@ export type Sheet = {
 	description: string;
 	image: string | null;
 	survey: string; // JSON
-	features: string;
+	features: string | null; // JSON
 	interactions: string; // JSON
 	descriptionLabel: string; // legacy
 

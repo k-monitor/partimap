@@ -211,6 +211,48 @@ async function uploadBackground() {
 	}
 }
 
+const questionIdsRefByDIs = ref<number[]>([]);
+
+function gatherQuestionIdsRefByDIs() {
+	return interactions.value.drawing.flatMap((di) => di.showIf.map((c) => c[0][0]));
+}
+
+onMounted(() => {
+	questionIdsRefByDIs.value = gatherQuestionIdsRefByDIs();
+});
+
+function saveSheet(s: Sheet) {
+	return $fetch<Sheet>(`/api/sheet/${s.id}`, {
+		method: 'PATCH',
+		body: s,
+	});
+}
+
+async function modifyOtherSheetsIfNeeded() {
+	const prev = questionIdsRefByDIs.value;
+	const current = gatherQuestionIdsRefByDIs();
+	const newIds = current.filter((id) => !prev.includes(id));
+	await Promise.all(
+		(project.value?.sheets || []).map((sheet) => {
+			const survey = parseSurvey(sheet.survey);
+			if (!survey) return;
+			const questions = survey.questions || [];
+			if (!questions.length) return;
+			let modified = false;
+			survey.questions = questions.map((q) => {
+				if (newIds.includes(q.id)) {
+					q.addToFeatures = true;
+					modified = true;
+				}
+				return q;
+			});
+			if (!modified) return;
+			return saveSheet({ ...sheet, survey: JSON.stringify(survey) });
+		}),
+	);
+	questionIdsRefByDIs.value = current;
+}
+
 const { errorToast, successToast } = useToasts();
 async function save() {
 	if (!sheet.value) return;
@@ -221,13 +263,11 @@ async function save() {
 			await uploadBackground();
 		}
 
-		sheet.value = await $fetch<Sheet>(`/api/sheet/${sheet.value?.id}`, {
-			method: 'PATCH',
-			body: {
-				...sheet.value,
-				features: sheet.value.features ? JSON.stringify(features.value) : null,
-			},
+		sheet.value = await saveSheet({
+			...sheet.value,
+			features: sheet.value.features ? JSON.stringify(features.value) : null,
 		});
+		await modifyOtherSheetsIfNeeded();
 		await nextTick();
 		contentModified.value = false;
 		successToast(t('sheetEditor.success'));
