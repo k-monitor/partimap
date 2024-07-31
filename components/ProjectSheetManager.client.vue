@@ -37,9 +37,9 @@ const sheetDependencies = computed(() => {
 	const questionsDict: Record<string, number> = {}; // questionId -> sheet ord
 	const sheetDeps: Record<number, number[]> = {}; // sheet ord -> [sheet ord]
 	(project.value.sheets || []).forEach((s) => {
-		if (!s.survey) return;
-		const { questions } = JSON.parse(s.survey) as { questions: Question[] };
-		questions?.forEach((q) => {
+		const dis = deserializeInteractions(s).drawing;
+		const questions = parseSurvey(s.survey)?.questions || [];
+		[...dis, ...questions].forEach((q) => {
 			questionsDict[q.id] = s.ord;
 			if (!Array.isArray(q.showIf)) return;
 			q.showIf.forEach((c) => {

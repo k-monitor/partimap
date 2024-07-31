@@ -1,6 +1,19 @@
-import type { Question } from '~/server/data/surveyAnswers';
+import type { Question, Survey } from '~/server/data/surveyAnswers';
 
-export function canShowQuestion(question: Question, allVisitorAnswers: AnswersByQuestion) {
+export function parseSurvey(json: string | null | undefined) {
+	const survey: Survey | null = safeParseJSON(json);
+	if (!survey) return null;
+	if (!survey.questions) survey.questions = [];
+	if (survey.showResults) {
+		survey.questions.forEach((q) => (q.showResult = true));
+	}
+	return survey;
+}
+
+export function canShowQuestion(
+	question: Question | DrawingInteraction,
+	allVisitorAnswers: AnswersByQuestion,
+) {
 	if (!Array.isArray(question.showIf)) return true;
 	return question.showIf
 		.map((condition) => {
@@ -22,4 +35,8 @@ export function canShowQuestion(question: Question, allVisitorAnswers: AnswersBy
 			return false;
 		})
 		.every((condition) => !!condition);
+}
+
+export function isQuestionConditional(question: Question) {
+	return Array.isArray(question.showIf) && question.showIf.length;
 }

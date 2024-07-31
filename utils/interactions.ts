@@ -4,7 +4,7 @@
 import type { Feature as GeoJsonFeature } from 'geojson';
 import { nanoid } from 'nanoid';
 import type { Sheet } from '~/server/data/sheets';
-import type { Question, Survey } from '~/server/data/surveyAnswers';
+import type { Condition, Question, Survey } from '~/server/data/surveyAnswers';
 import { DEFAULT_COLORS } from '~/utils/color'; // not sure why auto-importing doesn't work here
 
 export const DRAW_TYPES = ['Point', 'LineString', 'Polygon'] as const;
@@ -60,6 +60,11 @@ export type DrawingInteraction = {
 	 * Whether visitor can name their features
 	 */
 	naming: boolean;
+
+	/**
+	 * Conditions for showing this interaction (empty = always)
+	 */
+	showIf: Condition[];
 };
 
 export function createDrawingInteraction(di: Partial<DrawingInteraction>): DrawingInteraction {
@@ -74,6 +79,7 @@ export function createDrawingInteraction(di: Partial<DrawingInteraction>): Drawi
 		featureQuestion: di.featureQuestion || {},
 		max: Math.max(0, di.max || 0),
 		naming: !!di.naming,
+		showIf: Array.isArray(di.showIf) ? di.showIf : [],
 	};
 }
 

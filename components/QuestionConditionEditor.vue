@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Condition, Question } from '~/server/data/surveyAnswers';
-import type { TestableQuestionOption } from './SurveyEditor.client.vue';
+import type { TestableQuestionOption } from './ShowIfEditor.vue';
 
 const value = defineModel<Condition>({
 	default: [[NaN], ''],

@@ -157,12 +157,12 @@ onMounted(() => {
 
 const availableSheetOrds = computed(() =>
 	(project.value?.sheets || [])
-		.filter((sheet) => {
-			if (!sheet.survey) return true;
-			const survey: Survey = safeParseJSON(sheet.survey) || {};
-			const { questions } = survey;
-			if (!questions || !questions.length) return true;
-			const questionsAvailable = !!questions.find((q) => {
+		.filter((s) => {
+			const dis = deserializeInteractions(s).drawing;
+			const questions = parseSurvey(s.survey)?.questions || [];
+			const all = [...dis, ...questions];
+			if (!all.length) return true;
+			const questionsAvailable = !!all.find((q) => {
 				return canShowQuestion(q, getAllVisitorAnswers.value);
 			});
 			return questionsAvailable;

@@ -51,6 +51,7 @@ const sheetWithRatings = computed(() => {
 });
 
 provide('interactions', interactions);
+provide('project', project);
 provide('sheet', sheetWithRatings);
 
 useHead({
