@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type { Sheet } from '~/server/data/sheets';
+
+const sheet = inject<Ref<Sheet | null>>('sheet', ref(null));
+
 const visible = defineModel<boolean>();
 
 const props = defineProps<{
@@ -171,5 +175,12 @@ async function handleMaxDrawChange() {
 				:placeholder="$t('sheetEditor.defaultDescriptionLabel')"
 			/>
 		</b-form-group>
+
+		<ShowIfEditor
+			v-model="di.showIf"
+			:question-index="0"
+			:sheet-ord="sheet?.ord || 0"
+			:survey="{ questions: [] }"
+		/>
 	</b-modal>
 </template>

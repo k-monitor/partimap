@@ -2,18 +2,19 @@
 // TODO spaghetti, need to decouple into multiple components/composables
 
 import type { BvTriggerableEvent } from 'bootstrap-vue-next';
+import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
 
 const { t } = useI18n();
 
+const project = inject<Ref<Project | null>>('project');
 const sheet = inject<Ref<Sheet | null>>('sheet');
 
 const surveyJSON = defineModel<string>();
 
 const props = defineProps<{
 	readonly?: boolean;
-	sheets: Sheet[];
 }>();
 
 const survey = ref<Survey>({ questions: [] as Question[] });
@@ -91,7 +92,7 @@ const hasOptions = computed(
 
 const questionsFromNextSheets = computed(() => {
 	if (!sheet?.value) return [];
-	return (props.sheets || [])
+	return (project?.value?.sheets || [])
 		.filter((s) => s.ord > sheet.value!.ord && s.survey)
 		.map((s) => parseSurvey(s.survey)?.questions || [])
 		.flat();
@@ -455,7 +456,6 @@ const questionLabelInput = ref<HTMLInputElement>();
 					v-model="question.showIf"
 					:question-index="questionIndex"
 					:sheet-ord="sheet?.ord || 0"
-					:sheets="props.sheets"
 					:survey="survey"
 				/>
 			</form>

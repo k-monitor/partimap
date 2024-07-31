@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
 import type { Condition, Survey } from '~/server/data/surveyAnswers';
 
@@ -13,15 +14,16 @@ export type TestableQuestionOption = {
 
 const showIf = defineModel<Condition[]>({ default: [] });
 
+const project = inject<Ref<Project | null>>('project');
+
 const props = defineProps<{
 	questionIndex: number; // limits range of testable questions within current survey
 	sheetOrd: number; // defines previous sheets
-	sheets: Sheet[];
 	survey: Survey;
 }>();
 
 const questionsFromPrevSheets = computed(() => {
-	return (props.sheets || [])
+	return (project?.value?.sheets || [])
 		.filter((s) => s.ord < props.sheetOrd && s.survey)
 		.map((s) => parseSurvey(s.survey)?.questions || [])
 		.flat();
