@@ -4,7 +4,6 @@ import type { Feature as GeoJsonFeature } from 'geojson';
 import slugify from 'slugify';
 import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
-import type { Question } from '~/server/data/surveyAnswers';
 
 const localePath = useLocalePath();
 

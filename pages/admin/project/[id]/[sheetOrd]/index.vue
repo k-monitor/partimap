@@ -17,33 +17,23 @@ const { loading } = useStore();
 
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
-const sheet = ref<Sheet | undefined>();
-const interactions = ref<Interactions>(deserializeInteractions(undefined));
+const sheet = ref(project.value?.sheets?.[Number(sheetOrd)]); // sheets are ordered on server
+const interactions = ref<Interactions>(deserializeInteractions(sheet.value));
+
+// #2434 cleanup
+if (sheet.value && (sheet.value?.survey || '').includes('showResultsOnly')) {
+	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
+	delete survey.showResultsOnly;
+	sheet.value.survey = JSON.stringify(survey);
+}
+
+// #2437 cleanup
+if (sheet.value) sheet.value.descriptionLabel = '';
 
 const endpoint = computed(() => `/api/sheet/${sheet.value?.id}/ratings`);
 const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(endpoint, {
 	immediate: false,
 });
-
-function init() {
-	// TODO this doesn't feel elegant but now I'm just migrating from asyncData
-
-	sheet.value = project.value?.sheets?.[Number(sheetOrd)]; // sheets are ordered on server
-	if (!sheet.value) return;
-
-	interactions.value = deserializeInteractions(sheet.value);
-
-	// #2434 cleanup
-	if ((sheet.value?.survey || '').includes('showResultsOnly')) {
-		const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-		delete survey.showResultsOnly;
-		sheet.value.survey = JSON.stringify(survey);
-	}
-
-	// #2437 cleanup
-	sheet.value.descriptionLabel = '';
-}
-init();
 
 const sheetWithRatings = computed(() => {
 	if (!sheet.value) return null;
