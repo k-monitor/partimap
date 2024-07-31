@@ -8,6 +8,9 @@ export type DrawingButton = {
 };
 
 export function useDrawButtons(interactions: Interactions | null | undefined) {
+	const { query } = useRoute();
+	const isInForcedPreview = !!query.force;
+
 	const { t } = useI18n();
 	const { drawType } = useStore();
 	const { getAllVisitorAnswers } = useVisitorData();
@@ -37,7 +40,7 @@ export function useDrawButtons(interactions: Interactions | null | undefined) {
 
 		// visitor toolbar shows drawing interaction buttons
 		return (interactions.drawing || [])
-			.filter((di) => canShowQuestion(di, getAllVisitorAnswers.value))
+			.filter((di) => isInForcedPreview || canShowQuestion(di, getAllVisitorAnswers.value))
 			.map((di) => b(di));
 	});
 
