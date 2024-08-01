@@ -156,39 +156,66 @@ async function removeDrawingInteraction(index: number) {
 					<i class="fas fa-fw fa-cog" />
 				</b-button>
 			</b-list-group-item>
-			<b-list-group-item
-				v-for="(di, i) in interactions.drawing"
-				:key="di.id"
-				button
-				class="d-flex p-0 align-items-center"
-				@click="openDrawingInteractionSettings(i)"
+
+			<draggable
+				v-model="interactions.drawing"
+				draggable=".item"
+				handle=".handle"
 			>
-				<div class="p-2 text-truncate">
-					<i
-						class="fas fa-fw mx-1"
-						:class="DRAW_TYPE_ICONS[di.type]"
-						:style="{ color: di.color }"
-					/>
-					{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
-				</div>
-				<b-button
-					v-if="interactions.drawing.length > 1"
-					class="border-0 ms-auto px-2 py-2 rounded-0"
-					variant="outline-danger"
-					@click.stop="removeDrawingInteraction(i)"
+				<b-list-group-item
+					v-for="(di, i) in interactions.drawing"
+					:key="di.id"
+					button
+					class="item p-0"
 				>
-					<i class="fas fa-fw fa-trash" />
-				</b-button>
-			</b-list-group-item>
-			<b-list-group-item
-				v-if="interactions.drawing.length"
-				button
-				class="d-flex align-items-center text-success"
-				@click="addDrawingInteraction"
-			>
-				<i class="fas fa-fw fa-plus me-2" />
-				{{ $t('sheetEditor.addDrawingInteraction') }}
-			</b-list-group-item>
+					<div class="d-flex align-items-stretch">
+						<div class="handle d-flex flex-shrink-0 align-items-center px-2 bg-light">
+							<i class="fas fa-grip-vertical" />
+						</div>
+						<div
+							class="flex-grow-1 overflow-hidden p-2"
+							@click="openDrawingInteractionSettings(i)"
+						>
+							<p class="fw-bold mb-1 text-truncate">
+								{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
+							</p>
+							<div class="d-flex align-items-center text-muted">
+								<i
+									v-b-tooltip.hover.bottom
+									class="fas fa-fw mx-1"
+									:class="DRAW_TYPE_ICONS[di.type]"
+									:style="{ color: di.color }"
+									:title="$t(`FeatureListElement.defaultName.${di.type}`)"
+								/>
+								<i
+									v-if="di.showIf.length"
+									v-b-tooltip.hover.bottom
+									class="fas fa-level-up-alt fa-fw me-2"
+									:title="$t('SurveyEditor.conditionalQuestion')"
+								/>
+								<b-button
+									v-if="interactions.drawing.length > 1"
+									class="border-0 ms-auto text-danger"
+									size="sm"
+									variant="light"
+									@click.stop="removeDrawingInteraction(i)"
+								>
+									<i class="fas fa-fw fa-trash" />
+								</b-button>
+							</div>
+						</div>
+					</div>
+				</b-list-group-item>
+				<b-list-group-item
+					v-if="interactions.drawing.length"
+					button
+					class="d-flex align-items-center text-success"
+					@click="addDrawingInteraction"
+				>
+					<i class="fas fa-fw fa-plus me-2" />
+					{{ $t('sheetEditor.addDrawingInteraction') }}
+				</b-list-group-item>
+			</draggable>
 		</b-list-group>
 	</form-group>
 	<InteractionSettingsModal
