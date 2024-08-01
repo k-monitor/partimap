@@ -35,7 +35,7 @@ const isRated = computed(() => {
 
 const nonEmptyName = computed(() => {
 	const anon = t(`FeatureListElement.defaultName.${feature?.geometry?.type}`);
-	return feature?.properties?.name || anon;
+	return feature?.properties?.name || feature?.properties?.featureLabel || anon;
 });
 
 const ratingResult = computed(() => {

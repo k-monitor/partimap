@@ -192,7 +192,6 @@ async function handleDrawEnd() {
 			...feature.properties,
 			descriptionLabel: currentDrawingInteraction.value?.descriptionLabel || '',
 			featureLabel: currentDrawingInteraction.value?.featureLabel || '',
-			name: currentDrawingInteraction.value?.featureLabel || '',
 			visitorFeature: currentDrawingInteraction.value?.id || true,
 		};
 	}
