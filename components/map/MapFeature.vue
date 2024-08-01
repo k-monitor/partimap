@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Feature as OlFeature } from 'ol';
 import type { Coordinate } from 'ol/coordinate';
 import { getCenter } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
 import LineString from 'ol/geom/LineString.js';
-import { type Style } from 'ol/style';
+import { Fill, Stroke, Style } from 'ol/style';
 import tinycolor from 'tinycolor2';
 import type { Map } from 'vue3-openlayers';
 import wordWrap from 'word-wrap';
@@ -23,18 +24,6 @@ const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
 const isSelected = computed(() => selectedFeatureId.value === String(props.f.id || ''));
 const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
 const isHidden = computed(() => props.f.properties?.hidden);
-
-// z-index
-const zIndex = computed(() => {
-	if (isHidden.value) return -1;
-	if (isSelected.value) return 1;
-	return 0;
-});
-function styleOverride(_feature: any, currentStyle: Style) {
-	// for some reason ol-style :z-index was buggy for points
-	currentStyle.setZIndex(zIndex.value);
-	return currentStyle;
-}
 
 // color and opacity
 const colors = computed(() => {
@@ -60,7 +49,9 @@ const colors = computed(() => {
 	const textOpacity = percentToHex(textOpacity100);
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
-	return { colorWithOpacity, polygonFillColor, textColor };
+	const extraStrokeColor = '#000000' + percentToHex(opacity100);
+
+	return { colorWithOpacity, extraStrokeColor, polygonFillColor, textColor };
 });
 
 // size
@@ -123,6 +114,64 @@ watch([polygonFillColor, lineDash], () => {
 	stylePresent.value = false;
 	nextTick(() => (stylePresent.value = true));
 });
+
+// z-index
+const zIndex = computed(() => {
+	if (isHidden.value) return -1;
+	if (isSelected.value) return 1;
+	return 0;
+});
+
+// applying z-index and extra outline
+function styleOverride(f: OlFeature, currentStyle: Style) {
+	// for some reason ol-style :z-index was buggy for points
+	currentStyle.setZIndex(zIndex.value);
+
+	const g = f.getGeometry()?.getType() || '';
+	if (g.includes('Point')) {
+		// for points, extra stroke is set in <template>
+		return currentStyle;
+	}
+
+	const createStrokeStyle = (color: string, extraWidth = 0) =>
+		new Style({
+			stroke: new Stroke({
+				color,
+				lineCap: 'butt',
+				lineDash: lineDash.value,
+				width: sizes.value.featureSize + extraWidth,
+			}),
+			zIndex: zIndex.value,
+		});
+
+	if (g.includes('LineString')) {
+		return [
+			createStrokeStyle(colors.value.extraStrokeColor, 2),
+			createStrokeStyle(colors.value.colorWithOpacity),
+			currentStyle, // text
+		];
+	}
+
+	if (g.includes('Polygon')) {
+		// the goal here is to add the extra stroke to the colored stroke,
+		// all on top of the fill, so we need to split them up good
+		const onlyFillStyle = new Style({
+			fill: new Fill({
+				color: polygonFillColor.value,
+			}),
+			zIndex: zIndex.value,
+		});
+		return [
+			onlyFillStyle,
+			createStrokeStyle(colors.value.extraStrokeColor, 2),
+			createStrokeStyle(colors.value.colorWithOpacity),
+			currentStyle, // text
+		];
+	}
+
+	// fallback for other geometry types (?)
+	return currentStyle;
+}
 
 // bubble
 
@@ -201,25 +250,12 @@ function closeBubble() {
 				<ol-style-circle :radius="textParams.text ? 0 : sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
 					<ol-style-stroke
-						:color="null"
-						:width="0"
+						:color="colors.extraStrokeColor"
+						:width="1"
 					/>
 				</ol-style-circle>
 			</template>
-			<template v-else>
-				<!-- LineString or Polygon -->
-				<ol-style-stroke
-					:color="colors.colorWithOpacity"
-					line-cap="butt"
-					:line-dash="lineDash"
-					:width="sizes.featureSize"
-				/>
-			</template>
-
-			<ol-style-fill
-				v-if="f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'"
-				:color="colors.polygonFillColor"
-			/>
+			<!-- stroke and fill for LineString and Polygon are handled in style function -->
 
 			<ol-style-text
 				:background-fill="colors.colorWithOpacity"
