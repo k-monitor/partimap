@@ -19,15 +19,11 @@ function back() {
 const title = ref(mapData.value?.title);
 watch(title, () => (contentModified.value = true));
 
-function parseFeatures() {
-	return safeParseJSONArray(mapData.value?.features) as GeoJsonFeature[];
-}
-
-const features = ref(parseFeatures());
-watch(mapData, () => (features.value = parseFeatures()));
-
 const contentModified = ref(false);
-watch(features, () => (contentModified.value = true), { deep: true });
+
+const features = ref(safeParseJSONArray(mapData.value?.features) as GeoJsonFeature[]);
+const featuresJson = computed(() => JSON.stringify(features.value));
+watch(featuresJson, () => (contentModified.value = true));
 
 function handleFeatureDrawn(feature: GeoJsonFeature) {
 	features.value.push(feature);
@@ -45,7 +41,7 @@ async function save() {
 				title: title.value,
 			},
 		});
-		await refresh();
+		await nextTick();
 		contentModified.value = false;
 		successToast(t('mapEditor.success'));
 	} catch (error) {
