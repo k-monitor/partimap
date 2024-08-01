@@ -352,7 +352,10 @@ async function save() {
 				/>
 			</form-group>
 
-			<InteractionsEditor v-model="interactions" />
+			<InteractionsEditor
+				v-model="interactions"
+				@modified="save"
+			/>
 
 			<form-group
 				v-if="canHaveResults"

@@ -55,6 +55,7 @@ async function handleMaxDrawChange() {
 	<b-modal
 		v-model="visible"
 		:cancel-title="$t('modals.cancel')"
+		:ok-title="$t('SaveButton.save')"
 		ok-variant="success"
 		:teleport-disabled="true"
 		teleport-to="body"
