@@ -21,7 +21,7 @@ const question = computed(() => {
 		(q) => String(q.id) === String((questionId.value || [])[0]),
 	);
 	if (q) {
-		q.min = 0;
+		q.min = q.min || 0;
 		q.max = q.max || 100;
 	}
 	return q;
@@ -45,6 +45,7 @@ const minMax = computed(() => {
 	if (question.value.type === 'rating') return '(1-5)';
 	const hasMin = typeof question.value.min !== 'undefined';
 	const hasMax = typeof question.value.max !== 'undefined';
+	console.log('minMax:', hasMin, hasMax, question.value.min, question.value.max);
 	return hasMin && hasMax ? `(${question.value.min}-${question.value.max})` : '';
 });
 
