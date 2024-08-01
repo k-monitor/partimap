@@ -95,6 +95,21 @@ watch(condition, (nc, oc) => {
 	const ocj = JSON.stringify(oc);
 	if (ncj !== ocj) value.value = nc; // emitting value
 });
+
+function fixMinMaxValues() {
+	const arr = [min.value, max.value]
+		.map((v) => v || 0)
+		.map((v) => Math.max(v, question.value?.min || 0))
+		.map((v) => Math.min(v, question.value?.max || 100));
+	arr.sort();
+	min.value = arr[0];
+	max.value = arr[1];
+}
+watch(question, async () => {
+	await nextTick();
+	min.value = question.value?.min || 0;
+	max.value = question.value?.max || 100;
+});
 </script>
 
 <template>
@@ -127,6 +142,7 @@ watch(condition, (nc, oc) => {
 					:min="question?.min"
 					required
 					type="number"
+					@blur="fixMinMaxValues"
 				/>
 				<label class="mx-2 col-form-label">-</label>
 				<b-form-input
@@ -135,6 +151,7 @@ watch(condition, (nc, oc) => {
 					:min="question?.min"
 					required
 					type="number"
+					@blur="fixMinMaxValues"
 				/>
 			</div>
 		</b-form-group>
