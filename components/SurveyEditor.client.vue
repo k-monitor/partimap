@@ -109,10 +109,16 @@ function editQuestion(i: number) {
 	questionEditorVisible.value = true;
 }
 
-function emitSurvey() {
+const emit = defineEmits<{
+	(e: 'modified'): void;
+}>();
+
+async function emitSurvey() {
 	cancelledDrag.value.splice(0, cancelledDrag.value.length);
 	if (props.readonly) return true;
 	surveyJSON.value = JSON.stringify(survey.value);
+	await nextTick();
+	emit('modified');
 }
 
 function addQuestion() {
@@ -325,6 +331,8 @@ const questionLabelInput = ref<HTMLInputElement>();
 			v-model="questionEditorVisible"
 			:cancel-title="$t('modals.cancel')"
 			:ok-disabled="props.readonly"
+			:ok-title="$t('SaveButton.save')"
+			ok-variant="success"
 			:teleport-disabled="true"
 			teleport-to="body"
 			:title="$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
