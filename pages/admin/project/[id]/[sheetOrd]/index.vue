@@ -17,33 +17,23 @@ const { loading } = useStore();
 
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
-const sheet = ref<Sheet | undefined>();
-const interactions = ref<Interactions>(deserializeInteractions(undefined));
+const sheet = ref(project.value?.sheets?.[Number(sheetOrd)]); // sheets are ordered on server
+const interactions = ref<Interactions>(deserializeInteractions(sheet.value));
+
+// #2434 cleanup
+if (sheet.value && (sheet.value?.survey || '').includes('showResultsOnly')) {
+	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
+	delete survey.showResultsOnly;
+	sheet.value.survey = JSON.stringify(survey);
+}
+
+// #2437 cleanup
+if (sheet.value) sheet.value.descriptionLabel = '';
 
 const endpoint = computed(() => `/api/sheet/${sheet.value?.id}/ratings`);
 const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(endpoint, {
 	immediate: false,
 });
-
-function init() {
-	// TODO this doesn't feel elegant but now I'm just migrating from asyncData
-
-	sheet.value = project.value?.sheets?.[Number(sheetOrd)]; // sheets are ordered on server
-	if (!sheet.value) return;
-
-	interactions.value = deserializeInteractions(sheet.value);
-
-	// #2434 cleanup
-	if ((sheet.value?.survey || '').includes('showResultsOnly')) {
-		const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
-		delete survey.showResultsOnly;
-		sheet.value.survey = JSON.stringify(survey);
-	}
-
-	// #2437 cleanup
-	sheet.value.descriptionLabel = '';
-}
-init();
 
 const sheetWithRatings = computed(() => {
 	if (!sheet.value) return null;
@@ -221,6 +211,48 @@ async function uploadBackground() {
 	}
 }
 
+const questionIdsRefByDIs = ref<number[]>([]);
+
+function gatherQuestionIdsRefByDIs() {
+	return interactions.value.drawing.flatMap((di) => di.showIf.map((c) => c[0][0]));
+}
+
+onMounted(() => {
+	questionIdsRefByDIs.value = gatherQuestionIdsRefByDIs();
+});
+
+function saveSheet(s: Sheet) {
+	return $fetch<Sheet>(`/api/sheet/${s.id}`, {
+		method: 'PATCH',
+		body: s,
+	});
+}
+
+async function modifyOtherSheetsIfNeeded() {
+	const prev = questionIdsRefByDIs.value;
+	const current = gatherQuestionIdsRefByDIs();
+	const newIds = current.filter((id) => !prev.includes(id));
+	await Promise.all(
+		(project.value?.sheets || []).map((sheet) => {
+			const survey = parseSurvey(sheet.survey);
+			if (!survey) return;
+			const questions = survey.questions || [];
+			if (!questions.length) return;
+			let modified = false;
+			survey.questions = questions.map((q) => {
+				if (newIds.includes(q.id)) {
+					q.addToFeatures = true;
+					modified = true;
+				}
+				return q;
+			});
+			if (!modified) return;
+			return saveSheet({ ...sheet, survey: JSON.stringify(survey) });
+		}),
+	);
+	questionIdsRefByDIs.value = current;
+}
+
 const { errorToast, successToast } = useToasts();
 async function save() {
 	if (!sheet.value) return;
@@ -231,13 +263,11 @@ async function save() {
 			await uploadBackground();
 		}
 
-		sheet.value = await $fetch<Sheet>(`/api/sheet/${sheet.value?.id}`, {
-			method: 'PATCH',
-			body: {
-				...sheet.value,
-				features: sheet.value.features ? JSON.stringify(features.value) : null,
-			},
+		sheet.value = await saveSheet({
+			...sheet.value,
+			features: sheet.value.features ? JSON.stringify(features.value) : null,
 		});
+		await modifyOtherSheetsIfNeeded();
 		await nextTick();
 		contentModified.value = false;
 		successToast(t('sheetEditor.success'));
@@ -322,7 +352,10 @@ async function save() {
 				/>
 			</form-group>
 
-			<InteractionsEditor v-model="interactions" />
+			<InteractionsEditor
+				v-model="interactions"
+				@modified="save"
+			/>
 
 			<form-group
 				v-if="canHaveResults"

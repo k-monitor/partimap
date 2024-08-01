@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Project } from '~/server/data/projects';
-import type { Sheet } from '~/server/data/sheets';
 import type { Condition, Survey } from '~/server/data/surveyAnswers';
 
 export type TestableQuestionOption = {
@@ -135,10 +134,13 @@ function handleConditionUpdated(i: number, c: Condition) {
 }
 
 function deleteCondition(i: number) {
-	if (showIf.value.length >= i) return;
-	showIf.value.splice(i, 1);
-	if (!showIf.value.length) {
+	const conds = [...showIf.value];
+	conds.splice(i, 1);
+	if (conds.length) {
+		showIf.value = conds;
+	} else {
 		isConditional.value = false;
+		showIf.value = [];
 	}
 }
 </script>

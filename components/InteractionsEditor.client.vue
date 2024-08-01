@@ -63,6 +63,10 @@ function openDrawingInteractionSettings(index: number) {
 
 // edit
 
+const emit = defineEmits<{
+	(e: 'modified'): void;
+}>();
+
 function handleRatingInteractionModified(
 	ratingExplanation: boolean,
 	ratingProsCons: boolean,
@@ -75,6 +79,7 @@ function handleRatingInteractionModified(
 	toggleInteraction('RatingExplanation', ratingExplanation);
 	toggleInteraction('RatingProsCons', ratingProsCons);
 	toggleInteraction('RatingResults', ratingResults);
+	emit('modified');
 }
 
 function handleDrawingInteractionModified(di: DrawingInteraction) {
@@ -82,6 +87,7 @@ function handleDrawingInteractionModified(di: DrawingInteraction) {
 	dis[editedDrawingInteractionIndex.value] = di;
 	interactions.value.drawing = dis;
 	editedDrawingInteractionIndex.value = -1;
+	emit('modified');
 }
 
 function addDrawingInteraction() {
