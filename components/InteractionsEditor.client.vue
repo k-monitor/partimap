@@ -67,7 +67,7 @@ const emit = defineEmits<{
 	(e: 'modified'): void;
 }>();
 
-function handleRatingInteractionModified(
+async function handleRatingInteractionModified(
 	ratingExplanation: boolean,
 	ratingProsCons: boolean,
 	ratingQuestion: string,
@@ -79,14 +79,16 @@ function handleRatingInteractionModified(
 	toggleInteraction('RatingExplanation', ratingExplanation);
 	toggleInteraction('RatingProsCons', ratingProsCons);
 	toggleInteraction('RatingResults', ratingResults);
+	await nextTick(); // wait for sheet model to be updated
 	emit('modified');
 }
 
-function handleDrawingInteractionModified(di: DrawingInteraction) {
+async function handleDrawingInteractionModified(di: DrawingInteraction) {
 	const dis = interactions.value.drawing;
 	dis[editedDrawingInteractionIndex.value] = di;
 	interactions.value.drawing = dis;
 	editedDrawingInteractionIndex.value = -1;
+	await nextTick(); // wait for sheet model to be updated
 	emit('modified');
 }
 
