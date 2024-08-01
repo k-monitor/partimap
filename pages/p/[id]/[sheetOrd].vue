@@ -299,7 +299,9 @@ async function canAdvance() {
 	}
 
 	const disWithoutFeature = interactions.value.drawing.filter(
-		(di) => !featureCountByInteraction.value[di.id],
+		(di) =>
+			canShowQuestion(di, getAllVisitorAnswers.value) &&
+			!featureCountByInteraction.value[di.id],
 	);
 	if (disWithoutFeature.length) {
 		const di = disWithoutFeature[0];
