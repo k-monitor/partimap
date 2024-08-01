@@ -12,7 +12,7 @@ export function useDrawButtons(interactions: Interactions | null | undefined) {
 	const isInForcedPreview = !!query.force;
 
 	const { t } = useI18n();
-	const { drawType } = useStore();
+	const { drawType, submitted } = useStore();
 	const { getAllVisitorAnswers } = useVisitorData();
 
 	function b(di: DrawingInteraction | null): DrawingButton {
@@ -28,6 +28,11 @@ export function useDrawButtons(interactions: Interactions | null | undefined) {
 	}
 
 	const drawButtons = computed(() => {
+		if (submitted.value) {
+			// survey already submitted no need for buttons
+			return [];
+		}
+
 		if (drawType.value) {
 			// drawing in progress, show cancel button
 			return [b(null)];
