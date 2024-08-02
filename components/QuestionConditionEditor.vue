@@ -33,10 +33,8 @@ const question = computed(() => {
 });
 
 const hasOptions = computed(
-	() =>
-		!!question.value?.type &&
-		'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value.type),
-); // TODO this also exists in SurveyEditor.client.vue
+	() => !!question.value?.type && 'checkbox|dropdown|radiogroup'.includes(question.value.type),
+); // distributeUnits is intentionally omitted
 
 const isNumberQuestion = computed(
 	() =>
@@ -50,7 +48,6 @@ const minMax = computed(() => {
 	if (question.value.type === 'rating') return '(1-5)';
 	const hasMin = typeof question.value.min !== 'undefined';
 	const hasMax = typeof question.value.max !== 'undefined';
-	console.log('minMax:', hasMin, hasMax, question.value.min, question.value.max);
 	return hasMin && hasMax ? `(${question.value.min}-${question.value.max})` : '';
 });
 
