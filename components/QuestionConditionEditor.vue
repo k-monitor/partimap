@@ -21,8 +21,13 @@ const question = computed(() => {
 		(q) => String(q.id) === String((questionId.value || [])[0]),
 	);
 	if (q) {
-		q.min = q.min || 0;
-		q.max = q.max || 100;
+		if (q.type === 'rating') {
+			q.min = 1;
+			q.max = 5;
+		} else {
+			q.min = q.min || 0;
+			q.max = q.max || 100;
+		}
 	}
 	return q;
 });
