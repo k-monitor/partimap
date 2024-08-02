@@ -1,0 +1,29 @@
+name: Update Partimap DEMO
+
+on:
+  push:
+    branches:
+      - demo
+
+jobs:
+  update-partimap-DEMO:
+    name: Update Partimap DEMO
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute commands on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEMO_HOST }}
+          username: ${{ secrets.DEMO_USER }}
+          key: ${{ secrets.DEMO_KEY }}
+          port: ${{ secrets.DEMO_PORT }}
+          script_stop: true
+          script: |
+            cd ${{ secrets.DEMO_DIR }}
+            . ~/.nvm/nvm.sh
+            nvm use
+            git pull --rebase
+            pnpm i
+            npx db-migrate up
+            pnpm run build
+            pm2 restart ecosystem.config.cjs

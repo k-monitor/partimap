@@ -1,0 +1,29 @@
+name: Update Partimap PROD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-partimap-PROD:
+    name: Update Partimap PROD
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute commands on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_KEY }}
+          port: ${{ secrets.PROD_PORT }}
+          script_stop: true
+          script: |
+            cd ${{ secrets.PROD_DIR }}
+            . ~/.nvm/nvm.sh
+            nvm use
+            git pull --rebase
+            pnpm i
+            npx db-migrate up
+            pnpm run build
+            pm2 restart ecosystem.config.cjs
