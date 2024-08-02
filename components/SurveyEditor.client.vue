@@ -421,6 +421,7 @@ const questionLabelInput = ref<HTMLInputElement>();
 						<b-form-group :label="$t('SurveyEditor.units')">
 							<b-form-input
 								v-model.number="question.max"
+								:disabled="!!(props.readonly || isQuestionReferenced(question))"
 								type="number"
 								min="1"
 							/>
