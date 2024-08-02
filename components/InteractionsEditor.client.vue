@@ -194,7 +194,6 @@ async function removeDrawingInteraction(index: number) {
 									:title="$t('SurveyEditor.conditionalQuestion')"
 								/>
 								<b-button
-									v-if="interactions.drawing.length > 1"
 									class="border-0 ms-auto text-danger"
 									size="sm"
 									variant="light"
