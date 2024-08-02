@@ -33,8 +33,12 @@ const question = computed(() => {
 });
 
 const hasOptions = computed(
-	() => !!question.value?.type && 'checkbox|dropdown|radiogroup'.includes(question.value.type),
-); // distributeUnits is intentionally omitted
+	() =>
+		!!question.value?.type &&
+		'checkbox|dropdown|radiogroup|singleChoiceMatrix|multipleChoiceMatrix'.includes(
+			question.value.type,
+		),
+); // different from the one in SurveyEditor
 
 const isNumberQuestion = computed(
 	() =>
