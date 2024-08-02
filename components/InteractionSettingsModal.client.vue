@@ -49,6 +49,12 @@ async function handleMaxDrawChange() {
 	await nextTick();
 	di.value.max = Math.max(0, di.value.max || 0);
 }
+
+const dt = computed(() => di.value.type);
+watch(dt, (dt, oldDt) => {
+	if (di.value.color !== DEFAULT_COLORS[oldDt]) return;
+	di.value.color = DEFAULT_COLORS[dt];
+});
 </script>
 
 <template>
