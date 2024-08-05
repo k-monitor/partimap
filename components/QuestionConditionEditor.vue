@@ -107,7 +107,7 @@ function fixMinMaxValues() {
 		.map((v) => v || 0)
 		.map((v) => Math.max(v, question.value?.min || 0))
 		.map((v) => Math.min(v, question.value?.max || 100));
-	arr.sort();
+	if (arr[0] > arr[1]) arr.reverse();
 	min.value = arr[0];
 	max.value = arr[1];
 }
