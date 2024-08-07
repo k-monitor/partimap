@@ -198,7 +198,7 @@ function closeBubble() {
 			:override-style-function="styleOverride"
 		>
 			<template v-if="f.geometry.type === 'Point' || f.geometry.type === 'MultiPoint'">
-				<ol-style-circle :radius="sizes.featureSize * 3">
+				<ol-style-circle :radius="textParams.text ? 0 : sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
 					<ol-style-stroke
 						:color="null"
@@ -230,7 +230,7 @@ function closeBubble() {
 				:padding="[3, 3, 3, 3]"
 				placement="point"
 				:rotation="textParams.rotation"
-				:text="showBubble ? '' : textParams.text"
+				:text="showBubble && !f.geometry.type.includes('Point') ? '' : textParams.text"
 			/>
 		</ol-style>
 
