@@ -177,7 +177,9 @@ function handleSheetsChanged() {
 						>
 							<i class="fas fa-copy fa-fw" />
 						</button>
-						<span class="input-group-text">{{ projectBaseURL }}</span>
+						<span class="d-none d-md-inline input-group-text">{{
+							projectBaseURL
+						}}</span>
 						<input
 							v-model="project.slug"
 							class="form-control"
