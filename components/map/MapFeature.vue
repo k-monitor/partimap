@@ -137,7 +137,7 @@ function styleOverride(f: OlFeature, currentStyle: Style) {
 		new Style({
 			stroke: new Stroke({
 				color,
-				lineCap: 'butt',
+				//lineCap: 'butt',
 				lineDash: lineDash.value,
 				width: sizes.value.featureSize + extraWidth,
 			}),
