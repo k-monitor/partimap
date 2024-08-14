@@ -5,7 +5,7 @@ import type { Coordinate } from 'ol/coordinate';
 import { getCenter } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
 import LineString from 'ol/geom/LineString.js';
-import { Fill, Stroke, Style } from 'ol/style';
+import { Circle, Fill, Stroke, Style, Text } from 'ol/style';
 import tinycolor from 'tinycolor2';
 import type { Map } from 'vue3-openlayers';
 import wordWrap from 'word-wrap';
@@ -113,55 +113,61 @@ const zIndex = computed(() => {
 	return 0;
 });
 
-// applying z-index and extra outline
-function styleOverride(f: OlFeature, currentStyle: Style) {
-	// for some reason ol-style :z-index was buggy for points
-	currentStyle.setZIndex(zIndex.value);
-
+function styleOverride(f: OlFeature) {
 	const g = f.getGeometry()?.getType() || '';
+
+	const createFill = (color: string) => new Fill({ color });
+	const createStroke = (color: string, extraWidth = 0) =>
+		new Stroke({
+			color,
+			//lineCap: 'butt',
+			lineDash: lineDash.value,
+			width: sizes.value.featureSize + extraWidth,
+		});
+	const createSimpleStroke = (color: string) => new Stroke({ color, width: 1 });
+
+	const text = new Text({
+		backgroundFill: createFill(colors.value.colorWithOpacity),
+		backgroundStroke: createSimpleStroke(colors.value.extraStrokeColor),
+		fill: createFill(colors.value.textColor),
+		font: textParams.value.font,
+		offsetY: 1,
+		overflow: true,
+		padding: [3, 3, 3, 3],
+		placement: 'point',
+		rotation: textParams.value.rotation,
+		text: props.showBubble && !g.includes('Point') ? '' : textParams.value.text,
+	});
+
 	if (g.includes('Point')) {
-		// for points, extra stroke is set in <template>
-		return currentStyle;
-	}
-
-	const createStrokeStyle = (color: string, extraWidth = 0) =>
-		new Style({
-			stroke: new Stroke({
-				color,
-				//lineCap: 'butt',
-				lineDash: lineDash.value,
-				width: sizes.value.featureSize + extraWidth,
+		return new Style({
+			image: new Circle({
+				fill: createFill(colors.value.colorWithOpacity),
+				radius: textParams.value.text ? 0 : sizes.value.featureSize * 3,
+				stroke: createSimpleStroke(colors.value.extraStrokeColor),
 			}),
+			text,
 			zIndex: zIndex.value,
 		});
+	}
 
-	if (g.includes('LineString')) {
+	if (g.includes('LineString') || g.includes('Polygon')) {
 		return [
-			createStrokeStyle(colors.value.extraStrokeColor, 2),
-			createStrokeStyle(colors.value.colorWithOpacity),
-			currentStyle, // text
+			new Style({
+				fill: createFill(colors.value.polygonFillColor),
+				stroke: createStroke(colors.value.extraStrokeColor, 2),
+				zIndex: zIndex.value,
+			}),
+			new Style({
+				stroke: createStroke(colors.value.colorWithOpacity),
+				text,
+				zIndex: zIndex.value,
+			}),
 		];
 	}
 
-	if (g.includes('Polygon')) {
-		// the goal here is to add the extra stroke to the colored stroke,
-		// all on top of the fill, so we need to split them up good
-		const onlyFillStyle = new Style({
-			fill: new Fill({
-				color: colors.value.polygonFillColor,
-			}),
-			zIndex: zIndex.value,
-		});
-		return [
-			onlyFillStyle,
-			createStrokeStyle(colors.value.extraStrokeColor, 2),
-			createStrokeStyle(colors.value.colorWithOpacity),
-			currentStyle, // text
-		];
-	}
-
-	// fallback for other geometry types (?)
-	return currentStyle;
+	// unknown geometries won't be visible
+	return [];
 }
 
 // bubble
@@ -233,30 +239,7 @@ function closeBubble() {
 			:coordinates="f.geometry.coordinates"
 		/>
 
-		<ol-style :override-style-function="styleOverride">
-			<template v-if="f.geometry.type === 'Point' || f.geometry.type === 'MultiPoint'">
-				<ol-style-circle :radius="textParams.text ? 0 : sizes.featureSize * 3">
-					<ol-style-fill :color="colors.colorWithOpacity" />
-					<ol-style-stroke
-						:color="colors.extraStrokeColor"
-						:width="1"
-					/>
-				</ol-style-circle>
-			</template>
-			<!-- stroke and fill for LineString and Polygon are handled in style function -->
-
-			<ol-style-text
-				:background-fill="colors.colorWithOpacity"
-				:fill="colors.textColor"
-				:font="textParams.font"
-				:offset-y="1"
-				:overflow="true"
-				:padding="[3, 3, 3, 3]"
-				placement="point"
-				:rotation="textParams.rotation"
-				:text="showBubble && !f.geometry.type.includes('Point') ? '' : textParams.text"
-			/>
-		</ol-style>
+		<ol-style :override-style-function="styleOverride" />
 
 		<ol-overlay
 			v-if="showBubble && !isDescriptionEmpty"
