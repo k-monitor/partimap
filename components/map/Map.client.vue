@@ -255,7 +255,22 @@ watch(drawType, async (t) => {
 					v-if="drawType"
 					:type="drawType"
 					@drawend="handleDrawEnd"
-				/>
+				>
+					<ol-style>
+						<ol-style-stroke
+							:color="DEFAULT_COLORS[drawType]"
+							:width="6"
+						/>
+						<ol-style-fill :color="DEFAULT_COLORS[drawType] + '19'" />
+						<ol-style-circle :radius="5">
+							<ol-style-fill :color="DEFAULT_COLORS[drawType]" />
+							<ol-style-stroke
+								:color="null"
+								:width="0"
+							/>
+						</ol-style-circle>
+					</ol-style>
+				</ol-interaction-draw>
 			</ol-source-vector>
 		</ol-vector-layer>
 
