@@ -49,7 +49,7 @@ const colors = computed(() => {
 	const textOpacity = percentToHex(textOpacity100);
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
-	const extraStrokeColor = '#000000' + percentToHex(opacity100);
+	const extraStrokeColor = '#000000' + percentToHex(isUnselected.value ? 0 : opacity100);
 
 	return { colorWithOpacity, extraStrokeColor, polygonFillColor, textColor };
 });
@@ -145,12 +145,6 @@ function styleOverride(f: OlFeature, currentStyle: Style) {
 		});
 
 	if (g.includes('LineString')) {
-		if (isUnselected.value) {
-			return [
-				createStrokeStyle(colors.value.colorWithOpacity),
-				currentStyle, // text
-			];
-		}
 		return [
 			createStrokeStyle(colors.value.extraStrokeColor, 2),
 			createStrokeStyle(colors.value.colorWithOpacity),
@@ -167,14 +161,6 @@ function styleOverride(f: OlFeature, currentStyle: Style) {
 			}),
 			zIndex: zIndex.value,
 		});
-
-		if (isUnselected.value) {
-			return [
-				onlyFillStyle,
-				createStrokeStyle(colors.value.colorWithOpacity),
-				currentStyle, // text
-			];
-		}
 		return [
 			onlyFillStyle,
 			createStrokeStyle(colors.value.extraStrokeColor, 2),
@@ -264,7 +250,7 @@ function closeBubble() {
 				<ol-style-circle :radius="textParams.text ? 0 : sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
 					<ol-style-stroke
-						:color="isUnselected ? null : colors.extraStrokeColor"
+						:color="colors.extraStrokeColor"
 						:width="1"
 					/>
 				</ol-style-circle>
