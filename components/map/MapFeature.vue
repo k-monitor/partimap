@@ -250,9 +250,12 @@ function closeBubble() {
 			positioning="top-center"
 		>
 			<div
-				class="popover rounded-1 shadow-sm"
+				class="popover rounded-1"
 				style="width: 250px"
-				:style="{ borderColor: colors.colorWithOpacity }"
+				:style="{
+					borderColor: colors.colorWithOpacity,
+					boxShadow: '0 0 0 1px rgba(0,0,0,0.5)',
+				}"
 			>
 				<div
 					class="d-flex align-items-center"
