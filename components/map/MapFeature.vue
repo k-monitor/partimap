@@ -145,6 +145,12 @@ function styleOverride(f: OlFeature, currentStyle: Style) {
 		});
 
 	if (g.includes('LineString')) {
+		if (isUnselected.value) {
+			return [
+				createStrokeStyle(colors.value.colorWithOpacity),
+				currentStyle, // text
+			];
+		}
 		return [
 			createStrokeStyle(colors.value.extraStrokeColor, 2),
 			createStrokeStyle(colors.value.colorWithOpacity),
@@ -161,6 +167,14 @@ function styleOverride(f: OlFeature, currentStyle: Style) {
 			}),
 			zIndex: zIndex.value,
 		});
+
+		if (isUnselected.value) {
+			return [
+				onlyFillStyle,
+				createStrokeStyle(colors.value.colorWithOpacity),
+				currentStyle, // text
+			];
+		}
 		return [
 			onlyFillStyle,
 			createStrokeStyle(colors.value.extraStrokeColor, 2),
@@ -250,7 +264,7 @@ function closeBubble() {
 				<ol-style-circle :radius="textParams.text ? 0 : sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
 					<ol-style-stroke
-						:color="colors.extraStrokeColor"
+						:color="isUnselected ? null : colors.extraStrokeColor"
 						:width="1"
 					/>
 				</ol-style-circle>
