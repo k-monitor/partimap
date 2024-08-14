@@ -106,15 +106,6 @@ const lineDash = computed(() => {
 	return dash.split(',').map((w: string) => Number(w) * sizes.value.featureSize);
 });
 
-const stylePresent = ref(true);
-const polygonFillColor = computed(() => colors.value.polygonFillColor);
-watch([polygonFillColor, lineDash], () => {
-	// ol-style-stroke :line-dash and ol-style-fill :color was not reactive for polygons
-	// so we recreate the style basically to redraw it on map
-	stylePresent.value = false;
-	nextTick(() => (stylePresent.value = true));
-});
-
 // z-index
 const zIndex = computed(() => {
 	if (isHidden.value) return -1;
@@ -157,7 +148,7 @@ function styleOverride(f: OlFeature, currentStyle: Style) {
 		// all on top of the fill, so we need to split them up good
 		const onlyFillStyle = new Style({
 			fill: new Fill({
-				color: polygonFillColor.value,
+				color: colors.value.polygonFillColor,
 			}),
 			zIndex: zIndex.value,
 		});
@@ -242,10 +233,7 @@ function closeBubble() {
 			:coordinates="f.geometry.coordinates"
 		/>
 
-		<ol-style
-			v-if="stylePresent"
-			:override-style-function="styleOverride"
-		>
+		<ol-style :override-style-function="styleOverride">
 			<template v-if="f.geometry.type === 'Point' || f.geometry.type === 'MultiPoint'">
 				<ol-style-circle :radius="textParams.text ? 0 : sizes.featureSize * 3">
 					<ol-style-fill :color="colors.colorWithOpacity" />
