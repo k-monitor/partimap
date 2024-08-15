@@ -103,7 +103,10 @@ const textParams = computed(() => {
 // line style
 const lineDash = computed(() => {
 	const dash = props.f.properties?.dash || '0';
-	return dash.split(',').map((w: string) => Number(w) * sizes.value.featureSize);
+	return dash.split(',').map((w: string, i: number) => {
+		const s = i % 2 == 1 ? 2 : 1; // increase space between line sections
+		return Number(w) * s * sizes.value.featureSize;
+	});
 });
 
 // z-index
