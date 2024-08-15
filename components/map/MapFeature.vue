@@ -257,7 +257,7 @@ function closeBubble() {
 				style="width: 250px"
 				:style="{
 					borderColor: colors.colorWithOpacity,
-					boxShadow: '0 0 0 1px rgba(0,0,0,0.5)',
+					boxShadow: '0px 10px 20px -5px rgba(0,0,0,0.75)',
 				}"
 			>
 				<div
