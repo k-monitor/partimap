@@ -6,6 +6,7 @@ import type { ObjectEvent } from 'ol/Object';
 import { GeoJSON } from 'ol/format';
 import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
+import { Circle, Fill, Stroke, Style } from 'ol/style';
 
 const props = defineProps<{
 	features?: GeoJsonFeature[];
@@ -162,6 +163,54 @@ watch(drawType, (dt) => {
 
 const drawSourceRef = ref<{ source: Vector }>();
 
+function drawingStyleOverride(f: OlFeature) {
+	if (!currentDrawingInteraction.value) return;
+
+	// Will be called with Point, LineString and Polygon too.
+	const g = f.getGeometry()?.getType() || '';
+
+	if (g === 'Point') {
+		// Point geometry under cursor
+		return new Style({
+			image: new Circle({
+				fill: new Fill({ color: currentDrawingInteraction.value.color }),
+				radius: 6, // intentionally not multiplying by 3 as in MapFeature
+				stroke: new Stroke({
+					color: '#ffffff',
+					width: 1,
+				}),
+			}),
+		});
+	}
+
+	if (g === 'LineString') {
+		// Line geometry of line or polygon border drawn so far
+		return [
+			new Style({
+				stroke: new Stroke({
+					color: '#ffffff',
+					width: 7,
+				}),
+			}),
+			new Style({
+				stroke: new Stroke({
+					color: currentDrawingInteraction.value.color,
+					width: 5,
+				}),
+			}),
+		];
+	}
+
+	if (g === 'Polygon') {
+		// Polygon geometry of polygon drawn so far
+		return new Style({
+			fill: new Fill({
+				color: '#ffffff80',
+			}),
+		});
+	}
+}
+
 const emit = defineEmits<{
 	(e: 'featureDrawn', feature: GeoJsonFeature): void;
 }>();
@@ -256,20 +305,7 @@ watch(drawType, async (t) => {
 					:type="drawType"
 					@drawend="handleDrawEnd"
 				>
-					<ol-style>
-						<ol-style-stroke
-							:color="currentDrawingInteraction.color"
-							:width="6"
-						/>
-						<ol-style-fill :color="currentDrawingInteraction.color + '19'" />
-						<ol-style-circle :radius="5">
-							<ol-style-fill :color="currentDrawingInteraction.color" />
-							<ol-style-stroke
-								:color="null"
-								:width="0"
-							/>
-						</ol-style-circle>
-					</ol-style>
+					<ol-style :override-style-function="drawingStyleOverride" />
 				</ol-interaction-draw>
 			</ol-source-vector>
 		</ol-vector-layer>
