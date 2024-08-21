@@ -28,12 +28,23 @@ const dashOptions = [
 	},
 ];
 
+const extraStrokeOptions = [
+	// TODO would be nice to use types
+	{ value: 'no', text: t('FeatureListElement.extraStrokeOptions.no') },
+	{ value: 'bk', text: t('FeatureListElement.extraStrokeOptions.bk') },
+	{ value: 'wh', text: t('FeatureListElement.extraStrokeOptions.wh') },
+	{ value: 'gr', text: t('FeatureListElement.extraStrokeOptions.gr') },
+	{ value: 'gr2', text: t('FeatureListElement.extraStrokeOptions.gr2') },
+	{ value: 'dwh', text: t('FeatureListElement.extraStrokeOptions.dwh') },
+];
+
 onMounted(() => {
 	if (!feature) return;
 	const p = feature.properties || {};
 	feature.properties = feature.properties || {};
 	feature.properties = {
 		...feature.properties,
+		extraStrokes: p.extraStrokes || 'no',
 		partimapMapLabel: p.partimapMapLabel || '',
 		partimapMapLabelAngle: parseInt(p.partimapMapLabelAngle, 10) || 0,
 		fillOpacity: parseFillOpacity100(feature),
@@ -79,17 +90,32 @@ onMounted(() => {
 			</b-col>
 		</b-row>
 
-		<b-form-group
-			v-if="feature.geometry.type !== 'Point'"
-			:label="$t('FeatureListElement.dashType')"
+		<b-row
+			align-h="between"
+			align-v="center"
 		>
-			<b-form-select
-				v-model="feature.properties.dash"
-				size="sm"
-				:options="dashOptions"
-			/>
-		</b-form-group>
-
+			<b-col>
+				<b-form-group
+					v-if="feature.geometry.type !== 'Point'"
+					:label="$t('FeatureListElement.dashType')"
+				>
+					<b-form-select
+						v-model="feature.properties.dash"
+						size="sm"
+						:options="dashOptions"
+					/>
+				</b-form-group>
+			</b-col>
+			<b-col>
+				<b-form-group :label="$t('FeatureListElement.extraStrokes')">
+					<b-form-select
+						v-model="feature.properties.extraStrokes"
+						size="sm"
+						:options="extraStrokeOptions"
+					/>
+				</b-form-group>
+			</b-col>
+		</b-row>
 		<b-form-group :label="$t('FeatureListElement.opacity')">
 			<div class="d-flex align-items-center">
 				<i class="far fa-square fa-w me-2" />
