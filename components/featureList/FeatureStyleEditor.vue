@@ -28,15 +28,17 @@ const dashOptions = [
 	},
 ];
 
-const extraStrokeOptions = [
-	// TODO would be nice to use types (in feature.properties too)
-	{ value: 'no', text: t('FeatureListElement.extraStrokeOptions.no') },
-	{ value: 'bk', text: t('FeatureListElement.extraStrokeOptions.bk') },
-	{ value: 'wh', text: t('FeatureListElement.extraStrokeOptions.wh') },
-	{ value: 'gr', text: t('FeatureListElement.extraStrokeOptions.gr') },
-	{ value: 'gr2', text: t('FeatureListElement.extraStrokeOptions.gr2') },
-	{ value: 'dwh', text: t('FeatureListElement.extraStrokeOptions.dwh') },
-];
+const extraStrokeOptions = computed(() =>
+	[
+		// TODO would be nice to use types (in feature.properties too)
+		{ value: 'no', text: t('FeatureListElement.extraStrokeOptions.no') },
+		{ value: 'bk', text: t('FeatureListElement.extraStrokeOptions.bk') },
+		{ value: 'wh', text: t('FeatureListElement.extraStrokeOptions.wh') },
+		{ value: 'gr', text: t('FeatureListElement.extraStrokeOptions.gr') },
+		{ value: 'gr2', text: t('FeatureListElement.extraStrokeOptions.gr2') },
+		{ value: 'dwh', text: t('FeatureListElement.extraStrokeOptions.dwh') },
+	].filter((o) => o.value != 'dwh' || feature?.geometry?.type != 'Point'),
+);
 
 onMounted(() => {
 	if (!feature) return;
