@@ -56,7 +56,17 @@ const colors = computed(() => {
 		extraStrokeBaseColor +
 		percentToHex(isUnselected.value ? 0 : opacity100 * extraStrokeBaseOpacity);
 
-	return { colorWithOpacity, extraStrokeColor, polygonFillColor, textColor };
+	const polygonExtraStrokeColor =
+		extraStrokeBaseColor +
+		percentToHex(isUnselected.value ? 0 : fillOpacity100 * extraStrokeBaseOpacity);
+
+	return {
+		colorWithOpacity,
+		extraStrokeColor,
+		polygonExtraStrokeColor,
+		polygonFillColor,
+		textColor,
+	};
 });
 
 // size
@@ -181,6 +191,16 @@ function styleOverride(f: OlFeature) {
 	}
 
 	if (g.includes('Polygon')) {
+		if (hasExtraStroke) {
+			styles.push(
+				new Style({
+					stroke: createStroke(
+						colors.value.polygonExtraStrokeColor,
+						thickExtraStroke ? 5 : 2,
+					),
+				}),
+			);
+		}
 		styles.push(
 			new Style({
 				fill: createFill(colors.value.polygonFillColor),
