@@ -51,7 +51,7 @@ const colors = computed(() => {
 
 	const extraStroke = String(props.f.properties?.extraStrokes || 'no');
 	const extraStrokeBaseColor = extraStroke.includes('wh') ? '#ffffff' : '#000000';
-	const extraStrokeBaseOpacity = extraStroke.includes('gr') ? 0.35 : 1;
+	const extraStrokeBaseOpacity = extraStroke.includes('gr') ? 0.25 : 1;
 	const extraStrokeColor =
 		extraStrokeBaseColor +
 		percentToHex(isUnselected.value ? 0 : opacity100 * extraStrokeBaseOpacity);
@@ -123,6 +123,10 @@ const zIndex = computed(() => {
 
 function styleOverride(f: OlFeature) {
 	const g = f.getGeometry()?.getType() || '';
+	const extraStroke = String(props.f.properties?.extraStrokes || 'no');
+	const hasExtraStroke = extraStroke !== 'no';
+	const thickExtraStroke = extraStroke.includes('2');
+	const doubleExtraStroke = extraStroke.startsWith('d');
 
 	const createFill = (color: string) => new Fill({ color });
 	const createStroke = (color: string, extraWidth = 0) =>
@@ -131,11 +135,13 @@ function styleOverride(f: OlFeature) {
 			lineDash: lineDash.value,
 			width: sizes.value.featureSize + extraWidth,
 		});
-	const createSimpleStroke = (color: string) => new Stroke({ color, width: 1 });
+	const createSimpleStroke = (color: string, width = 1) => new Stroke({ color, width });
 
 	const text = new Text({
 		backgroundFill: createFill(colors.value.colorWithOpacity),
-		backgroundStroke: createSimpleStroke(colors.value.extraStrokeColor),
+		backgroundStroke: hasExtraStroke
+			? createSimpleStroke(colors.value.extraStrokeColor, thickExtraStroke ? 5 : 1)
+			: undefined,
 		fill: createFill(colors.value.textColor),
 		font: textParams.value.font,
 		offsetY: 1,
@@ -146,35 +152,78 @@ function styleOverride(f: OlFeature) {
 		text: props.showBubble && !g.includes('Point') ? '' : textParams.value.text,
 	});
 
+	const styles: Style[] = [];
+
 	if (g.includes('Point')) {
-		return new Style({
-			image: new Circle({
-				fill: createFill(colors.value.colorWithOpacity),
-				radius: textParams.value.text ? 0 : sizes.value.featureSize * 3,
-				stroke: createSimpleStroke(colors.value.extraStrokeColor),
+		if (thickExtraStroke) {
+			// needs to be below colored fill
+			styles.push(
+				new Style({
+					image: new Circle({
+						radius: textParams.value.text ? 0 : sizes.value.featureSize * 3,
+						stroke: createSimpleStroke(colors.value.extraStrokeColor, 5),
+					}),
+				}),
+			);
+		}
+		styles.push(
+			new Style({
+				image: new Circle({
+					fill: createFill(colors.value.colorWithOpacity),
+					radius: textParams.value.text ? 0 : sizes.value.featureSize * 3,
+					stroke:
+						hasExtraStroke && !thickExtraStroke
+							? createSimpleStroke(colors.value.extraStrokeColor, 1)
+							: undefined,
+				}),
 			}),
-			text,
-			zIndex: zIndex.value,
-		});
+		);
+	}
+
+	if (g.includes('Polygon')) {
+		styles.push(
+			new Style({
+				fill: createFill(colors.value.polygonFillColor),
+			}),
+		);
 	}
 
 	if (g.includes('LineString') || g.includes('Polygon')) {
-		return [
-			new Style({
-				fill: createFill(colors.value.polygonFillColor),
-				stroke: createStroke(colors.value.extraStrokeColor, 2),
-				zIndex: zIndex.value,
-			}),
+		if (hasExtraStroke) {
+			styles.push(
+				new Style({
+					stroke: createStroke(colors.value.extraStrokeColor, thickExtraStroke ? 5 : 2),
+				}),
+			);
+		}
+		styles.push(
 			new Style({
 				stroke: createStroke(colors.value.colorWithOpacity),
-				text,
-				zIndex: zIndex.value,
 			}),
-		];
+		);
+		if (doubleExtraStroke) {
+			// we add a white stroke in the middle with 25% width
+			styles.push(
+				new Style({
+					stroke: createStroke(
+						colors.value.extraStrokeColor,
+						-sizes.value.featureSize + Math.max(1, sizes.value.featureSize / 4),
+					),
+				}),
+			);
+		}
 	}
 
-	// unknown geometries won't be visible
-	return [];
+	styles.forEach((s) => s.setZIndex(zIndex.value));
+
+	styles.push(
+		new Style({
+			text,
+			zIndex: zIndex.value,
+		}),
+	);
+
+	return styles;
 }
 
 // bubble
