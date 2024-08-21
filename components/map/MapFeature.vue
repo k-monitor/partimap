@@ -219,7 +219,7 @@ function styleOverride(f: OlFeature) {
 	styles.push(
 		new Style({
 			text,
-			zIndex: zIndex.value,
+			zIndex: zIndex.value + 1,
 		}),
 	);
 
