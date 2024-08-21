@@ -126,9 +126,16 @@ const lineDash = computed(() => {
 
 // z-index
 const zIndex = computed(() => {
-	if (isHidden.value) return -1;
-	if (isSelected.value) return 1;
-	return 0;
+	let z = 0;
+
+	const g = props.f.geometry.type;
+	// Polygon stays at 0
+	if (g.includes('LineString')) z += 1;
+	if (g.includes('Point')) z += 2;
+
+	if (isHidden.value) z -= 10;
+	if (isSelected.value) z += 10;
+	return z;
 });
 
 function styleOverride(f: OlFeature) {
@@ -241,7 +248,7 @@ function styleOverride(f: OlFeature) {
 	styles.push(
 		new Style({
 			text,
-			zIndex: zIndex.value + 1,
+			zIndex: zIndex.value + 5,
 		}),
 	);
 
