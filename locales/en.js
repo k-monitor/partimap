@@ -356,7 +356,7 @@ export default {
 		},
 		deleteFeature: 'Delete feature',
 		description: 'Description',
-		extraStrokes: 'Extra stroke',
+		extraStroke: 'Extra stroke',
 		extraStrokeOptions: {
 			no: 'None',
 			bk: 'Black',

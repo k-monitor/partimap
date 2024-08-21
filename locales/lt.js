@@ -360,7 +360,7 @@ export default {
 		},
 		deleteFeature: 'Ištrinti elementą',
 		description: 'Apibūdinimas',
-		extraStrokes: 'Extra stroke',
+		extraStroke: 'Extra stroke',
 		extraStrokeOptions: {
 			no: 'None',
 			bk: 'Black',

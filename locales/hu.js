@@ -357,7 +357,7 @@ export default {
 		},
 		deleteFeature: 'Elem törlése',
 		description: 'Leírás',
-		extraStrokes: 'Plusz körvonal',
+		extraStroke: 'Plusz körvonal',
 		extraStrokeOptions: {
 			no: 'Nincs',
 			bk: 'Fekete',

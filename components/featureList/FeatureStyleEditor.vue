@@ -46,7 +46,7 @@ onMounted(() => {
 	feature.properties = feature.properties || {};
 	feature.properties = {
 		...feature.properties,
-		extraStrokes: p.extraStrokes || DEFAULT_EXTRA_STROKES,
+		extraStroke: p.extraStroke || DEFAULT_EXTRA_STROKE,
 		partimapMapLabel: p.partimapMapLabel || '',
 		partimapMapLabelAngle: parseInt(p.partimapMapLabelAngle, 10) || 0,
 		fillOpacity: parseFillOpacity100(feature),
@@ -106,9 +106,9 @@ onMounted(() => {
 				</b-form-group>
 			</b-col>
 			<b-col>
-				<b-form-group :label="$t('FeatureListElement.extraStrokes')">
+				<b-form-group :label="$t('FeatureListElement.extraStroke')">
 					<b-form-select
-						v-model="feature.properties.extraStrokes"
+						v-model="feature.properties.extraStroke"
 						size="sm"
 						:options="extraStrokeOptions"
 					/>
