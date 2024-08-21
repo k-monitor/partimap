@@ -49,7 +49,7 @@ const colors = computed(() => {
 	const textOpacity = percentToHex(textOpacity100);
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
-	const extraStroke = String(props.f.properties?.extraStrokes || 'no');
+	const extraStroke = String(props.f.properties?.extraStrokes || DEFAULT_EXTRA_STROKES);
 	const extraStrokeBaseColor = extraStroke.includes('wh') ? '#ffffff' : '#000000';
 	const extraStrokeBaseOpacity = extraStroke.includes('gr') ? 0.25 : 1;
 	const extraStrokeColor =
@@ -133,7 +133,7 @@ const zIndex = computed(() => {
 
 function styleOverride(f: OlFeature) {
 	const g = f.getGeometry()?.getType() || '';
-	const extraStroke = String(props.f.properties?.extraStrokes || 'no');
+	const extraStroke = String(props.f.properties?.extraStrokes || DEFAULT_EXTRA_STROKES);
 	const hasExtraStroke = extraStroke !== 'no';
 	const thickExtraStroke = extraStroke.includes('2');
 	const doubleExtraStroke = extraStroke.startsWith('d');

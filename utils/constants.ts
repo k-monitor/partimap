@@ -1,3 +1,5 @@
+export const DEFAULT_EXTRA_STROKES = 'no';
+
 export const MIN_FONT_SIZE_PX = 8;
 
 /**

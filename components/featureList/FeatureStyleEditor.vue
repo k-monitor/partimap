@@ -46,7 +46,7 @@ onMounted(() => {
 	feature.properties = feature.properties || {};
 	feature.properties = {
 		...feature.properties,
-		extraStrokes: p.extraStrokes || 'no',
+		extraStrokes: p.extraStrokes || DEFAULT_EXTRA_STROKES,
 		partimapMapLabel: p.partimapMapLabel || '',
 		partimapMapLabelAngle: parseInt(p.partimapMapLabelAngle, 10) || 0,
 		fillOpacity: parseFillOpacity100(feature),
