@@ -165,12 +165,13 @@ function styleOverride(f: OlFeature) {
 	const styles: Style[] = [];
 
 	if (g.includes('Point')) {
+		const radius = textParams.value.text ? 0 : sizes.value.featureSize * 3;
 		if (thickExtraStroke) {
 			// needs to be below colored fill
 			styles.push(
 				new Style({
 					image: new Circle({
-						radius: textParams.value.text ? 0 : sizes.value.featureSize * 3,
+						radius,
 						stroke: createSimpleStroke(colors.value.extraStrokeColor, 5),
 					}),
 				}),
@@ -180,7 +181,7 @@ function styleOverride(f: OlFeature) {
 			new Style({
 				image: new Circle({
 					fill: createFill(colors.value.colorWithOpacity),
-					radius: textParams.value.text ? 0 : sizes.value.featureSize * 3,
+					radius,
 					stroke:
 						hasExtraStroke && !thickExtraStroke
 							? createSimpleStroke(colors.value.extraStrokeColor, 1)
@@ -192,6 +193,7 @@ function styleOverride(f: OlFeature) {
 
 	if (g.includes('Polygon')) {
 		if (hasExtraStroke) {
+			// with this we can make similar styles to points if fillOpacity is 100
 			styles.push(
 				new Style({
 					stroke: createStroke(

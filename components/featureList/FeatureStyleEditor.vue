@@ -29,7 +29,7 @@ const dashOptions = [
 ];
 
 const extraStrokeOptions = [
-	// TODO would be nice to use types
+	// TODO would be nice to use types (in feature.properties too)
 	{ value: 'no', text: t('FeatureListElement.extraStrokeOptions.no') },
 	{ value: 'bk', text: t('FeatureListElement.extraStrokeOptions.bk') },
 	{ value: 'wh', text: t('FeatureListElement.extraStrokeOptions.wh') },
