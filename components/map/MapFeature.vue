@@ -49,7 +49,12 @@ const colors = computed(() => {
 	const textOpacity = percentToHex(textOpacity100);
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
-	const extraStrokeColor = '#000000' + percentToHex(isUnselected.value ? 0 : opacity100);
+	const extraStroke = String(props.f.properties?.extraStrokes || 'no');
+	const extraStrokeBaseColor = extraStroke.includes('wh') ? '#ffffff' : '#000000';
+	const extraStrokeBaseOpacity = extraStroke.includes('gr') ? 0.35 : 1;
+	const extraStrokeColor =
+		extraStrokeBaseColor +
+		percentToHex(isUnselected.value ? 0 : opacity100 * extraStrokeBaseOpacity);
 
 	return { colorWithOpacity, extraStrokeColor, polygonFillColor, textColor };
 });
@@ -123,7 +128,6 @@ function styleOverride(f: OlFeature) {
 	const createStroke = (color: string, extraWidth = 0) =>
 		new Stroke({
 			color,
-			//lineCap: 'butt',
 			lineDash: lineDash.value,
 			width: sizes.value.featureSize + extraWidth,
 		});
