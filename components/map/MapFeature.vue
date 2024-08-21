@@ -149,7 +149,8 @@ function styleOverride(f: OlFeature) {
 	const createStroke = (color: string, extraWidth = 0) =>
 		new Stroke({
 			color,
-			lineDash: lineDash.value,
+			lineCap: doubleExtraStroke ? 'butt' : undefined,
+			lineDash: doubleExtraStroke ? undefined : lineDash.value,
 			width: sizes.value.featureSize + extraWidth,
 		});
 	const createSimpleStroke = (color: string, width = 1) => new Stroke({ color, width });
