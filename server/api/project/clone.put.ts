@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
 		await pdb.update(project);
 	}
 
-	const sheets = await sdb.findAllByProjectId(newId);
+	const sheets = await sdb.findAllByProjectId(oldId);
 	for (let i = 0; i < sheets.length; i++) {
 		const s = sheets[i];
 		s.projectId = newId;

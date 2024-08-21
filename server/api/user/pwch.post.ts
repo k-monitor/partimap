@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
+	user.active = true;
 	user.password = bcrypt.hashSync(password, 10);
 	user.token = null;
 	user.tokenExpires = null;
