@@ -12,6 +12,7 @@ const EXPORTED_CATEGORY_NAME = 'partimapCategory';
 const EXPORTED_DASH_NAME = 'partimapLineStyle';
 const EXPORTED_DESCRIPTION_NAME = 'partimapDescription';
 const EXPORTED_DESCRIPTION_LABEL_NAME = 'partimapDescriptionLabel';
+const EXPORTED_EXTRA_STROKES_NAME = 'partimapExtraStroke';
 const EXPORTED_FEATURE_LABEL_NAME = 'partimapFeatureLabel';
 const EXPORTED_FILL_OPACITY_NAME = 'partimapFillOpacity';
 const EXPORTED_ID_NAME = 'partimapId';
@@ -132,6 +133,7 @@ function prepareKmlForExport(kmlString: string) {
 		}
 
 		renameData(ed, 'descriptionLabel', EXPORTED_DESCRIPTION_LABEL_NAME);
+		renameData(ed, 'extraStrokes', EXPORTED_EXTRA_STROKES_NAME);
 		renameData(ed, 'featureLabel', EXPORTED_FEATURE_LABEL_NAME);
 		renameData(ed, 'fillOpacity', EXPORTED_FILL_OPACITY_NAME);
 		renameData(ed, 'hidden', EXPORTED_HIDDEN_NAME);
@@ -174,6 +176,7 @@ function prepareKmlForImport(kmlString: string) {
 		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
 		renameData(ed, EXPORTED_DASH_NAME, 'dash');
 		renameData(ed, EXPORTED_DESCRIPTION_LABEL_NAME, 'descriptionLabel');
+		renameData(ed, EXPORTED_EXTRA_STROKES_NAME, 'extraStrokes');
 		renameData(ed, EXPORTED_FEATURE_LABEL_NAME, 'featureLabel');
 		renameData(ed, EXPORTED_FILL_OPACITY_NAME, 'fillOpacity');
 		renameData(ed, EXPORTED_HIDDEN_NAME, 'hidden');
