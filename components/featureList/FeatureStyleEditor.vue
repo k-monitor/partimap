@@ -94,11 +94,8 @@ onMounted(() => {
 			align-h="between"
 			align-v="center"
 		>
-			<b-col>
-				<b-form-group
-					v-if="feature.geometry.type !== 'Point'"
-					:label="$t('FeatureListElement.dashType')"
-				>
+			<b-col v-if="feature.geometry.type !== 'Point'">
+				<b-form-group :label="$t('FeatureListElement.dashType')">
 					<b-form-select
 						v-model="feature.properties.dash"
 						size="sm"
