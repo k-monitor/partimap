@@ -230,7 +230,7 @@ async function handleDrawEnd() {
 
 	feature.properties = {
 		color: currentDrawingInteraction.value?.color,
-		extraStroke: DEFAULT_EXTRA_STROKE_FOR_VISITORS,
+		extraStroke: DEFAULT_EXTRA_STROKE,
 		opacity: 100,
 		width: 6,
 	};
@@ -241,6 +241,7 @@ async function handleDrawEnd() {
 		feature.properties = {
 			...feature.properties,
 			descriptionLabel: currentDrawingInteraction.value?.descriptionLabel || '',
+			extraStroke: DEFAULT_EXTRA_STROKE_FOR_VISITORS,
 			featureLabel: currentDrawingInteraction.value?.featureLabel || '',
 			visitorFeature: currentDrawingInteraction.value?.id || true,
 		};
