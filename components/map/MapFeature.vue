@@ -339,14 +339,17 @@ function closeBubble() {
 				class="popover rounded-1"
 				style="width: 250px"
 				:style="{
-					borderColor: colors.colorWithOpacity,
+					borderColor: tinycolor(colors.colorWithOpacity).toRgbString(),
 					boxShadow: '0px 10px 20px -5px rgba(0,0,0,0.75)',
 				}"
 			>
 				<div
 					class="d-flex align-items-center"
 					style="height: 30px"
-					:style="{ backgroundColor: colors.colorWithOpacity, color: colors.textColor }"
+					:style="{
+						backgroundColor: tinycolor(colors.colorWithOpacity).toRgbString(),
+						color: tinycolor(colors.textColor).toRgbString(),
+					}"
 				>
 					<div class="flex-grow-1 fw-bold mx-1 text-truncate">
 						{{ f.properties?.name }}
