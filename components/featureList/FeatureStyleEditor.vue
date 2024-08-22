@@ -33,9 +33,12 @@ const extraStrokeOptions = computed(() =>
 		// TODO would be nice to use types (in feature.properties too)
 		{ value: 'no', text: t('FeatureListElement.extraStrokeOptions.no') },
 		{ value: 'bk', text: t('FeatureListElement.extraStrokeOptions.bk') },
+		{ value: 'bk2', text: t('FeatureListElement.extraStrokeOptions.bk2') },
 		{ value: 'wh', text: t('FeatureListElement.extraStrokeOptions.wh') },
+		{ value: 'wh2', text: t('FeatureListElement.extraStrokeOptions.wh2') },
 		{ value: 'gr', text: t('FeatureListElement.extraStrokeOptions.gr') },
 		{ value: 'gr2', text: t('FeatureListElement.extraStrokeOptions.gr2') },
+		{ value: 'own2', text: t('FeatureListElement.extraStrokeOptions.own2') },
 		{ value: 'dwh', text: t('FeatureListElement.extraStrokeOptions.dwh') },
 	].filter((o) => o.value != 'dwh' || feature?.geometry?.type != 'Point'),
 );

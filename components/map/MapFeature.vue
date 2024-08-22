@@ -50,8 +50,11 @@ const colors = computed(() => {
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
 	const extraStroke = String(props.f.properties?.extraStroke || DEFAULT_EXTRA_STROKE);
-	const extraStrokeBaseColor = extraStroke.includes('wh') ? '#ffffff' : '#000000';
-	const extraStrokeBaseOpacity = extraStroke.includes('gr') ? 0.25 : 1;
+	let extraStrokeBaseColor = '#000000'; // bk or gr
+	if (extraStroke.includes('wh')) extraStrokeBaseColor = '#ffffff';
+	else if (extraStroke.includes('own')) extraStrokeBaseColor = color;
+	const extraStrokeBaseOpacity =
+		extraStroke.includes('gr') || extraStroke.includes('own') ? 0.25 : 1;
 	const extraStrokeColor =
 		extraStrokeBaseColor +
 		percentToHex(isUnselected.value ? 0 : opacity100 * extraStrokeBaseOpacity);
