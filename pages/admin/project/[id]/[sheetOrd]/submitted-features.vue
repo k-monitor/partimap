@@ -10,7 +10,15 @@ const { id, sheetOrd } = route.params;
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 const sheet = computed(() => project.value?.sheets?.[Number(sheetOrd)]); // sheets are ordered on server
 const endpoint = computed(() => `/api/sheet/${sheet.value?.id}/submitted-features`);
-const { data: features } = await useFetch<GeoJsonFeature[]>(endpoint);
+const { data: _features } = await useFetch<GeoJsonFeature[]>(endpoint);
+
+const features = ref(
+	(_features.value || []).map((f) => {
+		f.properties = f.properties || {};
+		f.properties.extraStroke = DEFAULT_EXTRA_STROKE_FOR_VISITORS;
+		return f;
+	}),
+);
 
 useHead({
 	title: () => `Admin: ${sheet.value?.title}`,
