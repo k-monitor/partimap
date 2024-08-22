@@ -25,6 +25,14 @@ const isSelected = computed(() => selectedFeatureId.value === String(props.f.id 
 const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
 const isHidden = computed(() => props.f.properties?.hidden);
 
+const extraStroke = computed(() => {
+	const es = props.f.properties?.extraStroke;
+	if (props.f.properties?.visitorFeature) {
+		return isSelected.value ? 'wh' : DEFAULT_EXTRA_STROKE_FOR_VISITORS;
+	}
+	return es || DEFAULT_EXTRA_STROKE;
+});
+
 // color and opacity
 const colors = computed(() => {
 	let color = props.f.properties?.color || '#000000';
@@ -49,12 +57,11 @@ const colors = computed(() => {
 	const textOpacity = percentToHex(textOpacity100);
 	const textColor = (isLight ? '#000000' : '#ffffff') + textOpacity;
 
-	const extraStroke = String(props.f.properties?.extraStroke || DEFAULT_EXTRA_STROKE);
 	let extraStrokeBaseColor = '#000000'; // bk or gr
-	if (extraStroke.includes('wh')) extraStrokeBaseColor = '#ffffff';
-	else if (extraStroke.includes('own')) extraStrokeBaseColor = color;
+	if (extraStroke.value.includes('wh')) extraStrokeBaseColor = '#ffffff';
+	else if (extraStroke.value.includes('own')) extraStrokeBaseColor = color;
 	const extraStrokeBaseOpacity =
-		extraStroke.includes('gr') || extraStroke.includes('own') ? 0.25 : 1;
+		extraStroke.value.includes('gr') || extraStroke.value.includes('own') ? 0.25 : 1;
 	const extraStrokeColor =
 		extraStrokeBaseColor +
 		percentToHex(isUnselected.value ? 0 : opacity100 * extraStrokeBaseOpacity);
@@ -143,10 +150,9 @@ const zIndex = computed(() => {
 
 function styleOverride(f: OlFeature) {
 	const g = f.getGeometry()?.getType() || '';
-	const extraStroke = String(props.f.properties?.extraStroke || DEFAULT_EXTRA_STROKE);
-	const hasExtraStroke = extraStroke !== 'no';
-	const thickExtraStroke = extraStroke.includes('2');
-	const doubleExtraStroke = extraStroke.startsWith('d');
+	const hasExtraStroke = extraStroke.value !== 'no';
+	const thickExtraStroke = extraStroke.value.includes('2');
+	const doubleExtraStroke = extraStroke.value.startsWith('d');
 
 	const createFill = (color: string) => new Fill({ color });
 	const createStroke = (color: string, extraWidth = 0) =>
