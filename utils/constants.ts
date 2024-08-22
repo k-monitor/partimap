@@ -1,4 +1,5 @@
 export const DEFAULT_EXTRA_STROKE = 'no';
+export const DEFAULT_EXTRA_STROKE_FOR_VISITORS = 'bk';
 
 export const MIN_FONT_SIZE_PX = 8;
 

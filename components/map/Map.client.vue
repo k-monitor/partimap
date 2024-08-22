@@ -230,6 +230,7 @@ async function handleDrawEnd() {
 
 	feature.properties = {
 		color: currentDrawingInteraction.value?.color,
+		extraStroke: DEFAULT_EXTRA_STROKE_FOR_VISITORS,
 		opacity: 100,
 		width: 6,
 	};
