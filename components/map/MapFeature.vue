@@ -170,13 +170,17 @@ function styleOverride(f: OlFeature) {
 		padding: [3, 3, 3, 3],
 		placement: 'point',
 		rotation: textParams.value.rotation,
-		text: props.showBubble && !g.includes('Point') ? '' : textParams.value.text,
+		// hide text when bubble is opened
+		text: props.showBubble ? '' : textParams.value.text,
 	});
 
 	const styles: Style[] = [];
 
 	if (g.includes('Point')) {
-		const radius = textParams.value.text ? 0 : sizes.value.featureSize * 3;
+		// hide point if it has label
+		// hide point also if bubble is opened
+		const radius = props.showBubble || textParams.value.text ? 0 : sizes.value.featureSize * 3;
+
 		if (thickExtraStroke) {
 			// needs to be below colored fill
 			styles.push(
@@ -328,7 +332,10 @@ function closeBubble() {
 			:coordinates="f.geometry.coordinates"
 		/>
 
-		<ol-style :override-style-function="styleOverride" />
+		<ol-style
+			:key="`${f.id}/${showBubble}`"
+			:override-style-function="styleOverride"
+		/>
 
 		<ol-overlay
 			v-if="showBubble && !isDescriptionEmpty"
