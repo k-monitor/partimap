@@ -339,7 +339,7 @@ function closeBubble() {
 		/>
 
 		<ol-style
-			:key="`${f.id}/${showBubble}`"
+			:key="`${f.id}/${isSelected}/${showBubble}`"
 			:override-style-function="styleOverride"
 		/>
 
