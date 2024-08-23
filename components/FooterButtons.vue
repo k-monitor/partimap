@@ -44,7 +44,6 @@ defineEmits(['next', 'prev', 'submit']);
 					<i class="fas fa-fw fa-chevron-left" />
 				</b-button>
 			</div>
-			<div v-if="step && steps && !showSubmit">{{ step }} / {{ steps }}</div>
 			<b-button
 				v-if="showSubmit"
 				:disabled="disableSubmit"
