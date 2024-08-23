@@ -39,7 +39,7 @@
 
 1. Do all of the above, and make sure to set all relevant fields in .env to match your environment, see `.env.example`.
 2. Build the application with `pnpm run build`.
-3. Start server with `node --env-file=.env .output/server/index.mjs`.
+3. Start server with `pnpm start`.
 
 Or you can set it up as a service and run it with the following steps:
 

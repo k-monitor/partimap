@@ -3,9 +3,10 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "APP_ENV=build nuxt build",
 		"dev": "nuxt dev",
 		"test": "vitest",
+		"build": "APP_ENV=build nuxt build",
+		"start": "node --env-file=.env .output/server/index.mjs",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
