@@ -169,6 +169,9 @@ const availableSheetOrds = computed(() =>
 		})
 		.map((sheet) => sheet.ord),
 );
+const currentIndexInAvailableSheets = computed(() =>
+	availableSheetOrds.value.indexOf(Number(sheet.value?.ord)),
+);
 
 const nextSheetOrd = computed(() => {
 	const o = availableSheetOrds.value.find((o) => o > Number(sheet.value?.ord));
@@ -471,8 +474,8 @@ const localePath = useLocalePath();
 								:show-next="!isLastSheet || needToShowResults"
 								:show-prev="!isFirstSheet && !submitted"
 								:show-submit="consent && isLastSheet && !needToShowResults"
-								:step="sheet.ord + 1"
-								:steps="project.sheets?.length || 0"
+								:step="currentIndexInAvailableSheets + 1"
+								:steps="availableSheetOrds.length || 0"
 								@next="next"
 								@prev="prev"
 								@submit="submit"
@@ -509,8 +512,8 @@ const localePath = useLocalePath();
 							:show-next="!isLastSheet || needToShowResults"
 							:show-prev="!isFirstSheet && !submitted"
 							:show-submit="consent && isLastSheet && !needToShowResults"
-							:step="sheet.ord + 1"
-							:steps="project.sheets?.length || 0"
+							:step="currentIndexInAvailableSheets + 1"
+							:steps="availableSheetOrds.length || 0"
 							@next="next"
 							@prev="prev"
 							@submit="submit"
