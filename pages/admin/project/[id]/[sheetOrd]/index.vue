@@ -30,10 +30,9 @@ if (sheet.value && (sheet.value?.survey || '').includes('showResultsOnly')) {
 // #2437 cleanup
 if (sheet.value) sheet.value.descriptionLabel = '';
 
-const endpoint = computed(() => `/api/sheet/${sheet.value?.id}/ratings`);
-const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(endpoint, {
-	immediate: false,
-});
+const { data: ratings } = await useFetch<Record<number, AggregatedRating>>(
+	`/api/sheet/${sheet.value?.id}/ratings`,
+);
 
 const sheetWithRatings = computed(() => {
 	if (!sheet.value) return null;
