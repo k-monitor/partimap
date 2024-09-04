@@ -87,7 +87,7 @@ watch(otherSelected, async (s) => {
 				required
 				type="checkbox"
 				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
-				style="bottom: 0; opacity: 0; position: absolute"
+				style="bottom: 0; height: 1px; opacity: 0; pointer-events: none; position: absolute"
 			/>
 		</div>
 		<div

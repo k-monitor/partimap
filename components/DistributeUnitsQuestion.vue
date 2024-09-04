@@ -92,7 +92,7 @@ function handleChange(o: string) {
 				:min="max"
 				type="number"
 				:value="sum"
-				style="opacity: 0; width: 1px"
+				style="opacity: 0; pointer-events: none; width: 1px"
 			/>
 			<div
 				class="flex-shrink-0 pr-2 pt-2 fw-bold"
