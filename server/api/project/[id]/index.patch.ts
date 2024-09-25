@@ -20,7 +20,9 @@ export default defineEventHandler(async (event) => {
 	await ensureAdminOr(event, project.userId);
 
 	const changes = await readBody<any>(event);
+
 	delete changes.id;
+	delete changes.views;
 	if (!user.isAdmin) delete changes.userId;
 
 	if (changes.image === null || changes.image === '') {
