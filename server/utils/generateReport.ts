@@ -21,13 +21,42 @@ function ol2gm(coords: number[]) {
 	return [y, x];
 }
 
-export default async function (project: pdb.Project, lang: string) {
+function createBenchmarkFunctions(enabled: boolean) {
+	return {
+		start(s: string) {
+			if (enabled) console.time(s);
+		},
+		end(s: string) {
+			if (enabled) console.timeEnd(s);
+		},
+	};
+}
+
+export default async function (
+	project: pdb.Project,
+	lang: string,
+	enableBenchmark: boolean = false,
+) {
+	const b = createBenchmarkFunctions(enableBenchmark);
+
 	const m = i18n(lang).report;
 	const sheets = await sdb.findAllByProjectId(project.id);
+
+	b.start('query: submissions');
 	const submissions = await smdb.findByProjectId(project.id);
+	b.end('query: submissions');
+
+	b.start('query: answers');
 	const answers = await sadb.findAllByProjectId(project.id);
+	b.end('query: answers');
+
+	b.start('query: ratings');
 	const ratings = await rdb.findAllByProjectId(project.id);
+	b.end('query: ratings');
+
+	b.start('query: submitted features');
 	const submittedFeatures = await sfdb.findAllByProjectId(project.id);
+	b.end('query: submitted features');
 
 	const questions: sadb.Question[] = [];
 	sheets.forEach((s) => {
@@ -39,6 +68,7 @@ export default async function (project: pdb.Project, lang: string) {
 		dateFormat: m.dateFormat,
 	});
 
+	b.start('sheet: answers');
 	const sas = wb.addWorksheet(m.submittedAnswers);
 	sas.cell(1, 1).string(m.submissionId);
 	sas.cell(1, 2).string(m.timestamp);
@@ -95,7 +125,9 @@ export default async function (project: pdb.Project, lang: string) {
 			}
 		});
 	});
+	b.end('sheet: answers');
 
+	b.start('sheet: ratings');
 	const rs = wb.addWorksheet(m.ratings);
 	rs.cell(1, 1).string(m.submissionId);
 	rs.cell(1, 2).string(m.feature);
@@ -121,7 +153,9 @@ export default async function (project: pdb.Project, lang: string) {
 			rs.cell(i + 2, 3).string(String(name));
 		}
 	});
+	b.end('sheet: ratings');
 
+	b.start('sheet: aggregated ratings');
 	const ars = wb.addWorksheet(m.aggregatedRatings);
 	ars.cell(1, 1).string(m.feature);
 	ars.cell(1, 2).string(m.featureName);
@@ -186,7 +220,9 @@ export default async function (project: pdb.Project, lang: string) {
 			);
 		}
 	}
+	b.end('sheet: aggregated ratings');
 
+	b.start('sheet: submitted features');
 	const sfs = wb.addWorksheet(m.submittedFeatures);
 	sfs.cell(1, 1).string(m.submissionId);
 	sfs.cell(1, 2).string(m.featureLabel);
@@ -253,6 +289,7 @@ export default async function (project: pdb.Project, lang: string) {
 			}
 		}
 	}
+	b.end('sheet: submitted features');
 
 	return wb;
 }

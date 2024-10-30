@@ -24,12 +24,12 @@ if (!project) {
 	process.exit(1);
 }
 
-console.time('Export generated in');
-const wb = await generateReport(project, lang);
+console.time('report generation (TOTAL)');
+const wb = await generateReport(project, lang, true);
 const filename = `${slugify(project.title || 'export')}.xlsx`;
-console.timeEnd('Export generated in');
+console.timeEnd('report generation (TOTAL)');
 wb.write(filename, (err: unknown) => {
 	if (err) console.error(err);
-	else console.log('Export written to', filename);
+	else console.log('Report written to', filename);
 	process.exit(0); // release database connections
 });
