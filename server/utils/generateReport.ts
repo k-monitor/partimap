@@ -82,12 +82,10 @@ export default async function (
 		CELL(4).string(isMobile({ ua: s.ua }) ? m.isMobileYes : m.isMobileNo);
 
 		let COL = 5;
+		const submissionAnswers = answers.filter((a) => a.submissionId === s.id);
 		questions.forEach((q) => {
-			let a: any = answers.filter(
-				(a) => a.submissionId === s.id && String(a.questionId) === String(q.id),
-			)[0];
-			if (a) a = a.answer;
-			a = a || '';
+			const sa = submissionAnswers.find((a) => String(a.questionId) === String(q.id));
+			let a = sa?.answer || '';
 
 			function writeCell(a: string | number | null) {
 				if (!a && String(a) !== '0') return;
