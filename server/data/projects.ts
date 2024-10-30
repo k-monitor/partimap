@@ -1,6 +1,6 @@
 import * as db from '~/server/utils/database';
 import type { Sheet } from '~/server/data/sheets';
-import { User } from '~/server/data/users';
+import type { User } from '~/server/data/users';
 
 export type Project = {
 	id: number;

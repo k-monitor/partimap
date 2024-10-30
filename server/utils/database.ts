@@ -1,4 +1,4 @@
-import mysql, { RowDataPacket } from 'mysql2/promise';
+import mysql, { type RowDataPacket } from 'mysql2/promise';
 import { env } from '~/env';
 
 let pool: mysql.Pool | null = null;

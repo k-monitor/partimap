@@ -1,3 +1,4 @@
+import { defineNuxtConfig } from 'nuxt/config'; // Yes, we need explicit import as we use this file outside Nuxt context.
 import { env } from './env';
 
 export default defineNuxtConfig({
