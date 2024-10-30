@@ -9,7 +9,10 @@ import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
 import type { Survey } from '~/server/data/surveyAnswers';
+import i18n from '~/server/utils/i18n';
+import { safeParseJSON, safeParseJSONArray } from '~/server/utils/json';
 import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
+// Yes, we need explicit imports for utils as we use this file outside Nuxt context.
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords: number[]) {
