@@ -37,6 +37,15 @@ export default defineEventHandler(async (event) => {
 
 	await ensureAdminOr(event, project.userId);
 
+	const wb = await generateReport(project, lang);
+
+	const buffer: Buffer = await wb.writeToBuffer();
+	const filename = `${slugify(project.title || 'export')}.xlsx`;
+	setHeader(event, 'content-disposition', `attachment; filename=${filename}`);
+	await sendStream(event, Readable.from(buffer, {}));
+});
+
+export async function generateReport(project: pdb.Project, lang: string) {
 	const m = i18n(lang).report;
 	const sheets = await sdb.findAllByProjectId(project.id);
 	const submissions = await smdb.findByProjectId(project.id);
@@ -269,8 +278,5 @@ export default defineEventHandler(async (event) => {
 		}
 	}
 
-	const buffer: Buffer = await wb.writeToBuffer();
-	const filename = `${slugify(project.title || 'export')}.xlsx`;
-	setHeader(event, 'content-disposition', `attachment; filename=${filename}`);
-	await sendStream(event, Readable.from(buffer, {}));
-});
+	return wb;
+}
