@@ -28,6 +28,8 @@ console.time('Export generated in');
 const wb = await generateReport(project, lang);
 const filename = `${slugify(project.title || 'export')}.xlsx`;
 console.timeEnd('Export generated in');
-wb.write(filename);
-console.log('Export written to', filename);
-process.exit(0); // release database connections
+wb.write(filename, (err: unknown) => {
+	if (err) console.error(err);
+	else console.log('Export written to', filename);
+	process.exit(0); // release database connections
+});
