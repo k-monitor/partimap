@@ -164,6 +164,7 @@ export default {
 		creationFailed: 'Létrehozás sikertelen',
 		deletionFailed: 'Törlés sikertelen',
 		export: 'Riport letöltése',
+		exporting: 'Kérjük, várjon, a szokásosnál tovább tart a riport elkészítése.',
 		filter: 'Szűrés',
 		newProjectName: 'Új projekt elnevezése',
 		ownProjects: 'Saját projektek',

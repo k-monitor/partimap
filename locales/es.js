@@ -170,6 +170,8 @@ export default {
 		creationFailed: 'Error al crear el proyecto',
 		deletionFailed: 'Error al eliminar tu proyecto',
 		export: 'Generar informe',
+		exporting:
+			'Por favor, espere, el proceso de generación del informe requiere más tiempo de lo habitual.',
 		filter: 'Buscar',
 		newProjectName: 'Título del nuevo proyecto',
 		ownProjects: 'Mis proyectos',

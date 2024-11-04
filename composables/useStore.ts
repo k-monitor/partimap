@@ -31,6 +31,7 @@ export default function useStore() {
 	const currentZoom = useState<number>('currentZoom', () => 0);
 	const filteredFeatureIds = useState<string[] | null>('filteredFeatureIds', () => null);
 	const loading = useState<boolean>('loading', () => true);
+	const loadingText = useState<string>('loadingText', () => '');
 	const selectedFeatureId = useState<string | null>('selectedFeatureId', () => null);
 	const sidebarVisible = useState('sidebarVisible', () => true);
 	const submitted = useState('submitted', () => false);
@@ -47,6 +48,7 @@ export default function useStore() {
 		drawType,
 		filteredFeatureIds,
 		loading,
+		loadingText,
 		selectedFeatureId,
 		sidebarVisible,
 		submitted,

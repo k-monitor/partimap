@@ -165,6 +165,7 @@ export default {
 		creationFailed: 'Nepavyko ištrinti projekto',
 		deletionFailed: 'Nepavyko sukurti projekto',
 		export: 'Sukurti ataskaitą',
+		exporting: 'Palaukite, ataskaitos generavimas užtrunka ilgiau nei įprastai.',
 		filter: 'Paieška',
 		newProjectName: 'Naujo projekto pavadinimas',
 		ownProjects: 'Mano projektas',

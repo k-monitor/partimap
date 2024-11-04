@@ -162,6 +162,7 @@ export default {
 		creationFailed: 'Failed to create the project',
 		deletionFailed: 'Failed to delete your project',
 		export: 'Generate report',
+		exporting: "Please wait, it's taking longer than usual to generate the report.",
 		filter: 'Search',
 		newProjectName: 'Title of the new project',
 		ownProjects: 'My projects',
