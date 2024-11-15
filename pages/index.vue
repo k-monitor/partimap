@@ -37,14 +37,12 @@ function showFeature(i: number) {
 <template>
 	<!-- eslint-disable vue/no-v-html -->
 	<PublicFrame>
-		<header class="bg-primary py-5 text-white">
-			<div class="container py-lg-3 text-center">
-				<img
-					alt="PARTIMAP"
-					class="mb-5"
-					src="/logo-white.png"
-					style="width: 200px"
-				/>
+		<header
+			class="d-flex flex-column text-white"
+			style="background-color: #007bff"
+		>
+			<div id="header-img"></div>
+			<div class="container pb-3 text-center">
 				<p class="fw-bold lead mb-0">
 					{{ $t('landing.tagline1') }}
 					<br class="d-none d-lg-inline" />
@@ -196,11 +194,13 @@ function showFeature(i: number) {
 </template>
 
 <style scoped>
-header {
-	background-image: url('/header.png');
+#header-img {
+	background-image: url('/banner.png');
 	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+	background-repeat: repeat-x;
+	--size: 320px;
+	background-size: auto var(--size);
+	height: var(--size);
 }
 
 strong {
