@@ -98,9 +98,11 @@ function showFeature(i: number) {
 						:key="f.title"
 						class="col feature mb-3"
 						role="button"
-						@click="showFeature(i)"
 					>
-						<figure class="figure">
+						<figure
+							class="figure"
+							@click="showFeature(i)"
+						>
 							<img
 								:alt="f.title"
 								class="figure-img img-fluid rounded shadow-sm"
@@ -116,7 +118,7 @@ function showFeature(i: number) {
 								v-model="modals[i]"
 								centered
 								scrollable
-								:teleport-disabled="true"
+								_teleport-disabled="true"
 								teleport-to="body"
 								:title="f.title"
 							>
