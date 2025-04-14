@@ -36,7 +36,7 @@ General Data Controller: K-Monitor Public Benefit Association
 
 Headquarters: 1077 Budapest, Rózsa u. 8.
 
-Office and mailing address: 1062 Budapest, Bajza utca 23.
+Office and mailing address: 1077 Budapest, Jósika utca 25.
 
 Phone: +36 1 789 5005
 
@@ -106,8 +106,8 @@ During the use of the Service, the system records the IP address of the Register
 
 Depending on the settings of the Registered User's browser and computer, different embedded services are present when using the Service. These services are necessary for the optimal use of the site:
 
-*   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (custom font display)
-*   [Google reCAPTCHA v3](https://policies.google.com/privacy) (reduce spam and fraudulent messages)
+-   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (custom font display)
+-   [Google reCAPTCHA v3](https://policies.google.com/privacy) (reduce spam and fraudulent messages)
 
 The organisations providing embedded services have their own privacy notice and privacy policy, available at the links above, regarding the data collected and processed in the course of providing the service, but the Data Controller does not have access to or use the data. Furthermore, these services can be deactivated, at the Registered User's discretion, by means of the appropriate browser settings, but they will lead to a deterioration in the quality of the use of the site.
 
@@ -115,7 +115,7 @@ The organisations providing embedded services have their own privacy notice and 
 
 When you use the site, we also use tracking tools to track traffic and activity on the site so that we can collect anonymised statistics on the number of visitors:
 
-* [Google Analytics](https://analytics.google.com/analytics/web/) generates site traffic statistics by encrypting and partially capturing IP addresses. No other data that can be recorded and stored by the application is used. The anonymised statistics are stored for 1 year.
+-   [Google Analytics](https://analytics.google.com/analytics/web/) generates site traffic statistics by encrypting and partially capturing IP addresses. No other data that can be recorded and stored by the application is used. The anonymised statistics are stored for 1 year.
 
 As the Data Controller, we do not link tracking data to personal data, but we do not have the right to decide on their possible further use. This data is governed by the privacy principles and policies of Google LLC ("Google", 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States of America), the embedded application developer. If the Registered User wishes to use the site without a tracker, the Registered User may explicitly [opt out](https://tools.google.com/dlpage/gaoptout).
 
@@ -145,13 +145,13 @@ Linux Hungary Kft. provides hosting services for [www.partimap.eu](http://www.pa
 
 The Registered User has the following rights during the period of data handling:
 
-*   the right to information and access: the Registered User may request information about the personal data stored in relation to him or her and may request a copy of such data;
-*   the right to rectification: the Registered User may request the rectification of personal data stored about him/her if they are inaccurate or incomplete. If the Registered User also provides the Data Controller with personal data which is not necessary for the purposes of the processing, the Data Controller shall delete it.
-*   right to be forgotten: the Registered User may request the Data Controller to delete the data stored about him/her from the database, in particular if he/she withdraws his/her previous consent to the processing or if the processing is unlawful.
-*   right to restriction of handling: the Registered User may request the restriction of handling if a) he/she contests the accuracy of the personal data and requests the restriction of handling for the period of time necessary for the Data Controller to verify the accuracy of the personal data; b) the handling is unlawful but the Registered User opposes the erasure of the data and requests instead the restriction of their use; c) the Data Controller no longer needs the personal data for the purposes of the handling but the Registered User requires them for the establishment, exercise or defence of legal claims;
-*   right to data portability: in the case of automated processing of personal data, the Registered User may request that the Data Controller transfers the stored personal data to the Registered User in a structured, machine-readable (interoperable) format or, if technically feasible, to another data controller. The right to data portability must not adversely affect the rights and freedoms of others.
-*   the right to object: the Registered User may object to the handling of his or her personal data on grounds relating to his or her particular situation, if the handling is necessary for the performance of a task carried out in the public interest, in the exercise of official authority, or for the legitimate interests of the controller or a third party. When providing the Service, the Data Controller handles the Registered User's data with the Registered User's consent, and therefore objections may only be raised in the case of mandatory data handling (e.g. ad hoc data transfers) that must be carried out even without consent.
-*   right to redress: see point 7.
+-   the right to information and access: the Registered User may request information about the personal data stored in relation to him or her and may request a copy of such data;
+-   the right to rectification: the Registered User may request the rectification of personal data stored about him/her if they are inaccurate or incomplete. If the Registered User also provides the Data Controller with personal data which is not necessary for the purposes of the processing, the Data Controller shall delete it.
+-   right to be forgotten: the Registered User may request the Data Controller to delete the data stored about him/her from the database, in particular if he/she withdraws his/her previous consent to the processing or if the processing is unlawful.
+-   right to restriction of handling: the Registered User may request the restriction of handling if a) he/she contests the accuracy of the personal data and requests the restriction of handling for the period of time necessary for the Data Controller to verify the accuracy of the personal data; b) the handling is unlawful but the Registered User opposes the erasure of the data and requests instead the restriction of their use; c) the Data Controller no longer needs the personal data for the purposes of the handling but the Registered User requires them for the establishment, exercise or defence of legal claims;
+-   right to data portability: in the case of automated processing of personal data, the Registered User may request that the Data Controller transfers the stored personal data to the Registered User in a structured, machine-readable (interoperable) format or, if technically feasible, to another data controller. The right to data portability must not adversely affect the rights and freedoms of others.
+-   the right to object: the Registered User may object to the handling of his or her personal data on grounds relating to his or her particular situation, if the handling is necessary for the performance of a task carried out in the public interest, in the exercise of official authority, or for the legitimate interests of the controller or a third party. When providing the Service, the Data Controller handles the Registered User's data with the Registered User's consent, and therefore objections may only be raised in the case of mandatory data handling (e.g. ad hoc data transfers) that must be carried out even without consent.
+-   right to redress: see point 7.
 
 ## 7\. Redress possibilities
 

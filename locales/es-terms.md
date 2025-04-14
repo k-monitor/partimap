@@ -36,7 +36,7 @@ Responsable de Datos General: Asociación de Beneficencia Pública K-Monitor
 
 Sede: 1077 Budapest, Rózsa u. 8.
 
-Dirección de oficina y correspondencia: 1062 Budapest, Bajza utca 23.
+Dirección de oficina y correspondencia: 1077 Budapest, Jósika utca 25.
 
 Teléfono: +36 1 789 5005
 
