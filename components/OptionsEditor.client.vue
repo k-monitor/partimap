@@ -22,11 +22,20 @@ const labelButton = computed(() => {
 	return t(`OptionsEditor.add${cap}`);
 });
 
-function addOption() {
+const formGroupRef = templateRef('formGroupRef');
+
+async function addOption() {
 	options.value = [
 		...options.value,
 		t('OptionsEditor.optionPrefix') + ` #${options.value.length + 1}`,
 	];
+
+	if (!formGroupRef.value) return;
+	await nextTick();
+	const inputs = formGroupRef.value.$el.querySelectorAll('input');
+	if (inputs.length > 0) {
+		inputs[inputs.length - 1].focus();
+	}
 }
 
 function delOption(i: number) {
@@ -39,7 +48,7 @@ function delOption(i: number) {
 		<label>
 			{{ label }}
 		</label>
-		<b-form-group>
+		<b-form-group ref="formGroupRef">
 			<draggable
 				v-model="options"
 				handle=".handle"
@@ -58,6 +67,7 @@ function delOption(i: number) {
 						v-model="options[i]"
 						:readonly="readonly"
 						:disabled="readonly"
+						@keyup.enter="addOption"
 					/>
 					<template #append>
 						<b-button
