@@ -67,6 +67,11 @@ function delOption(i: number) {
 						v-model="options[i]"
 						:readonly="readonly"
 						:disabled="readonly"
+						@focus="options[i] = ''"
+						@blur="
+							options[i] =
+								options[i] || t('OptionsEditor.optionPrefix') + ` #${i + 1}`
+						"
 						@keyup.enter="addOption"
 					/>
 					<template #append>
