@@ -19,7 +19,7 @@
 		"@bootstrap-vue-next/nuxt": "^0.16.6",
 		"@fortawesome/fontawesome-free": "^6.5.2",
 		"@nuxtjs/i18n": "^8.3.1",
-		"@stefanobartoletti/nuxt-social-share": "^0.7.0",
+		"@stefanobartoletti/nuxt-social-share": "^1.2.2",
 		"@t3-oss/env-nuxt": "^0.10.1",
 		"@tiptap/extension-image": "^2.11.7",
 		"@tiptap/extension-text-align": "^2.11.7",

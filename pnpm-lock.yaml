@@ -18,8 +18,8 @@ importers:
         specifier: ^8.3.1
         version: 8.3.1(magicast@0.3.4)(rollup@4.18.0)(vue@3.4.29(typescript@5.4.5))
       '@stefanobartoletti/nuxt-social-share':
-        specifier: ^0.7.0
-        version: 0.7.0(magicast@0.3.4)(rollup@4.18.0)
+        specifier: ^1.2.2
+        version: 1.2.2(magicast@0.3.4)
       '@t3-oss/env-nuxt':
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.4.5)(zod@3.23.8)
@@ -1824,8 +1824,8 @@ packages:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
 
-  '@stefanobartoletti/nuxt-social-share@0.7.0':
-    resolution: {integrity: sha512-k2Xrx7OawmVFhwnoZVvEbMcpuV/GAxE33ZAUlVDBDiu8//PlYt7G/Y7BOvrAeN10Sba+Ra/R1iCz9bhH6x6lNA==}
+  '@stefanobartoletti/nuxt-social-share@1.2.2':
+    resolution: {integrity: sha512-1QoRTXVL6UPYp2YjN7Arf7uGwVibBBfn5ikRxNo1MjlbWoMxioFyw8MFR+gbuRo7nImLNNcoGFLBJ+WvqnIO4Q==}
 
   '@stylistic/eslint-plugin-js@2.2.1':
     resolution: {integrity: sha512-M2dQkKw2R4R+b1SJ/xElJ9bDVq/vCI31VpIIxkZD9KXCqbUHvtsGpZH3eO6MzmFWOZj4PfNdEQdP332MtqjCPg==}
@@ -8354,14 +8354,12 @@ snapshots:
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
-  '@stefanobartoletti/nuxt-social-share@0.7.0(magicast@0.3.4)(rollup@4.18.0)':
+  '@stefanobartoletti/nuxt-social-share@1.2.2(magicast@0.3.4)':
     dependencies:
-      '@nuxt/kit': 3.12.2(magicast@0.3.4)(rollup@4.18.0)
+      '@nuxt/kit': 3.16.2(magicast@0.3.4)
       defu: 6.1.4
     transitivePeerDependencies:
       - magicast
-      - rollup
-      - supports-color
 
   '@stylistic/eslint-plugin-js@2.2.1(eslint@8.57.0)':
     dependencies:
