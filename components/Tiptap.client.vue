@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Image } from '@tiptap/extension-image';
 import { Link } from '@tiptap/extension-link';
+import TextAlign from '@tiptap/extension-text-align';
 import { Youtube } from '@tiptap/extension-youtube';
 
 const html = defineModel<string>();
@@ -12,6 +13,9 @@ const editor = useEditor({
 		Image,
 		Link.configure({
 			openOnClick: false,
+		}),
+		TextAlign.configure({
+			types: ['heading', 'paragraph'],
 		}),
 		Youtube.configure({
 			height: 180,
@@ -57,22 +61,6 @@ function setLink() {
 		<div class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar">
 			<div class="border-bottom border-end px-1">
 				<b-button
-					size="sm"
-					variant="light"
-					@click="editor.chain().focus().undo().run()"
-				>
-					<i class="fas fa-fw fa-undo" />
-				</b-button>
-				<b-button
-					size="sm"
-					variant="light"
-					@click="editor.chain().focus().redo().run()"
-				>
-					<i class="fas fa-fw fa-redo" />
-				</b-button>
-			</div>
-			<div class="border-bottom border-end px-1">
-				<b-button
 					:class="{
 						active: editor.isActive('heading', { level: 4 }),
 					}"
@@ -111,7 +99,32 @@ function setLink() {
 					<i class="fas fa-fw fa-list-ul" />
 				</b-button>
 			</div>
-			<div class="border-bottom border-end px-1 flex-grow-1">
+			<div class="border-bottom border-end px-1">
+				<b-button
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().unsetTextAlign().run()"
+				>
+					<i class="fas fa-fw fa-align-left" />
+				</b-button>
+				<b-button
+					:class="{ active: editor.isActive({ textAlign: 'center' }) }"
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().setTextAlign('center').run()"
+				>
+					<i class="fas fa-fw fa-align-center" />
+				</b-button>
+				<b-button
+					:class="{ active: editor.isActive({ textAlign: 'right' }) }"
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().setTextAlign('right').run()"
+				>
+					<i class="fas fa-fw fa-align-right" />
+				</b-button>
+			</div>
+			<div class="border-bottom border-end px-1">
 				<b-button
 					:class="{ active: editor.isActive('bold') }"
 					size="sm"
@@ -151,7 +164,21 @@ function setLink() {
 					<i class="fab fa-fw fa-youtube" />
 				</b-button>
 			</div>
-			<div class="border-bottom px-1">
+			<div class="border-bottom px-1 ms-auto">
+				<b-button
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().undo().run()"
+				>
+					<i class="fas fa-fw fa-undo" />
+				</b-button>
+				<b-button
+					size="sm"
+					variant="light"
+					@click="editor.chain().focus().redo().run()"
+				>
+					<i class="fas fa-fw fa-redo" />
+				</b-button>
 				<b-button
 					size="sm"
 					variant="light"
