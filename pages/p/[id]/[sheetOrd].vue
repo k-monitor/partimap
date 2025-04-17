@@ -465,7 +465,7 @@ const localePath = useLocalePath();
 								:project="project"
 								:results="resultsShown"
 								:results-data="resultsData"
-								:show-consent="isFirstSheet"
+								:show-consent="isFirstSheet && !resultsShown"
 							/>
 							<LoadingOverlay :show="loading" />
 						</div>
@@ -497,7 +497,7 @@ const localePath = useLocalePath();
 						:results="resultsShown"
 						:results-data="resultsData"
 						:sheet="sheet"
-						:show-consent="isFirstSheet"
+						:show-consent="isFirstSheet && !resultsShown"
 					/>
 					<FeatureList
 						v-if="!submitted"
