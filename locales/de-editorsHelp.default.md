@@ -102,6 +102,8 @@ Die blauen Pfeile nach rechts/links am unteren Rand der Seite werden verwendet, 
 
 Von der Arbeitsblattbearbeitungsoberfläche aus können Sie auch zum Projektblatt zurückkehren, indem Sie auf das PARTIMAP-Symbol (*Zurück zum Projekt*) in der oberen linken Ecke klicken.
 
+Wichtig: Um Ihre Änderungen zu speichern, müssen Sie auf die Schaltfläche *Speichern klicken*. Auch ein Popup-Fenster warnt Sie Ihre Änderungen zu speichern, wenn Sie zu einer anderen Seite navigieren.
+
 
 
 #### Text-Arbeitsblatt {#szoveges}
