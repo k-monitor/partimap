@@ -2,51 +2,51 @@
 
 ## 1\. Der Zweck von PARTIMAP
 
-PARTIMAP, developed by the watchdog for public funds [K-Monitor Public Benefit Association](http://www.k-monitor.hu/), is a free, open-source software that provides an easy-to-use digital questionnaire platform, especially for issues related to urban and transport development. Its aim is to facilitate the involvement of stakeholders in the planning and evaluation of public development projects that affect the daily life of the population, allowing them to express their needs in a meaningful way, so that public funds can be used more efficiently and in a way that takes these needs into account.
+PARTIMAP, entwickelt von der  zivilgesellschaftlichen Initiative zur Korruptionsbekämpfung, [K-Monitor Public Benefit Association](http://www.k-monitor.hu/) in Budapest, ist eine kostenlose Open-Source-Software, die eine einfach zu bedienende digitale Fragebogenplattform bietet, insbesondere für Fragen der Stadt- und Verkehrsentwicklung. Ziel ist es, die Einbeziehung von Interessengruppen in die Planung und Bewertung von öffentlichen Entwicklungsprojekten, die das tägliche Leben der Bevölkerung betreffen, zu erleichtern und es ihnen zu ermöglichen, ihre Bedürfnisse auf sinnvolle Weise zum Ausdruck zu bringen, damit öffentliche Mittel effizienter und unter Berücksichtigung dieser Bedürfnisse eingesetzt werden können.
 
 ## 2\. Nutzungsbedingungen
 
-By accepting the Terms of Use, the user of the service (hereinafter referred to as the User) accepts that the PARTIMAP.eu platform is intended to achieve the above purposes. To this end, the User shall act with these purposes in mind when using the service.
+Mit der Annahme der Nutzungsbedingungen akzeptiert der Nutzer des Dienstes (im Folgenden als Nutzer bezeichnet), dass die PARTIMAP.eu Plattform dazu bestimmt ist, die oben genannten Zwecke zu erreichen. Zu diesem Zweck muss der Nutzer bei der Nutzung des Dienstes unter Berücksichtigung dieser Zwecke handeln.
 
-By accepting the Terms of Use, the User acknowledges that the content shared through the service is freely available for public use and that the User may not use the service for direct financial gain.
+Mit der Annahme der Nutzungsbedingungen erkennt der Nutzer an, dass die über den Dienst geteilten Inhalte für die öffentliche Nutzung frei verfügbar sind und dass der Nutzer den Dienst nicht für einen direkten finanziellen Gewinn nutzen darf.
 
-K-Monitor Public Benefit Association will not make any changes to the content shared by the User, except in cases of violation of the Terms of Use, nor will it use the resulting data for research or make it public. The User acknowledges that K-Monitor Public Benefit Association may aggregate data on the number of PARTIMAP users, analyse the aggregated data and publish it publicly.
+Der gemeinnützige Verein K-Monitor wird keine Änderungen an den vom Benutzer geteilten Inhalten vornehmen, außer im Falle eines Verstoßes gegen die Nutzungsbedingungen, noch wird er die daraus resultierenden Daten für Forschungszwecke verwenden oder veröffentlichen. Der Nutzer nimmt zur Kenntnis, dass der gemeinnützige Verein K-Monitor Daten über die Anzahl der PARTIMAP-Nutzer aggregieren kann und die aggregierten Daten analysieren und öffentlich veröffentlichen kann.
 
-By accepting the Terms of Use, the User undertakes to respect the rights of others, in particular their right to human dignity, the protection of personal data and intellectual property rights, when using the Service.
+Durch die Annahme der Nutzungsbedingungen verpflichtet sich der Nutzer, bei der Nutzung des Dienstes die Rechte anderer zu respektieren, insbesondere ihr Recht auf Menschenwürde, den Schutz personenbezogener Daten und die Rechte an geistigem Eigentum.
 
-By accepting the Terms of Use, the User declares that he/she will not use the Service to collect or process personal data.
+Mit der Annahme der Nutzungsbedingungen erklärt der Nutzer, dass er den Dienst nicht zur Erhebung oder Verarbeitung personenbezogener Daten nutzen wird.
 
 ## 3\. Verstoß gegen die Nutzungsbedingungen
 
-K-Monitor Public Benefit Association is not liable to third parties in connection with the content created and made public by the User.
+Der gemeinnützige Verein K-Monitor haftet gegenüber Dritten nicht im Zusammenhang mit den vom Nutzer erstellten und veröffentlichten Inhalten.
 
-However, if the User breaches the above conditions, K-Monitor Public Benefit Association shall be entitled to terminate the provision of the service to the User without prior notice. K-Monitor Public Benefit Association may remove content from the platform that is deemed to be illegal or in breach of the above conditions without prior notice to the User.
+Wenn der Nutzer jedoch gegen die oben genannten Bedingungen verstößt, ist der gemeinnützige Verein K-Monitor berechtigt, die Erbringung des Dienstes für den Nutzer ohne vorherige Ankündigung zu beenden. Der gemeinnützige Verein K-Monitor kann Inhalte von der Plattform entfernen, die als illegal oder gegen die oben genannten Bedingungen verstoßend erachtet werden, ohne den Nutzer vorher darüber zu informieren.
 
 # II. Datenschutzerklärung
 
 ## 1\. Zweck der Datenschutzerklärung
 
-This Privacy Policy describes the data management practices of the service (hereinafter referred to as the "Service") available on the website [www.partimap.eu](https://www.partimap.eu) operated by K-Monitor Public Benefit Association (headquarters: 1077 Budapest, Rózsa u. 8., hereinafter referred to as the "Data Controller") in accordance with the EU rules.
+Diese Datenschutzrichtlinie beschreibt die Datenverwaltungspraktiken des Dienstes (im Folgenden als "Dienst" bezeichnet), der auf der Website [www.partimap.eu](https://www.partimap.eu) verfügbar ist und von der gemeinnützigen Verein K-Monitor (Sitz: Rózsa u. 8. 1077 Budapest, Ungarn, im Folgenden als "Datenverantwortlicher" bezeichnet) in Übereinstimmung mit den EU-Vorschriften betrieben wird.
 
-The purpose of this Privacy Policy is to set out the data protection, data processing and data management rules that the Data Controller and the user registered on the platform (hereinafter referred to as the "Registered User"), as a Specific Data Controller, undertake to comply with and accept as binding upon them.
+Der Zweck dieser Datenschutzerklärung besteht darin, die Regeln für den Datenschutz, die Datenverarbeitung und die Datenverwaltung festzulegen, zu deren Einhaltung sich der auf der Plattform registrierte Benutzer (im Folgenden als "registrierter Benutzer" bezeichnet) als Spezifischer Datenverantwortlicher verpflichtet und die er als verbindlich akzeptiert.
 
 ## 2\. Der Datenverantwortliche
 
-General Data Controller: K-Monitor Public Benefit Association
+Verantwortlicher für die Datenverarbeitung: K-Monitor Gemeinnütziger Verein 
 
-Headquarters: 1077 Budapest, Rózsa u. 8.
+Hauptsitz: Rózsa u. 8. 1077 Budapest, Ungarn.
 
-Office and mailing address: 1077 Budapest, Jósika utca 25.
+Büro- und Postanschrift: Jósika utca 25. 1077 Budapest, Ungarn.
 
-Phone: +36 1 789 5005
+Telefon: +36 1 789 5005
 
-E-mail: <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;">&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;</a>
+E-Mail: <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;">&#x69;&#110;&#x66;&#x6f;&#x40;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#x74;&#x6f;&#x72;&#x2e;&#x68;&#x75;</a>
 
-Website: [k-monitor.hu](http://www.k-monitor.hu/)
+Webseite: [k-monitor.hu](http://www.k-monitor.hu/)
 
-If you have any questions about this privacy notice, please contact us using one of the contact details above.
+Wenn Sie Fragen zu dieser Datenschutzerklärung haben, kontaktieren Sie uns bitte über eine der oben genannten Kontaktdaten.
 
-Specific data controller: the Registered User creating and operating a Project is also a data controller in the context of that Project.
+Spezifischer Datenverantwortlicher: Der registrierte Benutzer, der ein Projekt erstellt und betreibt, ist auch ein Datenverantwortlicher im Rahmen dieses Projekts.
 
 $_PROJECT_DATA_PROCESSOR_$
 
@@ -94,95 +94,95 @@ Im Falle einer rechtswidrigen oder irreführenden Verwendung personenbezogener D
 
 **Daten, die beim Erstellen eines Projekts und eines Fragebogens bereitgestellt werden**
 
-After registration, the Registered User may create a questionnaire by editing a form, the content of which the Registered User determines himself/herself, in compliance with the Terms of Use defined by the Data Controller. The content available to the Registered User on the form associated to the Projects and on the questionnaire accessible to the public may be textual and visual content. The Registered User may not ask the Visitors to provide personal data in the questionnaire created by him/her, in accordance with the Terms of Use.
+Nach der Registrierung kann der registrierte Benutzer einen Fragebogen erstellen, indem er ein Formular bearbeitet, dessen Inhalt der registrierte Benutzer selbst bestimmt, in Übereinstimmung mit den vom Datenverantwortlichen festgelegten Nutzungsbedingungen. Bei den Inhalten, die dem registrierten Benutzer auf dem mit den Projekten verbundenen Formular und auf dem öffentlich zugänglichen Fragebogen zur Verfügung stehen, kann es sich um textliche und visuelle Inhalte handeln. Der registrierte Benutzer darf die Besucher nicht auffordern, personenbezogene Daten in den von ihm erstellten Fragebogen in Übereinstimmung mit den Nutzungsbedingungen einzugeben.
 
-**Technical details of using the service**
+**Technische Details zur Nutzung des Dienstes**
 
-**Logging**
+**Protokollierung**
 
-During the use of the Service, the system records the IP address of the Registered User's computer, the start and end time of the visit, and in some cases --- depending on the Registered User's computer settings --- the type of browser and operating system. These data are automatically logged by the system.
+Während der Nutzung des Dienstes zeichnet das System die IP-Adresse des Computers des registrierten Benutzers, die Start- und Endzeit des Besuchs und in einigen Fällen --- abhängig von den Computereinstellungen des registrierten Benutzers --- der Art des Browsers und des Betriebssystems auf. Diese Daten werden vom System automatisch protokolliert.
 
-**Data recorded by embedded services**
+**Daten, die von eingebetteten Diensten aufgezeichnet werden**
 
-Depending on the settings of the Registered User's browser and computer, different embedded services are present when using the Service. These services are necessary for the optimal use of the site:
+Abhängig von den Einstellungen des Browsers und des Computers des registrierten Nutzers sind bei der Nutzung des Dienstes unterschiedliche eingebettete Dienste vorhanden. Diese Dienste sind für die optimale Nutzung der Website erforderlich:
 
--   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (custom font display)
--   [Google reCAPTCHA v3](https://policies.google.com/privacy) (reduce spam and fraudulent messages)
+-   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (benutzerdefinierte Schriftartenanzeige)
+-   [Google reCAPTCHA v3](https://policies.google.com/privacy) (reduziert Spam und betrügerische Nachrichten)
 
-The organisations providing embedded services have their own privacy notice and privacy policy, available at the links above, regarding the data collected and processed in the course of providing the service, but the Data Controller does not have access to or use the data. Furthermore, these services can be deactivated, at the Registered User's discretion, by means of the appropriate browser settings, but they will lead to a deterioration in the quality of the use of the site.
+Die Organisationen, die eingebettete Dienste anbieten, haben ihre eigene Datenschutzerklärung und Datenschutzrichtlinie, die unter den oben genannten Links verfügbar sind, in Bezug auf die Daten, die im Rahmen der Erbringung der Dienstleistung erhoben und verarbeitet werden, aber der für die Verarbeitung Verantwortliche hat keinen Zugriff auf die Daten oder kann sie nicht verwenden. Darüber hinaus können diese Dienste nach Ermessen des registrierten Nutzers über die entsprechenden Browsereinstellungen deaktiviert werden, was jedoch zu einer Verschlechterung der Qualität der Nutzung der Website führt.
 
-**Tracking**
+**Nachverfolgung**
 
-When you use the site, we also use tracking tools to track traffic and activity on the site so that we can collect anonymised statistics on the number of visitors:
+Wenn Sie die Website nutzen, verwenden wir auch Tracking-Tools, um den Verkehr und die Aktivitäten auf der Website zu verfolgen, damit wir anonymisierte Statistiken über die Anzahl der Besucher erstellen können:
 
--   [Google Analytics](https://analytics.google.com/analytics/web/) generates site traffic statistics by encrypting and partially capturing IP addresses. No other data that can be recorded and stored by the application is used. The anonymised statistics are stored for 1 year.
+-   [Google Analytics](https://analytics.google.com/analytics/web/) erstellt Statistiken über den Website-Verkehr, indem IP-Adressen verschlüsselt und teilweise erfasst werden. Es werden keine anderen Daten verwendet, die von der Anwendung aufgezeichnet und gespeichert werden können. Die anonymisierten Statistiken werden für 1 Jahr gespeichert.
 
-As the Data Controller, we do not link tracking data to personal data, but we do not have the right to decide on their possible further use. This data is governed by the privacy principles and policies of Google LLC ("Google", 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States of America), the embedded application developer. If the Registered User wishes to use the site without a tracker, the Registered User may explicitly [opt out](https://tools.google.com/dlpage/gaoptout).
+Als Datenverantwortlicher verknüpfen wir Tracking-Daten nicht mit personenbezogenen Daten, haben aber nicht das Recht, über deren mögliche weitere Verwendung zu entscheiden. Diese Daten unterliegen den Datenschutzgrundsätzen und -richtlinien von Google LLC ("Google", 1600 Amphitheatre Parkway, Mountain View, CA 94043, Vereinigte Staaten von Amerika), dem Entwickler eingebetteter Anwendungen. Wenn der registrierte Benutzer die Website ohne Tracker nutzen möchte, kann er sich ausdrücklich [abmelden](https://tools.google.com/dlpage/gaoptout).
 
 **Cookies**
 
-Cookies are only used by the site to store the Registered User's login and are automatically deleted after 30 days.
+Cookies werden von der Website nur verwendet, um das Login des registrierten Benutzers zu speichern, und werden nach 30 Tagen automatisch gelöscht.
 
-4.2. The following data is handled by the **Data Controller and, after registration, by the Registered User**, broken down by the activities that may be carried out with the Service:
+4.2. Die folgenden Daten werden vom für die Verarbeitung Verantwortlichen und nach der Registrierung vom registrierten Benutzer verarbeitet, aufgeschlüsselt nach den Aktivitäten, die mit dem Dienst durchgeführt werden können: Daten, die der Besucher beim Ausfüllen des Fragebogens zur Verfügung stellt.
 
-Data provided by the Visitor when filling in the questionnaire.
+Der Verantwortliche für die Datenverarbeitung und der registrierte Benutzer kennen und verarbeiten die Daten, die der Besucher in Form einer Antwort auf den speziell vom registrierten Benutzer erstellten Fragebogen zur Verfügung stellt. Die Antworten dürfen keine personenbezogenen Daten gemäß den Nutzungsbedingungen enthalten.
 
-The Data Controller and the Registered User will know and handle the data provided by the Visitor in the form of a response to the questionnaire created specifically by the Registered User. The answers may not contain personal data in accordance with the Terms of Use.
+4.3. Der Öffentlichkeit zugängliche Daten
 
-4.3. Data available to the **public**
+Die Daten, die von den Besuchern durch das Ausfüllen eines vom registrierten Benutzer erstellten Fragebogens zur Verfügung gestellt werden, stehen der Öffentlichkeit in aggregierter Form auf www.partimap.eu zur Verfügung. Diese Daten können von jedem Mitglied der Öffentlichkeit frei verwendet werden.
 
-The data provided by the Visitors through the completion of a questionnaire created by the Registered User is available to the public in aggregate form on www.partimap.eu. This data can be freely used by any member of the public.
 
-## 5\. Data processors employed by the Data Controller
+## 5\. Vom für die Verarbeitung Verantwortlichen eingesetzte Datenverarbeiter
 
 Name: György Haluska
 
-Contact: +36-20-9465935
+Kontakt: +36-20-9465935
 
-Linux Hungary Kft. provides hosting services for [www.partimap.eu](http://www.partimap.eu/).
+Linux Hungary Kft. bietet Hosting-Dienstleistungen für [www.partimap.eu](http://www.partimap.eu/) an.
 
-## 6\. Rights in relation to data handling
+## 6\. Rechte in Bezug auf die Datenverarbeitung
 
-The Registered User has the following rights during the period of data handling:
+Der registrierte Benutzer hat während des Zeitraums der Datenverarbeitung folgende Rechte:
 
--   the right to information and access: the Registered User may request information about the personal data stored in relation to him or her and may request a copy of such data;
--   the right to rectification: the Registered User may request the rectification of personal data stored about him/her if they are inaccurate or incomplete. If the Registered User also provides the Data Controller with personal data which is not necessary for the purposes of the processing, the Data Controller shall delete it.
--   right to be forgotten: the Registered User may request the Data Controller to delete the data stored about him/her from the database, in particular if he/she withdraws his/her previous consent to the processing or if the processing is unlawful.
--   right to restriction of handling: the Registered User may request the restriction of handling if a) he/she contests the accuracy of the personal data and requests the restriction of handling for the period of time necessary for the Data Controller to verify the accuracy of the personal data; b) the handling is unlawful but the Registered User opposes the erasure of the data and requests instead the restriction of their use; c) the Data Controller no longer needs the personal data for the purposes of the handling but the Registered User requires them for the establishment, exercise or defence of legal claims;
--   right to data portability: in the case of automated processing of personal data, the Registered User may request that the Data Controller transfers the stored personal data to the Registered User in a structured, machine-readable (interoperable) format or, if technically feasible, to another data controller. The right to data portability must not adversely affect the rights and freedoms of others.
--   the right to object: the Registered User may object to the handling of his or her personal data on grounds relating to his or her particular situation, if the handling is necessary for the performance of a task carried out in the public interest, in the exercise of official authority, or for the legitimate interests of the controller or a third party. When providing the Service, the Data Controller handles the Registered User's data with the Registered User's consent, and therefore objections may only be raised in the case of mandatory data handling (e.g. ad hoc data transfers) that must be carried out even without consent.
--   right to redress: see point 7.
+- das Recht auf Auskunft und Zugang: Der registrierte Benutzer kann Auskunft über die zu seiner Person gespeicherten personenbezogenen Daten verlangen und eine Kopie dieser Daten anfordern;
+- das Recht auf Berichtigung: Der registrierte Nutzer kann die Berichtigung der über ihn gespeicherten personenbezogenen Daten verlangen, wenn diese unrichtig oder unvollständig sind. Wenn der registrierte Benutzer dem für die Verarbeitung Verantwortlichen auch personenbezogene Daten zur Verfügung stellt, die für die Zwecke der Verarbeitung nicht erforderlich sind, löscht der für die Verarbeitung Verantwortliche diese Daten.
+- Recht auf Vergessenwerden: Der registrierte Nutzer kann den für die Verarbeitung Verantwortlichen auffordern, die über ihn gespeicherten Daten aus der Datenbank zu löschen, insbesondere wenn er seine vorherige Einwilligung zur Verarbeitung widerruft oder wenn die Verarbeitung unrechtmäßig ist.
+- Recht auf Einschränkung der Verarbeitung: Der registrierte Nutzer kann die Einschränkung der Verarbeitung verlangen, wenn 
+a) er die Richtigkeit der personenbezogenen Daten bestreitet und die Einschränkung der Verarbeitung für den Zeitraum verlangt, der für die Verarbeitung Verantwortliche erforderlich ist, um die Richtigkeit der personenbezogenen Daten zu überprüfen; 
+b) die Verarbeitung unrechtmäßig ist, der registrierte Nutzer jedoch die Löschung der Daten ablehnt und stattdessen die Einschränkung ihrer Nutzung verlangt; 
+c) der für die Verarbeitung Verantwortliche benötigt die personenbezogenen Daten für die Zwecke der Verarbeitung nicht mehr, der registrierte Benutzer benötigt sie jedoch zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen;
+- Recht auf Datenübertragbarkeit: Im Falle einer automatisierten Verarbeitung personenbezogener Daten kann der registrierte Nutzer verlangen, dass der für die Verarbeitung Verantwortliche die gespeicherten personenbezogenen Daten in einem strukturierten, maschinenlesbaren (interoperablen) Format an den registrierten Nutzer oder, falls technisch machbar, an einen anderen für die Verarbeitung Verantwortlichen übermittelt. Das Recht auf Datenübertragbarkeit darf die Rechte und Freiheiten anderer nicht beeinträchtigen.
+- das Recht auf Widerspruch: Der registrierte Nutzer kann aus Gründen, die sich aus seiner besonderen Situation ergeben, gegen die Verarbeitung seiner personenbezogenen Daten Einspruch erheben, wenn die Verarbeitung für die Wahrnehmung einer Aufgabe erforderlich ist, die im öffentlichen Interesse liegt, in Ausübung öffentlicher Gewalt oder für die berechtigten Interessen des für die Verarbeitung Verantwortlichen oder eines Dritten. Bei der Erbringung der Dienstleistung verarbeitet der für die Verarbeitung Verantwortliche die Daten des registrierten Nutzers mit dessen Zustimmung, so dass Einwände nur im Falle einer obligatorischen Datenverarbeitung (z. B. Ad-hoc-Datenübertragungen) erhoben werden können, die auch ohne Zustimmung durchgeführt werden müssen.
+- Recht auf Rechtsbehelf: siehe Punkt 7.
 
-## 7\. Redress possibilities
+## 7\. Rechtsbehelfe
 
-**Collaboration with the Data Controller**
+**Zusammenarbeit mit dem für die Verarbeitung Verantwortlichen**
 
-If the Registered User experiences unlawful data handling, it is advisable to send the complaint to the Data Controller first before initiating a formal procedure, as this will allow the Data Controller to restore the lawful situation.
+Wenn der registrierte Benutzer eine unrechtmäßige Datenverarbeitung erfährt, ist es ratsam, die Beschwerde zuerst an den für die Verarbeitung Verantwortlichen zu senden, bevor ein formelles Verfahren eingeleitet wird, da dies dem für die Verarbeitung Verantwortlichen ermöglicht, die rechtmäßige Situation wiederherzustellen.
 
-**Complaint**
+**Beschwerde**
 
-The Registered User may lodge a complaint with the National Authority for Data Protection and Freedom of Information (NAIH) in case of a breach of the handling of personal data concerning him/her.
+Der registrierte Nutzer kann im Falle eines Verstoßes gegen die ihn betreffende personenbezogene Daten eine Beschwerde bei der Nationalen Behörde für Datenschutz und Informationsfreiheit Ungarns (NAIH) einreichen.
 
-Address: 1055 Budapest, Falk Miksa utca 9-11. (Postal address: 1363 Budapest, Pf.: 9. )
+Adresse: Falk Miksa utca 9-11. 1055 Budapest, Ungarn. (Postanschrift: 1363 Budapest, Pf.: 9.)
 
-Authority Portal NAIH
+Behördenportal:  naih.hu E-Mail: ugyfelszolgalat@naih.hu
 
-E-mail: <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#111;&#x6c;&#x67;&#x61;&#x6c;&#97;&#x74;&#64;&#110;&#97;&#x69;&#104;&#x2e;&#x68;&#x75;">&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#111;&#x6c;&#x67;&#x61;&#x6c;&#97;&#x74;&#64;&#110;&#97;&#x69;&#104;&#x2e;&#x68;&#x75;</a>
+**Gerichtlicher Rechtsbehelf**
 
-**Enforcement in court**
+Der registrierte Nutzer hat auch dann das Recht auf einen wirksamen gerichtlichen Rechtsbehelf, wenn die NAIH auf der Grundlage der Beschwerde nicht tätig wird, sie ablehnt oder für unbegründet hält. Neben einer Beschwerde bei der Aufsichtsbehörde kann der registrierte Nutzer auch direkt eine Klage gegen den für die Verarbeitung Verantwortlichen vor Gericht einreichen, wenn der für die Verarbeitung Verantwortliche (oder ein Dritter) seine Rechte in Bezug auf den Schutz personenbezogener Daten beim Umgang mit seinen personenbezogenen Daten verletzt hat. Die Klage gegen den für die Verarbeitung Verantwortlichen wird vor dem zuständigen Gericht des Ortes erhoben, an dem der für die Verarbeitung Verantwortliche niedergelassen ist, oder nach Wahl der betroffenen Person des Wohnsitzes der betroffenen Person. Das Gericht entscheidet im Schnellverfahren.
 
-The Registered User shall also have the right to an effective judicial remedy if the NAIH does not act on the basis of the complaint, rejects it or deems it unfounded. In addition to a complaint to the supervisory authority, the Registered User may also bring a claim directly to court against the Data Controller if the Data Controller (or a third party) has infringed his/her rights regarding the protection of personal data in the handling of his/her personal data. Proceedings against the Data Controller shall be brought before the competent court of the place where the Data Controller is established or, at the choice of the data subject, of the place of residence or domicile of the data subject. The court shall decide the case on a fast-track basis.
+## 8\. Änderungen der Datenschutzerklärung
 
-## 8\. Amendments to the privacy policy
+Der für die Verarbeitung Verantwortliche kann jederzeit beschließen, seiner laufenden Datenverarbeitung einen neuen Verarbeitungszweck hinzuzufügen, und behält sich daher das Recht vor, diese Richtlinie zu ändern. Der für die Datenverarbeitung Verantwortliche wird den registrierten Benutzer per E-Mail über die Änderung der Richtlinie informieren.
 
-The Data Controller may at any time decide to add a new handling purpose to its ongoing data handling, and therefore the Data Controller reserves the right to amend this policy. The Data Controller will notify the Registered User by e-mail of the modification of the policy.
+## 9\. Rechtsvorschriften über die Datenverwaltung
 
-## 9\. Legislation on data management
+VERORDNUNG (EU) 2016/679 DES EUROPÄISCHEN PARLAMENTS UND DES RATES vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie (EG) Nr. 95/46/EG (Datenschutz-Grundverordnung) ("DSGVO") in ihrer aktuellen [Fassung](http://eur-lex.europa.eu/legal-content/HU/TXT/PDF/?uri=CELEX:32016R0679&rid=1).
 
-REGULATION (EU) No 2016/679 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive (EC) No 95/46/EC (General Data Protection Regulation) ("GDPR"), in its current version [available here](http://eur-lex.europa.eu/legal-content/HU/TXT/PDF/?uri=CELEX:32016R0679&rid=1)
+Gesetz CXII von 2011 über das Recht auf informationelle Selbstbestimmung und Informationsfreiheit, dessen aktueller [Text](https://njt.hu/jogszabaly/2011-112-00-00).
 
-Act CXII of 2011 on the Right to Informational Self-Determination and Freedom of Information, the current text of which is available at [available via the following link](https://njt.hu/jogszabaly/2011-112-00-00)
+## 10\. Inkrafttreten
 
-## 10\. Entry into force
-
-This privacy notice shall enter into force on 1 December 2021.
+Diese Datenschutzerklärung tritt am 1. Dezember 2021 in Kraft.
