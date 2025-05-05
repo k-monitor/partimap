@@ -11,10 +11,11 @@ export default defineCachedEventHandler(
 		const { id } = await getValidatedRouterParams(event, paramsSchema.parse);
 		const project = await pdb.findByIdOrSlug(id);
 		if (!project) throw createError({ statusCode: StatusCodes.NOT_FOUND });
-		return project.quizMode;
+		return { quizMode: project.quizMode };
 	},
 	{
 		getKey: (event) => event.path, // contains project ID
-		maxAge: 2, // seconds
+		maxAge: 1, // seconds
+		swr: false,
 	},
 );
