@@ -126,6 +126,8 @@ function handleSheetsChanged() {
 	refresh();
 }
 
+const { user } = useAuth();
+
 // TODO loading state + overlay?
 </script>
 
@@ -349,6 +351,9 @@ function handleSheetsChanged() {
 			:project="project"
 			@sheets-changed="handleSheetsChanged"
 		/>
-		<ProjectQuizModeEditor :project="project" />
+		<ProjectQuizModeEditor
+			v-if="user?.isAdmin"
+			:project="project"
+		/>
 	</div>
 </template>
