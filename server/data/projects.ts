@@ -19,6 +19,7 @@ export type Project = {
 	subscribe: string;
 	unsubscribeToken: string;
 	lastSent: number;
+	quizMode: number;
 
 	// only in some API responses
 	sheets?: Sheet[];
@@ -44,6 +45,7 @@ export function createProject(data: any): Project {
 		subscribe: data.subscribe,
 		unsubscribeToken: data.unsubscribeToken,
 		lastSent: data.lastSent,
+		quizMode: data.quizMode,
 
 		submissions: data.submissions,
 	};
@@ -141,6 +143,10 @@ export function update(project: Project) {
 
 export function updateLastSent(id: number) {
 	return db.query('UPDATE project SET lastSent = ? WHERE id = ?', [Date.now(), id]);
+}
+
+export function updateQuizMode(id: number, quizMode: number) {
+	return db.query('UPDATE project SET quizMode = ? WHERE id = ?', [quizMode, id]);
 }
 
 export async function attemptToUnsubscribe(id: number, token: string) {

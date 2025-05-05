@@ -349,5 +349,6 @@ function handleSheetsChanged() {
 			:project="project"
 			@sheets-changed="handleSheetsChanged"
 		/>
+		<ProjectQuizModeEditor :project="project" />
 	</div>
 </template>
