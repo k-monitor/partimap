@@ -1,7 +1,11 @@
 <script setup lang="ts">
-withDefaults(
+import type { Project } from '~/server/data/projects';
+
+const props = withDefaults(
 	defineProps<{
 		disableSave?: boolean;
+		project: Project;
+		nextSheetOrd: number;
 		showNext?: boolean;
 		showPrev?: boolean;
 		showSubmit?: boolean;
@@ -14,11 +18,37 @@ withDefaults(
 	},
 );
 
-const { consent, loading, selectedFeatureId, submitted } = useStore();
+const quizMode = ref(props.project.quizMode);
+onMounted(() => {
+	if (quizMode.value <= 0) return;
+
+	async function update() {
+		const id = props.project.id;
+		const res = await $fetch(`/api/project/${id}/quiz`);
+		quizMode.value = res.quizMode;
+		if (res.quizMode > 0) setTimeout(update, 1000);
+	}
+	setTimeout(update, 2000);
+});
+
+const quizModeBlocks = computed(() => {
+	if (quizMode.value <= 0) return false;
+	if (quizMode.value > props.nextSheetOrd + 1) return false;
+	return true;
+});
+
+const disableNext = computed(() => loading.value || quizModeBlocks.value);
 
 const disableSubmit = computed(
-	() => loading.value || !consent.value || !!selectedFeatureId.value || submitted.value,
+	() =>
+		loading.value ||
+		!consent.value ||
+		!!selectedFeatureId.value ||
+		submitted.value ||
+		quizModeBlocks.value,
 );
+
+const { consent, loading, selectedFeatureId, submitted } = useStore();
 
 defineEmits(['next', 'prev', 'submit']);
 </script>
@@ -64,7 +94,7 @@ defineEmits(['next', 'prev', 'submit']);
 			>
 				<b-button
 					v-if="showNext"
-					:disabled="loading"
+					:disabled="disableNext"
 					variant="primary"
 					@click="$emit('next')"
 				>

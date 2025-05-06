@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
 	delete changes.id;
 	delete changes.lastSent;
 	delete changes.unsubscribeToken;
+	delete changes.quizMode; // only admin thing
 	delete changes.views;
 	if (!user.isAdmin) delete changes.userId;
 
