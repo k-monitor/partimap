@@ -22,11 +22,20 @@ const labelButton = computed(() => {
 	return t(`OptionsEditor.add${cap}`);
 });
 
-function addOption() {
+const formGroupRef = templateRef('formGroupRef');
+
+async function addOption() {
 	options.value = [
 		...options.value,
 		t('OptionsEditor.optionPrefix') + ` #${options.value.length + 1}`,
 	];
+
+	if (!formGroupRef.value) return;
+	await nextTick();
+	const inputs = formGroupRef.value.$el.querySelectorAll('input');
+	if (inputs.length > 0) {
+		inputs[inputs.length - 1].focus();
+	}
 }
 
 function delOption(i: number) {
@@ -39,27 +48,43 @@ function delOption(i: number) {
 		<label>
 			{{ label }}
 		</label>
-		<b-form-group>
-			<b-input-group
-				v-for="(o, i) in options || []"
-				:key="i"
-				class="mb-2"
+		<b-form-group ref="formGroupRef">
+			<draggable
+				v-model="options"
+				handle=".handle"
 			>
-				<b-form-input
-					v-model="options[i]"
-					:readonly="readonly"
-					:disabled="readonly"
-				/>
-				<template #append>
-					<b-button
-						v-if="!readonly"
-						variant="outline-danger"
-						@click="delOption(i)"
-					>
-						<i class="fas fa-fw fa-trash" />
-					</b-button>
-				</template>
-			</b-input-group>
+				<b-input-group
+					v-for="(o, i) in options || []"
+					:key="i"
+					class="mb-2"
+				>
+					<template #prepend>
+						<div class="handle d-flex flex-shrink-0 align-items-center px-2 bg-light">
+							<i class="fas fa-grip-vertical" />
+						</div>
+					</template>
+					<b-form-input
+						v-model="options[i]"
+						:readonly="readonly"
+						:disabled="readonly"
+						@focus="options[i] = ''"
+						@blur="
+							options[i] =
+								options[i] || t('OptionsEditor.optionPrefix') + ` #${i + 1}`
+						"
+						@keyup.enter="addOption"
+					/>
+					<template #append>
+						<b-button
+							v-if="!readonly"
+							variant="outline-danger"
+							@click="delOption(i)"
+						>
+							<i class="fas fa-fw fa-trash" />
+						</b-button>
+					</template>
+				</b-input-group>
+			</draggable>
 			<b-button
 				v-if="!readonly"
 				variant="success"

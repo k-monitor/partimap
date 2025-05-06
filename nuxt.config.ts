@@ -31,6 +31,9 @@ export default defineNuxtConfig({
 			recaptchaSiteKey: env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY,
 		},
 	},
+	socialShare: {
+		baseUrl: env.NUXT_PUBLIC_BASE_URL,
+	},
 	telemetry: false,
 
 	// module settings

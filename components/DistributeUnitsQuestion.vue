@@ -102,7 +102,7 @@ function handleChange(o: string) {
 					'text-success': sum === max,
 				}"
 			>
-				<span class="me-2">{{ sum }}</span>
+				<span class="me-2">{{ max - sum }}</span>
 				/ {{ max }}
 			</div>
 		</div>

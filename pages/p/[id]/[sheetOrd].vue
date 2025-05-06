@@ -465,12 +465,14 @@ const localePath = useLocalePath();
 								:project="project"
 								:results="resultsShown"
 								:results-data="resultsData"
-								:show-consent="isFirstSheet"
+								:show-consent="isFirstSheet && !resultsShown"
 							/>
 							<LoadingOverlay :show="loading" />
 						</div>
 						<div class="modal-footer d-flex p-0">
 							<FooterButtons
+								:project="project"
+								:next-sheet-ord="sheet.ord"
 								:show-next="!isLastSheet || needToShowResults"
 								:show-prev="!isFirstSheet && !submitted"
 								:show-submit="consent && isLastSheet && !needToShowResults"
@@ -497,7 +499,7 @@ const localePath = useLocalePath();
 						:results="resultsShown"
 						:results-data="resultsData"
 						:sheet="sheet"
-						:show-consent="isFirstSheet"
+						:show-consent="isFirstSheet && !resultsShown"
 					/>
 					<FeatureList
 						v-if="!submitted"
@@ -509,6 +511,8 @@ const localePath = useLocalePath();
 
 					<template #footer>
 						<FooterButtons
+							:project="project"
+							:next-sheet-ord="nextSheetOrd"
 							:show-next="!isLastSheet || needToShowResults"
 							:show-prev="!isFirstSheet && !submitted"
 							:show-submit="consent && isLastSheet && !needToShowResults"
