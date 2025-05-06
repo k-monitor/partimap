@@ -15,7 +15,7 @@ export default defineCachedEventHandler(
 	},
 	{
 		getKey: (event) => event.path, // contains project ID
-		maxAge: 1, // seconds
+		maxAge: 2, // seconds
 		swr: false,
 	},
 );

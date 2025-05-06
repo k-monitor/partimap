@@ -28,7 +28,7 @@ onMounted(() => {
 		quizMode.value = res.quizMode;
 		if (res.quizMode > 0) setTimeout(update, 1000);
 	}
-	setTimeout(update, 1000);
+	setTimeout(update, 2000);
 });
 
 const quizModeBlocks = computed(() => {
