@@ -5,7 +5,7 @@ const props = withDefaults(
 	defineProps<{
 		disableSave?: boolean;
 		project: Project;
-		sheetOrd: number;
+		nextSheetOrd: number;
 		showNext?: boolean;
 		showPrev?: boolean;
 		showSubmit?: boolean;
@@ -33,8 +33,8 @@ onMounted(() => {
 
 const quizModeBlocks = computed(() => {
 	if (quizMode.value <= 0) return false;
-	if (quizMode.value <= props.sheetOrd + 1) return true;
-	return false;
+	if (quizMode.value > props.nextSheetOrd + 1) return false;
+	return true;
 });
 
 const disableNext = computed(() => loading.value || quizModeBlocks.value);

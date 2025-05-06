@@ -40,7 +40,9 @@ async function save() {
 							érték)
 						</b-form-checkbox>
 					</b-form-group>
-					<b-form-group label="Legmagasabb munkalap sorszáma:">
+					<b-form-group
+						label="A kitöltők az alábbi sorszámú munkalapról ne tudjanak továbbmenni:"
+					>
 						<b-form-input
 							v-model="quizMode"
 							:disabled="!enabled"

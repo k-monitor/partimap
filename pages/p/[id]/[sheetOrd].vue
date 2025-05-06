@@ -472,7 +472,7 @@ const localePath = useLocalePath();
 						<div class="modal-footer d-flex p-0">
 							<FooterButtons
 								:project="project"
-								:sheet-ord="sheet.ord"
+								:next-sheet-ord="sheet.ord"
 								:show-next="!isLastSheet || needToShowResults"
 								:show-prev="!isFirstSheet && !submitted"
 								:show-submit="consent && isLastSheet && !needToShowResults"
@@ -512,7 +512,7 @@ const localePath = useLocalePath();
 					<template #footer>
 						<FooterButtons
 							:project="project"
-							:sheet-ord="sheet.ord"
+							:next-sheet-ord="nextSheetOrd"
 							:show-next="!isLastSheet || needToShowResults"
 							:show-prev="!isFirstSheet && !submitted"
 							:show-submit="consent && isLastSheet && !needToShowResults"
