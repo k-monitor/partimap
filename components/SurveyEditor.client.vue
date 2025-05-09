@@ -330,6 +330,7 @@ const questionLabelInput = ref<HTMLInputElement>();
 		<b-modal
 			v-model="questionEditorVisible"
 			:cancel-title="$t('modals.cancel')"
+			no-close-on-backdrop
 			:ok-disabled="props.readonly"
 			:ok-title="$t('SaveButton.save')"
 			ok-variant="success"

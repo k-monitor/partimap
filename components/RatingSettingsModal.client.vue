@@ -80,6 +80,7 @@ function handleOk() {
 	<b-modal
 		v-model="visible"
 		:cancel-title="$t('modals.cancel')"
+		no-close-on-backdrop
 		:ok-title="$t('SaveButton.save')"
 		ok-variant="success"
 		:teleport-disabled="true"
