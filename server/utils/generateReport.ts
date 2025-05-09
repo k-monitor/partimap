@@ -114,7 +114,8 @@ export default async function (
 				});
 			} else {
 				// single column
-				sas.cell(1, COL).string(q.label);
+				const suffix = q.minLabel && q.maxLabel ? ` [${q.minLabel} - ${q.maxLabel}]` : '';
+				sas.cell(1, COL).string(q.label + suffix);
 				if (q.type === 'checkbox') {
 					a = safeParseJSON(a) || a;
 				}
