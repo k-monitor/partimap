@@ -236,7 +236,7 @@ export default async function (
 		sfs.cell(1, 8).string(m.featureDesc);
 		sfs.cell(1, 9).string(m.featureQuestion);
 		sfs.cell(1, 10).string(m.featureQuestionAnswer);
-		row = 1;
+		let row = 1;
 		for (let i = 0; i < submittedFeatures.length; i++) {
 			const sf = submittedFeatures[i];
 			const sheet = sheets.filter((s) => s.id === sf.sheetId)[0];
