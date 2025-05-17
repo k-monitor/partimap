@@ -301,7 +301,7 @@ async function canAdvance() {
 		return false;
 	}
 
-	const disWithoutFeature = interactions.value.drawing.filter(
+	/*const disWithoutFeature = interactions.value.drawing.filter(
 		(di) =>
 			canShowQuestion(di, getAllVisitorAnswers.value) &&
 			!featureCountByInteraction.value[di.id],
@@ -312,7 +312,7 @@ async function canAdvance() {
 			di.buttonLabel || t(`sheetEditor.interactions.${di.type}`),
 		);
 		if (!confirm) return false;
-	}
+	}*/
 
 	return true;
 }
