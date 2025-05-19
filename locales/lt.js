@@ -167,6 +167,7 @@ export default {
 		export: 'Sukurti ataskaitą',
 		exporting: 'Palaukite, ataskaitos generavimas užtrunka ilgiau nei įprastai.',
 		filter: 'Paieška',
+		langFilter: 'Visos kalbos',
 		newProjectName: 'Naujo projekto pavadinimas',
 		ownProjects: 'Mano projektas',
 		submissions: 'atsakymai',

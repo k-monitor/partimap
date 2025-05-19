@@ -164,6 +164,7 @@ export default {
 		export: 'Generate report',
 		exporting: "Please wait, it's taking longer than usual to generate the report.",
 		filter: 'Search',
+		langFilter: 'All languages',
 		newProjectName: 'Title of the new project',
 		ownProjects: 'My projects',
 		submissions: 'submissions',

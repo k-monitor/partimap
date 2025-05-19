@@ -173,6 +173,7 @@ export default {
 		exporting:
 			'Por favor, espere, el proceso de generación del informe requiere más tiempo de lo habitual.',
 		filter: 'Buscar',
+		langFilter: 'Todos los idiomas',
 		newProjectName: 'Título del nuevo proyecto',
 		ownProjects: 'Mis proyectos',
 		submissions: 'respuestas',

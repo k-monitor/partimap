@@ -166,6 +166,7 @@ export default {
 		export: 'Riport letöltése',
 		exporting: 'Kérjük, várjon, a szokásosnál tovább tart a riport elkészítése.',
 		filter: 'Keresés',
+		langFilter: 'Minden nyelv',
 		newProjectName: 'Új projekt elnevezése',
 		ownProjects: 'Saját projektek',
 		submissions: 'kitöltések',
