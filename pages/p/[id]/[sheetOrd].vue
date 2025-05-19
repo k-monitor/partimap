@@ -44,7 +44,10 @@ if (_error.value) {
 
 watchEffect(() => {
 	if (project.value?.slug && params.id !== project.value.slug) {
-		navigateTo(`/p/${project.value.slug}/${params.sheetOrd || 0}`);
+		navigateTo(`/${project.value.lang}/p/${project.value.slug}/${params.sheetOrd || 0}`);
+	}
+	if (project.value?.lang && !fullPath.startsWith(`/${project.value.lang}`)) {
+		navigateTo(`/${project.value.lang}/p/${project.value.slug}/${params.sheetOrd || 0}`);
 	}
 });
 
@@ -71,6 +74,9 @@ const {
 const { t } = useI18n();
 
 useHead({
+	htmlAttrs: {
+		lang: () => project.value?.lang,
+	},
 	title: () => project.value?.title || t('sheet.restrictedTitle'),
 	meta: () => [
 		{
