@@ -71,15 +71,15 @@ const isPrivacyPolicyValid = computed(() => {
 });
 
 const localePath = useLocalePath();
-const projectPath = computed(() =>
-	localePath('/p/' + (project.value?.slug || project.value?.id) + '/0'),
+const projectPath = computed(
+	() => `/${project.value?.lang}/p/${project.value?.slug || project.value?.id}/0`,
 );
 
 const {
 	public: { baseUrl },
 } = useRuntimeConfig();
 const fullProjectPath = computed(() => baseUrl + projectPath.value);
-const projectBaseURL = computed(() => `${baseUrl}/${locale.value}/p/`);
+const projectBaseURL = computed(() => `${baseUrl}/${project.value?.lang}/p/`);
 
 function generateSlug() {
 	return slugify(project.value?.title || '');
