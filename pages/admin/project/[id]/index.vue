@@ -157,13 +157,33 @@ const { user } = useAuth();
 				id="projectForm"
 				@submit.prevent="update"
 			>
-				<form-group :label="$t('projectEditor.projectTitle')">
-					<input
-						v-model="project.title"
-						class="form-control"
-						required
-					/>
-				</form-group>
+				<div class="row">
+					<div class="col-12 col-md-8">
+						<form-group :label="$t('projectEditor.projectTitle')">
+							<input
+								v-model="project.title"
+								class="form-control"
+								required
+							/>
+						</form-group>
+					</div>
+					<div class="col">
+						<form-group :label="$t('projectEditor.language')">
+							<select
+								v-model="project.lang"
+								class="form-select"
+							>
+								<option
+									v-for="l in $i18n.locales"
+									:key="l.code"
+									:value="l.code"
+								>
+									{{ l.name }}
+								</option>
+							</select>
+						</form-group>
+					</div>
+				</div>
 				<form-group
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"

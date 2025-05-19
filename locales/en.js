@@ -125,6 +125,7 @@ export default {
 		changeSuccessful: 'Project modified successfully',
 		copiedURL: 'Project URL copied to clipboard!',
 		generateSlug: 'Generate it from project title!',
+		language: 'Language',
 		newPassword: 'New password',
 		password: 'Password restricted access',
 		passwordDescription:

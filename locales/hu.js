@@ -126,6 +126,7 @@ export default {
 		changeSuccessful: 'Módosítás sikeres',
 		copiedURL: 'Projekt URL vágólapra másolva!',
 		generateSlug: 'Generálás a projekt címéből',
+		language: 'Nyelv',
 		newPassword: 'Új jelszó',
 		password: 'Jelszavas védelem',
 		passwordDescription:
