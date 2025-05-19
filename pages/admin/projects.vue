@@ -171,6 +171,7 @@ async function del(project: Project) {
 			<ListItem
 				v-for="p in filteredProjects"
 				:key="p.id"
+				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
 				:title="p.title"
 				:user-id="p.userId"
