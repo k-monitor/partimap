@@ -71,15 +71,15 @@ const isPrivacyPolicyValid = computed(() => {
 });
 
 const localePath = useLocalePath();
-const projectPath = computed(() =>
-	localePath('/p/' + (project.value?.slug || project.value?.id) + '/0'),
+const projectPath = computed(
+	() => `/${project.value?.lang}/p/${project.value?.slug || project.value?.id}/0`,
 );
 
 const {
 	public: { baseUrl },
 } = useRuntimeConfig();
 const fullProjectPath = computed(() => baseUrl + projectPath.value);
-const projectBaseURL = computed(() => `${baseUrl}/${locale.value}/p/`);
+const projectBaseURL = computed(() => `${baseUrl}/${project.value?.lang}/p/`);
 
 function generateSlug() {
 	return slugify(project.value?.title || '');
@@ -157,13 +157,33 @@ const { user } = useAuth();
 				id="projectForm"
 				@submit.prevent="update"
 			>
-				<form-group :label="$t('projectEditor.projectTitle')">
-					<input
-						v-model="project.title"
-						class="form-control"
-						required
-					/>
-				</form-group>
+				<div class="row">
+					<div class="col-12 col-md-8">
+						<form-group :label="$t('projectEditor.projectTitle')">
+							<input
+								v-model="project.title"
+								class="form-control"
+								required
+							/>
+						</form-group>
+					</div>
+					<div class="col">
+						<form-group :label="$t('projectEditor.language')">
+							<select
+								v-model="project.lang"
+								class="form-select"
+							>
+								<option
+									v-for="l in $i18n.locales"
+									:key="l.code"
+									:value="l.code"
+								>
+									{{ l.name }}
+								</option>
+							</select>
+						</form-group>
+					</div>
+				</div>
 				<form-group
 					:label="$t('projectEditor.slug')"
 					:description="$t('projectEditor.slugDescription')"
@@ -351,9 +371,11 @@ const { user } = useAuth();
 			:project="project"
 			@sheets-changed="handleSheetsChanged"
 		/>
-		<ProjectQuizModeEditor
-			v-if="user?.isAdmin"
-			:project="project"
-		/>
+		<client-only>
+			<ProjectQuizModeEditor
+				v-if="user?.isAdmin"
+				:project="project"
+			/>
+		</client-only>
 	</div>
 </template>

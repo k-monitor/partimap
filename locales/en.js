@@ -125,6 +125,7 @@ export default {
 		changeSuccessful: 'Project modified successfully',
 		copiedURL: 'Project URL copied to clipboard!',
 		generateSlug: 'Generate it from project title!',
+		language: 'Language',
 		newPassword: 'New password',
 		password: 'Password restricted access',
 		passwordDescription:
@@ -164,6 +165,7 @@ export default {
 		export: 'Generate report',
 		exporting: "Please wait, it's taking longer than usual to generate the report.",
 		filter: 'Search',
+		langFilter: 'All languages',
 		newProjectName: 'Title of the new project',
 		ownProjects: 'My projects',
 		submissions: 'submissions',

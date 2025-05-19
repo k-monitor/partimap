@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineProps<{
+	lang?: string;
 	link: string;
 	title: string;
 	userId: number;
@@ -11,6 +12,11 @@ defineEmits<{
 }>();
 
 const { user } = useAuth();
+
+const { locales } = useI18n();
+function resolveLocaleName(code: string) {
+	return locales.value.find((l) => l.code === code)?.name;
+}
 </script>
 
 <template>
@@ -22,6 +28,12 @@ const { user } = useAuth();
 			>
 				{{ title }}
 			</NuxtLink>
+			<span
+				v-if="lang"
+				class="badge text-bg-light me-2"
+			>
+				{{ resolveLocaleName(lang) }}
+			</span>
 			<span
 				v-if="userId != user?.id"
 				class="badge text-bg-warning"

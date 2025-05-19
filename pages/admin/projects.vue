@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 import type { Project } from '~/server/data/projects';
 
 const { user } = useAuth();
-const { locale, t } = useI18n();
+const { locale, locales, t } = useI18n();
 const localePath = useLocalePath();
 
 useHead({
@@ -16,11 +16,13 @@ const { data: projects, refresh } = await useFetch<Project[]>('/api/project/all'
 
 const filter = ref('');
 const filterOwn = ref(false);
+const langFilter = ref(locale.value);
+watch(locale, (l) => (langFilter.value = l));
 
 const filteredProjects = computed(() => {
 	const needle = filter.value.toLowerCase();
 	const result = (projects.value || []).filter((p) => {
-		if (p.lang !== locale.value) return false;
+		if (!!langFilter.value && p.lang !== langFilter.value) return false;
 		if (filterOwn.value && user.value?.id !== p.userId) return false;
 		const haystack = `${p.title}|${p.description || ''}`.toLowerCase();
 		return haystack.includes(needle);
@@ -123,7 +125,7 @@ async function del(project: Project) {
 		</template>
 
 		<div class="row">
-			<div class="col-12 col-md-7">
+			<div class="col-12 col-md-8 col-lg-5">
 				<form @submit.prevent="add">
 					<div class="input-group mb-3">
 						<input
@@ -144,7 +146,7 @@ async function del(project: Project) {
 					</div>
 				</form>
 			</div>
-			<div class="col">
+			<div class="col-6 col-md-4 col-lg-3">
 				<div class="form-group mb-3 mx-auto">
 					<input
 						v-model="filter"
@@ -154,12 +156,35 @@ async function del(project: Project) {
 					/>
 				</div>
 			</div>
+			<div class="col-6 col-lg-2">
+				<div class="form-group mb-3 mx-auto">
+					<select
+						v-model="langFilter"
+						class="form-select"
+						type="text"
+					>
+						<option
+							key="_all"
+							value=""
+						>
+							{{ $t('projects.langFilter') }}
+						</option>
+						<option
+							v-for="l in locales"
+							:key="l.code"
+							:value="l.code"
+						>
+							{{ l.name }}
+						</option>
+					</select>
+				</div>
+			</div>
 			<div
 				v-if="user?.isAdmin"
-				class="col"
+				class="col-6 col-lg-2"
 			>
 				<input
-					class="btn btn-outline-primary form-control"
+					class="btn btn-outline-primary form-control mb-3"
 					:class="{ active: filterOwn }"
 					type="button"
 					:value="$t('projects.ownProjects')"
@@ -171,6 +196,7 @@ async function del(project: Project) {
 			<ListItem
 				v-for="p in filteredProjects"
 				:key="p.id"
+				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
 				:title="p.title"
 				:user-id="p.userId"
