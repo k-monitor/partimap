@@ -371,9 +371,11 @@ const { user } = useAuth();
 			:project="project"
 			@sheets-changed="handleSheetsChanged"
 		/>
-		<ProjectQuizModeEditor
-			v-if="user?.isAdmin"
-			:project="project"
-		/>
+		<client-only>
+			<ProjectQuizModeEditor
+				v-if="user?.isAdmin"
+				:project="project"
+			/>
+		</client-only>
 	</div>
 </template>
