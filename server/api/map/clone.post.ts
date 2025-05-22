@@ -2,6 +2,8 @@ import StatusCodes from 'http-status-codes';
 import { z } from 'zod';
 import * as db from '~/server/data/maps';
 
+// TODO refactor to /api/map/:id/clone { title }
+
 const bodySchema = z.object({
 	id: z.number(),
 	title: z.string(),

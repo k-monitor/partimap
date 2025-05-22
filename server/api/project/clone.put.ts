@@ -3,6 +3,8 @@ import { z } from 'zod';
 import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
 
+// TODO refactor to /api/project/:id/clone { title }
+
 const bodySchema = z.object({
 	id: z.coerce.number(),
 	title: z.string().min(1),
