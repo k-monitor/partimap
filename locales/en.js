@@ -125,7 +125,7 @@ export default {
 		changeSuccessful: 'Project modified successfully',
 		copiedURL: 'Project URL copied to clipboard!',
 		generateSlug: 'Generate it from project title!',
-		language: 'Language',
+		language: 'Survey interface language',
 		newPassword: 'New password',
 		password: 'Password restricted access',
 		passwordDescription:
