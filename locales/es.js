@@ -131,7 +131,7 @@ export default {
 		changeSuccessful: 'Proyecto modificado exitosamente',
 		copiedURL: 'URL del proyecto copiada al portapapeles',
 		generateSlug: 'Generar desde el título del proyecto',
-		language: 'Idioma',
+		language: 'Idioma de la interfaz de la encuesta',
 		newPassword: 'Nueva contraseña',
 		password: 'Contraseña de acceso restringido',
 		passwordDescription:
