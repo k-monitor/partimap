@@ -116,6 +116,18 @@ async function del(project: Project) {
 		loading.value = false;
 	}
 }
+
+const projectToTransfer = ref<Project | null>(null);
+const transferModalVisible = ref(false);
+function initiateTransfer(p: Project) {
+	projectToTransfer.value = p;
+	transferModalVisible.value = true;
+}
+function handleTransferred() {
+	transferModalVisible.value = false;
+	projectToTransfer.value = null;
+	refresh();
+}
 </script>
 
 <template>
@@ -198,10 +210,12 @@ async function del(project: Project) {
 				:key="p.id"
 				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
+				show-transfer-option
 				:title="p.title"
 				:user-id="p.userId"
 				@clone="clone(p)"
 				@del="del(p)"
+				@transfer="initiateTransfer(p)"
 			>
 				<br />
 				{{ $t('projects.views') }}: {{ p.views }}, {{ $t('projects.submissions') }}:
@@ -217,6 +231,11 @@ async function del(project: Project) {
 		<LoadingOverlay
 			:show="loading"
 			:text="loadingText"
+		/>
+		<ProjectTransferModal
+			v-model="transferModalVisible"
+			:project="projectToTransfer"
+			@transferred="handleTransferred"
 		/>
 	</AdminFrame>
 </template>

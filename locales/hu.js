@@ -406,6 +406,7 @@ export default {
 		delete: 'Törlés',
 		own: 'Saját',
 		owner: 'Tulajdonos',
+		transfer: 'Átadás másik felhasználónak',
 	},
 	Map: {
 		changeBaseMap: 'Alaptérkép váltás',
@@ -453,6 +454,13 @@ export default {
 		warnForReferencedSheets:
 			'Egy feltételes kérdést tartalmazó munkalap nem előzheti meg azt a munkalapot, amely a rá vonatkozó feltételt tartalmazza.',
 		withoutCopying: 'Nincs másolás',
+	},
+	ProjectTransferModal: {
+		confirm: 'Biztosan átadom a projektet',
+		email: 'Másik felhasználó regisztrált email címe',
+		failure: 'Nem sikerült átadni a projektet',
+		ok: 'Átadás',
+		success: 'Projekt átadás sikeres',
 	},
 	QuestionConditionEditor: {
 		selectQuestion: 'a következő kérdésre',

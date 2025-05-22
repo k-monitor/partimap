@@ -416,6 +416,7 @@ export default {
 		delete: 'Eliminar',
 		own: 'Propio',
 		owner: 'Propietario',
+		transfer: 'Transferir a otro usuario',
 	},
 	Map: {
 		changeBaseMap: 'Cambiar mapa base',
@@ -463,6 +464,13 @@ export default {
 		warnForReferencedSheets:
 			'Una hoja de trabajo que contiene una pregunta condicional no puede preceder a la hoja donde se define esa condición.',
 		withoutCopying: 'Crear sin copiar de un mapa existente.',
+	},
+	ProjectTransferModal: {
+		confirm: 'Estoy seguro de que quiero transferir el proyecto',
+		email: 'Correo electrónico registrado del otro usuario',
+		failure: 'La transferencia del proyecto falló',
+		ok: 'Transferir',
+		success: 'Transferencia de proyecto exitosa',
 	},
 	QuestionConditionEditor: {
 		selectQuestion: 'esta pregunta',
