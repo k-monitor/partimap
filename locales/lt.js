@@ -408,6 +408,7 @@ export default {
 		delete: 'Ištrinti',
 		own: 'Mano',
 		owner: 'Savininkas',
+		transfer: 'Perduoti kitam vartotojui',
 	},
 	Map: {
 		changeBaseMap: 'Pakeisti pagrindo žemėlapį',
@@ -455,6 +456,13 @@ export default {
 		warnForReferencedSheets:
 			'Darbalapis, kuriame yra sąlyginis klausimas, negali būti prieš darbalapį, kuriame ta sąlyga apibrėžta.',
 		withoutCopying: 'Sukurti nekopijuojant elementų iš kito žemėlapio.',
+	},
+	ProjectTransferModal: {
+		confirm: 'Esu tikras, kad noriu perkelti projektą',
+		email: 'Kito vartotojo registruotas el. pašto adresas',
+		failure: 'Projektas nepavyko perduoti',
+		ok: 'Perduoti',
+		success: 'Projektas sėkmingai perduotas',
 	},
 	QuestionConditionEditor: {
 		selectQuestion: 'į klausimą',

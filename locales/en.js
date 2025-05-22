@@ -404,6 +404,7 @@ export default {
 		delete: 'Delete',
 		own: 'My own',
 		owner: 'Owner',
+		transfer: 'Transfer to another user',
 	},
 	Map: {
 		changeBaseMap: 'Change base map',
@@ -450,6 +451,13 @@ export default {
 		warnForReferencedSheets:
 			'A sheet that contains a conditional question cannot precede the sheet where that condition is defined.',
 		withoutCopying: 'Create without copying from existing map.',
+	},
+	ProjectTransferModal: {
+		confirm: "I'm sure I want to transfer the project",
+		email: "Other user's registered email address",
+		failure: 'Project transfer failed',
+		ok: 'Transfer',
+		success: 'Project transfer successful',
 	},
 	QuestionConditionEditor: {
 		selectQuestion: 'this question ',
