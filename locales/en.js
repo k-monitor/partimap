@@ -454,10 +454,10 @@ export default {
 	},
 	ProjectTransferModal: {
 		confirm: "I'm sure I want to transfer the project",
-		email: "Other user's registered email address",
+		email: 'Registered email address of the other user',
 		failure: 'Project transfer failed',
 		ok: 'Transfer',
-		success: 'Project transfer successful',
+		success: 'Project transferred successfully',
 	},
 	QuestionConditionEditor: {
 		selectQuestion: 'this question ',
