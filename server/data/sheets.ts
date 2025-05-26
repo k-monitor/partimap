@@ -2,17 +2,21 @@ import * as db from '~/server/utils/database';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { AggregatedAnswers } from '~/server/data/surveyAnswers';
 
-export type Sheet = {
-	id: number;
-	projectId: number;
+export type ExportableSheetDefinition = {
 	ord: number; // index within project
 	title: string;
-	description: string;
-	image: string | null;
-	survey: string; // JSON
+	description: string | null;
+	survey: string | null; // JSON
 	features: string | null; // JSON
-	interactions: string; // JSON
-	descriptionLabel: string; // legacy
+	interactions: string | null; // JSON
+	descriptionLabel: string | null; // legacy
+};
+
+export type Sheet = ExportableSheetDefinition & {
+	// core not exportable fields
+	id: number;
+	projectId: number;
+	image: string | null;
 
 	// only in some API responses
 	answers?: AggregatedAnswers[];

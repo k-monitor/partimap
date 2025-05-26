@@ -17,21 +17,31 @@ export default defineEventHandler(async (event) => {
 
 	await ensureAdminOr(event, project.userId);
 
-	const sheets: Partial<sdb.Sheet>[] = await sdb.findAllByProjectId(project.id);
-	for (const s of sheets) {
-		delete s.id;
-		delete s.image;
-		delete s.projectId;
-	}
+	const exportedProject: pdb.ExportableProjectDefinition = {
+		lang: project.lang,
+		slug: project.slug,
+		title: project.title,
+		description: project.description,
+		privacyPolicy: project.privacyPolicy,
+		thanks: project.thanks,
+		thanksUrl: project.thanksUrl,
+		thanksSocial: project.thanksSocial,
+		quizMode: project.quizMode,
+	};
 
-	const p: Partial<pdb.Project> = project;
-	delete p.id;
-	delete p.image;
-	delete p.lastSent;
-	delete p.sheets;
-	delete p.subscribe;
-	delete p.unsubscribeToken;
-	delete p.userId;
-	delete p.views;
-	return { ...p, sheets };
+	const sheets = await sdb.findAllByProjectId(project.id);
+	const exportedSheets: sdb.ExportableSheetDefinition[] = sheets.map((s) => ({
+		ord: s.ord,
+		title: s.title,
+		description: s.description,
+		survey: s.survey,
+		features: s.features,
+		interactions: s.interactions,
+		descriptionLabel: s.descriptionLabel,
+	}));
+
+	return {
+		project: exportedProject,
+		sheets: exportedSheets,
+	};
 });

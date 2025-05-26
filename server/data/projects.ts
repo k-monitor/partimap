@@ -2,24 +2,28 @@ import * as db from '~/server/utils/database';
 import type { Sheet } from '~/server/data/sheets';
 import type { User } from '~/server/data/users';
 
-export type Project = {
+export type ExportableProjectDefinition = {
+	lang: string;
+	slug: string | null;
+	title: string;
+	description: string | null;
+	privacyPolicy: string;
+	thanks: string | null;
+	thanksUrl: string | null;
+	thanksSocial: string | null;
+	quizMode: number;
+};
+
+export type Project = ExportableProjectDefinition & {
+	// core not exportable fields
 	id: number;
 	userId: number;
-	lang: string;
-	slug: string;
-	title: string;
-	description: string;
 	image: string | null;
-	privacyPolicy: string;
-	thanks: string;
-	thanksUrl: string;
-	thanksSocial: string;
-	password: string;
+	password: string | null;
 	views: number;
 	subscribe: string;
 	unsubscribeToken: string;
 	lastSent: number;
-	quizMode: number;
 
 	// only in some API responses
 	sheets?: Sheet[];
