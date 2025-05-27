@@ -170,6 +170,7 @@ export default {
 		ownProjects: 'My projects',
 		submissions: 'submissions',
 		title: 'Projects',
+		uploadDefinition: 'Upload definition',
 		userName: 'Full name',
 		views: 'views',
 	},
@@ -402,6 +403,7 @@ export default {
 	ListItem: {
 		clone: 'Duplicate',
 		delete: 'Delete',
+		downloadDefinition: 'Download definition',
 		own: 'My own',
 		owner: 'Owner',
 		transfer: 'Transfer to another user',

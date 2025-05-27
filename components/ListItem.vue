@@ -11,7 +11,7 @@ defineProps<{
 defineEmits<{
 	(e: 'clone'): void;
 	(e: 'del'): void;
-	(e: 'export'): void;
+	(e: 'download'): void;
 	(e: 'transfer'): void;
 }>();
 
@@ -80,10 +80,10 @@ function resolveLocaleName(code: string) {
 				<b-dropdown-item
 					v-if="showExportOption"
 					variant="dark"
-					@click.prevent="$emit('export')"
+					@click.prevent="$emit('download')"
 				>
 					<i class="fas fa-code fa-fw me-1" />
-					{{ $t('ListItem.export') }}
+					{{ $t('ListItem.downloadDefinition') }}
 				</b-dropdown-item>
 				<b-dropdown-item
 					variant="danger"
