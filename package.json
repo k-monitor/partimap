@@ -8,6 +8,7 @@
 		"build": "APP_ENV=build nuxt build",
 		"start": "node --env-file=.env .output/server/index.mjs",
 		"report": "tsx --env-file=.env scripts/generate-report.ts",
+		"patch-views": "tsx --env-file=.env scripts/patch-views.ts",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
