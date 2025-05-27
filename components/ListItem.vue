@@ -2,6 +2,7 @@
 defineProps<{
 	lang?: string;
 	link: string;
+	showExportOption?: boolean;
 	showTransferOption?: boolean;
 	title: string;
 	userId: number;
@@ -10,6 +11,7 @@ defineProps<{
 defineEmits<{
 	(e: 'clone'): void;
 	(e: 'del'): void;
+	(e: 'export'): void;
 	(e: 'transfer'): void;
 }>();
 
@@ -74,6 +76,14 @@ function resolveLocaleName(code: string) {
 				>
 					<i class="fas fa-user fa-fw me-1" />
 					{{ $t('ListItem.transfer') }}
+				</b-dropdown-item>
+				<b-dropdown-item
+					v-if="showExportOption"
+					variant="dark"
+					@click.prevent="$emit('export')"
+				>
+					<i class="fas fa-code fa-fw me-1" />
+					{{ $t('ListItem.export') }}
 				</b-dropdown-item>
 				<b-dropdown-item
 					variant="danger"

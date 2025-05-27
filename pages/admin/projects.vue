@@ -128,6 +128,13 @@ function handleTransferred() {
 	projectToTransfer.value = null;
 	refresh();
 }
+
+async function downloadExport(project: Project) {
+	const object = await $fetch(`/api/project/${project.id}/export`);
+	const json = JSON.stringify(object, null, 2);
+	const blob = new Blob([json], { type: 'application/json' });
+	saveAs(blob, `${project.slug}.json`);
+}
 </script>
 
 <template>
@@ -210,11 +217,13 @@ function handleTransferred() {
 				:key="p.id"
 				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
+				show-export-option
 				show-transfer-option
 				:title="p.title"
 				:user-id="p.userId"
 				@clone="clone(p)"
 				@del="del(p)"
+				@export="downloadExport(p)"
 				@transfer="initiateTransfer(p)"
 			>
 				<br />
