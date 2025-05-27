@@ -72,7 +72,7 @@ function resolveLocaleName(code: string) {
 					variant="dark"
 					@click.prevent="$emit('transfer')"
 				>
-					<i class="fas fa-clone fa-fw me-1" />
+					<i class="fas fa-user fa-fw me-1" />
 					{{ $t('ListItem.transfer') }}
 				</b-dropdown-item>
 				<b-dropdown-item
