@@ -154,14 +154,12 @@ async function downloadExport(project: Project) {
 							required
 							type="text"
 						/>
-						<div class="input-group-append">
-							<button
-								class="btn btn-outline-success"
-								type="submit"
-							>
-								{{ $t('projects.add') }}
-							</button>
-						</div>
+						<button
+							class="btn btn-outline-success"
+							type="submit"
+						>
+							{{ $t('projects.add') }}
+						</button>
 					</div>
 				</form>
 			</div>
