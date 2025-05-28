@@ -60,13 +60,13 @@ export type AggregatedAnswers = {
 	}[];
 };
 
-export async function aggregateByProjectId(projectId: number) {
+export async function aggregateByProjectId(projectId: number, force = false) {
 	const questions: (Question & { sheetId: number })[] = [];
 	const sheets = await sdb.findAllByProjectId(projectId);
 	for (const s of sheets) {
 		const survey = JSON.parse(s.survey || '{}') as Survey;
 		const qs = (survey.questions || [])
-			.filter((q) => survey.showResults || q.showResult)
+			.filter((q) => survey.showResults || q.showResult || force)
 			.map((q) => ({ ...q, sheetId: s.id }));
 		questions.push(...qs);
 	}
