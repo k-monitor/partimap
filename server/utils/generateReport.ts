@@ -50,6 +50,11 @@ export default async function (
 	const answers = await sadb.findAllByProjectId(project.id);
 	b.end('query: answers');
 
+	b.start('query: aggregatedAnswers');
+	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id, true);
+	console.log(JSON.stringify(aggregatedAnswers));
+	b.end('query: aggregatedAnswers');
+
 	b.start('query: ratings');
 	const ratings = await rdb.findAllByProjectId(project.id);
 	b.end('query: ratings');

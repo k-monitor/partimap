@@ -96,14 +96,12 @@ async function del(map: Map) {
 							required
 							type="text"
 						/>
-						<div class="input-group-append">
-							<button
-								class="btn btn-success"
-								type="submit"
-							>
-								{{ $t('maps.add') }}
-							</button>
-						</div>
+						<button
+							class="btn btn-success"
+							type="submit"
+						>
+							{{ $t('maps.add') }}
+						</button>
 					</div>
 				</form>
 			</div>

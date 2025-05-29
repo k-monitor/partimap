@@ -2,6 +2,8 @@
 defineProps<{
 	lang?: string;
 	link: string;
+	showExportOption?: boolean;
+	showTransferOption?: boolean;
 	title: string;
 	userId: number;
 }>();
@@ -9,6 +11,8 @@ defineProps<{
 defineEmits<{
 	(e: 'clone'): void;
 	(e: 'del'): void;
+	(e: 'download'): void;
+	(e: 'transfer'): void;
 }>();
 
 const { user } = useAuth();
@@ -64,6 +68,22 @@ function resolveLocaleName(code: string) {
 				>
 					<i class="fas fa-clone fa-fw me-1" />
 					{{ $t('ListItem.clone') }}
+				</b-dropdown-item>
+				<b-dropdown-item
+					v-if="showTransferOption"
+					variant="dark"
+					@click.prevent="$emit('transfer')"
+				>
+					<i class="fas fa-user fa-fw me-1" />
+					{{ $t('ListItem.transfer') }}
+				</b-dropdown-item>
+				<b-dropdown-item
+					v-if="showExportOption"
+					variant="dark"
+					@click.prevent="$emit('download')"
+				>
+					<i class="fas fa-code fa-fw me-1" />
+					{{ $t('ListItem.downloadDefinition') }}
 				</b-dropdown-item>
 				<b-dropdown-item
 					variant="danger"

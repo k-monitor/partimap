@@ -170,6 +170,7 @@ export default {
 		ownProjects: 'My projects',
 		submissions: 'submissions',
 		title: 'Projects',
+		uploadDefinition: 'Upload definition',
 		userName: 'Full name',
 		views: 'views',
 	},
@@ -402,8 +403,10 @@ export default {
 	ListItem: {
 		clone: 'Duplicate',
 		delete: 'Delete',
+		downloadDefinition: 'Download definition',
 		own: 'My own',
 		owner: 'Owner',
+		transfer: 'Transfer to another user',
 	},
 	Map: {
 		changeBaseMap: 'Change base map',
@@ -450,6 +453,13 @@ export default {
 		warnForReferencedSheets:
 			'A sheet that contains a conditional question cannot precede the sheet where that condition is defined.',
 		withoutCopying: 'Create without copying from existing map.',
+	},
+	ProjectTransferModal: {
+		confirm: "I'm sure I want to transfer the project",
+		email: 'Registered email address of the other user',
+		failure: 'Project transfer failed',
+		ok: 'Transfer',
+		success: 'Project transferred successfully',
 	},
 	QuestionConditionEditor: {
 		selectQuestion: 'this question ',

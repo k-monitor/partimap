@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
 	const user = await ensureLoggedIn(event);
 
 	const body = await readBody<any>(event);
+	// TODO validate body
 	delete body.image;
 	if (!body.userId || !user.isAdmin) {
 		body.userId = user.id;
