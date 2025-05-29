@@ -4,7 +4,7 @@ import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
 
 export default defineEventHandler(async (event) => {
-	const user = await ensureLoggedIn(event);
+	const user = await ensureAdmin(event);
 
 	const body = await zh.useValidatedBody(event, {
 		project: z.object({

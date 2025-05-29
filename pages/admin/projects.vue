@@ -188,7 +188,10 @@ function uploadDefinition() {
 						</button>
 					</div>
 				</form>
-				<div class="ms-2">
+				<div
+					v-if="user.isAdmin"
+					class="ms-2"
+				>
 					<button
 						v-b-tooltip.hover.bottom
 						class="btn btn-outline-secondary"
@@ -252,7 +255,7 @@ function uploadDefinition() {
 				:key="p.id"
 				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
-				show-export-option
+				:show-export-option="user.isAdmin"
 				show-transfer-option
 				:title="p.title"
 				:user-id="p.userId"

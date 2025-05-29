@@ -10,12 +10,10 @@ const paramsSchema = z.object({
 export default defineEventHandler(async (event) => {
 	const { id } = await getValidatedRouterParams(event, paramsSchema.parse);
 
-	await ensureLoggedIn(event);
+	await ensureAdmin(event);
 
 	const project: pdb.Project = await pdb.findById(id);
 	if (!project) throw createError({ statusCode: StatusCodes.NOT_FOUND });
-
-	await ensureAdminOr(event, project.userId);
 
 	const exportedProject: pdb.ExportableProjectDefinition = {
 		lang: project.lang,
