@@ -194,7 +194,8 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 							opts[col] = (opts[col] || 0) + 1;
 						});
 					});
-				const result = {
+
+				const result: AggregatedAnswers = {
 					questionId: `${q.id}/${i}`,
 					question: `${q.label} [${row}]`,
 					sheetId: q.sheetId,
@@ -206,6 +207,23 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 						percent: Math.round((100 * opCount) / count) / 100,
 					})),
 				};
+
+				if (q.type === 'singleChoiceMatrix') {
+					const p = (s: string) => Number(s.trim().split(/\D/)[0]);
+					const cols = (q.columns || []).map((c) => Number(p(c)));
+					if (cols.length && cols.every((c) => Number.isInteger(c))) {
+						let sum = 0;
+						let count = 0;
+						answers
+							.map((a) => a[row])
+							.filter((a) => !!a)
+							.forEach((a: string) => {
+								sum += p(a);
+								count++;
+							});
+						if (count) result.average = sum / count;
+					}
+				}
 				results.push(result);
 			});
 			continue;
