@@ -179,6 +179,7 @@ export default {
 		ownProjects: 'Mis proyectos',
 		submissions: 'respuestas',
 		title: 'Proyectos',
+		uploadDefinition: 'Subir definición',
 		userName: 'Nombre completo',
 		views: 'vistas',
 	},
@@ -414,6 +415,7 @@ export default {
 	ListItem: {
 		clone: 'Duplicar',
 		delete: 'Eliminar',
+		downloadDefinition: 'Descargar definición',
 		own: 'Propio',
 		owner: 'Propietario',
 		transfer: 'Transferir a otro usuario',

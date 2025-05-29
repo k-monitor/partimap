@@ -173,6 +173,7 @@ export default {
 		ownProjects: 'Mano projektas',
 		submissions: 'atsakymai',
 		title: 'Projektas',
+		uploadDefinition: 'Įkelti apibrėžimą',
 		userName: 'Pilnas pavadinimas',
 		views: 'peržiūros',
 	},
@@ -406,6 +407,7 @@ export default {
 	ListItem: {
 		clone: 'Duplikuoti',
 		delete: 'Ištrinti',
+		downloadDefinition: 'Atsisiųsti apibrėžimą',
 		own: 'Mano',
 		owner: 'Savininkas',
 		transfer: 'Perduoti kitam vartotojui',

@@ -128,6 +128,36 @@ function handleTransferred() {
 	projectToTransfer.value = null;
 	refresh();
 }
+
+async function downloadDefinition(project: Project) {
+	const object = await $fetch(`/api/project/${project.id}/export`);
+	const json = JSON.stringify(object, null, 2);
+	const blob = new Blob([json], { type: 'application/json' });
+	saveAs(blob, `${project.slug}.json`);
+}
+
+function uploadDefinition() {
+	const input = document.createElement('input');
+	input.type = 'file';
+	input.accept = '.json';
+	input.setAttribute('type', 'file');
+	input.addEventListener('change', async (e: Event) => {
+		const fileInputEl = e.target as HTMLInputElement;
+		const file = fileInputEl.files?.[0];
+		if (!file) return;
+		const fileReader = new FileReader();
+		fileReader.onload = async (e: Event) => {
+			const json = (e.target as FileReader).result?.toString() || '';
+			await $fetch('/api/project/import', {
+				method: 'PUT',
+				body: json,
+			});
+			refresh();
+		};
+		fileReader.readAsText(file);
+	});
+	input.click();
+}
 </script>
 
 <template>
@@ -137,8 +167,11 @@ function handleTransferred() {
 		</template>
 
 		<div class="row">
-			<div class="col-12 col-md-8 col-lg-5">
-				<form @submit.prevent="add">
+			<div class="col-12 col-md-8 col-lg-5 d-flex">
+				<form
+					class="flex-grow-1"
+					@submit.prevent="add"
+				>
 					<div class="input-group mb-3">
 						<input
 							v-model="newProjectTitle"
@@ -147,16 +180,28 @@ function handleTransferred() {
 							required
 							type="text"
 						/>
-						<div class="input-group-append">
-							<button
-								class="btn btn-outline-success"
-								type="submit"
-							>
-								{{ $t('projects.add') }}
-							</button>
-						</div>
+						<button
+							class="btn btn-outline-success"
+							type="submit"
+						>
+							{{ $t('projects.add') }}
+						</button>
 					</div>
 				</form>
+				<div
+					v-if="user.isAdmin"
+					class="ms-2"
+				>
+					<button
+						v-b-tooltip.hover.bottom
+						class="btn btn-outline-secondary"
+						:title="$t('projects.uploadDefinition')"
+						type="button"
+						@click="uploadDefinition"
+					>
+						<i class="fas fa-code fa-fw"></i>
+					</button>
+				</div>
 			</div>
 			<div class="col-6 col-md-4 col-lg-3">
 				<div class="form-group mb-3 mx-auto">
@@ -210,11 +255,13 @@ function handleTransferred() {
 				:key="p.id"
 				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
+				:show-export-option="user.isAdmin"
 				show-transfer-option
 				:title="p.title"
 				:user-id="p.userId"
 				@clone="clone(p)"
 				@del="del(p)"
+				@download="downloadDefinition(p)"
 				@transfer="initiateTransfer(p)"
 			>
 				<br />

@@ -66,14 +66,12 @@ async function add() {
 							required
 							type="email"
 						/>
-						<div class="input-group-append">
-							<button
-								class="btn btn-success"
-								type="submit"
-							>
-								{{ $t('users.add') }}
-							</button>
-						</div>
+						<button
+							class="btn btn-success"
+							type="submit"
+						>
+							{{ $t('users.add') }}
+						</button>
 					</div>
 				</form>
 			</div>

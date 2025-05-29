@@ -172,6 +172,7 @@ export default {
 		ownProjects: 'Saját projektek',
 		submissions: 'kitöltések',
 		title: 'Projektek',
+		uploadDefinition: 'Definíció feltöltése',
 		userName: 'Név',
 		views: 'megtekintések',
 	},
@@ -404,6 +405,7 @@ export default {
 	ListItem: {
 		clone: 'Másolat készítése',
 		delete: 'Törlés',
+		downloadDefinition: 'Definíció letöltése',
 		own: 'Saját',
 		owner: 'Tulajdonos',
 		transfer: 'Átadás másik felhasználónak',
