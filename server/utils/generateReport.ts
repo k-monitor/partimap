@@ -56,8 +56,7 @@ export default async function (
 	b.end('query: answers');
 
 	b.start('query: aggregatedAnswers');
-	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id);
-	console.log(JSON.stringify(aggregatedAnswers));
+	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id, true);
 	b.end('query: aggregatedAnswers');
 
 	b.start('query: ratings');
@@ -82,6 +81,10 @@ export default async function (
 	generateAnswersSheet(wb, m, questions, submissions, answers);
 	b.end('sheet: answers');
 
+	b.start('sheet: aggregated answers');
+	generateAggregatedAnswersSheet(wb, m, questions, aggregatedAnswers);
+	b.end('sheet: aggregated answers');
+
 	if (ratings.length > 0) {
 		b.start('sheet: ratings');
 		generateRatingsSheet(wb, m, sheets, ratings);
@@ -95,7 +98,6 @@ export default async function (
 	if (submittedFeatures.length > 0) {
 		b.start('sheet: submitted features');
 		generateSubmittedFeaturesSheet(wb, m, sheets, submittedFeatures);
-
 		b.end('sheet: submitted features');
 	}
 
@@ -163,6 +165,54 @@ function generateAnswersSheet(
 				COL++;
 			}
 		});
+	});
+}
+
+function generateAggregatedAnswersSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	questions: sadb.Question[],
+	aggregatedAnswers: sadb.AggregatedAnswers[],
+) {
+	const sheet = wb.addWorksheet('TODO aggregált válaszok');
+	sheet.cell(1, 1).string('TODO kérdés');
+	sheet.cell(1, 2).string('TODO válasz');
+	sheet.cell(1, 3).string('TODO darabszám');
+	sheet.cell(1, 4).string('TODO százalék');
+	sheet.cell(1, 5).string('TODO átlag');
+	let row = 1;
+	aggregatedAnswers.forEach((aa) => {
+		const qid = aa.questionId.split('/')[0];
+		const q = questions.find((q) => q.id === Number(qid));
+		if (!q) return;
+
+		row++;
+		sheet.cell(row, 1).string(aa.question);
+		sheet.cell(row, 3).number(aa.count);
+		if (aa.average) {
+			sheet.cell(row, 5).number(aa.average);
+		}
+
+		if (
+			[
+				'checkbox',
+				'radiogroup',
+				'dropdown',
+				'rating',
+				'singleChoiceMatrix',
+				'multipleChoiceMatrix',
+				'distributeUnits',
+			].includes(q.type)
+		) {
+			(aa.options || []).forEach((o) => {
+				row++;
+				sheet.cell(row, 1).string(aa.question);
+				sheet.cell(row, 2).string(o.answer);
+				if (o.count) sheet.cell(row, 3).number(o.count);
+				if (o.percent) sheet.cell(row, 4).number(o.percent);
+				if (o.average) sheet.cell(row, 5).number(o.average);
+			});
+		}
 	});
 }
 

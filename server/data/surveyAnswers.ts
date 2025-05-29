@@ -1,6 +1,7 @@
 import * as db from '~/server/utils/database';
 import * as sdb from '~/server/data/sheets';
 import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
+import { safeParseJSON, safeParseJSONArray } from '~/utils/json';
 
 export type SurveyAnswer = {
 	id: number;
@@ -57,6 +58,7 @@ export type AggregatedAnswers = {
 		answer: string;
 		average?: number;
 		count?: number;
+		percent?: number;
 	}[];
 };
 
@@ -198,9 +200,10 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 					sheetId: q.sheetId,
 					type: q.type,
 					count,
-					options: Object.entries(opts).map(([answer, count]) => ({
+					options: Object.entries(opts).map(([answer, opCount]) => ({
 						answer,
-						count,
+						count: opCount,
+						percent: opCount / count,
 					})),
 				};
 				results.push(result);
@@ -239,6 +242,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 			result.options = Object.entries(opts).map(([answer, count]) => ({
 				answer,
 				count,
+				percent: count / result.count,
 			}));
 		} else {
 			const opts: Record<string, number> = {};
@@ -256,6 +260,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 			result.options = Object.entries(opts).map(([answer, count]) => ({
 				answer,
 				count,
+				percent: count / result.count,
 			}));
 			if ('number|range'.includes(q.type) && result.options.length > 10) {
 				continue;
