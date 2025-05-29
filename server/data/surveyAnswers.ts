@@ -88,7 +88,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 		)
 	).map((row) => ({
 		questionId: parseInt(row.questionId, 10),
-		average: parseFloat(row.average),
+		average: Math.round(10 * parseFloat(row.average)) / 10,
 		count: parseInt(row.count, 10),
 	}));
 
@@ -203,7 +203,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 					options: Object.entries(opts).map(([answer, opCount]) => ({
 						answer,
 						count: opCount,
-						percent: opCount / count,
+						percent: Math.round((100 * opCount) / count) / 100,
 					})),
 				};
 				results.push(result);
@@ -242,7 +242,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 			result.options = Object.entries(opts).map(([answer, count]) => ({
 				answer,
 				count,
-				percent: count / result.count,
+				percent: Math.round((100 * count) / result.count) / 100,
 			}));
 		} else {
 			const opts: Record<string, number> = {};
@@ -260,7 +260,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 			result.options = Object.entries(opts).map(([answer, count]) => ({
 				answer,
 				count,
-				percent: count / result.count,
+				percent: Math.round((100 * count) / result.count) / 100,
 			}));
 			if ('number|range'.includes(q.type) && result.options.length > 10) {
 				continue;
