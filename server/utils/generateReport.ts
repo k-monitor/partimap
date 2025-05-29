@@ -161,6 +161,7 @@ function generateAnswersSheet(
 				if (q.type === 'checkbox') {
 					a = safeParseJSON(a) || a;
 				}
+				// FIXME answer might have "other:" prefix
 				writeCell(a);
 				COL++;
 			}
@@ -185,9 +186,11 @@ function generateAggregatedAnswersSheet(
 		const qid = aa.questionId.split('/')[0];
 		const q = questions.find((q) => q.id === Number(qid));
 		if (!q) return;
+		const suffix = q.minLabel && q.maxLabel ? ` [${q.minLabel} - ${q.maxLabel}]` : '';
+		const question = aa.question + suffix;
 
 		row++;
-		sheet.cell(row, 1).string(aa.question);
+		sheet.cell(row, 1).string(question);
 		sheet.cell(row, 3).number(aa.count);
 		if (aa.average) {
 			sheet.cell(row, 5).number(aa.average);
@@ -208,6 +211,7 @@ function generateAggregatedAnswersSheet(
 				row++;
 				sheet.cell(row, 1).string(aa.question);
 				sheet.cell(row, 2).string(o.answer);
+				// FIXME o.answer can be "other" -> need i18n
 				if (o.count) sheet.cell(row, 3).number(o.count);
 				if (o.percent) sheet.cell(row, 4).number(o.percent);
 				if (o.average) sheet.cell(row, 5).number(o.average);
