@@ -32,7 +32,7 @@ const testableQuestions = computed(() =>
 	[
 		...questionsFromPrevSheets.value,
 		...props.survey.questions.slice(0, props.questionIndex),
-	].filter((q) => !isQuestionConditional(q) && q.type !== 'text'),
+	].filter((q) => q.type !== 'text'),
 );
 
 const isConditional = ref(false);
