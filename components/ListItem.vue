@@ -78,7 +78,7 @@ function resolveLocaleName(code: string) {
 					{{ $t('ListItem.transfer') }}
 				</b-dropdown-item>
 				<b-dropdown-item
-					v-if="showExportOption"
+					v-if="!!showExportOption"
 					variant="dark"
 					@click.prevent="$emit('download')"
 				>
