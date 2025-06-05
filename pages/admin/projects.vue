@@ -255,7 +255,7 @@ function uploadDefinition() {
 				:key="p.id"
 				:lang="p.lang"
 				:link="localePath('/admin/project/' + p.id)"
-				:show-export-option="user.isAdmin"
+				:show-export-option="!!user.isAdmin"
 				show-transfer-option
 				:title="p.title"
 				:user-id="p.userId"
