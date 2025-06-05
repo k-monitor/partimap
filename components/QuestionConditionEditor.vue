@@ -124,6 +124,16 @@ watch(question, async () => {
 	min.value = question.value?.min || 0;
 	max.value = question.value?.max || 100;
 });
+
+const { t } = useI18n();
+const answerLabel = computed(() => {
+	const label = t('QuestionConditionEditor.selectAnswer');
+	if (isNumberQuestion.value) {
+		return `${label} ${minMax.value}`;
+	}
+	const or = t('QuestionConditionEditor.logicalOr');
+	return `${label} (${or})`;
+});
 </script>
 
 <template>
@@ -137,7 +147,7 @@ watch(question, async () => {
 		</b-form-group>
 		<b-form-group
 			v-if="questionId"
-			:label="$t('QuestionConditionEditor.selectAnswer') + ` ${minMax}`"
+			:label="answerLabel"
 		>
 			<b-form-checkbox-group
 				v-if="hasOptions"

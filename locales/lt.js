@@ -467,6 +467,7 @@ export default {
 		success: 'Projektas sėkmingai perduotas',
 	},
 	QuestionConditionEditor: {
+		logicalOr: 'ARBA',
 		selectQuestion: 'į klausimą',
 		selectAnswer: 'atsakoma:',
 	},
