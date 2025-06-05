@@ -59,20 +59,14 @@ function addNewCondition() {
 	showIf.value = [...showIf.value, newCondition];
 }
 
-function clampText(t: string) {
-	t = t || '';
-	const limit = 26;
-	return t.length > limit ? `${t.substring(0, limit)}...` : t;
-}
-
 const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 	testableQuestions.value.map((q) => {
 		if (q.type.includes('Matrix') || q.type === 'distributeUnits') {
 			return {
-				label: clampText(q.label),
+				label: q.label,
 				options: (q.rows || q.options || []).map((r) => ({
 					value: [q.id, r],
-					text: clampText(r),
+					text: r,
 				})),
 				qid: q.id,
 				type: q.type,
@@ -80,7 +74,7 @@ const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 		} else {
 			return {
 				value: [q.id],
-				text: clampText(q.label),
+				text: q.label,
 				qid: q.id,
 				type: q.type,
 			};
