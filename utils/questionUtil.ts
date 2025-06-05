@@ -1,5 +1,7 @@
 import type { Question, Survey } from '~/server/data/surveyAnswers';
 
+export const OPTION_SEPARATOR = '|';
+
 export function parseSurvey(json: string | null | undefined) {
 	const survey: Survey | null = safeParseJSON(json);
 	if (!survey) return null;
@@ -21,7 +23,7 @@ export function canShowQuestion(
 			let act = allVisitorAnswers[id];
 			if (!act && act !== 0) return false;
 			if (row && act[row]) act = act[row];
-			if (act === exp) return true;
+			if (exp.split(OPTION_SEPARATOR).some((exp) => act === exp)) return true;
 			if (Array.isArray(act)) return act.includes(exp);
 			if (Number.isInteger(Number(act))) {
 				let [min, max] = exp.split('-').map((v) => Number(v));
