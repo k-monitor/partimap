@@ -76,11 +76,9 @@ const answerArray = computed({
 
 const serializedAnswer = computed(() => {
 	if (isNumberQuestion.value) {
-		if (Number.isInteger(min.value) && Number.isInteger(max.value)) {
-			return `${min.value}-${max.value}`;
-		} else {
-			return null;
-		}
+		const minV = Number.isInteger(min.value) ? min.value : question.value?.min || 1;
+		const maxV = Number.isInteger(max.value) ? max.value : question.value?.max || 100;
+		return `${minV}-${maxV}`;
 	}
 	return answer.value;
 });
