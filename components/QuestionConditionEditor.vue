@@ -64,20 +64,28 @@ const answerOptions = computed(() => {
 	);
 });
 
+const answerArray = computed({
+	get() {
+		if (!answer.value) return [];
+		return (answer.value || '').split(OPTION_SEPARATOR);
+	},
+	set(newValue) {
+		answer.value = newValue.join(OPTION_SEPARATOR);
+	},
+});
+
 const serializedAnswer = computed(() => {
 	if (isNumberQuestion.value) {
-		if (Number.isInteger(min.value) && Number.isInteger(max.value)) {
-			return `${min.value}-${max.value}`;
-		} else {
-			return null;
-		}
+		const minV = Number.isInteger(min.value) ? min.value : question.value?.min || 1;
+		const maxV = Number.isInteger(max.value) ? max.value : question.value?.max || 100;
+		return `${minV}-${maxV}`;
 	}
 	return answer.value;
 });
 
 function deserializeCondition() {
 	// [['questionId'], 'min-max']
-	// [['questionId'], 'option']
+	// [['questionId'], 'option1|option2']
 	// [['matrixQuestionId', 'matrixRow'], 'option']
 	if (!Array.isArray(value.value)) return [];
 	const [qid, ans] = value.value;
@@ -116,6 +124,16 @@ watch(question, async () => {
 	min.value = question.value?.min || 0;
 	max.value = question.value?.max || 100;
 });
+
+const { t } = useI18n();
+const answerLabel = computed(() => {
+	const label = t('QuestionConditionEditor.selectAnswer');
+	if (isNumberQuestion.value) {
+		return `${label} ${minMax.value}`;
+	}
+	const or = t('QuestionConditionEditor.logicalOr');
+	return `${label} (${or})`;
+});
 </script>
 
 <template>
@@ -127,16 +145,15 @@ watch(question, async () => {
 				required
 			/>
 		</b-form-group>
-		<b-form-group :label="$t('QuestionConditionEditor.selectAnswer') + ` ${minMax}`">
-			<b-form-select
-				v-if="!questionId"
-				disabled
-			/>
-			<b-form-select
-				v-else-if="hasOptions"
-				v-model="answer"
+		<b-form-group
+			v-if="questionId"
+			:label="answerLabel"
+		>
+			<b-form-checkbox-group
+				v-if="hasOptions"
+				v-model="answerArray"
 				:options="answerOptions"
-				required
+				stacked
 			/>
 			<div
 				v-else-if="isNumberQuestion"

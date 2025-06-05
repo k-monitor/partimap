@@ -465,6 +465,7 @@ export default {
 		success: 'Projekt átadás sikeres',
 	},
 	QuestionConditionEditor: {
+		logicalOr: 'VAGY',
 		selectQuestion: 'a következő kérdésre',
 		selectAnswer: 'az alábbi választ adják',
 	},

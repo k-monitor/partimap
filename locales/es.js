@@ -475,6 +475,7 @@ export default {
 		success: 'Transferencia de proyecto exitosa',
 	},
 	QuestionConditionEditor: {
+		logicalOr: 'O',
 		selectQuestion: 'esta pregunta',
 		selectAnswer: 'recibe la siguiente respuesta',
 	},

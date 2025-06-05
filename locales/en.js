@@ -462,6 +462,7 @@ export default {
 		success: 'Project transferred successfully',
 	},
 	QuestionConditionEditor: {
+		logicalOr: 'OR',
 		selectQuestion: 'this question ',
 		selectAnswer: 'receives the following answer',
 	},

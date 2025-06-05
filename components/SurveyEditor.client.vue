@@ -469,6 +469,7 @@ const questionLabelInput = ref<HTMLInputElement>();
 				</b-form-group>
 
 				<ShowIfEditor
+					:key="questionIndex"
 					v-model="question.showIf"
 					:question-index="questionIndex"
 					:sheet-ord="sheet?.ord || 0"
