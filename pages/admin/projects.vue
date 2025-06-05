@@ -218,7 +218,6 @@ function uploadDefinition() {
 					<select
 						v-model="langFilter"
 						class="form-select"
-						type="text"
 					>
 						<option
 							key="_all"
