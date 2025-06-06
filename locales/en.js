@@ -498,6 +498,7 @@ export default {
 		maxValue: 'Maximum value',
 		minName: 'Label (minimum)',
 		minValue: 'Minimum value',
+		moveQuestion: 'Move question',
 		other: 'Add "Other..." option',
 		questionPrefix: 'Question',
 		questionText: 'Question text',

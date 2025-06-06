@@ -502,6 +502,7 @@ export default {
 		maxValue: 'Didžiausia vertė',
 		minName: 'Etikėtė (mažiausia vertė)',
 		minValue: 'Mažiausia vertė',
+		moveQuestion: 'Perkelti klausimą',
 		other: 'Pridėti "Kita..." laukelį',
 		questionPrefix: 'Klausimas',
 		questionText: 'Klausimo tekstas',
