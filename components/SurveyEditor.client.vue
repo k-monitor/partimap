@@ -94,11 +94,7 @@ const questionsFromNextSheets = computed(() => {
 	if (!sheet?.value) return [];
 	return (project?.value?.sheets || [])
 		.filter((s) => s.ord > sheet.value!.ord)
-		.map((s) => {
-			const questions = parseSurvey(s.survey)?.questions || [];
-			const dis = deserializeInteractions(s).drawing;
-			return [...questions, ...dis];
-		})
+		.map((s) => allQuestions(s))
 		.flat();
 });
 
