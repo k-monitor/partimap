@@ -1,3 +1,4 @@
+import type { Sheet } from '~/server/data/sheets';
 import type { Question, Survey } from '~/server/data/surveyAnswers';
 
 export const OPTION_SEPARATOR = '|';
@@ -41,4 +42,15 @@ export function canShowQuestion(
 
 export function isQuestionConditional(question: Question) {
 	return Array.isArray(question.showIf) && question.showIf.length;
+}
+
+export function referencedQuestionIdsOf(question: Question | DrawingInteraction) {
+	return Array.isArray(question?.showIf) ? question.showIf.map((c) => c[0][0]) : [];
+}
+
+export function allQuestions(sheet: Sheet) {
+	return [
+		...deserializeInteractions(sheet).drawing,
+		...(parseSurvey(sheet.survey)?.questions || []),
+	];
 }

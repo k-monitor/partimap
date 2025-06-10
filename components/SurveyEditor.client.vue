@@ -94,11 +94,7 @@ const questionsFromNextSheets = computed(() => {
 	if (!sheet?.value) return [];
 	return (project?.value?.sheets || [])
 		.filter((s) => s.ord > sheet.value!.ord)
-		.map((s) => {
-			const questions = parseSurvey(s.survey)?.questions || [];
-			const dis = deserializeInteractions(s).drawing;
-			return [...questions, ...dis];
-		})
+		.map((s) => allQuestions(s))
 		.flat();
 });
 
@@ -178,10 +174,6 @@ function inputValid(max: number) {
 	}
 }
 
-function referencedQuestionIdsOf(question: Question | DrawingInteraction) {
-	return Array.isArray(question?.showIf) ? question.showIf.map((c) => c[0][0]) : [];
-}
-
 function questionIdsThatReference(question: Question) {
 	return [...survey.value.questions, ...questionsFromNextSheets.value]
 		.filter((q) => {
@@ -236,6 +228,26 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 }
 
 const questionLabelInput = ref<HTMLInputElement>();
+
+async function moveQuestion(questionIndex: number, targetSheetId: number) {
+	const question = survey.value.questions[questionIndex];
+	if (!question) return;
+
+	// add question to target sheet
+	const targetSheet = project?.value?.sheets?.find((s) => s.id === targetSheetId);
+	if (!targetSheet || !targetSheet.survey) return;
+	const targetSurvey = parseSurvey(targetSheet.survey);
+	if (!targetSurvey) return;
+	targetSurvey.questions.push(question);
+	await $fetch<Sheet>(`/api/sheet/${targetSheet.id}`, {
+		method: 'PATCH',
+		body: { survey: JSON.stringify(targetSurvey) },
+	});
+
+	// remove question from current sheet
+	survey.value.questions.splice(questionIndex, 1);
+	emitSurvey(); // sheet editor will show toast
+}
 </script>
 
 <template>
@@ -301,17 +313,26 @@ const questionLabelInput = ref<HTMLInputElement>();
 									"
 									:title="$t('SurveyEditor.conditionalQuestion')"
 								/>
-								<b-button
-									v-if="!props.readonly && !isQuestionReferenced(q)"
-									v-b-tooltip.hover.bottom
-									class="border-0 ms-auto text-danger"
-									size="sm"
-									:title="$t('SurveyEditor.deleteQuestion')"
-									variant="light"
-									@click.stop="delQuestion(i)"
-								>
-									<i class="fas fa-fw fa-trash" />
-								</b-button>
+								<div class="ms-auto flex gap-2">
+									<QuestionMoveButton
+										v-if="!props.readonly && project?.sheets && sheet"
+										:sheets="project.sheets"
+										:sheet-ord="sheet.ord"
+										:question="q"
+										@move="(targetSheetId) => moveQuestion(i, targetSheetId)"
+									/>
+									<b-button
+										v-if="!props.readonly && !isQuestionReferenced(q)"
+										v-b-tooltip.hover.bottom
+										class="border-0 text-danger"
+										size="sm"
+										:title="$t('SurveyEditor.deleteQuestion')"
+										variant="light"
+										@click.stop="delQuestion(i)"
+									>
+										<i class="fas fa-fw fa-trash" />
+									</b-button>
+								</div>
 							</div>
 						</div>
 					</div>
