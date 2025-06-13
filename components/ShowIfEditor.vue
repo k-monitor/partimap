@@ -180,6 +180,10 @@ function deleteCondition(i: number) {
 			>
 				{{ $t('SurveyEditor.addCondition') }}
 			</b-button>
+
+			<div class="alert alert-warning mt-3">
+				{{ $t('SurveyEditor.warnForReferencedQuestions') }}
+			</div>
 		</div>
 	</div>
 </template>

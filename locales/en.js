@@ -522,6 +522,8 @@ export default {
 		units: 'Number of units to allocate',
 		warnForReferencedQuestion:
 			'The attributes are read-only because the question is referenced in a conditionally visible question below it.',
+		warnForReferencedQuestions:
+			'The attributes of questions referenced in conditions cannot be modified.',
 	},
 	SurveyResult: {
 		averageValue: 'Average value',

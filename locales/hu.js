@@ -525,6 +525,8 @@ export default {
 		units: 'Elosztandó egységek száma',
 		warnForReferencedQuestion:
 			'Ettől a kérdéstől legalább egy másik kérdés megjelenítése függ, így bizonyos tulajdonságai nem módosíthatók.',
+		warnForReferencedQuestions:
+			'A feltételekben szereplő kérdések bizonyos tulajdonságai nem módosíthatóak.',
 	},
 	SurveyResult: {
 		averageValue: 'Átlagos érték',

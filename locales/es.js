@@ -536,6 +536,8 @@ export default {
 		units: 'Número de unidades a asignar',
 		warnForReferencedQuestion:
 			'Los atributos son de solo lectura porque se hace referencia a la pregunta en una pregunta condicionalmente visible debajo de ella.',
+		warnForReferencedQuestions:
+			'Los atributos de las preguntas referenciadas en condiciones no se pueden modificar.',
 	},
 	SurveyResult: {
 		averageValue: 'Valor promedio',

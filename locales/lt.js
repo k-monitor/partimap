@@ -527,6 +527,7 @@ export default {
 		units: 'Vienetų skaičius',
 		warnForReferencedQuestion:
 			'Šiuos atributus galima tik peržiūrėti, nes nuo šio klausimo atsakymo priklauso, ar bus užduodamas klausimas einantis po jo',
+		warnForReferencedQuestions: 'Sąlygose minimų klausimų atributų keisti negalima.',
 	},
 	SurveyResult: {
 		averageValue: 'Vidutinė vertė',
