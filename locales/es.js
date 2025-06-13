@@ -511,7 +511,7 @@ export default {
 		maxValue: 'Valor máximo',
 		minName: 'Etiqueta (mínimo)',
 		minValue: 'Valor mínimo',
-		moveQuestion: 'Mover pregunta',
+		moveQuestion: 'Mover a otra hoja',
 		other: 'Agregar opción "Otro..."',
 		questionPrefix: 'Pregunta',
 		questionText: 'Texto de la pregunta',

@@ -498,7 +498,7 @@ export default {
 		maxValue: 'Maximum value',
 		minName: 'Label (minimum)',
 		minValue: 'Minimum value',
-		moveQuestion: 'Move question',
+		moveQuestion: 'Move to another sheet',
 		other: 'Add "Other..." option',
 		questionPrefix: 'Question',
 		questionText: 'Question text',

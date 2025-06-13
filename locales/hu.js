@@ -501,7 +501,7 @@ export default {
 		maxValue: 'Maximum érték',
 		minName: 'Minimum elnevezés',
 		minValue: 'Minimum érték',
-		moveQuestion: 'Kérdés mozgatása',
+		moveQuestion: 'Mozgatás másik munkalapra',
 		other: 'Egyéb opció hozzáadása',
 		questionPrefix: 'Kérdés',
 		questionText: 'Kérdés szövege',
