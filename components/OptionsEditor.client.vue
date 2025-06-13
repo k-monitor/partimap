@@ -51,6 +51,7 @@ function delOption(i: number) {
 		<b-form-group ref="formGroupRef">
 			<draggable
 				v-model="options"
+				animation="200"
 				handle=".handle"
 			>
 				<b-input-group

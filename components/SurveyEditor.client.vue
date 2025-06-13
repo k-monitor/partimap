@@ -255,6 +255,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 		<b-list-group class="mb-3">
 			<draggable
 				v-model="survey.questions"
+				animation="200"
 				:draggable="props.readonly ? null : '.item'"
 				handle=".handle"
 				:move="canMoveQuestion"

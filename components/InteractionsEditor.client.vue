@@ -159,6 +159,7 @@ async function removeDrawingInteraction(index: number) {
 
 			<draggable
 				v-model="interactions.drawing"
+				animation="200"
 				draggable=".item"
 				handle=".handle"
 			>
