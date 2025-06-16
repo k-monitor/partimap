@@ -25,6 +25,10 @@ export function canShowQuestion(
 			if (!act && act !== 0) return false;
 			if (row && act[row]) act = act[row];
 			if (exp.split(OPTION_SEPARATOR).some((exp) => act === exp)) return true;
+			if (exp === OTHER_ANSWER) {
+				const actArray = [...act].flat();
+				return actArray.some((e) => e.startsWith(OTHER_PREFIX));
+			}
 			if (Array.isArray(act)) return act.includes(exp);
 			if (Number.isInteger(Number(act))) {
 				let [min, max] = exp.split('-').map((v) => Number(v));

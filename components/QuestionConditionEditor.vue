@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Condition, Question } from '~/server/data/surveyAnswers';
 import type { TestableQuestionOption } from './ShowIfEditor.vue';
+import type { CheckboxOptionRaw } from 'bootstrap-vue-next';
 
 const value = defineModel<Condition>({
 	default: [[NaN], ''],
@@ -10,6 +11,8 @@ const props = defineProps<{
 	testableQuestions: Question[];
 	testableQuestionOptions: TestableQuestionOption[];
 }>();
+
+const { t } = useI18n();
 
 const answer = ref<string | null>(null);
 const max = ref<number | null>(null);
@@ -57,11 +60,18 @@ const minMax = computed(() => {
 
 const answerOptions = computed(() => {
 	if (!question.value) return [];
-	return (
+	const qo =
 		(question.value.type.includes('Matrix')
 			? question.value.columns
-			: question.value.options) || []
-	);
+			: question.value.options) || [];
+	const options: CheckboxOptionRaw[] = [...qo]; // need copying
+	if (question.value.other) {
+		options.push({
+			value: OTHER_ANSWER,
+			text: t('SurveyResult.other'),
+		});
+	}
+	return options;
 });
 
 const answerArray = computed({
@@ -125,7 +135,6 @@ watch(question, async () => {
 	max.value = question.value?.max || 100;
 });
 
-const { t } = useI18n();
 const answerLabel = computed(() => {
 	const label = t('QuestionConditionEditor.selectAnswer');
 	if (isNumberQuestion.value) {
@@ -147,6 +156,7 @@ const answerLabel = computed(() => {
 		</b-form-group>
 		<b-form-group
 			v-if="questionId"
+			:key="String(questionId)"
 			:label="answerLabel"
 		>
 			<b-form-checkbox-group
