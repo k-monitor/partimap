@@ -302,13 +302,21 @@ watch(drawType, async (t) => {
 
 		<ol-vector-layer>
 			<ol-source-vector ref="drawSourceRef">
-				<ol-interaction-draw
-					v-if="currentDrawingInteraction && drawType"
-					:type="drawType"
-					@drawend="handleDrawEnd"
-				>
-					<ol-style :override-style-function="drawingStyleOverride" />
-				</ol-interaction-draw>
+				<template v-if="currentDrawingInteraction && drawType">
+					<ol-interaction-draw
+						v-if="drawType !== 'box'"
+						:type="drawType"
+						@drawend="handleDrawEnd"
+					>
+						<ol-style :override-style-function="drawingStyleOverride" />
+					</ol-interaction-draw>
+					<ol-interaction-dragbox
+						v-else
+						@drawend="handleDrawEnd"
+					>
+						<ol-style :override-style-function="drawingStyleOverride" />
+					</ol-interaction-dragbox>
+				</template>
 			</ol-source-vector>
 		</ol-vector-layer>
 

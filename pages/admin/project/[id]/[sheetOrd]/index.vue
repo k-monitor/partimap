@@ -13,7 +13,7 @@ const localePath = useLocalePath();
 const route = useRoute();
 const { id, sheetOrd } = route.params;
 
-const { loading } = useStore();
+const { currentDrawingInteraction, loading } = useStore();
 
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
@@ -276,6 +276,12 @@ async function save() {
 		loading.value = false;
 	}
 }
+
+function startDrawingExtent() {
+	currentDrawingInteraction.value = createDrawingInteraction({
+		type: 'box',
+	});
+}
 </script>
 
 <template>
@@ -389,6 +395,20 @@ async function save() {
 					/>
 				</client-only>
 			</form-group>
+
+			<div
+				v-if="isInteractive"
+				class="form-group"
+			>
+				<button
+					v-if="!sheet.extent"
+					:disabled="!!currentDrawingInteraction"
+					class="btn btn-primary"
+					@click="startDrawingExtent"
+				>
+					Akcióterület felrajzolása
+				</button>
+			</div>
 
 			<FeatureList
 				v-if="sheet.features"
