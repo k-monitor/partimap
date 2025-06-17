@@ -1,5 +1,3 @@
-export type DrawTypeWithOffState = '' | DrawType;
-
 export default function useStore() {
 	const baseMap = useState<string>('baseMap', () => 'osm');
 	const baseMapToShow = computed(() =>

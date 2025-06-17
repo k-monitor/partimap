@@ -8,6 +8,7 @@ export type ExportableSheetDefinition = {
 	description: string | null;
 	survey: string | null; // JSON
 	features: string | null; // JSON
+	extent: string | null; // JSON
 	interactions: string | null; // JSON
 	descriptionLabel: string | null; // legacy
 };
@@ -37,6 +38,7 @@ export function createSheet(data: any): Sheet {
 		image: data.image,
 		survey: data.survey,
 		features: data.features,
+		extent: data.extent,
 		interactions: data.interactions,
 		descriptionLabel: data.descriptionLabel,
 	};

@@ -1,5 +1,3 @@
-import type { DrawTypeWithOffState } from './useStore';
-
 export type DrawingButton = {
 	color: string;
 	drawingInteraction: DrawingInteraction | null;

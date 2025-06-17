@@ -10,13 +10,16 @@ import { DEFAULT_COLORS } from '~/utils/color';
 // Yes, we need explicit imports for utils as we use this file outside Nuxt context.
 
 export const DRAW_TYPES = ['Point', 'LineString', 'Polygon'] as const;
-export type DrawType = (typeof DRAW_TYPES)[number];
+export const INTERNAL_DRAW_TYPES = [...DRAW_TYPES, 'box'] as const;
+export type DrawType = (typeof INTERNAL_DRAW_TYPES)[number];
+export type DrawTypeWithOffState = '' | DrawType;
 
 export const DRAW_TYPE_ICONS: Record<DrawTypeWithOffState, string> = {
 	'': 'fa-times',
 	Point: 'fa-map-marker-alt',
 	LineString: 'fa-route',
 	Polygon: 'fa-draw-polygon',
+	box: 'fa-vector-square',
 };
 
 export type DrawingInteraction = {
@@ -160,7 +163,7 @@ export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined
 		// #2346, #2841 backward compatibility
 		parsed.forEach((ia: LegacyOnOffInteraction | undefined) => {
 			if (!ia) return;
-			if (DRAW_TYPES.includes(ia as DrawType)) {
+			if (INTERNAL_DRAW_TYPES.includes(ia as DrawType)) {
 				interactions.drawing.push(
 					createDrawingInteraction({
 						id: ia,
@@ -182,7 +185,7 @@ export function deserializeInteractions(sheet: Partial<Sheet> | null | undefined
 		(parsed.enabled || []).forEach((ia: LegacyOnOffInteraction) => {
 			if (ia === 'naming') return;
 
-			if (!DRAW_TYPES.includes(ia as DrawType)) {
+			if (!INTERNAL_DRAW_TYPES.includes(ia as DrawType)) {
 				return filteredEnabled.push(ia as OnOffInteraction);
 			}
 

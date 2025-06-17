@@ -2,6 +2,7 @@
 // TODO spaghetti, need to decouple into multiple components/composables
 
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Extent } from 'ol/extent';
 import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
@@ -13,7 +14,7 @@ const localePath = useLocalePath();
 const route = useRoute();
 const { id, sheetOrd } = route.params;
 
-const { loading } = useStore();
+const { drawType, loading } = useStore();
 
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
@@ -276,6 +277,15 @@ async function save() {
 		loading.value = false;
 	}
 }
+
+function startDrawingExtent() {
+	drawType.value = 'box';
+}
+
+function handleExtentDrawn(extent: Extent) {
+	if (!sheet.value) return;
+	sheet.value.extent = JSON.stringify(extent);
+}
 </script>
 
 <template>
@@ -390,6 +400,29 @@ async function save() {
 				</client-only>
 			</form-group>
 
+			<div
+				v-if="isInteractive"
+				class="form-group"
+			>
+				<button
+					v-if="!sheet.extent"
+					:disabled="drawType !== ''"
+					class="btn btn-primary"
+					@click="startDrawingExtent"
+				>
+					<i class="fas fa-fw fa-expand me-1" />
+					{{ $t('sheetEditor.drawExtent') }}
+				</button>
+				<button
+					v-else
+					class="btn btn-danger"
+					@click="sheet.extent = null"
+				>
+					<i class="fas fa-fw fa-expand me-1" />
+					{{ $t('sheetEditor.clearExtent') }}
+				</button>
+			</div>
+
 			<FeatureList
 				v-if="sheet.features"
 				v-model="features"
@@ -448,6 +481,8 @@ async function save() {
 				:key="$route.path"
 				:features="features"
 				:show-bubbles="isInteractive"
+				:view-extent="safeParseJSON(sheet.extent) || undefined"
+				@extent-drawn="handleExtentDrawn"
 				@feature-drawn="handleFeatureDrawn"
 			/>
 			<EdgeDrawingButtons side="right" />
