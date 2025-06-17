@@ -2,6 +2,7 @@ import { defineNuxtConfig } from 'nuxt/config'; // Yes, we need explicit import 
 import { env } from './env';
 
 export default defineNuxtConfig({
+	compatibilityDate: '2025-06-17',
 	components: [{ path: '~/components', pathPrefix: false }],
 	css: [
 		'@fortawesome/fontawesome-free/css/all.min.css',
