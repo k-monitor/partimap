@@ -2,8 +2,11 @@
 <script setup lang="ts">
 import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Feature as OlFeature, Map, MapBrowserEvent, View } from 'ol';
-import type { ObjectEvent } from 'ol/Object';
+import type { Coordinate } from 'ol/coordinate';
+import type { Extent } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
+import type { DragBoxEvent } from 'ol/interaction/DragBox';
+import type { ObjectEvent } from 'ol/Object';
 import { transform } from 'ol/proj';
 import type { Vector } from 'ol/source';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
@@ -14,6 +17,7 @@ const props = defineProps<{
 	grayRated?: boolean;
 	labelOverrides?: Record<string, string>;
 	showBubbles?: boolean;
+	viewExtent?: Extent;
 	visitor?: boolean;
 }>();
 
@@ -212,6 +216,7 @@ function drawingStyleOverride(f: OlFeature) {
 }
 
 const emit = defineEmits<{
+	(e: 'extentDrawn', extent: Extent): void;
 	(e: 'featureDrawn', feature: GeoJsonFeature): void;
 }>();
 
@@ -257,6 +262,27 @@ async function handleDrawEnd() {
 	setTimeout(() => emitSelectAttempt(feature), timeout);
 }
 
+const boxStartCoordinates = ref<Coordinate>([0, 0]);
+
+function handleBoxStart({ coordinate }: DragBoxEvent) {
+	boxStartCoordinates.value = coordinate;
+}
+
+function handleBoxEnd({ coordinate }: DragBoxEvent) {
+	drawType.value = '';
+	const [x1, y1] = boxStartCoordinates.value;
+	const [x2, y2] = coordinate;
+	const extent: Extent = [Math.min(x1, x2), Math.min(y1, y2), Math.max(x1, x2), Math.max(y1, y2)];
+	emit('extentDrawn', extent);
+}
+
+watchEffect(async () => {
+	if (!props.viewExtent) {
+		await nextTick();
+		fitViewToFeatures();
+	}
+});
+
 // snap
 
 const snapEnabled = ref(false);
@@ -277,6 +303,7 @@ watch(drawType, async (t) => {
 		<ol-view
 			ref="viewRef"
 			:center="initialCenter"
+			:extent="viewExtent"
 			max-zoom="19"
 			:zoom="initialZoom"
 			:projection="PARTIMAP_PROJECTION"
@@ -312,10 +339,9 @@ watch(drawType, async (t) => {
 					</ol-interaction-draw>
 					<ol-interaction-dragbox
 						v-else
-						@drawend="handleDrawEnd"
-					>
-						<ol-style :override-style-function="drawingStyleOverride" />
-					</ol-interaction-dragbox>
+						@boxend="handleBoxEnd"
+						@boxstart="handleBoxStart"
+					/>
 				</template>
 			</ol-source-vector>
 		</ol-vector-layer>
@@ -323,3 +349,10 @@ watch(drawType, async (t) => {
 		<MapControls />
 	</ol-map>
 </template>
+
+<style>
+.ol-dragbox {
+	background: rgb(0, 0, 0, 0.25);
+	border: 2px solid black;
+}
+</style>
