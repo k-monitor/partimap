@@ -215,9 +215,11 @@ export default {
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
 		back: 'Volver al proyecto',
 		backgroundImage: 'Imagen de fondo',
+		clearExtent: 'Borrar límites del mapa',
 		defaultBaseMap: 'Mapa base predeterminado',
 		defaultDescriptionLabel: 'Por favor, explica por qué diste esa respuesta.',
 		defaultRatingQuestion: 'MPor favor, explica por qué diste esa respuesta.',
+		drawExtent: 'Establecer límites del mapa',
 		featureLabel: 'Nombre único de la tarea',
 		featureLabelDescription:
 			'Título corto para identificar la tarea. Se muestra en el informe, en la interfaz de administración y, por defecto, como el nombre de los elementos enviados por los encuestados.',
@@ -431,6 +433,7 @@ export default {
 			'Haz clic en el punto de inicio, opcionalmente haz clic en más puntos. Haz doble clic en el último punto para finalizar y guardar.',
 		Polygon:
 			'Haz clic en los puntos de borde. Haz clic en el punto de inicio nuevamente para finalizar y guardar.',
+		box: 'Dibuja el rectángulo manteniendo presionado el botón del mouse.',
 	},
 	OptionsEditor: {
 		addColumn: 'Agregar columna',

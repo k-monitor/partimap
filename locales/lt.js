@@ -209,9 +209,11 @@ export default {
 		addFeatureQuestion: 'Pridėkite klausimą su atsakymo variantais',
 		back: 'Atgal į projektą',
 		backgroundImage: 'Fono paveikslėlis',
+		clearExtent: 'Išvalyti žemėlapio ribas',
 		defaultBaseMap: 'Numatytas pagrindo žemėlapis',
 		defaultDescriptionLabel: 'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
 		defaultRatingQuestion: 'Prašome paaiškinti, kodėl pateikėte tokį atsakymą.',
+		drawExtent: 'Nustatyti žemėlapio ribas',
 		featureLabel: 'Užduoties pavadinimas',
 		featureLabelDescription:
 			'Trumpas užduoties identifikavimo pavadinimas. Rodomas ataskaitoje, administratoriaus sąsajoje ir pagal numatytuosius nustatymus kaip respondentų pateiktų elementų pavadinimas.',
@@ -423,6 +425,7 @@ export default {
 			'Paspauskite ant pradinio taško, tada pridėkite kiek norite tašku, paspauskite du kartus, kad linija išsisaugotų',
 		Polygon:
 			'Sudėliokite kraštinių taškus ir paspauskite ant pradinio taško daugiakampio išsaugojimui',
+		box: 'Nubrėžkite stačiakampį, laikydami nuspaudę pelės mygtuką.',
 	},
 	OptionsEditor: {
 		addColumn: 'Stulpelio pridėjimas',

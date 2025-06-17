@@ -206,9 +206,11 @@ export default {
 		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
 		back: 'Vissza a projekthez',
 		backgroundImage: 'Háttérkép',
+		clearExtent: 'Térkép határainak törlése',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
 		defaultDescriptionLabel: 'Miért rajzoltad ezt fel?',
 		defaultRatingQuestion: 'Miért adtad ezt az értékelést?',
+		drawExtent: 'Térkép határainak kijelölése',
 		featureLabel: 'Feladat egyedi neve',
 		featureLabelDescription:
 			'Rövid név a feladat azonosítására. Megjelenik a riportban, az adminfelületen és alapbeállításként a kitöltők által felrajzolt elemek neveként.',
@@ -421,6 +423,7 @@ export default {
 			'A vonal kezdetét és köztes pontjait kattintással kell kijelölni, majd dupla kattintással lezárni.',
 		Polygon:
 			'A terület határpontjait kattintással kell kijelölni, majd a kezdőpontra való újbóli kattintással lezárni.',
+		box: 'A téglalapot lenyomva tartott egérgombbal kell kijelölni.',
 	},
 	OptionsEditor: {
 		addColumn: 'Új Oszlop',

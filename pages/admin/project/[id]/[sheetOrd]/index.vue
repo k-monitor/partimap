@@ -411,7 +411,7 @@ function handleExtentDrawn(extent: Extent) {
 					@click="startDrawingExtent"
 				>
 					<i class="fas fa-fw fa-expand me-1" />
-					Akcióterület felrajzolása
+					{{ $t('sheetEditor.drawExtent') }}
 				</button>
 				<button
 					v-else
@@ -419,7 +419,7 @@ function handleExtentDrawn(extent: Extent) {
 					@click="sheet.extent = null"
 				>
 					<i class="fas fa-fw fa-expand me-1" />
-					Akcióterület törlése
+					{{ $t('sheetEditor.clearExtent') }}
 				</button>
 			</div>
 
