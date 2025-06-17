@@ -47,9 +47,9 @@ useHead({
 </template>
 
 <style lang="scss">
-@import '../node_modules/bootstrap/scss/functions';
-@import '../node_modules/bootstrap/scss/variables';
-@import '../node_modules/bootstrap/scss/mixins';
+@import '~/node_modules/bootstrap/scss/functions';
+@import '~/node_modules/bootstrap/scss/variables';
+@import '~/node_modules/bootstrap/scss/mixins';
 
 body {
 	// Reverting back to Bootstrap v4's font-family:
@@ -376,5 +376,5 @@ $basicLightbox__background: rgba(0, 0, 0, 0.8); // Background color
 $basicLightbox__zIndex: 9999; // Stack order
 $basicLightbox__duration: 0.4s; // Transition duration
 $basicLightbox__timing: ease; // Transition timing
-@import '/node_modules/basiclightbox/src/styles/main.scss';
+@import '~/node_modules/basiclightbox/src/styles/main.scss';
 </style>
