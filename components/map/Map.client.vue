@@ -352,7 +352,8 @@ watch(drawType, async (t) => {
 
 <style>
 .ol-dragbox {
-	background: rgb(0, 0, 0, 0.25);
+	background: transparent;
 	border: 2px solid black;
+	box-shadow: 0 0 0 10000px rgb(0, 0, 0, 0.25);
 }
 </style>
