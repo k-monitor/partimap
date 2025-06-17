@@ -10,8 +10,7 @@ useHead({
 	title: t('login.title'),
 });
 
-const { executeReCaptcha } = useReCaptcha();
-
+const captcha = ref();
 const form = ref<HTMLFormElement>();
 const emailInput = ref<HTMLInputElement>();
 const email = ref('');
@@ -52,8 +51,7 @@ async function login() {
 		loading.value = true;
 		errorMessage.value = '';
 		successMessage.value = '';
-		const captcha = await executeReCaptcha('login');
-		await authLogin(email.value, password.value, captcha || '');
+		await authLogin(email.value, password.value, captcha.value);
 	} catch {
 		errorMessage.value = t('login.invalidEmailOrPassword');
 	} finally {
@@ -67,11 +65,10 @@ async function forgot() {
 		loading.value = true;
 		errorMessage.value = '';
 		successMessage.value = '';
-		const captcha = await executeReCaptcha('forgot');
 		await $fetch('/api/user/forgot', {
 			method: 'POST',
 			body: {
-				captcha,
+				captcha: captcha.value,
 				email: email.value,
 				locale: locale.value,
 			},
@@ -143,6 +140,7 @@ async function forgot() {
 									>{{ $t('login.forgotPassword') }}</a
 								>
 							</div>
+							<NuxtTurnstile v-model="captcha" />
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button

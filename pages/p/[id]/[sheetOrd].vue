@@ -250,8 +250,7 @@ watch(currentVisitorFeaturesJSON, () => {
 	setVisitorFeatures(sheet.value?.id, _visitorFeatures);
 });
 
-const { executeReCaptcha } = useReCaptcha();
-
+const captcha = ref();
 const { errorToast, successToast } = useToasts();
 
 const password = ref('');
@@ -259,11 +258,10 @@ const password = ref('');
 async function sendPassword() {
 	try {
 		loading.value = true;
-		const captcha = (await executeReCaptcha('access')) || '';
 		project.value = await $fetch<Project>('/api/project/access', {
 			method: 'POST',
 			body: {
-				captcha: captcha,
+				captcha: captcha.value,
 				idOrSlug: params.id,
 				password: password.value,
 				visitId: visitId.value,
@@ -396,12 +394,11 @@ async function submit() {
 	if (Object.keys(data).length) {
 		try {
 			injectDataIntoFeatures(data);
-			const captcha = await executeReCaptcha('submit');
 			await $fetch(`/api/project/${project.value.id}/submission`, {
 				method: 'PUT',
 				body: {
 					...data,
-					captcha,
+					captcha: captcha.value,
 				},
 			});
 			submitted.value = true;
@@ -430,6 +427,7 @@ const localePath = useLocalePath();
 			class="d-flex h-100 w-100"
 			@submit.prevent=""
 		>
+			<NuxtTurnstile v-model="captcha" />
 			<div
 				v-if="!sheet.features"
 				class="modal show"
@@ -581,6 +579,7 @@ const localePath = useLocalePath();
 									/>
 								</div>
 							</div>
+							<NuxtTurnstile v-model="captcha" />
 						</div>
 						<div class="card-footer text-end">
 							<button class="btn btn-primary">
