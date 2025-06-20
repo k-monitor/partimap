@@ -1,3 +1,7 @@
+<script setup>
+const { locale, locales, setLocale } = useI18n();
+</script>
+
 <template>
 	<b-nav-item-dropdown
 		id="ssr-id-LangSwitcher-dropdown"
@@ -10,17 +14,17 @@
 			<i class="fas fa-globe me-1" />
 		</template>
 		<b-dropdown-item
-			v-for="locale in $i18n.locales"
-			:key="locale.code"
+			v-for="loc in locales"
+			:key="loc.code"
 			href="#"
-			@click.prevent.stop="$i18n.setLocale(locale.code)"
+			@click.prevent.stop="setLocale(loc.code)"
 		>
 			<i
 				class="fas fa-check me-1"
-				:class="{ invisible: locale.code !== $i18n.locale }"
+				:class="{ invisible: loc.code !== locale }"
 			/>
-			<span :class="{ 'fw-bold': locale.code === $i18n.locale }">
-				{{ locale.name }}
+			<span :class="{ 'fw-bold': loc.code === locale }">
+				{{ loc.name }}
 			</span>
 		</b-dropdown-item>
 	</b-nav-item-dropdown>

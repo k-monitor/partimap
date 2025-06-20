@@ -57,7 +57,7 @@ function resetPassword() {
 	passwordModified.value = true;
 }
 
-const { locale, t } = useI18n();
+const { locales, t } = useI18n();
 
 const subscribeOptions = [
 	{ value: 'N', text: t('projectEditor.subscribeN') },
@@ -174,7 +174,7 @@ const { user } = useAuth();
 								class="form-select"
 							>
 								<option
-									v-for="l in $i18n.locales"
+									v-for="l in locales"
 									:key="l.code"
 									:value="l.code"
 								>
