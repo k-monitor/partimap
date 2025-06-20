@@ -3,13 +3,7 @@ const { locale, locales, setLocale } = useI18n();
 </script>
 
 <template>
-	<b-nav-item-dropdown
-		id="ssr-id-LangSwitcher-dropdown"
-		:teleport-disabled="true"
-		teleport-to="body"
-		right
-	>
-		<!-- TODO ^ id attribute is only needed to tackle BootstrapVueNext's SSR issue -->
+	<b-nav-item-dropdown right>
 		<template #button-content>
 			<i class="fas fa-globe me-1" />
 		</template>

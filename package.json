@@ -17,7 +17,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@bootstrap-vue-next/nuxt": "^0.16.6",
+		"@bootstrap-vue-next/nuxt": "^0.30.3",
 		"@fortawesome/fontawesome-free": "^6.5.2",
 		"@nuxtjs/i18n": "^9.5.5",
 		"@stefanobartoletti/nuxt-social-share": "^1.2.2",
@@ -32,7 +32,7 @@
 		"basiclightbox": "^5.0.4",
 		"bcryptjs": "^3.0.2",
 		"bootstrap": "^5.3.7",
-		"bootstrap-vue-next": "^0.16.6",
+		"bootstrap-vue-next": "^0.30.3",
 		"copy-to-clipboard": "^3.3.3",
 		"excel4node": "^1.8.2",
 		"file-saver": "^2.0.5",

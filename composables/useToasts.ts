@@ -1,5 +1,5 @@
 export default function useToasts() {
-	const { show, remove } = useToast();
+	const { create } = useToastController();
 
 	function toast(message: string, variant: string) {
 		const colorClasses =
@@ -7,17 +7,15 @@ export default function useToasts() {
 				? 'bg-danger border-danger text-white'
 				: 'bg-dark border-secondary text-white';
 
-		const id = show?.({
-			props: {
-				interval: 2500, // not respected, workaround below
-				noCloseButton: true,
-				pos: 'bottom-center',
-				solid: true,
-				title: message,
-				toastClass: `${colorClasses} border mb-5 rounded shadow-sm text-center`,
-			},
+		const toast = create({
+			noCloseButton: true,
+			noProgress: true,
+			position: 'bottom-center',
+			solid: true,
+			title: message,
+			toastClass: `${colorClasses} border mb-5 rounded shadow-sm text-center`,
 		});
-		if (id) window.setTimeout(() => remove?.(id), 2500); // ensure toast is removed
+		window.setTimeout(() => toast?.destroy(), 2500);
 	}
 
 	function errorToast(message: string) {
