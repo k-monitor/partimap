@@ -75,7 +75,7 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"@nuxt/eslint-config": "^0.3.13",
+		"@nuxt/eslint": "1.4.1",
 		"@nuxt/test-utils": "^3.13.1",
 		"@types/bcryptjs": "^2.4.6",
 		"@types/file-saver": "^2.0.7",
@@ -91,12 +91,12 @@
 		"@vitest/ui": "^1.6.0",
 		"db-migrate": "^0.11.14",
 		"db-migrate-mysql": "^2.3.2",
-		"eslint": "^8.57.0",
-		"eslint-config-prettier": "^9.1.0",
+		"eslint": "^9.29.0",
 		"geojson": "^0.5.0",
 		"nuxt": "^3.17.5",
 		"prettier": "^3.3.2",
 		"tsx": "^4.19.2",
 		"vitest": "^1.6.1"
-	}
+	},
+	"packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }

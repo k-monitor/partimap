@@ -1,4 +1,4 @@
-export function hideSecrets(obj: Object): Object {
+export function hideSecrets(obj: object): object {
 	// We store hashes of course, but better to keep them inside too. :)
 	if (Array.isArray(obj)) {
 		return obj.map(hideSecrets);

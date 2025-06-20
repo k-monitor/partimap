@@ -26,7 +26,7 @@ export const updateSessionExpiration = (event: H3Event) => {
 		httpOnly: true,
 		path: '/',
 		sameSite: 'lax',
-		secure: !process.dev,
+		secure: !import.meta.dev,
 	});
 };
 

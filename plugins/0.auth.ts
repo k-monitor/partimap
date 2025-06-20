@@ -6,7 +6,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 	const { data: user, refresh: updateSession } = await useFetch<PublicUser>('/api/auth/me');
 	const loggedIn = computed(() => !!user.value?.id);
 
-	if (process.client && loggedIn.value) {
+	if (import.meta.client && loggedIn.value) {
 		$fetch('/api/auth/update-session', { method: 'PATCH' });
 	}
 
