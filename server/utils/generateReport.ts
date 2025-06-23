@@ -12,6 +12,7 @@ import type { Survey } from '~/server/data/surveyAnswers';
 import i18n from '~/server/utils/i18n';
 import { safeParseJSON, safeParseJSONArray } from '~/server/utils/json';
 import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
+import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
 // Yes, we need explicit imports for utils as we use this file outside Nuxt context.
 
 // TODO refactor: use xlsx.js instead of excel4node
@@ -161,7 +162,9 @@ function generateAnswersSheet(
 				if (q.type === 'checkbox') {
 					a = safeParseJSON(a) || a;
 				}
-				// FIXME answer might have "other:" prefix
+				if (a.startsWith?.(OTHER_PREFIX)) {
+					a = `${m.other}: ${a.slice(OTHER_PREFIX.length)}`;
+				}
 				writeCell(a);
 				COL++;
 			}
@@ -175,12 +178,12 @@ function generateAggregatedAnswersSheet(
 	questions: sadb.Question[],
 	aggregatedAnswers: sadb.AggregatedAnswers[],
 ) {
-	const sheet = wb.addWorksheet('TODO aggregált válaszok');
-	sheet.cell(1, 1).string('TODO kérdés');
-	sheet.cell(1, 2).string('TODO válasz');
-	sheet.cell(1, 3).string('TODO darabszám');
-	sheet.cell(1, 4).string('TODO százalék');
-	sheet.cell(1, 5).string('TODO átlag');
+	const sheet = wb.addWorksheet(m.aggregatedAnswers);
+	sheet.cell(1, 1).string(m.question);
+	sheet.cell(1, 2).string(m.answer);
+	sheet.cell(1, 3).string(m.count);
+	sheet.cell(1, 4).string(m.percent);
+	sheet.cell(1, 5).string(m.average);
 	let row = 1;
 	aggregatedAnswers.forEach((aa) => {
 		const qid = aa.questionId.split('/')[0];
@@ -191,6 +194,7 @@ function generateAggregatedAnswersSheet(
 
 		row++;
 		sheet.cell(row, 1).string(question);
+		sheet.cell(row, 2).string(m.allAnswers);
 		sheet.cell(row, 3).number(aa.count);
 		if (aa.average) {
 			sheet.cell(row, 5).number(aa.average);
@@ -210,8 +214,7 @@ function generateAggregatedAnswersSheet(
 			(aa.options || []).forEach((o) => {
 				row++;
 				sheet.cell(row, 1).string(aa.question);
-				sheet.cell(row, 2).string(o.answer);
-				// FIXME o.answer can be "other" -> need i18n
+				sheet.cell(row, 2).string(o.answer === OTHER_ANSWER ? m.other : o.answer);
 				if (o.count) sheet.cell(row, 3).number(o.count);
 				if (o.percent) sheet.cell(row, 4).number(o.percent);
 				if (o.average) sheet.cell(row, 5).number(o.average);
