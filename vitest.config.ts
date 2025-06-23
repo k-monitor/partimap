@@ -1,3 +1,8 @@
-import { defineVitestConfig } from '@nuxt/test-utils/config';
+import { defineConfig } from 'vitest/config';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineVitestConfig({});
+export default defineConfig({
+	plugins: [tsconfigPaths()],
+	// ^ TS error but copied from docs
+	// https://vitest.dev/guide/common-errors.html#cannot-find-module-relative-path
+});
