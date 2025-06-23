@@ -314,42 +314,40 @@ function handleExtentDrawn(extent: Extent) {
 				<tiptap v-model="sheet.description" />
 			</form-group>
 
-			<client-only>
-				<b-form-group
-					v-if="!sheet.features"
-					:invalid-feedback="$t('imageUpload.maxFileSize')"
-					:state="backgroundImageState"
-				>
-					<template #label>
-						<h6 class="mb-0">
-							{{ $t('sheetEditor.backgroundImage') }}
-						</h6>
+			<b-form-group
+				v-if="!sheet.features"
+				:invalid-feedback="$t('imageUpload.maxFileSize')"
+				:state="backgroundImageState"
+			>
+				<template #label>
+					<h6 class="mb-0">
+						{{ $t('sheetEditor.backgroundImage') }}
+					</h6>
+				</template>
+				<b-input-group v-if="!sheet.image">
+					<ImageFileInput
+						v-model="backgroundImage"
+						:state="backgroundImageState"
+					/>
+					<template #append>
+						<b-button
+							:disabled="!backgroundImage"
+							variant="outline-danger"
+							@click="removeBackground"
+						>
+							<i class="fas fa-backspace" />
+						</b-button>
 					</template>
-					<b-input-group v-if="!sheet.image">
-						<ImageFileInput
-							v-model="backgroundImage"
-							:state="backgroundImageState"
-						/>
-						<template #append>
-							<b-button
-								:disabled="!backgroundImage"
-								variant="outline-danger"
-								@click="removeBackground"
-							>
-								<i class="fas fa-backspace" />
-							</b-button>
-						</template>
-					</b-input-group>
-					<b-button
-						v-else
-						class="w-100"
-						variant="outline-danger"
-						@click="removeBackground"
-					>
-						{{ $t('imageUpload.remove') }}
-					</b-button>
-				</b-form-group>
-			</client-only>
+				</b-input-group>
+				<b-button
+					v-else
+					class="w-100"
+					variant="outline-danger"
+					@click="removeBackground"
+				>
+					{{ $t('imageUpload.remove') }}
+				</b-button>
+			</b-form-group>
 
 			<form-group
 				v-if="sheet.survey"
@@ -371,33 +369,29 @@ function handleExtentDrawn(extent: Extent) {
 				v-if="canHaveResults"
 				:label="$t('SheetContent.results')"
 			>
-				<client-only>
-					<b-form-checkbox
-						v-model="showAllResults"
-						@change="showAllResultsClicked"
-					>
-						{{ $t('sheetEditor.showAllResults') }}
-					</b-form-checkbox>
-					<b-form-checkbox
-						v-if="someResultsEnabled"
-						v-model="interactions.enabled"
-						value="ShowResultsOnly"
-					>
-						{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
-					</b-form-checkbox>
-				</client-only>
+				<b-form-checkbox
+					v-model="showAllResults"
+					@change="showAllResultsClicked"
+				>
+					{{ $t('sheetEditor.showAllResults') }}
+				</b-form-checkbox>
+				<b-form-checkbox
+					v-if="someResultsEnabled"
+					v-model="interactions.enabled"
+					value="ShowResultsOnly"
+				>
+					{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
+				</b-form-checkbox>
 			</form-group>
 
 			<form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
 			>
-				<client-only>
-					<b-form-select
-						v-model="interactions.baseMap"
-						:options="baseMaps.map((bm) => bm.id)"
-					/>
-				</client-only>
+				<b-form-select
+					v-model="interactions.baseMap"
+					:options="baseMaps.map((bm) => bm.id)"
+				/>
 			</form-group>
 
 			<div

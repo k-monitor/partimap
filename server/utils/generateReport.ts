@@ -2,7 +2,7 @@ import xl from 'excel4node';
 import type { Feature as GeoJsonFeature } from 'geojson';
 import isMobile from 'is-mobile';
 import transformation from 'transform-coordinates';
-import * as pdb from '~/server/data/projects';
+import type * as pdb from '~/server/data/projects';
 import * as rdb from '~/server/data/ratings';
 import * as sdb from '~/server/data/sheets';
 import * as sadb from '~/server/data/surveyAnswers';
@@ -51,7 +51,7 @@ export default async function (
 	b.end('query: answers');
 
 	b.start('query: aggregatedAnswers');
-	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id, true);
+	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id);
 	console.log(JSON.stringify(aggregatedAnswers));
 	b.end('query: aggregatedAnswers');
 

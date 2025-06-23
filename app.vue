@@ -33,29 +33,22 @@ useHead({
 		class="bg-light d-flex flex-column"
 	>
 		<NuxtPage />
-		<client-only>
-			<BModalOrchestrator
-				:teleport-disabled="true"
-				teleport-to="body"
-			/>
-			<BToastOrchestrator
-				:teleport-disabled="true"
-				teleport-to="body"
-			/>
-		</client-only>
+		<BModalOrchestrator />
+		<BToastOrchestrator />
 	</div>
 </template>
 
 <style lang="scss">
-@import '../node_modules/bootstrap/scss/functions';
-@import '../node_modules/bootstrap/scss/variables';
-@import '../node_modules/bootstrap/scss/mixins';
+@import '~/node_modules/bootstrap/scss/functions';
+@import '~/node_modules/bootstrap/scss/variables';
+@import '~/node_modules/bootstrap/scss/mixins';
 
 body {
 	// Reverting back to Bootstrap v4's font-family:
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-		'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-		'Segoe UI Symbol', 'Noto Color Emoji';
+	font-family:
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+		'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+		'Noto Color Emoji';
 }
 
 html,
@@ -376,5 +369,5 @@ $basicLightbox__background: rgba(0, 0, 0, 0.8); // Background color
 $basicLightbox__zIndex: 9999; // Stack order
 $basicLightbox__duration: 0.4s; // Transition duration
 $basicLightbox__timing: ease; // Transition timing
-@import '/node_modules/basiclightbox/src/styles/main.scss';
+@import '~/node_modules/basiclightbox/src/styles/main.scss';
 </style>

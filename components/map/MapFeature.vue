@@ -4,7 +4,7 @@ import type { Feature as OlFeature } from 'ol';
 import type { Coordinate } from 'ol/coordinate';
 import { getCenter } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
-import LineString from 'ol/geom/LineString.js';
+import type LineString from 'ol/geom/LineString.js';
 import { Circle, Fill, Stroke, Style, Text } from 'ol/style';
 import tinycolor from 'tinycolor2';
 import type { Map } from 'vue3-openlayers';

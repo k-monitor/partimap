@@ -1,6 +1,13 @@
 <script setup lang="ts">
 const { user } = useAuth();
 const localePath = useLocalePath();
+
+const visible = ref(false);
+function toggle() {
+	visible.value = !visible.value;
+}
+// ^ workaround because navbar toggler stops working after routing
+// Bootstrap Vue Next v0.30.3
 </script>
 
 <template>
@@ -13,10 +20,19 @@ const localePath = useLocalePath();
 			<b-navbar-brand :to="localePath('/admin')">
 				<Logo />
 			</b-navbar-brand>
-			<b-navbar-toggle target="nav-collapse" />
+			<!-- <b-navbar-toggle target="nav-collapse" /> -->
+			<button
+				class="navbar-toggler"
+				type="button"
+				aria-label="Toggle navigation"
+				@click="toggle"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
 			<b-collapse
 				id="nav-collapse"
+				v-model="visible"
 				is-nav
 			>
 				<b-navbar-nav>
@@ -34,9 +50,6 @@ const localePath = useLocalePath();
 					</b-nav-item>
 					<b-nav-item-dropdown
 						v-if="user?.isAdmin"
-						id="ssr-id-AdminFrame-editHelp-dropdown"
-						:teleport-disabled="true"
-						teleport-to="body"
 						:text="$t('AdminFrame.editHelp')"
 					>
 						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
@@ -52,9 +65,6 @@ const localePath = useLocalePath();
 						{{ $t('AdminFrame.help') }}
 					</b-nav-item>
 					<b-nav-item-dropdown
-						id="ssr-id-AdminFrame-user-dropdown"
-						:teleport-disabled="true"
-						teleport-to="body"
 						:text="user?.name"
 						right
 					>

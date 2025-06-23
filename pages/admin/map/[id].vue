@@ -6,7 +6,7 @@ const localePath = useLocalePath();
 const { currentRoute } = useRouter();
 const { t } = useI18n();
 
-const { data: mapData, refresh } = await useFetch<Map>('/api/map/' + currentRoute.value.params.id);
+const { data: mapData } = await useFetch<Map>('/api/map/' + currentRoute.value.params.id);
 
 useHead({
 	title: () => `Admin: ${mapData.value?.title}`,

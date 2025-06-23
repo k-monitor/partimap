@@ -80,7 +80,6 @@ function handleMove() {
 		no-close-on-backdrop
 		:ok-title="$t('SaveButton.save')"
 		ok-variant="success"
-		teleport-to="body"
 		:title="$t('SurveyEditor.moveQuestion')"
 		@ok="handleMove"
 	>

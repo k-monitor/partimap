@@ -83,7 +83,7 @@ watch(
 			:show-results="showResults"
 		/>
 
-		<client-only v-if="ratingValue && !showResults">
+		<template v-if="ratingValue && !showResults">
 			<template v-if="interactions?.enabled?.includes('RatingExplanation')">
 				<b-form-group
 					:label="interactions?.ratingQuestion || $t('sheetEditor.defaultRatingQuestion')"
@@ -123,6 +123,6 @@ watch(
 					/>
 				</b-form-group>
 			</div>
-		</client-only>
+		</template>
 	</div>
 </template>

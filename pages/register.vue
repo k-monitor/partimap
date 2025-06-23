@@ -135,13 +135,10 @@ async function userReg() {
 				</form>
 			</div>
 			<b-modal
-				id="ssr-id-register-terms-modal"
 				v-model="termsModal"
 				hide-footer
 				scrollable
 				size="lg"
-				:teleport-disabled="true"
-				teleport-to="body"
 				:title="$t('register.termsTitle')"
 			>
 				<Terms />

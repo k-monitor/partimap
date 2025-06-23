@@ -1,11 +1,11 @@
 import StatusCodes from 'http-status-codes';
 import { getClientIp } from 'request-ip';
 import { z } from 'zod';
-import { SubmissionDataBySheet } from '~/composables/useVisitorData';
+import type { SubmissionDataBySheet } from '~/composables/useVisitorData';
 import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
 import * as smdb from '~/server/data/submissions';
-import { SubmittedFeatures } from '~/server/data/submittedFeatures';
+import type { SubmittedFeatures } from '~/server/data/submittedFeatures';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),

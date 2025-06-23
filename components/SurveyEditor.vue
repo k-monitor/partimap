@@ -342,6 +342,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					v-if="!props.readonly"
 					button
 					class="d-flex align-items-center text-success"
+					style="z-index: 0"
 					@click="addQuestion"
 				>
 					<i class="fas fa-fw fa-plus me-2" />
@@ -356,8 +357,6 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 			:ok-disabled="props.readonly"
 			:ok-title="$t('SaveButton.save')"
 			ok-variant="success"
-			:teleport-disabled="true"
-			teleport-to="body"
 			:title="$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
 			@ok="saveQuestion"
 			@shown="questionLabelInput?.focus()"

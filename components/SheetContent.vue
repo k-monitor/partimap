@@ -101,13 +101,10 @@ onMounted(() => (consented.value = consent.value));
 			</div>
 		</div>
 		<b-modal
-			id="ssr-id-sheet-privacy-modal"
 			v-model="privacyModalVisible"
 			hide-footer
 			scrollable
 			size="lg"
-			:teleport-disabled="true"
-			teleport-to="body"
 			:title="$t('sheet.privacyPolicy')"
 		>
 			<Terms :project-data-processor="project.privacyPolicy" />

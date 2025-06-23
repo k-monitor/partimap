@@ -1,4 +1,4 @@
-import { PublicUser } from '~/server/data/users';
+import type { PublicUser } from '~/server/data/users';
 
 export default defineEventHandler(async (event) => {
 	if (!event.context.user) return {};

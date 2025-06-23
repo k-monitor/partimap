@@ -64,8 +64,6 @@ watch(dt, (dt, oldDt) => {
 		no-close-on-backdrop
 		:ok-title="$t('SaveButton.save')"
 		ok-variant="success"
-		:teleport-disabled="true"
-		teleport-to="body"
 		:title="di.featureLabel || $t(`sheetEditor.interactions.${di.type}`)"
 		@ok="handleOk"
 	>

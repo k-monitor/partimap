@@ -99,7 +99,6 @@ function removeAnswer(questionId: number) {
 		/>
 		<b-form-input
 			v-else-if="q.type === 'text'"
-			:id="`ssr-id-q${q.id}`"
 			v-model.trim="answers[q.id]"
 			:name="`q${q.id}`"
 			:required="q.required"
@@ -115,7 +114,6 @@ function removeAnswer(questionId: number) {
 			</div>
 			<div class="align-items-center d-flex position-relative">
 				<b-form-input
-					:id="`ssr-id-q${q.id}`"
 					v-model.number="answers[q.id]"
 					:min="q.min"
 					:max="q.max"
@@ -138,15 +136,14 @@ function removeAnswer(questionId: number) {
 				/>
 			</div>
 		</template>
-		<client-only v-else-if="q.type === 'radiogroup'">
-			<b-form-radio-group
-				v-model="answers[q.id]"
-				:name="`q${q.id}`"
-				:options="q.options"
-				:required="q.required"
-				stacked
-			/>
-		</client-only>
+		<b-form-radio-group
+			v-else-if="q.type === 'radiogroup'"
+			v-model="answers[q.id]"
+			:name="`q${q.id}`"
+			:options="q.options"
+			:required="q.required"
+			stacked
+		/>
 		<DropdownGroup
 			v-else-if="q.type === 'dropdown'"
 			v-model="answers[q.id]"
