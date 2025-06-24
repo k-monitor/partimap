@@ -12,7 +12,11 @@ import type { Survey } from '~/server/data/surveyAnswers';
 import i18n from '~/server/utils/i18n';
 import { safeParseJSON, safeParseJSONArray } from '~/server/utils/json';
 import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
+import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
 // Yes, we need explicit imports for utils as we use this file outside Nuxt context.
+
+// TODO refactor: use xlsx.js instead of excel4node
+// TODO refactor: use Nuxt i18n server side
 
 const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
 function ol2gm(coords: number[]) {
@@ -32,6 +36,8 @@ function createBenchmarkFunctions(enabled: boolean) {
 	};
 }
 
+type ServerMessages = ReturnType<typeof i18n>;
+
 export default async function (
 	project: pdb.Project,
 	lang: string,
@@ -39,7 +45,7 @@ export default async function (
 ) {
 	const b = createBenchmarkFunctions(enableBenchmark);
 
-	const m = i18n(lang).report;
+	const m: ServerMessages['report'] = i18n(lang).report;
 	const sheets = await sdb.findAllByProjectId(project.id);
 
 	b.start('query: submissions');
@@ -51,8 +57,7 @@ export default async function (
 	b.end('query: answers');
 
 	b.start('query: aggregatedAnswers');
-	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id);
-	console.log(JSON.stringify(aggregatedAnswers));
+	const aggregatedAnswers = await sadb.aggregateByProjectId(project.id, true);
 	b.end('query: aggregatedAnswers');
 
 	b.start('query: ratings');
@@ -74,6 +79,39 @@ export default async function (
 	});
 
 	b.start('sheet: answers');
+	generateAnswersSheet(wb, m, questions, submissions, answers);
+	b.end('sheet: answers');
+
+	b.start('sheet: aggregated answers');
+	generateAggregatedAnswersSheet(wb, m, questions, aggregatedAnswers);
+	b.end('sheet: aggregated answers');
+
+	if (ratings.length > 0) {
+		b.start('sheet: ratings');
+		generateRatingsSheet(wb, m, sheets, ratings);
+		b.end('sheet: ratings');
+
+		b.start('sheet: aggregated ratings');
+		await generateAggregatedRatingsSheet(wb, m, sheets, ratings);
+		b.end('sheet: aggregated ratings');
+	}
+
+	if (submittedFeatures.length > 0) {
+		b.start('sheet: submitted features');
+		generateSubmittedFeaturesSheet(wb, m, sheets, submittedFeatures);
+		b.end('sheet: submitted features');
+	}
+
+	return wb;
+}
+
+function generateAnswersSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	questions: sadb.Question[],
+	submissions: smdb.Submission[],
+	answers: sadb.SurveyAnswer[],
+) {
 	const sas = wb.addWorksheet(m.submittedAnswers);
 	sas.cell(1, 1).string(m.submissionId);
 	sas.cell(1, 2).string(m.timestamp);
@@ -124,180 +162,231 @@ export default async function (
 				if (q.type === 'checkbox') {
 					a = safeParseJSON(a) || a;
 				}
+				if (a.startsWith?.(OTHER_PREFIX)) {
+					a = `${m.other}: ${a.slice(OTHER_PREFIX.length)}`;
+				}
 				writeCell(a);
 				COL++;
 			}
 		});
 	});
-	b.end('sheet: answers');
+}
 
-	if (ratings.length > 0) {
-		b.start('sheet: ratings');
-		const rs = wb.addWorksheet(m.ratings);
-		rs.cell(1, 1).string(m.submissionId);
-		rs.cell(1, 2).string(m.feature);
-		rs.cell(1, 3).string(m.featureName);
-		rs.cell(1, 4).string(m.rating);
-		rs.cell(1, 5).string(m.ratingQuestion);
-		rs.cell(1, 6).string(m.ratingAnswer);
-		rs.cell(1, 7).string(m.ratingPros);
-		rs.cell(1, 8).string(m.ratingCons);
-		ratings.forEach((r, i) => {
-			rs.cell(i + 2, 1).number(r.submissionId);
-			rs.cell(i + 2, 2).string(String(r.featureId));
-			rs.cell(i + 2, 4).number(r.rating);
-			rs.cell(i + 2, 5).string(r.question || '');
-			rs.cell(i + 2, 6).string(r.answer || '');
-			rs.cell(i + 2, 7).string(r.pros || '');
-			rs.cell(i + 2, 8).string(r.cons || '');
-			const sheet = sheets.filter((sh) => sh.id === r.sheetId)[0];
-			if (sheet && sheet.features) {
-				const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[];
-				const feature = features.find((f) => String(f.id || '') === String(r.featureId));
-				const name = feature?.properties?.name || '';
-				rs.cell(i + 2, 3).string(String(name));
+function generateAggregatedAnswersSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	questions: sadb.Question[],
+	aggregatedAnswers: sadb.AggregatedAnswers[],
+) {
+	const sheet = wb.addWorksheet(m.aggregatedAnswers);
+	sheet.cell(1, 1).string(m.question);
+	sheet.cell(1, 2).string(m.answer);
+	sheet.cell(1, 3).string(m.count);
+	sheet.cell(1, 4).string(m.percent);
+	sheet.cell(1, 5).string(m.average);
+	let row = 1;
+	aggregatedAnswers.forEach((aa) => {
+		const qid = aa.questionId.split('/')[0];
+		const q = questions.find((q) => q.id === Number(qid));
+		if (!q) return;
+		const suffix = q.minLabel && q.maxLabel ? ` [${q.minLabel} - ${q.maxLabel}]` : '';
+		const question = aa.question + suffix;
+
+		row++;
+		sheet.cell(row, 1).string(question);
+		sheet.cell(row, 2).string(m.allAnswers);
+		sheet.cell(row, 3).number(aa.count);
+		if (aa.average) {
+			sheet.cell(row, 5).number(aa.average);
+		}
+
+		if (
+			[
+				'checkbox',
+				'radiogroup',
+				'dropdown',
+				'rating',
+				'singleChoiceMatrix',
+				'multipleChoiceMatrix',
+				'distributeUnits',
+			].includes(q.type)
+		) {
+			(aa.options || []).forEach((o) => {
+				row++;
+				sheet.cell(row, 1).string(aa.question);
+				sheet.cell(row, 2).string(o.answer === OTHER_ANSWER ? m.other : o.answer);
+				if (o.count) sheet.cell(row, 3).number(o.count);
+				if (o.percent) sheet.cell(row, 4).number(o.percent);
+				if (o.average) sheet.cell(row, 5).number(o.average);
+			});
+		}
+	});
+}
+
+function generateRatingsSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	sheets: sdb.Sheet[],
+	ratings: rdb.Rating[],
+) {
+	const rs = wb.addWorksheet(m.ratings);
+	rs.cell(1, 1).string(m.submissionId);
+	rs.cell(1, 2).string(m.feature);
+	rs.cell(1, 3).string(m.featureName);
+	rs.cell(1, 4).string(m.rating);
+	rs.cell(1, 5).string(m.ratingQuestion);
+	rs.cell(1, 6).string(m.ratingAnswer);
+	rs.cell(1, 7).string(m.ratingPros);
+	rs.cell(1, 8).string(m.ratingCons);
+	ratings.forEach((r, i) => {
+		rs.cell(i + 2, 1).number(r.submissionId);
+		rs.cell(i + 2, 2).string(String(r.featureId));
+		rs.cell(i + 2, 4).number(r.rating);
+		rs.cell(i + 2, 5).string(r.question || '');
+		rs.cell(i + 2, 6).string(r.answer || '');
+		rs.cell(i + 2, 7).string(r.pros || '');
+		rs.cell(i + 2, 8).string(r.cons || '');
+		const sheet = sheets.filter((sh) => sh.id === r.sheetId)[0];
+		if (sheet && sheet.features) {
+			const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[];
+			const feature = features.find((f) => String(f.id || '') === String(r.featureId));
+			const name = feature?.properties?.name || '';
+			rs.cell(i + 2, 3).string(String(name));
+		}
+	});
+}
+
+async function generateAggregatedRatingsSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	sheets: sdb.Sheet[],
+	ratings: rdb.Rating[],
+) {
+	const ars = wb.addWorksheet(m.aggregatedRatings);
+	ars.cell(1, 1).string(m.feature);
+	ars.cell(1, 2).string(m.featureName);
+	ars.cell(1, 3).string(m.ratingCount);
+	ars.cell(1, 4).string(m.aggregatedRating);
+	ars.cell(1, 5).string(m.likeCount);
+	ars.cell(1, 6).string(m.dislikeCount);
+	ars.cell(1, 7).string(m.ratingQuestion);
+	ars.cell(1, 8).string(m.ratingAnswer);
+	ars.cell(1, 9).string(m.ratingPros);
+	ars.cell(1, 10).string(m.ratingCons);
+	let row = 1;
+	for (let i = 0; i < sheets.length; i++) {
+		const sheet = sheets[i];
+		const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[]; // TODO redundant
+		const interactions = deserializeInteractions(sheet);
+		const stars = interactions.stars;
+
+		const ar = await rdb.aggregateBySheetId(sheet.id);
+		for (let j = 0; j < ar.length; j++) {
+			const r = ar[j];
+			const feature = features.find((f) => String(f.id || '') === String(r.featureId));
+			if (!feature) continue;
+
+			row++;
+			const name = feature.properties?.name || '';
+			ars.cell(row, 1).string(String(r.featureId));
+			ars.cell(row, 2).string(String(name));
+			ars.cell(row, 3).number(r.count);
+			if (stars === -2) {
+				ars.cell(row, 4).number(Number(r.sum));
+				ars.cell(row, 5).number(Number(r.likeCount));
+				ars.cell(row, 6).number(Number(r.dislikeCount));
+			} else {
+				ars.cell(row, 4).number(Number(r.average));
 			}
-		});
-		b.end('sheet: ratings');
 
-		b.start('sheet: aggregated ratings');
-		const ars = wb.addWorksheet(m.aggregatedRatings);
-		ars.cell(1, 1).string(m.feature);
-		ars.cell(1, 2).string(m.featureName);
-		ars.cell(1, 3).string(m.ratingCount);
-		ars.cell(1, 4).string(m.aggregatedRating);
-		ars.cell(1, 5).string(m.likeCount);
-		ars.cell(1, 6).string(m.dislikeCount);
-		ars.cell(1, 7).string(m.ratingQuestion);
-		ars.cell(1, 8).string(m.ratingAnswer);
-		ars.cell(1, 9).string(m.ratingPros);
-		ars.cell(1, 10).string(m.ratingCons);
-		let row = 1;
-		for (let i = 0; i < sheets.length; i++) {
-			const sheet = sheets[i];
-			const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[]; // TODO redundant
+			const rs = ratings.filter(
+				(r) => r.sheetId === sheet.id && r.featureId === String(feature.id || ''),
+			);
+			ars.cell(row, 7).string(rs[rs.length - 1]?.question || '');
+			ars.cell(row, 8).string(stringifyArray(rs.map((r) => r.answer || '')));
+			ars.cell(row, 9).string(stringifyArray(rs.map((r) => r.pros || '')));
+			ars.cell(row, 10).string(stringifyArray(rs.map((r) => r.cons || '')));
+		}
+	}
+}
+
+function stringifyArray(arr: string[]) {
+	return arr
+		.map((a) => a.replace(/\s+/g, ' ').trim())
+		.filter(Boolean)
+		.join(';');
+}
+
+function generateSubmittedFeaturesSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	sheets: sdb.Sheet[],
+	submittedFeatures: sfdb.SubmittedFeatures[],
+) {
+	const sfs = wb.addWorksheet(m.submittedFeatures);
+	sfs.cell(1, 1).string(m.submissionId);
+	sfs.cell(1, 2).string(m.featureLabel);
+	sfs.cell(1, 3).string(m.featureType);
+	sfs.cell(1, 4).string(m.coords);
+	sfs.cell(1, 5).string(m.feature);
+	sfs.cell(1, 6).string(m.featureName);
+	sfs.cell(1, 7).string(m.descriptionLabel);
+	sfs.cell(1, 8).string(m.featureDesc);
+	sfs.cell(1, 9).string(m.featureQuestion);
+	sfs.cell(1, 10).string(m.featureQuestionAnswer);
+	let row = 1;
+	for (let i = 0; i < submittedFeatures.length; i++) {
+		const sf = submittedFeatures[i];
+		const sheet = sheets.filter((s) => s.id === sf.sheetId)[0];
+		if (sheet) {
+			const features = ((safeParseJSONArray(sf.features) || []) as GeoJsonFeature[]).filter(
+				(f) => !!f.id,
+			);
 			const interactions = deserializeInteractions(sheet);
-			const stars = interactions.stars;
+			for (let j = 0; j < features.length; j++) {
+				const f = features[j];
+				const name = f?.properties?.name || '';
 
-			const ar = await rdb.aggregateBySheetId(sheet.id);
-			for (let j = 0; j < ar.length; j++) {
-				const r = ar[j];
-				const feature = features.find((f) => String(f.id || '') === String(r.featureId));
-				if (!feature) continue;
+				let coords = (f.geometry as any).coordinates; // TODO need proper type
+				// flatten completely
+				while (Array.isArray(coords[0])) {
+					coords = coords.flat();
+				}
+				// make pairs
+				coords = coords.reduce(
+					(result: number[][], value: number, index: number, array: number[]) => {
+						index % 2 === 0 && result.push(array.slice(index, index + 2));
+						return result;
+					},
+					[],
+				);
+				// convert coordinate pairs to right projection (used on GM)
+				coords = coords.map((pair: number[]) => ol2gm(pair));
+				// convert to string, 1 point per line
+				coords = coords.map((pair: number[]) => pair.join(';')).join('\n');
+
+				const type = (m.geometry as any)[f.geometry.type];
+
+				const di = lookupDrawingInteraction(interactions, f);
+				const descriptionLabel =
+					f?.properties?.descriptionLabel || di.descriptionLabel || '';
+				const featureLabel = f?.properties?.featureLabel || di.featureLabel || type;
+				const answer = safeParseJSONArray(f?.properties?.partimapFeatureQuestion_ans).join(
+					', ',
+				);
 
 				row++;
-				const name = feature.properties?.name || '';
-				ars.cell(row, 1).string(String(r.featureId));
-				ars.cell(row, 2).string(String(name));
-				ars.cell(row, 3).number(r.count);
-				if (stars === -2) {
-					ars.cell(row, 4).number(Number(r.sum));
-					ars.cell(row, 5).number(Number(r.likeCount));
-					ars.cell(row, 6).number(Number(r.dislikeCount));
-				} else {
-					ars.cell(row, 4).number(Number(r.average));
-				}
-
-				const rs = ratings.filter(
-					(r) => r.sheetId === sheet.id && r.featureId === String(feature.id || ''),
-				);
-				ars.cell(row, 7).string(rs[rs.length - 1]?.question || '');
-				ars.cell(row, 8).string(
-					rs
-						.map((r) => r.answer || '')
-						.map((a) => a.replace(/\s+/g, ' ').trim())
-						.filter(Boolean)
-						.join(';'),
-				);
-				ars.cell(row, 9).string(
-					rs
-						.map((r) => r.pros || '')
-						.map((a) => a.replace(/\s+/g, ' ').trim())
-						.filter(Boolean)
-						.join(';'),
-				);
-				ars.cell(row, 10).string(
-					rs
-						.map((r) => r.cons || '')
-						.map((a) => a.replace(/\s+/g, ' ').trim())
-						.filter(Boolean)
-						.join(';'),
-				);
+				sfs.cell(row, 1).number(sf.submissionId);
+				sfs.cell(row, 2).string(featureLabel);
+				sfs.cell(row, 3).string(type);
+				sfs.cell(row, 4).string(coords);
+				sfs.cell(row, 5).string(String(f.id || ''));
+				sfs.cell(row, 6).string(String(name));
+				sfs.cell(row, 7).string(descriptionLabel);
+				sfs.cell(row, 8).string(f?.properties?.description || '');
+				sfs.cell(row, 9).string(f?.properties?.partimapFeatureQuestion || '');
+				sfs.cell(row, 10).string(answer);
 			}
 		}
-		b.end('sheet: aggregated ratings');
 	}
-
-	if (submittedFeatures.length > 0) {
-		b.start('sheet: submitted features');
-		const sfs = wb.addWorksheet(m.submittedFeatures);
-		sfs.cell(1, 1).string(m.submissionId);
-		sfs.cell(1, 2).string(m.featureLabel);
-		sfs.cell(1, 3).string(m.featureType);
-		sfs.cell(1, 4).string(m.coords);
-		sfs.cell(1, 5).string(m.feature);
-		sfs.cell(1, 6).string(m.featureName);
-		sfs.cell(1, 7).string(m.descriptionLabel);
-		sfs.cell(1, 8).string(m.featureDesc);
-		sfs.cell(1, 9).string(m.featureQuestion);
-		sfs.cell(1, 10).string(m.featureQuestionAnswer);
-		let row = 1;
-		for (let i = 0; i < submittedFeatures.length; i++) {
-			const sf = submittedFeatures[i];
-			const sheet = sheets.filter((s) => s.id === sf.sheetId)[0];
-			if (sheet) {
-				const features = (
-					(safeParseJSONArray(sf.features) || []) as GeoJsonFeature[]
-				).filter((f) => !!f.id);
-				const interactions = deserializeInteractions(sheet);
-				for (let j = 0; j < features.length; j++) {
-					const f = features[j];
-					const name = f?.properties?.name || '';
-
-					let coords = (f.geometry as any).coordinates; // TODO need proper type
-					// flatten completely
-					while (Array.isArray(coords[0])) {
-						coords = coords.flat();
-					}
-					// make pairs
-					coords = coords.reduce(
-						(result: number[][], value: number, index: number, array: number[]) => {
-							index % 2 === 0 && result.push(array.slice(index, index + 2));
-							return result;
-						},
-						[],
-					);
-					// convert coordinate pairs to right projection (used on GM)
-					coords = coords.map((pair: number[]) => ol2gm(pair));
-					// convert to string, 1 point per line
-					coords = coords.map((pair: number[]) => pair.join(';')).join('\n');
-
-					const type = (m.geometry as any)[f.geometry.type];
-
-					const di = lookupDrawingInteraction(interactions, f);
-					const descriptionLabel =
-						f?.properties?.descriptionLabel || di.descriptionLabel || '';
-					const featureLabel = f?.properties?.featureLabel || di.featureLabel || type;
-					const answer = safeParseJSONArray(
-						f?.properties?.partimapFeatureQuestion_ans,
-					).join(', ');
-
-					row++;
-					sfs.cell(row, 1).number(sf.submissionId);
-					sfs.cell(row, 2).string(featureLabel);
-					sfs.cell(row, 3).string(type);
-					sfs.cell(row, 4).string(coords);
-					sfs.cell(row, 5).string(String(f.id || ''));
-					sfs.cell(row, 6).string(String(name));
-					sfs.cell(row, 7).string(descriptionLabel);
-					sfs.cell(row, 8).string(f?.properties?.description || '');
-					sfs.cell(row, 9).string(f?.properties?.partimapFeatureQuestion || '');
-					sfs.cell(row, 10).string(answer);
-				}
-			}
-		}
-		b.end('sheet: submitted features');
-	}
-
-	return wb;
 }
