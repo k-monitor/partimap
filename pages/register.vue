@@ -27,6 +27,7 @@ const captcha = ref();
 const { errorToast } = useToasts();
 
 async function userReg() {
+	if (!captcha.value) return;
 	try {
 		loading.value = true;
 		await $fetch('/api/user/register', {
@@ -131,7 +132,7 @@ async function userReg() {
 								{{ $t('register.submit') }}
 							</b-button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>

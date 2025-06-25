@@ -27,6 +27,7 @@ onMounted(async () => {
 });
 
 async function submit() {
+	if (!captcha.value) return;
 	try {
 		loading.value = true;
 		const token = currentRoute.value.query.t;
@@ -74,7 +75,7 @@ async function submit() {
 								{{ $t('passwordChange.submit') }}
 							</button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>

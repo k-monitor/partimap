@@ -47,6 +47,7 @@ onMounted(async () => {
 });
 
 async function login() {
+	if (!captcha.value || !form.value?.reportValidity()) return;
 	try {
 		loading.value = true;
 		errorMessage.value = '';
@@ -60,7 +61,8 @@ async function login() {
 }
 
 async function forgot() {
-	if (!form.value?.reportValidity()) return; // password is NOT required
+	if (!captcha.value || !form.value?.reportValidity()) return;
+	// password is NOT required
 	try {
 		loading.value = true;
 		errorMessage.value = '';
@@ -156,7 +158,7 @@ async function forgot() {
 								{{ $t('login.submit') }}
 							</b-button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>

@@ -587,7 +587,7 @@ const localePath = useLocalePath();
 								<i class="fas fa-sign-in-alt ms-1" />
 							</button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>
