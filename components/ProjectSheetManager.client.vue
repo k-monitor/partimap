@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { saveAs } from 'file-saver';
+import fileSaver from 'file-saver';
 import type { Feature as GeoJsonFeature } from 'geojson';
 import slugify from 'slugify';
 import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
+
+const { saveAs } = fileSaver;
 
 const localePath = useLocalePath();
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { saveAs } from 'file-saver';
+import fileSaver from 'file-saver';
 import type { Project } from '~/server/data/projects';
+
+const { saveAs } = fileSaver;
 
 const { user } = useAuth();
 const { locale, locales, t } = useI18n();

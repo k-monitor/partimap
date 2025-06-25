@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import fileSaver from 'file-saver';
 import type { Feature as GeoJsonFeature } from 'geojson';
-import { saveAs } from 'file-saver';
 import slugify from 'slugify';
 import type { Sheet } from '~/server/data/sheets';
 import type { AggregatedRating } from '~/server/data/ratings';
+
+const { saveAs } = fileSaver;
 
 const { t } = useI18n();
 
