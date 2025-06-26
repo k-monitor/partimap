@@ -67,10 +67,7 @@ defineEmits<{
 			:max="steps"
 			:variant="showSubmit && disableSubmit ? 'success' : 'primary'"
 		/>
-		<NuxtTurnstile
-			v-if="nextSheetOrd < 0 || showSubmit"
-			v-model="captcha"
-		/>
+		<NuxtTurnstile v-model="captcha" />
 		<div class="align-items-center d-flex justify-content-between p-2 w-100">
 			<div class="fixed-width">
 				<b-button

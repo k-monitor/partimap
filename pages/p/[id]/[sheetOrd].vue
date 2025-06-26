@@ -51,7 +51,7 @@ watchEffect(() => {
 	}
 });
 
-const { consent, loading, selectedFeatureId, submitted } = useStore();
+const { consent, loading, selectedFeatureId, sheetCaptcha: captcha, submitted } = useStore();
 
 const {
 	getAllVisitorAnswers,
@@ -250,7 +250,6 @@ watch(currentVisitorFeaturesJSON, () => {
 	setVisitorFeatures(sheet.value?.id, _visitorFeatures);
 });
 
-const captcha = ref();
 const { errorToast, successToast } = useToasts();
 
 const password = ref('');
@@ -268,7 +267,7 @@ async function sendPassword() {
 			},
 		});
 		registerHit();
-	} catch (error: any) {
+	} catch (error: Error) {
 		if (error.message && error.message.endsWith('status code 401')) {
 			errorToast(t('sheet.invalidPassword'));
 		} else {
