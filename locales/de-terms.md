@@ -2,7 +2,7 @@
 
 ## 1\. Der Zweck von PARTIMAP
 
-PARTIMAP, entwickelt von der  zivilgesellschaftlichen Initiative zur Korruptionsbekämpfung, [K-Monitor Public Benefit Association](http://www.k-monitor.hu/) in Budapest, ist eine kostenlose Open-Source-Software, die eine einfach zu bedienende digitale Fragebogenplattform bietet, insbesondere für Fragen der Stadt- und Verkehrsentwicklung. Ziel ist es, die Einbeziehung von Interessengruppen in die Planung und Bewertung von öffentlichen Entwicklungsprojekten, die das tägliche Leben der Bevölkerung betreffen, zu erleichtern und es ihnen zu ermöglichen, ihre Bedürfnisse auf sinnvolle Weise zum Ausdruck zu bringen, damit öffentliche Mittel effizienter und unter Berücksichtigung dieser Bedürfnisse eingesetzt werden können.
+PARTIMAP, entwickelt von der zivilgesellschaftlichen Initiative zur Korruptionsbekämpfung, [K-Monitor Public Benefit Association](http://www.k-monitor.hu/) in Budapest, ist eine kostenlose Open-Source-Software, die eine einfach zu bedienende digitale Fragebogenplattform bietet, insbesondere für Fragen der Stadt- und Verkehrsentwicklung. Ziel ist es, die Einbeziehung von Interessengruppen in die Planung und Bewertung von öffentlichen Entwicklungsprojekten, die das tägliche Leben der Bevölkerung betreffen, zu erleichtern und es ihnen zu ermöglichen, ihre Bedürfnisse auf sinnvolle Weise zum Ausdruck zu bringen, damit öffentliche Mittel effizienter und unter Berücksichtigung dieser Bedürfnisse eingesetzt werden können.
 
 ## 2\. Nutzungsbedingungen
 
@@ -32,7 +32,7 @@ Der Zweck dieser Datenschutzerklärung besteht darin, die Regeln für den Datens
 
 ## 2\. Der Datenverantwortliche
 
-Verantwortlicher für die Datenverarbeitung: K-Monitor Gemeinnütziger Verein 
+Verantwortlicher für die Datenverarbeitung: K-Monitor Gemeinnütziger Verein
 
 Hauptsitz: Rózsa u. 8. 1077 Budapest, Ungarn.
 
@@ -106,8 +106,8 @@ Während der Nutzung des Dienstes zeichnet das System die IP-Adresse des Compute
 
 Abhängig von den Einstellungen des Browsers und des Computers des registrierten Nutzers sind bei der Nutzung des Dienstes unterschiedliche eingebettete Dienste vorhanden. Diese Dienste sind für die optimale Nutzung der Website erforderlich:
 
--   [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (benutzerdefinierte Schriftartenanzeige)
--   [Google reCAPTCHA v3](https://policies.google.com/privacy) (reduziert Spam und betrügerische Nachrichten)
+- [Google Fonts](https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users) (benutzerdefinierte Schriftartenanzeige)
+- [Cloudflare Turnstile](https://www.cloudflare.com/turnstile-privacy-policy/) (reduziert Spam und betrügerische Nachrichten)
 
 Die Organisationen, die eingebettete Dienste anbieten, haben ihre eigene Datenschutzerklärung und Datenschutzrichtlinie, die unter den oben genannten Links verfügbar sind, in Bezug auf die Daten, die im Rahmen der Erbringung der Dienstleistung erhoben und verarbeitet werden, aber der für die Verarbeitung Verantwortliche hat keinen Zugriff auf die Daten oder kann sie nicht verwenden. Darüber hinaus können diese Dienste nach Ermessen des registrierten Nutzers über die entsprechenden Browsereinstellungen deaktiviert werden, was jedoch zu einer Verschlechterung der Qualität der Nutzung der Website führt.
 
@@ -115,7 +115,7 @@ Die Organisationen, die eingebettete Dienste anbieten, haben ihre eigene Datensc
 
 Wenn Sie die Website nutzen, verwenden wir auch Tracking-Tools, um den Verkehr und die Aktivitäten auf der Website zu verfolgen, damit wir anonymisierte Statistiken über die Anzahl der Besucher erstellen können:
 
--   [Google Analytics](https://analytics.google.com/analytics/web/) erstellt Statistiken über den Website-Verkehr, indem IP-Adressen verschlüsselt und teilweise erfasst werden. Es werden keine anderen Daten verwendet, die von der Anwendung aufgezeichnet und gespeichert werden können. Die anonymisierten Statistiken werden für 1 Jahr gespeichert.
+- [Google Analytics](https://analytics.google.com/analytics/web/) erstellt Statistiken über den Website-Verkehr, indem IP-Adressen verschlüsselt und teilweise erfasst werden. Es werden keine anderen Daten verwendet, die von der Anwendung aufgezeichnet und gespeichert werden können. Die anonymisierten Statistiken werden für 1 Jahr gespeichert.
 
 Als Datenverantwortlicher verknüpfen wir Tracking-Daten nicht mit personenbezogenen Daten, haben aber nicht das Recht, über deren mögliche weitere Verwendung zu entscheiden. Diese Daten unterliegen den Datenschutzgrundsätzen und -richtlinien von Google LLC ("Google", 1600 Amphitheatre Parkway, Mountain View, CA 94043, Vereinigte Staaten von Amerika), dem Entwickler eingebetteter Anwendungen. Wenn der registrierte Benutzer die Website ohne Tracker nutzen möchte, kann er sich ausdrücklich [abmelden](https://tools.google.com/dlpage/gaoptout).
 
@@ -130,7 +130,6 @@ Der Verantwortliche für die Datenverarbeitung und der registrierte Benutzer ken
 4.3. Der Öffentlichkeit zugängliche Daten
 
 Die Daten, die von den Besuchern durch das Ausfüllen eines vom registrierten Benutzer erstellten Fragebogens zur Verfügung gestellt werden, stehen der Öffentlichkeit in aggregierter Form auf www.partimap.eu zur Verfügung. Diese Daten können von jedem Mitglied der Öffentlichkeit frei verwendet werden.
-
 
 ## 5\. Vom für die Verarbeitung Verantwortlichen eingesetzte Datenverarbeiter
 
@@ -147,10 +146,10 @@ Der registrierte Benutzer hat während des Zeitraums der Datenverarbeitung folge
 - das Recht auf Auskunft und Zugang: Der registrierte Benutzer kann Auskunft über die zu seiner Person gespeicherten personenbezogenen Daten verlangen und eine Kopie dieser Daten anfordern;
 - das Recht auf Berichtigung: Der registrierte Nutzer kann die Berichtigung der über ihn gespeicherten personenbezogenen Daten verlangen, wenn diese unrichtig oder unvollständig sind. Wenn der registrierte Benutzer dem für die Verarbeitung Verantwortlichen auch personenbezogene Daten zur Verfügung stellt, die für die Zwecke der Verarbeitung nicht erforderlich sind, löscht der für die Verarbeitung Verantwortliche diese Daten.
 - Recht auf Vergessenwerden: Der registrierte Nutzer kann den für die Verarbeitung Verantwortlichen auffordern, die über ihn gespeicherten Daten aus der Datenbank zu löschen, insbesondere wenn er seine vorherige Einwilligung zur Verarbeitung widerruft oder wenn die Verarbeitung unrechtmäßig ist.
-- Recht auf Einschränkung der Verarbeitung: Der registrierte Nutzer kann die Einschränkung der Verarbeitung verlangen, wenn 
-a) er die Richtigkeit der personenbezogenen Daten bestreitet und die Einschränkung der Verarbeitung für den Zeitraum verlangt, der für die Verarbeitung Verantwortliche erforderlich ist, um die Richtigkeit der personenbezogenen Daten zu überprüfen; 
-b) die Verarbeitung unrechtmäßig ist, der registrierte Nutzer jedoch die Löschung der Daten ablehnt und stattdessen die Einschränkung ihrer Nutzung verlangt; 
-c) der für die Verarbeitung Verantwortliche benötigt die personenbezogenen Daten für die Zwecke der Verarbeitung nicht mehr, der registrierte Benutzer benötigt sie jedoch zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen;
+- Recht auf Einschränkung der Verarbeitung: Der registrierte Nutzer kann die Einschränkung der Verarbeitung verlangen, wenn
+  a) er die Richtigkeit der personenbezogenen Daten bestreitet und die Einschränkung der Verarbeitung für den Zeitraum verlangt, der für die Verarbeitung Verantwortliche erforderlich ist, um die Richtigkeit der personenbezogenen Daten zu überprüfen;
+  b) die Verarbeitung unrechtmäßig ist, der registrierte Nutzer jedoch die Löschung der Daten ablehnt und stattdessen die Einschränkung ihrer Nutzung verlangt;
+  c) der für die Verarbeitung Verantwortliche benötigt die personenbezogenen Daten für die Zwecke der Verarbeitung nicht mehr, der registrierte Benutzer benötigt sie jedoch zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen;
 - Recht auf Datenübertragbarkeit: Im Falle einer automatisierten Verarbeitung personenbezogener Daten kann der registrierte Nutzer verlangen, dass der für die Verarbeitung Verantwortliche die gespeicherten personenbezogenen Daten in einem strukturierten, maschinenlesbaren (interoperablen) Format an den registrierten Nutzer oder, falls technisch machbar, an einen anderen für die Verarbeitung Verantwortlichen übermittelt. Das Recht auf Datenübertragbarkeit darf die Rechte und Freiheiten anderer nicht beeinträchtigen.
 - das Recht auf Widerspruch: Der registrierte Nutzer kann aus Gründen, die sich aus seiner besonderen Situation ergeben, gegen die Verarbeitung seiner personenbezogenen Daten Einspruch erheben, wenn die Verarbeitung für die Wahrnehmung einer Aufgabe erforderlich ist, die im öffentlichen Interesse liegt, in Ausübung öffentlicher Gewalt oder für die berechtigten Interessen des für die Verarbeitung Verantwortlichen oder eines Dritten. Bei der Erbringung der Dienstleistung verarbeitet der für die Verarbeitung Verantwortliche die Daten des registrierten Nutzers mit dessen Zustimmung, so dass Einwände nur im Falle einer obligatorischen Datenverarbeitung (z. B. Ad-hoc-Datenübertragungen) erhoben werden können, die auch ohne Zustimmung durchgeführt werden müssen.
 - Recht auf Rechtsbehelf: siehe Punkt 7.
@@ -167,7 +166,7 @@ Der registrierte Nutzer kann im Falle eines Verstoßes gegen die ihn betreffende
 
 Adresse: Falk Miksa utca 9-11. 1055 Budapest, Ungarn. (Postanschrift: 1363 Budapest, Pf.: 9.)
 
-Behördenportal:  naih.hu E-Mail: ugyfelszolgalat@naih.hu
+Behördenportal: naih.hu E-Mail: ugyfelszolgalat@naih.hu
 
 **Gerichtlicher Rechtsbehelf**
 
