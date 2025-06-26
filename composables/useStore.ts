@@ -31,6 +31,7 @@ export default function useStore() {
 	const loading = useState<boolean>('loading', () => true);
 	const loadingText = useState<string>('loadingText', () => '');
 	const selectedFeatureId = useState<string | null>('selectedFeatureId', () => null);
+	const sheetCaptcha = useState<string | undefined>('sheetCaptcha', () => undefined);
 	const sidebarVisible = useState('sidebarVisible', () => true);
 	const submitted = useState('submitted', () => false);
 	const visibleFeatureBubbles = useState<string[]>('visibleFeatureBubbles', () => []);
@@ -48,6 +49,7 @@ export default function useStore() {
 		loading,
 		loadingText,
 		selectedFeatureId,
+		sheetCaptcha,
 		sidebarVisible,
 		submitted,
 		visibleFeatureBubbles,

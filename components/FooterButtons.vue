@@ -37,10 +37,13 @@ const quizModeBlocks = computed(() => {
 	return true;
 });
 
+const { consent, loading, selectedFeatureId, sheetCaptcha: captcha, submitted } = useStore();
+
 const disableNext = computed(() => loading.value || quizModeBlocks.value);
 
 const disableSubmit = computed(
 	() =>
+		!captcha.value ||
 		loading.value ||
 		!consent.value ||
 		!!selectedFeatureId.value ||
@@ -48,9 +51,10 @@ const disableSubmit = computed(
 		quizModeBlocks.value,
 );
 
-const { consent, loading, selectedFeatureId, submitted } = useStore();
-
-defineEmits(['next', 'prev', 'submit']);
+defineEmits<{
+	(e: 'next' | 'prev'): void;
+	(e: 'submit', captcha: string): void;
+}>();
 </script>
 
 <template>
@@ -63,6 +67,10 @@ defineEmits(['next', 'prev', 'submit']);
 			:max="steps"
 			:variant="showSubmit && disableSubmit ? 'success' : 'primary'"
 		/>
+		<NuxtTurnstile
+			v-if="nextSheetOrd < 0 || showSubmit"
+			v-model="captcha"
+		/>
 		<div class="align-items-center d-flex justify-content-between p-2 w-100">
 			<div class="fixed-width">
 				<b-button
@@ -74,20 +82,31 @@ defineEmits(['next', 'prev', 'submit']);
 					<i class="fas fa-fw fa-chevron-left" />
 				</b-button>
 			</div>
-			<b-button
+			<div
 				v-if="showSubmit"
-				:disabled="disableSubmit"
-				:variant="disableSubmit ? 'outline-success' : 'success'"
-				@click="$emit('submit')"
+				class="d-flex align-items-center"
 			>
-				<i
-					class="fas fa-fw me-1"
-					:class="submitted ? 'fa-check' : 'fa-paper-plane'"
-				/>
-				<span>{{
-					submitted ? $t('FooterButtons.submitted') : $t('FooterButtons.submit')
-				}}</span>
-			</b-button>
+				<div
+					v-if="!captcha"
+					class="spinner-border spinner-border-sm text-success me-2"
+					role="status"
+				>
+					<span class="visually-hidden">Loading...</span>
+				</div>
+				<b-button
+					:disabled="disableSubmit"
+					:variant="disableSubmit ? 'outline-success' : 'success'"
+					@click="$emit('submit', captcha)"
+				>
+					<i
+						class="fas fa-fw me-1"
+						:class="submitted ? 'fa-check' : 'fa-paper-plane'"
+					/>
+					<span>{{
+						submitted ? $t('FooterButtons.submitted') : $t('FooterButtons.submit')
+					}}</span>
+				</b-button>
+			</div>
 			<div
 				v-else
 				class="fixed-width"

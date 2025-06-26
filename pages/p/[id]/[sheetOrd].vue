@@ -375,11 +375,12 @@ function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 	});
 }
 
-async function submit() {
+async function submit(captcha: string) {
 	const ca = await canAdvance();
 	if (!ca) return;
 
 	if (
+		!captcha ||
 		!project.value ||
 		!project.value.sheets ||
 		!sheetForm.value ||
@@ -398,7 +399,7 @@ async function submit() {
 				method: 'PUT',
 				body: {
 					...data,
-					captcha: captcha.value,
+					captcha, // intentionally using function argument, not the ref!
 				},
 			});
 			submitted.value = true;
@@ -427,7 +428,6 @@ const localePath = useLocalePath();
 			class="d-flex h-100 w-100"
 			@submit.prevent=""
 		>
-			<NuxtTurnstile v-model="captcha" />
 			<div
 				v-if="!sheet.features"
 				class="modal show"
@@ -476,7 +476,7 @@ const localePath = useLocalePath();
 						<div class="modal-footer d-flex p-0">
 							<FooterButtons
 								:project="project"
-								:next-sheet-ord="sheet.ord"
+								:next-sheet-ord="nextSheetOrd"
 								:show-next="!isLastSheet || needToShowResults"
 								:show-prev="!isFirstSheet && !submitted"
 								:show-submit="consent && isLastSheet && !needToShowResults"
