@@ -23,17 +23,17 @@ onMounted(async () => {
 	emailInput.value?.focus();
 });
 
-const { executeReCaptcha } = useReCaptcha();
+const captcha = ref();
 const { errorToast } = useToasts();
 
 async function userReg() {
+	if (!captcha.value) return;
 	try {
 		loading.value = true;
-		const captcha = await executeReCaptcha('register');
 		await $fetch('/api/user/register', {
 			method: 'POST',
 			body: {
-				captcha,
+				captcha: captcha.value,
 				consent: consent.value,
 				email: email.value,
 				locale: locale.value,
@@ -115,6 +115,8 @@ async function userReg() {
 							<p class="m-0 small text-muted">
 								{{ $t('register.procedure') }}
 							</p>
+
+							<NuxtTurnstile v-model="captcha" />
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button
@@ -130,7 +132,7 @@ async function userReg() {
 								{{ $t('register.submit') }}
 							</b-button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>

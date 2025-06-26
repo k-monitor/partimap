@@ -10,8 +10,7 @@ useHead({
 	title: t('login.title'),
 });
 
-const { executeReCaptcha } = useReCaptcha();
-
+const captcha = ref();
 const form = ref<HTMLFormElement>();
 const emailInput = ref<HTMLInputElement>();
 const email = ref('');
@@ -48,12 +47,12 @@ onMounted(async () => {
 });
 
 async function login() {
+	if (!captcha.value || !form.value?.reportValidity()) return;
 	try {
 		loading.value = true;
 		errorMessage.value = '';
 		successMessage.value = '';
-		const captcha = await executeReCaptcha('login');
-		await authLogin(email.value, password.value, captcha || '');
+		await authLogin(email.value, password.value, captcha.value);
 	} catch {
 		errorMessage.value = t('login.invalidEmailOrPassword');
 	} finally {
@@ -62,16 +61,16 @@ async function login() {
 }
 
 async function forgot() {
-	if (!form.value?.reportValidity()) return; // password is NOT required
+	if (!captcha.value || !form.value?.reportValidity()) return;
+	// password is NOT required
 	try {
 		loading.value = true;
 		errorMessage.value = '';
 		successMessage.value = '';
-		const captcha = await executeReCaptcha('forgot');
 		await $fetch('/api/user/forgot', {
 			method: 'POST',
 			body: {
-				captcha,
+				captcha: captcha.value,
 				email: email.value,
 				locale: locale.value,
 			},
@@ -143,6 +142,7 @@ async function forgot() {
 									>{{ $t('login.forgotPassword') }}</a
 								>
 							</div>
+							<NuxtTurnstile v-model="captcha" />
 						</div>
 						<div class="card-footer d-flex justify-content-between">
 							<b-button
@@ -158,7 +158,7 @@ async function forgot() {
 								{{ $t('login.submit') }}
 							</b-button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>

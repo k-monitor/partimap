@@ -20,6 +20,8 @@ export default defineNuxtConfig({
 		'nuxt-scheduler',
 		'nuxt-tiptap-editor',
 		'@nuxt/eslint',
+		'@nuxt/scripts',
+		'@nuxtjs/turnstile',
 	],
 	runtimeConfig: {
 		public: {
@@ -29,7 +31,9 @@ export default defineNuxtConfig({
 				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
 				loadScript: true,
 			},
-			recaptchaSiteKey: env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY,
+		},
+		turnstile: {
+			secretKey: env.NUXT_TURNSTILE_SECRET_KEY,
 		},
 	},
 	socialShare: {
@@ -58,5 +62,8 @@ export default defineNuxtConfig({
 	},
 	tiptap: {
 		prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
+	},
+	turnstile: {
+		siteKey: env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
 	},
 });

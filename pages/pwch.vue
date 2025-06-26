@@ -10,7 +10,7 @@ useHead({
 	title: t('passwordChange.title'),
 });
 
-const { executeReCaptcha } = useReCaptcha();
+const captcha = ref();
 const { currentRoute } = useRouter();
 
 const password = ref('');
@@ -27,13 +27,17 @@ onMounted(async () => {
 });
 
 async function submit() {
+	if (!captcha.value) return;
 	try {
 		loading.value = true;
 		const token = currentRoute.value.query.t;
-		const captcha = await executeReCaptcha('pwch');
 		await $fetch('/api/user/pwch', {
 			method: 'POST',
-			body: { password: password.value, token, captcha },
+			body: {
+				password: password.value,
+				token,
+				captcha: captcha.value,
+			},
 		});
 		navigateTo(localePath({ path: 'login', query: { pwchanged: null } }));
 	} catch (err) {
@@ -61,6 +65,7 @@ async function submit() {
 									type="password"
 								/>
 							</form-group>
+							<NuxtTurnstile v-model="captcha" />
 						</div>
 						<div class="card-footer d-flex justify-content-end">
 							<button
@@ -70,7 +75,7 @@ async function submit() {
 								{{ $t('passwordChange.submit') }}
 							</button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>
