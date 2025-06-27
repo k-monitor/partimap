@@ -332,48 +332,6 @@ async function next() {
 	}
 }
 
-function injectDataIntoFeatures(data: SubmissionDataBySheet) {
-	const questions: Record<string, string> = {};
-	const answers: Record<string, string> = {};
-
-	// gather questions and answers to inject
-	const str = (v: any) => (Array.isArray(v) ? v.join(', ') : v || '');
-	(project.value?.sheets || []).forEach((sheet) => {
-		const survey: Survey = safeParseJSON(sheet.survey) || {};
-		const qs = survey.questions || [];
-		const sheetAnswers = data[sheet.id]?.answers || {};
-		qs.filter((q) => q.addToFeatures).forEach((q) => {
-			if (!Object.keys(sheetAnswers).includes(String(q.id))) return;
-			const ans = sheetAnswers[q.id];
-			if (Object.isExtensible(ans) && !Array.isArray(ans)) {
-				// answer is {...}, so a matrix -> injecting rows separately
-				Object.keys(ans).forEach((k, i) => {
-					const qak = `${q.id}_${i}`;
-					questions[qak] = `${q.label} [${k}]`;
-					answers[qak] = str(ans[k]);
-				});
-			} else {
-				questions[q.id] = q.label;
-				answers[q.id] = str(ans);
-			}
-		});
-	});
-
-	// inject into features
-	Object.keys(data).forEach((sid) => {
-		const features = data[Number(sid)].features;
-		if (!features) return;
-		for (let i = 0; i < features.length; i++) {
-			const f = features[i];
-			Object.keys(questions).forEach((qid) => {
-				f.properties = f.properties || {};
-				f.properties[`partimapQuestion_${qid}`] = questions[qid];
-				f.properties[`partimapQuestion_${qid}_ans`] = answers[qid];
-			});
-		}
-	});
-}
-
 async function submit(captcha: string) {
 	const ca = await canAdvance();
 	if (!ca) return;
@@ -393,7 +351,6 @@ async function submit(captcha: string) {
 	const data = getSubmissionData(sheetIds);
 	if (Object.keys(data).length) {
 		try {
-			injectDataIntoFeatures(data);
 			await $fetch(`/api/project/${project.value.id}/submission`, {
 				method: 'PUT',
 				body: {

@@ -297,3 +297,11 @@ export async function findAllByProjectId(projectId: number) {
 	);
 	return rows.map((r) => createSurveyAnswer(r));
 }
+
+export async function findAllBySheetIdAndQuestionIds(sheetId: number, questionIds: number[]) {
+	const rows = await db.query(
+		`SELECT * FROM survey_answer WHERE sheetId = ? AND FIND_IN_SET(questionId, ?)`,
+		[sheetId, questionIds.join(',')],
+	); // `questionId IN (?)` didn't work...
+	return rows.map((r) => createSurveyAnswer(r));
+}
