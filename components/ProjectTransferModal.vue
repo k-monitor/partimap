@@ -51,8 +51,6 @@ async function transfer() {
 		:ok-disabled="!confirm || !email"
 		:ok-title="$t('ProjectTransferModal.ok')"
 		ok-variant="success"
-		:teleport-disabled="true"
-		teleport-to="body"
 		:title="$t('ListItem.transfer') + ': ' + project?.title"
 		@ok.prevent="transfer"
 	>

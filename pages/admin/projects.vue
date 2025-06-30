@@ -201,7 +201,7 @@ function uploadDefinition() {
 						type="button"
 						@click="uploadDefinition"
 					>
-						<i class="fas fa-code fa-fw"></i>
+						<i class="fas fa-code fa-fw" />
 					</button>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { User } from '~/server/data/users';
+import type { User } from '~/server/data/users';
 
 export function addToken(user: User) {
 	user.token = uuid();

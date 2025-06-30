@@ -2,6 +2,7 @@
 // TODO spaghetti, need to decouple into multiple components/composables
 
 import type { Feature as GeoJsonFeature } from 'geojson';
+import type { Extent } from 'ol/extent';
 import type { Project } from '~/server/data/projects';
 import type { AggregatedRating } from '~/server/data/ratings';
 import type { Sheet } from '~/server/data/sheets';
@@ -13,7 +14,7 @@ const localePath = useLocalePath();
 const route = useRoute();
 const { id, sheetOrd } = route.params;
 
-const { loading } = useStore();
+const { drawType, loading } = useStore();
 
 const { data: project } = await useFetch<Project>(`/api/project/${id}`);
 
@@ -276,6 +277,15 @@ async function save() {
 		loading.value = false;
 	}
 }
+
+function startDrawingExtent() {
+	drawType.value = 'box';
+}
+
+function handleExtentDrawn(extent: Extent) {
+	if (!sheet.value) return;
+	sheet.value.extent = JSON.stringify(extent);
+}
 </script>
 
 <template>
@@ -304,42 +314,40 @@ async function save() {
 				<tiptap v-model="sheet.description" />
 			</form-group>
 
-			<client-only>
-				<b-form-group
-					v-if="!sheet.features"
-					:invalid-feedback="$t('imageUpload.maxFileSize')"
-					:state="backgroundImageState"
-				>
-					<template #label>
-						<h6 class="mb-0">
-							{{ $t('sheetEditor.backgroundImage') }}
-						</h6>
+			<b-form-group
+				v-if="!sheet.features"
+				:invalid-feedback="$t('imageUpload.maxFileSize')"
+				:state="backgroundImageState"
+			>
+				<template #label>
+					<h6 class="mb-0">
+						{{ $t('sheetEditor.backgroundImage') }}
+					</h6>
+				</template>
+				<b-input-group v-if="!sheet.image">
+					<ImageFileInput
+						v-model="backgroundImage"
+						:state="backgroundImageState"
+					/>
+					<template #append>
+						<b-button
+							:disabled="!backgroundImage"
+							variant="outline-danger"
+							@click="removeBackground"
+						>
+							<i class="fas fa-backspace" />
+						</b-button>
 					</template>
-					<b-input-group v-if="!sheet.image">
-						<ImageFileInput
-							v-model="backgroundImage"
-							:state="backgroundImageState"
-						/>
-						<template #append>
-							<b-button
-								:disabled="!backgroundImage"
-								variant="outline-danger"
-								@click="removeBackground"
-							>
-								<i class="fas fa-backspace" />
-							</b-button>
-						</template>
-					</b-input-group>
-					<b-button
-						v-else
-						class="w-100"
-						variant="outline-danger"
-						@click="removeBackground"
-					>
-						{{ $t('imageUpload.remove') }}
-					</b-button>
-				</b-form-group>
-			</client-only>
+				</b-input-group>
+				<b-button
+					v-else
+					class="w-100"
+					variant="outline-danger"
+					@click="removeBackground"
+				>
+					{{ $t('imageUpload.remove') }}
+				</b-button>
+			</b-form-group>
 
 			<form-group
 				v-if="sheet.survey"
@@ -361,34 +369,53 @@ async function save() {
 				v-if="canHaveResults"
 				:label="$t('SheetContent.results')"
 			>
-				<client-only>
-					<b-form-checkbox
-						v-model="showAllResults"
-						@change="showAllResultsClicked"
-					>
-						{{ $t('sheetEditor.showAllResults') }}
-					</b-form-checkbox>
-					<b-form-checkbox
-						v-if="someResultsEnabled"
-						v-model="interactions.enabled"
-						value="ShowResultsOnly"
-					>
-						{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
-					</b-form-checkbox>
-				</client-only>
+				<b-form-checkbox
+					v-model="showAllResults"
+					@change="showAllResultsClicked"
+				>
+					{{ $t('sheetEditor.showAllResults') }}
+				</b-form-checkbox>
+				<b-form-checkbox
+					v-if="someResultsEnabled"
+					v-model="interactions.enabled"
+					value="ShowResultsOnly"
+				>
+					{{ $t('sheetEditor.interactions.ShowResultsOnly') }}
+				</b-form-checkbox>
 			</form-group>
 
 			<form-group
 				v-if="isInteractive || sheet.features"
 				:label="$t('sheetEditor.defaultBaseMap')"
 			>
-				<client-only>
-					<b-form-select
-						v-model="interactions.baseMap"
-						:options="baseMaps.map((bm) => bm.id)"
-					/>
-				</client-only>
+				<b-form-select
+					v-model="interactions.baseMap"
+					:options="baseMaps.map((bm) => bm.id)"
+				/>
 			</form-group>
+
+			<div
+				v-if="isInteractive"
+				class="form-group"
+			>
+				<button
+					v-if="!sheet.extent"
+					:disabled="drawType !== ''"
+					class="btn btn-primary"
+					@click="startDrawingExtent"
+				>
+					<i class="fas fa-fw fa-expand me-1" />
+					{{ $t('sheetEditor.drawExtent') }}
+				</button>
+				<button
+					v-else
+					class="btn btn-danger"
+					@click="sheet.extent = null"
+				>
+					<i class="fas fa-fw fa-expand me-1" />
+					{{ $t('sheetEditor.clearExtent') }}
+				</button>
+			</div>
 
 			<FeatureList
 				v-if="sheet.features"
@@ -448,6 +475,8 @@ async function save() {
 				:key="$route.path"
 				:features="features"
 				:show-bubbles="isInteractive"
+				:view-extent="safeParseJSON(sheet.extent) || undefined"
+				@extent-drawn="handleExtentDrawn"
 				@feature-drawn="handleFeatureDrawn"
 			/>
 			<EdgeDrawingButtons side="right" />

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileTypeFromBuffer } from 'file-type';
-import { H3Event } from 'h3';
+import type { H3Event } from 'h3';
 import { StatusCodes } from 'http-status-codes';
 import multer from 'multer';
 import copy from 'recursive-copy';

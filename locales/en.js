@@ -205,9 +205,11 @@ export default {
 		addFeatureQuestion: 'Add checkbox question',
 		back: 'Back to project',
 		backgroundImage: 'Background image',
+		clearExtent: 'Clear map bounds',
 		defaultBaseMap: 'Default base map',
 		defaultDescriptionLabel: 'Please explain why you gave this response.',
 		defaultRatingQuestion: 'Please explain why you gave this rating.',
+		drawExtent: 'Set map bounds',
 		featureLabel: 'Unique task name',
 		featureLabelDescription:
 			'Short title to identify the task. Displayed in the report, in the admin interface and by default as the name of the items submitted by the respondents.',
@@ -418,6 +420,7 @@ export default {
 		LineString:
 			'Click starting point, optionally click more points. Double-click last point to end and save.',
 		Polygon: 'Click border points. Click the starting point again to end and save.',
+		box: 'Draw the rectangle by holding down the mouse button.',
 	},
 	OptionsEditor: {
 		addColumn: 'Add column',

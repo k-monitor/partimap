@@ -10,8 +10,9 @@ import * as sdb from '~/server/data/sheets';
 import * as sadb from '~/server/data/surveyAnswers';
 import * as udb from '~/server/data/users';
 import { env } from '~~/env';
-import { H3Event } from 'h3';
+import type { H3Event } from 'h3';
 import { deserializeInteractions } from '~/utils/interactions';
+import { parseSurvey } from '~/utils/questionUtil';
 
 const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
 const JWT_SECRET = env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
@@ -93,7 +94,7 @@ function isAccessGranted(event: H3Event, body: Body, project: pdb.Project) {
 			httpOnly: true,
 			path: '/',
 			sameSite: 'lax',
-			secure: !process.dev,
+			secure: !import.meta.dev,
 		});
 		return true;
 	}
@@ -131,7 +132,7 @@ function doesSheetNeedRatingResults(sheet: sdb.Sheet) {
 
 function doesSheetNeedSurveyResults(sheet: sdb.Sheet) {
 	try {
-		const survey = JSON.parse(sheet.survey) as sadb.Survey;
+		const survey = parseSurvey(sheet.survey) || { questions: [] };
 		const qnr = survey.questions.filter((q: sadb.Question) => q.showResult).length;
 		return survey.showResults || qnr > 0;
 	} catch {

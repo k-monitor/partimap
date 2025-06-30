@@ -83,8 +83,6 @@ function handleOk() {
 		no-close-on-backdrop
 		:ok-title="$t('SaveButton.save')"
 		ok-variant="success"
-		:teleport-disabled="true"
-		teleport-to="body"
 		:title="$t(`sheetEditor.interactions.Rating`)"
 		@ok="handleOk"
 		@show="reinit"

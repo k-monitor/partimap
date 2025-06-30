@@ -67,45 +67,43 @@ async function save() {
 
 		<p>{{ $t('HelpEditor.instructions') }}</p>
 
-		<client-only>
-			<b-tabs>
-				<b-tab
-					:title="$t('HelpEditor.editor')"
-					active
-				>
-					<b-card-text>
-						<b-form-textarea
-							id="textarea"
-							v-model="value"
-							autofocus
-							class="mb-3 text-monospace"
-							rows="5"
-							max-rows="12"
-						/>
-						<div class="d-flex">
-							<div class="mb-3 me-3">
-								<b-button
-									variant="primary"
-									@click="openEditor"
-								>
-									<i class="fas fa-edit" />
-								</b-button>
-							</div>
-							<div>
-								<strong>{{ $t('HelpEditor.stackeditButton') }}</strong>
-								<br />
-								{{ $t('HelpEditor.stackeditInfo') }}
-							</div>
-						</div>
-					</b-card-text>
-				</b-tab>
-				<b-tab :title="$t('HelpEditor.preview')">
-					<Markdown
-						class="help mb-5"
-						:md="value"
+		<b-tabs>
+			<b-tab
+				:title="$t('HelpEditor.editor')"
+				active
+			>
+				<b-card-text>
+					<b-form-textarea
+						id="textarea"
+						v-model="value"
+						autofocus
+						class="mb-3 text-monospace"
+						rows="5"
+						max-rows="12"
 					/>
-				</b-tab>
-			</b-tabs>
-		</client-only>
+					<div class="d-flex">
+						<div class="mb-3 me-3">
+							<b-button
+								variant="primary"
+								@click="openEditor"
+							>
+								<i class="fas fa-edit" />
+							</b-button>
+						</div>
+						<div>
+							<strong>{{ $t('HelpEditor.stackeditButton') }}</strong>
+							<br />
+							{{ $t('HelpEditor.stackeditInfo') }}
+						</div>
+					</div>
+				</b-card-text>
+			</b-tab>
+			<b-tab :title="$t('HelpEditor.preview')">
+				<Markdown
+					class="help mb-5"
+					:md="value"
+				/>
+			</b-tab>
+		</b-tabs>
 	</AdminFrame>
 </template>

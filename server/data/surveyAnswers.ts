@@ -1,6 +1,7 @@
 import * as db from '~/server/utils/database';
 import * as sdb from '~/server/data/sheets';
 import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
+import { safeParseJSON, safeParseJSONArray } from '~/utils/json';
 
 export type SurveyAnswer = {
 	id: number;
@@ -57,16 +58,17 @@ export type AggregatedAnswers = {
 		answer: string;
 		average?: number;
 		count?: number;
+		percent?: number;
 	}[];
 };
 
-export async function aggregateByProjectId(projectId: number) {
+export async function aggregateByProjectId(projectId: number, force = false) {
 	const questions: (Question & { sheetId: number })[] = [];
 	const sheets = await sdb.findAllByProjectId(projectId);
 	for (const s of sheets) {
 		const survey = JSON.parse(s.survey || '{}') as Survey;
 		const qs = (survey.questions || [])
-			.filter((q) => survey.showResults || q.showResult)
+			.filter((q) => survey.showResults || q.showResult || force)
 			.map((q) => ({ ...q, sheetId: s.id }));
 		questions.push(...qs);
 	}
@@ -86,7 +88,7 @@ export async function aggregateByProjectId(projectId: number) {
 		)
 	).map((row) => ({
 		questionId: parseInt(row.questionId, 10),
-		average: parseFloat(row.average),
+		average: Math.round(10 * parseFloat(row.average)) / 10,
 		count: parseInt(row.count, 10),
 	}));
 
@@ -192,17 +194,36 @@ export async function aggregateByProjectId(projectId: number) {
 							opts[col] = (opts[col] || 0) + 1;
 						});
 					});
-				const result = {
+
+				const result: AggregatedAnswers = {
 					questionId: `${q.id}/${i}`,
 					question: `${q.label} [${row}]`,
 					sheetId: q.sheetId,
 					type: q.type,
 					count,
-					options: Object.entries(opts).map(([answer, count]) => ({
+					options: Object.entries(opts).map(([answer, opCount]) => ({
 						answer,
-						count,
+						count: opCount,
+						percent: Math.round((100 * opCount) / count) / 100,
 					})),
 				};
+
+				if (q.type === 'singleChoiceMatrix') {
+					const p = (s: string) => Number(s.trim().split(/\D/)[0]);
+					const cols = (q.columns || []).map((c) => Number(p(c)));
+					if (cols.length && cols.every((c) => Number.isInteger(c))) {
+						let sum = 0;
+						let count = 0;
+						answers
+							.map((a) => a[row])
+							.filter((a) => !!a)
+							.forEach((a: string) => {
+								sum += p(a);
+								count++;
+							});
+						if (count) result.average = sum / count;
+					}
+				}
 				results.push(result);
 			});
 			continue;
@@ -239,6 +260,7 @@ export async function aggregateByProjectId(projectId: number) {
 			result.options = Object.entries(opts).map(([answer, count]) => ({
 				answer,
 				count,
+				percent: Math.round((100 * count) / result.count) / 100,
 			}));
 		} else {
 			const opts: Record<string, number> = {};
@@ -256,6 +278,7 @@ export async function aggregateByProjectId(projectId: number) {
 			result.options = Object.entries(opts).map(([answer, count]) => ({
 				answer,
 				count,
+				percent: Math.round((100 * count) / result.count) / 100,
 			}));
 			if ('number|range'.includes(q.type) && result.options.length > 10) {
 				continue;

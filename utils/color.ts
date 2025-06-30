@@ -9,6 +9,7 @@ export const DEFAULT_COLORS: Record<DrawTypeWithOffState, string> = {
 	Point: '#F44336',
 	LineString: '#3F51B5',
 	Polygon: '#49a238',
+	box: '#000000',
 };
 
 export const COLOR_PALETTE = [

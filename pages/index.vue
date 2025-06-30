@@ -113,37 +113,33 @@ function showFeature(i: number) {
 							</figcaption>
 						</figure>
 
-						<client-only>
-							<b-modal
-								v-model="modals[i]"
-								centered
-								scrollable
-								_teleport-disabled="true"
-								teleport-to="body"
-								:title="f.title"
-							>
-								<div v-html="f.description" />
-								<template #footer>
-									<div class="d-flex w-100">
-										<b-button
-											v-if="i > 0"
-											variant="outline-primary"
-											@click="featureIndex = i - 1"
-										>
-											<i class="fas fa-fw fa-angle-left" />
-										</b-button>
-										<b-button
-											v-if="i < features.length - 1"
-											class="ms-auto"
-											variant="outline-primary"
-											@click="featureIndex = i + 1"
-										>
-											<i class="fas fa-fw fa-angle-right" />
-										</b-button>
-									</div>
-								</template>
-							</b-modal>
-						</client-only>
+						<b-modal
+							v-model="modals[i]"
+							centered
+							scrollable
+							:title="f.title"
+						>
+							<div v-html="f.description" />
+							<template #footer>
+								<div class="d-flex w-100">
+									<b-button
+										v-if="i > 0"
+										variant="outline-primary"
+										@click="featureIndex = i - 1"
+									>
+										<i class="fas fa-fw fa-angle-left" />
+									</b-button>
+									<b-button
+										v-if="i < features.length - 1"
+										class="ms-auto"
+										variant="outline-primary"
+										@click="featureIndex = i + 1"
+									>
+										<i class="fas fa-fw fa-angle-right" />
+									</b-button>
+								</div>
+							</template>
+						</b-modal>
 					</div>
 				</div>
 			</div>

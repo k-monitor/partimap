@@ -75,13 +75,11 @@ watch(otherSelected, async (s) => {
 <template>
 	<div>
 		<div class="position-relative">
-			<client-only>
-				<b-form-checkbox-group
-					v-model="selected"
-					:options="options"
-					stacked
-				/>
-			</client-only>
+			<b-form-checkbox-group
+				v-model="selected"
+				:options="options"
+				stacked
+			/>
 			<input
 				v-if="q.required && (selected || []).length < 1"
 				required

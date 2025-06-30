@@ -4,7 +4,7 @@
 
 1. Install MySQL and Node v18+.
 2. Install PNPM.
-3. Create a new project in [Google reCAPTCHA](https://www.google.com/recaptcha/admin).
+3. Create a new Cloudflare Turnstile (captcha) widget.
 4. Create a MySQL database and a user for it:
 
     ```sql
@@ -22,8 +22,8 @@
     DB_USER=partimap_user
     DB_PASS=your strong password here
     DB_NAME=partimap
-    RECAPTCHA_SITE_KEY=copy value here from recaptcha admin
-    RECAPTCHA_SECRET_KEY=copy value here from recaptcha admin
+    NUXT_PUBLIC_TURNSTILE_SITE_KEY=...
+    NUXT_TURNSTILE_SECRET_KEY=...
     ```
 6. Open a terminal in the project directory and install dependencies with `pnpm i`.
 7. Run database migrations with `npx db-migrate up`, this will create the tables of the project.

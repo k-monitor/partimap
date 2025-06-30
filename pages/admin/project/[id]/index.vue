@@ -57,7 +57,7 @@ function resetPassword() {
 	passwordModified.value = true;
 }
 
-const { locale, t } = useI18n();
+const { locales, t } = useI18n();
 
 const subscribeOptions = [
 	{ value: 'N', text: t('projectEditor.subscribeN') },
@@ -174,7 +174,7 @@ const { user } = useAuth();
 								class="form-select"
 							>
 								<option
-									v-for="l in $i18n.locales"
+									v-for="l in locales"
 									:key="l.code"
 									:value="l.code"
 								>
@@ -255,49 +255,49 @@ const { user } = useAuth();
 						maxlength="200"
 					/>
 				</form-group>
-				<client-only>
-					<b-form-group
-						:invalid-feedback="$t('imageUpload.maxFileSize')"
-						:label="$t('projectEditor.thumbnail')"
-						:state="imageState"
+
+				<b-form-group
+					:invalid-feedback="$t('imageUpload.maxFileSize')"
+					:label="$t('projectEditor.thumbnail')"
+					:state="imageState"
+				>
+					<div
+						v-if="!project.image"
+						class="input-group"
 					>
-						<div
-							v-if="!project.image"
-							class="input-group"
+						<ImageFileInput
+							v-model="image"
+							:state="imageState"
+						/>
+						<button
+							class="btn btn-outline-danger"
+							:disabled="!image"
+							type="button"
+							@click="removeImage"
 						>
-							<ImageFileInput
-								v-model="image"
-								:state="imageState"
+							<i class="fas fa-backspace" />
+						</button>
+					</div>
+					<div v-else>
+						<figure class="figure">
+							<img
+								:src="project.image"
+								:alt="$t('projectEditor.altThumbnail')"
+								class="figure-img rounded"
+								height="120"
 							/>
-							<button
-								class="btn btn-outline-danger"
-								:disabled="!image"
-								type="button"
-								@click="removeImage"
-							>
-								<i class="fas fa-backspace" />
-							</button>
-						</div>
-						<div v-else>
-							<figure class="figure">
-								<img
-									:src="project.image"
-									:alt="$t('projectEditor.altThumbnail')"
-									class="figure-img rounded"
-									height="120"
-								/>
-								<figcaption class="figure-caption">
-									<a
-										class="text-danger"
-										href="javascript:void(0)"
-										@click="removeImage"
-										>{{ $t('imageUpload.remove') }}</a
-									>
-								</figcaption>
-							</figure>
-						</div>
-					</b-form-group>
-				</client-only>
+							<figcaption class="figure-caption">
+								<a
+									class="text-danger"
+									href="javascript:void(0)"
+									@click="removeImage"
+									>{{ $t('imageUpload.remove') }}</a
+								>
+							</figcaption>
+						</figure>
+					</div>
+				</b-form-group>
+
 				<form-group
 					class="rich"
 					:label="$t('projectEditor.privacyPolicy')"
@@ -324,27 +324,23 @@ const { user } = useAuth();
 					/>
 				</form-group>
 				<form-group>
-					<client-only>
-						<b-form-checkbox
-							v-model="project.thanksSocial"
-							value="1"
-						>
-							{{ $t('projectEditor.thanksSocial') }}
-						</b-form-checkbox>
-					</client-only>
+					<b-form-checkbox
+						v-model="project.thanksSocial"
+						value="1"
+					>
+						{{ $t('projectEditor.thanksSocial') }}
+					</b-form-checkbox>
 				</form-group>
 				<form-group
 					:label="$t('projectEditor.subscribe')"
 					:description="$t('projectEditor.subscribeDescription')"
 				>
-					<client-only>
-						<b-form-radio-group
-							id="radio-group-1"
-							v-model="project.subscribe"
-							:options="subscribeOptions"
-							stacked
-						/>
-					</client-only>
+					<b-form-radio-group
+						id="radio-group-1"
+						v-model="project.subscribe"
+						:options="subscribeOptions"
+						stacked
+					/>
 				</form-group>
 			</form>
 			<template #footer>
@@ -371,11 +367,9 @@ const { user } = useAuth();
 			:project="project"
 			@sheets-changed="handleSheetsChanged"
 		/>
-		<client-only>
-			<ProjectQuizModeEditor
-				v-if="user?.isAdmin"
-				:project="project"
-			/>
-		</client-only>
+		<ProjectQuizModeEditor
+			v-if="user?.isAdmin"
+			:project="project"
+		/>
 	</div>
 </template>

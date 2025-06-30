@@ -2,6 +2,7 @@ import { defineNuxtConfig } from 'nuxt/config'; // Yes, we need explicit import 
 import { env } from './env';
 
 export default defineNuxtConfig({
+	compatibilityDate: '2025-06-17',
 	components: [{ path: '~/components', pathPrefix: false }],
 	css: [
 		'@fortawesome/fontawesome-free/css/all.min.css',
@@ -11,7 +12,6 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	modules: [
 		'@bootstrap-vue-next/nuxt',
-		'@nuxt/test-utils/module',
 		'@nuxtjs/i18n',
 		'@stefanobartoletti/nuxt-social-share',
 		'@vueuse/nuxt',
@@ -19,6 +19,9 @@ export default defineNuxtConfig({
 		'nuxt-highcharts',
 		'nuxt-scheduler',
 		'nuxt-tiptap-editor',
+		'@nuxt/eslint',
+		'@nuxt/scripts',
+		'@nuxtjs/turnstile',
 	],
 	runtimeConfig: {
 		public: {
@@ -28,7 +31,9 @@ export default defineNuxtConfig({
 				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
 				loadScript: true,
 			},
-			recaptchaSiteKey: env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY,
+		},
+		turnstile: {
+			secretKey: env.NUXT_TURNSTILE_SECRET_KEY,
 		},
 	},
 	socialShare: {
@@ -39,20 +44,26 @@ export default defineNuxtConfig({
 	// module settings
 	i18n: {
 		baseUrl: env.NUXT_PUBLIC_BASE_URL,
+		bundle: {
+			optimizeTranslationDirective: false,
+		},
 		defaultLocale: 'hu',
 		compilation: {
 			strictMessage: false,
 		},
 		locales: [
-			{ code: 'hu', iso: 'hu-HU', name: 'Magyar' },
-			{ code: 'en', iso: 'en-GB', name: 'English' },
-			{ code: 'es', iso: 'es-ES', name: 'Español' },
-			{ code: 'lt', iso: 'lt-LT', name: 'Lietuvių' },
+			{ code: 'hu', language: 'hu-HU', name: 'Magyar' },
+			{ code: 'en', language: 'en-GB', name: 'English' },
+			{ code: 'es', language: 'es-ES', name: 'Español' },
+			{ code: 'lt', language: 'lt-LT', name: 'Lietuvių' },
 		],
 		strategy: 'prefix',
 		vueI18n: 'i18n.config.ts',
 	},
 	tiptap: {
 		prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
+	},
+	turnstile: {
+		siteKey: env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
 	},
 });

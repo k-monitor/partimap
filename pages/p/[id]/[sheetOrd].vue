@@ -51,7 +51,7 @@ watchEffect(() => {
 	}
 });
 
-const { consent, loading, selectedFeatureId, submitted } = useStore();
+const { consent, loading, selectedFeatureId, sheetCaptcha: captcha, submitted } = useStore();
 
 const {
 	getAllVisitorAnswers,
@@ -250,8 +250,6 @@ watch(currentVisitorFeaturesJSON, () => {
 	setVisitorFeatures(sheet.value?.id, _visitorFeatures);
 });
 
-const { executeReCaptcha } = useReCaptcha();
-
 const { errorToast, successToast } = useToasts();
 
 const password = ref('');
@@ -259,18 +257,17 @@ const password = ref('');
 async function sendPassword() {
 	try {
 		loading.value = true;
-		const captcha = (await executeReCaptcha('access')) || '';
 		project.value = await $fetch<Project>('/api/project/access', {
 			method: 'POST',
 			body: {
-				captcha: captcha,
+				captcha: captcha.value,
 				idOrSlug: params.id,
 				password: password.value,
 				visitId: visitId.value,
 			},
 		});
 		registerHit();
-	} catch (error: any) {
+	} catch (error: Error) {
 		if (error.message && error.message.endsWith('status code 401')) {
 			errorToast(t('sheet.invalidPassword'));
 		} else {
@@ -377,11 +374,12 @@ function injectDataIntoFeatures(data: SubmissionDataBySheet) {
 	});
 }
 
-async function submit() {
+async function submit(captcha: string) {
 	const ca = await canAdvance();
 	if (!ca) return;
 
 	if (
+		!captcha ||
 		!project.value ||
 		!project.value.sheets ||
 		!sheetForm.value ||
@@ -396,12 +394,11 @@ async function submit() {
 	if (Object.keys(data).length) {
 		try {
 			injectDataIntoFeatures(data);
-			const captcha = await executeReCaptcha('submit');
 			await $fetch(`/api/project/${project.value.id}/submission`, {
 				method: 'PUT',
 				body: {
 					...data,
-					captcha,
+					captcha, // intentionally using function argument, not the ref!
 				},
 			});
 			submitted.value = true;
@@ -478,7 +475,7 @@ const localePath = useLocalePath();
 						<div class="modal-footer d-flex p-0">
 							<FooterButtons
 								:project="project"
-								:next-sheet-ord="sheet.ord"
+								:next-sheet-ord="nextSheetOrd"
 								:show-next="!isLastSheet || needToShowResults"
 								:show-prev="!isFirstSheet && !submitted"
 								:show-submit="consent && isLastSheet && !needToShowResults"
@@ -541,6 +538,7 @@ const localePath = useLocalePath();
 						:gray-rated="!resultsShown"
 						:label-overrides="labels"
 						:show-bubbles="isInteractive"
+						:view-extent="safeParseJSON(sheet.extent) || undefined"
 						visitor
 						@feature-drawn="handleFeatureDrawn"
 					/>
@@ -580,6 +578,7 @@ const localePath = useLocalePath();
 									/>
 								</div>
 							</div>
+							<NuxtTurnstile v-model="captcha" />
 						</div>
 						<div class="card-footer text-end">
 							<button class="btn btn-primary">
@@ -587,7 +586,7 @@ const localePath = useLocalePath();
 								<i class="fas fa-sign-in-alt ms-1" />
 							</button>
 						</div>
-						<LoadingOverlay :show="loading" />
+						<LoadingOverlay :show="!captcha || loading" />
 					</div>
 				</form>
 			</div>
@@ -596,9 +595,9 @@ const localePath = useLocalePath();
 </template>
 
 <style lang="scss" scoped>
-@import '../node_modules/bootstrap/scss/functions';
-@import '../node_modules/bootstrap/scss/variables';
-@import '../node_modules/bootstrap/scss/mixins';
+@import '~/node_modules/bootstrap/scss/functions';
+@import '~/node_modules/bootstrap/scss/variables';
+@import '~/node_modules/bootstrap/scss/mixins';
 
 .modal-dialog {
 	@include media-breakpoint-up(lg) {
