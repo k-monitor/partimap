@@ -135,22 +135,31 @@ const { user } = useAuth();
 	<div v-if="project">
 		<AdminFrame>
 			<template #header>
-				<div class="d-flex flex-wrap">
+				<div class="d-flex flex-wrap align-items-center">
 					<div>
-						<NuxtLink :to="localePath('/admin/projects')">{{
-							$t('projectEditor.back')
-						}}</NuxtLink>
-						<span class="text-muted">&raquo;</span>
-						{{ project.title }}
+						<NuxtLink :to="localePath('/admin/projects')">
+							{{ $t('projectEditor.back') }}
+						</NuxtLink>
+						<span class="text-muted mx-2">&raquo;</span>
+						<span>{{ project.title }}</span>
 					</div>
-					<a
-						class="btn btn-primary ms-auto"
-						:href="projectPath"
-						role="button"
-						target="_blank"
-					>
-						{{ $t('projectEditor.view') }}
-					</a>
+					<div class="ms-auto mt-3 mt-md-0">
+						<NuxtLink
+							class="btn btn-outline-primary m-2"
+							:to="localePath(`/admin/project/${project.id}/embed`)"
+							role="button"
+						>
+							{{ $t('projectEditor.embed') }}
+						</NuxtLink>
+						<a
+							class="btn btn-primary m-2"
+							:href="projectPath"
+							role="button"
+							target="_blank"
+						>
+							{{ $t('projectEditor.view') }}
+						</a>
+					</div>
 				</div>
 			</template>
 			<form
