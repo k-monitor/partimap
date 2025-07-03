@@ -30,7 +30,7 @@ useHead({
 <template>
 	<div
 		id="app"
-		class="bg-light d-flex flex-column"
+		class="d-flex flex-column"
 	>
 		<NuxtPage />
 		<BModalOrchestrator />
@@ -44,6 +44,8 @@ useHead({
 @import '~/node_modules/bootstrap/scss/mixins';
 
 body {
+	background-color: $light;
+
 	// Reverting back to Bootstrap v4's font-family:
 	font-family:
 		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
