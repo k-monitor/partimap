@@ -72,7 +72,7 @@ body,
 	color: $gray-800 !important;
 }
 
-a,
+a:not(.btn),
 .btn-link {
 	text-decoration: none;
 
