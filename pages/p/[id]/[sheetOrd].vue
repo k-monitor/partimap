@@ -387,7 +387,7 @@ const localePath = useLocalePath();
 			<div
 				v-if="!sheet.features"
 				class="modal show"
-				style="display: block"
+				style="display: block; z-index: 0 !important"
 			>
 				<div class="modal-dialog modal-dialog-scrollable">
 					<div class="modal-content shadow-sm">
