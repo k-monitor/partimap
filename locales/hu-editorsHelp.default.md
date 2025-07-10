@@ -5,8 +5,8 @@ Az alábbiakban a PARTIMAP admin felületének működését mutatjuk be.
 > **&#9432;** **Ha belevágnál, de segítségre van szükséged, kérj tőlünk ingyenes konzultációt a <hello@partimap.eu> címen!**
 
 - [**Regisztráció**](#regisztracio)
-- [**Új projekt létrehozása és korábbiak kezelése**](#ujprojekt)
-- [**Projekt adatlap**](#projektadatlap)
+- [**Új kérdőív létrehozása és korábbiak kezelése**](#ujkerdoiv)
+- [**Kérdőív adatlap**](#kerdoivadatlap)
 - [**Munkalapok listája**](#munkalap)
 - [**Munkalapok típusai**](#munkalapok)
 - [**Térképek létrehozása és korábbiak kezelése**](#terkepek)
@@ -17,40 +17,40 @@ Az alábbiakban a PARTIMAP admin felületének működését mutatjuk be.
 
 [Regisztrációt](/register) követően bárki teljes körűen és ingyenesen használhatja az alkalmazást. A PARTIMAP jelenleg magyar, [angol](/en), [litván](/lt) és [spanyol](/es) nyelven érhető el, a nyelvek között a jobb felső sarokban lévő (<i class="fas fa-globe fa-fw"></i>) gombbal lehet váltani. Ha más nyelven használnád a programot, és segítenél a fordításban, keress minket a <hello@partimap.eu> címen!
 
-Az admin felületen lehetőség van új felméréseket készíteni, korábbiakat módosítani ([**Projektek**](/admin/projects)), illetve szerkeszteni a felmérésekhez kapcsolódó térképeket ([**Térképek**](/admin/maps)).
+Az admin felületen lehetőség van új felméréseket készíteni, korábbiakat módosítani ([**Kérdőívek**](/admin/projects)), illetve szerkeszteni a felmérésekhez kapcsolódó térképeket ([**Térképek**](/admin/maps)).
 
-### Új projekt létrehozása és korábbiak kezelése {#ujprojekt}
+### Új kérdőív létrehozása és korábbiak kezelése {#ujkerdoiv}
 
-Új projekt a belépést követően a Projektek oldalon, a **projekt elnevezésének megadásával** hozható létre a _Hozzáadás_ gombra kattintva.
+Új kérdőív a belépést követően a Kérdőívek oldalon, a **felmérés elnevezésének megadásával** hozható létre a _Hozzáadás_ gombra kattintva.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
 			<img
-				alt="Projekt létrehozása"
+				alt="Kérdőív létrehozása"
 				class="figure-img img-fluid rounded shadow-sm"
 				src="/help/project.png"
 			>
 			<figcaption class="figure-caption text-center">
-				Projekt létrehozása
+				Kérdőív létrehozása
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-A Projekt menüpontban megtalálható a saját projektek listája. Itt látható a megtekintések és kitöltések száma, és a **Riport letöltése** gombra kattintva .xlsx formátumban letölthető a kitöltésekből generált [riport](#riport).
+A Kérdőívek menüpontban megtalálható a saját kérdőívek listája. Itt látható a megtekintések és kitöltések száma, és a **Riport letöltése** gombra kattintva .xlsx formátumban letölthető a kitöltésekből generált [riport](#riport).
 
-A projektlistában a projekt melletti **⋮** -ra kattintva a felesleges projektek törölhetők, illetve a Másolat készítésére kattintva másolható a benne összegyűjtött válaszok törlésével. Így a teszteléskor beküldött felesleges válaszok nélkül indíthatjuk el a nyilvános felmérést.
+A kérdőívlistában a kérdőív melletti **⋮** -ra kattintva a felesleges kérdőívek törölhetők, illetve a Másolat készítésére kattintva másolható a benne összegyűjtött válaszok törlésével. Így a teszteléskor beküldött felesleges válaszok nélkül indíthatjuk el a nyilvános felmérést.
 
-### Projekt adatlap {#projektadatlap}
+### Kérdőív adatlap {#kerdoivadatlap}
 
-A [Projektek](/admin/projects) menüpontból a listában a projekt nevére kattintva, vagy új projektet létrehozva a projekt adatlapjára jutunk. Itt adhatók meg a felméréshez kapcsolódó adatok, kérdések és tartalmak.
+A [Kérdőívek](/admin/projects) menüpontból a listában a kérdőív nevére kattintva, vagy új kérdőívet létrehozva a kérdőív adatlapjára jutunk. Itt adhatók meg a felméréshez kapcsolódó adatok, kérdések és tartalmak.
 
 Ez két részből áll: az oldal felső részén a felméréshez kapcsolódó általános adatok adhatóak meg, a második felében a munkalapok szerkesztésére van lehetőség.
 
 A kapcsolódó adatoknál és beállításoknál van lehetőség
 
-- megadni a projekt elnevezését, ami az adminfelületen túl a böngésző lapcímében és a közösségi médiában megosztáskor jelenik meg;
+- megadni a felmérés elnevezését, ami az adminfelületen túl a böngésző lapcímében és a közösségi médiában megosztáskor jelenik meg;
 - szerkeszteni az elérési útvonalát (URL címét - <code>https://partimap.eu/hu/p/*</code>),
 - jelszavas védelmet beállítani, amivel szűkíthető a kitöltők köre. Ilyenkor a kérdőív URL-jére navigálva az oldal jelszót kér, ennek megadás után lehet kitölteni a kérdőívet. Ha nem szeretne több kitöltést fogadni, jelszó beállításával passziválhatja is a kérdőívet;
 - Facebook megosztáshoz egyedi meta leírást (előnézeti szöveget) adni,
@@ -61,9 +61,9 @@ A kapcsolódó adatoknál és beállításoknál van lehetőség
 
 ### Munkalapok listája {#munkalap}
 
-A projekt munkalapokra tagolódik. Az egyes munkalapok szerkesztőfelületén lehet beállítani különböző kérdőívkérdéseket, tájékoztató szövegeket és kitöltői interakcióra felhívó térképes feladatokat.
+A kérdőív munkalapokra tagolódik. Az egyes munkalapok szerkesztőfelületén lehet beállítani különböző kérdőívkérdéseket, tájékoztató szövegeket és kitöltői interakcióra felhívó térképes feladatokat.
 
-A munkalapok a felméréshez kapcsolódó általános beállítások alatt szerkeszthetőek. Új projekt esetében ez a rész egy alapértelmezetten hozzáadott szöveges munkalapot tartalmaz. A _Munkalap hozzáadása_ gombra kattintva lehet elkezdeni a kérdőív tartalmának szerkesztését. A már létrehozott munkalapok listanézete is itt érhető el.
+A munkalapok a felméréshez kapcsolódó általános beállítások alatt szerkeszthetőek. Új kérdőív esetében ez a rész egy alapértelmezetten hozzáadott szöveges munkalapot tartalmaz. A _Munkalap hozzáadása_ gombra kattintva lehet elkezdeni a kérdőív tartalmának szerkesztését. A már létrehozott munkalapok listanézete is itt érhető el.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -80,9 +80,9 @@ A munkalapok a felméréshez kapcsolódó általános beállítások alatt szerk
 	</div>
 </div>
 
-Ha már több munkalapot is tartalmaz a projekt, a fel és le nyilakkal változtatható a munkalapok sorrendje, a kuka ikon pedig törli a szükségtelen munkalapot.
+Ha már több munkalapot is tartalmaz a kérdőív, a fel és le nyilakkal változtatható a munkalapok sorrendje, a kuka ikon pedig törli a szükségtelen munkalapot.
 
-A munkalap típusát (_Szöveg, Kérdőív, Térkép_ vagy _Interaktív térkép_) a piktogramokra kattintva lehet kiválasztani.
+A munkalap típusát (_Szöveg - Kérdéssor - Kérdéssor térképpel - Térképes feladatok_) a piktogramokra kattintva lehet kiválasztani
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -101,17 +101,17 @@ A munkalap típusát (_Szöveg, Kérdőív, Térkép_ vagy _Interaktív térkép
 
 Az első munkalapon (annak típusától függetlenül) a kitöltőnek el kell fogadnia a felhasználási feltételeket és az adatkezelési tájékoztatót. Első munkalapként érdemes Szöveg munkalapot megadni, ahol tisztázhatjuk a felmérés kereteit (pl. a kitöltés várható hossza, kitöltésre jogosultak köre), illetve a felmérés célját, a lebonyolító kilétét.
 
-A Projekt adatlap jobb felső sarkában található **Megtekintés** gombra kattintva közvetlenül az épülő kérdőívre léphetünk, nyomon követve a mentett változtatásokat. Érdemes a kérdőív szerkesztésekor itt a szerkesztővel párhuzamosan követni a módosításokat.
+A kérdőív adatlap jobb felső sarkában található **Megtekintés** gombra kattintva közvetlenül az épülő kérdőívre léphetünk, nyomon követve a mentett változtatásokat. Érdemes a kérdőív szerkesztésekor itt a szerkesztővel párhuzamosan követni a módosításokat.
 
 ### Munkalapok típusai {#munkalapok}
 
-A munkalapok szerkesztőfelületén a kérdőívhez hasonlóan a modul alján lévő kék gombokkal lehet lépkedni a szerkesztés alatt álló munkalapok között. A **↗** ikonnal a munkalapról közvetlenül a felmérés kitöltők számára is látható lapjára ugorhatunk. Az utolsó hozzáadott munkalapon a zöld **+** gombbal közvetlenül, a projektadatlapra visszalépés nélkül is munkalapokat adhatunk a projekthez. A bal felső **PARTIMAP ikonra** kattintva visszaléphetünk a projektadatlapra.
+A munkalapok szerkesztőfelületén a kérdőívhez hasonlóan a modul alján lévő kék gombokkal lehet lépkedni a szerkesztés alatt álló munkalapok között. A **↗** ikonnal a munkalapról közvetlenül a felmérés kitöltők számára is látható lapjára ugorhatunk. Az utolsó hozzáadott munkalapon a zöld **+** gombbal közvetlenül, a kérdőívadatlapra visszalépés nélkül is munkalapokat adhatunk a kérdőívhez. A bal felső **PARTIMAP ikonra** kattintva visszaléphetünk a kérdőívadatlapra.
 
-> ⚠️ Figyelem, a változtatások rögzítéséhez meg kell nyomni a **_Mentés_** gombot, erre más oldalra navigálás esetén felugró ablak is figyelmeztet. Az elmentett módosítások közvetlenül megjelennek a kitöltők számára látható felmérésben, a projektadatlapnál beállított webhelyen.
+> ⚠️ Figyelem, a változtatások rögzítéséhez meg kell nyomni a **_Mentés_** gombot, erre más oldalra navigálás esetén felugró ablak is figyelmeztet. Az elmentett módosítások közvetlenül megjelennek a kitöltők számára látható felmérésben, a kérdőívadatlapnál beállított webhelyen.
 
 #### Szöveg munkalap {#szoveges}
 
-Szöveg és képek megjelenítésére alkalmas munkalap, ahol többek közt a felmérés céljait, a lebonyolító szervezet vagy intézmény tevékenységét, a döntési helyzet hátterét és a részvételi folyamat lépéseit lehet ismertetni. Ahhoz, hogy ezt a felmérés elején meg lehessen tenni, egy szöveges munkalapot automatikusan hozzáadunk a létrehozott projekthez.
+Szöveg és képek megjelenítésére alkalmas munkalap, ahol többek közt a felmérés céljait, a lebonyolító szervezet vagy intézmény tevékenységét, a döntési helyzet hátterét és a részvételi folyamat lépéseit lehet ismertetni. Ahhoz, hogy ezt a felmérés elején meg lehessen tenni, egy szöveges munkalapot automatikusan hozzáadunk a létrehozott kérdőívhez.
 
 A munkalap szerkesztése során megadhatók:
 
@@ -120,19 +120,19 @@ A munkalap szerkesztése során megadhatók:
 - _Háttérkép_, amely a párbeszédablak mögötti teret tölti ki;
 - A felmérés közösségi médiás megosztására felhívó gombok (_Látogatói interakciók: Megosztás gombok_).
 
-#### Kérdőív munkalap {#kerdoiv}
+#### Kérdéssor munkalap {#kerdessor}
 
-A Kérdőív munkalap segítségével hagyományos kérdőíves felméréseket készíthetünk. A munkalap szerkesztése során megadhatók:
+A Kérdéssor munkalap segítségével hagyományos kérdőíves felméréseket készíthetünk. A munkalap szerkesztése során megadhatók:
 
 - A _Munkalap címe_, amely megjelenik a publikus kérdőív fejlécében is;
 - A _Munkalap leírása_, amely a párbeszédablak elején jelenik meg. A szöveg alapvető formátumbeállítási lehetőségekkel testre szabható, lehetőség van link, illetve kép beszúrására is a Szöveg munkalaphoz hasonlóan. Kép hozzáadásával lehetőség van a képre vonatkozó kérdések feltételére;
-- _Kérdőív:_ a munkalaphoz itt van lehetőség kérdőívkérdések hozzáadására, amelyek tulajdonságai a megjelenő párbeszédablakban szerkesztők;
+- _Kérdések:_ a munkalaphoz itt van lehetőség kérdőívkérdések hozzáadására, amelyek tulajdonságai a megjelenő párbeszédablakban szerkesztők;
 - _Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít):_ a kitöltést követően, lapozás után a látogató számára megjelenik mindegyik kérdőívkérdés válaszának összesített statisztikája oszlopdiagramon. A megmutatott eredmények kérdésenként is engedélyezhetőek a Kérdőív modul párbeszédablakában;
-- _Csak az eredmények megjelenítése:_ bejelölve a munkalap kérdései lezárulnak, nem gyűjtenek válaszokat. Ezen a munkalapon csak az eredmények lesznek láthatóak a kitöltők számára. Ez lehetőséget ad arra, hogy a lezárt kérdőívet a link megtartásával egy, az eredményeket bemutató projektté alakítsuk át;
+- _Csak az eredmények megjelenítése:_ bejelölve a munkalap kérdései lezárulnak, nem gyűjtenek válaszokat. Ezen a munkalapon csak az eredmények lesznek láthatóak a kitöltők számára. Ez lehetőséget ad arra, hogy a lezárt kérdőívet a link megtartásával egy, az eredményeket bemutató kérdőívvé alakítsuk át;
 - _Saját háttérkép_, amely a párbeszédablak mögötti teret tölti ki;
 - A felmérés _megosztására felhívó gombok_. Ezt az utolsó, gyakran demográfiai kérdéseket tartalmazó munkalap esetén érdemes bekapcsolni.
 
-A Kérdőív blokkhoz az alábbi kérdéstípusok adhatók a _Kérdés szövege_ megadásával:
+A _Kérdések_ blokkhoz az alábbi kérdéstípusok adhatók a _Kérdés szövege_ megadásával:
 
 _Szöveges válasz:_ a szövegmezőbe a kitöltő tetszőleges választ gépelhet. Az eredményriport ezt a szöveges választ tartalmazza.
 
@@ -160,23 +160,23 @@ Az egyes kérdések a _Kötelező megválaszolni_ bepipálásával kötelezővé
 
 Az egyes kérdések a _Válaszok hozzáadása a térképes jelölésekhez elemzés céljára_ opció bepipálásával hozzáadhatóak paraméterként az esetlegesen ugyanezzel a kérdőívvel gyűjtött térképes jelölésekhez. Így az ezt tartalmazó .kml file elemeiben elérhető lesz a hozzáadott kérdés szövege és a rá adott válasz (_partimapQuestion_... névvel). Így a térképes válaszok szűrhetővé válnak nem, kor stb. szerint, amennyiben a felmérés tartalmaz erre vonatkozó kérdőívkérdést.
 
-A kérdések megjelenítése függővé tehető egy (sorrendben korábbi) kérdésre adott kitöltői választól. A feltételesség a kérdés párbeszédablakában a (_Megjelenik, ha..._) opciót kiválasztva állítható be. Figyelem, a feltételes kérdés (**⮥**) ezt követően nem mozgatható a feltételt adó kérdés (**⮢**) elé, illetve az ezeket tartalmazó munkalapok sorrendje sem fordítható meg a projektadatlapon! A feltételt adó kérdések ezen felül nem törölhetők, válaszopcióik nem módosíthatók.
+A kérdések megjelenítése függővé tehető egy (sorrendben korábbi) kérdésre adott kitöltői választól. A feltételesség a kérdés párbeszédablakában a (_Megjelenik, ha..._) opciót kiválasztva állítható be. Figyelem, a feltételes kérdés (**⮥**) ezt követően nem mozgatható a feltételt adó kérdés (**⮢**) elé, illetve az ezeket tartalmazó munkalapok sorrendje sem fordítható meg a kérdőívadatlapon! A feltételt adó kérdések ezen felül nem törölhetők, válaszopcióik nem módosíthatók.
 
 > **&#9432;** A feltételes kérdésekkel lehetőség van optimalizálni a kérdőív hosszát: pl. az autóhasználatra vonatkozó kérdéseket csak azok számára megjeleníteni, akik jelezték, hozzáférnek autóhoz.
 
-A munkalap szerkesztőfelületének _Kérdőív_ menüpontjában (a kérdések listájában) a kérdések a kuka ikonra kattintva törölhetőek, illetve sorrendjük a kérdés fiókjára kattintva, vonszolással módosítható.
+A munkalap szerkesztőfelületének _Kérdések_ blokkjában (a kérdések listájában) a kérdések a kuka ikonra kattintva törölhetőek, illetve sorrendjük a kérdés fiókjára kattintva, vonszolással módosítható.
 
-#### Statikus térkép munkalap {#statikus}
+#### Kérdéssor térképpel munkalap {#statikus}
 
-> **&#9432;** A munkalap segítségével olyan térkép alapú felmérés készíthető, amely alkalmas egy állapot, megvalósult fejlesztés vagy terv bemutatására, valamint az ezzel kapcsolatos értékelések, visszajelzések gyűjtésére. A kitöltőket itt arra kérjük, hogy a térképen látottakhoz kapcsolódóan válaszoljanak a feltett kérdésekre, de szemben az interaktív térkép munkalappal, ők nem rajzolhatnak a térképre.
+> **&#9432;** A munkalap segítségével olyan térkép alapú felmérés készíthető, amely alkalmas egy állapot, megvalósult fejlesztés vagy terv bemutatására, valamint az ezzel kapcsolatos értékelések, visszajelzések gyűjtésére. A kitöltőket itt arra kérjük, hogy a térképen látottakhoz kapcsolódóan válaszoljanak a feltett kérdésekre, de szemben a _Térképes feladatok_ munkalappal, ők nem rajzolhatnak a térképre.
 
-A Térkép munkalap létrehozásakor a térkép tartalmát egy már meglévő, a Térképek menüpontban tárolt térképről is importálhatjuk (_Térkép elemek másolása innen_). A létrehozott munkalap _Térkép elemei_ menüpontjában is bármikor lehetőség van importálásra egy, a Térképek között tárolt térképről, illetve bármely más saját felmérés munkalapján tárolt fix, illetve interaktív munkalapjára a kitöltők által beküldött elemekből. Elemeket tölthetünk fel a térképre továbbá külső forrásból (pl. Google Maps) egy [.kml file](https://hu.wikipedia.org/wiki/Keyhole_Markup_Language) segítségével. A térkép mozgatásáról a [Térképek menüpont](#terkepek) bemutatásánál található bővebb leírás.
+A Térkép munkalap létrehozásakor a térkép tartalmát egy már meglévő, a Térképek menüpontban tárolt térképről is importálhatjuk (_Térkép elemek másolása innen_). A létrehozott munkalap _Térkép elemei_ menüpontjában is bármikor lehetőség van importálásra egy, a Térképek között tárolt térképről, illetve bármely más saját felmérés munkalapján tárolt fix, illetve _Térképes feladatok_ munkalapjára a kitöltők által beküldött elemekből. Elemeket tölthetünk fel a térképre továbbá külső forrásból (pl. Google Maps) egy [.kml file](https://hu.wikipedia.org/wiki/Keyhole_Markup_Language) segítségével. A térkép mozgatásáról a [Térképek menüpont](#terkepek) bemutatásánál található bővebb leírás.
 
 A munkalap szerkesztése során megadhatók:
 
 - A _Munkalap címe_, amely megjelenik a publikus kérdőív fejlécében is;
 - A _Munkalap leírása_, amely a párbeszédablak elején jelenik meg. Itt érdemes tömören elmagyarázni, mi a kitöltő feladata az adott munkalapon. A szöveg alapvető formátumbeállítási lehetőségekkel testre szabható, itt is lehetőség van link és képek beszúrására.
-- _Kérdőív:_ a munkalap egészéhez itt is lehetőség van kérdőívkérdések hozzáadására, amelyek a [Kérdőív munkalap leírásánál](#kerdoiv) megismert módon a megjelenő párbeszédablakban szerkeszthető. A kérdőívkérdések a kitöltők számára az oldalsávban, a leírás alatt jelennek meg. A kérdések között beállított függőségek az ezen a munkalapon megadott kérdésekre is vonatkoznak.
+- _Kérdések:_ a munkalap egészéhez itt is lehetőség van kérdőívkérdések hozzáadására, amelyek a [Kérdéssor munkalap leírásánál](#kerdessor) megismert módon a megjelenő párbeszédablakban szerkeszthető. A kérdőívkérdések a kitöltők számára az oldalsávban, a leírás alatt jelennek meg. A kérdések között beállított függőségek az ezen a munkalapon megadott kérdésekre is vonatkoznak.
 - _Látogatói interakciók:_ ha a _Fix elemek értékelése_ be van jelölve, a kitöltők értékelhetik a térképre felrajzolt elemeket. A feladat részletei a felugró popup ablakban határozhatóak meg. A feladatot utólag is módosíthatjuk a kék **⚙** ikonra kattintva.
     - Kétféle értékelés választható (_Értékelés típusa:_)
         - _Csillagok:_ a kitöltő ekkor az elemre kattintva csillagokkal értékelhet. A csillagok száma beállítható (1-10), ha egy csillagot választunk, az igen-nem válaszként használható. Az értékeléshez nem tartozik munkalapszintű kérdés, az ehhez tartozó instrukciót átfogóan a munkalap leírásában, vagy egyedileg az elem leírásában kell megadnunk. Ha a válasz statisztika be van állítva, az elemeknél lapozás után a csillagok átlaga és az értékelések száma jelenik meg a kitöltőknek -- ez az admin felületen alapértelmezetten látható.
@@ -197,7 +197,7 @@ A munkalap szerkesztése során megadhatók:
     - Az _Elem elrejtése a listában_ bejelölésével az adott elem megjelenik ugyan a térképen, de nem lehet vele interaktálni: nem jelenik meg a Térkép elemei között fiókként és a térképen sem lehet belekattintani. Ez akkor hasznos, ha egy olyan segédelemet rajzolunk a térképre, ami csak orientálja a kitöltőket, pl. egy város határvonala.
 - Az elemlista felett található KML gombok segítségével lehetőség van más szerkesztőfelületen készített térkép betöltésére (<i class="fas fa-fw fa-upload"></i>) vagy a térkép elemeinek lementésére (<i class="fas fa-fw fa-download"></i>).
 
-A statikus térkép munkalap szerkesztőfelületén a jobb felső sarokban található _pont, vonal_ és _terület_ gombokkal közvetlenül is lehet elemeket felrajzolni a munkalapon megjelenített térképre. A térképre tetszőleges számú elem felrajzolható. A térképre a +/- gombokkal vagy kétujjas nagyítással közelíthetünk.
+A _Kérdéssor térképpel_ munkalap szerkesztőfelületén a jobb felső sarokban található _pont, vonal_ és _terület_ gombokkal közvetlenül is lehet elemeket felrajzolni a munkalapon megjelenített térképre. A térképre tetszőleges számú elem felrajzolható. A térképre a +/- gombokkal vagy kétujjas nagyítással közelíthetünk.
 
 _Pont felrajzolása (piros):_ a piros alapon fehér gombostűre kattintva helyezhető el pont jelölő. A jelölőt egyszeri kattintással helyezhetjük el.
 
@@ -220,7 +220,7 @@ _Terület felrajzolása (zöld):_ a zöld alapon fehér körbezárt alakzatra ka
 
 _Felrajzolt elemek kinézetének alakítása:_ utólag alakíthatjuk a felrajzolt vagy importált elemek kinézetét a hozzájuk kapcsolódó fiókban.
 
-- A _Név_ a statikus munkalapon a fiók fejlécében is megjelenik (interaktív munkalapon nincsenek fiókok, ott az elemek csak a térképen jelennek meg).
+- A _Név_ a munkalapon a fiók fejlécében is megjelenik (_Térképes feladatok_ munkalapon nincsenek fiókok, ott az elemek csak a térképen jelennek meg).
 - A _Méret_ a pont nagyságát, vagy a (határoló) vonal vastagságát jelenti. Az elemek tényleges mérete attól is függ, hogy mennyire közelítettünk rájuk.
 - Vonal vagy terület esetén kiválaszthatjuk a határoló _Vonal stílusát_ is.
 - Az _Extra kiemeléssel_ a felrajzolt elemhez fekete, szürke, fehér vagy saját színű extra körvonal adható, feltűnőbbé és egyedibbé téve azt.
@@ -231,7 +231,7 @@ _Felrajzolt elemek kinézetének alakítása:_ utólag alakíthatjuk a felrajzol
 
 _Mobilnézet:_ amennyiben táblagépen vagy mobiltelefonon használja a szerkesztőfelületet, a térképes munkalapok esetén a kérdéseket tartalmazó panel és a térkép között az elrejt (<<) és a kinyit (>>) gombokkal lehet váltani. A rajzoláshoz szükséges gombok a térkép nézetben érhetőek el, az oldalsáv elrejtésével.
 
-#### Interaktív térkép munkalap {#interaktiv}
+#### Térképes feladatok munkalap {#interaktiv}
 
 Ezen a munkalapon a kitöltők válaszatikat a térképre rajzolva adhatják meg. A _Munkalap címe_ és a _Munkalap leírása_ kell tartalmazza azokat az információkat, amelyek segítik a kitöltőt, hogy pontos választ adjon a feltett kérdésre.
 
@@ -254,11 +254,11 @@ Az _+ Új térképes feladat_ gombra kattintva, a felugró ablakban határozhatj
 
 A fenti paraméterek beállítása után, a Mentés gombra kattintva lezárhatjuk a feladatot. A feladatok nevére kattintva később módosíthatjuk a feladatot, vagy törölhetjük azt.
 
-Az oldalsáv alsó felében a _Térkép elemei_ a statikus térképhez hasonlóan az adminfelületen hozzáadott (felrajzolt vagy feltöltött) elemek listáját tartalmazza.
+Az oldalsáv alsó felében a _Térkép elemei_ a _Kérdéssor térképpel_ munkalaphoz hasonlóan az adminfelületen hozzáadott (felrajzolt vagy feltöltött) elemek listáját tartalmazza.
 
-> **&#9432;** A statikus térképhez hasonlóan itt is lehetősége van elemeket felrajzolni a térképre, amivel orientálhatjuk a kitöltőket. Pl. jelezhető velük, milyen területen, zónákon belül várjuk az elemek felrajzolását. Megadásuk azért is hasznos, mert **a térkép automatikusan ezekre az elemekre közelít.** Az elemhez adott címke ebben az esetben is megjelenik a térképen, a leírás azonban nem az oldalsáv fiókjaiban, hanem a térképen, az elemre kattintva megnyíló ablakban jelenik meg.
+> **&#9432;** A _Kérdéssor térképpel_ munkalaphoz hasonlóan itt is lehetősége van elemeket felrajzolni a térképre, amivel orientálhatjuk a kitöltőket. Pl. jelezhető velük, milyen területen, zónákon belül várjuk az elemek felrajzolását. Megadásuk azért is hasznos, mert **a térkép automatikusan ezekre az elemekre közelít.** Az elemhez adott címke ebben az esetben is megjelenik a térképen, a leírás azonban nem az oldalsáv fiókjaiban, hanem a térképen, az elemre kattintva megnyíló ablakban jelenik meg.
 
-Amennyiben egy interaktív térképre már érkeztek kitöltők által felrajzolt elemek, ezek a projekt adatlapján, a listában a munkalap melletti _Új saját térképre küldés_ linkkel exportálhatók saját térképre, ahol böngészhetők, szerkeszthetők vagy külső felhasználásra .kml formátumban letölthetők. Az .xlsx riport is tartalmazza a beküldött elemek adatait (kitöltés azonosítója, koordináták, leírás). Ha nem akarjuk letölteni az adott állapotban összegyűjtött válaszokat, csak böngésznénk azokat, a projektadatlapon az interaktív térkép munkalap alatti kék gombra (**👁**) kattintva megtekintés, illetve letöltés céljából megnyithatjuk a beküldött elemeket. A felületen az elemek a válaszokból származtatott kategória szerint szűrhetők, törölhetők. Letöltéskor a térképen látható, leszűrt elemek kerülnek az exportba. A törlés nem módosítja a tárolt válaszokat.
+Amennyiben egy térképre már érkeztek kitöltők által felrajzolt elemek, ezek a kérdőív adatlapján, a listában a munkalap melletti _Új saját térképre küldés_ linkkel exportálhatók saját térképre, ahol böngészhetők, szerkeszthetők vagy külső felhasználásra .kml formátumban letölthetők. Az .xlsx riport is tartalmazza a beküldött elemek adatait (kitöltés azonosítója, koordináták, leírás). Ha nem akarjuk letölteni az adott állapotban összegyűjtött válaszokat, csak böngésznénk azokat, a kérdőívadatlapon a _Térképes feladatok_ munkalap alatti kék gombra (**👁**) kattintva megtekintés, illetve letöltés céljából megnyithatjuk a beküldött elemeket. A felületen az elemek a válaszokból származtatott kategória szerint szűrhetők, törölhetők. Letöltéskor a térképen látható, leszűrt elemek kerülnek az exportba. A törlés nem módosítja a tárolt válaszokat.
 
 ### Térképek létrehozása és korábbiak kezelése {#terkepek}
 
@@ -269,7 +269,7 @@ A PARTIMAP jelenleg nem kínál grafikus elemző funkciókat, de a saját térk�
 Új saját térkép létrehozása:
 
 - A <a href="/admin/maps" target="_blank">Térképek</a> oldalon az Új térkép elnevezése megadásával a _Hozzáadás_ gombra kattintva. Ide .kml fájlból adatot lehet betölteni a szerkesztőfelületen;
-- Egy felmérés kitöltőinek beküldéseiből a projekt adatlapon a vonatkozó munkalap sorában megjelenő _Új saját térképre küldés_
+- Egy felmérés kitöltőinek beküldéseiből a kérdőív adatlapon a vonatkozó munkalap sorában megjelenő _Új saját térképre küldés_
 
 A PARTIMAP felmérés kitöltéseit tartalmazó .kml kategóriaként tartalmazza a jelölések típusát, így külső elemző program segítségével, vagy a .kml file-t [táblázatos formába konvertálva](https://mygeodata.cloud/converter/kml-to-xlsx) szétválaszthatók a különböző jelölések, és szerkeszthetők az elemek paraméterei.
 
@@ -285,7 +285,7 @@ A PARTIMAP által generált és használt .kml file-ok az alábbi paramétereket
 
 ### Riport és eredmények {#riport}
 
-Egy felmérés kitöltéseit a [Projektek](/admin/projects) listanézetének oldalán van lehetőség letölteni .xlsx formátumban. A riport az eredményeket a korábban részletezett formátumban tartalmazza. A térképes elemek azonosítószámok mentén is összekapcsolhatók a kérdőívkérdésekre adott válaszokkal, így pl. a kitöltők demográfiai adataival. Az adatok összekapcsolása után a térbeli jelölések is mélyebben elemezhetők, leszűrhetők a kitöltők egyes csoportjai mentén. A riport tartalmazza a kitöltők által használt eszköz típusát (pc/mobil) és a kitöltő IP címét is.
+Egy felmérés kitöltéseit a [Kérdőívek](/admin/projects) listanézetének oldalán van lehetőség letölteni .xlsx formátumban. A riport az eredményeket a korábban részletezett formátumban tartalmazza. A térképes elemek azonosítószámok mentén is összekapcsolhatók a kérdőívkérdésekre adott válaszokkal, így pl. a kitöltők demográfiai adataival. Az adatok összekapcsolása után a térbeli jelölések is mélyebben elemezhetők, leszűrhetők a kitöltők egyes csoportjai mentén. A riport tartalmazza a kitöltők által használt eszköz típusát (pc/mobil) és a kitöltő IP címét is.
 
 > A tömeges gépi kitöltéseket nem engedélyezi az oldal, de kézzel lehetőség van azonos IP címről több választ is leadni. Ezeket a riportből az IP cím alapján lehet kiszűrni.
 
@@ -335,11 +335,11 @@ Az _Adataim_ menüpontban saját profilunknál mini logót és webcímet adhatun
 
 A leírás mezőkben is el lehet helyezni képeket, ehhez egy külső tárhelyen kell tárolni a képet, vagy jogtiszta, szabadon felhasználható illusztrációt találni. Ezekkel még átélhetőbbé tehetjük a döntést a kitöltők számára.
 
-A statikus térkép munkalap pontjait, vonalait is átszínezhetjük a szervezetünk színére. A térkép elemeihez szintén adható leírás, kép, így könnyebben beazonosíthatóvá tehetők a megjelölt helyek.
+A _Kérdéssor térképpel_ munkalap pontjait, vonalait is átszínezhetjük a szervezetünk színére. A térkép elemeihez szintén adható leírás, kép, így könnyebben beazonosíthatóvá tehetők a megjelölt helyek.
 
-A projekt szerkesztőfelületén a kérdőívhez saját url-t és Facebook megoszthatóságot adhatunk. Ez fontos, hiszen a kérdőívet legegyszerűbben a közösségi médiában lehet terjeszteni. Ha akkor adunk hozzá Facebook arculatot, amikor a kérdőívet már megosztották, az előnézet nem az lesz, amit beállítottunk. Ezt [jelezni kell a Facebook felé](https://developers.facebook.com/tools/debug/), ami ezután frissíti a képet és elnevezést.
+A kérdőív szerkesztőfelületén a kérdőívhez saját url-t és Facebook megoszthatóságot adhatunk. Ez fontos, hiszen a kérdőívet legegyszerűbben a közösségi médiában lehet terjeszteni. Ha akkor adunk hozzá Facebook arculatot, amikor a kérdőívet már megosztották, az előnézet nem az lesz, amit beállítottunk. Ezt [jelezni kell a Facebook felé](https://developers.facebook.com/tools/debug/), ami ezután frissíti a képet és elnevezést.
 
-A kérdőív beágyazható a weboldaladra, ehhez az oldal HTML kódjába, a megfelelő helyre az alábbi kódot kell elhelyezni a projekt linkjével.
+A kérdőív beágyazható a weboldaladra, ehhez az oldal HTML kódjába, a megfelelő helyre az alábbi kódot kell elhelyezni a kérdőív linkjével.
 
 ```
 <embed src="https://partimap.eu/hu/p/példa" style="width:100%; height:550px;">
