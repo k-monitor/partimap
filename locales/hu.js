@@ -121,7 +121,7 @@ export default {
 	},
 	projectEditor: {
 		altThumbnail: 'Facebook bélyegkép',
-		back: 'Projektek',
+		back: 'Kérdőívek',
 		changeFailed: 'Módosítás sikertelen',
 		changeSuccessful: 'Módosítás sikeres',
 		copiedURL: 'Kérdőív URL vágólapra másolva!',
@@ -313,7 +313,7 @@ export default {
 		logout: 'Kijelentkezés',
 		maps: 'Térképek',
 		profile: 'Adataim',
-		projects: 'Projektek',
+		projects: 'Kérdőívek',
 		users: 'Felhasználók',
 	},
 	CheckboxGroup: {
