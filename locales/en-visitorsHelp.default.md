@@ -5,10 +5,9 @@ With the PARTIMAP map-based survey tool you can give your opinion by using map m
 To proceed, you must accept the terms of use and the privacy policy on the landing page of the questionnaire. You can navigate between the worksheets by using the blue forward and back buttons at the bottom (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-left"></i></span><span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-right"></i></span>).
 The completion of worksheets containing traditional questionnaire questions corresponds to similar interfaces. Follow the instructions and answer with text, number, or by ticking the number of checkboxes required or by entering your own answer.
 
-All questions marked with an asterisk must be answered, otherwise you cannot move on to the next worksheet or submit your answers.
+All questions marked with an asterisk (\*) must be answered, otherwise you cannot move on to the next worksheet or submit your answers.
 
-If the owner of the questionnaire has allowed everyone to see statistics on the responses, then after providing your answers, the worksheet will show the results so far for those given questions. Click on the next button again to go to the next page.
-
+If the owner of the questionnaire has allowed everyone to see statistics on the responses, then after providing your answers, the worksheet will show the results so far for those given questions. Click on the next button again to go to the next worksheet.
 
 ### Browsing and rating map items
 
@@ -23,7 +22,6 @@ If the questionnaire asks you to rate elements of the map, you can do this in th
 
 If the owner of the questionnaire has allowed everyone to see statistics on the responses, then after providing your answers, the worksheet will show the results so far for those given questions. Click on the next button again to go to the next page.
 
-
 ### Mobile view
 
 If you are completing the survey on a tablet or mobile phone, you can switch between the sidebar with questions and instructions and the map view with the hide
@@ -34,20 +32,17 @@ buttons. Clicking on the highlighted items on the map will, after a slight delay
 
 You can go to the next page at the bottom of the open sidebar.
 
-
 ### Drawing on the map
 
 Always try to be as precise as possible in the positioning of the markings. If necessary, use the scroll wheel on your mouse, the +/- keys or two fingers to zoom in on the map.
-
 
 #### Plot point {#point}
 
 The project owner expects you to mark specific locations on the map.
 
-This can be done by clicking on the white pin on a red background (<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>) next to the instructions in the sidebar. Then click on the location on the map that you want to mark according to the question asked. You can place the point by clicking once, then in the dialogue box on the right you can add a reason for the marked location.
+This can be done by clicking on the white pin on a red background (<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>) next to the instructions in the sidebar. Then click on the location on the map that you want to mark according to the instructions. You can place the point by clicking once, then in the dialogue box on the right you can add a reason for the marked location.
 
 You can save the selection by clicking Save or delete it by clicking Delete Item. You can then add another marker to the map.
-
 
 #### Draw a line {#line}
 
@@ -67,7 +62,6 @@ You can do this by clicking on the white line on a blue background (<span class=
 </div>
 
 After closing the line, you can add a reason for the selected item in the dialogue box that opens. You can save the selection by clicking Save or delete it by clicking Delete Item. You can then add another marker to the map.
-
 
 #### Mapping the area {#shape}
 
