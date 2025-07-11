@@ -205,7 +205,7 @@ function uploadDefinition() {
 					</button>
 				</div>
 			</div>
-			<div class="col-6 col-md-4 col-lg-3">
+			<div class="col-6 col-md-4 col-lg-2">
 				<div class="form-group mb-3 mx-auto">
 					<input
 						v-model="filter"
@@ -239,7 +239,7 @@ function uploadDefinition() {
 			</div>
 			<div
 				v-if="user?.isAdmin"
-				class="col-6 col-lg-2"
+				class="col-6 col-lg-3"
 			>
 				<input
 					class="btn btn-outline-primary form-control mb-3"
