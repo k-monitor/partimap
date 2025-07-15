@@ -117,9 +117,13 @@ async function emitSurvey() {
 	emit('modified');
 }
 
+function defaultQuestionLabel(i: number) {
+	return t('SurveyEditor.questionPrefix') + ` #${i + 1}`;
+}
+
 function addQuestion() {
 	const id = new Date().getTime();
-	const label = t('SurveyEditor.questionPrefix') + ` #${survey.value.questions.length + 1}`;
+	const label = defaultQuestionLabel(survey.value.questions.length);
 	const q: Question = {
 		id,
 		label,
@@ -129,6 +133,20 @@ function addQuestion() {
 	survey.value.questions.push(q);
 	emitSurvey();
 	editQuestion(survey.value.questions.length - 1);
+}
+
+function handleQuestionLabelFocus() {
+	if (!question.value) return;
+	if (question.value.label === defaultQuestionLabel(questionIndex.value)) {
+		question.value.label = '';
+	}
+}
+
+function handleQuestionLabelBlur() {
+	if (!question.value) return;
+	if (!question.value.label) {
+		question.value.label = defaultQuestionLabel(questionIndex.value);
+	}
 }
 
 function canHaveResults(q: Question) {
@@ -384,6 +402,8 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 						:disabled="props.readonly"
 						:readonly="props.readonly"
 						required
+						@focus="handleQuestionLabelFocus"
+						@blur="handleQuestionLabelBlur"
 					/>
 				</b-form-group>
 				<b-form-group :label="$t('SurveyEditor.questionType')">
