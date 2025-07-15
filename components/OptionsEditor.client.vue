@@ -41,6 +41,22 @@ async function addOption() {
 function delOption(i: number) {
 	options.value.splice(i, 1);
 }
+
+function defaultOption(i: number) {
+	return t('OptionsEditor.optionPrefix') + ` #${i + 1}`;
+}
+
+function handleInputFocus(i: number) {
+	if (options.value[i] === defaultOption(i)) {
+		options.value[i] = '';
+	}
+}
+
+function handleInputBlur(i: number) {
+	if (!options.value[i]) {
+		options.value[i] = defaultOption(i);
+	}
+}
 </script>
 
 <template>
@@ -68,11 +84,8 @@ function delOption(i: number) {
 						v-model="options[i]"
 						:readonly="readonly"
 						:disabled="readonly"
-						@focus="options[i] = ''"
-						@blur="
-							options[i] =
-								options[i] || t('OptionsEditor.optionPrefix') + ` #${i + 1}`
-						"
+						@focus="handleInputFocus(i)"
+						@blur="handleInputBlur(i)"
 						@keyup.enter="addOption"
 					/>
 					<template #append>
