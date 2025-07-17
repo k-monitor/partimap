@@ -258,16 +258,14 @@ async function save() {
 	if (!sheet.value) return;
 	try {
 		loading.value = true;
-
-		if (backgroundImage.value) {
-			await uploadBackground();
-		}
-
 		sheet.value = await saveSheet({
 			...sheet.value,
 			features: sheet.value.features ? JSON.stringify(features.value) : null,
 		});
 		await modifyOtherSheetsIfNeeded();
+		if (backgroundImage.value) {
+			await uploadBackground();
+		}
 		await nextTick();
 		contentModified.value = false;
 		successToast(t('sheetEditor.success'));
