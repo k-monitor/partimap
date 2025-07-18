@@ -2,7 +2,7 @@ import terms from './hu-terms.md?raw';
 
 export default {
 	meta: {
-		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőív.',
+		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőívező felület.',
 	},
 
 	// pages
@@ -14,9 +14,9 @@ export default {
 		title: 'Hogyan működik az oldal?',
 	},
 	landing: {
-		title: 'TÉRKÉPES KÉRDŐÍV',
+		title: 'TÉRKÉPES KÉRDŐÍVEZŐ',
 		tagline1:
-			'A PARTIMAP egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőív azoknak,',
+			'A PARTIMAP egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőívező felület azoknak,',
 		tagline2:
 			'akik szerint a közpénzből megvalósuló fejlesztésekről meg kell kérdezni az érintetteket is.',
 		column1:
@@ -36,22 +36,22 @@ export default {
 			{
 				title: 'Egyszerű szerkeszthetőség',
 				description:
-					'<p>A PARTIMAPpal egyszerűen lehet létrehozni többféle térképes és hagyományos kérdőíves funkciókat tartalmazó felméréseket. Munkafelületet úgy alakítottuk ki, hogy hétköznapi számítógépes felhasználói tudás elegendő legyen a kérdések megadáshoz, munkalapok létrehozásához, közösségi médiában való megosztás adatainak megadásához és egy új projekt élesítéséhez.</p><p>A projekt szerkesztőfelületébe regisztrálva az új projekt létrehozásakor először az olyan alapadatok megadására van szükség, mint a projekt címe, az adatkezelő adatai és a köszönőoldal szövege, ezt követően pedig a saját témához kapcsolódó munkalapok létrehozására van lehetőség. Ezek lehetnek szöveges oldalak (a tervek, elképzelések bemutatására), kérdőívek (feleletválasztó, legördülő menüs, szabadszavas és skálán mérhető válaszok begyűjtésére), statikus térképek (előre meghatározott térképes elemek - pontok, vonalak és poligonok - bemutatása és értékelése), valamint interaktív térképek (itt egy kérdésre válaszolva a kitöltők rajzolhatnak fel saját elemeket). A munkalapok között könnyen lehet törölni, navigálni és a sorrendjük is bármikor tetszőlegesen szerkeszthető.</p>',
+					'<p>A PARTIMAPpal egyszerűen lehet létrehozni többféle térképes és hagyományos kérdőíves funkciókat tartalmazó felméréseket. Munkafelületet úgy alakítottuk ki, hogy hétköznapi számítógépes felhasználói tudás elegendő legyen a kérdések megadáshoz, munkalapok létrehozásához, közösségi médiában való megosztás adatainak megadásához és egy új projekt élesítéséhez.</p><p>Regisztráció után új felmérés létrehozásakor először az olyan alapadatok megadására van szükség, mint a kérdőív címe, az adatkezelő adatai és a köszönőoldal szövege, ezt követően pedig a saját témához kapcsolódó munkalapok létrehozására van lehetőség. Ezek lehetnek szöveges oldalak (a tervek, elképzelések bemutatására), kérdéssorok (feleletválasztó, legördülő menüs, szabadszavas és skálán mérhető válaszok begyűjtésére), statikus térképek (előre meghatározott térképes elemek - pontok, vonalak és poligonok - bemutatása és értékelése), valamint interaktív térképek (itt egy kérdésre válaszolva a kitöltők rajzolhatnak fel saját elemeket). A munkalapok között könnyen lehet törölni, navigálni és a sorrendjük is bármikor tetszőlegesen szerkeszthető.</p>',
 			},
 			{
 				title: 'Testre szabható megjelenés',
 				description:
-					'<p>A kérdőíves felületek feladata, hogy könnyen eljusson a célközönséghez. Ezért külön figyelmet fordítottunk a fejlesztés során a megoszthatóságra és a projektek testre szabhatóságára. A bemutatkozó és záró munkalapokon elérhetők a legnépszerűbb közösségi médiafelületek megosztás gombjai. A projektekhez egyedi Facebook bélyegkép és előnézeti szöveg is beállítható, amivel a felhasználó szervezet saját kreatív képi világához igazíthatja felmérését. A munkalapok szerkesztőfelületén saját fényképek feltöltésén túl lehetőség van a szövegek formázására, linkek megadására, és háttérképek feltöltésére is. A projekteknek ezen felül a felületen egyedi (partimap.eu/p/NÉV) url cím adható.</p>',
+					'<p>A kérdőíves felületek feladata, hogy könnyen eljusson a célközönséghez. Ezért külön figyelmet fordítottunk a fejlesztés során a megoszthatóságra és az egyes projektekhez tartozó kérdőívek testreszabhatóságára. A bemutatkozó és záró munkalapokon elérhetők a legnépszerűbb közösségi médiafelületek megosztás gombjai. A kérdőívekhez egyedi Facebook bélyegkép és előnézeti szöveg is beállítható, amivel a felhasználó szervezet saját kreatív képi világához igazíthatja felmérését. A munkalapok szerkesztőfelületén saját fényképek feltöltésén túl lehetőség van a szövegek formázására, linkek megadására, és háttérképek feltöltésére is. A kérdőíveknek ezen felül a felületen egyedi (partimap.eu/p/NÉV) url cím adható.</p>',
 			},
 			{
-				title: 'Sokoldalú kérdőív',
+				title: 'Sokoldalú kérdőívező alkalmazás',
 				description:
 					'<p>Az oldal kérdőíves munkalapja segítségével a térképes nézethez nem kapcsolódó felméréseket lehet készíteni. A kérdések formája lehet feleletválasztós, legördülő menü, lineáris értékelés vagy szöveges válasz - ezek saját képek hozzáadásával és további beállításokkal szabadon testre szabhatók. A kitöltők által adott válaszok összesítése (eredménye) egy gombnyomással publikálható grafikus formában a munkalap végén, a kitöltés lezárása után pedig lehetőség van csak az eredményeket megmutatni. A munkalap ugyanúgy testre szabható, mint a többi: háttérképet, illusztrációt, linkeket lehet használni rajta, hogy könnyebb legyen a kitöltők dolga.</p>',
 			},
 			{
 				title: 'Fejlesztések bemutatása térképen',
 				description:
-					'<p>Adott közlekedési, infrastrukturális vagy más térképen ábrázolható fejlesztés vagy fejlesztési ötlet bemutatására és visszajelzések gyűjtésére a kérdőívhez statikus térkép munkalap adható. Ehhez más térképes felületekről (pl. Google Maps) könnyen importálhatóak korábban felrajzolt elemek, amelyekhez a PARTIMAPon egyedi megjelenítés és értékelési lehetőség adható. Ezen felül magához a munkalaphoz is hozzáadhatóak a kérdőívnél már megismert kérdéstípusok, illetve további magyarázat, leírás, linkek. A felrajzolt térképet saját térképként elmentve egy következő projektnél is fel lehet használni.</p><p>A statikus térkép kiválóan alkalmas arra, hogy egy település különböző létesítményeihez értékelést kérjünk a lakosoktól, pl. Mennyire könnyen megközelíthető, mennyire akadálymentes, jól járható-e kerékpárral stb. Ezekből az eredmények letöltése után egy komplex értékelés rajzolódik ki. A munkalaptípus konkrét fejlesztési dilemmák eldöntésére is használható, például egy területre tervezett A és B verziójú fejlesztést megismerve dönthetnek a kitöltők, melyiket kedvelik jobban.</p>',
+					'<p>Adott közlekedési, infrastrukturális vagy más térképen ábrázolható fejlesztés vagy fejlesztési ötlet bemutatására és visszajelzések gyűjtésére a kérdőívhez statikus térkép munkalap adható. Ehhez más térképes felületekről (pl. Google Maps) könnyen importálhatóak korábban felrajzolt elemek, amelyekhez a PARTIMAPon egyedi megjelenítés és értékelési lehetőség adható. Ezen felül magához a munkalaphoz is hozzáadhatóak a térkép nélküli kérdőív munkalapról már megismert kérdéstípusok, illetve további magyarázat, leírás, linkek. A felrajzolt térképet saját térképként elmentve egy következő projektnél is fel lehet használni.</p><p>A statikus térkép kiválóan alkalmas arra, hogy egy település különböző létesítményeihez értékelést kérjünk a lakosoktól, pl. Mennyire könnyen megközelíthető, mennyire akadálymentes, jól járható-e kerékpárral stb. Ezekből az eredmények letöltése után egy komplex értékelés rajzolódik ki. A munkalaptípus konkrét fejlesztési dilemmák eldöntésére is használható, például egy területre tervezett A és B verziójú fejlesztést megismerve dönthetnek a kitöltők, melyiket kedvelik jobban.</p>',
 			},
 			{
 				title: 'Most te jössz - rajzolj a térképre!',
@@ -61,12 +61,12 @@ export default {
 			{
 				title: 'Átjárhatóság más felületekkel',
 				description:
-					'<p>Mindkét térképes munkalap az openstreetmap.org-ot használja háttértérképként, amelyhez egyedi alaptérkép rajzolható kiemelve a felmérés fókuszpontjait. A korábbi projektekben felrajzolt elemeket a felhasználó saját térképei között lehet elmenteni és tárolni. Az egyes munkalapokhoz az alaptérkép nem csak ebből a saját térképtárból, hanem külső KML fájlból is behúzható: import/export funkcióval gyors átjárást biztosít olyan térképes szoftverekkel, mint például a Google MyMaps vagy más, komplexebb térinformatikai programok.</p><p>Az egyszerű szerkesztőfelületen színezhető pontok, vonalak és poligonok felrajzolásával készíthetők a felméréshez illeszkedő térképek. Egy gombnyomással lehetőség van egy felmérés kitöltői által beküldött adatokból is alaptérképet létrehozni, valamint KML fájlformátumban történő exportra - így biztosított az átjárás más térképszerkesztő alkalmazások felé. A későbbiekben más típusú raszteres háttérképeket, és a felrajzolt elemek újfajta grafikai megjelenítését is meg kívánjuk teremteni (pl. egyedi ikonok).</p>',
+					'<p>Mindkét térképes munkalap az openstreetmap.org-ot használja háttértérképként, amelyhez egyedi alaptérkép rajzolható kiemelve a felmérés fókuszpontjait. A korábbi kérdőívekben felrajzolt elemeket a felhasználó saját térképei között lehet elmenteni és tárolni. Az egyes munkalapokhoz az alaptérkép nem csak ebből a saját térképtárból, hanem külső KML fájlból is behúzható: import/export funkcióval gyors átjárást biztosít olyan térképes szoftverekkel, mint például a Google MyMaps vagy más, komplexebb térinformatikai programok.</p><p>Az egyszerű szerkesztőfelületen színezhető pontok, vonalak és poligonok felrajzolásával készíthetők a felméréshez illeszkedő térképek. Egy gombnyomással lehetőség van egy felmérés kitöltői által beküldött adatokból is alaptérképet létrehozni, valamint KML fájlformátumban történő exportra - így biztosított az átjárás más térképszerkesztő alkalmazások felé. A későbbiekben más típusú raszteres háttérképeket, és a felrajzolt elemek újfajta grafikai megjelenítését is meg kívánjuk teremteni (pl. egyedi ikonok).</p>',
 			},
 			{
 				title: 'Az eredmények kommunikálása',
 				description:
-					'<p>Egy felmérés lezárultával új szakasz nyílik egy projekt életében: a kiértékelés. A kérdőíves felületen beérkező válaszokat a gyors kommunikáció érdekében grafikonokon mutathatjuk be: ezek megjelenítése egy gombnyomással beállítható, így a kitöltők közvetlenül is böngészhetik a kérdőívezés aktuális eredményét. További, részletes elemzéseket a beérkezett adatok teljeskörű excel formátumban történő letöltésével lehet megkezdeni. A riportból ezt követően adatkezelő programokkal lehet feldolgozni a beküldött válaszokat, földrajzi elemeket, így a végeredmény összetettsége és látványossága már csak adatelemző és -vizualizáló kapacitásunk határaitól függ.</p>',
+					'<p>Egy felmérés lezárultával új szakasz nyílik egy projekt életében: a kiértékelés. A kérdőívező felületen beérkező válaszokat a gyors kommunikáció érdekében grafikonokon mutathatjuk be: ezek megjelenítése egy gombnyomással beállítható, így a kitöltők közvetlenül is böngészhetik a kérdőívezés aktuális eredményét. További, részletes elemzéseket a beérkezett adatok teljeskörű excel formátumban történő letöltésével lehet megkezdeni. A riportból ezt követően adatkezelő programokkal lehet feldolgozni a beküldött válaszokat, földrajzi elemeket, így a végeredmény összetettsége és látványossága már csak adatelemző és -vizualizáló kapacitásunk határaitól függ.</p>',
 			},
 			{
 				title: 'Ingyenes, szabadon felhasználható',
@@ -121,11 +121,11 @@ export default {
 	},
 	projectEditor: {
 		altThumbnail: 'Facebook bélyegkép',
-		back: 'Projektek',
+		back: 'Kérdőívek',
 		changeFailed: 'Módosítás sikertelen',
 		changeSuccessful: 'Módosítás sikeres',
-		copiedURL: 'Projekt URL vágólapra másolva!',
-		generateSlug: 'Generálás a projekt címéből',
+		copiedURL: 'Kérdőív URL vágólapra másolva!',
+		generateSlug: 'Generálás a kérdőív címéből',
 		embed: 'Beágyazás',
 		embedCodeCopied: 'Beágyazó kód vágólapra másolva',
 		embedHeight: 'Beágyazás magassága',
@@ -134,14 +134,14 @@ export default {
 		newPassword: 'Új jelszó',
 		password: 'Jelszavas védelem',
 		passwordDescription:
-			'Ha be vagy jelentkezve, a saját projektjeid nem fognak jelszót kérni. Inkognitó/privát módban tudod tesztelni a védelmet.',
+			'Ha be vagy jelentkezve, a saját kérdőíveid nem fognak jelszót kérni. Inkognitó/privát módban tudod tesztelni a védelmet.',
 		passwordSet: 'Be van állítva',
 		privacyPolicy: 'Adatkezelő elérhetősége',
 		privacyPolicyDescription:
 			'Az Adatkezelési tájékoztatóban jelenik meg kapcsolatfelvételi adatként. Ezt a látogatóknak az 1. munkalapon kell majd elfogadniuk.',
 		privacyPolicyRequired: 'Kötelező megadni!',
 		projectDescription: 'Meta leírás (Facebook előnézeti szöveg)',
-		projectTitle: 'Projekt címe',
+		projectTitle: 'Kérdőív címe',
 		save: 'Mentés',
 		sheetCreationFailed: 'Munkalap hozzáadása sikertelen',
 		sheetDeletionFailed: 'Munkalap törlése sikertelen',
@@ -172,10 +172,10 @@ export default {
 		exporting: 'Kérjük, várjon, a szokásosnál tovább tart a riport elkészítése.',
 		filter: 'Keresés',
 		langFilter: 'Minden nyelv',
-		newProjectName: 'Új projekt elnevezése',
-		ownProjects: 'Saját projektek',
+		newProjectName: 'Új kérdőív elnevezése',
+		ownProjects: 'Saját kérdőívek',
 		submissions: 'kitöltések',
-		title: 'Projektek',
+		title: 'Kérdőívek',
 		uploadDefinition: 'Definíció feltöltése',
 		userName: 'Név',
 		views: 'megtekintések',
@@ -200,7 +200,7 @@ export default {
 		passwordRequired: 'Kérlek írd be a jelszót a megtekintéshez!',
 		privacyPolicy: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
 		restricted: 'Ez a kérdőív jelenleg le van zárva.',
-		restrictedTitle: 'Jelszóval védett projekt',
+		restrictedTitle: 'Jelszóval védett kérdőív',
 		submitFailed: 'Beküldés sikertelen',
 		submitSuccess: 'Beküldés sikeres',
 		view: 'Megtekintés',
@@ -208,7 +208,7 @@ export default {
 	sheetEditor: {
 		addDrawingInteraction: 'Új térképes feladat',
 		addFeatureQuestion: 'Jelölőnégyzetes kérdés hozzáadása',
-		back: 'Vissza a projekthez',
+		back: 'Vissza a kérdőív beállításaihoz',
 		backgroundImage: 'Háttérkép',
 		clearExtent: 'Térkép határainak törlése',
 		defaultBaseMap: 'Alapértelmezett alaptérkép',
@@ -252,15 +252,15 @@ export default {
 		showAllResults:
 			'Kitöltés után válasz statisztika megjelenítése a látogatónak (minden kérdést módosít)',
 		success: 'Módosítás sikeres',
-		survey: 'Kérdőív',
+		survey: 'Kérdések',
 		textRating: 'Szöveges indoklás az értékeléshez',
 		visitorInteractions: 'Látogatói interakciók',
 		visitorMapInteractions: 'A kitöltő térképes feladatai',
 	},
 	unsubscribe: {
 		home: 'Tovább a PARTIMAP-ra',
-		failed: 'Nem sikerült leiratkozni. Kérlek jelentkezz be és a projekt beállításainál kapcsold ki az email értesítéseket.',
-		success: 'Sikeresen leiratkoztál a projekt email értesítéseiről.',
+		failed: 'Nem sikerült leiratkozni. Kérlek jelentkezz be és a kérdőív beállításainál kapcsold ki az email értesítéseket.',
+		success: 'Sikeresen leiratkoztál a kérdőív email értesítéseiről.',
 		title: 'Leiratkozás',
 	},
 	userEditor: {
@@ -278,12 +278,12 @@ export default {
 		colorTooBright: 'Ez a szín túl világos!',
 		confirmDeleteUser: 'Fiók törlése',
 		deleteConfirmation:
-			'<strong>Jól meggondoltam,</strong> törlöm a(z) <strong>{email}</strong> fiókot és annak minden adatát (térképek, projektek, beérkezett adatok, képek).',
+			'<strong>Jól meggondoltam,</strong> törlöm a(z) <strong>{email}</strong> fiókot és annak minden adatát (térképek, kérdőívek, beérkezett adatok, képek).',
 		deleteUser: 'Fiók törlése',
 		deletionFailed: 'Törlés sikertelen',
 		enterPassword: 'Kérlek add meg a jelszavad',
 		logo: 'Logó (ajánlott méret: 120x30 pixel)',
-		logoDescription: 'Ez a logó minden projektedben meg fog jelenni.',
+		logoDescription: 'Ez a logó minden kérdőívedben meg fog jelenni.',
 		name: 'Név',
 		newPassword: 'Új jelszó',
 		oldPassword: 'Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)',
@@ -313,7 +313,7 @@ export default {
 		logout: 'Kijelentkezés',
 		maps: 'Térképek',
 		profile: 'Adataim',
-		projects: 'Projektek',
+		projects: 'Kérdőívek',
 		users: 'Felhasználók',
 	},
 	CheckboxGroup: {
@@ -333,7 +333,7 @@ export default {
 		importFromMap: 'Importálás térképről',
 		importFromSheet: 'Importálás munkalapról',
 		selectMap: 'Válassz egy térképet',
-		selectProject: 'Válassz egy projektet',
+		selectProject: 'Válassz egy kérdőívet',
 		selectSheet: 'Válassz egy munkalapot',
 		title: 'Elemek importálása',
 	},
@@ -453,9 +453,9 @@ export default {
 		sheetNameRequired: 'Név megadása kötelező',
 		sheetType: 'Munkalap típusa',
 		sheetTypes: {
-			interactiveMap: 'Interaktív térkép',
-			staticMap: 'Térkép',
-			survey: 'Kérdőív',
+			interactiveMap: 'Térképes feladatok',
+			staticMap: 'Kérdéssor térképpel',
+			survey: 'Kérdéssor',
 			text: 'Szöveg',
 		},
 		submittedFeatures: 'beküldött térkép elem',
@@ -465,11 +465,11 @@ export default {
 		withoutCopying: 'Nincs másolás',
 	},
 	ProjectTransferModal: {
-		confirm: 'Biztosan átadom a projektet',
+		confirm: 'Biztosan átadom a kérdőívet',
 		email: 'Másik felhasználó regisztrált email címe',
-		failure: 'Nem sikerült átadni a projektet',
+		failure: 'Nem sikerült átadni a kérdőívet',
 		ok: 'Átadás',
-		success: 'Projekt átadás sikeres',
+		success: 'Kérdőív átadás sikeres',
 	},
 	QuestionConditionEditor: {
 		logicalOr: 'VAGY',

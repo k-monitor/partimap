@@ -3,6 +3,14 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
 	plugins: [tsconfigPaths()],
-	// ^ TS error but copied from docs
-	// https://vitest.dev/guide/common-errors.html#cannot-find-module-relative-path
+	test: {
+		watchTriggerPatterns: [
+			{
+				pattern: /locales\/.*\.js$/,
+				testsToRun: (id, match) => {
+					return `./locales/integrity.test.ts`;
+				},
+			},
+		],
+	},
 });

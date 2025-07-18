@@ -77,8 +77,8 @@ async function save() {
 						id="textarea"
 						v-model="value"
 						autofocus
-						class="mb-3 text-monospace"
-						rows="5"
+						class="mb-3 font-monospace"
+						rows="16"
 						max-rows="12"
 					/>
 					<div class="d-flex">
