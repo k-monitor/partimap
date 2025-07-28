@@ -15,7 +15,7 @@ export default {
 	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',
-		tagline1: 'PARTIMAP is a free, easy to use and customizable map-based survey for those',
+		tagline1: 'PARTIMAP is a free, easy-to-use and customizable map-based survey for those',
 		tagline2:
 			'who believe that affected citizens should have a say in public development projects.',
 		column1:
@@ -26,7 +26,7 @@ export default {
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
 		methodTitle: 'PARTIMAP Participatory Methods Toolkit',
 		methodDesc:
-			'What makes a participatory mapping process successful? How to prepare the questionnaire, what to look out for during dissemination and how to get the most out of the data collected? K-Monitor has summarised the most important methodological know-hows, as surveys comprise only one element of participatory processes. The PARTIMAP participatory toolkit will continue to expand in the future, together with the number of users of the application!',
+			'What makes a participatory mapping process successful? How to prepare the questionnaire, what to look out for during dissemination and how to get the most out of the data collected? K-Monitor has summarised the most important methodological know-how, as surveys comprise only one element of participatory processes. The PARTIMAP participatory toolkit will continue to expand in the future, together with the number of users of the application!',
 		methodButton: 'I want to know more',
 		methodLink:
 			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
@@ -35,42 +35,42 @@ export default {
 			{
 				title: 'Easy to edit',
 				description:
-					'<p>With PARTIMAP it is easy to create surveys with various map-based and traditional questionnaire functions. Its interface is designed to allow ordinary computer users to enter questions, create worksheets, share on social media and publish a new project.</p><p>When creating a new project after registering in the application, it is first required to enter basic information such as the project title, the data holder and the text of the welcome page. Subsequently it is possible to create the relevant worksheets. These can be text pages (to present plans and ideas), questionnaires (to collect responses from multiple-choice, drop-down menus, free-text and scale questions), static maps (to present and collect feedback on pre-defined map elements - points, lines and polygons), and interactive maps (where respondents can draw and add their own map elements in response to a question). It is easy to navigate among worksheets, delete them or edit their content and their sequence at any time.</p>',
+					'<p>With PARTIMAP it is easy to create surveys with various map-based and traditional questionnaire functions. Its interface is designed to allow ordinary computer users to enter questions, create worksheets, share on social media, and publish a new survey.</p><p>When creating a new survey after registering in the application, it is first required to enter basic information such as the survey title, the data holder, and the text of the welcome page. Subsequently, it is possible to create the relevant worksheets. These can be text pages (to present plans and ideas), questionnaires (to collect responses from multiple-choice, drop-down menus, free-text and scale questions), static maps (Questions and map worksheet - to present and collect feedback on pre-defined map elements - points, lines and polygons), and interactive maps (Map tasks worksheet - where respondents can draw and add their own map elements in response to a question). It is easy to navigate among worksheets, delete them or edit their content and their sequence at any time.</p>',
 			},
 			{
 				title: 'Customizable design',
 				description:
-					'<p>Questionnaire interfaces are designed to reach the target audience effectively. For this reason, we paid particular attention to the shareability and customisability of projects during development. On the landing and closing worksheets, sharing buttons for the most popular social media platforms are available. Projects can also be set up with a custom Facebook thumbnail image and preview text, allowing users to tailor their survey to their own established designs. In addition to uploading your own photos in the worksheet editing interface, you can also format text, add links and upload background images. In addition, projects can be given a unique url (partimap.eu/en/p/NAME) in the application.</p>',
+					'<p>Questionnaire interfaces are designed to reach the target audience effectively. For this reason, we paid particular attention to the shareability and customisability of surveys during development. On the landing and closing worksheets, sharing buttons for the most popular social media platforms are available. Surveys can also be set up with a custom Facebook thumbnail image and preview text, allowing users to tailor their survey to their own established designs. In addition to uploading your photos in the worksheet editing interface, you can also format text, add links, and upload background images. In addition, surveys can be given a unique url (partimap.eu/en/p/NAME) in the application.</p>',
 			},
 			{
 				title: 'A multi-faceted survey',
 				description:
-					"<p>The site's questionnaire worksheet can be used to create surveys unrelated to the map feature. The questions can take the form of multiple-choice options, drop-down menus, scaled ratings or text responses - these can be freely customised by adding your own images and additional options. The summary (results) of the answers given by the respondents can be published in chart form at the end of the worksheet with a single click, and the option to display the results on the page after ending the survey period is also provided. The worksheet can be customised in the same way as the other worksheets: background images, illustrations and links can be used to make it more user-friendly.</p>",
+					"<p>The site's questionnaire worksheet can be used to create surveys unrelated to the map feature. The questions can take the form of multiple-choice options, drop-down menus, scaled ratings, or text responses - these can be freely customised by adding your own images and additional options. The summary (results) of the answers given by the respondents can be published in chart form at the end of the worksheet with a single click, and the option to display the results on the page after ending the survey period is also provided. The worksheet can be customised in the same way as the other worksheets: background images, illustrations, and links can be used to make it more user-friendly.</p>",
 			},
 			{
 				title: 'Mapping existing plans',
 				description:
-					'<p>A static map worksheet can be added to the questionnaire to illustrate a particular transport, infrastructure or other development or development idea that can be depicted on a map and to collect feedback on it. It is possible to import elements from other mapping interfaces (e.g. Google Maps), which can then be visualised and evaluated individually in PARTIMAP. In addition, the map-based worksheet can include the question types already familiar from the questionnaire, as well as additional explanations, descriptions and links. The edited map can be saved as your own map and used in a future project as well.</p><p>The static map is an ideal tool for asking residents to rate the different infrastructures of a municipality, e.g. accessibility in general and for people with reduced mobility, whether it is bike-friendly, etc. Once the results are in, a complex assessment can be derived. This type of worksheet can also be used to solve specific development dilemmas, e.g. by reviewing the A and B versions of a planned development for an area, respondents can decide which they prefer.</p>',
+					'<p>A Questions and map worksheet can be added to the questionnaire to illustrate a particular transport, infrastructure, or other development or development idea that can be depicted on a map and to collect feedback on it. It is possible to import elements from other mapping interfaces (e.g., Google Maps), which can then be visualised and evaluated individually in PARTIMAP. In addition, the map-based worksheet can include the question types already familiar from the questionnaire, as well as additional explanations, descriptions, and links. The edited map can be saved as your map and used in a future survey as well.</p><p>The Questions and map is an ideal tool for asking residents to rate the different infrastructures of a municipality, e.g., accessibility in general and for people with reduced mobility, whether it is bike-friendly, etc. Once the results are in, a complex assessment can be derived. This type of worksheet can also be used to solve specific development dilemmas, e.g. by reviewing the A and B versions of a planned development for an area, respondents can decide which they prefer.</p>',
 			},
 			{
 				title: "Now it's your turn to contribute to the map!",
 				description:
-					'<p>What makes PARTIMAP unique compared to other online survey tools is that people can express their opinion with a location attached, can illustrate their suggestions or simply share their commuting routes for example. The public spaces in a municipality, district or neighbourhood are used by a wide range of people, whose diverse needs and opinions on their use of space can be assessed using the interactive map worksheet. Respondents can use points, lines and polygon shapes to provide graphical answers to the questions asked. The incoming responses can be easily processed either in the form of a heat map, or the suggestions received can be voted on a static map in a subsequent questionnaire.</p>',
+					'<p>What makes PARTIMAP unique compared to other online survey tools is that people can express their opinion with a location attached, can illustrate their suggestions, or simply share their commuting routes, for example. The public spaces in a municipality, district, or neighbourhood are used by a wide range of people, whose diverse needs and opinions on their use of space can be assessed using the Map tasks worksheet. Respondents can use points, lines, and polygon shapes to provide graphical answers to the questions asked. The incoming responses can be easily processed either in the form of a heat map, or the suggestions received can be voted on in a Questions and map worksheet in a subsequent questionnaire.</p>',
 			},
 			{
 				title: 'Interoperability with other platforms',
 				description:
-					"<p>Both map worksheets use openstreetmap.org as a background map, for which a custom base map can be drawn highlighting the focal points of the survey. Elements drawn in previous projects can be saved and stored among the user's own maps. For each worksheet, the base map can be imported not only from this own map repository, but also from an external .KML file: an import/export function provides a fast interchange with mapping software such as Google MyMaps or other more complex geospatial softwares.</p><p>The simple editing interface allows you to create maps fitting the survey by drawing coloured points, lines and polygons. With the click of a button, it is also possible to create a base map from data submitted by a survey respondent, and export to .KML file format - providing portability to other map editing applications. In the future, we also intend to create other types of raster background maps and new graphical displays of the plotted elements (e.g. custom icons).</p>",
+					"<p>Both map worksheets use openstreetmap.org as a background map, for which a custom base map can be drawn, highlighting the focal points of the survey. Elements drawn in previous surveys can be saved and stored among the user's maps. For each worksheet, the base map can be imported not only from its map repository, but also from an external .KML file: an import/export function provides a fast interchange with mapping software such as Google MyMaps or other more complex geospatial software.</p><p>The simple editing interface allows you to create maps fitting the survey by drawing coloured points, lines, and polygons. With the click of a button, it is also possible to create a base map from data submitted by a survey respondent and export to.KML file format - providing portability to other map editing applications. In the future, we also intend to create other types of raster background maps and new graphical displays of the plotted elements (e.g. custom icons).</p>",
 			},
 			{
 				title: 'Communicating your results',
 				description:
-					'<p>Once a survey is completed, a new phase in the project cycle begins: evaluation. The responses received through the survey interface can be presented in graphs for quick communication: they can be set to display with a single setting, so that the respondents can directly browse the current results of the survey. Additionally, detailed analysis can be performed by downloading the complete dataset of responses in excel format. The report can then be processed with data management softwares using the submitted responses and geographical elements, so that the complexity and visual representation of the final results is dependent only on our data analysis and visualisation capabilities.</p>',
+					'<p>Once a survey is completed, a new phase in the project cycle begins: evaluation. The responses received through the survey interface can be presented in graphs for quick communication: they can be set to display with a single setting, so that the respondents can directly browse the current results of the survey. Additionally, a detailed analysis can be performed by downloading the complete dataset of responses in Excel format. The report can then be processed with data management softwares using the submitted responses and geographical elements, so that the complexity and visual representation of the final results is dependent only on our data analysis and visualisation capabilities.</p>',
 			},
 			{
 				title: 'Free and open-source',
 				description:
-					'<p>The app is free to use and after a quick registration you can create your own PARTIMAP survey. Developed by K-Monitor and our partners, the tool is open-source, so it is free to develop, customise and use. Our goal is to create more projects that encourage citizens to get involved in public decision-making, so we greatly welcome the creative use and development of this tool.</p>',
+					'<p>The app is free to use, and after a quick registration, you can create your own PARTIMAP survey. Developed by K-Monitor and our partners, the tool is open-source, so it is free to develop, customise, and use. Our goal is to create more projects that encourage citizens to get involved in public decision-making, so we greatly welcome the creative use and development of this tool.</p>',
 			},
 			{
 				title: 'How to contribute',
@@ -120,27 +120,27 @@ export default {
 	},
 	projectEditor: {
 		altThumbnail: 'Facebook thumbnail',
-		back: 'Projects',
+		back: 'Surveys',
 		changeFailed: 'Modification failed!',
-		changeSuccessful: 'Project modified successfully',
-		copiedURL: 'Project URL copied to clipboard!',
+		changeSuccessful: 'Survey modified successfully',
+		copiedURL: 'Survey URL copied to clipboard!',
 		embed: 'Embed',
 		embedCodeCopied: 'Embed code copied to clipboard',
 		embedHeight: 'Embed height',
 		embedWidth: 'Embed width',
-		generateSlug: 'Generate it from project title!',
+		generateSlug: 'Generate it from survey title!',
 		language: 'Survey interface language',
 		newPassword: 'New password',
 		password: 'Password restricted access',
 		passwordDescription:
-			'If you are logged in, your own projects will not ask for a password. Test in incognito or private mode.',
+			'If you are logged in, your surveys will not ask for a password. Test in incognito or private mode.',
 		passwordSet: 'Password restriction set',
 		privacyPolicy: 'Name and contact of the data controller',
 		privacyPolicyDescription:
 			'This will be displayed as contact information in the Privacy Notice. Visitors will be requested to acknowledge and accept this before submitting a response.',
 		privacyPolicyRequired: 'This is a required field!',
 		projectDescription: 'Meta description (Facebook Link Preview)',
-		projectTitle: 'Project title',
+		projectTitle: 'Survey title',
 		save: 'Save',
 		sheetCreationFailed: 'Failed to create the sheet',
 		sheetDeletionFailed: 'Failed to delete the sheet',
@@ -158,22 +158,22 @@ export default {
 		thanksSocial: 'Add share buttons to Acknowledgements.',
 		thanksUrl: 'Exit website',
 		thanksUrlDescription:
-			'If set, a Learn more button appears below Acknowledgements, that leads to the web address linked here.',
+			'If set, a Learn more button appears below Acknowledgements, which leads to the web address linked here.',
 		thumbnail: 'Facebook thumbnail (recommended size: 1200x630 pixels)',
-		view: 'View Project',
+		view: 'View Survey',
 	},
 	projects: {
 		add: 'Add',
-		creationFailed: 'Failed to create the project',
-		deletionFailed: 'Failed to delete your project',
+		creationFailed: 'Failed to create the survey',
+		deletionFailed: 'Failed to delete your survey',
 		export: 'Generate report',
 		exporting: "Please wait, it's taking longer than usual to generate the report.",
 		filter: 'Search',
 		langFilter: 'All languages',
-		newProjectName: 'Title of the new project',
+		newProjectName: 'Title of the new survey',
 		ownProjects: 'My projects',
 		submissions: 'submissions',
-		title: 'Projects',
+		title: 'Surveys',
 		uploadDefinition: 'Upload definition',
 		userName: 'Full name',
 		views: 'views',
@@ -181,7 +181,7 @@ export default {
 	register: {
 		consent1: 'I acknowledge that I have read and understand',
 		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
-		email: 'Enter a vaild email',
+		email: 'Enter a valid email',
 		login: 'Already have an account?',
 		name: 'Name',
 		password: 'Password',
@@ -199,15 +199,15 @@ export default {
 		passwordRequired: 'Please enter the password or contact the author of this survey.',
 		privacyPolicy: 'Terms of Use and Privacy Policy',
 		restricted: 'This PARTIMAP survey is currently closed.',
-		restrictedTitle: 'Password protected project',
+		restrictedTitle: 'Password-protected survey',
 		submitFailed: 'Submit Failed',
 		submitSuccess: 'Your form has been submitted successfully. Thank you!',
-		view: 'View Project',
+		view: 'View Survey',
 	},
 	sheetEditor: {
 		addDrawingInteraction: 'Add new map task',
 		addFeatureQuestion: 'Add checkbox question',
-		back: 'Back to project',
+		back: 'Back to survey',
 		backgroundImage: 'Background image',
 		clearExtent: 'Clear map bounds',
 		defaultBaseMap: 'Default base map',
@@ -216,10 +216,10 @@ export default {
 		drawExtent: 'Set map bounds',
 		featureLabel: 'Unique task name',
 		featureLabelDescription:
-			'Short title to identify the task. Displayed in the report, in the admin interface and by default as the name of the items submitted by the respondents.',
+			'Short title to identify the task. Displayed in the report, in the admin interface, and by default as the name of the items submitted by the respondents.',
 		descriptionLabel: 'Follow-up text question',
 		descriptionLabelDescription:
-			'A text question with this request is displayed after a marker is placed by the respondent.',
+			'A text question with this request is displayed after the respondent places a marker.',
 		instructions: {
 			Point: 'Instruction for placing a Point marker',
 			LineString: 'Instruction for drawing a Line',
@@ -259,7 +259,7 @@ export default {
 	unsubscribe: {
 		home: 'Back to PARTIMAP',
 		failed: "Unsubscribe failed. Please log in and turn off the email notifications in the project's settings.",
-		success: "You have successfully unsubscribed from this project's email notifications.",
+		success: "You have successfully unsubscribed from this survey's email notifications.",
 		title: 'Unsubscribe',
 	},
 	userEditor: {
@@ -277,12 +277,12 @@ export default {
 			'This will be the color of the buttons and links in the survey. Default is the blue of PARTIMAP.',
 		colorTooBright: 'This color is too bright!',
 		deleteConfirmation:
-			"<strong>You are about to permanently delete your account. Are you sure?</strong> I'm sure, delete my account <strong>{email}</strong> with all its data (photos, maps, projects). This action is permanent and irreversible.",
+			"<strong>You are about to delete your account permanently. Are you sure?</strong> I'm sure, delete my account <strong>{email}</strong> with all its data (photos, maps, surveys). This action is permanent and irreversible.",
 		deleteUser: 'Delete account',
 		deletionFailed: 'Failed to delete account',
 		enterPassword: 'Please enter your password',
 		logo: 'Logo (supported size: 120x30 px)',
-		logoDescription: 'This logo will be displayed in the header of all your projects.',
+		logoDescription: 'This logo will be displayed in the header of all your surveys.',
 		name: 'Name',
 		newPassword: 'New password',
 		oldPassword: 'Current password (only required for email or password changes)',
@@ -312,7 +312,7 @@ export default {
 		logout: 'Log Out',
 		maps: 'Maps',
 		profile: 'Edit account',
-		projects: 'Projects',
+		projects: 'Surveys',
 		users: 'Users',
 	},
 	CheckboxGroup: {
@@ -332,7 +332,7 @@ export default {
 		importFromMap: 'Import from a map',
 		importFromSheet: 'Import from a sheet',
 		selectMap: 'Select a map',
-		selectProject: 'Select a project',
+		selectProject: 'Select a Survey',
 		selectSheet: 'Select a sheet',
 		title: 'Import markers',
 	},
@@ -422,7 +422,7 @@ export default {
 	MapHint: {
 		Point: 'Click on the map to place a marker',
 		LineString:
-			'Click starting point, optionally click more points. Double-click last point to end and save.',
+			'Click starting point, optionally click more points. Double-click the last point to end and save.',
 		Polygon: 'Click border points. Click the starting point again to end and save.',
 		box: 'Draw the rectangle by holding down the mouse button.',
 	},
@@ -450,9 +450,9 @@ export default {
 		sheetNameRequired: 'Sheet title is required',
 		sheetType: 'Select type of sheet',
 		sheetTypes: {
-			interactiveMap: 'Interactive map',
-			staticMap: 'Static map',
-			survey: 'Survey',
+			interactiveMap: 'Map tasks',
+			staticMap: 'Questions and map',
+			survey: 'Questions',
 			text: 'Text',
 		},
 		submittedFeatures: 'features submitted',
@@ -462,11 +462,11 @@ export default {
 		withoutCopying: 'Create without copying from existing map.',
 	},
 	ProjectTransferModal: {
-		confirm: "I'm sure I want to transfer the project",
+		confirm: "I'm sure I want to transfer the survey",
 		email: 'Registered email address of the other user',
-		failure: 'Project transfer failed',
+		failure: 'Survey transfer failed',
 		ok: 'Transfer',
-		success: 'Project transferred successfully',
+		success: 'Survey transferred successfully',
 	},
 	QuestionConditionEditor: {
 		logicalOr: 'OR',
@@ -495,7 +495,7 @@ export default {
 	SurveyEditor: {
 		addCondition: 'Add condition (AND)',
 		addQuestion: 'Add question',
-		addToFeatures: 'Add responses to map markings for analysis purpose',
+		addToFeatures: 'Add responses to map markings for analysis purposes',
 		and: 'AND',
 		conditionalQuestion: 'Conditionally visible',
 		deleteCondition: 'Remove condition',
