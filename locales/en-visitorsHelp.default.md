@@ -38,7 +38,7 @@ Always try to be as precise as possible in the positioning of the markings. If n
 
 #### Plot point {#point}
 
-The project owner expects you to mark specific locations on the map.
+The survey owner expects you to mark specific locations on the map.
 
 This can be done by clicking on the white pin on a red background (<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>) next to the instructions in the sidebar. Then click on the location on the map that you want to mark according to the instructions. You can place the point by clicking once, then in the dialogue box on the right you can add a reason for the marked location.
 
@@ -46,7 +46,7 @@ You can save the selection by clicking Save or delete it by clicking Delete Item
 
 #### Draw a line {#line}
 
-The project owner expects you to mark something on the map with a line segment.
+The survey owner expects you to mark something on the map with a line segment.
 
 You can do this by clicking on the white line on a blue background (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-route"></i></span>) next to the relevant instruction in the sidebar. On the map, click once to place the start point of the line, and then click again to mark the intermediate points of the section. Finally, double-click the end point to end the line.
 
@@ -65,7 +65,7 @@ After closing the line, you can add a reason for the selected item in the dialog
 
 #### Mapping the area {#shape}
 
-The project owner expects you to select an area that is relevant to the question asked.
+The survey owner expects you to select an area that is relevant to the question asked.
 
 This can be done by clicking on the white outline on a green background (<span class="bg-success rounded text-white mx-1 p-1"><i class="fas fa-fw fa-draw-polygon"></i></span>) next to the relevant instruction in the sidebar. On the map, click once to place the start point of the shape, click again to select the boundary points, and then click again on the starting point to close the area.
 

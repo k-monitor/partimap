@@ -1,6 +1,6 @@
 ## Segítség a felmérések kitöltéséhez {.mb-5}
 
-A PARTIMAP térképes kérdőívvel a hagyományos kérdőívkérdések mellett térképes jelölésekkel is elmondja véleményét. Az alábbi leírás a kitöltőknek nyújt segítséget.
+A PARTIMAP térképes kérdőívező alkalmazással a hagyományos kérdőívkérdések mellett térképes jelölésekkel is elmondja véleményét. Az alábbi leírás a kitöltőknek nyújt segítséget.
 
 A kérdőív első lapján a továbblépéshez **el kell fogadni a felhasználási feltételeket és az adatkezelési tájékoztatót.** A munkalapok között az alul lévő, kék tovább és vissza gombokkal (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-left"></i></span><span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-chevron-right"></i></span>) navigálhatunk.
 
@@ -42,7 +42,7 @@ A kért jelölés elhelyezése után feleletválasztós vagy szöveges kérdés 
 
 #### Pont felrajzolása {#pont}
 
-A projekt gazdája azt várja Öntől, hogy konkrét helyeket jelöljön meg a térképen. Ezt az oldalsávban az erre vonatkozó utasítás mellett található, piros alapon fehér gombostűre
+A kérdőív gazdája azt várja Öntől, hogy konkrét helyeket jelöljön meg a térképen. Ezt az oldalsávban az erre vonatkozó utasítás mellett található, piros alapon fehér gombostűre
 (<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>)
 kattintva tudja megtenni. Ezt követően kattintson a térképen arra a helyre, amelyet meg kíván jelölni a feltett kérdésnek megfelelően. Egyszeri kattintással tudja lehelyezni a pontot, ezt követően a jobb oldalon megnyíló párbeszédablakban indoklást fűzhet a megjelölt helyhez.
 
@@ -50,7 +50,7 @@ A jelölést a Mentés gombra kattintva eltárolhatja, vagy az Elem törlése go
 
 #### Vonal felrajzolása {#vonal}
 
-A projekt gazdája azt várja Öntől, hogy egy vonalszakasszal jelöljön meg valamit a térképen.
+A kérdőív gazdája azt várja Öntől, hogy egy vonalszakasszal jelöljön meg valamit a térképen.
 
 Ezt az oldalsávban az erre vonatkozó utasítás mellett található, kék alapon fehér vonalra (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-route"></i></span>) kattintva tudja megtenni. A térképen egyszeri kattintással helyezze le a vonal kezdőpontját, majd további kattintásokkal jelölje be a szakasz köztes pontjait. Végül a végpontra történő dupla kattintással zárja le a vonalat.
 
@@ -69,7 +69,7 @@ A vonal lezárását követően a megnyíló párbeszédablakban indoklást fűz
 
 #### Terület felrajzolása {#alakzat}
 
-A projekt gazdája azt várja Öntől, hogy jelöljön körbe egy területet, amely releváns a feltett kérdés szempontjából.
+A kérdőív gazdája azt várja Öntől, hogy jelöljön körbe egy területet, amely releváns a feltett kérdés szempontjából.
 
 Ezt az oldalsávban az erre vonatkozó utasítás mellett található, zöld alapon fehér körbezárt alakzatra
 (<span class="bg-success rounded text-white mx-1 p-1"><i class="fas fa-fw fa-draw-polygon"></i></span>)
