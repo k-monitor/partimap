@@ -2,17 +2,15 @@
 
 Im Folgenden finden Sie eine Beschreibung, wie die Admin-Oberfläche funktioniert.
 
-
 ### Registrierung {#Registrierung}
 
-Nach  [der Registrierung](/register), kann jeder die App mit vollem Zugriff auf ihre Funktionen und kostenlos nutzen. PARTIMAP ist derzeit auf Ungarisch und Englisch verfügbar, und Sie können zwischen den Sprachen wechseln, indem Sie auf die Schaltfläche in der oberen rechten Ecke () klicken. Wenn Sie das Programm in einer anderen Sprache nutzen und bei der Übersetzung helfen möchten, kontaktieren Sie uns bitte unter <hello@partimap.eu>!
+Nach [der Registrierung](/register), kann jeder die App mit vollem Zugriff auf ihre Funktionen und kostenlos nutzen. PARTIMAP ist derzeit auf Ungarisch und Englisch verfügbar, und Sie können zwischen den Sprachen wechseln, indem Sie auf die Schaltfläche in der oberen rechten Ecke (<i class="fas fa-globe fa-fw"></i>) klicken. Wenn Sie das Programm in einer anderen Sprache nutzen und bei der Übersetzung helfen möchten, kontaktieren Sie uns bitte unter <hello@partimap.eu>!
 
 In der Admin-Oberfläche können Sie neue Umfragen erstellen, vorherige ändern ([**Projekte**](/admin/projects)) und Karten bearbeiten, die sich auf Umfragen beziehen ([**Karten**](/admin/maps)).
 
-
 ### Erstellen Sie ein neues Projekt und verwalten Sie vorherige {#ujprojekt}
 
-Ein neues Projekt kann erstellt werden, indem Sie nach dem Einloggen auf der Seite Projekte den Projektnamen eingeben und auf die Schaltfläche *Hinzufügen* klicken.
+Ein neues Projekt kann erstellt werden, indem Sie nach dem Einloggen auf der Seite Projekte den Projektnamen eingeben und auf die Schaltfläche _Hinzufügen_ klicken.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -29,12 +27,11 @@ Ein neues Projekt kann erstellt werden, indem Sie nach dem Einloggen auf der Sei
 	</div>
 </div>
 
-Im Menü Projekt finden Sie eine Liste Ihrer eigenen Projekte. Hier sehen Sie die Anzahl der Aufrufe und Antworten, und mit einem Klick auf *Bericht herunterladen* können Sie den generierten Bericht der ausgefüllten Umfragen in .xlsx Format herunterladen.
+Im Menü Projekt finden Sie eine Liste Ihrer eigenen Projekte. Hier sehen Sie die Anzahl der Aufrufe und Antworten, und mit einem Klick auf _Bericht herunterladen_ können Sie den generierten Bericht der ausgefüllten Umfragen in .xlsx Format herunterladen.
 
 Die Daten, Fragen und Inhalte rund um die Befragung können nach dem Anlegen des Projekts in das Projektdatenblatt eingetragen werden.
 
-
-Projektdatenblatt {#Projektdatenblatt}
+### Projektdatenblatt {#Projektdatenblatt}
 
 Klicken Sie im Menüpunkt [Projekte](/admin/projects) auf den Projektnamen in der Liste oder erstellen Sie ein neues Projekt, um zur Projektdetailseite zu gelangen.
 
@@ -50,12 +47,11 @@ In den zugehörigen Daten und Einstellungen haben Sie die folgenden Möglichkeit
 - Geben Sie die Kontaktdaten des Datenverantwortlichen an, welcher in der Datenschutzerklärung angezeigt wird;
 - Geben Sie eine einzigartige Dankesnachricht und einen Link zum Fortsetzen der Navigation (Nächste URL) am Ende des Abschlusses (nach dem Einreichen) und zum Ein- und Ausschalten der Schaltflächen (Facebook, Twitter, E-Mail) am Ende des Abschlusses an, um den Befragten zum Teilen der Umfrage einzuladen.
 
-
 ### Liste der Arbeitsblätter
 
 Das Projekt ist in Arbeitsblätter unterteilt. In der Bearbeitungsoberfläche jedes Arbeitsblatts können Sie verschiedene Fragebogenfragen, informative Texte und Kartenelemente einrichten, die die Befragten zur Interaktion anregen.
 
-Arbeitsblätter können unter den allgemeinen Umfrageeinstellungen bearbeitet werden. Bei einem neuen Projekt ist dieser Abschnitt leer, und Sie können mit der Bearbeitung des Umfrageinhalts beginnen, indem Sie auf die Schaltfläche *Arbeitsblatt hinzufügen* klicken. Hier steht auch eine Listenansicht der bereits erstellten Arbeitsblätter zur Verfügung.
+Arbeitsblätter können unter den allgemeinen Umfrageeinstellungen bearbeitet werden. Bei einem neuen Projekt ist dieser Abschnitt leer, und Sie können mit der Bearbeitung des Umfrageinhalts beginnen, indem Sie auf die Schaltfläche _Arbeitsblatt hinzufügen_ klicken. Hier steht auch eine Listenansicht der bereits erstellten Arbeitsblätter zur Verfügung.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -74,7 +70,7 @@ Arbeitsblätter können unter den allgemeinen Umfrageeinstellungen bearbeitet we
 
 Wenn das Projekt bereits mehrere Arbeitsblätter enthält, können die Pfeile nach oben und unten verwendet werden, um die Reihenfolge der Arbeitsblätter zu ändern, und das Papierkorbsymbol löscht das nicht benötigte Arbeitsblatt.
 
-Sie können die Art des Arbeitsblatts (*Text, Fragebogen, Karte* oder *interaktive Karte*) auswählen, indem Sie auf die Piktogramme klicken.
+Sie können die Art des Arbeitsblatts (_Text, Fragebogen, Karte_ oder _interaktive Karte_) auswählen, indem Sie auf die Piktogramme klicken.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -95,94 +91,87 @@ Im ersten Arbeitsblatt müssen die Befragten die Nutzungsbedingungen und die Dat
 
 Wenn Sie auf die Schaltfläche Ansicht in der oberen rechten Ecke des Projektdatenblatts klicken, können Sie direkt zu dem Fragebogen gelangen, der gerade erstellt wird, und die von Ihnen gespeicherten Änderungen verfolgen. Bei der Bearbeitung des Fragebogens bietet es sich an, Änderungen hier parallel zur Editoroberfläche nachzuvollziehen.
 
-
 ### Arbeitsblatt-Typen {#Arbeitsblätter}
 
 Die blauen Pfeile nach rechts/links am unteren Rand der Seite werden verwendet, um zwischen den Arbeitsblättern zu navigieren, die bearbeitet werden.
 
-Von der Arbeitsblattbearbeitungsoberfläche aus können Sie auch zum Projektblatt zurückkehren, indem Sie auf das PARTIMAP-Symbol (*Zurück zum Projekt*) in der oberen linken Ecke klicken.
+Von der Arbeitsblattbearbeitungsoberfläche aus können Sie auch zum Projektblatt zurückkehren, indem Sie auf das PARTIMAP-Symbol (_Zurück zum Projekt_) in der oberen linken Ecke klicken.
 
-Wichtig: Um Ihre Änderungen zu speichern, müssen Sie auf die Schaltfläche *Speichern klicken*. Auch ein Popup-Fenster warnt Sie Ihre Änderungen zu speichern, wenn Sie zu einer anderen Seite navigieren.
-
-
+Wichtig: Um Ihre Änderungen zu speichern, müssen Sie auf die Schaltfläche _Speichern klicken_. Auch ein Popup-Fenster warnt Sie Ihre Änderungen zu speichern, wenn Sie zu einer anderen Seite navigieren.
 
 #### Text-Arbeitsblatt {#szoveges}
 
 Ein Arbeitsblatt mit Text und Bildern, anhand dessen u.a. die Ziele der Befragung, die Aktivitäten der Organisation oder Institution, die die Befragung durchführt, und die Hintergründe der Situation beschrieben werden können. Diese können beim Bearbeiten des Arbeitsblatts bereitgestellt werden:
 
-- Der *Titel des Arbeitsblatts*, der auch im öffentlichen Fragebogen angezeigt wird;
-- *Die Beschreibung des Arbeitsblatts*, bei der es sich um den Haupttext des angezeigten Dialogfelds handelt. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, mit der Möglichkeit, einen Link oder ein Bild einzufügen (durch Angabe eines externen Quelllinks);
-- *Ihr Hintergrundbild*, das den Raum hinter dem Dialogfeld ausfüllt;
-- Schaltflächen zum *Teilen der Umfrage*.
-
+- Der _Titel des Arbeitsblatts_, der auch im öffentlichen Fragebogen angezeigt wird;
+- _Die Beschreibung des Arbeitsblatts_, bei der es sich um den Haupttext des angezeigten Dialogfelds handelt. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, mit der Möglichkeit, einen Link oder ein Bild einzufügen (durch Angabe eines externen Quelllinks);
+- _Ihr Hintergrundbild_, das den Raum hinter dem Dialogfeld ausfüllt;
+- Schaltflächen zum _Teilen der Umfrage_.
 
 #### Fragebogen-Arbeitsblatt {#kerdoiv}
 
 Mit dem Arbeitsblatt Fragebogen können Sie herkömmliche Fragebogenumfragen erstellen. Diese können beim bearbeiten des Arbeitsblatts eingegeben werden:
 
-- Der *Titel des Arbeitsblatts*, der auch im öffentlichen Fragebogen angezeigt wird;
-- Die *Beschreibung des Arbeitsblatts*, die oben im Dialogfeld angezeigt wird. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, mit der Möglichkeit, einen Link oder ein Bild einzufügen, ähnlich wie beim Text-Arbeitsblatt. Durch das Hinzufügen eines Bildes ist es möglich, Fragen an das Bild zu knüpfen.
-- *Fragebogen*: Für das Arbeitsblatt besteht die Möglichkeit, Fragebogenfragen hinzuzufügen, deren Eigenschaften im erscheinenden Dialog bearbeitet werden können.
-- *Antwortstatistiken für den Besucher nach Abschluss anzeigen*: Wenn diese Option aktiviert ist, wird dem Besucher nach dem Fortfahren mit der nächsten Seite eine einfache aggregierte Statistik der bisherigen Antworten in einem Balkendiagramm angezeigt.
-- *Nur Ergebnisse anzeigen*: Wenn diese Option aktiviert ist, werden die Fragen des Arbeitsblatts geschlossen, es werden keine Antworten mehr gesammelt. In diesem Arbeitsblatt sind nur die Ergebnisse früherer Antworten für Besucher sichtbar. Dies gibt Ihnen die Möglichkeit, die geschlossene Umfrage in ein Projekt umzuwandeln, das das Ergebnis der Umfrage anzeigt, während die Verknüpfung beibehalten wird.
-- *Geben Sie ein Hintergrundbild an*, das den Platz hinter dem Dialogfeld ausfüllt.
-- Schaltflächen zum *Teilen der Umfrage*. Dies ist nützlich für das letzte Arbeitsblatt, welches oft demografische Fragen enthält.
+- Der _Titel des Arbeitsblatts_, der auch im öffentlichen Fragebogen angezeigt wird;
+- Die _Beschreibung des Arbeitsblatts_, die oben im Dialogfeld angezeigt wird. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, mit der Möglichkeit, einen Link oder ein Bild einzufügen, ähnlich wie beim Text-Arbeitsblatt. Durch das Hinzufügen eines Bildes ist es möglich, Fragen an das Bild zu knüpfen.
+- _Fragebogen_: Für das Arbeitsblatt besteht die Möglichkeit, Fragebogenfragen hinzuzufügen, deren Eigenschaften im erscheinenden Dialog bearbeitet werden können.
+- _Antwortstatistiken für den Besucher nach Abschluss anzeigen_: Wenn diese Option aktiviert ist, wird dem Besucher nach dem Fortfahren mit der nächsten Seite eine einfache aggregierte Statistik der bisherigen Antworten in einem Balkendiagramm angezeigt.
+- _Nur Ergebnisse anzeigen_: Wenn diese Option aktiviert ist, werden die Fragen des Arbeitsblatts geschlossen, es werden keine Antworten mehr gesammelt. In diesem Arbeitsblatt sind nur die Ergebnisse früherer Antworten für Besucher sichtbar. Dies gibt Ihnen die Möglichkeit, die geschlossene Umfrage in ein Projekt umzuwandeln, das das Ergebnis der Umfrage anzeigt, während die Verknüpfung beibehalten wird.
+- _Geben Sie ein Hintergrundbild an_, das den Platz hinter dem Dialogfeld ausfüllt.
+- Schaltflächen zum _Teilen der Umfrage_. Dies ist nützlich für das letzte Arbeitsblatt, welches oft demografische Fragen enthält.
 
-Die folgenden Fragetypen können dem Fragebogenblock hinzugefügt werden, indem Sie *den Fragetext angeben*:
+Die folgenden Fragetypen können dem Fragebogenblock hinzugefügt werden, indem Sie _den Fragetext angeben_:
 
-*Textantwort*: In einem Textfeld kann der Befragte eine beliebige Antwort eingeben. Der Ergebnisbericht enthält diese Textantwort.
+_Textantwort_: In einem Textfeld kann der Befragte eine beliebige Antwort eingeben. Der Ergebnisbericht enthält diese Textantwort.
 
-*Numerische Antwort (Tippen)*: Das Feld kann durch Eingabe einer Zahl ausgefüllt werden. Sie können den minimalen und maximalen Wert der Antwort festlegen, die gegeben werden kann. Der Bericht enthält die Antwort in numerischem Format.
+_Numerische Antwort (Tippen)_: Das Feld kann durch Eingabe einer Zahl ausgefüllt werden. Sie können den minimalen und maximalen Wert der Antwort festlegen, die gegeben werden kann. Der Bericht enthält die Antwort in numerischem Format.
 
-*Numerische Antwort (mit Schieberegler)*: Hier kann der Befragte mit einem Schieberegler eine numerische Antwort einstellen, ohne zu tippen. Hier können Sie auch den Minimal- und Maximalwert der Antwort angeben. Die beiden Extreme können auch im Text benannt werden, der auf beiden Seiten des Schiebereglers im Fragebogen erscheint und eine Skala bildet. Der Bericht enthält die Antwort im Zahlenformat.
+_Numerische Antwort (mit Schieberegler)_: Hier kann der Befragte mit einem Schieberegler eine numerische Antwort einstellen, ohne zu tippen. Hier können Sie auch den Minimal- und Maximalwert der Antwort angeben. Die beiden Extreme können auch im Text benannt werden, der auf beiden Seiten des Schiebereglers im Fragebogen erscheint und eine Skala bildet. Der Bericht enthält die Antwort im Zahlenformat.
 
-*Kontrollkästchen*: Klicken Sie im Abschnitt Optionen auf das *Optionsfeld Neu*, um beliebig viele Antwortoptionen einzugeben, auf die der Befragte individuell antworten kann, indem er das Kästchen ankreuzt. Die maximale Anzahl der Antworten, die ausgewählt werden können, kann festgelegt werden. Wenn Sie das *Optionsfeld "Weitere hinzufügen"* aktivieren, wird eine Option "Andere...“ der Liste der Antworten hinzugefügt, sodass der Befragte seine eigene Textantwort auf die Frage eingeben kann. Der Bericht enthält den Namen der ausgewählten Antwortoptionen und die andere gegebene Antwort, getrennt durch Semikolons.
+_Kontrollkästchen_: Klicken Sie im Abschnitt Optionen auf das _Optionsfeld Neu_, um beliebig viele Antwortoptionen einzugeben, auf die der Befragte individuell antworten kann, indem er das Kästchen ankreuzt. Die maximale Anzahl der Antworten, die ausgewählt werden können, kann festgelegt werden. Wenn Sie das _Optionsfeld "Weitere hinzufügen"_ aktivieren, wird eine Option "Andere...“ der Liste der Antworten hinzugefügt, sodass der Befragte seine eigene Textantwort auf die Frage eingeben kann. Der Bericht enthält den Namen der ausgewählten Antwortoptionen und die andere gegebene Antwort, getrennt durch Semikolons.
 
-*Mehrfachauswahl*: Wenn Sie im Abschnitt Optionen auf die *Optionsschaltfläche Neu* klicken, können Sie eine beliebige Anzahl von Optionen auswählen, aus denen der Befragte eine auswählen kann. Der Bericht enthält den Namen der Antwortoption in Textform.
+_Mehrfachauswahl_: Wenn Sie im Abschnitt Optionen auf die _Optionsschaltfläche Neu_ klicken, können Sie eine beliebige Anzahl von Optionen auswählen, aus denen der Befragte eine auswählen kann. Der Bericht enthält den Namen der Antwortoption in Textform.
 
-*Dropdown (eine kann ausgewählt werden)*: Wie bei der Multiple-Choice-Option kann der Füller eine der angegebenen Optionen aus einer Dropdown-Liste auswählen. Zusätzlich zu den Optionen können Sie auch eine „Andere...“ Option hinzufügen. Der Bericht enthält den Namen der Antwortoption in Textform.
+_Dropdown (eine kann ausgewählt werden)_: Wie bei der Multiple-Choice-Option kann der Füller eine der angegebenen Optionen aus einer Dropdown-Liste auswählen. Zusätzlich zu den Optionen können Sie auch eine „Andere...“ Option hinzufügen. Der Bericht enthält den Namen der Antwortoption in Textform.
 
-*Sternebewertung (5 Sterne)*: Der Befragte kann eine Bewertung von 1 bis 5 Sternen auf die Frage geben, indem er einfach daraufklickt. Der Bericht enthält die Antwort im Zahlenformat.
+_Sternebewertung (5 Sterne)_: Der Befragte kann eine Bewertung von 1 bis 5 Sternen auf die Frage geben, indem er einfach daraufklickt. Der Bericht enthält die Antwort im Zahlenformat.
 
-*Multiple-Choice-Raster*: Ähnlich wie die Multiple-Choice-Frage, es können jedoch mehrere Zeilen eingegeben werden, bei denen der Befragte aufgefordert wird, eine der Antwortoptionen auszuwählen (Spalte). Für die Frage können beliebig viele Zeilen und Spalten eingegeben werden. Wenn eine Antwort obligatorisch ist, muss für jede Zeile eine Option ausgewählt werden. Der Bericht enthält den Namen der Antwortoption in Textform, aufgeschlüsselt nach Zeilen.
+_Multiple-Choice-Raster_: Ähnlich wie die Multiple-Choice-Frage, es können jedoch mehrere Zeilen eingegeben werden, bei denen der Befragte aufgefordert wird, eine der Antwortoptionen auszuwählen (Spalte). Für die Frage können beliebig viele Zeilen und Spalten eingegeben werden. Wenn eine Antwort obligatorisch ist, muss für jede Zeile eine Option ausgewählt werden. Der Bericht enthält den Namen der Antwortoption in Textform, aufgeschlüsselt nach Zeilen.
 
-*Kontrollkästchen-Raster*: Wie beim Fragetyp "Kontrollkästchen" kann der Ausfüllende mehr als eine Antwortoption für eine Zeile auswählen, die durch Klicken auf die Schaltfläche *Neue Spalte eingestellt werden kann*. Sie können einer Frage eine beliebige Anzahl von Zeilen und Spalten hinzufügen. Wenn eine Antwort obligatorisch ist, muss für jede Zeile mindestens eine Option ausgewählt werden. Der Bericht enthält die Namen der Antwortmöglichkeiten in Textform, getrennt durch Semikolons.
+_Kontrollkästchen-Raster_: Wie beim Fragetyp "Kontrollkästchen" kann der Ausfüllende mehr als eine Antwortoption für eine Zeile auswählen, die durch Klicken auf die Schaltfläche _Neue Spalte eingestellt werden kann_. Sie können einer Frage eine beliebige Anzahl von Zeilen und Spalten hinzufügen. Wenn eine Antwort obligatorisch ist, muss für jede Zeile mindestens eine Option ausgewählt werden. Der Bericht enthält die Namen der Antwortmöglichkeiten in Textform, getrennt durch Semikolons.
 
-Jede Frage kann durch Ankreuzen des Kästchens *"Bitte um Beantwortung"* obligatorisch gemacht werden. Ohne eine Antwort kann der Befragte nicht fortfahren.
+Jede Frage kann durch Ankreuzen des Kästchens _"Bitte um Beantwortung"_ obligatorisch gemacht werden. Ohne eine Antwort kann der Befragte nicht fortfahren.
 
 Im Fragebogen-Abschnitt der Editor-Oberfläche des Arbeitsblatts (in der Liste der Fragen) können Fragen durch Klicken auf das Papierkorbsymbol gelöscht oder ihre Reihenfolge geändert werden, indem sie per Drag & Drop in die Fragenschublade gezogen werden.
-
 
 #### Karten-Arbeitsblatt (statische Karte) {#statikus}
 
 Das Arbeitsblatt kann verwendet werden, um eine kartenbasierte Erhebung zu erstellen, die verwendet werden kann, um eine abgeschlossene Entwicklung oder einen abgeschlossenen Plan zu präsentieren und Bewertungen und Feedback dazu zu sammeln. Hier werden die Befragten gebeten, Fragen zu beantworten, die sich auf das beziehen, was sie auf der Karte sehen, aber im Gegensatz zum interaktiven Kartenarbeitsblatt dürfen sie nicht auf der Karte zeichnen.
 
-Bei der Erstellung des Karten-Arbeitsblatts können Sie den Karteninhalt aus einer vorhandenen Karte importieren, die im Menü *Karten* gespeichert ist (*Kartenelemente von hier kopieren*), oder ihn direkt aus einer externen Quelle (z.B. Google Maps) über eine .kml-Datei hochladen. Weitere Informationen zum Verschieben der Karte finden Sie in der Einleitung im Unterabschnitt "Karten".
+Bei der Erstellung des Karten-Arbeitsblatts können Sie den Karteninhalt aus einer vorhandenen Karte importieren, die im Menü _Karten_ gespeichert ist (_Kartenelemente von hier kopieren_), oder ihn direkt aus einer externen Quelle (z.B. Google Maps) über eine .kml-Datei hochladen. Weitere Informationen zum Verschieben der Karte finden Sie in der Einleitung im Unterabschnitt "Karten".
 
 Elemente, die beim Bearbeiten des Arbeitsblatts definiert werden können:
 
-- Der *Titel des Arbeitsblatts*, der auch im öffentlichen Fragebogen angezeigt wird;
--Die *Beschreibung des Arbeitsblatts*, die oben im Dialogfeld angezeigt wird. Hier lohnt es sich, kurz und bündig zu erklären, was der Befragte auf dem Arbeitsblatt tun soll. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, außerdem besteht die Möglichkeit, Links und Bilder einzufügen.
-- *Fragebogen*: Es ist auch möglich, hier Fragebogenfragen für das gesamte Arbeitsblatt hinzuzufügen, die im Dialogfeld bearbeitet werden können, ähnlich wie beim Fragebogen-Arbeitsblatt. Die Fragen des Fragebogens werden in der Seitenleiste unterhalb der Beschreibung für diejenigen angezeigt, die die Umfrage ausfüllen.
-- *Antwortstatistiken für den Besucher nach Abschluss anzeigen*: Wenn diese Option aktiviert ist, wird dem Besucher nach dem Fortfahren mit der nächsten Seite eine einfache aggregierte Statistik der bisherigen Antworten angezeigt: sowohl die Ergebnisse der Fragen auf Arbeitsblattebene als auch den Durchschnitt der Punktzahlen, die den Elementen zugewiesen sind.
-- *Nur Ergebnisse anzeigen*: Wenn diese Option aktiviert ist, sammelt das Arbeitsblatt keine Antworten, sondern dem Befragten werden nur die Statistiken der Antworten angezeigt.
-- *Interaktionen der Befragten*: Wenn die Option Feste Elemente bewerten aktiviert ist, können die Befragten die auf der Karte angezeigten Elemente bewerten. Es können zwei Arten von Bewertungen ausgewählt werden:
-    - *Sterne*: Der Befragte kann den Artikel mit Sternen bewerten, indem er auf den Artikel klickt. Die Anzahl der Sterne kann eingestellt werden (1-10), aber wenn ein einzelner Stern ausgewählt ist, kann er als Ja/Nein-Antwort verwendet werden. Die Bewertung beinhaltet keine Frage auf Arbeitsblattebene, die Anweisungen dazu müssen entweder umfassend in der Arbeitsblattbeschreibung oder einzeln in der Elementbeschreibung bereitgestellt werden. Wenn die Antwortstatistik gesetzt ist, werden die durchschnittliche Anzahl der Sterne und die Anzahl der Bewertungen für die Artikel angezeigt, nachdem Sie zur nächsten Seite übergegangen sind -- dies wird standardmäßig in der Admin-Oberfläche angezeigt.
-    - *Gefällt mir/Gefällt mir nicht*: Der Befragte kann Items positiv (<i class="fas fa-fw fa-thumbs-up text-success"></i>) oder negativ (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) bewerten. Wenn die Antwortstatistik gesetzt ist, wird die Anzahl der positiven und negativen Bewertungen für die Artikel angezeigt, nachdem Sie zur nächsten Seite gewechselt haben -- dies wird standardmäßig in der Admin-Oberfläche angezeigt.
+- Der _Titel des Arbeitsblatts_, der auch im öffentlichen Fragebogen angezeigt wird;
+- Die _Beschreibung des Arbeitsblatts_, die oben im Dialogfeld angezeigt wird. Hier lohnt es sich, kurz und bündig zu erklären, was der Befragte auf dem Arbeitsblatt tun soll. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, außerdem besteht die Möglichkeit, Links und Bilder einzufügen.
+- _Fragebogen_: Es ist auch möglich, hier Fragebogenfragen für das gesamte Arbeitsblatt hinzuzufügen, die im Dialogfeld bearbeitet werden können, ähnlich wie beim Fragebogen-Arbeitsblatt. Die Fragen des Fragebogens werden in der Seitenleiste unterhalb der Beschreibung für diejenigen angezeigt, die die Umfrage ausfüllen.
+- _Antwortstatistiken für den Besucher nach Abschluss anzeigen_: Wenn diese Option aktiviert ist, wird dem Besucher nach dem Fortfahren mit der nächsten Seite eine einfache aggregierte Statistik der bisherigen Antworten angezeigt: sowohl die Ergebnisse der Fragen auf Arbeitsblattebene als auch den Durchschnitt der Punktzahlen, die den Elementen zugewiesen sind.
+- _Nur Ergebnisse anzeigen_: Wenn diese Option aktiviert ist, sammelt das Arbeitsblatt keine Antworten, sondern dem Befragten werden nur die Statistiken der Antworten angezeigt.
+- _Interaktionen der Befragten_: Wenn die Option Feste Elemente bewerten aktiviert ist, können die Befragten die auf der Karte angezeigten Elemente bewerten. Es können zwei Arten von Bewertungen ausgewählt werden:
+    - _Sterne_: Der Befragte kann den Artikel mit Sternen bewerten, indem er auf den Artikel klickt. Die Anzahl der Sterne kann eingestellt werden (1-10), aber wenn ein einzelner Stern ausgewählt ist, kann er als Ja/Nein-Antwort verwendet werden. Die Bewertung beinhaltet keine Frage auf Arbeitsblattebene, die Anweisungen dazu müssen entweder umfassend in der Arbeitsblattbeschreibung oder einzeln in der Elementbeschreibung bereitgestellt werden. Wenn die Antwortstatistik gesetzt ist, werden die durchschnittliche Anzahl der Sterne und die Anzahl der Bewertungen für die Artikel angezeigt, nachdem Sie zur nächsten Seite übergegangen sind -- dies wird standardmäßig in der Admin-Oberfläche angezeigt.
+    - _Gefällt mir/Gefällt mir nicht_: Der Befragte kann Items positiv (<i class="fas fa-fw fa-thumbs-up text-success"></i>) oder negativ (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) bewerten. Wenn die Antwortstatistik gesetzt ist, wird die Anzahl der positiven und negativen Bewertungen für die Artikel angezeigt, nachdem Sie zur nächsten Seite gewechselt haben -- dies wird standardmäßig in der Admin-Oberfläche angezeigt.
     - Der Bericht zeigt die Bewertungsdaten in einem separaten Arbeitsblatt "Bewertungen" an, welches die Befragten-ID enthält, die verwendet wird, um die Bewertung mit anderen Antworten zu verknüpfen, den Namen des bewerteten Elements und die Bewertung im Zahlenformat (Anzahl der Sterne, [1, -1]). Darüber hinaus zeigt der generierte Bericht auch die Gesamtzahl und den Durchschnitt der Bewertungen in einem Arbeitsblatt für aggregierte Bewertungen an.
-- *Standard-Grundkarte*: Hier können Sie die Grundkarte festlegen, die hinter den auf der Karte gezeichneten Elementen angezeigt wird (z.B. Straßennetz, Satellit, Schwarz-Weiß, Radwege, topografisch, etc.). Die Befragten können die Anzeige selbst ändern.
-- *Kartenelemente*: Hier werden die auf der Basiskarte gezeichneten Elemente angezeigt. Der Inhalt, der den Befragten angezeigt wird, wenn sie auf das Element oder die Auswahl klicken, kann in den Elementschubladen bearbeitet werden. In der Item-Auswahl können Sie Name, Farbe, Größe, Stil und Bildbeschreibung einstellen.
-
-    - Durch Ausfüllen des Feldes "*Kategorie*" können Kartenelement durch Befragte für diese Kategorie gefiltert werden. Durch das Festlegen einer Kategorie können verschiedene Elemente getrennt und einfacher analysiert werden.
-    - Wenn Sie *die Option Element in Liste ausblenden* aktivieren, wird das Element auf der Karte angezeigt, kann aber nicht bearbeitet werden: Es wird nicht als Auswahl unter den Kartenelementen angezeigt und kann in der Karte nicht angeklickt werden. Dies ist nützlich, wenn Sie ein Hilfselement auf der Karte zeichnen, das die Befragten nur orientiert, z.B. die Grenze einer Stadt.
-
+- _Standard-Grundkarte_: Hier können Sie die Grundkarte festlegen, die hinter den auf der Karte gezeichneten Elementen angezeigt wird (z.B. Straßennetz, Satellit, Schwarz-Weiß, Radwege, topografisch, etc.). Die Befragten können die Anzeige selbst ändern.
+- _Kartenelemente_: Hier werden die auf der Basiskarte gezeichneten Elemente angezeigt. Der Inhalt, der den Befragten angezeigt wird, wenn sie auf das Element oder die Auswahl klicken, kann in den Elementschubladen bearbeitet werden. In der Item-Auswahl können Sie Name, Farbe, Größe, Stil und Bildbeschreibung einstellen.
+    - Durch Ausfüllen des Feldes "_Kategorie_" können Kartenelement durch Befragte für diese Kategorie gefiltert werden. Durch das Festlegen einer Kategorie können verschiedene Elemente getrennt und einfacher analysiert werden.
+    - Wenn Sie _die Option Element in Liste ausblenden_ aktivieren, wird das Element auf der Karte angezeigt, kann aber nicht bearbeitet werden: Es wird nicht als Auswahl unter den Kartenelementen angezeigt und kann in der Karte nicht angeklickt werden. Dies ist nützlich, wenn Sie ein Hilfselement auf der Karte zeichnen, das die Befragten nur orientiert, z.B. die Grenze einer Stadt.
 - Über die KML-Schaltflächen oberhalb der Elementliste ist es möglich, eine in einem anderen Editor erstellte Karte zu laden (<i class="fas fa-fw fa-upload"></i>) oder Kartenelemente herunterzuladen (<i class="fas fa-fw fa-download"></i>).
 
-Sie können auch die Schaltflächen *Punkt, Linie* und *Fläche* in der oberen rechten Ecke der statischen Karte der Bearbeitungsoberfläche des Arbeitsblatts verwenden, um Elemente direkt auf die Karte zu zeichnen, die auf dem Arbeitsblatt angezeigt wird. Es können beliebig viele Elemente auf der Karte eingezeichnet werden. Sie können die Karte mit den Tasten +/- oder mit der Zwei-Finger-Zoomfunktion vergrößern.
+Sie können auch die Schaltflächen _Punkt, Linie_ und _Fläche_ in der oberen rechten Ecke der statischen Karte der Bearbeitungsoberfläche des Arbeitsblatts verwenden, um Elemente direkt auf die Karte zu zeichnen, die auf dem Arbeitsblatt angezeigt wird. Es können beliebig viele Elemente auf der Karte eingezeichnet werden. Sie können die Karte mit den Tasten +/- oder mit der Zwei-Finger-Zoomfunktion vergrößern.
 
-*Zeichnen eines Punktes (rot)*: Klicken Sie auf die weiße Stecknadel auf dem roten Hintergrund, um eine Punktmarkierung zu platzieren. Der Marker kann mit einem einzigen Klick platziert werden.
+_Zeichnen eines Punktes (rot)_: Klicken Sie auf die weiße Stecknadel auf dem roten Hintergrund, um eine Punktmarkierung zu platzieren. Der Marker kann mit einem einzigen Klick platziert werden.
 
-*Linie zeichnen (blau)*: Klicken Sie auf die weiße Linie auf dem blauen Hintergrund, um eine Linie zu zeichnen. Mit einem Klick platzieren Sie den Startpunkt der Linie auf der Karte, klicken Sie erneut, um die Zwischenpunkte der Linie zu markieren, und doppelklicken Sie, um den Endpunkt zu markieren.
+_Linie zeichnen (blau)_: Klicken Sie auf die weiße Linie auf dem blauen Hintergrund, um eine Linie zu zeichnen. Mit einem Klick platzieren Sie den Startpunkt der Linie auf der Karte, klicken Sie erneut, um die Zwischenpunkte der Linie zu markieren, und doppelklicken Sie, um den Endpunkt zu markieren.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -195,40 +184,39 @@ Sie können auch die Schaltflächen *Punkt, Linie* und *Fläche* in der oberen r
 	</div>
 </div>
 
-*Fläche zeichnen (grün)*: Klicken Sie auf den weißen Umriss auf dem grünen Hintergrund, um eine Fläche (Polygon) zu zeichnen. Klicken Sie einmal, um den Startpunkt des Shapes auf der Karte zu platzieren, klicken Sie erneut, um die Grenzen zu markieren, und klicken Sie dann erneut auf den Startpunkt, um die Zeichnung zu beenden.
+_Fläche zeichnen (grün)_: Klicken Sie auf den weißen Umriss auf dem grünen Hintergrund, um eine Fläche (Polygon) zu zeichnen. Klicken Sie einmal, um den Startpunkt des Shapes auf der Karte zu platzieren, klicken Sie erneut, um die Grenzen zu markieren, und klicken Sie dann erneut auf den Startpunkt, um die Zeichnung zu beenden.
 
-*Mobile Ansicht*: Wenn Sie die Editor-Oberfläche auf einem Tablet oder Mobiltelefon verwenden, können Sie zwischen dem Fragenfeld und der Karte wechseln, indem Sie die Schaltflächen Ausblenden (<<) und Öffnen (>>) für Kartenarbeitsblätter drücken. Die Schaltflächen zum Zeichnen sind in der Kartenansicht verfügbar, indem Sie die Seitenleiste ausblenden.
+_Mobile Ansicht_: Wenn Sie die Editor-Oberfläche auf einem Tablet oder Mobiltelefon verwenden, können Sie zwischen dem Fragenfeld und der Karte wechseln, indem Sie die Schaltflächen Ausblenden (<<) und Öffnen (>>) für Kartenarbeitsblätter drücken. Die Schaltflächen zum Zeichnen sind in der Kartenansicht verfügbar, indem Sie die Seitenleiste ausblenden.
 
 #### Interaktives Karten-Arbeitsblatt {#interaktiv}
 
 In diesem Arbeitsblatt können die Befragten auf der Karte zeichnen. Wie bei der statischen Karte hat der Admin die Möglichkeit, Elemente auf der Karte zu zeichnen, um die Befragten zu orientieren oder Kartenmarkierungen in Bezug darauf zu erwarten. Allerdings können hier keine Fragebogenfragen oder Bewertungen zum Arbeitsblatt und seinen Elementen hinzugefügt werden.
 
-Der *Titel des Arbeitsblatts* und die *Beschreibung des Arbeitsblatts* sollten Informationen enthalten, die dem Befragten helfen, eine genaue Antwort auf die gestellte Frage zu geben.
+Der _Titel des Arbeitsblatts_ und die _Beschreibung des Arbeitsblatts_ sollten Informationen enthalten, die dem Befragten helfen, eine genaue Antwort auf die gestellte Frage zu geben.
 
-Im Menü "*Interaktionen mit Befragten*" können Sie die Art des Markups (Punkt, Linie, Fläche) festlegen, das vom Befragten erfasst wird. Sie können mehrere Markierungstypen für ein Arbeitsblatt anfordern, aber nur eine Aufgabe kann einem Elementtyp zugewiesen werden. So können z.B. mehrere unterschiedliche Aufgaben für das Punktplotten (Lieblingsorte und unangenehme Stellen) auf separaten interaktiven Arbeitsblättern festgelegt werden.
+Im Menü "_Interaktionen mit Befragten_" können Sie die Art des Markups (Punkt, Linie, Fläche) festlegen, das vom Befragten erfasst wird. Sie können mehrere Markierungstypen für ein Arbeitsblatt anfordern, aber nur eine Aufgabe kann einem Elementtyp zugewiesen werden. So können z.B. mehrere unterschiedliche Aufgaben für das Punktplotten (Lieblingsorte und unangenehme Stellen) auf separaten interaktiven Arbeitsblättern festgelegt werden.
 
-Für die ausgewählten Elemente können Sie im Textfeld *Anweisung zum Zeichnen von Punkten/Linien/Bereichen* genau festlegen, was die Befragten markieren sollen (z. B. Welcher ist Ihr Lieblingsort? [Punkt], Welchen Weg fahren Sie zur Arbeit? [Linie], Wo hätten Sie gerne mehr Grünfläche? [Bereich]). Dieser Text wird in der Seitenleiste neben der Schaltfläche angezeigt, mit der die Zeichnung gestartet wird. Wenn der Befragte etwas auf der Karte zeichnet, kann er seiner Antwort einen Text hinzufügen. Sie können die entsprechenden Anweisungen in das Feld *Frage zu gezeichneten Elementen* eingeben und so die Antwort leiten.
+Für die ausgewählten Elemente können Sie im Textfeld _Anweisung zum Zeichnen von Punkten/Linien/Bereichen_ genau festlegen, was die Befragten markieren sollen (z. B. Welcher ist Ihr Lieblingsort? [Punkt], Welchen Weg fahren Sie zur Arbeit? [Linie], Wo hätten Sie gerne mehr Grünfläche? [Bereich]). Dieser Text wird in der Seitenleiste neben der Schaltfläche angezeigt, mit der die Zeichnung gestartet wird. Wenn der Befragte etwas auf der Karte zeichnet, kann er seiner Antwort einen Text hinzufügen. Sie können die entsprechenden Anweisungen in das Feld _Frage zu gezeichneten Elementen_ eingeben und so die Antwort leiten.
 
-Die *Map Elements* enthält eine Liste von Elementen, die im Admin-Bereich hinzugefügt (gezeichnet oder hochgeladen) wurden, ähnlich wie bei einer statischen Map. Beachten Sie, dass die Beschreibung, die sie erhalten haben, dem Befragten nicht angezeigt wird, diese Elemente erscheinen nur wie die versteckten Elemente der statischen Karte auf der Karte! Die gezeichneten Elemente können hier zur Orientierung der Befragten verwendet werden, ihre Farbe, Größe und ihr Stil können angepasst werden. Sie können verwendet werden, um den Bereich oder die Zonen anzugeben, in denen die Elemente gezeichnet werden sollen. Sie sind auch nützlich, da die Karte diese Elemente automatisch vergrößert.
+Die _Map Elements_ enthält eine Liste von Elementen, die im Admin-Bereich hinzugefügt (gezeichnet oder hochgeladen) wurden, ähnlich wie bei einer statischen Map. Beachten Sie, dass die Beschreibung, die sie erhalten haben, dem Befragten nicht angezeigt wird, diese Elemente erscheinen nur wie die versteckten Elemente der statischen Karte auf der Karte! Die gezeichneten Elemente können hier zur Orientierung der Befragten verwendet werden, ihre Farbe, Größe und ihr Stil können angepasst werden. Sie können verwendet werden, um den Bereich oder die Zonen anzugeben, in denen die Elemente gezeichnet werden sollen. Sie sind auch nützlich, da die Karte diese Elemente automatisch vergrößert.
 
-Wenn von den Befragten gezeichnete Elemente bereits in einer interaktiven Karte eingereicht wurden, können sie in eine persönliche Karte exportiert werden, indem Sie auf den Link *An eigene Karte senden* neben dem Arbeitsblatt in der Liste auf dem Projektdatenblatt klicken, wo sie durchsucht, bearbeitet oder im .kml-Format für den externen Gebrauch heruntergeladen werden können. Der .xlsx Bericht enthält auch die Daten der eingereichten Elemente (Füllkennung, Koordinaten, Beschreibung).
-
+Wenn von den Befragten gezeichnete Elemente bereits in einer interaktiven Karte eingereicht wurden, können sie in eine persönliche Karte exportiert werden, indem Sie auf den Link _An eigene Karte senden_ neben dem Arbeitsblatt in der Liste auf dem Projektdatenblatt klicken, wo sie durchsucht, bearbeitet oder im .kml-Format für den externen Gebrauch heruntergeladen werden können. Der .xlsx Bericht enthält auch die Daten der eingereichten Elemente (Füllkennung, Koordinaten, Beschreibung).
 
 ### Erstellen von Karten und Verwalten der Historie {#terkepek}
 
-Im Menü <a href="/admin/maps" target="_blank">Karten</a> können Sie Ihre eigenen Kartenzeichnungen (Shapefiles im KML-Format) speichern und bearbeiten. Hier können Sie Karten der Stadt und der Umgebung der Benutzer sammeln und bearbeiten, die zuvor erstellt wurden, sowie die aus Fragebögen gesammelten Antworten. Mit Hilfe von Dateien im .kml-Format ist es einfach, die hier gespeicherten Elemente in externe Karteneditoren zu exportieren und von dort aus Karten in PARTIMAP zu importieren. Es ist auch einfach, zwischen dem Menü "Maps" und Projekten zu wechseln: Sie können den Inhalt Ihrer eigenen Maps in Arbeitsblätter verschieben (*Kopieren Sie Map-Elemente von hier*).
+Im Menü <a href="/admin/maps" target="_blank">Karten</a> können Sie Ihre eigenen Kartenzeichnungen (Shapefiles im KML-Format) speichern und bearbeiten. Hier können Sie Karten der Stadt und der Umgebung der Benutzer sammeln und bearbeiten, die zuvor erstellt wurden, sowie die aus Fragebögen gesammelten Antworten. Mit Hilfe von Dateien im .kml-Format ist es einfach, die hier gespeicherten Elemente in externe Karteneditoren zu exportieren und von dort aus Karten in PARTIMAP zu importieren. Es ist auch einfach, zwischen dem Menü "Maps" und Projekten zu wechseln: Sie können den Inhalt Ihrer eigenen Maps in Arbeitsblätter verschieben (_Kopieren Sie Map-Elemente von hier_).
 
 PARTIMAP bietet derzeit keine grafischen Analysefunktionen, aber Sie können einzelne Elemente auf Ihrer eigenen Karte bearbeiten: Neben dem Namen und der Beschreibung können Sie auch deren Aussehen anpassen (Farbe, Größe, Linienstil bei Linien).
 
 So erstellen Sie Ihre eigene neue Karte:
 
-- Geben Sie auf der Seite <a href="/admin/maps" target="_blank">Karten</a> den Namen der neuen Karte ein und klicken Sie auf die Schaltfläche *Hinzufügen*. Hier können Sie Daten aus einer .kml-Datei in der Editor-Oberfläche laden.
-- Aus den Einsendungen der Befragten einer Umfrage, indem Sie auf die Schaltfläche *An neue eigene Karte senden* in der Zeile des entsprechenden Arbeitsblatts auf dem Projektdatenblatt klicken.
+- Geben Sie auf der Seite <a href="/admin/maps" target="_blank">Karten</a> den Namen der neuen Karte ein und klicken Sie auf die Schaltfläche _Hinzufügen_. Hier können Sie Daten aus einer .kml-Datei in der Editor-Oberfläche laden.
+- Aus den Einsendungen der Befragten einer Umfrage, indem Sie auf die Schaltfläche _An neue eigene Karte senden_ in der Zeile des entsprechenden Arbeitsblatts auf dem Projektdatenblatt klicken.
 
 Sie können die folgenden Details Ihrer eigenen Karte in einer Oberfläche bearbeiten, die Arbeitsblättern ähnelt:
 
-- *Name der Karte*
-- *Kartenelemente*: Hier werden Objekte angezeigt, die auf der Basiskarte gezeichnet wurden. Mit den KML-Schaltflächen zum Exportieren/Importieren am unteren Rand der Seite können Sie eine Karte, die in einer anderen Editoroberfläche erstellt wurde, in die Basiskarte importieren und die Kartenelemente im KML-Format speichern.
+- _Name der Karte_
+- _Kartenelemente_: Hier werden Objekte angezeigt, die auf der Basiskarte gezeichnet wurden. Mit den KML-Schaltflächen zum Exportieren/Importieren am unteren Rand der Seite können Sie eine Karte, die in einer anderen Editoroberfläche erstellt wurde, in die Basiskarte importieren und die Kartenelemente im KML-Format speichern.
 
 Die .kml-Datei, die die PARTIMAP Erhebungsantworten enthält, enthält den Typ der Markierungen als Kategorie, sodass Sie ein externes Analyseprogramm verwenden oder die .kml-Datei [in eine Tabelle](https://mygeodata.cloud/converter/kml-to-xlsx) konvertieren können, um die verschiedenen Markierungen zu trennen und die Parameter der Elemente zu bearbeiten.
 
@@ -239,14 +227,11 @@ Die von PARTIMAP generierten und verwendeten .kml-Dateien verwenden die folgende
 - Die Kategorie, die dem Element zugewiesen ist (partimapCategory);
 - Der Stil der Linien- oder Flächengrenze (partimapLineStyle), die Größe des Punktes (partimapPointSize) und andere Parameter (Größe, Farbe), die automatisch von Google Maps gelesen werden (ExtendedData);
 - Der Inhalt des Beschreibungsfeldes, das von PARTIMAP verwendet wird (partimapDescription);
-- Weitere Informationen dazu finden Sie auf der
-[Github-Seite](https://github.com/k-monitor/partimap/blob/master/KML.md) des Projekts.
-
+- Weitere Informationen dazu finden Sie auf der [Github-Seite](https://github.com/k-monitor/partimap/blob/master/KML.md) des Projekts.
 
 ### Bericht und Ergebnisse {#riport}
 
 Sie können einen Survey in .xlsx Format von der Listenansichtsseite [Projekte](/admin/projects) herunterladen. Der Bericht enthält die Ergebnisse in dem zuvor beschriebenen Format. Die Kartenelemente können mit den Antworten auf die Befragungsfragen, wie z.B. den demografischen Daten der Befragten, mittels Identifikationsnummern verknüpft werden. Sobald die Daten verknüpft sind, können die räumlichen Marker tiefer analysiert und nach jeder Gruppe von Befragten gefiltert werden.
-
 
 ### Tipps zum Erstellen eines Fragebogens {#tips}
 
@@ -301,7 +286,7 @@ Sie können dem Fragebogen in der Editoroberfläche des Projekts Ihre eigene URL
 Der Fragebogen kann auf Ihrer Website eingebettet werden, indem Sie den folgenden Code in den HTML-Code der Seite einfügen, mit dem Link zum Projekt an der entsprechenden Stelle.
 
 ```
-<embed src="https://partimap.eu/en/p/demo" style="width:100%; height:550px;">
+<embed src="https://partimap.eu/de/p/demo" style="width:100%; height:550px;">
 ```
 
 Die Breite und Höhe des eingebetteten Elements kann angepasst werden.
