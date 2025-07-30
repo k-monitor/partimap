@@ -258,7 +258,7 @@ export default {
 	},
 	unsubscribe: {
 		home: 'Back to PARTIMAP',
-		failed: "Unsubscribe failed. Please log in and turn off the email notifications in the project's settings.",
+		failed: "Unsubscribe failed. Please log in and turn off the email notifications in the survey's settings.",
 		success: "You have successfully unsubscribed from this survey's email notifications.",
 		title: 'Unsubscribe',
 	},
