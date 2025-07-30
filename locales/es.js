@@ -16,7 +16,6 @@ export default {
 	},
 	landing: {
 		title: 'ENCUESTA BASADA EN MAPAS',
-
 		tagline1:
 			'PARTIMAP es una encuesta gratuita, fácil de usar y personalizable basada en mapas para aquellos',
 		tagline2:
@@ -38,12 +37,12 @@ export default {
 			{
 				title: 'Fácil de editar',
 				description:
-					'<p>Con PARTIMAP es fácil crear encuestas con diversas funciones de cuestionario basado en mapas y tradicionales. Su interfaz está diseñada para permitir que los usuarios de computadoras ordinarias ingresen preguntas, creen hojas de trabajo, compartan en redes sociales y publiquen un nuevo proyecto.</p><p>Al crear un nuevo proyecto después de registrarse en la aplicación, primero es necesario ingresar información básica como el título del proyecto, el titular de los datos y el texto de la página de bienvenida. Posteriormente, es posible crear las hojas de trabajo relevantes. Estas pueden ser páginas de texto (para presentar planes e ideas), cuestionarios (para recopilar respuestas de preguntas de opción múltiple, menús desplegables, texto libre y preguntas de escala), mapas estáticos (para presentar y recopilar comentarios sobre elementos de mapa predefinidos: puntos, líneas y polígonos) y mapas interactivos (donde los encuestados pueden dibujar y agregar sus propios elementos de mapa en respuesta a una pregunta). Es fácil navegar entre las hojas de trabajo, eliminarlas o editar su contenido y su secuencia en cualquier momento.</p>',
+					'<p>Con PARTIMAP es fácil crear encuestas con diversas funciones de cuestionario basado en mapas y tradicionales. Su interfaz está diseñada para permitir que los usuarios de computadoras ordinarias ingresen preguntas, creen hojas de trabajo, compartan en redes sociales y publiquen una nueva encuesta.</p><p>Al crear una nueva encuesta tras registrarse en la aplicación, primero es necesario ingresar información básica como el título de la encuesta, el titular de los datos y el texto de la página de bienvenida. Posteriormente, es posible crear las hojas de trabajo relevantes. Estas pueden ser páginas de texto (para presentar planes e ideas), cuestionarios (para recopilar respuestas de preguntas de opción múltiple, menús desplegables, texto libre y preguntas de escala), mapas estáticos (hoja de trabajo de Preguntas y mapa - para presentar y recopilar comentarios sobre elementos de mapa predefinidos: puntos, líneas y polígonos) y mapas interactivos (hoja de trabajo de Tareas de mapa - donde los encuestados pueden dibujar y agregar sus propios elementos de mapa en respuesta a una pregunta). Es fácil navegar entre las hojas de trabajo, eliminarlas o editar su contenido y su secuencia en cualquier momento.</p>',
 			},
 			{
 				title: 'Diseño personalizable',
 				description:
-					'<p>Las interfaces de cuestionarios están diseñadas para llegar efectivamente al público objetivo. Por esta razón, prestamos especial atención a la capacidad de compartir y personalizar proyectos durante el desarrollo. En las hojas de trabajo de inicio y cierre, hay botones de uso compartido para las plataformas de redes sociales más populares. Los proyectos también se pueden configurar con una imagen de miniatura personalizada de Facebook y un texto de vista previa, lo que permite a los usuarios adaptar su encuesta a sus propios diseños establecidos. Además de cargar sus propias fotos en la interfaz de edición de hojas de trabajo, también puede formatear texto, agregar enlaces y cargar imágenes de fondo. Además, los proyectos pueden tener una URL única en la aplicación.</p>',
+					'<p>Las interfaces de cuestionarios están diseñadas para llegar efectivamente al público objetivo. Por esta razón, prestamos especial atención a la capacidad de compartir y personalizar encuestas durante el desarrollo. En las hojas de trabajo de inicio y cierre, hay botones de uso compartido para las plataformas de redes sociales más populares. Las encuestas también se pueden configurar con una imagen de miniatura personalizada de Facebook y un texto de vista previa, lo que permite a los usuarios adaptar su encuesta a sus propios diseños establecidos. Además de cargar sus propias fotos en la interfaz de edición de hojas de trabajo, también puede formatear texto, agregar enlaces y cargar imágenes de fondo. Además, las encuestas pueden tener una URL única en la aplicación.</p>',
 			},
 			{
 				title: 'Una encuesta multifacética',
@@ -53,17 +52,17 @@ export default {
 			{
 				title: 'Mapeo de planes existentes',
 				description:
-					'<p>Se puede agregar una hoja de trabajo de tipo mapa estático al cuestionario para ilustrar un transporte particular, infraestructura u otra idea de desarrollo o desarrollo que se pueda representar en un mapa y recopilar comentarios al respecto. Es posible importar elementos de otras interfaces de cartografía (por ejemplo, Google Maps), que luego se pueden visualizar y evaluar individualmente en PARTIMAP. Además, la hoja de trabajo de tipo cuestionario basada en mapas puede incluir los tipos de pregunta ya conocidos del cuestionario, así como explicaciones adicionales, descripciones y enlaces. El mapa editado se puede guardar como su propio mapa y usarlo en un proyecto futuro también.</p><p>El mapa estático es una herramienta ideal para pedir a los residentes que califiquen las diferentes infraestructuras de un municipio, por ejemplo, la accesibilidad en general y para personas con movilidad reducida, si es apto para bicicletas, etc. Una vez que los resultados estén disponibles, se puede derivar una evaluación compleja. Este tipo de hoja de trabajo también se puede utilizar para resolver dilemas específicos de desarrollo, por ejemplo, al revisar las versiones A y B de un desarrollo planificado para un área, los encuestados pueden decidir cuál prefieren.</p>',
+					'<p>Se puede agregar una hoja de trabajo de Preguntas y mapa al cuestionario para ilustrar un transporte particular, infraestructura u otra idea de desarrollo que se pueda representar en un mapa y recopilar comentarios al respecto. Es posible importar elementos de otras interfaces de cartografía (por ejemplo, Google Maps), que luego se pueden visualizar y evaluar individualmente en PARTIMAP. Además, la hoja de trabajo basada en mapas puede incluir los tipos de pregunta ya conocidos del cuestionario, así como explicaciones adicionales, descripciones y enlaces. El mapa editado se puede guardar como tu mapa y usarlo en una encuesta futura también.</p><p>Las Preguntas y mapa es una herramienta ideal para pedir a los residentes que califiquen las diferentes infraestructuras de un municipio, por ejemplo, la accesibilidad en general y para personas con movilidad reducida, si es apto para bicicletas, etc. Una vez que los resultados estén disponibles, se puede derivar una evaluación compleja. Este tipo de hoja de trabajo también se puede utilizar para resolver dilemas específicos de desarrollo, por ejemplo, al revisar las versiones A y B de un desarrollo planificado para un área, los encuestados pueden decidir cuál prefieren.</p>',
 			},
 			{
 				title: '¡Ahora es tu turno de contribuir al mapa!',
 				description:
-					'<p>Lo que hace que PARTIMAP sea único en comparación con otras herramientas de encuesta en línea es que las personas pueden expresar su opinión con una ubicación adjunta, pueden ilustrar sus sugerencias o simplemente compartir sus rutas de viaje, por ejemplo. Los espacios públicos en un municipio, distrito o vecindario son utilizados por una amplia gama de personas, cuyas diversas necesidades y opiniones sobre su uso del espacio pueden evaluarse utilizando la hoja de trabajo de tipo mapa interactivo. Los encuestados pueden utilizar puntos, líneas y formas de polígono para proporcionar respuestas gráficas a las preguntas realizadas. Las respuestas entrantes se pueden procesar fácilmente en forma de un mapa de calor, o las sugerencias recibidas se pueden votar en un mapa estático en un cuestionario posterior.</p>',
+					'<p>Lo que hace que PARTIMAP sea único en comparación con otras herramientas de encuesta en línea es que las personas pueden expresar su opinión con una ubicación adjunta, pueden ilustrar sus sugerencias o simplemente compartir sus rutas de viaje, por ejemplo. Los espacios públicos en un municipio, distrito o vecindario son utilizados por una amplia gama de personas, cuyas diversas necesidades y opiniones sobre su uso del espacio pueden evaluarse utilizando la hoja de trabajo de Tareas de mapa. Los encuestados pueden utilizar puntos, líneas y formas de polígono para proporcionar respuestas gráficas a las preguntas realizadas. Las respuestas entrantes se pueden procesar fácilmente en forma de un mapa de calor, o las sugerencias recibidas se pueden votar en una hoja de trabajo de Preguntas y mapa en un cuestionario posterior.</p>',
 			},
 			{
 				title: 'Interoperabilidad con otras plataformas',
 				description:
-					'<p>Ambas hojas de trabajo de tipo mapas utilizan openstreetmap.org como mapa de fondo, para el cual se puede dibujar un mapa base personalizado resaltando los puntos focales de la encuesta. Los elementos dibujados en proyectos anteriores se pueden guardar y almacenar entre los propios mapas del usuario. Para cada hoja de trabajo, el mapa de base se puede importar no solo de este propio repositorio de mapas, sino también de un archivo .KML externo: una función de importación/exportación permite un intercambio rápido con software de cartografía como Google MyMaps u otros software geoespaciales más complejos.</p><p>La interfaz de edición sencilla le permite crear mapas que se ajusten a la encuesta dibujando puntos, líneas y polígonos de colores. Con un clic de botón, también es posible crear un mapa base a partir de los datos enviados por un encuestado, y exportar en formato de archivo .KML, lo que proporciona portabilidad a otras aplicaciones de edición de mapas. En el futuro, también tenemos la intención de crear otros tipos de mapas de fondo rasterizados y nuevas representaciones gráficas de los elementos trazados (por ejemplo, iconos personalizados).</p>',
+					'<p>Ambas hojas de trabajo de tipo mapas utilizan openstreetmap.org como mapa de fondo, para el cual se puede dibujar un mapa base personalizado resaltando los puntos focales de la encuesta. Los elementos dibujados en encuestas anteriores se pueden guardar y almacenar entre los propios mapas del usuario. Para cada hoja de trabajo, el mapa de base se puede importar no solo de este propio repositorio de mapas, sino también de un archivo .KML externo: una función de importación/exportación permite un intercambio rápido con software de cartografía como Google MyMaps u otros software geoespaciales más complejos.</p><p>La interfaz de edición sencilla le permite crear mapas que se ajusten a la encuesta dibujando puntos, líneas y polígonos de colores. Con un clic de botón, también es posible crear un mapa base a partir de los datos enviados por un encuestado, y exportar en formato de archivo .KML, lo que proporciona portabilidad a otras aplicaciones de edición de mapas. En el futuro, también tenemos la intención de crear otros tipos de mapas de fondo rasterizados y nuevas representaciones gráficas de los elementos trazados (por ejemplo, iconos personalizados).</p>',
 			},
 			{
 				title: 'Comunicación de sus resultados',
@@ -126,27 +125,27 @@ export default {
 	},
 	projectEditor: {
 		altThumbnail: 'Miniatura de Facebook',
-		back: 'Proyectos',
+		back: 'Encuestas',
 		changeFailed: 'Error en la modificación',
-		changeSuccessful: 'Proyecto modificado exitosamente',
-		copiedURL: 'URL del proyecto copiada al portapapeles',
+		changeSuccessful: 'Encuesta modificada exitosamente',
+		copiedURL: 'URL de la encuesta copiada al portapapeles',
 		embed: 'Incrustar',
 		embedCodeCopied: 'Código incrustado copiado al portapapeles',
 		embedHeight: 'Altura de incrustación',
 		embedWidth: 'Anchura de incrustación',
-		generateSlug: 'Generar desde el título del proyecto',
+		generateSlug: 'Generar desde el título de la encuesta',
 		language: 'Idioma de la interfaz de la encuesta',
 		newPassword: 'Nueva contraseña',
 		password: 'Contraseña de acceso restringido',
 		passwordDescription:
-			'Si has iniciado sesión, tus propios proyectos no solicitarán una contraseña. Prueba en modo incógnito o privado.',
+			'Si has iniciado sesión, tus propias encuestas no solicitarán una contraseña. Prueba en modo incógnito o privado.',
 		passwordSet: 'Restricción de contraseña establecida',
 		privacyPolicy: 'Nombre y contacto del controlador de datos',
 		privacyPolicyDescription:
 			'Esto se mostrará como información de contacto en el Aviso de Privacidad. Se les pedirá a los visitantes que reconozcan y acepten esto antes de enviar una respuesta.',
 		privacyPolicyRequired: '¡Este es un campo obligatorio!',
 		projectDescription: 'Descripción meta (Vista previa del enlace de Facebook)',
-		projectTitle: 'Título del proyecto',
+		projectTitle: 'Título de la encuesta',
 		save: 'Guardar',
 		sheetCreationFailed: 'Error al crear la hoja de trabajo',
 		sheetDeletionFailed: 'Error al eliminar la hoja de trabajo',
@@ -168,21 +167,21 @@ export default {
 		thanksUrlDescription:
 			'Si se establece, aparecerá un botón de "Más información" debajo de los Agradecimientos, que llevará a la dirección web enlazada aquí.',
 		thumbnail: 'Miniatura de Facebook (tamaño recomendado: 1200x630 píxeles)',
-		view: 'Ver Proyecto',
+		view: 'Ver Encuesta',
 	},
 	projects: {
 		add: 'Agregar',
-		creationFailed: 'Error al crear el proyecto',
-		deletionFailed: 'Error al eliminar tu proyecto',
+		creationFailed: 'Error al crear la encuesta',
+		deletionFailed: 'Error al eliminar tu encuesta',
 		export: 'Generar informe',
 		exporting:
 			'Por favor, espere, el proceso de generación del informe requiere más tiempo de lo habitual.',
 		filter: 'Buscar',
 		langFilter: 'Todos los idiomas',
-		newProjectName: 'Título del nuevo proyecto',
-		ownProjects: 'Mis proyectos',
+		newProjectName: 'Título de la nueva encuesta',
+		ownProjects: 'Mis encuestas',
 		submissions: 'respuestas',
-		title: 'Proyectos',
+		title: 'Encuestas',
 		uploadDefinition: 'Subir definición',
 		userName: 'Nombre completo',
 		views: 'vistas',
@@ -209,20 +208,20 @@ export default {
 		passwordRequired: 'Por favor, ingresa la contraseña o contacta al autor de esta encuesta.',
 		privacyPolicy: 'Términos de Uso y Política de Privacidad',
 		restricted: 'Esta encuesta de PARTIMAP está cerrada actualmente.',
-		restrictedTitle: 'Proyecto protegido por contraseña',
+		restrictedTitle: 'Encuesta protegida por contraseña',
 		submitFailed: 'Envío fallido',
 		submitSuccess: 'Tu formulario se ha enviado con éxito. ¡Gracias!',
-		view: 'Ver Proyecto',
+		view: 'Ver Encuesta',
 	},
 	sheetEditor: {
 		addDrawingInteraction: 'Añadir nueva tarea de mapeo',
 		addFeatureQuestion: 'Agregar pregunta con casilla de verificación',
-		back: 'Volver al proyecto',
+		back: 'Volver a la encuesta',
 		backgroundImage: 'Imagen de fondo',
 		clearExtent: 'Borrar límites del mapa',
 		defaultBaseMap: 'Mapa base predeterminado',
 		defaultDescriptionLabel: 'Por favor, explica por qué diste esa respuesta.',
-		defaultRatingQuestion: 'MPor favor, explica por qué diste esa respuesta.',
+		defaultRatingQuestion: 'Por favor, explica por qué diste esa respuesta.',
 		drawExtent: 'Establecer límites del mapa',
 		featureLabel: 'Nombre único de la tarea',
 		featureLabelDescription:
@@ -268,9 +267,9 @@ export default {
 	},
 	unsubscribe: {
 		home: 'Volver a PARTIMAP',
-		failed: 'No se pudo cancelar la suscripción. Por favor, inicia sesión y desactiva las notificaciones por correo electrónico en la configuración del proyecto.',
+		failed: 'No se pudo cancelar la suscripción. Por favor, inicia sesión y desactiva las notificaciones por correo electrónico en la configuración de la encuesta.',
 		success:
-			'Te has dado de baja con éxito de las notificaciones por correo electrónico de este proyecto.',
+			'Te has dado de baja con éxito de las notificaciones por correo electrónico de esta encuesta.',
 		title: 'Desactivar la notificación',
 	},
 	userEditor: {
@@ -288,12 +287,12 @@ export default {
 			'Este será el color de los botones y enlaces en la encuesta. El predeterminado es el azul de PARTIMAP.',
 		colorTooBright: '¡Este color es demasiado brillante!',
 		deleteConfirmation:
-			'<strong>Estás a punto de eliminar permanentemente tu cuenta. ¿Estás seguro?</strong> Estoy seguro, elimina mi cuenta <strong>{email}</strong> con todos sus datos (fotos, mapas, proyectos). Esta acción es permanente e irreversible.',
+			'<strong>Estás a punto de eliminar permanentemente tu cuenta. ¿Estás seguro?</strong> Estoy seguro, elimina mi cuenta <strong>{email}</strong> con todos sus datos (fotos, mapas, encuestas). Esta acción es permanente e irreversible.',
 		deleteUser: 'Eliminar cuenta',
 		deletionFailed: 'No se pudo eliminar la cuenta',
 		enterPassword: 'Por favor, ingresa tu contraseña',
 		logo: 'Logotipo (tamaño admitido: 120x30 px)',
-		logoDescription: 'Este logotipo se mostrará en el encabezado de todos tus proyectos.',
+		logoDescription: 'Este logotipo se mostrará en el encabezado de todos tus encuestas.',
 		name: 'Nombre',
 		newPassword: 'Nueva contraseña',
 		oldPassword:
@@ -324,7 +323,7 @@ export default {
 		logout: 'Cerrar sesión',
 		maps: 'Mapas',
 		profile: 'Editar cuenta',
-		projects: 'Proyectos',
+		projects: 'Encuestas',
 		users: 'Usuarios',
 	},
 	CheckboxGroup: {
@@ -344,7 +343,7 @@ export default {
 		importFromMap: 'Importar desde un mapa',
 		importFromSheet: 'Importar desde una hoja de trabajo',
 		selectMap: 'Seleccionar un mapa',
-		selectProject: 'Seleccionar un proyecto',
+		selectProject: 'Seleccionar una encuesta',
 		selectSheet: 'Seleccionar una hoja de trabajo',
 		title: 'Importar puntos',
 	},
@@ -463,9 +462,9 @@ export default {
 		sheetNameRequired: 'Se requiere el título de la hoja de trabajo',
 		sheetType: 'Seleccionar tipo de hoja de trabajo',
 		sheetTypes: {
-			interactiveMap: 'Mapa interactivo',
-			staticMap: 'Mapa estático',
-			survey: 'Encuesta',
+			interactiveMap: 'Tareas de mapa',
+			staticMap: 'Preguntas y mapa',
+			survey: 'Preguntas',
 			text: 'Texto',
 		},
 		submittedFeatures: 'Características enviadas',
@@ -475,11 +474,11 @@ export default {
 		withoutCopying: 'Crear sin copiar de un mapa existente.',
 	},
 	ProjectTransferModal: {
-		confirm: 'Estoy seguro de que quiero transferir el proyecto',
+		confirm: 'Estoy seguro de que quiero transferir la encuesta',
 		email: 'Correo electrónico registrado del otro usuario',
-		failure: 'La transferencia del proyecto falló',
+		failure: 'La transferencia de la encuesta falló',
 		ok: 'Transferir',
-		success: 'Transferencia de proyecto exitosa',
+		success: 'Transferencia de encuesta exitosa',
 	},
 	QuestionConditionEditor: {
 		logicalOr: 'O',
