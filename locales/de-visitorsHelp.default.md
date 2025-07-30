@@ -33,7 +33,7 @@ Versuchen Sie immer, bei der Positionierung der Markierungen so präzise wie mö
 
 #### Plotunkt {#punkt}
 
-Der Projekteigentümer erwartet, dass Sie bestimmte Orte auf der Karte markieren.
+Der Umfrageeigentümer erwartet, dass Sie bestimmte Orte auf der Karte markieren.
 
 Klicken Sie dazu auf den weißen Pin auf rotem Hintergrund (<span class="bg-danger rounded text-white mx-1 p-1"><i class="fas fa-fw fa-map-marker-alt"></i></span>) neben den Anweisungen in der Seitenleiste. Klicken Sie dann auf den Ort auf der Karte, den Sie entsprechend der gestellten Frage markieren möchten. Sie können den Punkt mit einem Klick platzieren, dann können Sie im Dialogfeld auf der rechten Seite einen Grund für die markierte Stelle hinzufügen.
 
@@ -41,7 +41,7 @@ Sie können die Auswahl speichern, indem Sie auf Speichern klicken, oder sie lö
 
 #### Zeichnen Sie eine Linie {#linie}
 
-Der Projekteigentümer erwartet, dass Sie etwas auf der Karte mit einem Linienabschnitt markieren.
+Der Umfrageeigentümer erwartet, dass Sie etwas auf der Karte mit einem Linienabschnitt markieren.
 
 Sie können dies tun, indem Sie auf die weiße Linie auf blauem Hintergrund (<span class="bg-primary rounded text-white mx-1 p-1"><i class="fas fa-fw fa-route"></i></span>) neben der entsprechenden Anleitung in der Seitenleiste klicken. Klicken Sie auf der Karte einmal, um den Startpunkt der Linie zu platzieren, und klicken Sie dann erneut, um die Zwischenpunkte des Abschnitts zu markieren. Doppelklicken Sie abschließend auf den Endpunkt, um die Linie zu beenden.
 
@@ -58,10 +58,9 @@ Sie können dies tun, indem Sie auf die weiße Linie auf blauem Hintergrund (<sp
 
 Nachdem Sie die Zeile geschlossen haben, können Sie in dem sich öffnenden Dialogfeld einen Grund für das ausgewählte Element hinzufügen. Sie können die Auswahl speichern, indem Sie auf Speichern klicken, oder sie löschen, indem Sie auf Element löschen klicken. Anschließend können Sie der Karte eine weitere Markierung hinzufügen.
 
-
 #### Kartierung des Bereichs {#bereich}
 
-Der Projektverantwortliche erwartet, dass Sie einen Bereich auswählen, der für die gestellte Frage relevant ist.
+Der Umfrageeigentümer erwartet, dass Sie einen Bereich auswählen, der für die gestellte Frage relevant ist.
 
 Klicken Sie dazu auf die weiße Kontur auf grünem Hintergrund (<span class="bg-success rounded text-white mx-1 p-1"><i class="fas fa-fw fa-draw-polygon"></i></span>) neben der entsprechenden Anleitung in der Seitenleiste. Klicken Sie auf der Karte einmal, um den Startpunkt des Shapes zu platzieren, klicken Sie erneut, um die Grenzpunkte auszuwählen, und klicken Sie dann erneut auf den Startpunkt, um den Bereich zu schließen.
 
