@@ -4,7 +4,7 @@ Im Folgenden finden Sie eine Beschreibung, wie die Admin-Oberfläche funktionier
 
 ### Registrierung {#Registrierung}
 
-Nach [der Registrierung](/register), kann jeder die App mit vollem Zugriff auf ihre Funktionen und kostenlos nutzen. PARTIMAP ist derzeit auf Ungarisch und Englisch verfügbar, und Sie können zwischen den Sprachen wechseln, indem Sie auf die Schaltfläche in der oberen rechten Ecke (<i class="fas fa-globe fa-fw"></i>) klicken. Wenn Sie das Programm in einer anderen Sprache nutzen und bei der Übersetzung helfen möchten, kontaktieren Sie uns bitte unter <hello@partimap.eu>!
+Nach [der Registrierung](/register), kann jeder die App mit vollem Zugriff auf ihre Funktionen und kostenlos nutzen. PARTIMAP ist derzeit auf [Ungarisch](/hu), [Englisch](/en), [Deutsch](/de), [Litauisch](/lt) und [Spanisch](/es) verfügbar, und Sie können zwischen den Sprachen wechseln, indem Sie auf die Schaltfläche in der oberen rechten Ecke (<i class="fas fa-globe fa-fw"></i>) klicken. Wenn Sie das Programm in einer anderen Sprache nutzen und bei der Übersetzung helfen möchten, kontaktieren Sie uns bitte unter <hello@partimap.eu>!
 
 In der Admin-Oberfläche können Sie neue Umfragen erstellen, vorherige ändern ([**Projekte**](/admin/projects)) und Karten bearbeiten, die sich auf Umfragen beziehen ([**Karten**](/admin/maps)).
 
