@@ -15,7 +15,7 @@ Az alábbiakban a PARTIMAP admin felületének működését mutatjuk be.
 
 ### Regisztráció {#regisztracio}
 
-[Regisztrációt](/register) követően bárki teljes körűen és ingyenesen használhatja az alkalmazást. A PARTIMAP jelenleg magyar, [angol](/en), [litván](/lt) és [spanyol](/es) nyelven érhető el, a nyelvek között a jobb felső sarokban lévő (<i class="fas fa-globe fa-fw"></i>) gombbal lehet váltani. Ha más nyelven használnád a programot, és segítenél a fordításban, keress minket a <hello@partimap.eu> címen!
+[Regisztrációt](/register) követően bárki teljes körűen és ingyenesen használhatja az alkalmazást. A PARTIMAP jelenleg magyar, [angol](/en), [litván](/lt), [német](/de) és [spanyol](/es) nyelven érhető el, a nyelvek között a jobb felső sarokban lévő (<i class="fas fa-globe fa-fw"></i>) gombbal lehet váltani. Ha más nyelven használnád a programot, és segítenél a fordításban, keress minket a <hello@partimap.eu> címen!
 
 Az admin felületen lehetőség van új felméréseket készíteni, korábbiakat módosítani ([**Kérdőívek**](/admin/projects)), illetve szerkeszteni a felmérésekhez kapcsolódó térképeket ([**Térképek**](/admin/maps)).
 
@@ -181,14 +181,11 @@ A munkalap szerkesztése során megadhatók:
     - Kétféle értékelés választható (_Értékelés típusa:_)
         - _Csillagok:_ a kitöltő ekkor az elemre kattintva csillagokkal értékelhet. A csillagok száma beállítható (1-10), ha egy csillagot választunk, az igen-nem válaszként használható. Az értékeléshez nem tartozik munkalapszintű kérdés, az ehhez tartozó instrukciót átfogóan a munkalap leírásában, vagy egyedileg az elem leírásában kell megadnunk. Ha a válasz statisztika be van állítva, az elemeknél lapozás után a csillagok átlaga és az értékelések száma jelenik meg a kitöltőknek -- ez az admin felületen alapértelmezetten látható.
         - _Like/dislike:_ a kitöltő pozitív (<i class="fas fa-fw fa-thumbs-up text-success"></i>) vagy negatív (<i class="fas fa-fw fa-thumbs-up fa-flip-both text-danger"></i>) értékelést adhat elemekhez. Ha a válasz statisztika be van állítva, az elemeknél lapozás után a pozitív és negatív értékelések száma jelenik meg a kitöltőknek -- ez az admin felületen alapértelmezetten látható.
-
     - _Szöveges indoklás az értékeléshez:_ ezt bejelölve az elemekhez adott csillagos vagy Like/dislike értékeléshez kapcsolódóan egy szöveges kérdés is megjelenik, amiben arra kérhetjük a kitöltőt, hogy világítsa meg értékelése indokait, hogy jobban megértsük az értékelt elemek népszerűségének vagy elutasítottságának indokait. Kétféle szöveges indoklás közül választhatunk:
         - _Szöveges válasz:_ ez a szöveges válasz kérdéstípushoz hasonlóan egy szövegmezőt ad fel, a kérdés szövegét (minden értékelendő elemre nézve) a _Kérdés a szöveges indokláshoz_ mezőben adhatjuk meg.
         - _Szempontok mellette / ellene:_ ezt kiválasztva az értékelés megadása után két szövegmező jelenik meg - a kitöltő megadhat az értékelt dologgal kapcsolatos pozitív (Szempontok mellette) és negatív (Szempontok ellene) érveket, indokokat.
         - _Értékelés eredmények megjelenítése:_ ezt kijelölve csak az elemekhez kapcsolódó értékelések átlagát (1 csillag esetén az adott csillagok összesített számát) mutathatjuk meg a kitöltőknek a munkalapról továbblépés után.
-
         - A riport az értékelések adatait egy külön Értékelések munkalapon jeleníti meg, ami tartalmazza a kitöltés azonosítóját, amivel az értékelés más válaszokhoz társítható, illetve az értékelt elem nevét és az értékelést szám formátumban (csillagok száma, [1, -1]). Emellett a generált riport egy Összesített értékelések munkalapon az értékelések összesített számát és átlagát is bemutatja.
-
 - _Kitöltés után válasz statisztika megjelenítése a látogatónak:_ ha be van jelölve, lapozás után a látogató számára megjelenik a válaszok összesített statisztikája: az elemekhez rendelt értékelések átlaga _és_ a munkalapszintű kérdőívkérdések eredményei is! Az értékelt elemek fiókjai az értékelés sorrendjébe sorolódnak. A kérdőívkérdések eredményének láthatósága egyedileg is állítható.
     -      *Csak az eredmények megjelenítése:* ha be van jelölve, a munkalap nem gyűjt válaszokat, csak a válaszok statisztikája lesz látható a kitöltők számára.
 - _Alapértelmezett alaptérkép:_ itt állítható be a térképre rajzolt elemek mögött megjelenő alaptérkép (pl. úthálózat, szatellit, fekete-fehér, kerékpárutak, topográfiai stb.) A kitöltők maguk is válthatnak az alaptérképek között.

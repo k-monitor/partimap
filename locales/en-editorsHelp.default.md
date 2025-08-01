@@ -5,8 +5,8 @@ Below is a description of how the admin interface works.
 > **&#9432;** **If you need any further assistance, please contact us at [hello@partimap.eu](mailto:hello@partimap.eu).**
 
 - [**Registration**](#registration)
-- [**Create new project and manage previous ones**](#ujprojekt)
-- [**Project data sheet**](#projectdatasheet)
+- [**Create new survey and manage previous ones**](#ujkerdoiv)
+- [**Survey data sheet**](#surveydatasheet)
 - [**List of worksheets**](#listofworksheets)
 - [**Worksheet types**](#worksheets)
 - [**Create maps and manage history**](#terkepek)
@@ -15,42 +15,42 @@ Below is a description of how the admin interface works.
 
 ### Registration {#registration}
 
-After [registration](/register), anyone can use the app with full access to its functions and free of charge. PARTIMAP is currently available in Hungarian, English, Spanish and Lithuanian. You can switch between languages by clicking on the button in the top right-hand corner (<i class="fas fa-globe fa-fw"></i>). If you would like to use the program in another language and help with translation, please contact us at <hello@partimap.eu>!
+After [registration](/register), anyone can use the app with full access to its functions and free of charge. PARTIMAP is currently available in [Hungarian](/hu), [English](/en), [German](/de), [Lithuanian](/lt) and [Spanish](/es). You can switch between languages by clicking on the button in the top right-hand corner (<i class="fas fa-globe fa-fw"></i>). If you would like to use the program in another language and help with translation, please contact us at <hello@partimap.eu>!
 
-In the admin interface, you can create new surveys, modify previous ones ([**Projects**](/admin/projects)) and edit maps related to surveys ([**Maps**](/admin/maps)).
+In the admin interface, you can create new surveys, modify previous ones ([**Surveys**](/admin/projects)) and edit maps related to surveys ([**Maps**](/admin/maps)).
 
-### Create new project and manage previous ones {#ujprojekt}
+### Create new survey and manage previous ones {#ujkerdoiv}
 
-A new project can be created by entering the **project name** on the Projects page after logging in and clicking on the _Add_ button.
+A new survey can be created by entering the **survey name** on the Surveys page after logging in and clicking on the _Add_ button.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
 			<img
-				alt="Create project"
+				alt="Create survey"
 				class="figure-img img-fluid rounded shadow-sm"
 				src="/help/project-en.png"
 			>
 			<figcaption class="figure-caption text-center">
-				Creating a project
+				Creating a survey
 			</figcaption>
 		</figure>
 	</div>
 </div>
 
-In the Project menu you can find a list of your own projects. Here you can see the number of views and responses, and by clicking on **Download report** you can download the report generated from the completions in .xlsx format.
+In the Surveys menu you can find a list of your own surveys. Here you can see the number of views and responses, and by clicking on **Download report** you can download the report generated from the completions in .xlsx format.
 
-There is a **⋮** button next to each of the projects that allows you to _Delete_ the ones that are no longer needed. By selecting _Duplicate_, you may replicate and publish your project without the dummy responses of the testing phase.
+There is a **⋮** button next to each of the surveys that allows you to _Delete_ the ones that are no longer needed. By selecting _Duplicate_, you may replicate and publish your survey without the dummy responses of the testing phase.
 
-### Project data sheet {#projectdatasheet}
+### Survey data sheet {#surveydatasheet}
 
-From the [Projects](/admin/projects) menu, click on the project name in the list or create a new project to go to the project details page. The data, questions and content related to the survey can be entered in the project data sheet after the project has been created.
+From the [Surveys](/admin/projects) menu, click on the survey’s name in the list or create a new survey to go to the survey details page. The data, questions and content related to the survey can be entered in the survey data sheet after the survey has been created.
 
 It is divided into two parts: the top part of the page provides general information about the survey and the second part allows you to edit the worksheets.
 
 In the related data and settings you have the option to
 
-- enter the name of the project, which will appear in the browser page title and when sharing on social media, in addition to the admin interface;
+- enter the name of the survey, which will appear in the browser page title and when sharing on social media, in addition to the admin interface;
 - edit its path (URL - <code>https://partimap.eu/p/*</code>),
 - set password protection to restrict who can fill it in. In this case, navigating to the URL of the questionnaire will prompt for a password, which then can be used to complete the questionnaire. If you don't want to receive any more completions, you can also set the questionnaire to inactive by setting a password;
 - add a unique meta description (preview text) for Facebook sharing,
@@ -61,9 +61,9 @@ In the related data and settings you have the option to
 
 ### List of worksheets {#listofworksheets}
 
-The project is divided into worksheets. In the editing interface of each worksheet, you can set up different questionnaire questions, informative texts and map elements prompting interaction from the respondents.
+The survey is divided into worksheets. In the editing interface of each worksheet, you can set up different questionnaire questions, informative texts and map elements prompting interaction from the respondents.
 
-Worksheets can be edited under the general survey settings. In case of a a new project, this section is empty, and you can start editing the survey content by clicking on the _Add Worksheet_ button. A list view of already created worksheets is also available here.
+Worksheets can be edited under the general survey settings. In case of a new survey, this section is empty, and you can start editing the survey content by clicking on the _Add Worksheet_ button. A list view of already created worksheets is also available here.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -80,9 +80,9 @@ Worksheets can be edited under the general survey settings. In case of a a new p
 	</div>
 </div>
 
-If there are already several worksheets in the project, the up and down arrows can be used to change the order of the worksheets, and the trash can icon deletes the unnecessary worksheet.
+If there are already several worksheets in the survey, the up and down arrows can be used to change the order of the worksheets, and the trash can icon deletes the unnecessary worksheet.
 
-You can select the type of worksheet (_Text, Questionnaire, Map_ or _Interactive map_) by clicking on the pictograms.
+You can select the type of worksheet (_Text, Questions, Questions and map_ or _Map tasks_) by clicking on the pictograms.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -101,11 +101,11 @@ You can select the type of worksheet (_Text, Questionnaire, Map_ or _Interactive
 
 In the first worksheet, respondents must accept the terms of use and the privacy policy. As a first worksheet, it is useful to provide a Text worksheet where the scope (e.g. expected length of the survey) and purpose of the survey can be clarified.
 
-By clicking on the **View** button in the top right corner of the Project Data Sheet, you can go directly to the questionnaire being built, tracking the changes you have saved. When editing the questionnaire, it is a good idea to track changes here in parallel with the editor interface.
+By clicking on the **View** button in the top right corner of the Survey Data Sheet, you can go directly to the questionnaire being built, tracking the changes you have saved. When editing the questionnaire, it is a good idea to track changes here in parallel with the editor interface.
 
 ### Worksheet types {#worksheets}
 
-Similarly to the questionnaire, in the editing interface of the worksheets you can also step with the blue buttons among the worksheets under editing. Clicking on **↗** we can jump directly from our worksheet to the sheet visible to our audience. From the worksheet editing interface, you can also go back to the project sheet by clicking on the PARTIMAP icon (Back to project) in the top left corner.
+Similarly to the questionnaire, in the editing interface of the worksheets you can also step with the blue buttons among the worksheets under editing. Clicking on **↗** we can jump directly from our worksheet to the sheet visible to our audience. From the worksheet editing interface, you can also go back to the survey sheet by clicking on the PARTIMAP icon (Back to survey) in the top left corner.
 
 To save your changes, press the _Save_ button, and a pop-up window will warn you when you navigate to another page.
 
@@ -120,21 +120,21 @@ A worksheet with text and images, which can be used to describe, among other thi
 
 To save your changes, press the _Save_ button, and a pop-up window will warn you when you navigate to another page. The blue right/left arrows at the bottom of the page are used to navigate between the worksheets under editing.
 
-From the worksheet editing interface, you can also go back to the project sheet by clicking on the PARTIMAP icon (_Back to project_) in the top left corner.
+From the worksheet editing interface, you can also go back to the survey sheet by clicking on the PARTIMAP icon (_Back to survey_) in the top left corner.
 
-#### Questionnaire worksheet {#kerdoiv}
+#### Questions worksheet {#kerdessor}
 
-The Questionnaire worksheet allows you to create traditional questionnaire surveys. They can be entered when editing the worksheet:
+The Questions worksheet allows you to create traditional questionnaire surveys. They can be entered when editing the worksheet:
 
 - The _Worksheet title_, which will also appear in the public questionnaire;
 - The _Worksheet description_, which appears at the top of the dialog box. The text can be customised with basic formatting options, with the possibility to insert a link or an image, similar to the Text worksheet. By adding an image, it is possible to condition questions on the image;
 - _Questionnaire:_ for the worksheet, here is the possibility to add questionnaire questions, whose properties are editable in the dialog that appears;
 - _Show response statistics to the visitor after completion:_ if checked, after continuing to the next page, the visitor is shown a simple aggregated statistics of the responses so far in a bar chart;
-- _Display results only:_ if checked, the worksheet questions are closed, no answers are collected anymore. In this worksheet, only the results of previous responses will be visible to visitors. This gives you the opportunity to convert the closed survey into a project displaying the outcome of the survey while maintaining the same link;
+- _Display results only:_ if checked, the worksheet questions are closed, no answers are collected anymore. In this worksheet, only the results of previous responses will be visible to visitors. This gives you the opportunity to convert the closed survey into a survey displaying the outcome of the survey while maintaining the same link;
 - _Supply background image_, which fills the space behind the dialogue box;
 - Buttons to _share the survey_. This is useful for the last worksheet, which often contains demographic questions.
 
-The following question types can be added to the Questionnaire block by specifying _Question text_:
+The following question types can be added to the Questions block by specifying _Question text_:
 
 _Text answer:_ a text box allows the respondent to type in any answer. The result report will include this text response.
 
@@ -158,25 +158,25 @@ _Allocate units (weighting):_ this question type asks the respondent to distribu
 
 Each question can be made compulsory by ticking the _Request to be answered_ box, without which the respondent will not be able to proceed or submit your answer.
 
-By ticking _Add responses to map markings for analysis purpose_ you can add the answers as parameters to the markings of the map, if it belongs to your project. Thus the text of the added questions and responses will be available among the elements of your .kml file, named as partimapQuestion(...). In this way you can filter the responses – which were added to the map – by sex, age, etc, as long as the questionnaire contains questions referring to them.
+By ticking _Add responses to map markings for analysis purpose_ you can add the answers as parameters to the markings of the map, if it belongs to your survey. Thus the text of the added questions and responses will be available among the elements of your .kml file, named as partimapQuestion(...). In this way you can filter the responses – which were added to the map – by sex, age, etc, as long as the questionnaire contains questions referring to them.
 
 You can also make the display of certain questions dependent on their previous responses to another questions by ticking on the _Show only if…_ checkbox. Please note, that the question which sets the condition (**⮢**) must precede the Conditionally visible (**⮥**) question and the order cannot be changed. You also won’t be able to delete the questions with the (**⮢**) later or edit their answer options.
 
 With these kind of questions you can optimize the length of the survey – eg. if you have some questions regarding car usage, these questions will be visible only to those, who stated in the previous question (**⮢**) to have access to a car.
 
-In the Questionnaire section of the worksheet's editor interface (in the list of questions), questions can be deleted by clicking on the trash can icon, or their order can be changed by dragging and dropping them onto the question drawer.
+In the Questions section of the worksheet's editor interface (in the list of questions), questions can be deleted by clicking on the trash can icon, or their order can be changed by dragging and dropping them onto the question drawer.
 
-#### Map worksheet (static map) {#static}
+#### Questions and map worksheet (static map) {#static}
 
-The worksheet can be used to create a map-based survey that can be used to present a completed development or plan, and to collect evaluations and feedback on it. Here, respondents are asked to answer questions related to what they see on the map, but unlike the interactive map worksheet, they are not allowed to draw on the map.
+The worksheet can be used to create a map-based survey that can be used to present a completed development or plan, and to collect evaluations and feedback on it. Here, respondents are asked to answer questions related to what they see on the map, but unlike the Map with tasks worksheet, they are not allowed to draw on the map.
 
-When creating the Map worksheet, you can import the map content from an existing map stored in the Maps menu (_Copy map elements from here_) or upload it directly from an external source (e.g. Google Maps) using a .kml file. For more information on moving the map, see the introduction under the subsection on Maps.
+When creating the Questions and map worksheet, you can import the map content from an existing map stored in the Maps menu (_Copy map elements from here_) or upload it directly from an external source (e.g. Google Maps) using a .kml file. For more information on moving the map, see the introduction under the subsection on Maps.
 
 Elements that can be defined when editing the worksheet:
 
 - The _Worksheet title_, which will also appear in the public questionnaire;
 - The _Worksheet description_, which appears at the top of the dialog box. Here it is worth explaining concisely what the respondent is expected to do on the worksheet. The text can be customised with basic formatting options, and there is also the possibility to insert links and images.
-- _Questionnaire:_ it is also possible to add questionnaire questions here for the whole worksheet, which can be edited in the dialog box, similarly to the Questionnaire worksheet. The questionnaire questions are displayed in the sidebar below the description for those completing the survey.
+- _Questionnaire:_ it is also possible to add questionnaire questions here for the whole worksheet, which can be edited in the dialog box, similarly to the Questions worksheet. The questionnaire questions are displayed in the sidebar below the description for those completing the survey.
 - _Show response statistics to the visitor after completion:_ if checked, after continuing to the next page, the visitor is shown a simple aggregated statistics of the responses so far: both the results of the worksheet-level questionnaire questions and the average of the scores assigned to the items.
 - _Display results only:_ if checked, the worksheet will not collect responses, only the statistics of the responses will be displayed to the respondent.
 - _Map tasks for respondents:_ if _Rating fixed items_ is checked, respondents can rate the items displayed on the map. Two types of rating can be selected:
@@ -212,7 +212,7 @@ _Label on map:_ you can add text labels to all of the drawn elements. It’ll fi
 
 _Mobile view:_ If you are using the editor interface on a tablet or mobile phone, you can switch between the question panel and the map by pressing the hide (<<) and open (>>) buttons for map worksheets. The drawing buttons are available in the map view by hiding the sidebar.
 
-#### Interactive map worksheet {#interaktiv}
+#### Map tasks worksheet {#interaktiv}
 
 In this worksheet, respondents can enter their answers by drawing on the map. The title of the _Worksheet title_ and the _Worksheet description_ should contain information that will help the respondents to give an accurate answer to the question asked.
 
@@ -241,18 +241,18 @@ In the lower half of the sidebar, the _Map elements_ contain a list of elements 
 
 > **&#9432;** As with the static map, you can draw elements on the map to orient the fillers. For example, you can use them to indicate the area or zones within which you expect the elements to be drawn. It is also useful because **the map will automatically zoom in on these elements**. The label for the item will still appear on the map, but the description will not appear in the sidebar drawers, but in the map window that opens when you click on the item.
 
-If elements drawn by fillers have already been submitted to an interactive map, they can be exported to a personal map by clicking on the _Send features to a map_ button next to the worksheet in the list on the project sheets, where they can be browsed, edited or downloaded in .kml format for external use. The .xlsx report also contains the data of the submitted elements (fill identifier, coordinates, description). If you do not want to download the responses collected in a given state, but just browse through them, you can click on the blue button (**👁**) next to the interactive map worksheet in the list of the project sheets to view or download the submitted items. In the interface, items can be filtered and deleted by the category derived from the responses. When downloaded, the filtered items shown on the map will be exported. Deleting does not modify the stored responses.
+If elements drawn by fillers have already been submitted to an interactive map, they can be exported to a personal map by clicking on the _Send features to a map_ button next to the worksheet in the list on the project sheets, where they can be browsed, edited or downloaded in .kml format for external use. The .xlsx report also contains the data of the submitted elements (fill identifier, coordinates, description). If you do not want to download the responses collected in a given state, but just browse through them, you can click on the blue button (**👁**) next to the interactive map worksheet in the list of the survey sheets to view or download the submitted items. In the interface, items can be filtered and deleted by the category derived from the responses. When downloaded, the filtered items shown on the map will be exported. Deleting does not modify the stored responses.
 
 ### Create maps and manage history {#terkepek}
 
-In the <a href="/admin/maps" target="_blank">Maps</a> menu, you can store and edit your own map drawings (.kml format shapefiles). Here you can collect and edit maps of the user's city and its surroundings that have been created previously, and the answers collected from questionnaires. Using .kml format files, it is easy to export the elements stored here to external map editors and import maps from there into PARTIMAP. It's also easy to move between the Maps menu and projects: you can move the contents of your own maps to worksheets (_Copy map elements from here_).
+In the <a href="/admin/maps" target="_blank">Maps</a> menu, you can store and edit your own map drawings (.kml format shapefiles). Here you can collect and edit maps of the user's city and its surroundings that have been created previously, and the answers collected from questionnaires. Using .kml format files, it is easy to export the elements stored here to external map editors and import maps from there into PARTIMAP. It's also easy to move between the Maps menu and surveys: you can move the contents of your own maps to worksheets (_Copy map elements from here_).
 
 PARTIMAP does not currently offer graphical analysis functions, but you can edit individual elements on your own map: in addition to their name and description, you can customise their appearance (colour, size, line style in the case of lines).
 
 To create your own new map:
 
 - On the <a href="/admin/maps" target="_blank">Maps</a> page, enter the name of the new map and click on the _Add_ button. Here you can load data from a .kml file in the editor interface;
-- From the submissions of a survey's respondents, with the _Send to New Own Map_ button in the row of the corresponding worksheet on the project data sheet.
+- From the submissions of a survey's respondents, with the _Send to New Own Map_ button in the row of the corresponding worksheet on the survey data sheet.
 
 You can edit the following details of your own map in an interface similar to worksheets:
 
@@ -269,7 +269,7 @@ The .kml files generated and used by PARTIMAP use the following parameters, whic
 - The style of the line or area boundary (partimapLineStyle), the size of the point (partimapPointSize) and other parameters (size, colour) automatically read by Google Maps (ExtendedData);
 - The content of the description field used by PARTIMAP (partimapDescription);
 - The added questions and responses with the option of Add responses to map markings for analysis purpose (partimapQuestion)
-- More information about this is available on the project's [Github page](https://github.com/k-monitor/partimap/blob/master/KML.md).
+- More information about this is available on the survey's [Github page](https://github.com/k-monitor/partimap/blob/master/KML.md).
 
 ### Report and results {#riport}
 
@@ -323,9 +323,9 @@ You can also place images in the description fields, but you need to store the i
 
 You can colour the points and lines of the static map worksheet to match the colour of your organisation. You can also add descriptions and images to the map elements, making it easier to identify the places you have marked.
 
-You can add your own url and Facebook share options to the questionnaire in the project's editor interface. This is important as the easiest way to distribute the questionnaire is through social media. If you add Facebook preview details after the questionnaire has been shared, the preview will not be updated to the one you have set. If this is the case, it should be [indicated to Facebook](https://developers.facebook.com/tools/debug/), who will then update the image and title.
+You can add your own url and Facebook share options to the questionnaire in the survey's editor interface. This is important as the easiest way to distribute the questionnaire is through social media. If you add Facebook preview details after the questionnaire has been shared, the preview will not be updated to the one you have set. If this is the case, it should be [indicated to Facebook](https://developers.facebook.com/tools/debug/), who will then update the image and title.
 
-The questionnaire can be embedded on your website by placing the following code in the HTML code of the page, with the link to the project in the appropriate place.
+The questionnaire can be embedded on your website by placing the following code in the HTML code of the page, with the link to the surveyin the appropriate place.
 
 ```
 <embed src="https://partimap.eu/en/p/demo" style="width:100%; height:550px;">
