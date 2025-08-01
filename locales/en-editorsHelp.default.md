@@ -15,7 +15,7 @@ Below is a description of how the admin interface works.
 
 ### Registration {#registration}
 
-After [registration](/register), anyone can use the app with full access to its functions and free of charge. PARTIMAP is currently available in Hungarian, English, Spanish and Lithuanian. You can switch between languages by clicking on the button in the top right-hand corner (<i class="fas fa-globe fa-fw"></i>). If you would like to use the program in another language and help with translation, please contact us at <hello@partimap.eu>!
+After [registration](/register), anyone can use the app with full access to its functions and free of charge. PARTIMAP is currently available in [Hungarian](/hu), [English](/en), [German](/de), [Lithuanian](/lt) and [Spanish](/es). You can switch between languages by clicking on the button in the top right-hand corner (<i class="fas fa-globe fa-fw"></i>). If you would like to use the program in another language and help with translation, please contact us at <hello@partimap.eu>!
 
 In the admin interface, you can create new surveys, modify previous ones ([**Projects**](/admin/projects)) and edit maps related to surveys ([**Maps**](/admin/maps)).
 

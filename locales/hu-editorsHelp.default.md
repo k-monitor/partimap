@@ -15,7 +15,7 @@ Az alábbiakban a PARTIMAP admin felületének működését mutatjuk be.
 
 ### Regisztráció {#regisztracio}
 
-[Regisztrációt](/register) követően bárki teljes körűen és ingyenesen használhatja az alkalmazást. A PARTIMAP jelenleg magyar, [angol](/en), [litván](/lt) és [spanyol](/es) nyelven érhető el, a nyelvek között a jobb felső sarokban lévő (<i class="fas fa-globe fa-fw"></i>) gombbal lehet váltani. Ha más nyelven használnád a programot, és segítenél a fordításban, keress minket a <hello@partimap.eu> címen!
+[Regisztrációt](/register) követően bárki teljes körűen és ingyenesen használhatja az alkalmazást. A PARTIMAP jelenleg magyar, [angol](/en), [litván](/lt), [német](/de) és [spanyol](/es) nyelven érhető el, a nyelvek között a jobb felső sarokban lévő (<i class="fas fa-globe fa-fw"></i>) gombbal lehet váltani. Ha más nyelven használnád a programot, és segítenél a fordításban, keress minket a <hello@partimap.eu> címen!
 
 Az admin felületen lehetőség van új felméréseket készíteni, korábbiakat módosítani ([**Kérdőívek**](/admin/projects)), illetve szerkeszteni a felmérésekhez kapcsolódó térképeket ([**Térképek**](/admin/maps)).
 
