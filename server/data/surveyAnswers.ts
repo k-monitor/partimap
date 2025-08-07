@@ -209,7 +209,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 				};
 
 				if (q.type === 'singleChoiceMatrix') {
-					const p = (s: string) => Number(s.trim().split(/\D/)[0]);
+					const p = (s: unknown) => Number(String(s).trim().split(/\D/)[0]);
 					const cols = (q.columns || []).map((c) => Number(p(c)));
 					if (cols.length && cols.every((c) => Number.isInteger(c))) {
 						let sum = 0;
