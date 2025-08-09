@@ -86,6 +86,8 @@ When registering, the Registered User's name, email address and password are rec
 
 Purpose: the handling of the personal data provided by the Registered User is necessary for his/her identification by the Data Controller in the system, for possible contact initiated by the Data Controller and for informing the Visitors who fill in the questionnaire that is part of the Project.
 
+Subject to the User’s explicit consent, the Data Controller may use the email address provided by the User to send notifications concerning technical developments and updates related to the PARTIMAP service, as well as information on events, training sessions, and opportunities for providing user feedback in connection with the use of the system.
+
 Legal basis for data handling: voluntary consent of the Registered User (data subject).
 
 Duration of data handling: until revoked by the Registered User, but not longer than 5 years.
