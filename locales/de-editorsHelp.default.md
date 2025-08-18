@@ -8,15 +8,15 @@ Nach [der Registrierung](/register), kann jeder die App mit vollem Zugriff auf i
 
 In der Admin-Oberfläche können Sie neue Umfragen erstellen, vorherige ändern ([**Projekte**](/admin/projects)) und Karten bearbeiten, die sich auf Umfragen beziehen ([**Karten**](/admin/maps)).
 
-### Erstellen Sie ein neues Projekt und verwalten Sie vorherige {#ujprojekt}
+### Erstellen Sie ein neues Fragebogen und verwalten Sie vorherige {#ujprojekt}
 
-Ein neues Projekt kann erstellt werden, indem Sie nach dem Einloggen auf der Seite Projekte den Projektnamen eingeben und auf die Schaltfläche _Hinzufügen_ klicken.
+Ein neues Fragebogen kann erstellt werden, indem Sie nach dem Einloggen auf der Seite Fragebogene den Fragebogennamen eingeben und auf die Schaltfläche _Hinzufügen_ klicken.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
 		<figure class="figure">
 			<img
-				alt="Projekt erstellen"
+				alt="Fragebogen erstellen"
 				class="figure-img img-fluid rounded shadow-sm"
 				src="/help/project-en.png"
 			>
@@ -27,19 +27,19 @@ Ein neues Projekt kann erstellt werden, indem Sie nach dem Einloggen auf der Sei
 	</div>
 </div>
 
-Im Menü Projekt finden Sie eine Liste Ihrer eigenen Projekte. Hier sehen Sie die Anzahl der Aufrufe und Antworten, und mit einem Klick auf _Bericht herunterladen_ können Sie den generierten Bericht der ausgefüllten Umfragen in .xlsx Format herunterladen.
+Im Menü Fragebogen finden Sie eine Liste Ihrer eigenen Fragebogene. Hier sehen Sie die Anzahl der Aufrufe und Antworten, und mit einem Klick auf _Bericht herunterladen_ können Sie den generierten Bericht der ausgefüllten Umfragen in .xlsx Format herunterladen.
 
-Die Daten, Fragen und Inhalte rund um die Befragung können nach dem Anlegen des Projekts in das Projektdatenblatt eingetragen werden.
+Die Daten, Fragen und Inhalte rund um die Befragung können nach dem Anlegen des Fragebogens in das Fragebogendatenblatt eingetragen werden.
 
-### Projektdatenblatt {#Projektdatenblatt}
+### Fragebogendatenblatt {#Projektdatenblatt}
 
-Klicken Sie im Menüpunkt [Projekte](/admin/projects) auf den Projektnamen in der Liste oder erstellen Sie ein neues Projekt, um zur Projektdetailseite zu gelangen.
+Klicken Sie im Menüpunkt [Fragebogene](/admin/projects) auf den Fragebogennamen in der Liste oder erstellen Sie ein neues Projekt, um zur Fragebogendetailseite zu gelangen.
 
 Es ist in zwei Teile unterteilt: Der obere Teil der Seite enthält allgemeine Informationen über die Umfrage und der zweite Teil ermöglicht es Ihnen, die Arbeitsblätter zu bearbeiten.
 
 In den zugehörigen Daten und Einstellungen haben Sie die folgenden Möglichkeit:
 
-- Geben Sie den Namen des Projekts ein, der im Titel der Browserseite und beim Teilen in sozialen Medien angezeigt wird, zusätzlich zur Admin-Oberfläche;
+- Geben Sie den Namen des Fragebogens ein, der im Titel der Browserseite und beim Teilen in sozialen Medien angezeigt wird, zusätzlich zur Admin-Oberfläche;
 - Bearbeiten Sie den Pfad (URL - <code>https://partimap.eu/p/*</code>),
 - Legen Sie den Passwortschutz fest, um einzuschränken, wer ihn ausfüllen kann. In diesem Fall werden Sie durch Navigieren zur URL des Fragebogens zur Eingabe eines Passworts aufgefordert, das dann zum Ausfüllen des Fragebogens verwendet werden kann. Wenn Sie keine weiteren Abschlüsse erhalten möchten, können Sie den Fragebogen auch auf inaktiv setzen, indem Sie ein Passwort festlegen;
 - Fügen Sie eine spezifische Meta-Beschreibung (Vorschautext) für das Teilen auf Facebook hinzu;
@@ -49,9 +49,9 @@ In den zugehörigen Daten und Einstellungen haben Sie die folgenden Möglichkeit
 
 ### Liste der Arbeitsblätter
 
-Das Projekt ist in Arbeitsblätter unterteilt. In der Bearbeitungsoberfläche jedes Arbeitsblatts können Sie verschiedene Fragebogenfragen, informative Texte und Kartenelemente einrichten, die die Befragten zur Interaktion anregen.
+Das Fragebogen ist in Arbeitsblätter unterteilt. In der Bearbeitungsoberfläche jedes Arbeitsblatts können Sie verschiedene Fragebogenfragen, informative Texte und Kartenelemente einrichten, die die Befragten zur Interaktion anregen.
 
-Arbeitsblätter können unter den allgemeinen Umfrageeinstellungen bearbeitet werden. Bei einem neuen Projekt ist dieser Abschnitt leer, und Sie können mit der Bearbeitung des Umfrageinhalts beginnen, indem Sie auf die Schaltfläche _Arbeitsblatt hinzufügen_ klicken. Hier steht auch eine Listenansicht der bereits erstellten Arbeitsblätter zur Verfügung.
+Arbeitsblätter können unter den allgemeinen Umfrageeinstellungen bearbeitet werden. Bei einem neuen Fragebogen ist dieser Abschnitt leer, und Sie können mit der Bearbeitung des Umfrageinhalts beginnen, indem Sie auf die Schaltfläche _Arbeitsblatt hinzufügen_ klicken. Hier steht auch eine Listenansicht der bereits erstellten Arbeitsblätter zur Verfügung.
 
 <div class="row mb-5">
 	<div class="col-12 col-lg-10 mx-auto mt-4">
@@ -68,7 +68,7 @@ Arbeitsblätter können unter den allgemeinen Umfrageeinstellungen bearbeitet we
 	</div>
 </div>
 
-Wenn das Projekt bereits mehrere Arbeitsblätter enthält, können die Pfeile nach oben und unten verwendet werden, um die Reihenfolge der Arbeitsblätter zu ändern, und das Papierkorbsymbol löscht das nicht benötigte Arbeitsblatt.
+Wenn das Fragebogen bereits mehrere Arbeitsblätter enthält, können die Pfeile nach oben und unten verwendet werden, um die Reihenfolge der Arbeitsblätter zu ändern, und das Papierkorbsymbol löscht das nicht benötigte Arbeitsblatt.
 
 Sie können die Art des Arbeitsblatts (_Text, Fragebogen, Karte_ oder _interaktive Karte_) auswählen, indem Sie auf die Piktogramme klicken.
 
@@ -89,13 +89,13 @@ Sie können die Art des Arbeitsblatts (_Text, Fragebogen, Karte_ oder _interakti
 
 Im ersten Arbeitsblatt müssen die Befragten die Nutzungsbedingungen und die Datenschutzerklärung akzeptieren. Als erstes Arbeitsblatt ist es sinnvoll, ein Textarbeitsblatt zur Verfügung zu stellen, in dem der Umfang (z.B. erwartete Dauer der Umfrage) und der Zweck der Umfrage dargestellt werden können.
 
-Wenn Sie auf die Schaltfläche Ansicht in der oberen rechten Ecke des Projektdatenblatts klicken, können Sie direkt zu dem Fragebogen gelangen, der gerade erstellt wird, und die von Ihnen gespeicherten Änderungen verfolgen. Bei der Bearbeitung des Fragebogens bietet es sich an, Änderungen hier parallel zur Editoroberfläche nachzuvollziehen.
+Wenn Sie auf die Schaltfläche Ansicht in der oberen rechten Ecke des Fragebogendatenblatts klicken, können Sie direkt zu dem Fragebogen gelangen, der gerade erstellt wird, und die von Ihnen gespeicherten Änderungen verfolgen. Bei der Bearbeitung des Fragebogens bietet es sich an, Änderungen hier parallel zur Editoroberfläche nachzuvollziehen.
 
 ### Arbeitsblatt-Typen {#Arbeitsblätter}
 
 Die blauen Pfeile nach rechts/links am unteren Rand der Seite werden verwendet, um zwischen den Arbeitsblättern zu navigieren, die bearbeitet werden.
 
-Von der Arbeitsblattbearbeitungsoberfläche aus können Sie auch zum Projektblatt zurückkehren, indem Sie auf das PARTIMAP-Symbol (_Zurück zum Projekt_) in der oberen linken Ecke klicken.
+Von der Arbeitsblattbearbeitungsoberfläche aus können Sie auch zum Fragebogenblatt zurückkehren, indem Sie auf das PARTIMAP-Symbol (_Zurück zum Fragebogen_) in der oberen linken Ecke klicken.
 
 Wichtig: Um Ihre Änderungen zu speichern, müssen Sie auf die Schaltfläche _Speichern klicken_. Auch ein Popup-Fenster warnt Sie Ihre Änderungen zu speichern, wenn Sie zu einer anderen Seite navigieren.
 
@@ -108,7 +108,7 @@ Ein Arbeitsblatt mit Text und Bildern, anhand dessen u.a. die Ziele der Befragun
 - _Ihr Hintergrundbild_, das den Raum hinter dem Dialogfeld ausfüllt;
 - Schaltflächen zum _Teilen der Umfrage_.
 
-#### Fragebogen-Arbeitsblatt {#kerdoiv}
+#### Fragen-Arbeitsblatt {#kerdoiv}
 
 Mit dem Arbeitsblatt Fragebogen können Sie herkömmliche Fragebogenumfragen erstellen. Diese können beim bearbeiten des Arbeitsblatts eingegeben werden:
 
@@ -116,7 +116,7 @@ Mit dem Arbeitsblatt Fragebogen können Sie herkömmliche Fragebogenumfragen ers
 - Die _Beschreibung des Arbeitsblatts_, die oben im Dialogfeld angezeigt wird. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, mit der Möglichkeit, einen Link oder ein Bild einzufügen, ähnlich wie beim Text-Arbeitsblatt. Durch das Hinzufügen eines Bildes ist es möglich, Fragen an das Bild zu knüpfen.
 - _Fragebogen_: Für das Arbeitsblatt besteht die Möglichkeit, Fragebogenfragen hinzuzufügen, deren Eigenschaften im erscheinenden Dialog bearbeitet werden können.
 - _Antwortstatistiken für den Besucher nach Abschluss anzeigen_: Wenn diese Option aktiviert ist, wird dem Besucher nach dem Fortfahren mit der nächsten Seite eine einfache aggregierte Statistik der bisherigen Antworten in einem Balkendiagramm angezeigt.
-- _Nur Ergebnisse anzeigen_: Wenn diese Option aktiviert ist, werden die Fragen des Arbeitsblatts geschlossen, es werden keine Antworten mehr gesammelt. In diesem Arbeitsblatt sind nur die Ergebnisse früherer Antworten für Besucher sichtbar. Dies gibt Ihnen die Möglichkeit, die geschlossene Umfrage in ein Projekt umzuwandeln, das das Ergebnis der Umfrage anzeigt, während die Verknüpfung beibehalten wird.
+- _Nur Ergebnisse anzeigen_: Wenn diese Option aktiviert ist, werden die Fragen des Arbeitsblatts geschlossen, es werden keine Antworten mehr gesammelt. In diesem Arbeitsblatt sind nur die Ergebnisse früherer Antworten für Besucher sichtbar. Dies gibt Ihnen die Möglichkeit, die geschlossene Umfrage in ein Fragebogen umzuwandeln, das das Ergebnis der Umfrage anzeigt, während die Verknüpfung beibehalten wird.
 - _Geben Sie ein Hintergrundbild an_, das den Platz hinter dem Dialogfeld ausfüllt.
 - Schaltflächen zum _Teilen der Umfrage_. Dies ist nützlich für das letzte Arbeitsblatt, welches oft demografische Fragen enthält.
 
@@ -144,7 +144,7 @@ Jede Frage kann durch Ankreuzen des Kästchens _"Bitte um Beantwortung"_ obligat
 
 Im Fragebogen-Abschnitt der Editor-Oberfläche des Arbeitsblatts (in der Liste der Fragen) können Fragen durch Klicken auf das Papierkorbsymbol gelöscht oder ihre Reihenfolge geändert werden, indem sie per Drag & Drop in die Fragenschublade gezogen werden.
 
-#### Karten-Arbeitsblatt (statische Karte) {#statikus}
+#### Fragen und Karte Arbeitsblatt (statische Karte) {#statikus}
 
 Das Arbeitsblatt kann verwendet werden, um eine kartenbasierte Erhebung zu erstellen, die verwendet werden kann, um eine abgeschlossene Entwicklung oder einen abgeschlossenen Plan zu präsentieren und Bewertungen und Feedback dazu zu sammeln. Hier werden die Befragten gebeten, Fragen zu beantworten, die sich auf das beziehen, was sie auf der Karte sehen, aber im Gegensatz zum interaktiven Kartenarbeitsblatt dürfen sie nicht auf der Karte zeichnen.
 
@@ -188,7 +188,7 @@ _Fläche zeichnen (grün)_: Klicken Sie auf den weißen Umriss auf dem grünen H
 
 _Mobile Ansicht_: Wenn Sie die Editor-Oberfläche auf einem Tablet oder Mobiltelefon verwenden, können Sie zwischen dem Fragenfeld und der Karte wechseln, indem Sie die Schaltflächen Ausblenden (<<) und Öffnen (>>) für Kartenarbeitsblätter drücken. Die Schaltflächen zum Zeichnen sind in der Kartenansicht verfügbar, indem Sie die Seitenleiste ausblenden.
 
-#### Interaktives Karten-Arbeitsblatt {#interaktiv}
+#### Kartenaufgaben Arbeitsblatt {#interaktiv}
 
 In diesem Arbeitsblatt können die Befragten auf der Karte zeichnen. Wie bei der statischen Karte hat der Admin die Möglichkeit, Elemente auf der Karte zu zeichnen, um die Befragten zu orientieren oder Kartenmarkierungen in Bezug darauf zu erwarten. Allerdings können hier keine Fragebogenfragen oder Bewertungen zum Arbeitsblatt und seinen Elementen hinzugefügt werden.
 
@@ -200,18 +200,18 @@ Für die ausgewählten Elemente können Sie im Textfeld _Anweisung zum Zeichnen 
 
 Die _Map Elements_ enthält eine Liste von Elementen, die im Admin-Bereich hinzugefügt (gezeichnet oder hochgeladen) wurden, ähnlich wie bei einer statischen Map. Beachten Sie, dass die Beschreibung, die sie erhalten haben, dem Befragten nicht angezeigt wird, diese Elemente erscheinen nur wie die versteckten Elemente der statischen Karte auf der Karte! Die gezeichneten Elemente können hier zur Orientierung der Befragten verwendet werden, ihre Farbe, Größe und ihr Stil können angepasst werden. Sie können verwendet werden, um den Bereich oder die Zonen anzugeben, in denen die Elemente gezeichnet werden sollen. Sie sind auch nützlich, da die Karte diese Elemente automatisch vergrößert.
 
-Wenn von den Befragten gezeichnete Elemente bereits in einer interaktiven Karte eingereicht wurden, können sie in eine persönliche Karte exportiert werden, indem Sie auf den Link _An eigene Karte senden_ neben dem Arbeitsblatt in der Liste auf dem Projektdatenblatt klicken, wo sie durchsucht, bearbeitet oder im .kml-Format für den externen Gebrauch heruntergeladen werden können. Der .xlsx Bericht enthält auch die Daten der eingereichten Elemente (Füllkennung, Koordinaten, Beschreibung).
+Wenn von den Befragten gezeichnete Elemente bereits in einer interaktiven Karte eingereicht wurden, können sie in eine persönliche Karte exportiert werden, indem Sie auf den Link _An eigene Karte senden_ neben dem Arbeitsblatt in der Liste auf dem Fragebogendatenblatt klicken, wo sie durchsucht, bearbeitet oder im .kml-Format für den externen Gebrauch heruntergeladen werden können. Der .xlsx Bericht enthält auch die Daten der eingereichten Elemente (Füllkennung, Koordinaten, Beschreibung).
 
 ### Erstellen von Karten und Verwalten der Historie {#terkepek}
 
-Im Menü <a href="/admin/maps" target="_blank">Karten</a> können Sie Ihre eigenen Kartenzeichnungen (Shapefiles im KML-Format) speichern und bearbeiten. Hier können Sie Karten der Stadt und der Umgebung der Benutzer sammeln und bearbeiten, die zuvor erstellt wurden, sowie die aus Fragebögen gesammelten Antworten. Mit Hilfe von Dateien im .kml-Format ist es einfach, die hier gespeicherten Elemente in externe Karteneditoren zu exportieren und von dort aus Karten in PARTIMAP zu importieren. Es ist auch einfach, zwischen dem Menü "Maps" und Projekten zu wechseln: Sie können den Inhalt Ihrer eigenen Maps in Arbeitsblätter verschieben (_Kopieren Sie Map-Elemente von hier_).
+Im Menü <a href="/admin/maps" target="_blank">Karten</a> können Sie Ihre eigenen Kartenzeichnungen (Shapefiles im KML-Format) speichern und bearbeiten. Hier können Sie Karten der Stadt und der Umgebung der Benutzer sammeln und bearbeiten, die zuvor erstellt wurden, sowie die aus Fragebögen gesammelten Antworten. Mit Hilfe von Dateien im .kml-Format ist es einfach, die hier gespeicherten Elemente in externe Karteneditoren zu exportieren und von dort aus Karten in PARTIMAP zu importieren. Es ist auch einfach, zwischen dem Menü "Maps" und Fragebogenen zu wechseln: Sie können den Inhalt Ihrer eigenen Maps in Arbeitsblätter verschieben (_Kopieren Sie Map-Elemente von hier_).
 
 PARTIMAP bietet derzeit keine grafischen Analysefunktionen, aber Sie können einzelne Elemente auf Ihrer eigenen Karte bearbeiten: Neben dem Namen und der Beschreibung können Sie auch deren Aussehen anpassen (Farbe, Größe, Linienstil bei Linien).
 
 So erstellen Sie Ihre eigene neue Karte:
 
 - Geben Sie auf der Seite <a href="/admin/maps" target="_blank">Karten</a> den Namen der neuen Karte ein und klicken Sie auf die Schaltfläche _Hinzufügen_. Hier können Sie Daten aus einer .kml-Datei in der Editor-Oberfläche laden.
-- Aus den Einsendungen der Befragten einer Umfrage, indem Sie auf die Schaltfläche _An neue eigene Karte senden_ in der Zeile des entsprechenden Arbeitsblatts auf dem Projektdatenblatt klicken.
+- Aus den Einsendungen der Befragten einer Umfrage, indem Sie auf die Schaltfläche _An neue eigene Karte senden_ in der Zeile des entsprechenden Arbeitsblatts auf dem Fragebogendatenblatt klicken.
 
 Sie können die folgenden Details Ihrer eigenen Karte in einer Oberfläche bearbeiten, die Arbeitsblättern ähnelt:
 
@@ -227,11 +227,11 @@ Die von PARTIMAP generierten und verwendeten .kml-Dateien verwenden die folgende
 - Die Kategorie, die dem Element zugewiesen ist (partimapCategory);
 - Der Stil der Linien- oder Flächengrenze (partimapLineStyle), die Größe des Punktes (partimapPointSize) und andere Parameter (Größe, Farbe), die automatisch von Google Maps gelesen werden (ExtendedData);
 - Der Inhalt des Beschreibungsfeldes, das von PARTIMAP verwendet wird (partimapDescription);
-- Weitere Informationen dazu finden Sie auf der [Github-Seite](https://github.com/k-monitor/partimap/blob/master/KML.md) des Projekts.
+- Weitere Informationen dazu finden Sie auf der [Github-Seite](https://github.com/k-monitor/partimap/blob/master/KML.md) des Fragebogens.
 
 ### Bericht und Ergebnisse {#riport}
 
-Sie können einen Survey in .xlsx Format von der Listenansichtsseite [Projekte](/admin/projects) herunterladen. Der Bericht enthält die Ergebnisse in dem zuvor beschriebenen Format. Die Kartenelemente können mit den Antworten auf die Befragungsfragen, wie z.B. den demografischen Daten der Befragten, mittels Identifikationsnummern verknüpft werden. Sobald die Daten verknüpft sind, können die räumlichen Marker tiefer analysiert und nach jeder Gruppe von Befragten gefiltert werden.
+Sie können einen Survey in .xlsx Format von der Listenansichtsseite [Fragebogene](/admin/projects) herunterladen. Der Bericht enthält die Ergebnisse in dem zuvor beschriebenen Format. Die Kartenelemente können mit den Antworten auf die Befragungsfragen, wie z.B. den demografischen Daten der Befragten, mittels Identifikationsnummern verknüpft werden. Sobald die Daten verknüpft sind, können die räumlichen Marker tiefer analysiert und nach jeder Gruppe von Befragten gefiltert werden.
 
 ### Tipps zum Erstellen eines Fragebogens {#tips}
 
@@ -281,9 +281,9 @@ Sie können Bilder auch in die Beschreibungsfelder einfügen, müssen aber das B
 
 Sie können die Punkte und Linien des Arbeitsblatts für statische Karten so einfärben, dass sie der Farbe Ihrer Organisation entsprechen. Sie können den Kartenelementen auch Beschreibungen und Bilder hinzufügen, um die Identifizierung der markierten Orte zu erleichtern.
 
-Sie können dem Fragebogen in der Editoroberfläche des Projekts Ihre eigene URL und Facebook-Freigabeoptionen hinzufügen. Dies ist wichtig, da der Fragebogen am einfachsten über soziale Medien verbreitet wird. Wenn Sie Details zur Facebook-Vorschau hinzufügen, nachdem der Fragebogen freigegeben wurde, wird die Vorschau nicht auf die von Ihnen festgelegte Vorschau aktualisiert. Wenn dies der Fall ist, sollte dies [Facebook mitgeteilt werden](https://developers.facebook.com/tools/debug/), das dann das Bild und den Titel aktualisiert.
+Sie können dem Fragebogen in der Editoroberfläche des Fragebogens Ihre eigene URL und Facebook-Freigabeoptionen hinzufügen. Dies ist wichtig, da der Fragebogen am einfachsten über soziale Medien verbreitet wird. Wenn Sie Details zur Facebook-Vorschau hinzufügen, nachdem der Fragebogen freigegeben wurde, wird die Vorschau nicht auf die von Ihnen festgelegte Vorschau aktualisiert. Wenn dies der Fall ist, sollte dies [Facebook mitgeteilt werden](https://developers.facebook.com/tools/debug/), das dann das Bild und den Titel aktualisiert.
 
-Der Fragebogen kann auf Ihrer Website eingebettet werden, indem Sie den folgenden Code in den HTML-Code der Seite einfügen, mit dem Link zum Projekt an der entsprechenden Stelle.
+Der Fragebogen kann auf Ihrer Website eingebettet werden, indem Sie den folgenden Code in den HTML-Code der Seite einfügen, mit dem Link zum Fragebogen an der entsprechenden Stelle.
 
 ```
 <embed src="https://partimap.eu/de/p/demo" style="width:100%; height:550px;">
