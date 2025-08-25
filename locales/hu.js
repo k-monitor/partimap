@@ -1,5 +1,3 @@
-import terms from './hu-terms.md?raw';
-
 export default {
 	meta: {
 		description: 'Ingyenes, könnyen kezelhető és testreszabható térképes kérdőívező felület.',
@@ -539,9 +537,6 @@ export default {
 		averageValue: 'Átlagos érték',
 		numberOfSubmissions: 'Válaszadók száma',
 		other: 'Egyéb',
-	},
-	Terms: {
-		content: terms,
 	},
 
 	// general

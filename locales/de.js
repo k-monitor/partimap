@@ -1,5 +1,3 @@
-import terms from './de-terms.md?raw';
-
 export default {
 	meta: {
 		description:
@@ -547,9 +545,6 @@ export default {
 		averageValue: 'Durchschnittswert',
 		numberOfSubmissions: 'Anzahl Antworten',
 		other: 'Sonstiges',
-	},
-	Terms: {
-		content: terms,
 	},
 
 	// general

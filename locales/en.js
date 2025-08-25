@@ -1,5 +1,3 @@
-import terms from './en-terms.md?raw';
-
 export default {
 	meta: {
 		description: 'Engaging the power of community in urban development planning.',
@@ -536,9 +534,6 @@ export default {
 		averageValue: 'Average value',
 		numberOfSubmissions: 'Number of submissions',
 		other: 'Other',
-	},
-	Terms: {
-		content: terms,
 	},
 
 	// general
