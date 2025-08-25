@@ -86,6 +86,8 @@ Bei der Registrierung wird der Name, die E-Mail-Adresse und das Passwort des reg
 
 Zweck: Die Verarbeitung der vom registrierten Benutzer zur Verfügung gestellten personenbezogenen Daten ist für seine Identifizierung durch den für die Verarbeitung Verantwortlichen im System erforderlich, für eine mögliche Kontaktaufnahme durch den für die Verarbeitung Verantwortlichen und für die Information der Besucher, die den Fragebogen ausfüllen, der Teil des Projekts ist.
 
+Vorbehaltlich der ausdrücklichen Einwilligung des Nutzers ist der Verantwortliche berechtigt, die vom Nutzer angegebene E-Mail-Adresse zu verwenden, um Benachrichtigungen über technische Weiterentwicklungen und Aktualisierungen im Zusammenhang mit dem PARTIMAP-Dienst sowie Informationen zu Veranstaltungen, Schulungen und Möglichkeiten zur Abgabe von Nutzerfeedback in Verbindung mit der Nutzung des Systems zu versenden.
+
 Rechtsgrundlage für die Datenverarbeitung: freiwillige Zustimmung des registrierten Nutzers (betroffene Person).
 
 Dauer der Datenverarbeitung: bis zum Widerruf durch den registrierten Nutzer, jedoch nicht länger als 5 Jahre.

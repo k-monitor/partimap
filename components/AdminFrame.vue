@@ -102,5 +102,6 @@ function toggle() {
 				</div>
 			</div>
 		</div>
+		<TermsModConsent />
 	</div>
 </template>

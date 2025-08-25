@@ -51,6 +51,7 @@ export default defineEventHandler(async (event) => {
 		name,
 		password: hashedPassword,
 		registered: Date.now(),
+		consent25Aug: Date.now(),
 	});
 	addToken(newUser);
 

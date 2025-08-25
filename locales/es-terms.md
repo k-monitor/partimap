@@ -86,6 +86,8 @@ Al registrarse, se registran y almacenan el nombre, la dirección de correo elec
 
 Propósito: la manipulación de los datos personales proporcionados por el Usuario Registrado es necesaria para su identificación por parte del Responsable de Datos en el sistema, para un posible contacto iniciado por el Responsable de Datos y para informar a los Visitantes que completan el cuestionario que forma parte del Proyecto.
 
+Previo consentimiento explícito del Usuario, el Responsable de los Datos podrá utilizar la dirección de correo electrónico proporcionada por el Usuario para enviar notificaciones sobre desarrollos técnicos y actualizaciones relacionadas con el servicio PARTIMAP, así como información sobre eventos, sesiones de formación y oportunidades para aportar comentarios de los usuarios en relación con el uso del sistema.
+
 Base legal para la manipulación de datos: consentimiento voluntario del Usuario Registrado (sujeto de datos).
 
 Duración de la manipulación de datos: hasta que el Usuario Registrado lo revoque, pero no más de 5 años.

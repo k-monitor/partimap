@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
 	const users = await db.findAll();
 	const emails = users
-		.filter((user) => user.active)
+		.filter((user) => user.active && user.consent25Aug)
 		.map((user) => user.email)
 		.join('\n');
 
