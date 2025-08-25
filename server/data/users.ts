@@ -15,6 +15,7 @@ export type User = {
 	token: string | null;
 	tokenExpires: number | null;
 	isAdmin: boolean;
+	consent25Aug: number;
 };
 
 export type PublicUser = Pick<User, 'id' | 'email' | 'name' | 'isAdmin'>;
@@ -29,11 +30,12 @@ export function createUser(data: any): User {
 		color: data.color,
 		logo: data.logo,
 		website: data.website,
-		registered: data.registered || new Date().getTime(),
+		registered: data.registered || 0,
 		lastLogin: data.lastLogin || 0,
 		isAdmin: data.isAdmin || false,
 		token: data.token,
 		tokenExpires: data.tokenExpires,
+		consent25Aug: data.consent25Aug || 0,
 	};
 }
 

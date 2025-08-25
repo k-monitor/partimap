@@ -49,6 +49,10 @@ export default defineEventHandler(async (event) => {
 		delete changes.logo;
 	}
 
+	if (changes.consent25Aug && !user.consent25Aug) {
+		changes.consent25Aug = Date.now();
+	}
+
 	user = db.createUser({ ...user, ...changes });
 	await db.update(user);
 
