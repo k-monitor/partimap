@@ -88,6 +88,8 @@ A regisztrációkor rögzítésre és tárolásra kerül a Felhasználó neve, e
 
 Cél: A Felhasználó által megadott személyes adatok kezelése az Adatkezelő által a rendszerben történő azonosításhoz, esetlegesen az Adatkezelő által kezdeményezett kapcsolat-felvételhez, illetve a Projekt részét képező kérdőívet kitöltő Látogatók tájékoztatásához szükséges.
 
+A Felhasználó által megadott e-mail cím a Felhasználó külön beleegyezése esetén felhasználható arra, hogy a PARTIMAP szolgáltatással kapcsolatos technikai fejlesztésekről, újdonságokról, valamint a rendszer használatához kapcsolódó eseményekről, képzésekről, felhasználói visszajelzési lehetőségekről az Adatkezelő értesítést küldjön.
+
 Az adatkezelés jogalapja: a Felhasználó önkéntes hozzájárulása.
 
 Az adatkezelés időtartama: a Felhasználó általi visszavonásig, de legfeljebb 5 évig.
