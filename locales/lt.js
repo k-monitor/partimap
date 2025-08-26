@@ -1,5 +1,3 @@
-import terms from './en-terms.md?raw';
-
 export default {
 	meta: {
 		description: 'Bendruomenių įtraukimas į miestų planavimą.',
@@ -541,8 +539,8 @@ export default {
 		numberOfSubmissions: 'Atsakymų skaičius',
 		other: 'Kita',
 	},
-	Terms: {
-		content: terms,
+	TermsModConsent: {
+		info: 'Mūsų privatumo politika ir naudojimosi sąlygos pasikeitė.',
 	},
 
 	// general

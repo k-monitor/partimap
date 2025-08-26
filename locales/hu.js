@@ -538,6 +538,9 @@ export default {
 		numberOfSubmissions: 'Válaszadók száma',
 		other: 'Egyéb',
 	},
+	TermsModConsent: {
+		info: 'Változtak az adatkezelési irányelveink és felhasználási feltételeink.',
+	},
 
 	// general
 

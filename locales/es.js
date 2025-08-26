@@ -1,5 +1,3 @@
-import terms from './es-terms.md?raw';
-
 export default {
 	meta: {
 		description:
@@ -550,8 +548,8 @@ export default {
 		numberOfSubmissions: 'Número de envíos',
 		other: 'Otro',
 	},
-	Terms: {
-		content: terms,
+	TermsModConsent: {
+		info: 'Nuestra Política de Privacidad y los Términos de Uso han cambiado.',
 	},
 
 	// general

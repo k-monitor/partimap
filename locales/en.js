@@ -535,6 +535,9 @@ export default {
 		numberOfSubmissions: 'Number of submissions',
 		other: 'Other',
 	},
+	TermsModConsent: {
+		info: 'Our Privacy Policy and Terms of Use have changed.',
+	},
 
 	// general
 

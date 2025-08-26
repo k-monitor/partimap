@@ -31,12 +31,22 @@ async function handleOk() {
 <template>
 	<b-modal
 		v-model="modalVisible"
+		no-close-on-backdrop
+		no-close-on-esc
+		no-header-close
 		ok-only
 		scrollable
 		size="lg"
-		:title="$t('register.termsTitle')"
+		:title="t('register.termsTitle')"
 		@ok="handleOk"
 	>
+		<BAlert
+			class="mb-4"
+			show
+			variant="warning"
+		>
+			{{ t('TermsModConsent.info') }}
+		</BAlert>
 		<Terms />
 	</b-modal>
 </template>

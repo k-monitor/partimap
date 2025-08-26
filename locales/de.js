@@ -546,6 +546,9 @@ export default {
 		numberOfSubmissions: 'Anzahl Antworten',
 		other: 'Sonstiges',
 	},
+	TermsModConsent: {
+		info: 'Unsere Datenschutzerklärung und Nutzungsbedingungen haben sich geändert.',
+	},
 
 	// general
 
