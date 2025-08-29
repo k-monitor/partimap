@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
 		delete changes.active;
 		delete changes.isAdmin;
 
-		if (changes.newPassword || changes.email !== user.email) {
+		if (changes.newPassword || (changes.email && changes.email !== user.email)) {
 			if (!changes.oldPassword || !bcrypt.compareSync(changes.oldPassword, user.password)) {
 				throw createError({
 					message: 'OLDPASSWORD_INVALID',
