@@ -160,6 +160,11 @@ function prepareKmlForExport(kmlString: string) {
 		);
 		ed.innerHTML = '';
 		sortedData.forEach((d) => ed.appendChild(d));
+
+		// move partimapDescriptionLabel before partimapDescription
+		const pmDescEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_NAME}"]`);
+		const pmDescLabelEl = ed.querySelector(`Data[name="${EXPORTED_DESCRIPTION_LABEL_NAME}"]`);
+		if (pmDescEl && pmDescLabelEl) ed.insertBefore(pmDescLabelEl, pmDescEl);
 	});
 
 	return serializeXML(kml);
