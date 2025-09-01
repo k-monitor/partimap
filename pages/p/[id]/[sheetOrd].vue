@@ -2,6 +2,7 @@
 // TODO spaghetti, need to decouple into multiple components/composables
 
 import type { Feature as GeoJsonFeature } from 'geojson';
+import useSheetTimer from '~/composables/useSheetTimer';
 import type { Project } from '~/server/data/projects';
 import type { Survey } from '~/server/data/surveyAnswers';
 
@@ -332,6 +333,20 @@ async function next() {
 	}
 }
 
+const { clearSheetTimes, startSheetTimer, stopSheetTimer, sheetTimes } = useSheetTimer();
+const isSheetVisible = computed(
+	() => project.value && sheet.value && captcha.value /*&& !loading.value*/ && !submitted.value,
+);
+watchEffect(() => {
+	if (isSheetVisible.value) {
+		if (!hit.value) {
+			clearSheetTimes();
+		} else {
+			startSheetTimer(sheet.value.id);
+		}
+	}
+});
+
 async function submit(captcha: string) {
 	const ca = await canAdvance();
 	if (!ca) return;
@@ -346,6 +361,9 @@ async function submit(captcha: string) {
 		return;
 	}
 	loading.value = true;
+
+	stopSheetTimer();
+	console.log('SHEET SUBMIT LOGIC HAS SHEET TIMES', sheetTimes.value);
 
 	const sheetIds = project.value.sheets.map((s) => s.id);
 	const data = getSubmissionData(sheetIds);
