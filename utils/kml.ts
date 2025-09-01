@@ -153,6 +153,13 @@ function prepareKmlForExport(kmlString: string) {
 				value.innerHTML = arr.join(', ');
 			}
 		});
+
+		// sort ExtendedData children by name attribute
+		const sortedData = Array.from(ed.children).sort((a, b) =>
+			(a.getAttribute('name') || '').localeCompare(b.getAttribute('name') || ''),
+		);
+		ed.innerHTML = '';
+		sortedData.forEach((d) => ed.appendChild(d));
 	});
 
 	return serializeXML(kml);
