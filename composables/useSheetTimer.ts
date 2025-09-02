@@ -10,7 +10,6 @@ export default (sheet: Ref<Sheet | undefined>) => {
 		const elapsedTime = -currentTimeStartedAt.value + Date.now();
 		if (elapsedTime <= 0) return;
 
-		console.log('SHEET TIMER - sheet ID', currentSheetId.value, ' + elapsed time', elapsedTime);
 		const previousElapsedTime = sheetTimes.value[currentSheetId.value] || 0;
 		sheetTimes.value[currentSheetId.value] = previousElapsedTime + elapsedTime;
 		currentSheetId.value = 0;
@@ -19,7 +18,6 @@ export default (sheet: Ref<Sheet | undefined>) => {
 
 	function startSheetTimer(sheetId: number) {
 		stopSheetTimer();
-		console.log('SHEET TIMER - sheet ID', sheetId, 'starting timer');
 		currentSheetId.value = sheetId;
 		currentTimeStartedAt.value = Date.now();
 	}
@@ -32,7 +30,6 @@ export default (sheet: Ref<Sheet | undefined>) => {
 
 	const sheetId = computed(() => sheet.value?.id || 0);
 	watch([isMounted, sheetId], () => {
-		console.log('SHEET TIMER - watch effect', isMounted.value, sheetId.value);
 		if (isMounted.value && sheetId.value) {
 			startSheetTimer(sheetId.value);
 		}

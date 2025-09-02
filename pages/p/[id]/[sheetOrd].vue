@@ -351,7 +351,7 @@ async function submit(captcha: string) {
 	loading.value = true;
 
 	stopSheetTimer();
-	console.log('SHEET TIMER SUM IN SUBMIT LOGIC:', JSON.stringify(sheetTimes.value));
+	// FIXME sheetTimes { "<sheetId>": millisec, ... } -> request body
 
 	const sheetIds = project.value.sheets.map((s) => s.id);
 	const data = getSubmissionData(sheetIds);
