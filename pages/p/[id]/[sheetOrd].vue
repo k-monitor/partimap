@@ -333,19 +333,7 @@ async function next() {
 	}
 }
 
-const { clearSheetTimes, startSheetTimer, stopSheetTimer, sheetTimes } = useSheetTimer();
-const isSheetVisible = computed(
-	() => project.value && sheet.value && captcha.value /*&& !loading.value*/ && !submitted.value,
-);
-watchEffect(() => {
-	if (isSheetVisible.value) {
-		if (!hit.value) {
-			clearSheetTimes();
-		} else {
-			startSheetTimer(sheet.value.id);
-		}
-	}
-});
+const { sheetTimes, stopSheetTimer } = useSheetTimer(sheet);
 
 async function submit(captcha: string) {
 	const ca = await canAdvance();
@@ -363,7 +351,7 @@ async function submit(captcha: string) {
 	loading.value = true;
 
 	stopSheetTimer();
-	console.log('SHEET SUBMIT LOGIC HAS SHEET TIMES', sheetTimes.value);
+	console.log('SHEET TIMER SUM IN SUBMIT LOGIC:', JSON.stringify(sheetTimes.value));
 
 	const sheetIds = project.value.sheets.map((s) => s.id);
 	const data = getSubmissionData(sheetIds);
