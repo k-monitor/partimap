@@ -2,6 +2,8 @@ import * as db from '~/server/utils/database';
 import { createRating, type Rating } from '~/server/data/ratings';
 import { createSurveyAnswer, type SurveyAnswer } from '~/server/data/surveyAnswers';
 import { createSubmittedFeatures, type SubmittedFeatures } from '~/server/data/submittedFeatures';
+import type { SheetTime } from './sheetTimes';
+import { createSheetTime } from './sheetTimes';
 
 export type Submission = {
 	id: number;
@@ -26,6 +28,7 @@ export async function create(
 	ratings: Partial<Rating>[],
 	answers: Partial<SurveyAnswer>[],
 	features: Partial<SubmittedFeatures>[],
+	sheetTimes: Partial<SheetTime>[],
 ) {
 	let submissionId = -1;
 	await db.inTransaction(async (connection) => {
@@ -49,6 +52,10 @@ export async function create(
 			...features.map((e) => {
 				e.submissionId = submissionId;
 				return db.createQuery('submitted_features', e, createSubmittedFeatures);
+			}),
+			...sheetTimes.map((e) => {
+				e.submissionId = submissionId;
+				return db.createQuery('sheet_time', e, createSheetTime);
 			}),
 		];
 		await db.runQueries(connection, queries);

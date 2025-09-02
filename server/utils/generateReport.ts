@@ -5,6 +5,8 @@ import transformation from 'transform-coordinates';
 import type * as pdb from '~/server/data/projects';
 import * as rdb from '~/server/data/ratings';
 import * as sdb from '~/server/data/sheets';
+import type { SheetTime } from '../data/sheetTimes';
+import { findSheetTimes } from '../data/sheetTimes';
 import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
@@ -47,6 +49,18 @@ export default async function (
 
 	const m: ServerMessages['report'] = i18n(lang).report;
 	const sheets = await sdb.findAllByProjectId(project.id);
+
+	const sheetIds = sheets.map((s) => s.id);
+	b.start('query: times');
+	const sheetTimesArr = await findSheetTimes(sheetIds);
+	b.end('query: times');
+	const sheetTimes = sheetTimesArr.reduce<Record<number, Record<number, number>>>((acc, st) => {
+		if (!acc[st.submissionId]) {
+			acc[st.submissionId] = {};
+		}
+		acc[st.submissionId][st.sheetId] = st.spentTimeMs;
+		return acc;
+	}, {});
 
 	b.start('query: submissions');
 	const submissions = await smdb.findByProjectId(project.id);

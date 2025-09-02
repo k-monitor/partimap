@@ -351,10 +351,9 @@ async function submit(captcha: string) {
 	loading.value = true;
 
 	stopSheetTimer();
-	// FIXME sheetTimes { "<sheetId>": millisec, ... } -> request body
 
 	const sheetIds = project.value.sheets.map((s) => s.id);
-	const data = getSubmissionData(sheetIds);
+	const data = getSubmissionData(sheetIds, sheetTimes.value);
 	if (Object.keys(data).length) {
 		try {
 			await $fetch(`/api/project/${project.value.id}/submission`, {
