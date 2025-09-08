@@ -11,14 +11,14 @@ export type VisitorRating = {
 };
 export type RatingsByFeature = Record<string, VisitorRating>;
 
-export type SubmissionDataBySheet = Record<
-	number,
-	{
-		answers?: globalThis.AnswersByQuestion | undefined;
-		features?: GeoJsonFeature[] | undefined;
-		ratings?: globalThis.RatingsByFeature | undefined;
-	}
->;
+type SubmissionData = {
+	answers?: globalThis.AnswersByQuestion | undefined;
+	features?: GeoJsonFeature[] | undefined;
+	ratings?: globalThis.RatingsByFeature | undefined;
+	spentTime: number;
+};
+
+export type SubmissionDataBySheet = Record<number, SubmissionData>;
 
 export default function useVisitorData() {
 	const visitorAnswers = useState<Record<number, AnswersByQuestion>>(
@@ -74,11 +74,12 @@ export default function useVisitorData() {
 		};
 	};
 
-	const getSubmissionData = (sheetIds: number[]) =>
+	const getSubmissionData = (sheetIds: number[], sheetTimes: Record<number, number>) =>
 		sheetIds.reduce((data, id) => {
 			const a = getVisitorAnswers(id);
 			const f = getVisitorFeatures(id);
 			const r = getVisitorRatings(id);
+			const t = sheetTimes[id] || 0;
 
 			f.forEach((f) => {
 				if (f.properties?.visitorFeature) {
@@ -86,11 +87,15 @@ export default function useVisitorData() {
 				}
 			});
 
-			const sd: Record<string, any> = {};
-			if (Object.keys(a).length) sd.answers = a;
-			if (f.length) sd.features = f;
-			if (Object.keys(r).length) sd.ratings = r;
-			if (Object.keys(sd).length) data[id] = sd;
+			const sd: SubmissionData = {
+				answers: Object.keys(a).length ? a : undefined,
+				features: f.length ? f : undefined,
+				ratings: Object.keys(r).length ? r : undefined,
+				spentTime: t,
+			};
+			if (sd.answers || sd.features || sd.ratings) {
+				data[id] = sd;
+			}
 
 			return data;
 		}, {} as SubmissionDataBySheet);

@@ -2,6 +2,7 @@
 // TODO spaghetti, need to decouple into multiple components/composables
 
 import type { Feature as GeoJsonFeature } from 'geojson';
+import useSheetTimer from '~/composables/useSheetTimer';
 import type { Project } from '~/server/data/projects';
 import type { Survey } from '~/server/data/surveyAnswers';
 
@@ -332,6 +333,8 @@ async function next() {
 	}
 }
 
+const { sheetTimes, stopSheetTimer } = useSheetTimer(sheet);
+
 async function submit(captcha: string) {
 	const ca = await canAdvance();
 	if (!ca) return;
@@ -347,8 +350,10 @@ async function submit(captcha: string) {
 	}
 	loading.value = true;
 
+	stopSheetTimer();
+
 	const sheetIds = project.value.sheets.map((s) => s.id);
-	const data = getSubmissionData(sheetIds);
+	const data = getSubmissionData(sheetIds, sheetTimes.value);
 	if (Object.keys(data).length) {
 		try {
 			await $fetch(`/api/project/${project.value.id}/submission`, {

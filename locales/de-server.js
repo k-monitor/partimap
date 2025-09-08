@@ -59,6 +59,7 @@ export default {
 		submissionId: 'Antwort-ID',
 		submittedAnswers: 'Eingereichte Antworten',
 		submittedFeatures: 'Eingereichte Markierungen',
+		timeSpentOnSheet: 'Zeit auf dem Blatt (s)',
 		timestamp: 'Zeitstempel',
 	},
 };

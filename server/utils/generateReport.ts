@@ -5,6 +5,8 @@ import transformation from 'transform-coordinates';
 import type * as pdb from '~/server/data/projects';
 import * as rdb from '~/server/data/ratings';
 import * as sdb from '~/server/data/sheets';
+import type { SheetTime } from '../data/sheetTimes';
+import { findSheetTimes } from '../data/sheetTimes';
 import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
@@ -68,6 +70,10 @@ export default async function (
 	const submittedFeatures = await sfdb.findAllByProjectId(project.id);
 	b.end('query: submitted features');
 
+	b.start('query: times');
+	const sheetTimesArr = await findSheetTimes(sheets.map((s) => s.id));
+	b.end('query: times');
+
 	const questions: sadb.Question[] = [];
 	sheets.forEach((s) => {
 		const survey: Survey | null = safeParseJSON(s.survey);
@@ -100,6 +106,12 @@ export default async function (
 		b.start('sheet: submitted features');
 		generateSubmittedFeaturesSheet(wb, m, sheets, submittedFeatures);
 		b.end('sheet: submitted features');
+	}
+
+	if (sheetTimesArr.length > 0) {
+		b.start('sheet: times');
+		generateSheetTimesSheet(wb, m, sheets, sheetTimesArr);
+		b.end('sheet: times');
 	}
 
 	return wb;
@@ -389,4 +401,27 @@ function generateSubmittedFeaturesSheet(
 			}
 		}
 	}
+}
+
+function generateSheetTimesSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	sheets: sdb.Sheet[],
+	sheetTimesArr: SheetTime[],
+) {
+	const sheetTitles = sheets.reduce<Record<number, string>>((acc, s) => {
+		acc[s.id] = s.title;
+		return acc;
+	}, {});
+
+	const sts = wb.addWorksheet(m.timeSpentOnSheet);
+	sts.cell(1, 1).string(m.submissionId);
+	sts.cell(1, 2).string(m.sheetTitle);
+	sts.cell(1, 3).string(m.timeSpentOnSheet);
+	sheetTimesArr.forEach((st, row) => {
+		const CELL = (col: number) => sts.cell(row + 2, col);
+		CELL(1).number(st.submissionId);
+		CELL(2).string(sheetTitles[st.sheetId] || `${st.sheetId}`);
+		CELL(3).number(Math.round((st.spentTimeMs || 0) / 1000));
+	});
 }

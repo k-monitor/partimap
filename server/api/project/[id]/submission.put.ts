@@ -4,6 +4,7 @@ import { z } from 'zod';
 import type { SubmissionDataBySheet } from '~/composables/useVisitorData';
 import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
+import type { SheetTime } from '~/server/data/sheetTimes';
 import * as smdb from '~/server/data/submissions';
 import type { SubmittedFeatures } from '~/server/data/submittedFeatures';
 
@@ -35,7 +36,8 @@ export default defineEventHandler(async (event) => {
 						cons: string,
 					},
 					...
-				}
+				},
+				spentTime: 0,
 			},
 			...
 		}
@@ -55,6 +57,7 @@ export default defineEventHandler(async (event) => {
 	// TODO validate body shape with Zod
 	// TODO validate answers: filter for existing questionIDs in that same sheet
 	// TODO validate ratings: filter for existing featureIDs in that same sheet
+	// TODO validate spentTime: it can only be positive
 	// TODO send BAD_REQUEST if no answer, no feature and no rating present
 
 	const submission = {
@@ -66,6 +69,7 @@ export default defineEventHandler(async (event) => {
 	const ratings = [];
 	const surveyAnswers = [];
 	const submittedFeatures = [] as Partial<SubmittedFeatures>[];
+	const sheetTimes = [] as Partial<SheetTime>[];
 
 	for (const sheetId of submittedSheetIds) {
 		const s = body[Number(sheetId)];
@@ -99,7 +103,19 @@ export default defineEventHandler(async (event) => {
 				});
 			}
 		}
+		if (s.spentTime && s.spentTime > 0) {
+			sheetTimes.push({
+				sheetId: Number(sheetId),
+				spentTimeMs: s.spentTime,
+			});
+		}
 	}
-	const submissionId = await smdb.create(submission, ratings, surveyAnswers, submittedFeatures);
+	const submissionId = await smdb.create(
+		submission,
+		ratings,
+		surveyAnswers,
+		submittedFeatures,
+		sheetTimes,
+	);
 	return { submissionId };
 });
