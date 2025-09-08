@@ -59,6 +59,7 @@ export default {
 		submissionId: 'Submission ID',
 		submittedAnswers: 'Submitted answers',
 		submittedFeatures: 'Submitted markers',
+		timeSpentOnSheet: 'Time spent on sheet (s)',
 		timestamp: 'Timestamp',
 	},
 };

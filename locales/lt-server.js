@@ -59,6 +59,7 @@
 		submissionId: 'Respondento ID',
 		submittedAnswers: 'Gauti atsakymai',
 		submittedFeatures: 'Pateikti žymekliai',
+		timeSpentOnSheet: 'Laikas, praleistas darbalapyje (s)',
 		timestamp: 'Atsakymo laikas',
 	},
 };
