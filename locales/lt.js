@@ -508,6 +508,7 @@ export default {
 		minName: 'Etikėtė (mažiausia vertė)',
 		minValue: 'Mažiausia vertė',
 		moveQuestion: 'Perkelti į kitą lapą',
+		multiline: 'Daugiarūšis tekstas',
 		other: 'Pridėti "Kita..." laukelį',
 		questionPrefix: 'Klausimas',
 		questionText: 'Klausimo tekstas',

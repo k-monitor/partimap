@@ -504,6 +504,7 @@ export default {
 		minName: 'Label (minimum)',
 		minValue: 'Minimum value',
 		moveQuestion: 'Move to another sheet',
+		multiline: 'Multiline text',
 		other: 'Add "Other..." option',
 		questionPrefix: 'Question',
 		questionText: 'Question text',

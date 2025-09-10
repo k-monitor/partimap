@@ -97,12 +97,20 @@ function removeAnswer(questionId: number) {
 			v-model="answers[q.id]"
 			:q="q"
 		/>
-		<b-form-input
-			v-else-if="q.type === 'text'"
-			v-model.trim="answers[q.id]"
-			:name="`q${q.id}`"
-			:required="q.required"
-		/>
+		<template v-else-if="q.type === 'text'">
+			<b-form-input
+				v-if="!q.multiline"
+				v-model.trim="answers[q.id]"
+				:name="`q${q.id}`"
+				:required="q.required"
+			/>
+			<MultilineTextInput
+				v-else
+				v-model="answers[q.id]"
+				:name="`q${q.id}`"
+				:required="!!q.required"
+			/>
+		</template>
 		<template v-else-if="'number|range'.includes(q.type)">
 			<div
 				v-if="q.type === 'range' && q.minLabel && q.maxLabel"

@@ -507,6 +507,7 @@ export default {
 		minName: 'Minimum elnevezés',
 		minValue: 'Minimum érték',
 		moveQuestion: 'Mozgatás másik munkalapra',
+		multiline: 'Többsoros szöveg',
 		other: 'Egyéb opció hozzáadása',
 		questionPrefix: 'Kérdés',
 		questionText: 'Kérdés szövege',
