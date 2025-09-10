@@ -32,6 +32,7 @@ export type Question = {
 	maxLabel?: string;
 	min?: number;
 	minLabel?: string;
+	multiline?: boolean;
 	options?: string[];
 	other?: boolean;
 	required?: boolean;

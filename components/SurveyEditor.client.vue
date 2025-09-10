@@ -493,6 +493,11 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 						{{ $t('SurveyEditor.other') }}
 					</b-form-checkbox>
 				</b-form-group>
+				<b-form-group v-if="'text'.includes(question.type)">
+					<b-form-checkbox v-model="question.multiline">
+						{{ $t('SurveyEditor.multiline') }}
+					</b-form-checkbox>
+				</b-form-group>
 				<b-form-group>
 					<b-form-checkbox v-model="question.required">
 						{{ $t('SurveyEditor.required') }}
