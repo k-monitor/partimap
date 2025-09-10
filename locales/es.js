@@ -516,6 +516,7 @@ export default {
 		minName: 'Etiqueta (mínimo)',
 		minValue: 'Valor mínimo',
 		moveQuestion: 'Mover a otra hoja',
+		multiline: 'Texto multilínea',
 		other: 'Agregar opción "Otro..."',
 		questionPrefix: 'Pregunta',
 		questionText: 'Texto de la pregunta',

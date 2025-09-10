@@ -516,6 +516,7 @@ export default {
 		minName: 'Beschriftung (min.)',
 		minValue: 'Minimalwert',
 		moveQuestion: 'Auf anderes Blatt verschieben',
+		multiline: 'Mehrzeiliger Text',
 		other: '"Sonstiges…" hinzufügen',
 		questionPrefix: 'Frage',
 		questionText: 'Fragetext',
