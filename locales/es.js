@@ -169,6 +169,7 @@ export default {
 	},
 	projects: {
 		add: 'Agregar',
+		created: 'Creado',
 		creationFailed: 'Error al crear la encuesta',
 		deletionFailed: 'Error al eliminar tu encuesta',
 		export: 'Generar informe',

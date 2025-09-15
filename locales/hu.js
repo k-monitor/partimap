@@ -164,6 +164,7 @@ export default {
 	},
 	projects: {
 		add: 'Hozzáadás',
+		created: 'Létrehozva',
 		creationFailed: 'Létrehozás sikertelen',
 		deletionFailed: 'Törlés sikertelen',
 		export: 'Riport letöltése',

@@ -266,6 +266,9 @@ function uploadDefinition() {
 				@transfer="initiateTransfer(p)"
 			>
 				<br />
+				<template v-if="p.created">
+					{{ $t('projects.created') }}: {{ new Date(p.created).toLocaleDateString() }},
+				</template>
 				{{ $t('projects.views') }}: {{ p.views }}, {{ $t('projects.submissions') }}:
 				{{ p.submissions }}
 				<a

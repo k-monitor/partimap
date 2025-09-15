@@ -170,6 +170,7 @@ export default {
 	},
 	projects: {
 		add: 'Hinzufügen',
+		created: 'Erstellt',
 		creationFailed: 'Erstellen der Umfrage fehlgeschlagen',
 		deletionFailed: 'Löschen der Umfrage fehlgeschlagen',
 		export: 'Bericht generieren',

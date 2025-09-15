@@ -165,6 +165,7 @@ export default {
 	},
 	projects: {
 		add: 'Pridėti',
+		created: 'Sukurtas',
 		creationFailed: 'Nepavyko ištrinti apklausos',
 		deletionFailed: 'Nepavyko sukurti apklausos',
 		export: 'Sukurti ataskaitą',
