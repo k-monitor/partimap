@@ -17,6 +17,7 @@ export type ExportableProjectDefinition = {
 export type Project = ExportableProjectDefinition & {
 	// core not exportable fields
 	id: number;
+	created: number;
 	userId: number;
 	image: string | null;
 	password: string | null;
@@ -34,6 +35,7 @@ export type Project = ExportableProjectDefinition & {
 export function createProject(data: any): Project {
 	return {
 		id: data.id,
+		created: data.created,
 		userId: data.userId,
 		lang: data.lang,
 		slug: data.slug,
@@ -56,6 +58,7 @@ export function createProject(data: any): Project {
 }
 
 export function create(project: Project) {
+	project.created = Date.now();
 	return db.create('project', project, createProject);
 }
 
