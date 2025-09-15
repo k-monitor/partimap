@@ -162,6 +162,7 @@ export default {
 	},
 	projects: {
 		add: 'Add',
+		created: 'Created',
 		creationFailed: 'Failed to create the survey',
 		deletionFailed: 'Failed to delete your survey',
 		export: 'Generate report',
