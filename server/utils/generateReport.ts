@@ -422,6 +422,6 @@ function generateSheetTimesSheet(
 		const CELL = (col: number) => sts.cell(row + 2, col);
 		CELL(1).number(st.submissionId);
 		CELL(2).string(sheetTitles[st.sheetId] || `${st.sheetId}`);
-		CELL(3).number(Math.round((st.spentTimeMs || 0) / 1000));
+		CELL(3).number(Number(((st.spentTimeMs || 0) / 1000 / 60).toFixed(1)));
 	});
 }

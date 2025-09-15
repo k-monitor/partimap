@@ -59,7 +59,7 @@ export default {
 		submissionId: 'Kitöltés azon.',
 		submittedAnswers: 'Beküldött válaszok',
 		submittedFeatures: 'Beküldött térkép elemek',
-		timeSpentOnSheet: 'Munkalapon töltött idő (mp)',
+		timeSpentOnSheet: 'Munkalapon töltött idő (p)',
 		timestamp: 'Időbélyeg',
 	},
 };

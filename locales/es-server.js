@@ -59,7 +59,7 @@ export default {
 		submissionId: 'Número de identificación',
 		submittedAnswers: 'Respuestas enviadas',
 		submittedFeatures: 'Características enviadas',
-		timeSpentOnSheet: 'Tiempo dedicado a la hoja (s)',
+		timeSpentOnSheet: 'Tiempo dedicado a la hoja (m)',
 		timestamp: 'Marca de tiempo',
 	},
 };
