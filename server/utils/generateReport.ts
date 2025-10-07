@@ -157,10 +157,29 @@ function generateAnswersSheet(
 				}
 			}
 
-			if (q.type === 'distributeUnits' || q.type.includes('Matrix')) {
-				// multiple columns
+			if (q.type === 'checkbox') {
+				// multiple columns, one per option
 				a = safeParseJSON(a) || a;
-
+				(q.options || []).forEach((option) => {
+					sas.cell(1, COL).string(`${q.label} [${option}]`);
+					writeCell(a.includes(option) ? option : '');
+					COL++;
+				});
+			} else if (q.type === 'multipleChoiceMatrix') {
+				// multiple columns, one per cell
+				a = safeParseJSON(a) || a;
+				const rows = q.rows || [];
+				const cols = q.columns || [];
+				rows.forEach((row) => {
+					cols.forEach((col) => {
+						sas.cell(1, COL).string(`${q.label} [${row}] [${col}]`);
+						writeCell(a?.[row]?.includes?.(col) ? col : '');
+						COL++;
+					});
+				});
+			} else if (['distributeUnits', 'singleChoiceMatrix'].includes(q.type)) {
+				// multiple columns, one per row
+				a = safeParseJSON(a) || a;
 				const subkeys = q.rows || q.options;
 				(subkeys || []).forEach((subkey) => {
 					sas.cell(1, COL).string(`${q.label} [${subkey}]`);
@@ -171,9 +190,6 @@ function generateAnswersSheet(
 				// single column
 				const suffix = q.minLabel && q.maxLabel ? ` [${q.minLabel} - ${q.maxLabel}]` : '';
 				sas.cell(1, COL).string(q.label + suffix);
-				if (q.type === 'checkbox') {
-					a = safeParseJSON(a) || a;
-				}
 				if (a.startsWith?.(OTHER_PREFIX)) {
 					a = `${m.other}: ${a.slice(OTHER_PREFIX.length)}`;
 				}
