@@ -159,16 +159,20 @@ function generateAnswersSheet(
 
 			if (q.type === 'checkbox') {
 				// multiple columns, one per option
-				const arr: string[] = safeParseJSON(a) || a;
+				const ans: string | string[] | object = safeParseJSON(a) || a;
 				(q.options || []).forEach((option) => {
 					sas.cell(1, COL).string(`${q.label} [${option}]`);
-					writeCell(arr.includes(option) ? option : '');
+					if (Array.isArray(ans) && ans.includes(option)) {
+						writeCell(option);
+					}
 					COL++;
 				});
 				if (q.other) {
 					sas.cell(1, COL).string(`${q.label} [${m.other}]`);
-					const otherAns = arr.find((o) => o.startsWith?.(OTHER_PREFIX));
-					writeCell(otherAns ? otherAns.slice(OTHER_PREFIX.length) : '');
+					if (Array.isArray(ans)) {
+						const otherAns = ans.find((o) => o.startsWith?.(OTHER_PREFIX));
+						writeCell(otherAns);
+					}
 					COL++;
 				}
 			} else if (q.type === 'multipleChoiceMatrix') {
