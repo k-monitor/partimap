@@ -159,12 +159,18 @@ function generateAnswersSheet(
 
 			if (q.type === 'checkbox') {
 				// multiple columns, one per option
-				a = safeParseJSON(a) || a;
+				const arr: string[] = safeParseJSON(a) || a;
 				(q.options || []).forEach((option) => {
 					sas.cell(1, COL).string(`${q.label} [${option}]`);
-					writeCell(a.includes(option) ? option : '');
+					writeCell(arr.includes(option) ? option : '');
 					COL++;
 				});
+				if (q.other) {
+					sas.cell(1, COL).string(`${q.label} [${m.other}]`);
+					const otherAns = arr.find((o) => o.startsWith?.(OTHER_PREFIX));
+					writeCell(otherAns ? otherAns.slice(OTHER_PREFIX.length) : '');
+					COL++;
+				}
 			} else if (q.type === 'multipleChoiceMatrix') {
 				// multiple columns, one per cell
 				a = safeParseJSON(a) || a;
