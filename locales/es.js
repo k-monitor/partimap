@@ -547,6 +547,7 @@ export default {
 		required: 'Pregunta obligatoria',
 		showIf: 'Mostrar solamente si...',
 		showResult: 'Mostrar resultados a los visitantes después de enviar la hoja de trabajo',
+		shuffleOptions: 'Mezclar opciones',
 		units: 'Número de unidades a asignar',
 		warnForReferencedQuestion:
 			'Los atributos son de solo lectura porque se hace referencia a la pregunta en una pregunta condicionalmente visible debajo de ella.',
