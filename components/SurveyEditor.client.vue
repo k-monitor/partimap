@@ -473,21 +473,29 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 				<OptionsEditor
 					v-if="hasOptions"
 					v-model="question.options"
+					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="option"
 				/>
 				<OptionsEditor
 					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
 					v-model="question.rows"
+					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="row"
 				/>
 				<OptionsEditor
 					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
 					v-model="question.columns"
+					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="column"
 				/>
+				<b-form-group v-if="'checkbox|dropdown|radiogroup'.includes(question.type)">
+					<b-form-checkbox v-model="question.shuffleOptions">
+						{{ $t('SurveyEditor.shuffleOptions') }}
+					</b-form-checkbox>
+				</b-form-group>
 				<b-form-group v-if="'checkbox|dropdown'.includes(question.type)">
 					<b-form-checkbox v-model="question.other">
 						{{ $t('SurveyEditor.other') }}
@@ -525,3 +533,9 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 		</b-modal>
 	</div>
 </template>
+
+<style scoped>
+.b-form-group {
+	margin-bottom: 1rem !important;
+}
+</style>
