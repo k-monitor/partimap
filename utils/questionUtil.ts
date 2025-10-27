@@ -24,7 +24,13 @@ export function canShowQuestion(
 			let act = allVisitorAnswers[id];
 			if (!act && act !== 0) return false;
 			if (row && act[row]) act = act[row];
-			if (exp.split(OPTION_SEPARATOR).some((exp) => act === exp)) return true;
+			if (
+				exp
+					.split(OPTION_SEPARATOR)
+					.some((e) => act === e || (Array.isArray(act) && act.includes(e)))
+			) {
+				return true;
+			}
 			if (exp === OTHER_ANSWER) {
 				const actArray = [...act].flat();
 				return actArray.some((e) => e.startsWith(OTHER_PREFIX));
