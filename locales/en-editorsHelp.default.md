@@ -40,7 +40,7 @@ A new survey can be created by entering the **survey name** on the Surveys page 
 
 In the Surveys menu you can find a list of your own surveys. Here you can see the number of views and responses, and by clicking on **Download report** you can download the report generated from the completions in .xlsx format.
 
-There is a **⋮** button next to each of the surveys that allows you to _Delete_ the ones that are no longer needed. By selecting _Duplicate_, you may replicate and publish your survey without the dummy responses of the testing phase.
+There is a **⋮** button next to each of the surveys that allows you to _Delete_ the ones that are no longer needed. By selecting _Duplicate_, you may replicate and publish your survey without the dummy responses of the testing phase. By clicking "Transfer to another user”, questionnaires can also be shared for editing with another registered user.
 
 ### Survey data sheet {#surveydatasheet}
 
@@ -117,6 +117,7 @@ A worksheet with text and images, which can be used to describe, among other thi
 - The _Worksheet description_, which is the main text of the dialog box that appears. The text can be customised with basic formatting options, with the possibility to insert a link or image (by providing an external source link);
 - _Your background image_, which fills the space behind the dialog box;
 - Buttons to _Share page on social media_.
+- Quiz mode, which, when enabled, allows respondents to move between worksheets only if the administrator grants permission.
 
 To save your changes, press the _Save_ button, and a pop-up window will warn you when you navigate to another page. The blue right/left arrows at the bottom of the page are used to navigate between the worksheets under editing.
 
@@ -164,13 +165,13 @@ You can also make the display of certain questions dependent on their previous r
 
 With these kind of questions you can optimize the length of the survey – eg. if you have some questions regarding car usage, these questions will be visible only to those, who stated in the previous question (**⮢**) to have access to a car.
 
-In the Questions section of the worksheet's editor interface (in the list of questions), questions can be deleted by clicking on the trash can icon, or their order can be changed by dragging and dropping them onto the question drawer.
+In the Questions block (the list of questions) of the worksheet editing interface, questions can be deleted by clicking on the trash can icon, moved to another worksheet using the two-way arrow, or rearranged by clicking on the question tab and dragging it.
 
 #### Questions and map worksheet (static map) {#static}
 
 The worksheet can be used to create a map-based survey that can be used to present a completed development or plan, and to collect evaluations and feedback on it. Here, respondents are asked to answer questions related to what they see on the map, but unlike the Map with tasks worksheet, they are not allowed to draw on the map.
 
-When creating the Questions and map worksheet, you can import the map content from an existing map stored in the Maps menu (_Copy map elements from here_) or upload it directly from an external source (e.g. Google Maps) using a .kml file. For more information on moving the map, see the introduction under the subsection on Maps.
+When creating the Questions and map worksheet, you can import the map content from an existing map stored in the Maps menu (_Copy map elements from here_) or upload it directly from an external source (e.g. Google Maps) using a .kml file. For more information on moving the map, see the introduction under the subsection on Maps. By setting the boundaries of the map, we can specify the area within which the user can move and zoom in on the map.
 
 Elements that can be defined when editing the worksheet:
 

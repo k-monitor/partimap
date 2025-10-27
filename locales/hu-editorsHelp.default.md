@@ -40,7 +40,7 @@ Az admin felületen lehetőség van új felméréseket készíteni, korábbiakat
 
 A Kérdőívek menüpontban megtalálható a saját kérdőívek listája. Itt látható a megtekintések és kitöltések száma, és a **Riport letöltése** gombra kattintva .xlsx formátumban letölthető a kitöltésekből generált [riport](#riport).
 
-A kérdőívlistában a kérdőív melletti **⋮** -ra kattintva a felesleges kérdőívek törölhetők, illetve a Másolat készítésére kattintva másolható a benne összegyűjtött válaszok törlésével. Így a teszteléskor beküldött felesleges válaszok nélkül indíthatjuk el a nyilvános felmérést.
+A kérdőívlistában a kérdőív melletti **⋮** -ra kattintva a felesleges kérdőívek törölhetők, illetve a Másolat készítésére kattintva másolható a benne összegyűjtött válaszok törlésével. Így a teszteléskor beküldött felesleges válaszok nélkül indíthatjuk el a nyilvános felmérést. Az átadás másik felhasználónak funkcióra kattintva szerkesztésre is megoszthatóak a kérdőívek egy másik regisztrált felhasználóval.
 
 ### Kérdőív adatlap {#kerdoivadatlap}
 
@@ -131,6 +131,7 @@ A Kérdéssor munkalap segítségével hagyományos kérdőíves felméréseket 
 - _Csak az eredmények megjelenítése:_ bejelölve a munkalap kérdései lezárulnak, nem gyűjtenek válaszokat. Ezen a munkalapon csak az eredmények lesznek láthatóak a kitöltők számára. Ez lehetőséget ad arra, hogy a lezárt kérdőívet a link megtartásával egy, az eredményeket bemutató kérdőívvé alakítsuk át;
 - _Saját háttérkép_, amely a párbeszédablak mögötti teret tölti ki;
 - A felmérés _megosztására felhívó gombok_. Ezt az utolsó, gyakran demográfiai kérdéseket tartalmazó munkalap esetén érdemes bekapcsolni.
+- Kvíz mód, melynek bekapcsolásával a kitöltők csak akkor léphetnek munkalapok között, ha arra az admin engedélyt ad.
 
 A _Kérdések_ blokkhoz az alábbi kérdéstípusok adhatók a _Kérdés szövege_ megadásával:
 
@@ -164,13 +165,15 @@ A kérdések megjelenítése függővé tehető egy (sorrendben korábbi) kérd�
 
 > **&#9432;** A feltételes kérdésekkel lehetőség van optimalizálni a kérdőív hosszát: pl. az autóhasználatra vonatkozó kérdéseket csak azok számára megjeleníteni, akik jelezték, hozzáférnek autóhoz.
 
-A munkalap szerkesztőfelületének _Kérdések_ blokkjában (a kérdések listájában) a kérdések a kuka ikonra kattintva törölhetőek, illetve sorrendjük a kérdés fiókjára kattintva, vonszolással módosítható.
+A munkalap szerkesztőfelületének _Kérdések_ blokkjában (a kérdések listájában) a kérdések a kuka ikonra kattintva törölhetőek, a mellette lévő kétirányú nyíllal másik munkalapra helyezhetőek, illetve sorrendjük a kérdés fiókjára kattintva, vonszolással módosítható.
 
 #### Kérdéssor térképpel munkalap {#statikus}
 
 > **&#9432;** A munkalap segítségével olyan térkép alapú felmérés készíthető, amely alkalmas egy állapot, megvalósult fejlesztés vagy terv bemutatására, valamint az ezzel kapcsolatos értékelések, visszajelzések gyűjtésére. A kitöltőket itt arra kérjük, hogy a térképen látottakhoz kapcsolódóan válaszoljanak a feltett kérdésekre, de szemben a _Térképes feladatok_ munkalappal, ők nem rajzolhatnak a térképre.
 
-A Térkép munkalap létrehozásakor a térkép tartalmát egy már meglévő, a Térképek menüpontban tárolt térképről is importálhatjuk (_Térkép elemek másolása innen_). A létrehozott munkalap _Térkép elemei_ menüpontjában is bármikor lehetőség van importálásra egy, a Térképek között tárolt térképről, illetve bármely más saját felmérés munkalapján tárolt fix, illetve _Térképes feladatok_ munkalapjára a kitöltők által beküldött elemekből. Elemeket tölthetünk fel a térképre továbbá külső forrásból (pl. Google Maps) egy [.kml file](https://hu.wikipedia.org/wiki/Keyhole_Markup_Language) segítségével. A térkép mozgatásáról a [Térképek menüpont](#terkepek) bemutatásánál található bővebb leírás.
+A Térkép munkalap létrehozásakor a térkép tartalmát egy már meglévő, a Térképek menüpontban tárolt térképről is importálhatjuk (_Térkép elemek másolása innen_). A térkép határainak kijelölésével megadhatjuk, hogy a kitöltő milyen területen mozoghat és nagyíthat a térképen belül.
+
+A létrehozott munkalap _Térkép elemei_ menüpontjában is bármikor lehetőség van importálásra egy, a Térképek között tárolt térképről, illetve bármely más saját felmérés munkalapján tárolt fix, illetve _Térképes feladatok_ munkalapjára a kitöltők által beküldött elemekből. Elemeket tölthetünk fel a térképre továbbá külső forrásból (pl. Google Maps) egy [.kml file](https://hu.wikipedia.org/wiki/Keyhole_Markup_Language) segítségével. A térkép mozgatásáról a [Térképek menüpont](#terkepek) bemutatásánál található bővebb leírás.
 
 A munkalap szerkesztése során megadhatók:
 

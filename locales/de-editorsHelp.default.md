@@ -30,6 +30,7 @@ Ein neues Fragebogen kann erstellt werden, indem Sie nach dem Einloggen auf der 
 Im Menü Fragebogen finden Sie eine Liste Ihrer eigenen Fragebogene. Hier sehen Sie die Anzahl der Aufrufe und Antworten, und mit einem Klick auf _Bericht herunterladen_ können Sie den generierten Bericht der ausgefüllten Umfragen in .xlsx Format herunterladen.
 
 Die Daten, Fragen und Inhalte rund um die Befragung können nach dem Anlegen des Fragebogens in das Fragebogendatenblatt eingetragen werden.
+Durch Klicken auf die Funktion „An anderen Benutzer weitergeben“ können die Fragebögen auch mit einem anderen registrierten Benutzer geteilt und bearbeitet werden.
 
 ### Fragebogendatenblatt {#Projektdatenblatt}
 
@@ -107,6 +108,7 @@ Ein Arbeitsblatt mit Text und Bildern, anhand dessen u.a. die Ziele der Befragun
 - _Die Beschreibung des Arbeitsblatts_, bei der es sich um den Haupttext des angezeigten Dialogfelds handelt. Der Text kann mit grundlegenden Formatierungsoptionen angepasst werden, mit der Möglichkeit, einen Link oder ein Bild einzufügen (durch Angabe eines externen Quelllinks);
 - _Ihr Hintergrundbild_, das den Raum hinter dem Dialogfeld ausfüllt;
 - Schaltflächen zum _Teilen der Umfrage_.
+- Quizmodus, der aktiviert werden kann, damit die Teilnehmer nur dann zwischen den Arbeitsblättern wechseln können, wenn der Administrator dies genehmigt hat.
 
 #### Fragen-Arbeitsblatt {#kerdoiv}
 
@@ -142,13 +144,14 @@ _Kontrollkästchen-Raster_: Wie beim Fragetyp "Kontrollkästchen" kann der Ausf�
 
 Jede Frage kann durch Ankreuzen des Kästchens _"Bitte um Beantwortung"_ obligatorisch gemacht werden. Ohne eine Antwort kann der Befragte nicht fortfahren.
 
-Im Fragebogen-Abschnitt der Editor-Oberfläche des Arbeitsblatts (in der Liste der Fragen) können Fragen durch Klicken auf das Papierkorbsymbol gelöscht oder ihre Reihenfolge geändert werden, indem sie per Drag & Drop in die Fragenschublade gezogen werden.
+Im Fragenblock (in der Fragenliste) der Arbeitsblatt-Bearbeitungsoberfläche können die Fragen durch Anklicken des Papierkorb-Symbols gelöscht, mit dem daneben befindlichen Doppelpfeil auf ein anderes Arbeitsblatt verschoben oder durch Anklicken des Fragenfachs und Ziehen mit der Maus in ihrer Reihenfolge geändert werden.
 
 #### Fragen und Karte Arbeitsblatt (statische Karte) {#statikus}
 
 Das Arbeitsblatt kann verwendet werden, um eine kartenbasierte Erhebung zu erstellen, die verwendet werden kann, um eine abgeschlossene Entwicklung oder einen abgeschlossenen Plan zu präsentieren und Bewertungen und Feedback dazu zu sammeln. Hier werden die Befragten gebeten, Fragen zu beantworten, die sich auf das beziehen, was sie auf der Karte sehen, aber im Gegensatz zum interaktiven Kartenarbeitsblatt dürfen sie nicht auf der Karte zeichnen.
 
 Bei der Erstellung des Karten-Arbeitsblatts können Sie den Karteninhalt aus einer vorhandenen Karte importieren, die im Menü _Karten_ gespeichert ist (_Kartenelemente von hier kopieren_), oder ihn direkt aus einer externen Quelle (z.B. Google Maps) über eine .kml-Datei hochladen. Weitere Informationen zum Verschieben der Karte finden Sie in der Einleitung im Unterabschnitt "Karten".
+Durch die Festlegung der Kartengrenzen können wir festlegen, in welchem Bereich sich der Ausfüllende bewegen und die Karte vergrößern kann.
 
 Elemente, die beim Bearbeiten des Arbeitsblatts definiert werden können:
 
