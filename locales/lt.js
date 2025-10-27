@@ -446,6 +446,14 @@ export default {
 		login: 'Prisijunkite',
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
+	ProjectQuizModeEditor: {
+		adminOnly: 'Ši funkcija yra prieinama tik administratoriams.',
+		enable: 'Įgalinti (šis vertė bus atnaujinama kas kelias sekundes naujiems respondentams)',
+		maxOrd: 'Respondentai neturėtų galėti tęsti nuo šio lapo numerio:',
+		saveInfo:
+			'Pakeitimai įsigalios tik paspaudus mygtuką Išsaugoti žemiau arba paspaudus Enter įvedimo lauke.',
+		title: 'Klausimyno režimas',
+	},
 	ProjectSheetManager: {
 		addSheet: 'Pridėkite naują darbalapį',
 		copyFeaturesFrom: 'Kopijuoti elementus iš šio žemėlapio:',

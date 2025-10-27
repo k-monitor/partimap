@@ -453,6 +453,14 @@ export default {
 		login: 'Anmelden',
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
+	ProjectQuizModeEditor: {
+		adminOnly: 'Diese Funktion ist nur für Administratoren verfügbar.',
+		enable: 'Aktivieren (der folgende Wert wird alle paar Sekunden für neue Teilnehmende aktualisiert)',
+		maxOrd: 'Teilnehmende dürfen ab folgendem Blatt nicht weitergehen:',
+		saveInfo:
+			'Änderungen werden erst wirksam, wenn Sie unten auf Speichern klicken oder im Eingabefeld Enter drücken.',
+		title: 'Quiz-Modus',
+	},
 	ProjectSheetManager: {
 		addSheet: 'Neues Blatt hinzufügen',
 		copyFeaturesFrom: 'Markierung kopieren von:',

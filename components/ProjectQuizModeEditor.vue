@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// TODO quiz mode i18n?
-
 import type { Project } from '~/server/data/projects';
 
 const props = defineProps<{
@@ -15,15 +13,17 @@ watch(enabled, (val) => (quizMode.value = val ? 1 : 0));
 
 const { errorToast, successToast } = useToasts();
 
+const { t } = useI18n();
+
 async function save() {
 	try {
 		await $fetch(`/api/project/${project.value.id}/quiz`, {
 			method: 'PATCH',
 			body: { quizMode: quizMode.value },
 		});
-		successToast('Kvíz mód módosításai elmentve.');
+		successToast(t('projectEditor.changeSuccessful'));
 	} catch {
-		errorToast('Nem sikerült menteni a kvíz mód módosításait.');
+		errorToast(t('changeFailed'));
 	}
 }
 </script>
@@ -36,13 +36,10 @@ async function save() {
 				<div class="card-body">
 					<b-form-group>
 						<b-form-checkbox v-model="enabled">
-							Bekapcsolás (új kitöltőknél pár másodpercenként frissülni fog az alábbi
-							érték)
+							{{ t('ProjectQuizModeEditor.enable') }}
 						</b-form-checkbox>
 					</b-form-group>
-					<b-form-group
-						label="A kitöltők az alábbi sorszámú munkalapról ne tudjanak továbbmenni:"
-					>
+					<b-form-group :label="t('ProjectQuizModeEditor.maxOrd')">
 						<b-form-input
 							v-model="quizMode"
 							:disabled="!enabled"
@@ -54,10 +51,9 @@ async function save() {
 						/>
 					</b-form-group>
 					<p class="card-text">
-						A módosítások csak akkor lépnek életbe, ha az alábbi Mentés gombra
-						kattintasz, vagy ha a beviteli mezőben Enter-t ütsz.
+						{{ t('ProjectQuizModeEditor.saveInfo') }}
 					</p>
-					<p class="card-text">Ez a funkció csak adminoknak elérhető.</p>
+					<p class="card-text">{{ t('ProjectQuizModeEditor.adminOnly') }}</p>
 				</div>
 				<div class="card-footer">
 					<div class="d-flex justify-content-end">
@@ -65,7 +61,7 @@ async function save() {
 							class="btn btn-success"
 							type="submit"
 						>
-							Mentés
+							{{ t('SaveButton.save') }}
 						</button>
 					</div>
 				</div>

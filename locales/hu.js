@@ -444,6 +444,14 @@ export default {
 		login: 'Belépés',
 		kmonitorUrl: 'https://k-monitor.hu/hu',
 	},
+	ProjectQuizModeEditor: {
+		adminOnly: 'Ez a funkció csak adminoknak elérhető.',
+		enable: 'Bekapcsolás (új kitöltőknél pár másodpercenként frissülni fog az alábbi érték)',
+		maxOrd: 'A kitöltők az alábbi sorszámú munkalapról ne tudjanak továbbmenni:',
+		saveInfo:
+			'A módosítások csak akkor lépnek életbe, ha az alábbi Mentés gombra kattintasz, vagy ha a beviteli mezőben Enter-t ütsz.',
+		title: 'Kvíz mód',
+	},
 	ProjectSheetManager: {
 		addSheet: 'Munkalap hozzáadása',
 		copyFeaturesFrom: 'Térkép elemek másolása innen',

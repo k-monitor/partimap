@@ -453,6 +453,14 @@ export default {
 		login: 'Iniciar sesión',
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
+	ProjectQuizModeEditor: {
+		adminOnly: 'Esta función solo está disponible para administradores.',
+		enable: 'Habilitar (se actualizará el siguiente valor cada pocos segundos para nuevos encuestados)',
+		maxOrd: 'Los encuestados no deben poder continuar desde el siguiente número de hoja:',
+		saveInfo:
+			'Los cambios solo tendrán efecto si hace clic en el botón Guardar a continuación o presiona Enter en el campo de entrada.',
+		title: 'Modo de cuestionario',
+	},
 	ProjectSheetManager: {
 		addSheet: 'Agregar nueva hoja de trabajo',
 		copyFeaturesFrom: 'Copiar características de este mapa:',

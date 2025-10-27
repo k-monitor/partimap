@@ -441,6 +441,14 @@ export default {
 		login: 'Log In',
 		kmonitorUrl: 'https://k-monitor.hu/en',
 	},
+	ProjectQuizModeEditor: {
+		adminOnly: 'This feature is only available to admins.',
+		enable: 'Enable (will refresh the following value every few seconds for new respondents)',
+		maxOrd: 'Respondents should not be able to proceed from the following sheet number:',
+		saveInfo:
+			'Changes will only take effect if you click the Save button below or press Enter in the input field.',
+		title: 'Quiz mode',
+	},
 	ProjectSheetManager: {
 		addSheet: 'Add new sheet',
 		copyFeaturesFrom: 'Copy features from this map:',
