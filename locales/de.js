@@ -546,6 +546,7 @@ export default {
 		required: 'Pflichtfrage',
 		showIf: 'Nur anzeigen, wenn…',
 		showResult: 'Ergebnisse nach Übermittlung des Blatts für Besucher anzeigen',
+		shuffleOptions: 'Optionen mischen',
 		units: 'Einheitenanzahl zum Verteilen',
 		warnForReferencedQuestion:
 			'Attribute sind schreibgeschützt, da die Frage in einer bedingten Frage referenziert wird.',

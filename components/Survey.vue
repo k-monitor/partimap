@@ -144,13 +144,10 @@ function removeAnswer(questionId: number) {
 				/>
 			</div>
 		</template>
-		<b-form-radio-group
+		<RadioGroup
 			v-else-if="q.type === 'radiogroup'"
 			v-model="answers[q.id]"
-			:name="`q${q.id}`"
-			:options="q.options"
-			:required="q.required"
-			stacked
+			:q="q"
 		/>
 		<DropdownGroup
 			v-else-if="q.type === 'dropdown'"

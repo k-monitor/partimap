@@ -539,6 +539,7 @@ export default {
 		required: 'Privalomas klausimas',
 		showIf: 'Rodyti tik jeigu...',
 		showResult: 'Pateikus atsakymus rodyti rezultatus lankytojams',
+		shuffleOptions: 'Parinkčių maišymas',
 		units: 'Vienetų skaičius',
 		warnForReferencedQuestion:
 			'Šiuos atributus galima tik peržiūrėti, nes nuo šio klausimo atsakymo priklauso, ar bus užduodamas klausimas einantis po jo',

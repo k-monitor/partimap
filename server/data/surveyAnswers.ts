@@ -39,6 +39,7 @@ export type Question = {
 	rows?: string[];
 	showIf?: Condition[];
 	showResult: boolean;
+	shuffleOptions?: boolean;
 	type: string;
 };
 

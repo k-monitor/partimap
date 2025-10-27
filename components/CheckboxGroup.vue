@@ -32,8 +32,13 @@ watch([selected, otherValue], () => {
 
 const { t } = useI18n();
 
+const shuffledOptions = computed(() => {
+	const opts = props.q.options || [];
+	return props.q.shuffleOptions ? shuffle(opts) : opts;
+});
+
 const options = computed(() => {
-	const opts = (props.q.options || []).map((o) => ({
+	const opts = shuffledOptions.value.map((o) => ({
 		text: o,
 		value: o,
 		disabled: false,

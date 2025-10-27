@@ -534,6 +534,7 @@ export default {
 		required: 'Required question',
 		showIf: 'Show only if...',
 		showResult: 'Display results to visitors after submitting the sheet',
+		shuffleOptions: 'Shuffle options',
 		units: 'Number of units to allocate',
 		warnForReferencedQuestion:
 			'The attributes are read-only because the question is referenced in a conditionally visible question below it.',

@@ -25,6 +25,11 @@ watch([selected, otherValue], () => {
 
 const { t } = useI18n();
 
+const shuffledOptions = computed(() => {
+	const opts = props.q.options || [];
+	return props.q.shuffleOptions ? shuffle(opts) : opts;
+});
+
 const options = computed(() => {
 	const opts = [
 		{
@@ -33,7 +38,7 @@ const options = computed(() => {
 		},
 	];
 
-	(props.q.options || []).forEach((o) =>
+	shuffledOptions.value.forEach((o) =>
 		opts.push({
 			text: o,
 			value: o,
