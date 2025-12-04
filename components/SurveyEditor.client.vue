@@ -252,7 +252,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 	if (!question) return;
 
 	// add question to target sheet
-	const targetSheet = project?.value?.sheets?.find((s) => s.id === targetSheetId);
+	const targetSheet = await $fetch<Sheet>(`/api/sheet/${targetSheetId}`);
 	if (!targetSheet || !targetSheet.survey) return;
 	const targetSurvey = parseSurvey(targetSheet.survey);
 	if (!targetSurvey) return;
