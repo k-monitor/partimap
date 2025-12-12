@@ -3,8 +3,9 @@ import { StatusCodes } from 'http-status-codes';
 import path from 'path';
 
 export default defineEventHandler(async (event) => {
-	const file = path.resolve(process.cwd(), 'uploads', event.context.params?._ || '');
-	if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
+	const baseDir = path.resolve(process.cwd());
+	const file = path.resolve(baseDir, 'uploads', event.context.params?._ || '');
+	if (!file.startsWith(baseDir + path.sep)) {
 		throw createError({ status: StatusCodes.NOT_FOUND });
 	}
 	return sendStream(event, fs.createReadStream(file));
