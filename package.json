@@ -91,7 +91,7 @@
 		"db-migrate-mysql": "^3.0.0",
 		"eslint": "^9.39.2",
 		"geojson": "^0.5.0",
-		"nuxt": "^3.17.5",
+		"nuxt": "3",
 		"prettier": "^3.7.4",
 		"tsx": "^4.21.0",
 		"vite-tsconfig-paths": "^5.1.4",
