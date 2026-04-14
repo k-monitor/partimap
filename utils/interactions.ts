@@ -67,6 +67,11 @@ export type DrawingInteraction = {
 	naming: boolean;
 
 	/**
+	 * Whether this question is required.
+	 */
+	required: boolean;
+
+	/**
 	 * Conditions for showing this interaction (empty = always)
 	 */
 	showIf: Condition[];
@@ -84,6 +89,7 @@ export function createDrawingInteraction(di: Partial<DrawingInteraction>): Drawi
 		featureQuestion: di.featureQuestion || {},
 		max: Math.max(0, di.max || 0),
 		naming: !!di.naming,
+		required: !!di.required,
 		showIf: Array.isArray(di.showIf) ? di.showIf : [],
 	};
 }

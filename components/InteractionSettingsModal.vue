@@ -74,6 +74,7 @@ watch(dt, (dt, oldDt) => {
 		/>
 
 		<b-form-group
+			class="mb-3"
 			:label="$t('sheetEditor.featureLabel')"
 			:description="$t('sheetEditor.featureLabelDescription')"
 		>
@@ -83,6 +84,7 @@ watch(dt, (dt, oldDt) => {
 			/>
 		</b-form-group>
 		<b-form-group
+			class="mb-3"
 			:label="$t(`sheetEditor.instructions.${di.type}`)"
 			:description="`${(di.buttonLabel || '').length} / 100`"
 		>
@@ -94,7 +96,7 @@ watch(dt, (dt, oldDt) => {
 
 		<div class="row">
 			<b-form-group
-				class="col-lg-8"
+				class="col-lg-8 mb-3"
 				:label="$t('InteractionSettingsModal.maxDraw')"
 			>
 				<b-form-input
@@ -105,7 +107,7 @@ watch(dt, (dt, oldDt) => {
 				/>
 			</b-form-group>
 			<b-form-group
-				class="col"
+				class="col mb-3"
 				:label="$t('FeatureListElement.color')"
 			>
 				<b-form-input
@@ -125,6 +127,12 @@ watch(dt, (dt, oldDt) => {
 				</datalist>
 			</b-form-group>
 		</div>
+
+		<b-form-group>
+			<b-form-checkbox v-model="di.required">
+				{{ $t('SurveyEditor.required') }}
+			</b-form-checkbox>
+		</b-form-group>
 
 		<b-form-group>
 			<b-form-checkbox v-model="di.naming">

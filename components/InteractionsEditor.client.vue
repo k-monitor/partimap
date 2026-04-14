@@ -178,6 +178,7 @@ async function removeDrawingInteraction(index: number) {
 							@click="openDrawingInteractionSettings(i)"
 						>
 							<p class="fw-bold mb-1 text-truncate">
+								<span v-if="di.required">*</span>
 								{{ di.featureLabel || $t(`sheetEditor.interactions.${di.type}`) }}
 							</p>
 							<div class="d-flex align-items-center text-muted">
