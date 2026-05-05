@@ -6,6 +6,7 @@
 - replace texts with translations
 - if the new language has `*-terms.md`, add locale in `./terms.md`
 - add locale in `/server/utils/i18n.ts`
+- add locale in `/i18n/i18n.config.ts`
 - add localte in `/nuxt.config.ts`
 
 ## Notes on .default.md files
