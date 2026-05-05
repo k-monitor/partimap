@@ -287,7 +287,7 @@ export default {
 		oldPassword: 'Current password (only required for email or password changes)',
 		save: 'Save',
 		website: 'Your website',
-		websiteDescription: 'If yet, the logo will link to that URL.',
+		websiteDescription: 'If set, the logo will link to that URL.',
 	},
 	users: {
 		add: 'Add',
