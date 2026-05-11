@@ -181,7 +181,7 @@ export default {
 	},
 	register: {
 		consent1: ' Confirm că am citit și am înțeles',
-		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
+		consent2: 'Condiții&nbsp;de&nbsp;Utilizare și Politica&nbsp;de&nbsp;Confidențialitate.',
 		email: 'Introdu o adresă de email validă',
 		login: 'Ai deja cont?',
 		name: 'Nume',
@@ -490,7 +490,7 @@ export default {
 	},
 	SheetContent: {
 		consent1: 'Confirm că am citit și înțeles',
-		consent2: 'the&nbsp;Terms&nbsp;of&nbsp;Use and the&nbsp;Privacy&nbsp;Policy.',
+		consent2: 'Condiții&nbsp;de&nbsp;Utilizare și Politica&nbsp;de&nbsp;Confidențialitate.',
 		next: 'Următorul',
 		results: 'Rezultate',
 		resultsDescription:
