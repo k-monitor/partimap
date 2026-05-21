@@ -9,6 +9,7 @@ if (process.env.APP_ENV !== 'build') {
 }
 
 export const env = createEnv({
+	skipValidation: !!process.env.CI,
 	server: {
 		// Server
 		NITRO_PORT: z.coerce.number().default(3000),

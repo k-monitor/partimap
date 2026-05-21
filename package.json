@@ -6,6 +6,7 @@
 		"dev": "nuxt dev",
 		"test": "vitest",
 		"build": "APP_ENV=build nuxt build",
+		"migrate": "db-migrate up",
 		"start": "node --env-file=.env .output/server/index.mjs",
 		"report": "tsx --env-file=.env scripts/generate-report.ts",
 		"patch-views": "tsx --env-file=.env scripts/patch-views.ts",
