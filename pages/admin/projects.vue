@@ -17,7 +17,7 @@ const { loading, loadingText } = useStore();
 const { data: projects, refresh } = await useFetch<Project[]>('/api/project/all');
 
 const filter = ref('');
-const filterOwn = ref(false);
+const filterOwn = ref(true);
 const langFilter = ref(locale.value);
 watch(locale, (l) => (langFilter.value = l));
 

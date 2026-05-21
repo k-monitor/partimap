@@ -13,7 +13,7 @@ const { data: maps, refresh } = await useFetch<Map[]>('/api/map/all');
 const filter = ref('');
 const loading = ref(false);
 const newMapTitle = ref(null);
-const filterOwn = ref(false);
+const filterOwn = ref(true);
 
 const { user } = useAuth();
 
