@@ -33,7 +33,7 @@ const { featureCountByInteraction } = useVisitorData();
 					"
 					required
 					type="checkbox"
-					:oninvalid="`this.setCustomValidity('${$t('modals.confirmNoFeatures', { di: b.drawingInteraction?.buttonLabel || $t(`sheetEditor.interactions.${b.drawingInteraction?.type}`) })}')`"
+					:oninvalid="`this.setCustomValidity('${$t('VisitorDrawButtonsInner.noFeatures', { di: b.drawingInteraction?.buttonLabel || $t(`sheetEditor.interactions.${b.drawingInteraction?.type}`) })}')`"
 					style="
 						bottom: 0;
 						height: 1px;

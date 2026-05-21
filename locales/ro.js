@@ -553,6 +553,9 @@ export default {
 	TermsModConsent: {
 		info: 'Politica noastră de Confidențialitate și Termenii de Utilizare s-au modificat.',
 	},
+	VisitorDrawButtonsInner: {
+		noFeatures: 'Acțiune incompletă: "{di}"',
+	},
 
 	// general
 
@@ -569,7 +572,6 @@ export default {
 		confirmDeletion: 'Sigur doriți să ștergeți cele completate',
 		confirmFeatureClose:
 			'Este așteptată o explicație. Sigur doriți să salvați fără a introduce un răspuns?',
-		confirmNoFeatures: 'Acțiune incompletă: "{di}"',
 		confirmUnsaved:
 			'Există modificări nesalvate pe această pagină. Sigur doriți să continuați?',
 		delete: 'Șterge',

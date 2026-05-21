@@ -552,6 +552,9 @@ export default {
 	TermsModConsent: {
 		info: 'Változtak az adatkezelési irányelveink és felhasználási feltételeink.',
 	},
+	VisitorDrawButtonsInner: {
+		noFeatures: 'Nem adott hozzá helyet itt: "{di}"',
+	},
 
 	// general
 
@@ -568,7 +571,6 @@ export default {
 		confirmDeletion: 'Biztosan törlöd ezt',
 		confirmFeatureClose:
 			'A válasz segíti a felmérést. Mentés a jelölésre vonatkozó kiegészítés nélkül?',
-		confirmNoFeatures: 'Nem adott hozzá helyet itt: "{di}"',
 		confirmUnsaved: 'Még nem mentetted el a módosításokat. Biztosan kilépsz?',
 		delete: 'Törlés',
 		unsaved: 'Nem mentett módosítások',

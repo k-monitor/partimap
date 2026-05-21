@@ -562,6 +562,9 @@ export default {
 	TermsModConsent: {
 		info: 'Nuestra Política de Privacidad y los Términos de Uso han cambiado.',
 	},
+	VisitorDrawButtonsInner: {
+		noFeatures: 'Tarea no realizada: "{di}"',
+	},
 
 	// general
 
@@ -578,7 +581,6 @@ export default {
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',
-		confirmNoFeatures: 'Tarea no realizada: "{di}"',
 		confirmUnsaved:
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',

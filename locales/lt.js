@@ -553,6 +553,9 @@ export default {
 	TermsModConsent: {
 		info: 'Mūsų privatumo politika ir naudojimosi sąlygos pasikeitė.',
 	},
+	VisitorDrawButtonsInner: {
+		noFeatures: 'Neįvykdyta užduotis: "{di}"',
+	},
 
 	// general
 
@@ -569,7 +572,6 @@ export default {
 		confirmDeletion: 'Ar tikrai norite tai ištrinti',
 		confirmFeatureClose:
 			'Reikalingas paaiškinimas. Ar tikrai norite išsaugoti nepateikę atsakymo?',
-		confirmNoFeatures: 'Neįvykdyta užduotis: "{di}"',
 		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',
