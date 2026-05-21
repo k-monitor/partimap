@@ -27,9 +27,9 @@ jobs:
           key: ${{ secrets.DEMO_KEY }}
           port: ${{ secrets.DEMO_PORT }}
           source: '.output/'
-          target: ${{ secrets.DEMO_DIR }}
+          target: ${{ secrets.DEMO_DIR }}/.next
 
-      - name: Restart app
+      - name: Swap build and restart app
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEMO_HOST }}
@@ -43,4 +43,7 @@ jobs:
             nvm use
             git pull --rebase
             pnpm run migrate
+            rm -rf .output
+            mv .next/.output .output
+            rm -rf .next
             pm2 reload ecosystem.config.cjs
