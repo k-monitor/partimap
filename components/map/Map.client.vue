@@ -5,6 +5,7 @@ import type { Feature as OlFeature, Map, MapBrowserEvent, View } from 'ol';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
+import type { LineString, Polygon } from 'ol/geom';
 import type { DragBoxEvent } from 'ol/interaction/DragBox';
 import type { ObjectEvent } from 'ol/Object';
 import { transform } from 'ol/proj';
@@ -229,6 +230,30 @@ async function handleDrawEnd() {
 	const olFeature = source.getFeatures()[0];
 	if (!olFeature) return;
 
+	source.clear();
+
+	const geom = olFeature.getGeometry();
+	function isSame(a: Coordinate, b: Coordinate) {
+		return a[0] === b[0] && a[1] === b[1];
+	}
+	function countUnique(coords: Coordinate[]) {
+		let count = 0;
+		for (let i = 0; i < coords.length; i++) {
+			if (i === 0 || !isSame(coords[i], coords[i - 1])) count++;
+		}
+		return count;
+	}
+	if (geom?.getType() === 'LineString') {
+		const coords = (geom as LineString).getCoordinates();
+		if (countUnique(coords) < 2) return;
+	}
+	if (geom?.getType() === 'Polygon') {
+		const coords = (geom as Polygon).getCoordinates()[0];
+		if (countUnique(coords) < 4) return;
+		// first coordinate is added at the end too
+		// that's why we need 4 unique points for a valid polygon
+	}
+
 	const geoJsonFeatureStr = new GeoJSON().writeFeature(olFeature);
 	const feature = JSON.parse(geoJsonFeatureStr);
 	feature.id = Date.now();
@@ -253,7 +278,6 @@ async function handleDrawEnd() {
 	}
 
 	drawType.value = '';
-	source.clear();
 
 	emit('featureDrawn', feature);
 
