@@ -565,7 +565,7 @@ export default {
 		confirmDeletion: 'Are you sure you wish to delete this',
 		confirmFeatureClose:
 			'An explanation is expected. Are you sure you want to save without entering a response?',
-		confirmNoFeatures: 'Uncompleted task: "{di}" Are you sure you want to continue? ',
+		confirmNoFeatures: 'Uncompleted task: "{di}"',
 		confirmUnsaved:
 			'There are unsaved changes on this page. Are you sure you want to continue?',
 		delete: 'Delete',

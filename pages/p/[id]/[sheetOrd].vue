@@ -287,8 +287,6 @@ function prev() {
 
 const sheetForm = ref<HTMLFormElement>();
 
-const { confirmNoFeatures } = useConfirmation();
-
 function scrollToTop() {
 	document.querySelector('.modal-body')?.scrollTo(0, 0);
 	document.querySelector('.sidebar-body')?.scrollTo(0, 0);
@@ -303,20 +301,6 @@ async function canAdvance() {
 		// so that its label is in the viewport
 		sheetForm.value?.reportValidity();
 		return false;
-	}
-
-	const disWithoutFeature = interactions.value.drawing.filter(
-		(di) =>
-			di.required &&
-			canShowQuestion(di, getAllVisitorAnswers.value) &&
-			!featureCountByInteraction.value[di.id],
-	);
-	if (disWithoutFeature.length) {
-		const di = disWithoutFeature[0];
-		const confirm = await confirmNoFeatures(
-			di.buttonLabel || t(`sheetEditor.interactions.${di.type}`),
-		);
-		if (!confirm) return false;
 	}
 
 	return true;

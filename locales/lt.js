@@ -569,7 +569,7 @@ export default {
 		confirmDeletion: 'Ar tikrai norite tai ištrinti',
 		confirmFeatureClose:
 			'Reikalingas paaiškinimas. Ar tikrai norite išsaugoti nepateikę atsakymo?',
-		confirmNoFeatures: 'Neįvykdyta užduotis: "{di}" Ar tikrai norite tęsti? ',
+		confirmNoFeatures: 'Neįvykdyta užduotis: "{di}"',
 		confirmUnsaved: 'Šiame puslapyje yra neišsaugotų pakeitimų. Ar tikrai norite tęsti?',
 		delete: 'Ištrinti',
 		unsaved: 'Įspėjimas: neišsaugoti pakeitimai',

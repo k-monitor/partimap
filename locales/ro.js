@@ -569,7 +569,7 @@ export default {
 		confirmDeletion: 'Sigur doriți să ștergeți cele completate',
 		confirmFeatureClose:
 			'Este așteptată o explicație. Sigur doriți să salvați fără a introduce un răspuns?',
-		confirmNoFeatures: 'Acțiune incompletă: "{di}" Sigur doriți să continuați? ',
+		confirmNoFeatures: 'Acțiune incompletă: "{di}"',
 		confirmUnsaved:
 			'Există modificări nesalvate pe această pagină. Sigur doriți să continuați?',
 		delete: 'Șterge',

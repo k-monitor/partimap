@@ -4,6 +4,8 @@ const props = defineProps<{
 }>();
 
 const drawingButtons = useDrawButtons(props.interactions);
+
+const { featureCountByInteraction } = useVisitorData();
 </script>
 
 <template>
@@ -13,8 +15,33 @@ const drawingButtons = useDrawButtons(props.interactions);
 			:key="b.drawingInteraction?.id || 'cancel'"
 			class="d-flex mb-3"
 		>
-			<div class="d-flex flex-grow-1">
-				<span class="fw-bold my-auto">{{ b.tooltip }}</span>
+			<div class="d-flex flex-grow-1 position-relative">
+				<span class="fw-bold my-auto">
+					<span
+						v-if="b.drawingInteraction?.required"
+						class="text-danger"
+					>
+						*
+					</span>
+					{{ b.tooltip }}
+				</span>
+
+				<input
+					v-if="
+						b.drawingInteraction?.required &&
+						(featureCountByInteraction[b.drawingInteraction.id] || 0) < 1
+					"
+					required
+					type="checkbox"
+					:oninvalid="`this.setCustomValidity('${$t('modals.confirmNoFeatures', { di: b.drawingInteraction?.buttonLabel || $t(`sheetEditor.interactions.${b.drawingInteraction?.type}`) })}')`"
+					style="
+						bottom: 0;
+						height: 1px;
+						opacity: 0;
+						pointer-events: none;
+						position: absolute;
+					"
+				/>
 			</div>
 			<EdgeDrawingButton
 				:options="b"

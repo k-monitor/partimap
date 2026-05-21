@@ -578,7 +578,7 @@ export default {
 		confirmDeletion: '¿Estás seguro de que deseas eliminar esto?',
 		confirmFeatureClose:
 			'Se espera una explicación. ¿Estás seguro de que deseas guardar sin ingresar una respuesta?',
-		confirmNoFeatures: 'Tarea no realizada: "{di}" ¿Seguro que quieres continuar?',
+		confirmNoFeatures: 'Tarea no realizada: "{di}"',
 		confirmUnsaved:
 			'Hay cambios no guardados en esta página. ¿Estás seguro de que deseas continuar?',
 		delete: 'Eliminar',

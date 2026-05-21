@@ -575,7 +575,7 @@ export default {
 		confirmDeleteFeatures: 'Möchten Sie wirklich die aufgelisteten {count} Markierung löschen?',
 		confirmDeletion: 'Möchten Sie dies wirklich löschen?',
 		confirmFeatureClose: 'Eine Erklärung wird erwartet. Speichern ohne Eingabe?',
-		confirmNoFeatures: 'Unvollständige Aufgabe: "{di}" Fortfahren?',
+		confirmNoFeatures: 'Unvollständige Aufgabe: "{di}"',
 		confirmUnsaved: 'Es gibt ungespeicherte Änderungen. Fortfahren?',
 		delete: 'Löschen',
 		unsaved: '⚠ Warnung: Ungespeicherte Änderungen',

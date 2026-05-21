@@ -35,17 +35,11 @@ export default function useConfirmation() {
 		return doConfirm(t('modals.unsaved'), t('modals.confirmUnsaved'));
 	}
 
-	function confirmNoFeatures(di: string) {
-		const msg = t('modals.confirmNoFeatures', { di });
-		return doConfirm(t('modals.warning'), msg);
-	}
-
 	return {
 		confirm: doConfirm,
 		confirmDeletion,
 		confirmDeleteFeatures,
 		confirmFeatureClose,
 		confirmLeavingUnsaved,
-		confirmNoFeatures,
 	};
 }
