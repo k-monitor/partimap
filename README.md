@@ -55,7 +55,7 @@ Or you can set it up as a service and run it with the following steps:
 
 ## Adding a database change (migration)
 
-1. Run `npx db-migrate create <name-of-migration>`.
+1. Run `pnpm run new-migration <name-of-migration>`.
 2. This will create `migrations/sqls/<timestamp>-<name-of-migration>-<up|down>.sql` files.
 3. Edit them so `*-up.sql` contains the SQL command of your migration, while `*-down.sql` contains the command to undo it. SQL files cannot contain more than one command.
 
