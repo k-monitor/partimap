@@ -256,6 +256,7 @@ export default {
 		textRating: 'Explicație textuală pentru evaluarea acordată',
 		visitorInteractions: 'Respondenții au permisiunea de a',
 		visitorMapInteractions: 'Activități pe hartă pentru respondenți',
+		wide: 'Pagină lată',
 	},
 	unsubscribe: {
 		home: 'Înapoi la PARTIMAP',

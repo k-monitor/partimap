@@ -379,7 +379,10 @@ const localePath = useLocalePath();
 				class="modal show"
 				style="display: block; z-index: 0 !important"
 			>
-				<div class="modal-dialog modal-dialog-scrollable">
+				<div
+					class="modal-dialog modal-dialog-scrollable"
+					:class="{ 'modal-lg': sheet.wide }"
+				>
 					<div class="modal-content shadow-sm">
 						<div class="modal-header">
 							<div class="d-flex justify-content-between w-100">
@@ -546,7 +549,7 @@ const localePath = useLocalePath();
 @import '~/node_modules/bootstrap/scss/variables';
 @import '~/node_modules/bootstrap/scss/mixins';
 
-.modal-dialog {
+.modal-dialog:not(.modal-lg) {
 	@include media-breakpoint-up(lg) {
 		max-width: 100%;
 		width: 42%;

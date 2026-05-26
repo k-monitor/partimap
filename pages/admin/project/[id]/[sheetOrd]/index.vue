@@ -347,6 +347,12 @@ function handleExtentDrawn(extent: Extent) {
 				</b-button>
 			</b-form-group>
 
+			<form-group v-if="!sheet.features">
+				<b-form-checkbox v-model="sheet.wide">
+					{{ $t('sheetEditor.wide') }}
+				</b-form-checkbox>
+			</form-group>
+
 			<form-group
 				v-if="sheet.survey"
 				:label="$t('sheetEditor.survey')"

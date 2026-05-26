@@ -255,6 +255,7 @@ export default {
 		textRating: 'Szöveges indoklás az értékeléshez',
 		visitorInteractions: 'Látogatói interakciók',
 		visitorMapInteractions: 'A kitöltő térképes feladatai',
+		wide: 'Széles munkalap',
 	},
 	unsubscribe: {
 		home: 'Tovább a PARTIMAP-ra',
