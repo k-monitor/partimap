@@ -263,6 +263,7 @@ export default {
 		textRating: 'Explicación de la calificación asignada',
 		visitorInteractions: 'Los respondientes pueden',
 		visitorMapInteractions: 'Tareas de mapeo asignadas a los respondientes',
+		wide: 'Hoja de trabajo ancha',
 	},
 	unsubscribe: {
 		home: 'Volver a PARTIMAP',

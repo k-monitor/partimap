@@ -258,6 +258,7 @@ export default {
 		textRating: 'Pateikto įvertinimo tekstinis paaiškinimas',
 		visitorInteractions: 'Respondentai gali',
 		visitorMapInteractions: 'Respondentams priskirtos užduotys',
+		wide: 'Platus darbalapis',
 	},
 	unsubscribe: {
 		home: 'Atgal į PARTIMAP',

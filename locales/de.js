@@ -264,6 +264,7 @@ export default {
 		textRating: 'Textliche Erklärung zur Bewertung',
 		visitorInteractions: 'Teilnehmende dürfen',
 		visitorMapInteractions: 'Kartenaufgaben für Teilnehmende',
+		wide: 'Breites Arbeitsblatt',
 	},
 	unsubscribe: {
 		home: 'Zurück zu PARTIMAP',

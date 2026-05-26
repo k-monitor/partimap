@@ -254,6 +254,7 @@ export default {
 		textRating: 'Textual explanation for the given rating',
 		visitorInteractions: 'Respondents are allowed to',
 		visitorMapInteractions: 'Map tasks for respondents',
+		wide: 'Wide sheet',
 	},
 	unsubscribe: {
 		home: 'Back to PARTIMAP',
