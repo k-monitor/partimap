@@ -11,6 +11,7 @@ export type ExportableSheetDefinition = {
 	extent: string | null; // JSON
 	interactions: string | null; // JSON
 	descriptionLabel: string | null; // legacy
+	wide: boolean;
 };
 
 export type Sheet = ExportableSheetDefinition & {
@@ -41,6 +42,7 @@ export function createSheet(data: any): Sheet {
 		extent: data.extent,
 		interactions: data.interactions,
 		descriptionLabel: data.descriptionLabel,
+		wide: Boolean(data.wide),
 	};
 }
 
