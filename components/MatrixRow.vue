@@ -36,6 +36,7 @@ watch(radioSelected, () => (value.value = radioSelected.value));
 				"
 				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
 				required
+				tabindex="-1"
 				type="checkbox"
 				style="
 					bottom: 0;

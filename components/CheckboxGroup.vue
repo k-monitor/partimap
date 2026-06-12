@@ -88,6 +88,7 @@ watch(otherSelected, async (s) => {
 			<input
 				v-if="q.required && (selected || []).length < 1"
 				required
+				tabindex="-1"
 				type="checkbox"
 				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
 				style="bottom: 0; height: 1px; opacity: 0; pointer-events: none; position: absolute"

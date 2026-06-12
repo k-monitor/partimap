@@ -31,10 +31,12 @@ function handleUpdate(rating: number) {
 		</div>
 		<input
 			v-if="question.required"
-			v-model="value"
+			autocomplete="off"
 			class="position-absolute"
 			required
 			style="bottom: 0; left: 0; height: 0; opacity: 0"
+			tabindex="-1"
+			:value="value"
 		/>
 	</div>
 </template>

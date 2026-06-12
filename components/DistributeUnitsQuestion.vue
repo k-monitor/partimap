@@ -90,6 +90,7 @@ function handleChange(o: string) {
 				required
 				:max="max"
 				:min="max"
+				tabindex="-1"
 				type="number"
 				:value="sum"
 				style="opacity: 0; pointer-events: none; width: 1px"

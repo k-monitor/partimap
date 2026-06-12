@@ -41,6 +41,7 @@ const { featureCountByInteraction } = useVisitorData();
 						pointer-events: none;
 						position: absolute;
 					"
+					tabindex="-1"
 				/>
 			</div>
 			<EdgeDrawingButton
