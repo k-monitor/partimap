@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
 			privacyPolicy: z.string(),
 			thanks: z.string().nullable().optional(),
 			thanksUrl: z.string().url().nullable().optional(),
-			thanksSocial: z.string().nullable().optional(),
+			thanksSocial: z.number().nullable().optional(),
 			quizMode: z.number().int().min(0),
 		}),
 		sheets: z.array(
