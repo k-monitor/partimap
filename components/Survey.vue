@@ -137,10 +137,12 @@ function removeAnswer(questionId: number) {
 				>
 				<input
 					v-if="q.type == 'range' && q.required"
-					v-model="answers[q.id]"
+					autocomplete="off"
 					class="position-absolute"
 					required
 					style="bottom: 0; left: 50%; width: 50%; height: 0; opacity: 0"
+					tabindex="-1"
+					:value="answers[q.id]"
 				/>
 			</div>
 		</template>
