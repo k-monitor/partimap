@@ -41,6 +41,7 @@
 		"file-type": "^21.1.1",
 		"h3": "^1.11.1",
 		"h3-zod": "^0.5.3",
+		"highcharts": "^12.6.0",
 		"html-entities": "^2.5.2",
 		"http-status-codes": "^2.3.0",
 		"is-mobile": "^5.0.0",
@@ -98,6 +99,5 @@
 		"tsx": "^4.21.0",
 		"vite-tsconfig-paths": "^6.0.2",
 		"vitest": "^3.2.4"
-	},
-	"packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
+	}
 }
