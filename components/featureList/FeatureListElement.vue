@@ -232,6 +232,7 @@ async function deleteFeature() {
 			v-if="isSelected"
 			class="fle-backdrop"
 			@click="featureClicked"
+			@wheel.passive="(e) => (e.currentTarget as HTMLElement).ownerDocument.querySelector('.sidebar-body')?.scrollBy(0, (e as WheelEvent).deltaY)"
 		/>
 		<FeatureListElementHeader
 			ref="featureRef"
