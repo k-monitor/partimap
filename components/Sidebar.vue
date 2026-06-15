@@ -136,7 +136,7 @@ defineEmits<{
 			</button>
 		</nav>
 		<div
-			class="sidebar-body flex-grow-1 overflow-y-auto p-3"
+			class="sidebar-body flex-grow-1 overflow-y-auto p-3 position-relative"
 			style="scrollbar-gutter: stable"
 		>
 			<slot />
