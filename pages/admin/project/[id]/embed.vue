@@ -36,8 +36,8 @@ const iframeHtml = computed(() => {
 const { t } = useI18n();
 const { successToast } = useToasts();
 
-function copyCode() {
-	copy(iframeHtml.value);
+async function copyCode() {
+	await copy(iframeHtml.value);
 	successToast(t('projectEditor.embedCodeCopied'));
 }
 </script>

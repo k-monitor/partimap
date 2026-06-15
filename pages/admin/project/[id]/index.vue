@@ -85,8 +85,8 @@ function generateSlug() {
 	return slugify(project.value?.title || '');
 }
 
-function copyURL() {
-	copy(fullProjectPath.value);
+async function copyURL() {
+	await copy(fullProjectPath.value);
 	successToast(t('projectEditor.copiedURL'));
 }
 
