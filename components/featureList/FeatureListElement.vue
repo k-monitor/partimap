@@ -99,6 +99,29 @@ onMounted(() => {
 const featureRef = ref<InstanceType<typeof FeatureListElementHeader> | null>();
 const cardRef = ref<InstanceType<typeof BCard> | null>();
 
+const backdropHeight = ref('100%');
+let backdropResizeObserver: ResizeObserver | null = null;
+
+watch(isSelected, (v) => {
+	if (v) {
+		nextTick().then(() => {
+			const el = document.querySelector('.sidebar-body') as HTMLElement | null;
+			if (!el) return;
+			backdropResizeObserver = new ResizeObserver(() => {
+				backdropHeight.value = el.scrollHeight + 'px';
+			});
+			backdropResizeObserver.observe(el);
+		});
+	} else {
+		backdropResizeObserver?.disconnect();
+		backdropResizeObserver = null;
+	}
+});
+
+onUnmounted(() => {
+	backdropResizeObserver?.disconnect();
+});
+
 async function expandFinished() {
 	// custom scrollIntoView as its more accurate:
 	await nextTick();
@@ -231,6 +254,7 @@ async function deleteFeature() {
 		<div
 			v-if="isSelected"
 			class="fle-backdrop"
+			:style="{ height: backdropHeight }"
 			@click="featureClicked"
 		/>
 		<FeatureListElementHeader
@@ -332,7 +356,6 @@ async function deleteFeature() {
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: 0;
 	background: rgba(0, 0, 0, 0.5);
 }
 
