@@ -23,6 +23,19 @@ export function createSurveyAnswer(data: any): SurveyAnswer {
 
 export type Condition = [[number, string?], string];
 
+export type QuestionType =
+	| 'checkbox'
+	| 'distributeUnits'
+	| 'dropdown'
+	| 'multipleChoiceMatrix'
+	| 'number'
+	| 'ordering'
+	| 'radiogroup'
+	| 'range'
+	| 'rating'
+	| 'singleChoiceMatrix'
+	| 'text';
+
 export type Question = {
 	id: number;
 	addToFeatures?: boolean;
@@ -40,7 +53,7 @@ export type Question = {
 	showIf?: Condition[];
 	showResult: boolean;
 	shuffleOptions?: boolean;
-	type: string;
+	type: QuestionType;
 };
 
 export type Survey = {
@@ -53,7 +66,7 @@ export type AggregatedAnswers = {
 	questionId: string; // yes, it's string here, see matrix questions
 	question: string;
 	sheetId: number;
-	type: string;
+	type: QuestionType;
 	average?: number;
 	count: number;
 	options?: {

@@ -4,7 +4,7 @@
 import type { BvTriggerableEvent } from 'bootstrap-vue-next';
 import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
-import type { Question, Survey } from '~/server/data/surveyAnswers';
+import type { Question, QuestionType, Survey } from '~/server/data/surveyAnswers';
 import { isQuestionConditional } from '~/utils/questionUtil';
 
 const { t } = useI18n();
@@ -25,20 +25,34 @@ watchEffect(() => {
 	survey.value = parseSurvey(surveyJSON.value) || survey.value;
 });
 
-const icon: Record<string, string> = {
+const questionTypesWithOptions: QuestionType[] = [
+	'checkbox',
+	'distributeUnits',
+	'dropdown',
+	'ordering',
+	'radiogroup',
+];
+
+const questionTypesWithRowsAndColumns: QuestionType[] = [
+	'singleChoiceMatrix',
+	'multipleChoiceMatrix',
+];
+
+const icon: Record<QuestionType, string> = {
 	text: 'fa-keyboard',
 	number: 'fa-hashtag',
 	range: 'fa-sliders-h',
 	checkbox: 'fa-check-square',
 	radiogroup: 'fa-dot-circle',
 	dropdown: 'fa-caret-square-down',
+	ordering: 'fa-list-ol',
 	rating: 'fa-star-half-alt',
 	singleChoiceMatrix: 'fa-dot-circle',
 	multipleChoiceMatrix: 'fa-check-square',
 	distributeUnits: 'fa-balance-scale',
 };
 
-const questionTypes = [
+const questionTypes: { value: QuestionType; text: string }[] = [
 	{
 		value: 'text',
 		text: t('SurveyEditor.questionTypes.text'),
@@ -64,6 +78,10 @@ const questionTypes = [
 		text: t('SurveyEditor.questionTypes.dropdown'),
 	},
 	{
+		value: 'ordering',
+		text: t('SurveyEditor.questionTypes.ordering'),
+	},
+	{
 		value: 'rating',
 		text: t('SurveyEditor.questionTypes.rating'),
 	},
@@ -86,9 +104,7 @@ const question = ref<Question | null>(null);
 const questionIndex = ref(0);
 
 const hasOptions = computed(
-	() =>
-		question.value?.type &&
-		'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value.type),
+	() => question.value?.type && questionTypesWithOptions.includes(question.value.type),
 );
 
 const questionsFromNextSheets = computed(() => {
@@ -151,7 +167,7 @@ function handleQuestionLabelBlur() {
 }
 
 function canHaveResults(q: Question) {
-	return q.type && q.type !== 'text';
+	return q.type && q.type !== 'text' && q.type !== 'ordering';
 }
 
 const { confirmDeletion } = useConfirmation();
@@ -174,9 +190,15 @@ function saveQuestion(bvModalEvent: BvTriggerableEvent | Event) {
 	}
 
 	questionEditorVisible.value = false;
-	if (!hasOptions.value) {
+	if (!questionTypesWithOptions.includes(question.value.type)) {
 		const q: Question = { ...question.value };
 		delete q.options;
+		question.value = q;
+	}
+	if (!questionTypesWithRowsAndColumns.includes(question.value.type)) {
+		const q: Question = { ...question.value };
+		delete q.rows;
+		delete q.columns;
 		question.value = q;
 	}
 	if (Array.isArray(question.value?.showIf)) {
@@ -472,27 +494,27 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					</b-col>
 				</b-row>
 				<OptionsEditor
-					v-if="hasOptions"
+					v-if="questionTypesWithOptions.includes(question.type)"
 					v-model="question.options"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="option"
 				/>
 				<OptionsEditor
-					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-if="questionTypesWithRowsAndColumns.includes(question.type)"
 					v-model="question.rows"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="row"
 				/>
 				<OptionsEditor
-					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-if="questionTypesWithRowsAndColumns.includes(question.type)"
 					v-model="question.columns"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="column"
 				/>
-				<b-form-group v-if="'checkbox|dropdown|radiogroup'.includes(question.type)">
+				<b-form-group v-if="questionTypesWithOptions.includes(question.type)">
 					<b-form-checkbox v-model="question.shuffleOptions">
 						{{ t('SurveyEditor.shuffleOptions') }}
 					</b-form-checkbox>

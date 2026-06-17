@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { Project } from '~/server/data/projects';
-import type { Condition, Survey } from '~/server/data/surveyAnswers';
+import type { Condition, QuestionType, Survey } from '~/server/data/surveyAnswers';
 
 export type TestableQuestionOption = {
 	label?: string;
 	options?: { value: (string | number)[]; text: string }[];
 	qid: number;
 	text?: string;
-	type: string;
+	type: QuestionType;
 	value?: (string | number)[];
 };
 
@@ -32,7 +32,7 @@ const testableQuestions = computed(() =>
 	[
 		...questionsFromPrevSheets.value,
 		...props.survey.questions.slice(0, props.questionIndex),
-	].filter((q) => q.type !== 'text'),
+	].filter((q) => q.type !== 'text' && q.type !== 'ordering'),
 );
 
 const isConditional = ref(false);
@@ -97,7 +97,14 @@ function questionOptionsForCond(i: number) {
 
 	const options: TestableQuestionOption[] = [];
 	testableQuestionOptions.value.forEach((o) => {
-		const oneCondQuestionTypes = 'dropdown|number|radiogroup|range|rating|singleChoiceMatrix';
+		const oneCondQuestionTypes: QuestionType[] = [
+			'dropdown',
+			'number',
+			'radiogroup',
+			'range',
+			'rating',
+			'singleChoiceMatrix',
+		];
 
 		if (!oneCondQuestionTypes.includes(o.type) || !referencedIds[o.qid]) {
 			// question can be referenced multiple times
@@ -137,6 +144,8 @@ function deleteCondition(i: number) {
 		showIf.value = [];
 	}
 }
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -146,7 +155,7 @@ function deleteCondition(i: number) {
 				v-model="isConditional"
 				@change="toggleConditional"
 			>
-				{{ $t('SurveyEditor.showIf') }}
+				{{ t('SurveyEditor.showIf') }}
 			</b-form-checkbox>
 		</b-form-group>
 		<div
@@ -157,7 +166,7 @@ function deleteCondition(i: number) {
 				v-for="(c, i) in showIf"
 				:key="i"
 			>
-				<p v-if="i > 0">{{ $t('SurveyEditor.and') }}</p>
+				<p v-if="i > 0">{{ t('SurveyEditor.and') }}</p>
 				<QuestionConditionEditor
 					:testable-questions="testableQuestions"
 					:testable-question-options="questionOptionsForCond(i)"
@@ -169,7 +178,7 @@ function deleteCondition(i: number) {
 						href="javascript:void(0)"
 						@click="deleteCondition(i)"
 					>
-						{{ $t('SurveyEditor.deleteCondition') }}
+						{{ t('SurveyEditor.deleteCondition') }}
 					</a>
 				</p>
 			</div>
@@ -178,11 +187,11 @@ function deleteCondition(i: number) {
 				variant="outline-success"
 				@click="addNewCondition"
 			>
-				{{ $t('SurveyEditor.addCondition') }}
+				{{ t('SurveyEditor.addCondition') }}
 			</b-button>
 
 			<div class="alert alert-warning mt-3">
-				{{ $t('SurveyEditor.warnForReferencedQuestions') }}
+				{{ t('SurveyEditor.warnForReferencedQuestions') }}
 			</div>
 		</div>
 	</div>
