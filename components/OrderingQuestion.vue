@@ -8,9 +8,16 @@ const { question } = defineProps<{
 	question: Question;
 }>();
 
+const shuffledOptions = computed(() => {
+	const opts = question.options || [];
+	return question.shuffleOptions ? shuffle(opts) : opts;
+});
+
 const draggableModel = computed({
 	get() {
-		return value.value && value.value?.length ? value.value : [...(question.options || [])];
+		return value.value && value.value?.length
+			? value.value
+			: [...(shuffledOptions.value || [])];
 	},
 	set(newOrder: string[]) {
 		value.value = [...newOrder];
