@@ -11,10 +11,18 @@ const { t } = useI18n();
 
 function chart(q: AggregatedAnswers) {
 	let data: PointOptionsObject[] = (q.options || [])
-		.map(({ answer, count, average }) => ({
-			name: answer,
-			y: count || average || 0,
-		}))
+		.map(({ answer, count, average }) => {
+			if (q.type === 'ordering') {
+				return {
+					name: answer,
+					y: average || 0,
+				};
+			}
+			return {
+				name: answer,
+				y: count || average || 0,
+			};
+		})
 		.map((a) => {
 			if (a.name === OTHER_ANSWER) {
 				a.name = t('SurveyResult.other');
@@ -65,6 +73,7 @@ function chart(q: AggregatedAnswers) {
 			formatter() {
 				if (q.type === 'checkbox') return `${this.y}x ${this.x}`;
 				if (q.type === 'distributeUnits') return `${this.y} ${this.x}`;
+				if (q.type === 'ordering') return `${this.y}`;
 				const pct = Math.round((100 * (this.y || 0)) / q.count);
 				return `${this.y}x (${pct}%) ${this.point.name}`;
 			},
@@ -75,7 +84,7 @@ function chart(q: AggregatedAnswers) {
 		yAxis: {
 			gridLineWidth: 0,
 			labels: { enabled: false },
-			title: { text: null },
+			title: { text: undefined },
 		},
 	};
 	return options;

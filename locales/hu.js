@@ -438,6 +438,9 @@ export default {
 		options: 'Opciók',
 		rows: 'Sorok',
 	},
+	OrderingQuestion: {
+		required: 'Kérjük, adjon meg egy sorrendet!',
+	},
 	PublicFrame: {
 		contactUs: 'Írj nekünk!',
 		help: 'Hogyan működik?',
@@ -528,6 +531,7 @@ export default {
 			dropdown: 'Opciók lenyíló listában (egyet lehet vál.)',
 			multipleChoiceMatrix: 'Jelölőnégyzetrács',
 			number: 'Numerikus válasz (bepötyögős)',
+			ordering: 'Sorbarendezés',
 			radiogroup: 'Feleletválasztós',
 			range: 'Numerikus válasz (csúszkával)',
 			rating: 'Értékelés (5 csillag)',

@@ -439,6 +439,9 @@ export default {
 		options: 'Opțiuni',
 		rows: 'Rânduri',
 	},
+	OrderingQuestion: {
+		required: 'Vă rugăm să stabiliți o ordine!',
+	},
 	PublicFrame: {
 		contactUs: 'Contacteză-ne:',
 		help: 'Cum funcționează',
@@ -529,6 +532,7 @@ export default {
 			dropdown: 'Meniu derulant (drop-down, selecție unică)',
 			multipleChoiceMatrix: 'Grilă răspunsuri multiple',
 			number: 'Introducere valori numerice',
+			ordering: 'Ordonare',
 			radiogroup: 'Opțiuni multiple răspuns',
 			range: 'Interval numeric',
 			rating: 'Evaluare alocare stele (1-5)',

@@ -35,7 +35,19 @@ export function canShowQuestion(
 				const actArray = [...act].flat();
 				return actArray.some((e) => e.startsWith(OTHER_PREFIX));
 			}
-			if (Array.isArray(act)) return act.includes(exp);
+			if (Array.isArray(act)) {
+				if (exp.match(/^\d+-\d+$/)) {
+					let [min, max] = exp.split('-').map((v) => Number(v));
+					if (min > max) {
+						const t = min;
+						min = max;
+						max = t;
+					}
+					const position = act.findIndex((a) => a === row) + 1;
+					return min <= position && position <= max;
+				}
+				return act.includes(exp);
+			}
 			if (Number.isInteger(Number(act))) {
 				let [min, max] = exp.split('-').map((v) => Number(v));
 				if (min > max) {

@@ -4,7 +4,8 @@
 import type { BvTriggerableEvent } from 'bootstrap-vue-next';
 import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
-import type { Question, Survey } from '~/server/data/surveyAnswers';
+import type { Question, QuestionType, Survey } from '~/server/data/surveyAnswers';
+import { isQuestionConditional } from '~/utils/questionUtil';
 
 const { t } = useI18n();
 
@@ -24,20 +25,34 @@ watchEffect(() => {
 	survey.value = parseSurvey(surveyJSON.value) || survey.value;
 });
 
-const icon: Record<string, string> = {
+const questionTypesWithOptions: QuestionType[] = [
+	'checkbox',
+	'distributeUnits',
+	'dropdown',
+	'ordering',
+	'radiogroup',
+];
+
+const questionTypesWithRowsAndColumns: QuestionType[] = [
+	'singleChoiceMatrix',
+	'multipleChoiceMatrix',
+];
+
+const icon: Record<QuestionType, string> = {
 	text: 'fa-keyboard',
 	number: 'fa-hashtag',
 	range: 'fa-sliders-h',
 	checkbox: 'fa-check-square',
 	radiogroup: 'fa-dot-circle',
 	dropdown: 'fa-caret-square-down',
+	ordering: 'fa-list-ol',
 	rating: 'fa-star-half-alt',
 	singleChoiceMatrix: 'fa-dot-circle',
 	multipleChoiceMatrix: 'fa-check-square',
 	distributeUnits: 'fa-balance-scale',
 };
 
-const questionTypes = [
+const questionTypes: { value: QuestionType; text: string }[] = [
 	{
 		value: 'text',
 		text: t('SurveyEditor.questionTypes.text'),
@@ -63,6 +78,10 @@ const questionTypes = [
 		text: t('SurveyEditor.questionTypes.dropdown'),
 	},
 	{
+		value: 'ordering',
+		text: t('SurveyEditor.questionTypes.ordering'),
+	},
+	{
 		value: 'rating',
 		text: t('SurveyEditor.questionTypes.rating'),
 	},
@@ -85,9 +104,7 @@ const question = ref<Question | null>(null);
 const questionIndex = ref(0);
 
 const hasOptions = computed(
-	() =>
-		question.value?.type &&
-		'checkbox|distributeUnits|dropdown|radiogroup'.includes(question.value.type),
+	() => question.value?.type && questionTypesWithOptions.includes(question.value.type),
 );
 
 const questionsFromNextSheets = computed(() => {
@@ -173,9 +190,15 @@ function saveQuestion(bvModalEvent: BvTriggerableEvent | Event) {
 	}
 
 	questionEditorVisible.value = false;
-	if (!hasOptions.value) {
+	if (!questionTypesWithOptions.includes(question.value.type)) {
 		const q: Question = { ...question.value };
 		delete q.options;
+		question.value = q;
+	}
+	if (!questionTypesWithRowsAndColumns.includes(question.value.type)) {
+		const q: Question = { ...question.value };
+		delete q.rows;
+		delete q.columns;
 		question.value = q;
 	}
 	if (Array.isArray(question.value?.showIf)) {
@@ -302,13 +325,13 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 									v-b-tooltip.hover.bottom
 									class="fas fa-fw me-2"
 									:class="icon[q.type]"
-									:title="$t(`SurveyEditor.questionTypes.${q.type}`)"
+									:title="t(`SurveyEditor.questionTypes.${q.type}`)"
 								/>
 								<i
 									v-if="q.showResult && canHaveResults(q)"
 									v-b-tooltip.hover.bottom
 									class="fas fa-chart-bar fa-fw me-2"
-									:title="$t('SurveyEditor.showResult')"
+									:title="t('SurveyEditor.showResult')"
 								/>
 								<i
 									v-if="isQuestionReferenced(q)"
@@ -319,7 +342,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 											? 'alert-danger text-danger rounded'
 											: ''
 									"
-									:title="$t('SurveyEditor.referencedQuestion')"
+									:title="t('SurveyEditor.referencedQuestion')"
 								/>
 								<i
 									v-if="isQuestionConditional(q)"
@@ -330,7 +353,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 											? 'alert-danger text-danger rounded'
 											: ''
 									"
-									:title="$t('SurveyEditor.conditionalQuestion')"
+									:title="t('SurveyEditor.conditionalQuestion')"
 								/>
 								<div class="ms-auto flex gap-2">
 									<QuestionMoveButton
@@ -345,7 +368,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 										v-b-tooltip.hover.bottom
 										class="border-0 text-danger"
 										size="sm"
-										:title="$t('SurveyEditor.deleteQuestion')"
+										:title="t('SurveyEditor.deleteQuestion')"
 										variant="light"
 										@click.stop="delQuestion(i)"
 									>
@@ -364,18 +387,18 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					@click="addQuestion"
 				>
 					<i class="fas fa-fw fa-plus me-2" />
-					{{ $t('SurveyEditor.addQuestion') }}
+					{{ t('SurveyEditor.addQuestion') }}
 				</b-list-group-item>
 			</draggable>
 		</b-list-group>
 		<b-modal
 			v-model="questionEditorVisible"
-			:cancel-title="$t('modals.cancel')"
+			:cancel-title="t('modals.cancel')"
 			no-close-on-backdrop
 			:ok-disabled="props.readonly"
-			:ok-title="$t('SaveButton.save')"
+			:ok-title="t('SaveButton.save')"
 			ok-variant="success"
-			:title="$t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
+			:title="t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
 			@ok="saveQuestion"
 			@shown="questionLabelInput?.focus()"
 		>
@@ -393,9 +416,9 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					v-if="isQuestionReferenced(question)"
 					class="alert alert-warning"
 				>
-					{{ $t('SurveyEditor.warnForReferencedQuestion') }}
+					{{ t('SurveyEditor.warnForReferencedQuestion') }}
 				</div>
-				<b-form-group :label="$t('SurveyEditor.questionText')">
+				<b-form-group :label="t('SurveyEditor.questionText')">
 					<b-form-input
 						ref="questionLabelInput"
 						v-model="question.label"
@@ -406,7 +429,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 						@blur="handleQuestionLabelBlur"
 					/>
 				</b-form-group>
-				<b-form-group :label="$t('SurveyEditor.questionType')">
+				<b-form-group :label="t('SurveyEditor.questionType')">
 					<b-form-select
 						v-model="question.type"
 						:disabled="!!(props.readonly || isQuestionReferenced(question))"
@@ -415,7 +438,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 				</b-form-group>
 				<b-row v-if="'number|range'.includes(question.type)">
 					<b-col>
-						<b-form-group :label="$t('SurveyEditor.minValue')">
+						<b-form-group :label="t('SurveyEditor.minValue')">
 							<b-form-input
 								v-model.number="question.min"
 								:disabled="!!(props.readonly || isQuestionReferenced(question))"
@@ -424,7 +447,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 						</b-form-group>
 					</b-col>
 					<b-col>
-						<b-form-group :label="$t('SurveyEditor.maxValue')">
+						<b-form-group :label="t('SurveyEditor.maxValue')">
 							<b-form-input
 								v-model="question.max"
 								:disabled="!!(props.readonly || isQuestionReferenced(question))"
@@ -435,19 +458,19 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 				</b-row>
 				<b-row v-if="question.type === 'range'">
 					<b-col>
-						<b-form-group :label="$t('SurveyEditor.minName')">
+						<b-form-group :label="t('SurveyEditor.minName')">
 							<b-form-input v-model="question.minLabel" />
 						</b-form-group>
 					</b-col>
 					<b-col>
-						<b-form-group :label="$t('SurveyEditor.maxName')">
+						<b-form-group :label="t('SurveyEditor.maxName')">
 							<b-form-input v-model="question.maxLabel" />
 						</b-form-group>
 					</b-col>
 				</b-row>
 				<b-row v-if="question.type === 'checkbox'">
 					<b-col>
-						<b-form-group :label="$t('SurveyEditor.maxSelect')">
+						<b-form-group :label="t('SurveyEditor.maxSelect')">
 							<b-form-input
 								v-model.number="question.max"
 								type="number"
@@ -460,7 +483,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 				</b-row>
 				<b-row v-if="question.type === 'distributeUnits'">
 					<b-col>
-						<b-form-group :label="$t('SurveyEditor.units')">
+						<b-form-group :label="t('SurveyEditor.units')">
 							<b-form-input
 								v-model.number="question.max"
 								:disabled="!!(props.readonly || isQuestionReferenced(question))"
@@ -471,54 +494,54 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					</b-col>
 				</b-row>
 				<OptionsEditor
-					v-if="hasOptions"
+					v-if="questionTypesWithOptions.includes(question.type)"
 					v-model="question.options"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="option"
 				/>
 				<OptionsEditor
-					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-if="questionTypesWithRowsAndColumns.includes(question.type)"
 					v-model="question.rows"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="row"
 				/>
 				<OptionsEditor
-					v-if="'singleChoiceMatrix|multipleChoiceMatrix'.includes(question.type)"
+					v-if="questionTypesWithRowsAndColumns.includes(question.type)"
 					v-model="question.columns"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					label-state="column"
 				/>
-				<b-form-group v-if="'checkbox|dropdown|radiogroup'.includes(question.type)">
+				<b-form-group v-if="questionTypesWithOptions.includes(question.type)">
 					<b-form-checkbox v-model="question.shuffleOptions">
-						{{ $t('SurveyEditor.shuffleOptions') }}
+						{{ t('SurveyEditor.shuffleOptions') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group v-if="'checkbox|dropdown'.includes(question.type)">
 					<b-form-checkbox v-model="question.other">
-						{{ $t('SurveyEditor.other') }}
+						{{ t('SurveyEditor.other') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group v-if="'text'.includes(question.type)">
 					<b-form-checkbox v-model="question.multiline">
-						{{ $t('SurveyEditor.multiline') }}
+						{{ t('SurveyEditor.multiline') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
 					<b-form-checkbox v-model="question.required">
-						{{ $t('SurveyEditor.required') }}
+						{{ t('SurveyEditor.required') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group v-if="canHaveResults(question)">
 					<b-form-checkbox v-model="question.showResult">
-						{{ $t('SurveyEditor.showResult') }}
+						{{ t('SurveyEditor.showResult') }}
 					</b-form-checkbox>
 				</b-form-group>
 				<b-form-group>
 					<b-form-checkbox v-model="question.addToFeatures">
-						{{ $t('SurveyEditor.addToFeatures') }}
+						{{ t('SurveyEditor.addToFeatures') }}
 					</b-form-checkbox>
 				</b-form-group>
 

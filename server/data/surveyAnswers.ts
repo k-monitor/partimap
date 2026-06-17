@@ -23,6 +23,19 @@ export function createSurveyAnswer(data: any): SurveyAnswer {
 
 export type Condition = [[number, string?], string];
 
+export type QuestionType =
+	| 'checkbox'
+	| 'distributeUnits'
+	| 'dropdown'
+	| 'multipleChoiceMatrix'
+	| 'number'
+	| 'ordering'
+	| 'radiogroup'
+	| 'range'
+	| 'rating'
+	| 'singleChoiceMatrix'
+	| 'text';
+
 export type Question = {
 	id: number;
 	addToFeatures?: boolean;
@@ -40,7 +53,7 @@ export type Question = {
 	showIf?: Condition[];
 	showResult: boolean;
 	shuffleOptions?: boolean;
-	type: string;
+	type: QuestionType;
 };
 
 export type Survey = {
@@ -53,7 +66,7 @@ export type AggregatedAnswers = {
 	questionId: string; // yes, it's string here, see matrix questions
 	question: string;
 	sheetId: number;
-	type: string;
+	type: QuestionType;
 	average?: number;
 	count: number;
 	options?: {
@@ -131,11 +144,48 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 	}
 
 	const distAnswersByQuestion = await getAnswersByQuestion((q) => q.type === 'distributeUnits');
+	const orderingAnswersByQuestion = await getAnswersByQuestion((q) => q.type === 'ordering');
 	const matrixAnswersByQuestion = await getAnswersByQuestion((q) => q.type.includes('Matrix'));
 
 	const results: AggregatedAnswers[] = [];
 	for (const q of questions) {
 		if (q.type === 'text') continue;
+
+		if (q.type === 'ordering') {
+			const answers = (orderingAnswersByQuestion.get(q.id) || [])
+				.map((a) => safeParseJSONArray(a))
+				.filter((a) => !!a && Array.isArray(a) && a.length);
+
+			const sums: Map<string, number> = new Map();
+			const counts: Map<string, number> = new Map();
+			answers.forEach((a) => {
+				a.forEach((o, index) => {
+					if (q.options?.includes(o)) {
+						const position = index + 1;
+						sums.set(o, (sums.get(o) || 0) + position);
+						counts.set(o, (counts.get(o) || 0) + 1);
+					}
+				});
+			});
+
+			const result: AggregatedAnswers = {
+				questionId: `${q.id}`,
+				question: `${q.label}`,
+				sheetId: q.sheetId,
+				type: q.type,
+				count: answers.length,
+			};
+			result.options = (q.options || [])
+				.filter((o) => sums.get(o))
+				.map((o) => ({
+					answer: o,
+					average: Math.round((10 * (sums.get(o) || 0)) / counts!.get(o)!) / 10,
+					count: counts.get(o) || 0,
+				}))
+				.sort((a, b) => (a.average || 0) - (b.average || 0));
+			results.push(result);
+			continue;
+		}
 
 		if (q.type === 'distributeUnits') {
 			const sums: Map<string, number> = new Map();

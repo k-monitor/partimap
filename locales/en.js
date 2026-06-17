@@ -435,6 +435,9 @@ export default {
 		options: 'Options',
 		rows: 'Rows',
 	},
+	OrderingQuestion: {
+		required: 'Please set an order!',
+	},
 	PublicFrame: {
 		contactUs: 'Contact us:',
 		help: 'How it works',
@@ -525,6 +528,7 @@ export default {
 			dropdown: 'Drop-down (one answer)',
 			multipleChoiceMatrix: 'Multiple choice grid',
 			number: 'Numeric text box',
+			ordering: 'Ordering',
 			radiogroup: 'Multiple choice',
 			range: 'Numeric slider',
 			rating: 'Star-rating (1-5)',

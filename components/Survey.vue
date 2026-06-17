@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Question, Survey } from '~/server/data/surveyAnswers';
+import type { Question, QuestionType, Survey } from '~/server/data/surveyAnswers';
 
 const props = defineProps<{
 	sheetId: number;
@@ -50,15 +50,23 @@ function removeEmptyAnswers(answers: AnswersByQuestion) {
 }
 
 function canRemoveAnswer(q: Question) {
-	return (
-		Object.keys(answers.value).includes(String(q.id)) &&
-		'distributeUnits|dropdown|radiogroup|range|rating|singleChoiceMatrix'.includes(q.type)
-	);
+	const list: QuestionType[] = [
+		'distributeUnits',
+		'dropdown',
+		'ordering',
+		'radiogroup',
+		'range',
+		'rating',
+		'singleChoiceMatrix',
+	];
+	return Object.keys(answers.value).includes(String(q.id)) && list.includes(q.type);
 }
 
 function removeAnswer(questionId: number) {
 	delete answers.value[questionId];
 }
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -84,7 +92,7 @@ function removeAnswer(questionId: number) {
 					class="position-absolute ms-4 small text-muted text-end"
 					size="sm"
 					style="top: 0; right: 0"
-					:title="$t('Survey.removeAnswer')"
+					:title="t('Survey.removeAnswer')"
 					variant="light"
 					@click="removeAnswer(q.id)"
 				>
@@ -155,6 +163,11 @@ function removeAnswer(questionId: number) {
 			v-else-if="q.type === 'dropdown'"
 			v-model="answers[q.id]"
 			:q="q"
+		/>
+		<OrderingQuestion
+			v-else-if="q.type === 'ordering'"
+			v-model="answers[q.id]"
+			:question="q"
 		/>
 		<ChoiceMatrix
 			v-else-if="q.type === 'singleChoiceMatrix' || q.type === 'multipleChoiceMatrix'"

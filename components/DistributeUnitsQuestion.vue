@@ -3,18 +3,23 @@ import type { Question } from '~/server/data/surveyAnswers';
 
 const value = defineModel<Record<string, number | null>>({ default: {} });
 
-const props = defineProps<{
+const { question } = defineProps<{
 	question: Question;
 }>();
 
-const max = computed(() => props.question.max || 100);
+const shuffledOptions = computed(() => {
+	const opts = question.options || [];
+	return question.shuffleOptions ? shuffle(opts) : opts;
+});
+
+const max = computed(() => question.max || 100);
 
 const inputValues = ref<Record<string, string | number | null>>({});
 watchEffect(() => (inputValues.value = value.value));
 
 const actualValues = computed(() => {
 	const av: Record<string, number> = {};
-	(props.question.options || []).forEach((o) => {
+	(shuffledOptions.value || []).forEach((o) => {
 		av[o] = Math.max(0, parseInt(String(inputValues.value[o]).trim(), 10) || 0);
 	});
 	return av;
@@ -52,7 +57,7 @@ function handleChange(o: string) {
 <template>
 	<div class="d-flex flex-column">
 		<div
-			v-for="o in question.options"
+			v-for="o in shuffledOptions"
 			:key="o"
 			class="border-bottom d-flex mb-1 pb-1"
 		>

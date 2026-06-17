@@ -447,6 +447,9 @@ export default {
 		options: 'Opciones',
 		rows: 'Filas',
 	},
+	OrderingQuestion: {
+		required: '¡Por favor, establezca un orden!',
+	},
 	PublicFrame: {
 		contactUs: 'Contáctanos:',
 		help: 'Cómo funciona',
@@ -537,6 +540,7 @@ export default {
 			dropdown: 'Desplegable (una respuesta)',
 			multipleChoiceMatrix: 'Matriz de opciones múltiples',
 			number: 'Cuadro de texto numérico',
+			ordering: 'Ordenación',
 			radiogroup: 'Selección múltiple',
 			range: 'Control deslizante numérico',
 			rating: 'Calificación por estrellas (1-5)',
