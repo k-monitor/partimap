@@ -24,6 +24,10 @@ const draggableModel = computed({
 	},
 });
 
+function handleDragEnd() {
+	value.value = [...draggableModel.value];
+}
+
 const { t } = useI18n();
 </script>
 
@@ -33,6 +37,7 @@ const { t } = useI18n();
 			v-model="draggableModel"
 			animation="200"
 			draggable=".item"
+			@end="handleDragEnd"
 		>
 			<b-list-group-item
 				v-for="o in draggableModel"
