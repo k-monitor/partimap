@@ -65,6 +65,7 @@ function chart(q: AggregatedAnswers) {
 			formatter() {
 				if (q.type === 'checkbox') return `${this.y}x ${this.x}`;
 				if (q.type === 'distributeUnits') return `${this.y} ${this.x}`;
+				if (q.type === 'ordering') return `${this.y}`;
 				const pct = Math.round((100 * (this.y || 0)) / q.count);
 				return `${this.y}x (${pct}%) ${this.point.name}`;
 			},
@@ -75,7 +76,7 @@ function chart(q: AggregatedAnswers) {
 		yAxis: {
 			gridLineWidth: 0,
 			labels: { enabled: false },
-			title: { text: null },
+			title: { text: undefined },
 		},
 	};
 	return options;

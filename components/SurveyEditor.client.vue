@@ -167,7 +167,7 @@ function handleQuestionLabelBlur() {
 }
 
 function canHaveResults(q: Question) {
-	return q.type && q.type !== 'text' && q.type !== 'ordering';
+	return q.type && q.type !== 'text';
 }
 
 const { confirmDeletion } = useConfirmation();
