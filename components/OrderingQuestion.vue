@@ -23,10 +23,12 @@ const draggableModel = computed({
 		value.value = [...newOrder];
 	},
 });
+
+const { t } = useI18n();
 </script>
 
 <template>
-	<b-list-group class="mb-3">
+	<b-list-group class="mb-3 position-relative">
 		<draggable
 			v-model="draggableModel"
 			animation="200"
@@ -41,5 +43,13 @@ const draggableModel = computed({
 				{{ o }}
 			</b-list-group-item>
 		</draggable>
+		<input
+			v-if="question.required && (value || []).length < 1"
+			required
+			tabindex="-1"
+			type="checkbox"
+			:oninvalid="`this.setCustomValidity('${t('OrderingQuestion.required')}')`"
+			style="bottom: 0; height: 1px; opacity: 0; pointer-events: none; position: absolute"
+		/>
 	</b-list-group>
 </template>
