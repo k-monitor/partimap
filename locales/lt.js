@@ -440,6 +440,9 @@ export default {
 		options: 'Papildomi pasirinkimai',
 		rows: 'Eilutės',
 	},
+	OrderingQuestion: {
+		required: 'Prašome nustatyti tvarką!',
+	},
 	PublicFrame: {
 		contactUs: 'Susisiekite su mumis:',
 		help: 'Kaip tai veikia',
@@ -529,6 +532,7 @@ export default {
 			dropdown: 'Išskleidžiamasis meniu',
 			multipleChoiceMatrix: 'Kelių pasirinkimų lentelė',
 			number: 'Skaičiaus įvedimas tekstu',
+			ordering: 'Rikiavimas',
 			radiogroup: '*Vienas pasirinkimas',
 			range: 'Skaičiaus įvedimas slankikliu',
 			rating: 'Įvertinimas žvaigždutėmis (1-5)',

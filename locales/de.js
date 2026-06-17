@@ -447,6 +447,9 @@ export default {
 		options: 'Optionen',
 		rows: 'Zeilen',
 	},
+	OrderingQuestion: {
+		required: 'Bitte legen Sie eine Reihenfolge fest!',
+	},
 	PublicFrame: {
 		contactUs: 'Kontakt:',
 		help: 'Wie es funktioniert',
@@ -537,6 +540,7 @@ export default {
 			dropdown: 'Dropdown (eine Antwort)',
 			multipleChoiceMatrix: 'Mehrfachauswahl-Matrix',
 			number: 'Nummer (Textfeld)',
+			ordering: 'Sortierung',
 			radiogroup: 'Mehrfachauswahl',
 			range: 'Schieberegler',
 			rating: 'Sternebewertung (1–5)',
