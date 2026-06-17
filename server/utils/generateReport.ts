@@ -10,7 +10,7 @@ import { findSheetTimes } from '../data/sheetTimes';
 import * as sadb from '~/server/data/surveyAnswers';
 import * as sfdb from '~/server/data/submittedFeatures';
 import * as smdb from '~/server/data/submissions';
-import type { Survey } from '~/server/data/surveyAnswers';
+import type { QuestionType, Survey } from '~/server/data/surveyAnswers';
 import i18n from '~/server/utils/i18n';
 import { safeParseJSON, safeParseJSONArray } from '~/server/utils/json';
 import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
@@ -196,6 +196,16 @@ function generateAnswersSheet(
 					writeCell(a[subkey]);
 					COL++;
 				});
+			} else if (q.type === 'ordering') {
+				const N = (q.options || []).length;
+				// multiple columns, one per row
+				a = safeParseJSON(a) || a;
+				const subkeys = q.options || [];
+				(subkeys || []).forEach((subkey) => {
+					sas.cell(1, COL).string(`${q.label} [${subkey}] [1-${N}]`);
+					writeCell(a.indexOf(subkey) + 1);
+					COL++;
+				});
 			} else {
 				// single column
 				const suffix = q.minLabel && q.maxLabel ? ` [${q.minLabel} - ${q.maxLabel}]` : '';
@@ -238,17 +248,18 @@ function generateAggregatedAnswersSheet(
 			sheet.cell(row, 5).number(aa.average);
 		}
 
-		if (
-			[
-				'checkbox',
-				'radiogroup',
-				'dropdown',
-				'rating',
-				'singleChoiceMatrix',
-				'multipleChoiceMatrix',
-				'distributeUnits',
-			].includes(q.type)
-		) {
+		const eligibleQuestionTypes: QuestionType[] = [
+			'checkbox',
+			'radiogroup',
+			'dropdown',
+			'ordering',
+			'rating',
+			'singleChoiceMatrix',
+			'multipleChoiceMatrix',
+			'distributeUnits',
+		];
+
+		if (eligibleQuestionTypes.includes(q.type)) {
 			(aa.options || []).forEach((o) => {
 				row++;
 				sheet.cell(row, 1).string(aa.question);

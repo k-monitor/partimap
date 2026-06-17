@@ -180,6 +180,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 				.map((o) => ({
 					answer: o,
 					average: Math.round((10 * (sums.get(o) || 0)) / counts!.get(o)!) / 10,
+					count: counts.get(o) || 0,
 				}))
 				.sort((a, b) => (a.average || 0) - (b.average || 0));
 			results.push(result);

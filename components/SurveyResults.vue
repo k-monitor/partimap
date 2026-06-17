@@ -11,10 +11,18 @@ const { t } = useI18n();
 
 function chart(q: AggregatedAnswers) {
 	let data: PointOptionsObject[] = (q.options || [])
-		.map(({ answer, count, average }) => ({
-			name: answer,
-			y: count || average || 0,
-		}))
+		.map(({ answer, count, average }) => {
+			if (q.type === 'ordering') {
+				return {
+					name: answer,
+					y: average || 0,
+				};
+			}
+			return {
+				name: answer,
+				y: count || average || 0,
+			};
+		})
 		.map((a) => {
 			if (a.name === OTHER_ANSWER) {
 				a.name = t('SurveyResult.other');
