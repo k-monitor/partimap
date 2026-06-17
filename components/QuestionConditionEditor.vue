@@ -27,6 +27,9 @@ const question = computed(() => {
 		if (q.type === 'rating') {
 			q.min = 1;
 			q.max = 5;
+		} else if (q.type === 'ordering') {
+			q.min = 1;
+			q.max = q.options?.length || 0;
 		} else {
 			q.min = q.min || 0;
 			q.max = q.max || 100;
@@ -46,7 +49,7 @@ const hasOptions = computed(
 const isNumberQuestion = computed(
 	() =>
 		!!question.value?.type &&
-		'distributeUnits|number|range|rating'.includes(question.value.type),
+		'distributeUnits|number|ordering|range|rating'.includes(question.value.type),
 );
 
 const minMax = computed(() => {

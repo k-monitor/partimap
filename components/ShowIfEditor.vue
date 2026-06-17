@@ -32,7 +32,7 @@ const testableQuestions = computed(() =>
 	[
 		...questionsFromPrevSheets.value,
 		...props.survey.questions.slice(0, props.questionIndex),
-	].filter((q) => q.type !== 'text' && q.type !== 'ordering'),
+	].filter((q) => q.type !== 'text'),
 );
 
 const isConditional = ref(false);
@@ -61,7 +61,7 @@ function addNewCondition() {
 
 const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 	testableQuestions.value.map((q) => {
-		if (q.type.includes('Matrix') || q.type === 'distributeUnits') {
+		if (q.type.includes('Matrix') || q.type === 'distributeUnits' || q.type === 'ordering') {
 			return {
 				label: q.label,
 				options: (q.rows || q.options || []).map((r) => ({
