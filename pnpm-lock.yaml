@@ -176,8 +176,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.9.3)
       vue3-openlayers:
-        specifier: ^11.6.2
-        version: 11.6.2(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3))
+        specifier: ^12.2.2
+        version: 12.2.2(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3))
       word-wrap:
         specifier: ^1.2.5
         version: 1.2.5
@@ -6153,14 +6153,14 @@ packages:
   vue-star-rating@2.1.0:
     resolution: {integrity: sha512-LnhuQPi4hkRg7egKls+iqtL1U0RTN2gQkdLsJN7acyynMsSc9epHLzk8McJS+bR0OzfG98zNFq7mxAyuSb/okQ==}
 
-  vue3-openlayers@11.6.2:
-    resolution: {integrity: sha512-Wml8Hijlpq5ihFoboEKSvoQziIH5oTkAUbMz5NpGd1nbXIJk1zz5QXmd53xmLyXe4s/cItfr4rjb24jSalCc5w==}
-    engines: {node: '>=18.0.0'}
+  vue3-openlayers@12.2.2:
+    resolution: {integrity: sha512-UWtlS6vSiUHwUhW/2mfEh5Xj2N+4SO8dXnxKiGmHFSm+PAtClUG/k2NcxvHm4Fw/ihd8hk65IWHT7/CVY4i83Q==}
+    engines: {node: '>=22.0.0'}
     peerDependencies:
-      ol: ^10.0.0
-      ol-contextmenu: ^5.4.0
-      ol-ext: ^4.0.21
-      vue: ^3.4.0
+      ol: ^10.6.0
+      ol-contextmenu: ^5.5.0
+      ol-ext: ^4.0.38
+      vue: ^3.5.0
 
   vue@3.5.38:
     resolution: {integrity: sha512-vAMKHfImQlYSy0C+PBue4s3ERZ2xGKfgZg5GXAsLInq1dyh2H78ILVP5sK0KPFPVW4kv+OGCIvBEondcjpZp7A==}
@@ -12651,7 +12651,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  vue3-openlayers@11.6.2(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3)):
+  vue3-openlayers@12.2.2(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3)):
     dependencies:
       '@turf/buffer': 7.3.5
       '@turf/helpers': 7.3.5

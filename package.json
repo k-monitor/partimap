@@ -72,7 +72,7 @@
 		"vue-draggable-next": "^2.3.0",
 		"vue-router": "^4.6.4",
 		"vue-star-rating": "^2.1.0",
-		"vue3-openlayers": "^11.6.2",
+		"vue3-openlayers": "^12.2.2",
 		"word-wrap": "^1.2.5",
 		"zod": "^3.25.76"
 	},

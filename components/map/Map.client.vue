@@ -87,7 +87,8 @@ function fitViewToFeatures(immediate?: boolean) {
 }
 
 onMounted(async () => {
-	await nextTick(); // wait for OL to have the features
+	await nextTick(); // wait for children's onMounted
+	await nextTick(); // wait for ol-feature's nextTick(addFeature) callbacks
 	fitViewToFeatures(true);
 });
 
@@ -302,7 +303,8 @@ function handleBoxEnd({ coordinate }: DragBoxEvent) {
 
 watchEffect(async () => {
 	if (!props.viewExtent) {
-		await nextTick();
+		await nextTick(); // wait for children's onMounted
+		await nextTick(); // wait for ol-feature's nextTick(addFeature) callbacks
 		fitViewToFeatures();
 	}
 });
