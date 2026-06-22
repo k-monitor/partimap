@@ -335,6 +335,9 @@ function geolocationChanged(event: ObjectEvent) {
 	geolocationPosition.value = position;
 	fitViewToFeatures();
 }
+watch(geolocationTrackingEnabled, (enabled) => {
+	if (!enabled) fitViewToFeatures();
+});
 </script>
 
 <template>
