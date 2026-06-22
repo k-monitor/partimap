@@ -65,6 +65,8 @@ const viewRef = ref<{ view: View }>();
 const sourceRef = ref<{ source: Vector }>();
 
 function fitViewToFeatures(immediate?: boolean) {
+	if (geolocationTrackingEnabled.value) return; // don't fit if geolocation tracking is enabled
+
 	const olFeatures = sourceRef.value?.source.getFeatures();
 	if (!olFeatures || !olFeatures.length) return;
 
@@ -316,6 +318,21 @@ watch(drawType, async (t) => {
 	await nextTick(); // wait for draw interaction to be ready
 	snapEnabled.value = !!t;
 });
+
+// geolocation
+
+const geolocationTrackingEnabled = ref(false);
+const geolocationPosition = ref<Coordinate>([0, 0]);
+provide('geolocationTrackingEnabled', geolocationTrackingEnabled);
+function geolocationChanged(event: ObjectEvent) {
+	const position = event.target.getPosition();
+	if (!position) return;
+	geolocationPosition.value = position;
+	viewRef.value?.view.animate({
+		center: geolocationPosition.value,
+		duration: 200,
+	});
+}
 </script>
 
 <template>
@@ -337,6 +354,28 @@ watch(drawType, async (t) => {
 		/>
 
 		<BaseMaps />
+
+		<ol-geo-location
+			v-if="geolocationTrackingEnabled"
+			:projection="PARTIMAP_PROJECTION"
+			@change:position="geolocationChanged"
+		>
+			<template>
+				<ol-vector-layer :zIndex="2">
+					<ol-source-vector>
+						<ol-feature>
+							<ol-geom-point :coordinates="geolocationPosition"></ol-geom-point>
+
+							<ol-style>
+								<ol-style-circle radius="8">
+									<ol-style-fill color="#007AFFFF" />
+								</ol-style-circle>
+							</ol-style>
+						</ol-feature>
+					</ol-source-vector>
+				</ol-vector-layer>
+			</template>
+		</ol-geo-location>
 
 		<ol-vector-layer>
 			<ol-source-vector ref="sourceRef">
