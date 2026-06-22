@@ -176,8 +176,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.9.3)
       vue3-openlayers:
-        specifier: ^10.3.1
-        version: 10.3.1(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3))
+        specifier: ^11.6.2
+        version: 11.6.2(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3))
       word-wrap:
         specifier: ^1.2.5
         version: 1.2.5
@@ -2191,26 +2191,29 @@ packages:
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
-  '@turf/bbox@6.5.0':
-    resolution: {integrity: sha512-RBbLaao5hXTYyyg577iuMtDB8ehxMlUqHEJiMs8jT1GHkFhr6sYre3lmLsPeYEi/ZKj5TP5tt7fkzNdJ4GIVyw==}
+  '@turf/bbox@7.3.5':
+    resolution: {integrity: sha512-oG1ya/HtBjAIg4TimbWx+nOYPbY0bCvt82Bq8tm6sBw3qqtbOyRSfDz79Sq90TnH7DXJprJ1qnVGKNtZ6jemfw==}
 
-  '@turf/buffer@6.5.0':
-    resolution: {integrity: sha512-qeX4N6+PPWbKqp1AVkBVWFerGjMYMUyencwfnkCesoznU6qvfugFHNAngNqIBVnJjZ5n8IFyOf+akcxnrt9sNg==}
+  '@turf/buffer@7.3.5':
+    resolution: {integrity: sha512-TGls3nYtWzviKHT00XVBfHKa7Z2oIZKqiHN7R0xErGwMSAR7YhxVROhxq/iyIsWZjl1SlPwweZZIxWILQuxpZA==}
 
-  '@turf/center@6.5.0':
-    resolution: {integrity: sha512-T8KtMTfSATWcAX088rEDKjyvQCBkUsLnK/Txb6/8WUXIeOZyHu42G7MkdkHRoHtwieLdduDdmPLFyTdG5/e7ZQ==}
+  '@turf/center@7.3.5':
+    resolution: {integrity: sha512-eub5/Kfdmn89ZqwCONHI7astmTDEtN5M6+JfOkgoSyhKKFhUJYNxUyH1F/vCtIP7j1K369Vs4L9TYiuGapvIKQ==}
 
-  '@turf/clone@6.5.0':
-    resolution: {integrity: sha512-mzVtTFj/QycXOn6ig+annKrM6ZlimreKYz6f/GSERytOpgzodbQyOgkfwru100O1KQhhjSudKK4DsQ0oyi9cTw==}
+  '@turf/clone@7.3.5':
+    resolution: {integrity: sha512-qfIaHj3410QEcTpiCRnTzhq8YrUp2gWrUIPLBAEFykopNxJkq1du1VrRzvuAo36ap2UV7KppkS6wGNypbcxswQ==}
 
-  '@turf/helpers@6.5.0':
-    resolution: {integrity: sha512-VbI1dV5bLFzohYYdgqwikdMVpe7pJ9X3E+dlr425wa2/sMJqYDhTO++ec38/pcPvPE6oD9WEEeU3Xu3gza+VPw==}
+  '@turf/helpers@7.3.5':
+    resolution: {integrity: sha512-E/NMGV5MwbjjP7AJXBtsanC3yY8N2MQ87IGdIgkB2ji5AtBpwnH4L3gEqpYN4RlCJJWbLbzO91BbKv2waUd0eg==}
 
-  '@turf/meta@6.5.0':
-    resolution: {integrity: sha512-RrArvtsV0vdsCBegoBtOalgdSOfkBrTJ07VkpiCnq/491W67hnMWmDu7e6Ztw0C3WldRYTXkg3SumfdzZxLBHA==}
+  '@turf/jsts@2.7.2':
+    resolution: {integrity: sha512-zAezGlwWHPyU0zxwcX2wQY3RkRpwuoBmhhNE9HY9kWhFDkCxZ3aWK5URKwa/SWKJbj9aztO+8vtdiBA28KVJFg==}
 
-  '@turf/projection@6.5.0':
-    resolution: {integrity: sha512-/Pgh9mDvQWWu8HRxqpM+tKz8OzgauV+DiOcr3FCjD6ubDnrrmMJlsf6fFJmggw93mtVPrZRL6yyi9aYCQBOIvg==}
+  '@turf/meta@7.3.5':
+    resolution: {integrity: sha512-r+ohqxoyqeigFB0oFrQx/YEHIkOKqcKpCjvZkvZs7Tkv+IFco5MezAd2zd4rzK+0DfFgDP3KpJc7HqrYjvEjhg==}
+
+  '@turf/projection@7.3.5':
+    resolution: {integrity: sha512-G4bejYKT0vCQZryMhEoS9aLmP7ThDg6nb3zi3wPzELiTrGNOd2YgkWVheQDGCk4hcqEIWZc9fI2alaRSSkkLVw==}
 
   '@tybys/wasm-util@0.10.2':
     resolution: {integrity: sha512-RoBvJ2X0wuKlWFIjrwffGw1IqZHKQqzIchKaadZZfnNpsAYp2mM0h36JtPCjNDAHGgYez/15uMBpfGwchhiMgg==}
@@ -4207,6 +4210,10 @@ packages:
   jspdf@4.2.1:
     resolution: {integrity: sha512-YyAXyvnmjTbR4bHQRLzex3CuINCDlQnBqoSYyjJwTP2x9jDLuKDzy7aKUl0hgx3uhcl7xzg32agn5vlie6HIlQ==}
 
+  jsts@2.7.1:
+    resolution: {integrity: sha512-x2wSZHEBK20CY+Wy+BPE7MrFQHW6sIsdaGUMEqmGAio+3gFzQaBYPwLRonUfQf9Ak8pBieqj9tUofX1+WtAEIg==}
+    engines: {node: '>= 12'}
+
   jszip@3.10.1:
     resolution: {integrity: sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==}
 
@@ -5737,9 +5744,6 @@ packages:
   tunnel-ssh@4.1.6:
     resolution: {integrity: sha512-y7+x+T3F3rkx2Zov5Tk9DGfeEBVAdWU3A/91E0Dk5rrZ/VFIlpV2uhhRuaISJUdyG0N+Lcp1fXZMXz+ovPt5vA==}
 
-  turf-jsts@1.2.3:
-    resolution: {integrity: sha512-Ja03QIJlPuHt4IQ2FfGex4F4JAr8m3jpaHbFbQrgwr7s7L6U8ocrHiF3J1+wf9jzhGKxvDeaCAnGDot8OjGFyA==}
-
   tweetnacl@0.14.5:
     resolution: {integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==}
 
@@ -6149,13 +6153,13 @@ packages:
   vue-star-rating@2.1.0:
     resolution: {integrity: sha512-LnhuQPi4hkRg7egKls+iqtL1U0RTN2gQkdLsJN7acyynMsSc9epHLzk8McJS+bR0OzfG98zNFq7mxAyuSb/okQ==}
 
-  vue3-openlayers@10.3.1:
-    resolution: {integrity: sha512-HlASYA0Lq8NJpn3h/oADyKMohFqhmJTGbikkkIFoesPwBnpnHHrrzdgG2oBlRZyeLlS3xfsammrT5ZhLuMOOvw==}
+  vue3-openlayers@11.6.2:
+    resolution: {integrity: sha512-Wml8Hijlpq5ihFoboEKSvoQziIH5oTkAUbMz5NpGd1nbXIJk1zz5QXmd53xmLyXe4s/cItfr4rjb24jSalCc5w==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      ol: ^9.1.0
+      ol: ^10.0.0
       ol-contextmenu: ^5.4.0
-      ol-ext: ^4.0.15
+      ol-ext: ^4.0.21
       vue: ^3.4.0
 
   vue@3.5.38:
@@ -8221,41 +8225,59 @@ snapshots:
 
   '@tokenizer/token@0.3.0': {}
 
-  '@turf/bbox@6.5.0':
+  '@turf/bbox@7.3.5':
     dependencies:
-      '@turf/helpers': 6.5.0
-      '@turf/meta': 6.5.0
+      '@turf/helpers': 7.3.5
+      '@turf/meta': 7.3.5
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
 
-  '@turf/buffer@6.5.0':
+  '@turf/buffer@7.3.5':
     dependencies:
-      '@turf/bbox': 6.5.0
-      '@turf/center': 6.5.0
-      '@turf/helpers': 6.5.0
-      '@turf/meta': 6.5.0
-      '@turf/projection': 6.5.0
+      '@turf/bbox': 7.3.5
+      '@turf/center': 7.3.5
+      '@turf/helpers': 7.3.5
+      '@turf/jsts': 2.7.2
+      '@turf/meta': 7.3.5
+      '@turf/projection': 7.3.5
+      '@types/geojson': 7946.0.16
       d3-geo: 1.7.1
-      turf-jsts: 1.2.3
 
-  '@turf/center@6.5.0':
+  '@turf/center@7.3.5':
     dependencies:
-      '@turf/bbox': 6.5.0
-      '@turf/helpers': 6.5.0
+      '@turf/bbox': 7.3.5
+      '@turf/helpers': 7.3.5
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
 
-  '@turf/clone@6.5.0':
+  '@turf/clone@7.3.5':
     dependencies:
-      '@turf/helpers': 6.5.0
+      '@turf/helpers': 7.3.5
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
 
-  '@turf/helpers@6.5.0': {}
-
-  '@turf/meta@6.5.0':
+  '@turf/helpers@7.3.5':
     dependencies:
-      '@turf/helpers': 6.5.0
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
 
-  '@turf/projection@6.5.0':
+  '@turf/jsts@2.7.2':
     dependencies:
-      '@turf/clone': 6.5.0
-      '@turf/helpers': 6.5.0
-      '@turf/meta': 6.5.0
+      jsts: 2.7.1
+
+  '@turf/meta@7.3.5':
+    dependencies:
+      '@turf/helpers': 7.3.5
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
+
+  '@turf/projection@7.3.5':
+    dependencies:
+      '@turf/clone': 7.3.5
+      '@turf/helpers': 7.3.5
+      '@turf/meta': 7.3.5
+      '@types/geojson': 7946.0.16
+      tslib: 2.8.1
 
   '@tybys/wasm-util@0.10.2':
     dependencies:
@@ -10361,6 +10383,8 @@ snapshots:
       dompurify: 3.4.10
       html2canvas: 1.4.1
 
+  jsts@2.7.1: {}
+
   jszip@3.10.1:
     dependencies:
       lie: 3.3.0
@@ -12168,8 +12192,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  tslib@2.8.1:
-    optional: true
+  tslib@2.8.1: {}
 
   tsx@4.22.4:
     dependencies:
@@ -12184,8 +12207,6 @@ snapshots:
       ssh2: 1.4.0
     transitivePeerDependencies:
       - supports-color
-
-  turf-jsts@1.2.3: {}
 
   tweetnacl@0.14.5: {}
 
@@ -12630,10 +12651,10 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  vue3-openlayers@10.3.1(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3)):
+  vue3-openlayers@11.6.2(geotiff@3.0.5)(ol-contextmenu@5.5.0(ol@10.9.0))(ol-ext@4.0.37(ol@10.9.0))(ol@10.9.0)(vue@3.5.38(typescript@5.9.3)):
     dependencies:
-      '@turf/buffer': 6.5.0
-      '@turf/helpers': 6.5.0
+      '@turf/buffer': 7.3.5
+      '@turf/helpers': 7.3.5
       dom-to-image-more: 3.10.0
       file-saver: 2.0.5
       jspdf: 4.2.1
