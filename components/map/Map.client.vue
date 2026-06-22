@@ -63,10 +63,9 @@ watchEffect(() => {
 
 const viewRef = ref<{ view: View }>();
 const sourceRef = ref<{ source: Vector }>();
+const geolocationTrackingEnabled = ref(false);
 
 function fitViewToFeatures(immediate?: boolean) {
-	if (geolocationTrackingEnabled.value) return; // don't fit if geolocation tracking is enabled
-
 	const olFeatures = sourceRef.value?.source.getFeatures();
 	if (!olFeatures || !olFeatures.length) return;
 
@@ -77,9 +76,16 @@ function fitViewToFeatures(immediate?: boolean) {
 			(f) => String(f.get('id') || '') === selectedFeatureId.value,
 		);
 	}
-	const extent = selectedFeature
-		? selectedFeature?.getGeometry()?.getExtent()
-		: sourceRef.value?.source.getExtent();
+
+	if (!selectedFeature && geolocationTrackingEnabled.value) {
+		return viewRef.value?.view.animate({
+			center: geolocationPosition.value,
+			duration: immediate ? 0 : 200,
+		});
+	}
+
+	const extent =
+		selectedFeature?.getGeometry()?.getExtent() || sourceRef.value?.source.getExtent();
 
 	if (!extent) return;
 	viewRef.value?.view.fit(extent, {
@@ -321,17 +327,13 @@ watch(drawType, async (t) => {
 
 // geolocation
 
-const geolocationTrackingEnabled = ref(false);
 const geolocationPosition = ref<Coordinate>([0, 0]);
 provide('geolocationTrackingEnabled', geolocationTrackingEnabled);
 function geolocationChanged(event: ObjectEvent) {
 	const position = event.target.getPosition();
 	if (!position) return;
 	geolocationPosition.value = position;
-	viewRef.value?.view.animate({
-		center: geolocationPosition.value,
-		duration: 200,
-	});
+	fitViewToFeatures();
 }
 </script>
 
