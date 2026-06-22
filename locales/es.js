@@ -427,6 +427,7 @@ export default {
 	},
 	Map: {
 		changeBaseMap: 'Cambiar mapa base',
+			geolocationTracking: 'Seguir mi ubicación',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},

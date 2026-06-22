@@ -420,6 +420,7 @@ export default {
 	},
 	Map: {
 		changeBaseMap: 'Pakeisti pagrindo žemėlapį',
+			geolocationTracking: 'Sekti savo buvimo vietą',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},

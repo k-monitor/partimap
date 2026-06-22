@@ -418,6 +418,7 @@ export default {
 	},
 	Map: {
 		changeBaseMap: 'Alaptérkép váltás',
+		geolocationTracking: 'Saját pozíció követése',
 		initialCenter: '47.4811281,18.9902211', // Budapest
 		initialZoom: '10',
 	},

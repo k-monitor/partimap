@@ -13,6 +13,12 @@ function changeZoom(delta: number) {
 		zoom: zoom + delta,
 	});
 }
+
+const geolocationTrackingEnabled = inject<Ref<boolean>>('geolocationTrackingEnabled');
+function toggleGeolocationTracking() {
+	if (!geolocationTrackingEnabled) return;
+	geolocationTrackingEnabled.value = !geolocationTrackingEnabled.value;
+}
 </script>
 
 <template>
@@ -23,8 +29,18 @@ function changeZoom(delta: number) {
 		<div class="d-flex flex-column shadow-sm">
 			<button
 				v-b-tooltip.hover.left
-				class="btn btn-dark border border-secondary border-end-0 border-bottom-0 rounded-0 py-2"
+				class="btn border border-secondary border-end-0 border-bottom-0 rounded-0 py-2"
+				:class="geolocationTrackingEnabled ? 'btn-primary' : 'btn-dark'"
 				style="font-size: 1.25rem; border-top-left-radius: 0.5rem !important"
+				:title="$t('Map.geolocationTracking')"
+				@click="toggleGeolocationTracking()"
+			>
+				<i class="fas fa-solid fa-location-crosshairs" />
+			</button>
+			<button
+				v-b-tooltip.hover.left
+				class="btn btn-dark border border-secondary border-end-0 border-bottom-0 rounded-0 py-2"
+				style="font-size: 1.25rem"
 				:title="$t('Map.changeBaseMap')"
 				@click="changeBaseMap()"
 			>

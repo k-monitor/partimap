@@ -419,6 +419,7 @@ export default {
 	},
 	Map: {
 		changeBaseMap: 'Schimbă harta de bază',
+			geolocationTracking: 'Urmărește locația mea',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},
