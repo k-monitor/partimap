@@ -129,13 +129,22 @@ const { t } = useI18n();
 				<span class="text-end">{{ q.maxLabel }}</span>
 			</div>
 			<div class="align-items-center d-flex position-relative">
+				<NumberInput
+					v-if="q.type === 'number'"
+					v-model.integer="answers[q.id]"
+					:min="q.min"
+					:max="q.max"
+					:name="`q${q.id}`"
+					:required="q.required"
+				/>
 				<b-form-input
+					v-else
 					v-model.number="answers[q.id]"
 					:min="q.min"
 					:max="q.max"
 					:name="`q${q.id}`"
 					:required="q.required"
-					:type="q.type === 'number' ? 'number' : 'range'"
+					type="range"
 				/>
 				<strong
 					v-if="q.type == 'range' && (!q.minLabel || !q.maxLabel)"
