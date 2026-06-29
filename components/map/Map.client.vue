@@ -3,7 +3,7 @@
 import type { Feature as GeoJsonFeature } from 'geojson';
 import type { Feature as OlFeature, Map, MapBrowserEvent, View } from 'ol';
 import type { Coordinate } from 'ol/coordinate';
-import type { Extent } from 'ol/extent';
+import { boundingExtent, type Extent } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
 import type { LineString, Polygon } from 'ol/geom';
 import type { DragBoxEvent } from 'ol/interaction/DragBox';
@@ -64,6 +64,8 @@ watchEffect(() => {
 const viewRef = ref<{ view: View }>();
 const sourceRef = ref<{ source: Vector }>();
 const geolocationTrackingEnabled = ref(false);
+const geolocationPosition = ref<Coordinate | null>(null);
+const geolocationAccuracy = ref<Coordinate[][] | null>(null);
 
 function fitViewToFeatures(immediate?: boolean) {
 	const olFeatures = sourceRef.value?.source.getFeatures();
@@ -77,10 +79,18 @@ function fitViewToFeatures(immediate?: boolean) {
 		);
 	}
 
-	if (!selectedFeature && geolocationTrackingEnabled.value) {
-		return viewRef.value?.view.animate({
-			center: geolocationPosition.value,
+	if (
+		!selectedFeature &&
+		geolocationTrackingEnabled.value &&
+		(geolocationAccuracy.value || geolocationPosition.value)
+	) {
+		const extent: Extent = boundingExtent([
+			...(geolocationAccuracy.value || []).flat(),
+			...(geolocationPosition.value ? [geolocationPosition.value] : []),
+		]);
+		return viewRef.value?.view.fit(extent, {
 			duration: immediate ? 0 : 200,
+			padding: [80, 80, 80, 80],
 		});
 	}
 
@@ -327,16 +337,20 @@ watch(drawType, async (t) => {
 
 // geolocation
 
-const geolocationPosition = ref<Coordinate>([0, 0]);
 provide('geolocationTrackingEnabled', geolocationTrackingEnabled);
 function geolocationChanged(event: ObjectEvent) {
-	const position = event.target.getPosition();
-	if (!position) return;
-	geolocationPosition.value = position;
-	fitViewToFeatures();
+	const position = event.target.getPosition() as Coordinate | null;
+	geolocationPosition.value = position ?? null;
 }
-watch(geolocationTrackingEnabled, (enabled) => {
-	if (!enabled) fitViewToFeatures();
+function geolocationAccuracyChanged(event: ObjectEvent) {
+	const geom = event.target.getAccuracyGeometry() as Polygon | null;
+	geolocationAccuracy.value = geom?.getCoordinates() ?? null;
+}
+watch(geolocationTrackingEnabled, () => {
+	fitViewToFeatures();
+});
+watch([geolocationPosition, geolocationAccuracy], () => {
+	if (geolocationTrackingEnabled.value) fitViewToFeatures();
 });
 </script>
 
@@ -363,23 +377,32 @@ watch(geolocationTrackingEnabled, (enabled) => {
 		<ol-geo-location
 			v-if="geolocationTrackingEnabled"
 			:projection="PARTIMAP_PROJECTION"
+			:tracking-options="{ enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }"
+			@change:accuracy-geometry="geolocationAccuracyChanged"
 			@change:position="geolocationChanged"
 		>
-			<template>
-				<ol-vector-layer :zIndex="2">
-					<ol-source-vector>
-						<ol-feature>
-							<ol-geom-point :coordinates="geolocationPosition"></ol-geom-point>
-
-							<ol-style>
-								<ol-style-circle radius="8">
-									<ol-style-fill color="#007AFFFF" />
-								</ol-style-circle>
-							</ol-style>
-						</ol-feature>
-					</ol-source-vector>
-				</ol-vector-layer>
-			</template>
+			<ol-vector-layer :z-index="2">
+				<ol-source-vector>
+					<ol-feature v-if="geolocationAccuracy">
+						<ol-geom-polygon :coordinates="geolocationAccuracy" />
+						<ol-style>
+							<ol-style-fill color="rgba(0, 122, 255, 0.15)" />
+							<ol-style-stroke
+								color="#007AFF"
+								:width="1"
+							/>
+						</ol-style>
+					</ol-feature>
+					<ol-feature v-if="geolocationPosition">
+						<ol-geom-point :coordinates="geolocationPosition"></ol-geom-point>
+						<ol-style>
+							<ol-style-circle radius="8">
+								<ol-style-fill color="#007AFFFF" />
+							</ol-style-circle>
+						</ol-style>
+					</ol-feature>
+				</ol-source-vector>
+			</ol-vector-layer>
 		</ol-geo-location>
 
 		<ol-vector-layer>

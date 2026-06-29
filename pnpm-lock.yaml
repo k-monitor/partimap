@@ -224,6 +224,9 @@ importers:
       '@unhead/vue':
         specifier: ^2.1.15
         version: 2.1.15(vue@3.5.38(typescript@5.9.3))
+      '@vue/compiler-sfc':
+        specifier: ^3.5.38
+        version: 3.5.38
       db-migrate:
         specifier: ^0.11.14
         version: 0.11.14
