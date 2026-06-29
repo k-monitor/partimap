@@ -377,33 +377,32 @@ watch([geolocationPosition, geolocationAccuracy], () => {
 		<ol-geo-location
 			v-if="geolocationTrackingEnabled"
 			:projection="PARTIMAP_PROJECTION"
+			:tracking-options="{ enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }"
 			@change:accuracy-geometry="geolocationAccuracyChanged"
 			@change:position="geolocationChanged"
 		>
-			<template>
-				<ol-vector-layer :z-index="2">
-					<ol-source-vector>
-						<ol-feature v-if="geolocationAccuracy">
-							<ol-geom-polygon :coordinates="geolocationAccuracy" />
-							<ol-style>
-								<ol-style-fill color="rgba(0, 122, 255, 0.15)" />
-								<ol-style-stroke
-									color="#007AFF"
-									:width="1"
-								/>
-							</ol-style>
-						</ol-feature>
-						<ol-feature v-if="geolocationPosition">
-							<ol-geom-point :coordinates="geolocationPosition"></ol-geom-point>
-							<ol-style>
-								<ol-style-circle radius="8">
-									<ol-style-fill color="#007AFFFF" />
-								</ol-style-circle>
-							</ol-style>
-						</ol-feature>
-					</ol-source-vector>
-				</ol-vector-layer>
-			</template>
+			<ol-vector-layer :z-index="2">
+				<ol-source-vector>
+					<ol-feature v-if="geolocationAccuracy">
+						<ol-geom-polygon :coordinates="geolocationAccuracy" />
+						<ol-style>
+							<ol-style-fill color="rgba(0, 122, 255, 0.15)" />
+							<ol-style-stroke
+								color="#007AFF"
+								:width="1"
+							/>
+						</ol-style>
+					</ol-feature>
+					<ol-feature v-if="geolocationPosition">
+						<ol-geom-point :coordinates="geolocationPosition"></ol-geom-point>
+						<ol-style>
+							<ol-style-circle radius="8">
+								<ol-style-fill color="#007AFFFF" />
+							</ol-style-circle>
+						</ol-style>
+					</ol-feature>
+				</ol-source-vector>
+			</ol-vector-layer>
 		</ol-geo-location>
 
 		<ol-vector-layer>
