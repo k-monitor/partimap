@@ -20,6 +20,7 @@ const editor = useEditor({
 		Youtube.configure({
 			height: 180,
 			width: 240,
+			nocookie: true,
 		}),
 	],
 	onUpdate: () => (html.value = editor.value?.getHTML()),
