@@ -20,6 +20,25 @@ const props = defineProps<{
 
 const { currentZoom, selectedFeatureId, visibleFeatureBubbles } = useStore();
 
+const olFeatureRef = ref<InstanceType<typeof Map.OlFeature>>();
+
+// Set OL feature properties directly, bypassing OlFeature's `:properties` watcher
+// which calls setGeometry(void 0) on every reference change and breaks geometry.
+function syncOlProperties() {
+	// olFeatureRef.value is reactive({ feature: Ref<Feature> }) — Vue auto-unwraps the
+	// inner ref, so .feature is already the Feature object, not the Ref.
+	(olFeatureRef.value?.feature as OlFeature | undefined)?.setProperties({
+		id: props.f.id,
+		...props.f.properties,
+	});
+}
+// watchPostEffect: runs after DOM updates so the template ref is guaranteed populated.
+watchPostEffect(syncOlProperties);
+
+watch([selectedFeatureId, () => props.showBubble, () => props.labelOverride], () => {
+	(olFeatureRef.value?.feature as OlFeature | undefined)?.changed();
+});
+
 const isSomeFeatureSelected = computed(() => !!selectedFeatureId.value);
 const isSelected = computed(() => selectedFeatureId.value === String(props.f.id || ''));
 const isUnselected = computed(() => isSomeFeatureSelected.value && !isSelected.value);
@@ -312,7 +331,7 @@ function closeBubble() {
 </script>
 
 <template>
-	<ol-feature :properties="{ id: f.id, ...f.properties }">
+	<ol-feature ref="olFeatureRef">
 		<ol-geom-point
 			v-if="f.geometry.type === 'Point'"
 			:coordinates="f.geometry.coordinates"
@@ -338,10 +357,7 @@ function closeBubble() {
 			:coordinates="f.geometry.coordinates"
 		/>
 
-		<ol-style
-			:key="`${f.id}/${isSelected}/${showBubble}/${labelOverride}`"
-			:override-style-function="styleOverride"
-		/>
+		<ol-style :override-style-function="styleOverride" />
 
 		<ol-overlay
 			v-if="showBubble && !isDescriptionEmpty"
