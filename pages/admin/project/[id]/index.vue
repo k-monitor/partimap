@@ -163,202 +163,215 @@ const { user } = useAuth();
 				</div>
 			</template>
 			<div
-				v-if="!hasTextContent(project.privacyPolicy) || !hasTextContent(project.purposeOfDataCollection)"
-				class="alert alert-danger"
+				v-if="
+					!hasTextContent(project.privacyPolicy) ||
+					!hasTextContent(project.purposeOfDataCollection)
+				"
+				class="alert alert-danger mb-5"
 			>
-				⚠️
+				{{ t('legal.missingAlert') }}
 			</div>
 			<form
 				id="projectForm"
 				ref="projectFormRef"
 				@submit.prevent="update"
 			>
-				<div class="row">
-					<div class="col-12 col-md-8">
-						<form-group :label="t('projectEditor.projectTitle')">
-							<input
-								v-model="project.title"
-								class="form-control"
-								required
-							/>
-						</form-group>
+				<section class="mb-5">
+					<div class="row">
+						<div class="col-12 col-md-8">
+							<form-group :label="t('projectEditor.projectTitle')">
+								<input
+									v-model="project.title"
+									class="form-control"
+									required
+								/>
+							</form-group>
+						</div>
+						<div class="col">
+							<form-group :label="t('projectEditor.language')">
+								<select
+									v-model="project.lang"
+									class="form-select"
+								>
+									<option
+										v-for="l in locales"
+										:key="l.code"
+										:value="l.code"
+									>
+										{{ l.name }}
+									</option>
+								</select>
+							</form-group>
+						</div>
 					</div>
-					<div class="col">
-						<form-group :label="t('projectEditor.language')">
-							<select
-								v-model="project.lang"
-								class="form-select"
+					<form-group
+						:label="t('projectEditor.slug')"
+						:description="t('projectEditor.slugDescription')"
+					>
+						<p class="d-md-none fw-bold mb-1 small text-muted">
+							{{ projectBaseURL }}
+						</p>
+						<div class="flex-nowrap input-group">
+							<button
+								class="btn btn-primary"
+								type="button"
+								@click="copyURL"
 							>
-								<option
-									v-for="l in locales"
-									:key="l.code"
-									:value="l.code"
-								>
-									{{ l.name }}
-								</option>
-							</select>
-						</form-group>
-					</div>
-				</div>
-				<form-group
-					:label="t('projectEditor.slug')"
-					:description="t('projectEditor.slugDescription')"
-				>
-					<p class="d-md-none fw-bold mb-1 small text-muted">
-						{{ projectBaseURL }}
-					</p>
-					<div class="flex-nowrap input-group">
-						<button
-							class="btn btn-primary"
-							type="button"
-							@click="copyURL"
-						>
-							<i class="fas fa-copy fa-fw" />
-						</button>
-						<span class="d-none d-md-inline input-group-text">{{
-							projectBaseURL
-						}}</span>
-						<input
-							v-model="project.slug"
-							class="form-control"
-							:placeholder="generateSlug()"
-						/>
-						<button
-							v-b-tooltip.hover
-							class="btn btn-secondary"
-							:title="t('projectEditor.generateSlug')"
-							type="button"
-							@click="project.slug = generateSlug()"
-						>
-							<i class="fas fa-magic fa-fw" />
-						</button>
-					</div>
-				</form-group>
-				<form-group
-					:label="t('projectEditor.password')"
-					:description="t('projectEditor.passwordDescription')"
-				>
-					<div class="flex-nowrap input-group">
-						<input
-							v-model="newPassword"
-							class="form-control"
-							:placeholder="
-								project.password
-									? t('projectEditor.passwordSet')
-									: t('projectEditor.newPassword')
-							"
-							:readonly="!!project.password"
-							type="password"
-							@change="passwordModified = true"
-						/>
-						<button
-							v-if="project.password"
-							class="btn btn-danger"
-							type="button"
-							@click="resetPassword"
-						>
-							<i class="fas fa-backspace" />
-						</button>
-					</div>
-				</form-group>
-				<form-group
-					:label="t('projectEditor.projectDescription')"
-					:description="(project.description || '').length + '/200'"
-				>
-					<textarea
-						v-model="project.description"
-						class="form-control"
-						maxlength="200"
-					/>
-				</form-group>
-
-				<b-form-group
-					:invalid-feedback="t('imageUpload.maxFileSize')"
-					:label="t('projectEditor.thumbnail')"
-					:state="imageState"
-				>
-					<div
-						v-if="!project.image"
-						class="input-group"
-					>
-						<ImageFileInput
-							v-model="image"
-							:state="imageState"
-						/>
-						<button
-							class="btn btn-outline-danger"
-							:disabled="!image"
-							type="button"
-							@click="removeImage"
-						>
-							<i class="fas fa-backspace" />
-						</button>
-					</div>
-					<div v-else>
-						<figure class="figure">
-							<img
-								:src="project.image"
-								:alt="t('projectEditor.altThumbnail')"
-								class="figure-img rounded"
-								height="120"
+								<i class="fas fa-copy fa-fw" />
+							</button>
+							<span class="d-none d-md-inline input-group-text">{{
+								projectBaseURL
+							}}</span>
+							<input
+								v-model="project.slug"
+								class="form-control"
+								:placeholder="generateSlug()"
 							/>
-							<figcaption class="figure-caption">
-								<a
-									class="text-danger"
-									href="javascript:void(0)"
-									@click="removeImage"
-									>{{ t('imageUpload.remove') }}</a
-								>
-							</figcaption>
-						</figure>
-					</div>
-				</b-form-group>
-
-				<form-group
-					class="rich"
-					:label="t('projectEditor.privacyPolicy')"
-					:description="t('projectEditor.privacyPolicyDescription')"
-					:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
-				>
-					<tiptap
-						v-model="project.privacyPolicy"
-						required
-					/>
-				</form-group>
-				<form-group
-					class="rich"
-					:label="t('projectEditor.purposeOfDataCollection')"
-					:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
-				>
-					<tiptap
-						v-model="project.purposeOfDataCollection"
-						required
-					/>
-				</form-group>
-				<form-group
-					class="rich"
-					:label="t('projectEditor.thanks')"
-					:description="t('projectEditor.thanksDescription')"
-				>
-					<tiptap v-model="project.thanks" />
-				</form-group>
-				<form-group
-					:label="t('projectEditor.thanksUrl')"
-					:description="t('projectEditor.thanksUrlDescription')"
-				>
-					<input
-						v-model="project.thanksUrl"
-						class="form-control"
-					/>
-				</form-group>
-				<form-group>
-					<b-form-checkbox
-						v-model="project.thanksSocial"
-						value="1"
+							<button
+								v-b-tooltip.hover
+								class="btn btn-secondary"
+								:title="t('projectEditor.generateSlug')"
+								type="button"
+								@click="project.slug = generateSlug()"
+							>
+								<i class="fas fa-magic fa-fw" />
+							</button>
+						</div>
+					</form-group>
+					<form-group
+						:label="t('projectEditor.password')"
+						:description="t('projectEditor.passwordDescription')"
 					>
-						{{ t('projectEditor.thanksSocial') }}
-					</b-form-checkbox>
-				</form-group>
+						<div class="flex-nowrap input-group">
+							<input
+								v-model="newPassword"
+								class="form-control"
+								:placeholder="
+									project.password
+										? t('projectEditor.passwordSet')
+										: t('projectEditor.newPassword')
+								"
+								:readonly="!!project.password"
+								type="password"
+								@change="passwordModified = true"
+							/>
+							<button
+								v-if="project.password"
+								class="btn btn-danger"
+								type="button"
+								@click="resetPassword"
+							>
+								<i class="fas fa-backspace" />
+							</button>
+						</div>
+					</form-group>
+				</section>
+
+				<section class="mb-5">
+					<form-group
+						:label="t('projectEditor.projectDescription')"
+						:description="(project.description || '').length + '/200'"
+					>
+						<textarea
+							v-model="project.description"
+							class="form-control"
+							maxlength="200"
+						/>
+					</form-group>
+					<b-form-group
+						:invalid-feedback="t('imageUpload.maxFileSize')"
+						:label="t('projectEditor.thumbnail')"
+						:state="imageState"
+					>
+						<div
+							v-if="!project.image"
+							class="input-group"
+						>
+							<ImageFileInput
+								v-model="image"
+								:state="imageState"
+							/>
+							<button
+								class="btn btn-outline-danger"
+								:disabled="!image"
+								type="button"
+								@click="removeImage"
+							>
+								<i class="fas fa-backspace" />
+							</button>
+						</div>
+						<div v-else>
+							<figure class="figure">
+								<img
+									:src="project.image"
+									:alt="t('projectEditor.altThumbnail')"
+									class="figure-img rounded"
+									height="120"
+								/>
+								<figcaption class="figure-caption">
+									<a
+										class="text-danger"
+										href="javascript:void(0)"
+										@click="removeImage"
+										>{{ t('imageUpload.remove') }}</a
+									>
+								</figcaption>
+							</figure>
+						</div>
+					</b-form-group>
+				</section>
+
+				<section class="mb-5">
+					<form-group
+						class="rich"
+						:label="t('projectEditor.privacyPolicy')"
+						:description="t('projectEditor.privacyPolicyDescription')"
+						:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
+					>
+						<tiptap
+							v-model="project.privacyPolicy"
+							required
+						/>
+					</form-group>
+					<form-group
+						class="rich"
+						:label="t('projectEditor.purposeOfDataCollection')"
+						:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
+					>
+						<tiptap
+							v-model="project.purposeOfDataCollection"
+							required
+						/>
+					</form-group>
+				</section>
+
+				<section class="mb-5">
+					<form-group
+						class="rich"
+						:label="t('projectEditor.thanks')"
+						:description="t('projectEditor.thanksDescription')"
+					>
+						<tiptap v-model="project.thanks" />
+					</form-group>
+					<form-group
+						:label="t('projectEditor.thanksUrl')"
+						:description="t('projectEditor.thanksUrlDescription')"
+					>
+						<input
+							v-model="project.thanksUrl"
+							class="form-control"
+						/>
+					</form-group>
+					<form-group>
+						<b-form-checkbox
+							v-model="project.thanksSocial"
+							value="1"
+						>
+							{{ t('projectEditor.thanksSocial') }}
+						</b-form-checkbox>
+					</form-group>
+				</section>
+
 				<form-group
 					:label="t('projectEditor.subscribe')"
 					:description="t('projectEditor.subscribeDescription')"

@@ -37,13 +37,13 @@ function resolveLocaleName(code: string) {
 			</span>
 			<span
 				v-if="userId != user?.id"
-				class="badge text-bg-warning"
+				class="badge text-bg-warning me-2"
 			>
 				{{ t('ListItem.owner') }}: #{{ userId }}
 			</span>
 			<span
 				v-else-if="user?.isAdmin"
-				class="badge text-bg-info"
+				class="badge text-bg-info me-2"
 			>
 				{{ t('ListItem.own') }}
 			</span>

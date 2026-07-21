@@ -271,7 +271,10 @@ function uploadDefinition() {
 						!hasTextContent(p.privacyPolicy) ||
 						!hasTextContent(p.purposeOfDataCollection)
 					"
-					>⚠️</span
+					v-b-tooltip.hover.bottom
+					class="badge text-bg-danger me-2"
+					:title="t('legal.missingAlert')"
+					>{{ t('legal.missingLabel') }}</span
 				>
 				<br />
 				<template v-if="p.created">
