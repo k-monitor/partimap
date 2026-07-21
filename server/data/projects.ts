@@ -8,6 +8,7 @@ export type ExportableProjectDefinition = {
 	title: string;
 	description: string | null;
 	privacyPolicy: string;
+	purposeOfDataCollection: string | null;
 	thanks: string | null;
 	thanksUrl: string | null;
 	thanksSocial: string | null;
