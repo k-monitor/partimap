@@ -166,7 +166,7 @@ function uploadDefinition() {
 <template>
 	<AdminFrame>
 		<template #header>
-			{{ $t('projects.title') }}
+			{{ t('projects.title') }}
 		</template>
 
 		<div class="row">
@@ -179,7 +179,7 @@ function uploadDefinition() {
 						<input
 							v-model="newProjectTitle"
 							class="form-control"
-							:placeholder="$t('projects.newProjectName')"
+							:placeholder="t('projects.newProjectName')"
 							required
 							type="text"
 						/>
@@ -187,7 +187,7 @@ function uploadDefinition() {
 							class="btn btn-outline-success"
 							type="submit"
 						>
-							{{ $t('projects.add') }}
+							{{ t('projects.add') }}
 						</button>
 					</div>
 				</form>
@@ -198,7 +198,7 @@ function uploadDefinition() {
 					<button
 						v-b-tooltip.hover.bottom
 						class="btn btn-outline-secondary"
-						:title="$t('projects.uploadDefinition')"
+						:title="t('projects.uploadDefinition')"
 						type="button"
 						@click="uploadDefinition"
 					>
@@ -211,7 +211,7 @@ function uploadDefinition() {
 					<input
 						v-model="filter"
 						class="form-control"
-						:placeholder="$t('projects.filter')"
+						:placeholder="t('projects.filter')"
 						type="text"
 					/>
 				</div>
@@ -226,7 +226,7 @@ function uploadDefinition() {
 							key="_all"
 							value=""
 						>
-							{{ $t('projects.langFilter') }}
+							{{ t('projects.langFilter') }}
 						</option>
 						<option
 							v-for="l in locales"
@@ -246,7 +246,7 @@ function uploadDefinition() {
 					class="btn btn-outline-primary form-control mb-3"
 					:class="{ active: filterOwn }"
 					type="button"
-					:value="$t('projects.ownProjects')"
+					:value="t('projects.ownProjects')"
 					@click="filterOwn = !filterOwn"
 				/>
 			</div>
@@ -266,18 +266,24 @@ function uploadDefinition() {
 				@download="downloadDefinition(p)"
 				@transfer="initiateTransfer(p)"
 			>
-				<span v-if="!hasTextContent(p.privacyPolicy) || !hasTextContent(p.purposeOfDataCollection)">⚠️</span>
+				<span
+					v-if="
+						!hasTextContent(p.privacyPolicy) ||
+						!hasTextContent(p.purposeOfDataCollection)
+					"
+					>⚠️</span
+				>
 				<br />
 				<template v-if="p.created">
-					{{ $t('projects.created') }}: {{ new Date(p.created).toLocaleDateString() }},
+					{{ t('projects.created') }}: {{ new Date(p.created).toLocaleDateString() }},
 				</template>
-				{{ $t('projects.views') }}: {{ p.views }}, {{ $t('projects.submissions') }}:
+				{{ t('projects.views') }}: {{ p.views }}, {{ t('projects.submissions') }}:
 				{{ p.submissions }}
 				<a
 					v-if="p.submissions"
 					href="javascript:void(0)"
 					@click="downloadReport(p.id)"
-					>{{ $t('projects.export') }}</a
+					>{{ t('projects.export') }}</a
 				>
 			</ListItem>
 		</div>
