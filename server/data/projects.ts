@@ -44,6 +44,7 @@ export function createProject(data: any): Project {
 		description: data.description,
 		image: data.image,
 		privacyPolicy: data.privacyPolicy,
+		purposeOfDataCollection: data.purposeOfDataCollection,
 		thanks: data.thanks,
 		thanksUrl: data.thanksUrl,
 		thanksSocial: data.thanksSocial,
