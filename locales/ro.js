@@ -141,6 +141,7 @@ export default {
 		privacyPolicyRequired: 'Acest cămp este obligatoriu!',
 		projectDescription: 'Descriere Meta (Facebook Link Preview)',
 		projectTitle: 'Titlu chestionar',
+		purposeOfDataCollection: 'Scopul colectării datelor',
 		save: 'Salvează',
 		sheetCreationFailed: 'Crearea paginii nu a reușit',
 		sheetDeletionFailed: 'Ștergerea paginii a eșuat',

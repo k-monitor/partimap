@@ -144,6 +144,7 @@ export default {
 		privacyPolicyRequired: 'Dieses Feld ist erforderlich!',
 		projectDescription: 'Meta-Beschreibung (Facebook-Link-Vorschau)',
 		projectTitle: 'Umfragetitel',
+		purposeOfDataCollection: 'Zweck der Datenerhebung',
 		save: 'Speichern',
 		sheetCreationFailed: 'Erstellen des Arbeitsblatts fehlgeschlagen',
 		sheetDeletionFailed: 'Löschen des Arbeitsblatts fehlgeschlagen',

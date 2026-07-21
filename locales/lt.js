@@ -141,6 +141,7 @@ export default {
 		privacyPolicyRequired: 'Šis laukas privalomas!',
 		projectDescription: 'Meta aprašymas (Facebook nuorodos peržiūra)',
 		projectTitle: 'Apklausos pavadinimas',
+		purposeOfDataCollection: 'Duomenų rinkimo tikslas',
 		save: 'Išsaugoti',
 		sheetCreationFailed: 'Sukurti darbalapio nepavyko',
 		sheetDeletionFailed: 'Ištrinti darbalapio nepavyko',

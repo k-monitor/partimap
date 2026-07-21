@@ -144,6 +144,7 @@ export default {
 		privacyPolicyRequired: '¡Este es un campo obligatorio!',
 		projectDescription: 'Descripción meta (Vista previa del enlace de Facebook)',
 		projectTitle: 'Título de la encuesta',
+		purposeOfDataCollection: 'Finalidad del tratamiento de datos',
 		save: 'Guardar',
 		sheetCreationFailed: 'Error al crear la hoja de trabajo',
 		sheetDeletionFailed: 'Error al eliminar la hoja de trabajo',

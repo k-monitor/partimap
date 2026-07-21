@@ -140,6 +140,7 @@ export default {
 		privacyPolicyRequired: 'Kötelező megadni!',
 		projectDescription: 'Meta leírás (Facebook előnézeti szöveg)',
 		projectTitle: 'Kérdőív címe',
+		purposeOfDataCollection: 'Adatkezelés célja',
 		save: 'Mentés',
 		sheetCreationFailed: 'Munkalap hozzáadása sikertelen',
 		sheetDeletionFailed: 'Munkalap törlése sikertelen',

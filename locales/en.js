@@ -139,6 +139,7 @@ export default {
 		privacyPolicyRequired: 'This is a required field!',
 		projectDescription: 'Meta description (Facebook Link Preview)',
 		projectTitle: 'Survey title',
+		purposeOfDataCollection: 'Purpose of data collection',
 		save: 'Save',
 		sheetCreationFailed: 'Failed to create the sheet',
 		sheetDeletionFailed: 'Failed to delete the sheet',
