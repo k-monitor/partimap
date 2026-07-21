@@ -570,6 +570,7 @@ export default {
 		remove: 'Pašalinti nuotrauką',
 	},
 	legal: {
+		missingLabel: 'Trūksta informacijos!',
 		changedTitle: 'Naudojimo ir privatumo taisyklės',
 		changedNotice: 'Mūsų privatumo politika ir naudojimosi sąlygos pasikeitė.',
 		privacyPolicy: 'Privatumo politika',

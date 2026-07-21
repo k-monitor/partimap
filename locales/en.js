@@ -566,6 +566,7 @@ export default {
 		remove: 'Remove image',
 	},
 	legal: {
+		missingLabel: 'Missing information!',
 		changedTitle: 'Terms of Use and Privacy Policy',
 		changedNotice: 'Our Privacy Policy and Terms of Use have changed.',
 		privacyPolicy: 'Privacy policy',

@@ -577,6 +577,7 @@ export default {
 		remove: 'Bild entfernen',
 	},
 	legal: {
+		missingLabel: 'Fehlende Informationen!',
 		changedTitle: 'Nutzungsbedingungen und Datenschutzerklärung',
 		changedNotice: 'Unsere Datenschutzerklärung und Nutzungsbedingungen haben sich geändert.',
 		privacyPolicy: 'Datenschutzerklärung',

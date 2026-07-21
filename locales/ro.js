@@ -570,6 +570,7 @@ export default {
 		remove: 'Eliminați imaginea',
 	},
 	legal: {
+		missingLabel: 'Informații lipsă!',
 		changedTitle: 'Condiții de Utilizare și Politica de Confidențialitate',
 		changedNotice: 'Politica noastră de Confidențialitate și Termenii de Utilizare s-au modificat.',
 		privacyPolicy: 'Politica de confidențialitate',

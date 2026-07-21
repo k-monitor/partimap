@@ -579,6 +579,7 @@ export default {
 		remove: 'Eliminar imagen',
 	},
 	legal: {
+		missingLabel: '¡Información faltante!',
 		changedTitle: 'Términos de Uso y Política de Privacidad',
 		changedNotice: 'Nuestra Política de Privacidad y los Términos de Uso han cambiado.',
 		privacyPolicy: 'Política de privacidad',

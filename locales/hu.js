@@ -569,6 +569,7 @@ export default {
 		remove: 'Kép törlése',
 	},
 	legal: {
+		missingLabel: 'Hiányzó információk!',
 		changedTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
 		changedNotice: 'Változtak az adatkezelési irányelveink és felhasználási feltételeink.',
 		privacyPolicy: 'Adatkezelési tájékoztató',
