@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import fileSaver from 'file-saver';
 import type { Project } from '~/server/data/projects';
+import { hasTextContent } from '~/utils/hasTextContent';
 
 const { saveAs } = fileSaver;
 
@@ -265,6 +266,7 @@ function uploadDefinition() {
 				@download="downloadDefinition(p)"
 				@transfer="initiateTransfer(p)"
 			>
+				<span v-if="!hasTextContent(p.privacyPolicy) || !hasTextContent(p.purposeOfDataCollection)">⚠️</span>
 				<br />
 				<template v-if="p.created">
 					{{ $t('projects.created') }}: {{ new Date(p.created).toLocaleDateString() }},

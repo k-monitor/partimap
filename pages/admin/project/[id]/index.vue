@@ -2,6 +2,7 @@
 import copy from 'copy-to-clipboard';
 import slugify from 'slugify';
 import type { Project } from '~/server/data/projects';
+import { hasTextContent } from '~/utils/hasTextContent';
 
 const route = useRoute();
 const { id } = route.params;
@@ -161,6 +162,12 @@ const { user } = useAuth();
 					</div>
 				</div>
 			</template>
+			<div
+				v-if="!hasTextContent(project.privacyPolicy) || !hasTextContent(project.purposeOfDataCollection)"
+				class="alert alert-danger"
+			>
+				⚠️
+			</div>
 			<form
 				id="projectForm"
 				ref="projectFormRef"

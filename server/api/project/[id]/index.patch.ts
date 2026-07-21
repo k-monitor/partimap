@@ -4,6 +4,7 @@ import StatusCodes from 'http-status-codes';
 import { z } from 'zod';
 import * as pdb from '~/server/data/projects';
 import * as sdb from '~/server/data/sheets';
+import { hasTextContent } from '~/utils/hasTextContent';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
@@ -58,6 +59,9 @@ export default defineEventHandler(async (event) => {
 
 	project = pdb.createProject({ ...project, ...changes });
 	if (!project.title) throw createError({ statusCode: StatusCodes.BAD_REQUEST });
+	if (!hasTextContent(project.privacyPolicy) || !hasTextContent(project.purposeOfDataCollection)) {
+		throw createError({ statusCode: StatusCodes.BAD_REQUEST });
+	}
 	await pdb.update(project);
 
 	project = await pdb.findById(project.id);
