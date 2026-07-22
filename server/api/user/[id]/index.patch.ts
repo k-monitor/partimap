@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
 	delete changes.registered;
 	delete changes.token;
 	delete changes.tokenExpires;
+	delete changes.gdprBlockNoticeSent;
 
 	if (!event.context.user?.isAdmin) {
 		delete changes.active;

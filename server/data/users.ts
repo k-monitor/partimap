@@ -88,3 +88,42 @@ export function update(user: User) {
 export function updateLastLogin(id: number) {
 	return query('UPDATE user SET lastLogin = ? WHERE id = ?', [Date.now(), id]);
 }
+
+export function updateGdprBlockNoticeSent(id: number) {
+	return query('UPDATE user SET gdprBlockNoticeSent = ? WHERE id = ?', [Date.now(), id]);
+}
+
+export type GdprBlockNoticeData = {
+	id: number;
+	email: string;
+	name: string;
+	lang: string;
+	projects: { id: number; title: string }[];
+};
+
+export function dataForGdprBlockNotices() {
+	const sql = `
+		SELECT
+			u.id,
+			u.email,
+			u.name,
+			(
+				SELECT lang FROM project WHERE userId = u.id
+				GROUP BY lang
+				ORDER BY COUNT(1) DESC, MAX(id) DESC LIMIT 1
+			) lang,
+			JSON_ARRAYAGG(JSON_OBJECT('id', p.id, 'title', p.title)) AS projects
+		FROM user u
+		INNER JOIN project p ON p.userId = u.id
+		WHERE u.gdprBlockNoticeSent = 0 AND
+		(
+			p.purposeOfDataCollection IS NULL
+			OR CHAR_LENGTH(TRIM(REGEXP_REPLACE(p.purposeOfDataCollection, '<[^>]*>', ''))) = 0
+			OR CHAR_LENGTH(TRIM(REGEXP_REPLACE(p.privacyPolicy, '<[^>]*>', ''))) = 0
+		)
+		GROUP BY u.id
+		ORDER BY u.lastLogin DESC
+		LIMIT 5;
+	`;
+	return db.query(sql) as Promise<GdprBlockNoticeData[]>;
+}
