@@ -9,7 +9,7 @@ const { user } = useAuth();
 const { locale, locales, t } = useI18n();
 const localePath = useLocalePath();
 const {
-	public: { gdprBlockDate },
+	public: { gdprBlockFrom },
 } = useRuntimeConfig();
 
 useHead({
@@ -280,7 +280,7 @@ function uploadDefinition() {
 						t('legal.missingAlert', [
 							t('projectEditor.privacyPolicy'),
 							t('projectEditor.purposeOfDataCollection'),
-							new Date(gdprBlockDate).toLocaleString(locale),
+							gdprBlockFrom.toLocaleString(locale),
 						])
 					"
 					>{{ t('legal.missingLabel') }}</span

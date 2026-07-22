@@ -72,7 +72,7 @@ const projectPath = computed(
 );
 
 const {
-	public: { baseUrl, gdprBlockDate },
+	public: { baseUrl, gdprBlockFrom },
 } = useRuntimeConfig();
 const fullProjectPath = computed(() => baseUrl + projectPath.value);
 const projectBaseURL = computed(() => `${baseUrl}/${project.value?.lang}/p/`);
@@ -173,7 +173,7 @@ const { user } = useAuth();
 					t('legal.missingAlert', [
 						t('projectEditor.privacyPolicy'),
 						t('projectEditor.purposeOfDataCollection'),
-						new Date(gdprBlockDate).toLocaleString(locale),
+						gdprBlockFrom.toLocaleString(locale),
 					])
 				}}
 			</div>

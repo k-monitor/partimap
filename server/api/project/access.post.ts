@@ -13,6 +13,7 @@ import { env } from '~~/env';
 import type { H3Event } from 'h3';
 import { deserializeInteractions } from '~/utils/interactions';
 import { parseSurvey } from '~/utils/questionUtil';
+import { hasTextContent } from '~/utils/hasTextContent';
 
 const COOKIE_NAME = 'partimap.pat'; // pat = project access token :D
 const JWT_SECRET = env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
@@ -43,7 +44,7 @@ export default defineEventHandler(async (event) => {
 		await validateCaptcha(event);
 	}
 
-	const accessGranted = isAccessGranted(event, body, project);
+	const accessGranted = isGdprOk(event, project) && isAccessGranted(event, body, project);
 
 	if (!accessGranted) {
 		// token is missing / invalid / expired
@@ -67,6 +68,24 @@ export default defineEventHandler(async (event) => {
 	};
 	return hideSecrets(project);
 });
+
+function isGdprOk(event: H3Event, project: pdb.Project) {
+	const {
+		public: { gdprBlockFrom },
+	} = useRuntimeConfig(event);
+
+	if (new Date().getTime() <= new Date(gdprBlockFrom).getTime()) {
+		// ahead of block date, no blocking
+		return true;
+	}
+
+	if (hasTextContent(project.privacyPolicy) && hasTextContent(project.purposeOfDataCollection)) {
+		// required fields have content, no blocking
+		return true;
+	}
+
+	return false; // block
+}
 
 function isAccessGranted(event: H3Event, body: Body, project: pdb.Project) {
 	const ip = getClientIp(event.node.req) || '';
