@@ -16,6 +16,7 @@ export type User = {
 	tokenExpires: number | null;
 	isAdmin: boolean;
 	consent25Aug: number;
+	gdprBlockNoticeSent: number;
 };
 
 export type PublicUser = Pick<User, 'id' | 'email' | 'name' | 'isAdmin'>;
@@ -36,6 +37,7 @@ export function createUser(data: any): User {
 		token: data.token,
 		tokenExpires: data.tokenExpires,
 		consent25Aug: data.consent25Aug || 0,
+		gdprBlockNoticeSent: data.gdprBlockNoticeSent || 0,
 	};
 }
 
