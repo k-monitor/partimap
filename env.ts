@@ -43,6 +43,7 @@ export const env = createEnv({
 	},
 	client: {
 		NUXT_PUBLIC_BASE_URL: z.string().url().default('http://localhost:3000'),
+		NUXT_PUBLIC_GDPR_BLOCK_FROM: z.string().datetime().default('2027-01-01T00:00:00Z'), // FIXME consult
 		NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: z.string().min(1).optional(),
 		NUXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1).optional(),
 	},

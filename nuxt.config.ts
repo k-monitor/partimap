@@ -26,7 +26,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			baseUrl: env.NUXT_PUBLIC_BASE_URL,
-			gdprBlockFrom: new Date('2027-01-01T00:00:00Z').toISOString(), // FIXME consult
+			gdprBlockFrom: new Date(env.NUXT_PUBLIC_GDPR_BLOCK_FROM).toISOString(),
 			gtm: {
 				id: env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || [],
 				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
