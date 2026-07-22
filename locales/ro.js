@@ -570,6 +570,7 @@ export default {
 		remove: 'Eliminați imaginea',
 	},
 	legal: {
+		missingAlert: 'Vă rugăm să completați câmpurile {0} și {1}, altfel acest sondaj nu va colecta date începând cu {2}.',
 		missingLabel: 'Informații lipsă!',
 		changedTitle: 'Condiții de Utilizare și Politica de Confidențialitate',
 		changedNotice: 'Politica noastră de Confidențialitate și Termenii de Utilizare s-au modificat.',

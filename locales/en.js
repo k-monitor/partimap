@@ -566,6 +566,7 @@ export default {
 		remove: 'Remove image',
 	},
 	legal: {
+		missingAlert: 'Please fill {0} and {1} fields, otherwise this survey won\'t collect data starting from {2}.',
 		missingLabel: 'Missing information!',
 		changedTitle: 'Terms of Use and Privacy Policy',
 		changedNotice: 'Our Privacy Policy and Terms of Use have changed.',

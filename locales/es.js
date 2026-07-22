@@ -579,6 +579,7 @@ export default {
 		remove: 'Eliminar imagen',
 	},
 	legal: {
+		missingAlert: 'Por favor rellena los campos {0} y {1}, de lo contrario esta encuesta no recopilará datos a partir del {2}.',
 		missingLabel: '¡Información faltante!',
 		changedTitle: 'Términos de Uso y Política de Privacidad',
 		changedNotice: 'Nuestra Política de Privacidad y los Términos de Uso han cambiado.',

@@ -577,6 +577,7 @@ export default {
 		remove: 'Bild entfernen',
 	},
 	legal: {
+		missingAlert: 'Bitte fülle die Felder {0} und {1} aus, andernfalls wird diese Umfrage ab {2} keine Daten mehr erfassen.',
 		missingLabel: 'Fehlende Informationen!',
 		changedTitle: 'Nutzungsbedingungen und Datenschutzerklärung',
 		changedNotice: 'Unsere Datenschutzerklärung und Nutzungsbedingungen haben sich geändert.',

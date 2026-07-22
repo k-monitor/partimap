@@ -8,6 +8,9 @@ const { saveAs } = fileSaver;
 const { user } = useAuth();
 const { locale, locales, t } = useI18n();
 const localePath = useLocalePath();
+const {
+	public: { gdprBlockDate },
+} = useRuntimeConfig();
 
 useHead({
 	title: `Admin: ${t('projects.title')}`,
@@ -273,7 +276,13 @@ function uploadDefinition() {
 					"
 					v-b-tooltip.hover.bottom
 					class="badge text-bg-danger me-2"
-					:title="t('legal.missingAlert')"
+					:title="
+						t('legal.missingAlert', [
+							t('projectEditor.privacyPolicy'),
+							t('projectEditor.purposeOfDataCollection'),
+							new Date(gdprBlockDate).toLocaleString(locale),
+						])
+					"
 					>{{ t('legal.missingLabel') }}</span
 				>
 				<br />

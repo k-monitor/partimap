@@ -570,6 +570,7 @@ export default {
 		remove: 'Pašalinti nuotrauką',
 	},
 	legal: {
+		missingAlert: 'Prašome užpildyti {0} ir {1} laukus, kitaip ši apklausa nerinks duomenų nuo {2}.',
 		missingLabel: 'Trūksta informacijos!',
 		changedTitle: 'Naudojimo ir privatumo taisyklės',
 		changedNotice: 'Mūsų privatumo politika ir naudojimosi sąlygos pasikeitė.',

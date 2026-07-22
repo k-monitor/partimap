@@ -569,6 +569,7 @@ export default {
 		remove: 'Kép törlése',
 	},
 	legal: {
+		missingAlert: 'Kérlek töltsd ki a(z) {0} és {1} mezőket, ellenkező esetben a kérdőív nem fog adatot gyűjteni {2} időponttól.',
 		missingLabel: 'Hiányzó információk!',
 		changedTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
 		changedNotice: 'Változtak az adatkezelési irányelveink és felhasználási feltételeink.',

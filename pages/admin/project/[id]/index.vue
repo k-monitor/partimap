@@ -58,7 +58,7 @@ function resetPassword() {
 	passwordModified.value = true;
 }
 
-const { locales, t } = useI18n();
+const { locale, locales, t } = useI18n();
 
 const subscribeOptions = [
 	{ value: 'N', text: t('projectEditor.subscribeN') },
@@ -72,7 +72,7 @@ const projectPath = computed(
 );
 
 const {
-	public: { baseUrl },
+	public: { baseUrl, gdprBlockDate },
 } = useRuntimeConfig();
 const fullProjectPath = computed(() => baseUrl + projectPath.value);
 const projectBaseURL = computed(() => `${baseUrl}/${project.value?.lang}/p/`);
@@ -169,7 +169,13 @@ const { user } = useAuth();
 				"
 				class="alert alert-danger mb-5"
 			>
-				{{ t('legal.missingAlert') }}
+				{{
+					t('legal.missingAlert', [
+						t('projectEditor.privacyPolicy'),
+						t('projectEditor.purposeOfDataCollection'),
+						new Date(gdprBlockDate).toLocaleString(locale),
+					])
+				}}
 			</div>
 			<form
 				id="projectForm"
