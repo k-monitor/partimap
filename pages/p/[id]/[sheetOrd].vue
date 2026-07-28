@@ -8,13 +8,21 @@ import { PARTIMAP_BLUE } from '~/utils/color';
 import { safeParseJSON } from '~/utils/json';
 
 const { user } = useAuth();
-const { fullPath, params, query } = useRoute();
+const { fullPath, params, path, query } = useRoute();
 const forcedSheetOrd = user && query.force;
 const visitId = useState('visitId', () => 0);
 
+const { capturedParams } = useCapturedParams();
+onMounted(() => {
+	capturedParams.value = captureParams(query as Record<string, string | string[] | undefined>);
+});
+
 if (Number(params.sheetOrd) > 0 && !visitId.value && !forcedSheetOrd) {
 	// before visitId generation, so it's a manual navigation
-	navigateTo(`/p/${params.id}/0`);
+	navigateTo({
+		path: `/p/${params.id}/0`,
+		query,
+	});
 } else {
 	visitId.value = visitId.value || Date.now();
 }
@@ -46,10 +54,16 @@ if (_error.value) {
 
 watchEffect(() => {
 	if (project.value?.slug && params.id !== project.value.slug) {
-		navigateTo(`/${project.value.lang}/p/${project.value.slug}/${params.sheetOrd || 0}`);
+		navigateTo({
+			path: `/${project.value.lang}/p/${project.value.slug}/${params.sheetOrd || 0}`,
+			query,
+		});
 	}
 	if (project.value?.lang && !fullPath.startsWith(`/${project.value.lang}`)) {
-		navigateTo(`/${project.value.lang}/p/${project.value.slug}/${params.sheetOrd || 0}`);
+		navigateTo({
+			path: `/${project.value.lang}/p/${project.value.slug}/${params.sheetOrd || 0}`,
+			query,
+		});
 	}
 });
 
@@ -65,7 +79,10 @@ const {
 } = useVisitorData();
 
 function goToSheetOrd(ord: number) {
-	navigateTo(fullPath.replace(/[?#].*$/, '').replace(/\d+$/, String(ord)));
+	navigateTo({
+		path: fullPath.replace(/[?#].*$/, '').replace(/\d+$/, String(ord)),
+		query,
+	});
 }
 
 const {
@@ -345,6 +362,7 @@ async function submit(captcha: string) {
 				method: 'PUT',
 				body: {
 					...data,
+					query: capturedParams.value,
 					captcha, // intentionally using function argument, not the ref!
 				},
 			});
@@ -482,7 +500,7 @@ const localePath = useLocalePath();
 					class="flex-grow-1"
 				>
 					<Map
-						:key="$route.path"
+						:key="path"
 						:features="features"
 						fit-selected
 						:gray-rated="!resultsShown"

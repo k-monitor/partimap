@@ -48,6 +48,7 @@ export default {
 		other: 'Egyéb',
 		percent: 'Százalék',
 		question: 'Kérdés',
+		params: 'URL paraméterek',
 		rating: 'Értékelés',
 		ratingAnswer: 'Szöveges indoklás',
 		ratingCons: 'Szempontok ellene',

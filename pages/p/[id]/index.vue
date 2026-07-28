@@ -4,7 +4,7 @@ definePageMeta({
 		function () {
 			const localePath = useLocalePath();
 			const route = useRoute();
-			return navigateTo(localePath(`/p/${route.params.id}/0`));
+			return navigateTo(localePath({ path: `/p/${route.params.id}/0`, query: route.query }));
 		},
 	],
 });

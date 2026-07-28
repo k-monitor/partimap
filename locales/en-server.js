@@ -48,6 +48,7 @@ export default {
 		other: 'Other',
 		percent: 'Percentage',
 		question: 'Question',
+		params: 'URL parameters',
 		rating: 'Rating',
 		ratingAnswer: 'Textual explanation ',
 		ratingCons: 'Points against',

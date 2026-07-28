@@ -48,6 +48,7 @@
 		other: 'Kitas',
 		percent: 'Procentas',
 		question: 'Klausimas',
+		params: 'URL parametrai',
 		rating: 'Įvertinimas',
 		ratingAnswer: 'Teksto paaiškinimas',
 		ratingCons: 'Taškai prieš',

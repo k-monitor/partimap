@@ -18,7 +18,7 @@ type SubmissionData = {
 	spentTime: number;
 };
 
-export type SubmissionDataBySheet = Record<number, SubmissionData>;
+export type SubmissionDataBySheet = Record<number, SubmissionData> & { query: CapturedParams };
 
 export default function useVisitorData() {
 	const visitorAnswers = useState<Record<number, AnswersByQuestion>>(

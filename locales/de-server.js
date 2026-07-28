@@ -48,6 +48,7 @@ export default {
 		other: 'Sonstige',
 		percent: 'Prozentsatz',
 		question: 'Frage',
+		params: 'URL-Parameter',
 		rating: 'Bewertung',
 		ratingAnswer: 'Textliche Erläuterung',
 		ratingCons: 'Kontra-Punkte',

@@ -48,6 +48,7 @@ export default {
 		other: 'Altele',
 		percent: 'Procentaj',
 		question: 'Întrebare',
+		params: 'Parametri URL',
 		rating: 'Rating',
 		ratingAnswer: 'Explicație text ',
 		ratingCons: 'Puncte împotrivă',

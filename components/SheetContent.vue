@@ -3,7 +3,7 @@ import type { Project } from '~/server/data/projects';
 import type { Sheet } from '~/server/data/sheets';
 import type { AggregatedAnswers } from '~/server/data/surveyAnswers';
 
-defineProps<{
+const props = defineProps<{
 	brandColor?: string | null;
 	project: Project;
 	results?: boolean;
@@ -35,6 +35,19 @@ onMounted(() => {
 watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 	consent.value = t && p;
 });
+
+const { capturedParams } = useCapturedParams();
+const sheetDescription = computed(() => {
+	return interpolateParams(sheet.value?.description || '', capturedParams.value);
+});
+const thanks = computed(() => {
+	return interpolateParams(props.project.thanks || '', capturedParams.value);
+});
+const thanksUrl = computed(() => {
+	return interpolateParams(props.project.thanksUrl || '', capturedParams.value);
+});
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -42,12 +55,12 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 		<b-navbar class="m-0 mb-4 p-0">
 			<div v-if="results">
 				<h1 class="h3 text-primary">
-					{{ $t('SheetContent.results') }}
+					{{ t('SheetContent.results') }}
 				</h1>
 				<h2 class="h4">
 					{{ sheet?.title }}
 				</h2>
-				<p class="my-4">{{ $t('SheetContent.resultsDescription') }}</p>
+				{{ t('SheetContent.resultsDescription') }}
 			</div>
 			<h1
 				v-else
@@ -60,7 +73,7 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 		<TipTapDisplay
 			v-if="!results"
 			class="my-4"
-			:html="sheet?.description"
+			:html="sheetDescription"
 		/>
 		<div
 			v-if="sheet?.survey"
@@ -104,12 +117,12 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 					for="consentTerms"
 					class="form-check-label"
 				>
-					{{ $t('legal.consentTerms1') }}
+					{{ t('legal.consentTerms1') }}
 					<a
 						class="alert-link"
 						href="javascript:void(0)"
 						@click.stop="termsModalVisible = true"
-						v-html="$t('legal.consentTerms2')"
+						v-html="t('legal.consentTerms2')"
 					/>
 				</label>
 			</div>
@@ -127,12 +140,12 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 					for="consentPrivacy"
 					class="form-check-label"
 				>
-					{{ $t('legal.consentPrivacy1') }}
+					{{ t('legal.consentPrivacy1') }}
 					<a
 						class="alert-link"
 						href="javascript:void(0)"
 						@click.stop="privacyModalVisible = true"
-						v-html="$t('legal.consentPrivacy2')"
+						v-html="t('legal.consentPrivacy2')"
 					/>
 				</label>
 			</div>
@@ -142,7 +155,7 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 			no-footer
 			scrollable
 			size="lg"
-			:title="$t('legal.termsOfUse')"
+			:title="t('legal.termsOfUse')"
 		>
 			<Terms hide-title />
 		</b-modal>
@@ -151,7 +164,7 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 			no-footer
 			scrollable
 			size="lg"
-			:title="$t('legal.privacyPolicy')"
+			:title="t('legal.privacyPolicy')"
 		>
 			<Privacy
 				hide-title
@@ -162,17 +175,17 @@ watch([localConsentTerms, localConsentPrivacy], ([t, p]) => {
 	<div v-else>
 		<TipTapDisplay
 			class="mb-5"
-			:html="project.thanks"
+			:html="thanks"
 		/>
 		<div
-			v-if="project.thanksUrl"
+			v-if="thanksUrl"
 			class="text-center mb-5"
 		>
 			<b-button
-				:href="project.thanksUrl"
+				:href="thanksUrl"
 				variant="primary"
 			>
-				{{ $t('SheetContent.next') }}
+				{{ t('SheetContent.next') }}
 				<i class="fas fa-chevron-right ms-2" />
 			</b-button>
 		</div>

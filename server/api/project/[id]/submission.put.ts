@@ -7,6 +7,7 @@ import * as sdb from '~/server/data/sheets';
 import type { SheetTime } from '~/server/data/sheetTimes';
 import * as smdb from '~/server/data/submissions';
 import type { SubmittedFeatures } from '~/server/data/submittedFeatures';
+import { captureParams } from '~/utils/capturedParams';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
@@ -39,6 +40,10 @@ export default defineEventHandler(async (event) => {
 				},
 				spentTime: 0,
 			},
+			query: {
+				source: '...',
+				state: '...',
+			},
 			...
 		}
 	*/
@@ -65,6 +70,7 @@ export default defineEventHandler(async (event) => {
 		timestamp: new Date().getTime(),
 		ip,
 		ua,
+		query: captureParams(body.query || {}),
 	};
 	const ratings = [];
 	const surveyAnswers = [];
@@ -73,6 +79,7 @@ export default defineEventHandler(async (event) => {
 
 	for (const sheetId of submittedSheetIds) {
 		const s = body[Number(sheetId)];
+		if (!s) continue;
 		if (s.answers) {
 			for (const questionId in s.answers) {
 				surveyAnswers.push({

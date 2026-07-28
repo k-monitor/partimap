@@ -4,6 +4,7 @@ import { createSurveyAnswer, type SurveyAnswer } from '~/server/data/surveyAnswe
 import { createSubmittedFeatures, type SubmittedFeatures } from '~/server/data/submittedFeatures';
 import type { SheetTime } from './sheetTimes';
 import { createSheetTime } from './sheetTimes';
+import type { CapturedParams } from '~/utils/capturedParams';
 
 export type Submission = {
 	id: number;
@@ -11,6 +12,7 @@ export type Submission = {
 	timestamp: number;
 	ip: string;
 	ua: string;
+	query: CapturedParams;
 };
 
 export function createSubmission(data: any): Submission {
@@ -20,6 +22,7 @@ export function createSubmission(data: any): Submission {
 		timestamp: data.timestamp,
 		ip: data.ip,
 		ua: data.ua,
+		query: data.query,
 	};
 }
 

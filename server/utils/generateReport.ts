@@ -14,16 +14,22 @@ import type { QuestionType, Survey } from '~/server/data/surveyAnswers';
 import i18n from '~/server/utils/i18n';
 import { safeParseJSON, safeParseJSONArray } from '~/server/utils/json';
 import { deserializeInteractions, lookupDrawingInteraction } from '~/utils/interactions';
-import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
+import {
+	GOOGLEMAPS_PROJECTION,
+	OTHER_ANSWER,
+	OTHER_PREFIX,
+	PARTIMAP_PROJECTION,
+} from '~/utils/constants';
+import { CAPTURED_PARAMS } from '~/utils/capturedParams';
 // Yes, we need explicit imports for utils as we use this file outside Nuxt context.
 
 // TODO refactor: use xlsx.js instead of excel4node
 // TODO refactor: use Nuxt i18n server side
 
-const OL2GM = transformation('EPSG:3857', 'EPSG:4326'); // TODO use common constants
+const OL2GM = transformation(PARTIMAP_PROJECTION, GOOGLEMAPS_PROJECTION);
 function ol2gm(coords: number[]) {
 	// TODO can't we use OL's conversion utility here?
-	const { x, y } = OL2GM.forward({ x: coords[0], y: coords[1] });
+	const { x, y } = OL2GM.forward({ x: coords[0]!, y: coords[1]! });
 	return [y, x];
 }
 
@@ -87,6 +93,10 @@ export default async function (
 	b.start('sheet: answers');
 	generateAnswersSheet(wb, m, questions, submissions, answers);
 	b.end('sheet: answers');
+
+	b.start('sheet: params');
+	generateParamsSheet(wb, m, submissions);
+	b.end('sheet: params');
 
 	b.start('sheet: aggregated answers');
 	generateAggregatedAnswersSheet(wb, m, questions, aggregatedAnswers);
@@ -324,14 +334,14 @@ async function generateAggregatedRatingsSheet(
 	ars.cell(1, 10).string(m.ratingCons);
 	let row = 1;
 	for (let i = 0; i < sheets.length; i++) {
-		const sheet = sheets[i];
+		const sheet = sheets[i]!;
 		const features = safeParseJSONArray(sheet.features) as GeoJsonFeature[]; // TODO redundant
 		const interactions = deserializeInteractions(sheet);
 		const stars = interactions.stars;
 
 		const ar = await rdb.aggregateBySheetId(sheet.id);
 		for (let j = 0; j < ar.length; j++) {
-			const r = ar[j];
+			const r = ar[j]!;
 			const feature = features.find((f) => String(f.id || '') === String(r.featureId));
 			if (!feature) continue;
 
@@ -385,7 +395,7 @@ function generateSubmittedFeaturesSheet(
 	sfs.cell(1, 10).string(m.featureQuestionAnswer);
 	let row = 1;
 	for (let i = 0; i < submittedFeatures.length; i++) {
-		const sf = submittedFeatures[i];
+		const sf = submittedFeatures[i]!;
 		const sheet = sheets.filter((s) => s.id === sf.sheetId)[0];
 		if (sheet) {
 			const features = ((safeParseJSONArray(sf.features) || []) as GeoJsonFeature[]).filter(
@@ -393,8 +403,8 @@ function generateSubmittedFeaturesSheet(
 			);
 			const interactions = deserializeInteractions(sheet);
 			for (let j = 0; j < features.length; j++) {
-				const f = features[j];
-				const name = f?.properties?.name || '';
+				const f = features[j]!;
+				const name = f.properties?.name || '';
 
 				let coords = (f.geometry as any).coordinates; // TODO need proper type
 				// flatten completely
@@ -461,4 +471,37 @@ function generateSheetTimesSheet(
 		CELL(2).string(sheetTitles[st.sheetId] || `${st.sheetId}`);
 		CELL(3).number(Number(((st.spentTimeMs || 0) / 1000 / 60).toFixed(1)));
 	});
+}
+
+function generateParamsSheet(
+	wb: xl.Workbook,
+	m: ServerMessages['report'],
+	submissions: smdb.Submission[],
+) {
+	const filteredSubmissions = submissions.filter((s) => {
+		if (!s.query) return false;
+		return CAPTURED_PARAMS.some((key) => {
+			const value = s.query?.[key];
+			return typeof value === 'string' && value.length > 0;
+		});
+	});
+	if (!filteredSubmissions.length) return;
+
+	const ps = wb.addWorksheet(m.params);
+	ps.cell(1, 1).string(m.submissionId);
+	for (let i = 0; i < CAPTURED_PARAMS.length; i++) {
+		const key = CAPTURED_PARAMS[i];
+		ps.cell(1, i + 2).string(key);
+	}
+	for (let row = 0; row < filteredSubmissions.length; row++) {
+		const s = filteredSubmissions[row]!;
+		ps.cell(row + 2, 1).number(s.id);
+		for (let col = 0; col < CAPTURED_PARAMS.length; col++) {
+			const key = CAPTURED_PARAMS[col]!;
+			const value = s.query?.[key];
+			if (typeof value === 'string') {
+				ps.cell(row + 2, col + 2).string(value);
+			}
+		}
+	}
 }
