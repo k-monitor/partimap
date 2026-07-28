@@ -40,6 +40,9 @@ export const env = createEnv({
 		// Email subscription
 		SUB_DAILY_HOUR: z.coerce.number().min(0).max(23).default(8),
 		SUB_EVENTS_DEBOUNCE_MINS: z.coerce.number().min(1).default(60),
+
+		// Encryption
+		ENCRYPTION_KEY_PATH: z.string().min(1),
 	},
 	client: {
 		NUXT_PUBLIC_BASE_URL: z.string().url().default('http://localhost:3000'),
