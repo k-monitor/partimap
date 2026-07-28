@@ -7,6 +7,10 @@
 		subject: 'Pamiršau slaptažodį',
 		body: '<p><b>Sveiki, {user}</b>!</p><p>Galite nustatyti naują slaptažodį savo PARTIMAP paskyrai spustelėdami toliau pateiktą nuorodą:<br><a href="{ url}">{url}</a></p><p>Ši nuoroda galioja tik 24 valandas. Jei nuorodos galiojimo laikas baigiasi, pateikite slaptažodžio keitimo užklausą dar kartą.</p>',
 	},
+	gdprBlockNotice: {
+		subject: 'Apklausos duomenų rinkimas sustabdytas',
+		body: `<p><b>Sveiki, {user}!</b></p><p>Prašome užpildyti trūkstamus laukus savo apklausos nustatymuose, kitaip apklausa nerinks duomenų nuo {blockFrom}. Paveiktos apklausos:</p>`,
+	},
 	newProject: {
 		newSheetTitle: 'Apklausos tikslas',
 	},

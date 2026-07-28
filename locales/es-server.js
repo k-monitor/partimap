@@ -7,6 +7,10 @@ export default {
 		subject: 'Contraseña olvidada',
 		body: '<p><b>Hola, {user}</b></p><p>¿Le gustaría establecer una nueva contraseña para su cuenta? Haz clic en el siguente enlace:<br><a href="{url}">{url}</a></p><p>Este enlace solo es válido durante 24 horas. Si el enlace caduca, deberás solicitar otro enlace de restablecimiento de contraseña.</p>',
 	},
+	gdprBlockNotice: {
+		subject: 'Recopilación de datos de encuesta suspendida',
+		body: `<p><b>Hola, {user}!</b></p><p>Por favor, rellena los campos que faltan en la configuración de tu encuesta; de lo contrario, la encuesta no recopilará datos a partir del {blockFrom}. Encuestas afectadas:</p>`,
+	},
 	newProject: {
 		newSheetTitle: 'Objetivos de la encuesta',
 	},

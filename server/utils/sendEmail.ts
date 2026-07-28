@@ -31,6 +31,7 @@ export function sendEmail(to: string, subject: string, html: string, listUnsubsc
 			to,
 			subject,
 			html: `${html}\n<p><b>PARTIMAP</b> by <a href="https://k-monitor.hu/">K-Monitor</a></p>`,
+			// TODO i18n
 		};
 		if (listUnsubscribe) {
 			mailOptions.list = {

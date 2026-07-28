@@ -3,7 +3,12 @@ import * as db from '~/server/data/projects';
 import * as udb from '~/server/data/users';
 import { env } from '~~/env';
 
-const { NUXT_PUBLIC_BASE_URL, SUB_DAILY_HOUR, SUB_EVENTS_DEBOUNCE_MINS } = env;
+const {
+	NUXT_PUBLIC_BASE_URL,
+	NUXT_PUBLIC_GDPR_BLOCK_FROM,
+	SUB_DAILY_HOUR,
+	SUB_EVENTS_DEBOUNCE_MINS,
+} = env;
 
 export default defineNitroPlugin(() => {
 	if (process.env.APP_ENV === 'build') return; // skip during build
@@ -11,7 +16,7 @@ export default defineNitroPlugin(() => {
 	const scheduler = useScheduler();
 	scheduler.run(sendDailyNotifications).dailyAt(SUB_DAILY_HOUR, 0);
 	scheduler.run(sendEventBasedNotifications).everyFiveMinutes();
-	scheduler.run(sendGdprBlockNotices).everyMinutes(1); // FIXME set to hourly
+	// FIXME uncomment: scheduler.run(sendGdprBlockNotices).hourly();
 });
 
 function getProjectUrl(lang: string, id: number) {
@@ -27,6 +32,9 @@ function getUnsubscribeUrl(lang: string, id: number, token: string) {
 }
 
 async function sendGdprBlockNotices() {
+	const blockFrom = new Date(NUXT_PUBLIC_GDPR_BLOCK_FROM);
+	if (blockFrom < new Date()) return; // no need for emails, they see it on the UI
+
 	const users = await udb.dataForGdprBlockNotices();
 	for (const u of users) {
 		const projectListItems = u.projects
@@ -34,10 +42,20 @@ async function sendGdprBlockNotices() {
 			.join('\n');
 		const projectListHtml = `\n<ul>${projectListItems}</ul>\n`;
 
-		const subject = 'FIXME GDPR Block Notice'; // FIXME subject from server messages
-		const body = 'FIXME GDPR Block Notice\n{projects}' // FIXME body from server messages
-			.replace(/\{user\}/g, u.name)
-			.replace(/\{projects\}/g, projectListHtml);
+		const m = i18n(u.lang).gdprBlockNotice;
+
+		const subject = m.subject;
+		const body =
+			m.body
+				.replace(/\{projects\}/g, projectListHtml)
+				.replace(/\{user\}/g, u.name)
+				.replace(
+					/\{blockFrom\}/g,
+					blockFrom.toLocaleString(u.lang, {
+						dateStyle: 'long',
+						timeStyle: 'short',
+					}),
+				) + projectListHtml;
 
 		try {
 			await sendEmail(u.email, subject, body);

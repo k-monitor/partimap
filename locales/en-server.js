@@ -7,6 +7,10 @@ export default {
 		subject: 'Forgotten password',
 		body: '<p><b>Hey there, {user}</b>!</p><p>You can set a new password for your PARTIMAP account by clicking the link below:<br><a href="{url}">{url}</a></p><p>This link is only valid for 24 hours. If the link expires, request a password change again.</p>',
 	},
+	gdprBlockNotice: {
+		subject: 'Survey data collection suspended',
+		body: `<p><b>Dear {user}!</b></p><p>Please fill in the missing fields in your survey settings, otherwise the survey will not collect data from {blockFrom}. Affected surveys:</p>`,
+	},
 	newProject: {
 		newSheetTitle: 'Survey objectives',
 	},
