@@ -84,11 +84,9 @@ export default {
 	login: {
 		activated: 'Cont activat cu succes. PARTIMAP îți urează bine ai venit!',
 		activationFailed: 'Activarea a eșuat. Încearcă din nou sau contactează administratorul',
-		email: 'Email',
 		forgotPassword: 'Parolă uitată',
 		invalidEmail: 'Adresă email greșită',
 		invalidEmailOrPassword: 'Email sau parolă greșită',
-		password: 'Parola',
 		passwordChangeRequested: 'Am trimis un email care conține linkul pentru resetarea parolei',
 		pwchanged: 'Schimbarea parolei a avut loc cu succes!',
 		pwchangefailed:
@@ -181,10 +179,7 @@ export default {
 		views: 'Vizualizări',
 	},
 	register: {
-		email: 'Introdu o adresă de email validă',
 		login: 'Ai deja cont?',
-		name: 'Nume',
-		password: 'Parola',
 		procedure:
 			'După finalizarea cu succes a înregistrării, veți primi un e-mail de confirmare. Verificați-vă căsuța de e-mail și dați clic pe link pentru a finaliza înregistrarea.',
 		registrationFailed:
@@ -266,7 +261,9 @@ export default {
 		address: 'Adresă',
 		birthDate: 'Data nașterii',
 		birthPlace: 'Locul nașterii',
+		email: 'Email',
 		fullName: 'Nume complet',
+		password: 'Parola',
 	},
 	userEditor: {
 		activated: 'Activat',
@@ -290,7 +287,6 @@ export default {
 		logo: 'Logo (supported size: 120x30 px)',
 		logoDescription:
 			'Acest(ă) logo/siglă va fi afișat(ă) în antetul tuturor chestionarelor create.',
-		name: 'Nume',
 		newPassword: 'Parolă nouă',
 		oldPassword: 'Parolă curentă (necesară doar pentru modificarea emailului sau a parolei)',
 		save: 'Salvează',

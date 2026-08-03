@@ -83,11 +83,9 @@ export default {
 	login: {
 		activated: 'Account successfully activated. Welcome to PARTIMAP!',
 		activationFailed: 'Activation failed. Try again or contact the administrator',
-		email: 'Email',
 		forgotPassword: 'I forgot my password',
 		invalidEmail: 'Invalid email address',
 		invalidEmailOrPassword: 'Invalid email or password',
-		password: 'Password',
 		passwordChangeRequested: "We've sent you an email with a link to reset your password",
 		pwchanged: 'Password changed successfully!',
 		pwchangefailed: 'Password change failed. Please try again or contact the administrator',
@@ -179,10 +177,7 @@ export default {
 		views: 'views',
 	},
 	register: {
-		email: 'Enter a valid email',
 		login: 'Already have an account?',
-		name: 'Name',
-		password: 'Password',
 		procedure:
 			'A verification email will be sent to you upon successful registration. Check your inbox and click on the link to complete your registration.',
 		registrationFailed:
@@ -264,7 +259,9 @@ export default {
 		address: 'Address',
 		birthDate: 'Date of birth',
 		birthPlace: 'Place of birth',
+		email: 'Email',
 		fullName: 'Full name',
+		password: 'Password',
 	},
 	userEditor: {
 		activated: 'Activated',
@@ -287,7 +284,6 @@ export default {
 		enterPassword: 'Please enter your password',
 		logo: 'Logo (supported size: 120x30 px)',
 		logoDescription: 'This logo will be displayed in the header of all your surveys.',
-		name: 'Name',
 		newPassword: 'New password',
 		oldPassword: 'Current password (only required for email or password changes)',
 		save: 'Save',

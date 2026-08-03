@@ -116,7 +116,7 @@ async function deleteAccount(e: any) {
 	<AdminFrame>
 		<template #header>
 			<span v-if="user?.isAdmin">
-				<NuxtLink :to="localePath('/admin/users')">{{ $t('userEditor.back') }}</NuxtLink>
+				<NuxtLink :to="localePath('/admin/users')">{{ t('userEditor.back') }}</NuxtLink>
 				<span class="ms-2 text-muted">&raquo;</span>
 			</span>
 			{{ u?.email }}
@@ -135,7 +135,7 @@ async function deleteAccount(e: any) {
 				/>
 			</form-group>
 
-			<form-group :label="$t('userEditor.name')">
+			<form-group :label="t('user.name')">
 				<input
 					v-model="m.name"
 					class="form-control"
@@ -144,9 +144,9 @@ async function deleteAccount(e: any) {
 			</form-group>
 
 			<b-form-group
-				:invalid-feedback="$t('imageUpload.maxFileSize')"
-				:label="$t('userEditor.logo')"
-				:description="$t('userEditor.logoDescription')"
+				:invalid-feedback="t('imageUpload.maxFileSize')"
+				:label="t('userEditor.logo')"
+				:description="t('userEditor.logoDescription')"
 				:state="imageState"
 			>
 				<b-input-group v-if="!m.logo">
@@ -168,7 +168,7 @@ async function deleteAccount(e: any) {
 					<figure class="figure">
 						<img
 							:src="m.logo"
-							:alt="$t('userEditor.altLogo')"
+							:alt="t('userEditor.altLogo')"
 							class="figure-img rounded"
 							height="30"
 						/>
@@ -177,7 +177,7 @@ async function deleteAccount(e: any) {
 								class="text-danger"
 								href="javascript:void(0)"
 								@click="removeImage"
-								>{{ $t('imageUpload.remove') }}</a
+								>{{ t('imageUpload.remove') }}</a
 							>
 						</figcaption>
 					</figure>
@@ -185,8 +185,8 @@ async function deleteAccount(e: any) {
 			</b-form-group>
 
 			<form-group
-				:label="$t('userEditor.color')"
-				:description="$t('userEditor.colorDescription')"
+				:label="t('userEditor.color')"
+				:description="t('userEditor.colorDescription')"
 			>
 				<div v-if="!m.color">
 					<button
@@ -194,7 +194,7 @@ async function deleteAccount(e: any) {
 						type="button"
 						@click="m.color = '#000000'"
 					>
-						{{ $t('userEditor.colorAdd') }}
+						{{ t('userEditor.colorAdd') }}
 					</button>
 				</div>
 				<div v-else>
@@ -208,21 +208,21 @@ async function deleteAccount(e: any) {
 						<span
 							v-if="isTooBright"
 							class="fw-bold text-danger ms-3"
-							>{{ $t('userEditor.colorTooBright') }}</span
+							>{{ t('userEditor.colorTooBright') }}</span
 						>
 					</div>
 					<a
 						class="small text-danger"
 						href="javascript:void(0)"
 						@click="m.color = null"
-						>{{ $t('userEditor.colorDel') }}</a
+						>{{ t('userEditor.colorDel') }}</a
 					>
 				</div>
 			</form-group>
 
 			<form-group
-				:label="$t('userEditor.website')"
-				:description="$t('userEditor.websiteDescription')"
+				:label="t('userEditor.website')"
+				:description="t('userEditor.websiteDescription')"
 			>
 				<input
 					v-model="m.website"
@@ -230,7 +230,7 @@ async function deleteAccount(e: any) {
 				/>
 			</form-group>
 
-			<form-group :label="$t('userEditor.newPassword')">
+			<form-group :label="t('userEditor.newPassword')">
 				<input
 					v-model="m.newPassword"
 					class="form-control"
@@ -240,7 +240,7 @@ async function deleteAccount(e: any) {
 
 			<form-group
 				v-if="!user?.isAdmin"
-				:label="$t('userEditor.oldPassword')"
+				:label="t('userEditor.oldPassword')"
 			>
 				<input
 					v-model="m.oldPassword"
@@ -259,7 +259,7 @@ async function deleteAccount(e: any) {
 						:value="1"
 						:unchecked-value="0"
 					>
-						{{ $t('userEditor.activated') }}
+						{{ t('userEditor.activated') }}
 					</b-form-checkbox>
 				</form-group>
 				<form-group>
@@ -270,7 +270,7 @@ async function deleteAccount(e: any) {
 						:value="1"
 						:unchecked-value="0"
 					>
-						{{ $t('userEditor.administrator') }}
+						{{ t('userEditor.administrator') }}
 					</b-form-checkbox>
 				</form-group>
 			</template>
@@ -283,14 +283,14 @@ async function deleteAccount(e: any) {
 					type="button"
 					@click="delModal = true"
 				>
-					{{ $t('userEditor.deleteUser') }}
+					{{ t('userEditor.deleteUser') }}
 				</button>
 				<button
 					class="btn btn-primary"
 					form="userForm"
 					type="submit"
 				>
-					{{ $t('userEditor.save') }}
+					{{ t('userEditor.save') }}
 				</button>
 			</div>
 		</template>
@@ -298,7 +298,7 @@ async function deleteAccount(e: any) {
 		<b-modal
 			v-model="delModal"
 			:busy="loading"
-			:cancel-title="$t('modals.cancel')"
+			:cancel-title="t('modals.cancel')"
 			cancel-variant="success"
 			centered
 			footer-class="d-flex justify-content-between"
@@ -307,12 +307,12 @@ async function deleteAccount(e: any) {
 			no-close-on-esc
 			no-enforce-focus
 			:ok-disabled="!delConfirm || !delPassword"
-			:ok-title="$t('userEditor.confirmDeleteUser')"
+			:ok-title="t('userEditor.confirmDeleteUser')"
 			ok-variant="danger"
 			@ok="deleteAccount"
 			@shown="delPasswordInput?.focus()"
 		>
-			<form-group :label="$t('userEditor.enterPassword')">
+			<form-group :label="t('userEditor.enterPassword')">
 				<input
 					ref="delPasswordInput"
 					v-model="delPassword"
@@ -330,7 +330,7 @@ async function deleteAccount(e: any) {
 				>
 					<span
 						v-html="
-							$t('userEditor.deleteConfirmation', {
+							t('userEditor.deleteConfirmation', {
 								email: u?.email,
 							})
 						"

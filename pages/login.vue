@@ -93,7 +93,7 @@ async function forgot() {
 					@submit.prevent="login"
 				>
 					<div class="card shadow-sm">
-						<CardHeader :text="$t('login.title')" />
+						<CardHeader :text="t('login.title')" />
 						<div class="card-body">
 							<div
 								v-if="successMessage"
@@ -116,7 +116,7 @@ async function forgot() {
 										ref="emailInput"
 										v-model="email"
 										class="form-control"
-										:placeholder="$t('login.email')"
+										:placeholder="t('user.email')"
 										required
 										type="email"
 									/>
@@ -130,7 +130,7 @@ async function forgot() {
 									<input
 										v-model="password"
 										class="form-control"
-										:placeholder="$t('login.password')"
+										:placeholder="t('user.password')"
 										type="password"
 									/>
 								</div>
@@ -139,7 +139,7 @@ async function forgot() {
 								<a
 									href="javascript:void(0)"
 									@click="forgot"
-									>{{ $t('login.forgotPassword') }}</a
+									>{{ t('login.forgotPassword') }}</a
 								>
 							</div>
 							<NuxtTurnstile v-model="captcha" />
@@ -149,13 +149,13 @@ async function forgot() {
 								:to="localePath('/register')"
 								variant="link"
 							>
-								{{ $t('login.register') }}
+								{{ t('login.register') }}
 							</b-button>
 							<b-button
 								type="submit"
 								variant="primary"
 							>
-								{{ $t('login.submit') }}
+								{{ t('login.submit') }}
 							</b-button>
 						</div>
 						<LoadingOverlay :show="!captcha || loading" />

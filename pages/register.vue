@@ -68,7 +68,7 @@ async function userReg() {
 					<div class="card shadow-sm">
 						<CardHeader :text="t('register.title')" />
 						<div class="card-body">
-							<form-group :label="t('register.email')">
+							<form-group :label="t('user.email')">
 								<input
 									ref="emailInput"
 									v-model="email"
@@ -77,7 +77,7 @@ async function userReg() {
 									type="email"
 								/>
 							</form-group>
-							<form-group :label="t('register.password')">
+							<form-group :label="t('user.password')">
 								<input
 									v-model="password"
 									class="form-control"

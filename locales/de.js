@@ -86,11 +86,9 @@ export default {
 		activated: 'Konto erfolgreich aktiviert. Willkommen bei PARTIMAP!',
 		activationFailed:
 			'Aktivierung fehlgeschlagen. Bitte erneut versuchen oder Administrator kontaktieren.',
-		email: 'E-Mail',
 		forgotPassword: 'Passwort vergessen?',
 		invalidEmail: 'Ungültige E-Mail-Adresse',
 		invalidEmailOrPassword: 'E-Mail oder Passwort ungültig',
-		password: 'Passwort',
 		passwordChangeRequested:
 			'Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts gesendet',
 		pwchanged: 'Passwort erfolgreich geändert!',
@@ -187,10 +185,7 @@ export default {
 		views: 'Aufrufe',
 	},
 	register: {
-		email: 'Geben Sie eine gültige E-Mail-Adresse ein',
 		login: 'Haben Sie bereits ein Konto?',
-		name: 'Name',
-		password: 'Passwort',
 		procedure:
 			'Nach erfolgreicher Registrierung erhalten Sie eine Verifizierungs-E-Mail. Prüfen Sie Ihren Posteingang und klicken Sie auf den Link, um die Registrierung abzuschließen.',
 		registrationFailed:
@@ -275,7 +270,9 @@ export default {
 		address: 'Adresse',
 		birthDate: 'Geburtsdatum',
 		birthPlace: 'Geburtsort',
+		email: 'E-Mail',
 		fullName: 'Vollständiger Name',
+		password: 'Passwort',
 	},
 	userEditor: {
 		activated: 'Aktiviert',
@@ -298,7 +295,6 @@ export default {
 		enterPassword: 'Bitte geben Sie Ihr Passwort ein',
 		logo: 'Logo (empfohlen: 120×30 px)',
 		logoDescription: 'Dieses Logo wird in allen Ihren Umfragen im Header angezeigt.',
-		name: 'Name',
 		newPassword: 'Neues Passwort',
 		oldPassword: 'Aktuelles Passwort (nur erforderlich bei E-Mail- oder Passwortänderung)',
 		save: 'Speichern',

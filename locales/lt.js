@@ -84,11 +84,9 @@ export default {
 		activated: 'Paskyra aktyvuota sėkmingai. Sveiki atvykę į PARTIMAP!',
 		activationFailed:
 			'Paskyros aktyvuoti nepavyko. Pabandykite dar kartą arba susisiekite su administratoriumi',
-		email: 'El.paštas',
 		forgotPassword: 'Pamiršau slaptažodį',
 		invalidEmail: 'Neteisingas el.pašto adresas',
 		invalidEmailOrPassword: 'Neteisingas slaptažodis arba el.paštas',
-		password: 'Slaptažodis',
 		passwordChangeRequested: 'Į jūsų paštą atsiuntėme slaptažodžio pakeitimo nuorodą',
 		pwchanged: 'Slaptažodis pakeistas sėkmingai!',
 		pwchangefailed:
@@ -182,10 +180,7 @@ export default {
 		views: 'peržiūros',
 	},
 	register: {
-		email: 'Įveskite galiojantį el.pašto adresą',
 		login: 'Jau turite paskyrą?',
-		name: 'Paskyros vardas',
-		password: 'Slaptažodis',
 		procedure:
 			'Kai užsiregistruosite, gausite el. laišką, kad įsitikintumėte, jog tai tikrai jūs. Ieškokite jo el. laiške ir spustelėkite viduje esančią nuorodą, kad užbaigtumėte registraciją.',
 		registrationFailed:
@@ -268,7 +263,9 @@ export default {
 		address: 'Adresas',
 		birthDate: 'Gimimo data',
 		birthPlace: 'Gimimo vieta',
+		email: 'El.paštas',
 		fullName: 'Vardas ir pavardė',
+		password: 'Slaptažodis',
 	},
 	userEditor: {
 		activated: 'Aktyvuota',
@@ -291,7 +288,6 @@ export default {
 		enterPassword: 'Įveskite slaptažodį',
 		logo: 'Logo (galimas dydis: 120x30 px)',
 		logoDescription: 'Šis logo bus vaizduojamas visų projektų antraštėje .',
-		name: 'Paskyros vardas',
 		newPassword: 'Naujas slaptažodis',
 		oldPassword: 'Dabartinis slaptažodis (reikalauja tik keičiant el.paštą arba slaptažodį',
 		save: 'Išsaugoti',
