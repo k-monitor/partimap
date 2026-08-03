@@ -1,6 +1,8 @@
 import * as db from '~/server/utils/database';
 import * as pdb from '~/server/data/projects';
 
+// FIXME separate types for create, patch, retrieve, add encryption/decryption here
+
 export type User = {
 	id: number;
 	active: boolean;

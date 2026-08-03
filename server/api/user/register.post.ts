@@ -6,22 +6,23 @@ import * as db from '~/server/data/users';
 import { env } from '~/env';
 
 const bodySchema = z.object({
+	address: z.string().min(1),
+	birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format, expected YYYY-MM-DD'),
+	birthPlace: z.string().min(1),
 	captcha: z.string().min(1).optional(),
 	consent: z.boolean().optional(),
 	email: z.string().email(),
-	name: z.string().min(1),
+	fullName: z.string().min(1),
+	locale: z.string().length(2),
 	password: z
 		.string()
 		.min(1)
 		.default(() => crypto.randomBytes(64).toString('hex')),
-	locale: z.string().length(2),
 });
 
 export default defineEventHandler(async (event) => {
-	const { consent, email, locale, name, password } = await readValidatedBody(
-		event,
-		bodySchema.parse,
-	);
+	const { address, birthDate, birthPlace, consent, email, locale, fullName, password } =
+		await readValidatedBody(event, bodySchema.parse);
 
 	if (event.context.user) {
 		if (!event.context.user.isAdmin) {
@@ -48,10 +49,15 @@ export default defineEventHandler(async (event) => {
 	const newUser = db.createUser({
 		active: false,
 		email,
-		name,
 		password: hashedPassword,
 		registered: Date.now(),
 		consent25Aug: Date.now(),
+
+		// FIXME register API -> db call
+		name: fullName,
+		address,
+		birthDate,
+		birthPlace,
 	});
 	addToken(newUser);
 
@@ -76,6 +82,6 @@ export default defineEventHandler(async (event) => {
 
 	// self-registered on public page
 	const url = `${env.NUXT_PUBLIC_BASE_URL}/${locale}/login?t=${newUser.token}`;
-	const body = m.body.replace(/\{user\}/g, name).replace(/\{url\}/g, url);
+	const body = m.body.replace(/\{user\}/g, fullName).replace(/\{url\}/g, url);
 	await sendEmail(email, m.subject, body);
 });
