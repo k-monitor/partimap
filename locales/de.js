@@ -271,6 +271,12 @@ export default {
 			'Sie haben die E-Mail-Benachrichtigungen für diese Umfrage erfolgreich abbestellt.',
 		title: 'Abbestellen',
 	},
+	user: {
+		address: 'Adresse',
+		birthDate: 'Geburtsdatum',
+		birthPlace: 'Geburtsort',
+		fullName: 'Vollständiger Name',
+	},
 	userEditor: {
 		activated: 'Aktiviert',
 		administrator: 'Administrator',

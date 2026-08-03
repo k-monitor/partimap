@@ -260,6 +260,12 @@ export default {
 		success: "You have successfully unsubscribed from this survey's email notifications.",
 		title: 'Unsubscribe',
 	},
+	user: {
+		address: 'Address',
+		birthDate: 'Date of birth',
+		birthPlace: 'Place of birth',
+		fullName: 'Full name',
+	},
 	userEditor: {
 		activated: 'Activated',
 		administrator: 'Administrator',

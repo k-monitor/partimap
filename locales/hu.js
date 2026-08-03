@@ -261,6 +261,12 @@ export default {
 		success: 'Sikeresen leiratkoztál a kérdőív email értesítéseiről.',
 		title: 'Leiratkozás',
 	},
+	user: {
+		address: 'Lakcím',
+		birthDate: 'Születési dátum',
+		birthPlace: 'Születési hely',
+		fullName: 'Teljes név',
+	},
 	userEditor: {
 		activated: 'Aktiválva',
 		administrator: 'Adminisztrátor',

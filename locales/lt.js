@@ -264,6 +264,12 @@ export default {
 		success: 'Naujienlaiškio atsisakyta sėkmingai.',
 		title: 'Atsisakyti naujienlaiškio',
 	},
+	user: {
+		address: 'Adresas',
+		birthDate: 'Gimimo data',
+		birthPlace: 'Gimimo vieta',
+		fullName: 'Vardas ir pavardė',
+	},
 	userEditor: {
 		activated: 'Aktyvuota',
 		administrator: 'Administratorius',

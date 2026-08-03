@@ -262,6 +262,12 @@ export default {
 		success: 'V-ați dezabonat cu succes de la notificările prin email ale acestui chestionar.',
 		title: 'Dezabonare',
 	},
+	user: {
+		address: 'Adresă',
+		birthDate: 'Data nașterii',
+		birthPlace: 'Locul nașterii',
+		fullName: 'Nume complet',
+	},
 	userEditor: {
 		activated: 'Activat',
 		administrator: 'Administrator',

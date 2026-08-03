@@ -270,6 +270,12 @@ export default {
 			'Te has dado de baja con éxito de las notificaciones por correo electrónico de esta encuesta.',
 		title: 'Desactivar la notificación',
 	},
+	user: {
+		address: 'Dirección',
+		birthDate: 'Fecha de nacimiento',
+		birthPlace: 'Lugar de nacimiento',
+		fullName: 'Nombre completo',
+	},
 	userEditor: {
 		activated: 'Activado',
 		administrator: 'Administrador',
