@@ -92,7 +92,7 @@ async function forgot() {
 					ref="form"
 					@submit.prevent="login"
 				>
-					<div class="card shadow-sm">
+					<div class="card shadow-sm my-5">
 						<CardHeader :text="t('login.title')" />
 						<div class="card-body">
 							<div
