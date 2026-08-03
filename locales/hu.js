@@ -180,6 +180,8 @@ export default {
 	},
 	register: {
 		login: 'Már van fiókom',
+		personalData:
+			'A regisztráció során megadott személyes adatok kezelésének célja a felhasználók egyértelmű azonosítása, a felhasználói fiókok és jogosultságok kezelése, valamint a kérdőívező rendszer biztonságos és rendeltetésszerű működésének biztosítása. A megadott személyes adatokat kizárólag ezen célokból kezeljük, azokat harmadik személy részére nem adjuk át, kivéve, ha azt jogszabály írja elő vagy ahhoz az érintett előzetesen, kifejezetten hozzájárult.',
 		procedure:
 			'A fiók aktiválásához a Regisztráció gomb megnyomása után a megadott e-mail címére küldünk egy levelet, amellyel aktiválhatja a regisztrációját.',
 		registrationFailed: 'Regisztráció sikertelen',

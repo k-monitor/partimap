@@ -181,6 +181,8 @@ export default {
 	},
 	register: {
 		login: 'Jau turite paskyrą?',
+		personalData:
+			'Registracijos metu pateikti asmens duomenys naudojami vartotojų vienareikšmiam identifikavimui, vartotojų paskyrų ir teisių valdymui, taip pat siekiant užtikrinti saugų ir tinkamą apklausų sistemos veikimą. Pateikti asmens duomenys tvarkomi tik šiais tikslais ir nėra perduodami trečiosioms šalims, išskyrus atvejus, kai to reikalauja įstatymai arba kai duomenų subjektas iš anksto aiškiai sutiko.',
 		procedure:
 			'Kai užsiregistruosite, gausite el. laišką, kad įsitikintumėte, jog tai tikrai jūs. Ieškokite jo el. laiške ir spustelėkite viduje esančią nuorodą, kad užbaigtumėte registraciją.',
 		registrationFailed:

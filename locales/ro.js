@@ -180,6 +180,8 @@ export default {
 	},
 	register: {
 		login: 'Ai deja cont?',
+		personalData:
+			'Datele personale furnizate în timpul înregistrării sunt utilizate pentru identificarea neechivocă a utilizatorilor, gestionarea conturilor și permisiunilor utilizatorilor și asigurarea funcționării sigure și corespunzătoare a sistemului de sondaje. Datele personale furnizate sunt procesate exclusiv în aceste scopuri și nu sunt transferate către terți, cu excepția cazurilor în care legea o impune sau în care persoana vizată și-a dat consimțământul prealabil explicit.',
 		procedure:
 			'După finalizarea cu succes a înregistrării, veți primi un e-mail de confirmare. Verificați-vă căsuța de e-mail și dați clic pe link pentru a finaliza înregistrarea.',
 		registrationFailed:

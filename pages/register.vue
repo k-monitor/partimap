@@ -115,7 +115,9 @@ async function userReg() {
 								/>
 							</form-group>
 
-							<form-group class="mt-5">
+							<p class="my-4 small text-muted">{{ t('register.personalData') }}</p>
+
+							<form-group>
 								<div class="form-check">
 									<input
 										id="consentTerms"

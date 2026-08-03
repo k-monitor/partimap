@@ -186,6 +186,8 @@ export default {
 	},
 	register: {
 		login: '¿Ya tienes una cuenta?',
+		personalData:
+			'Los datos personales proporcionados durante el registro se utilizan para la identificación inequívoca de los usuarios, la gestión de cuentas de usuario y permisos, y para garantizar el funcionamiento seguro y adecuado del sistema de encuestas. Los datos personales proporcionados se procesan únicamente para estos fines y no se transfieren a terceros, excepto cuando lo exija la ley o cuando el interesado haya dado su consentimiento previo y explícito.',
 		procedure:
 			'Una vez que se haya registrado correctamente, recibirá un mensaje de verificación. Para completar su registro, revise su bandeja de entrada y haga clic en el enlace.',
 		registrationFailed:

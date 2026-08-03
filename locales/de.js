@@ -186,6 +186,8 @@ export default {
 	},
 	register: {
 		login: 'Haben Sie bereits ein Konto?',
+		personalData:
+			'Die bei der Registrierung angegebenen personenbezogenen Daten werden zur eindeutigen Identifizierung der Nutzer, zur Verwaltung von Benutzerkonten und Berechtigungen sowie zur Gewährleistung des sicheren und bestimmungsgemäßen Betriebs des Befragungssystems verwendet. Die angegebenen personenbezogenen Daten werden ausschließlich zu diesen Zwecken verarbeitet und nicht an Dritte weitergegeben, es sei denn, dies ist gesetzlich vorgeschrieben oder die betroffene Person hat vorher ausdrücklich zugestimmt.',
 		procedure:
 			'Nach erfolgreicher Registrierung erhalten Sie eine Verifizierungs-E-Mail. Prüfen Sie Ihren Posteingang und klicken Sie auf den Link, um die Registrierung abzuschließen.',
 		registrationFailed:

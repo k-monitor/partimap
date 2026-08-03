@@ -178,6 +178,8 @@ export default {
 	},
 	register: {
 		login: 'Already have an account?',
+		personalData:
+			'The personal data provided during registration is used for the unambiguous identification of users, the management of user accounts and permissions, and ensuring the secure and proper operation of the survey system. The personal data provided is processed solely for these purposes and is not transferred to third parties, except where required by law or where the person concerned has given prior explicit consent.',
 		procedure:
 			'A verification email will be sent to you upon successful registration. Check your inbox and click on the link to complete your registration.',
 		registrationFailed:
