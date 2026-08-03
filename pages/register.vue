@@ -43,6 +43,8 @@ async function userReg() {
 				password: password.value,
 				fullName: fullName.value,
 				address: address.value,
+				birthPlace: birthPlace.value,
+				birthDate: birthDate.value,
 			},
 		});
 		navigateTo(

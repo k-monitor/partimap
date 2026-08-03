@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 	const u: PublicUser = {
 		id: event.context.user.id,
 		email: event.context.user.email,
-		name: event.context.user.name,
+		name: event.context.user.name, // FIXME need decrypted fullName
 		isAdmin: event.context.user.isAdmin,
 	};
 	return u;

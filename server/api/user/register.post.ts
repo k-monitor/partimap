@@ -52,12 +52,11 @@ export default defineEventHandler(async (event) => {
 		password: hashedPassword,
 		registered: Date.now(),
 		consent25Aug: Date.now(),
-
-		// FIXME register API -> db call
-		name: fullName,
-		address,
-		birthDate,
-		birthPlace,
+		name: '',
+		eFullName: encryptField(fullName),
+		eAddress: encryptField(address),
+		eBirthDate: encryptField(birthDate),
+		eBirthPlace: encryptField(birthPlace),
 	});
 	addToken(newUser);
 

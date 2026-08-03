@@ -1,8 +1,6 @@
 import * as db from '~/server/utils/database';
 import * as pdb from '~/server/data/projects';
 
-// FIXME separate types for create, patch, retrieve, add encryption/decryption here
-
 export type User = {
 	id: number;
 	active: boolean;
@@ -19,27 +17,35 @@ export type User = {
 	isAdmin: boolean;
 	consent25Aug: number;
 	gdprBlockNoticeSent: number;
+	eFullName: string | null;
+	eAddress: string | null;
+	eBirthDate: string | null;
+	eBirthPlace: string | null;
 };
 
 export type PublicUser = Pick<User, 'id' | 'email' | 'name' | 'isAdmin'>;
 
-export function createUser(data: any): User {
+export function createUser(data: Partial<User>): User {
 	return {
-		id: data.id,
-		active: data.active,
-		email: data.email,
-		password: data.password,
-		name: data.name,
-		color: data.color,
-		logo: data.logo,
-		website: data.website,
+		id: data.id || 0,
+		active: data.active || false,
+		email: data.email || '',
+		password: data.password || '',
+		name: data.name || '',
+		color: data.color || null,
+		logo: data.logo || null,
+		website: data.website || '',
 		registered: data.registered || 0,
 		lastLogin: data.lastLogin || 0,
 		isAdmin: data.isAdmin || false,
-		token: data.token,
-		tokenExpires: data.tokenExpires,
+		token: data.token || null,
+		tokenExpires: data.tokenExpires || null,
 		consent25Aug: data.consent25Aug || 0,
 		gdprBlockNoticeSent: data.gdprBlockNoticeSent || 0,
+		eFullName: data.eFullName || null,
+		eAddress: data.eAddress || null,
+		eBirthDate: data.eBirthDate || null,
+		eBirthPlace: data.eBirthPlace || null,
 	};
 }
 
@@ -88,7 +94,7 @@ export function update(user: User) {
 }
 
 export function updateLastLogin(id: number) {
-	return query('UPDATE user SET lastLogin = ? WHERE id = ?', [Date.now(), id]);
+	return db.query('UPDATE user SET lastLogin = ? WHERE id = ?', [Date.now(), id]);
 }
 
 export function updateGdprBlockNoticeSent(id: number) {
