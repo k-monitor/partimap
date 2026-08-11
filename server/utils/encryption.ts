@@ -15,8 +15,8 @@ export function encryptField(plaintext: string) {
 	return Buffer.concat([iv, authTag, encrypted]).toString('base64');
 }
 
-export function decryptField(stored: string) {
-	if (!stored.trim()) return '';
+export function decryptField(stored: string | null | undefined) {
+	if (!stored || !stored.trim()) return '';
 	const data = Buffer.from(stored, 'base64');
 	const iv = data.subarray(0, 12);
 	const authTag = data.subarray(12, 28);
