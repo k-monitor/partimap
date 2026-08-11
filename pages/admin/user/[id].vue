@@ -9,16 +9,21 @@ const { errorToast, successToast } = useToasts();
 
 const route = useRoute();
 const { data: u, refresh } = await useFetch<User>('/api/user/' + route.params.id);
+const { data: pd, refresh: refreshPersonalData } = await useFetch<{
+	fullName: string;
+	address: string;
+	birthDate: string;
+	birthPlace: string;
+}>('/api/user/' + route.params.id + '/pd');
 
 useHead({
-	title: () => 'Admin: ' + (u.value?.name || u.value?.email),
+	title: () => 'Admin: ' + (pd.value?.fullName || u.value?.name || u.value?.email),
 });
 
-const m = ref({
-	...u.value,
-	newPassword: '',
-	oldPassword: '',
-});
+const m = ref({ ...u.value, ...pd.value, newPassword: '', oldPassword: '' });
+function refreshModel() {
+	m.value = { ...u.value, ...pd.value, newPassword: '', oldPassword: '' };
+}
 
 const isTooBright = computed(() => {
 	if (!m.value.color) return false;
@@ -66,15 +71,22 @@ async function update() {
 		if (image.value) {
 			await uploadImage();
 		}
+		const body = m.value;
+		if (body.fullName === pd.value?.fullName) delete body.fullName;
+		if (body.address === pd.value?.address) delete body.address;
+		if (body.birthPlace === pd.value?.birthPlace) delete body.birthPlace;
+		if (body.birthDate === pd.value?.birthDate) delete body.birthDate;
 		const user = await $fetch<User>(`/api/user/${u.value?.id}`, {
 			method: 'PATCH',
-			body: m.value,
+			body,
 		});
-		m.value = { ...user, newPassword: '', oldPassword: '' };
 		await refresh(); // need to update page title
+		await refreshPersonalData();
+		refreshModel();
 		await updateSession();
 		successToast(t('userEditor.changeSuccessful'));
 	} catch (error) {
+		console.error(error);
 		errorToast(t('userEditor.changeFailed'));
 	}
 }
@@ -126,131 +138,158 @@ async function deleteAccount(e: any) {
 			id="userForm"
 			@submit.prevent="update"
 		>
-			<form-group label="Email">
-				<input
-					v-model="m.email"
-					class="form-control"
-					required
-					type="email"
-				/>
-			</form-group>
-
-			<form-group :label="t('user.name')">
-				<input
-					v-model="m.name"
-					class="form-control"
-					required
-				/>
-			</form-group>
-
-			<b-form-group
-				:invalid-feedback="t('imageUpload.maxFileSize')"
-				:label="t('userEditor.logo')"
-				:description="t('userEditor.logoDescription')"
-				:state="imageState"
-			>
-				<b-input-group v-if="!m.logo">
-					<ImageFileInput
-						v-model="image"
-						:state="imageState"
+			<section class="mb-5">
+				<form-group label="Email">
+					<input
+						v-model="m.email"
+						class="form-control"
+						required
+						type="email"
 					/>
-					<template #append>
-						<b-button
-							:disabled="!image"
-							variant="outline-danger"
-							@click="removeImage"
-						>
-							<i class="fas fa-backspace" />
-						</b-button>
-					</template>
-				</b-input-group>
-				<div v-else>
-					<figure class="figure">
-						<img
-							:src="m.logo"
-							:alt="t('userEditor.altLogo')"
-							class="figure-img rounded"
-							height="30"
-						/>
-						<figcaption class="figure-caption">
-							<a
-								class="text-danger"
-								href="javascript:void(0)"
-								@click="removeImage"
-								>{{ t('imageUpload.remove') }}</a
-							>
-						</figcaption>
-					</figure>
-				</div>
-			</b-form-group>
+				</form-group>
+				<form-group :label="t('userEditor.newPassword')">
+					<input
+						v-model="m.newPassword"
+						class="form-control"
+						type="password"
+					/>
+				</form-group>
+				<form-group
+					v-if="!user?.isAdmin"
+					:label="t('userEditor.oldPassword')"
+				>
+					<input
+						v-model="m.oldPassword"
+						class="form-control"
+						:required="!!m.newPassword || m.email !== u?.email"
+						type="password"
+					/>
+				</form-group>
+			</section>
 
-			<form-group
-				:label="t('userEditor.color')"
-				:description="t('userEditor.colorDescription')"
+			<section
+				v-if="pd"
+				class="mb-5"
 			>
-				<div v-if="!m.color">
-					<button
-						class="btn btn-outline-primary"
-						type="button"
-						@click="m.color = '#000000'"
-					>
-						{{ t('userEditor.colorAdd') }}
-					</button>
-				</div>
-				<div v-else>
-					<div class="d-flex align-items-center">
-						<input
-							v-model="m.color"
-							class="form-control"
-							style="height: 2.5rem; width: 100px; min-width: 100px"
-							type="color"
+				<form-group :label="t('user.fullName')">
+					<input
+						v-model="m.fullName"
+						class="form-control"
+						required
+					/>
+				</form-group>
+				<form-group :label="t('user.address')">
+					<input
+						v-model="m.address"
+						class="form-control"
+						required
+					/>
+				</form-group>
+				<form-group :label="t('user.birthPlace')">
+					<input
+						v-model="m.birthPlace"
+						class="form-control"
+						required
+					/>
+				</form-group>
+				<form-group :label="t('user.birthDate')">
+					<input
+						v-model="m.birthDate"
+						class="form-control"
+						required
+						type="date"
+					/>
+				</form-group>
+			</section>
+
+			<section class="mb-5">
+				<b-form-group
+					:invalid-feedback="t('imageUpload.maxFileSize')"
+					:label="t('userEditor.logo')"
+					:description="t('userEditor.logoDescription')"
+					:state="imageState"
+				>
+					<b-input-group v-if="!m.logo">
+						<ImageFileInput
+							v-model="image"
+							:state="imageState"
 						/>
-						<span
-							v-if="isTooBright"
-							class="fw-bold text-danger ms-3"
-							>{{ t('userEditor.colorTooBright') }}</span
+						<template #append>
+							<b-button
+								:disabled="!image"
+								variant="outline-danger"
+								@click="removeImage"
+							>
+								<i class="fas fa-backspace" />
+							</b-button>
+						</template>
+					</b-input-group>
+					<div v-else>
+						<figure class="figure">
+							<img
+								:src="m.logo"
+								:alt="t('userEditor.altLogo')"
+								class="figure-img rounded"
+								height="30"
+							/>
+							<figcaption class="figure-caption">
+								<a
+									class="text-danger"
+									href="javascript:void(0)"
+									@click="removeImage"
+									>{{ t('imageUpload.remove') }}</a
+								>
+							</figcaption>
+						</figure>
+					</div>
+				</b-form-group>
+				<form-group
+					:label="t('userEditor.color')"
+					:description="t('userEditor.colorDescription')"
+				>
+					<div v-if="!m.color">
+						<button
+							class="btn btn-outline-primary"
+							type="button"
+							@click="m.color = '#000000'"
+						>
+							{{ t('userEditor.colorAdd') }}
+						</button>
+					</div>
+					<div v-else>
+						<div class="d-flex align-items-center">
+							<input
+								v-model="m.color"
+								class="form-control"
+								style="height: 2.5rem; width: 100px; min-width: 100px"
+								type="color"
+							/>
+							<span
+								v-if="isTooBright"
+								class="fw-bold text-danger ms-3"
+								>{{ t('userEditor.colorTooBright') }}</span
+							>
+						</div>
+						<a
+							class="small text-danger"
+							href="javascript:void(0)"
+							@click="m.color = null"
+							>{{ t('userEditor.colorDel') }}</a
 						>
 					</div>
-					<a
-						class="small text-danger"
-						href="javascript:void(0)"
-						@click="m.color = null"
-						>{{ t('userEditor.colorDel') }}</a
-					>
-				</div>
-			</form-group>
+				</form-group>
+				<form-group
+					:label="t('userEditor.website')"
+					:description="t('userEditor.websiteDescription')"
+				>
+					<input
+						v-model="m.website"
+						class="form-control"
+					/>
+				</form-group>
+			</section>
 
-			<form-group
-				:label="t('userEditor.website')"
-				:description="t('userEditor.websiteDescription')"
-			>
-				<input
-					v-model="m.website"
-					class="form-control"
-				/>
-			</form-group>
-
-			<form-group :label="t('userEditor.newPassword')">
-				<input
-					v-model="m.newPassword"
-					class="form-control"
-					type="password"
-				/>
-			</form-group>
-
-			<form-group
-				v-if="!user?.isAdmin"
-				:label="t('userEditor.oldPassword')"
-			>
-				<input
-					v-model="m.oldPassword"
-					class="form-control"
-					:required="!!m.newPassword || m.email !== u?.email"
-					type="password"
-				/>
-			</form-group>
-
-			<template v-if="user?.isAdmin">
+			<section v-if="user?.isAdmin">
 				<form-group>
 					<b-form-checkbox
 						v-model="m.active"
@@ -273,7 +312,7 @@ async function deleteAccount(e: any) {
 						{{ t('userEditor.administrator') }}
 					</b-form-checkbox>
 				</form-group>
-			</template>
+			</section>
 		</form>
 
 		<template #footer>

@@ -78,6 +78,7 @@ async function add() {
 			body: {
 				lang: locale.value,
 				title: newProjectTitle.value,
+				// FIXME need decrypted fullname with legacy name fallback
 				privacyPolicy: `<p>${t('projects.userName')}: ${
 					user.value?.name
 				}</p><p>E-mail: <a href="mailto:${user.value?.email}">${user.value?.email}</a></p>`,

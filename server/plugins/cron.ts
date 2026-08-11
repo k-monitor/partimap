@@ -52,6 +52,7 @@ async function sendGdprBlockNotices() {
 		const m = i18n(u.lang).gdprBlockNotice;
 
 		const subject = m.subject;
+		// FIXME need decrypted fullname with legacy name fallback
 		const body =
 			m.body
 				.replace(/\{projects\}/g, projectListHtml)
@@ -92,7 +93,7 @@ async function sendNotifications(projects: db.NotificationData[]) {
 		const unsubscribeUrl = getUnsubscribeUrl(p.lang, p.id, p.unsubscribeToken);
 		const subject = m.subject.replace(/\{title\}/g, p.title);
 		const body = (p.newSubmissions === 1 ? m.body_one : m.body_other)
-			.replace(/\{user\}/g, p.name)
+			.replace(/\{user\}/g, p.name) // FIXME need decrypted fullname with legacy name fallback
 			.replace(/\{title\}/g, p.title)
 			.replace(/\{submissions\}/g, String(p.submissions))
 			.replace(/\{newSubmissions\}/g, String(p.newSubmissions))

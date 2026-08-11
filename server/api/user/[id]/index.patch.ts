@@ -25,6 +25,10 @@ export default defineEventHandler(async (event) => {
 	delete changes.token;
 	delete changes.tokenExpires;
 	delete changes.gdprBlockNoticeSent;
+	delete changes.eFullName;
+	delete changes.eAddress;
+	delete changes.eBirthPlace;
+	delete changes.eBirthDate;
 
 	if (!event.context.user?.isAdmin) {
 		delete changes.active;
@@ -52,6 +56,23 @@ export default defineEventHandler(async (event) => {
 
 	if (changes.consent25Aug && !user.consent25Aug) {
 		changes.consent25Aug = Date.now();
+	}
+
+	if (user.id === event.context.user?.id) {
+		if (changes.fullName) {
+			changes.eFullName = encryptField(changes.fullName);
+			changes.name = '';
+		}
+		if (changes.address) {
+			changes.eAddress = encryptField(changes.address);
+		}
+		if (changes.birthPlace) {
+			changes.eBirthPlace = encryptField(changes.birthPlace);
+		}
+		if (changes.birthDate) {
+			changes.eBirthDate = encryptField(changes.birthDate);
+		}
+		// FIXME add audit log record for each modification!
 	}
 
 	user = db.createUser({ ...user, ...changes });

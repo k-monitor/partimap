@@ -19,11 +19,11 @@ export type User = {
 	gdprBlockNoticeSent: number;
 	eFullName: string | null;
 	eAddress: string | null;
-	eBirthDate: string | null;
 	eBirthPlace: string | null;
+	eBirthDate: string | null;
 };
 
-export type PublicUser = Pick<User, 'id' | 'email' | 'name' | 'isAdmin'>;
+export type PublicUser = Pick<User, 'id' | 'email' | 'isAdmin'>;
 
 export function createUser(data: Partial<User>): User {
 	return {
@@ -98,13 +98,14 @@ export function updateLastLogin(id: number) {
 }
 
 export function updateGdprBlockNoticeSent(id: number) {
-	return query('UPDATE user SET gdprBlockNoticeSent = ? WHERE id = ?', [Date.now(), id]);
+	return db.query('UPDATE user SET gdprBlockNoticeSent = ? WHERE id = ?', [Date.now(), id]);
 }
 
 export type GdprBlockNoticeData = {
 	id: number;
 	email: string;
 	name: string;
+	eFullName: string | null;
 	lang: string;
 	projects: { id: number; title: string }[];
 };
@@ -115,6 +116,7 @@ export function dataForGdprBlockNotices() {
 			u.id,
 			u.email,
 			u.name,
+			u.eFullName,
 			(
 				SELECT lang FROM project WHERE userId = u.id
 				GROUP BY lang

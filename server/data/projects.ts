@@ -175,6 +175,7 @@ export type NotificationData = {
 	unsubscribeToken: string;
 	email: string;
 	name: string;
+	eFullName: string | null;
 	submissions: number;
 	newSubmissions: number;
 };
@@ -193,7 +194,8 @@ export function dataForDailyNotifications() {
 				ELSE 0
 			END) newSubmissions,
 			u.email,
-			u.name
+			u.name,
+			u.eFullName
 		FROM project p
 		INNER JOIN submission s ON s.projectId = p.id
 		INNER JOIN user u ON u.id = p.userId
@@ -212,6 +214,7 @@ export function dataForEventBasedNotifications(debounceMins: number) {
 		SELECT
 			u.email,
 			u.name,
+			u.eFullName,
 			p.id,
 			p.lang,
 			p.lastSent,

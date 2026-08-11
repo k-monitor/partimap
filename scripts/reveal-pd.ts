@@ -7,12 +7,14 @@ import { decryptField } from '~/server/utils/encryption';
 function ask(question: string, muted = false): Promise<string> {
 	const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 	if (muted) {
-		(rl as readline.Interface & { _writeToOutput: (s: string) => void })._writeToOutput = (s: string) => {
+		(rl as readline.Interface & { _writeToOutput: (s: string) => void })._writeToOutput = (
+			s: string,
+		) => {
 			if (s === question) process.stdout.write(s);
 		};
 	}
-	return new Promise(resolve => {
-		rl.question(question, answer => {
+	return new Promise((resolve) => {
+		rl.question(question, (answer) => {
 			if (muted) process.stdout.write('\n');
 			rl.close();
 			resolve(answer);
@@ -56,10 +58,10 @@ async function main() {
 		console.log(`Subject:     #${subjectUser.id} (${subjectUser.email})`);
 		console.log('Registered: ', new Date(subjectUser.registered).toISOString());
 		console.log('Last login: ', new Date(subjectUser.lastLogin).toISOString());
-		console.log('Full name:  ', decryptedFullName);
+		console.log('Full name:  ', decryptedFullName || subjectUser.name);
 		console.log('Address:    ', decryptedAddress);
-		console.log('Birth date: ', decryptedBirthDate);
 		console.log('Birth place:', decryptedBirthPlace);
+		console.log('Birth date: ', decryptedBirthDate);
 
 		// FIXME query audit logs about modifications and accesses to this user and list them
 	});

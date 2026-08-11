@@ -31,5 +31,6 @@ export default defineEventHandler(async (event) => {
 	} = useRuntimeConfig();
 	const url = `${baseUrl}/${locale}/pwch?t=${user.token}`;
 	const body = m.body.replace(/\{user\}/g, user.name).replace(/\{url\}/g, url);
+	// FIXME need decrypted fullname with legacy name fallback
 	await sendEmail(user.email, m.subject, body);
 });
