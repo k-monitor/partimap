@@ -18,6 +18,8 @@ jobs:
 
       - run: npm i -g pnpm@latest && pnpm i
       - run: pnpm run build
+        env:
+          NUXT_PUBLIC_BASE_URL: ${{ secrets.PROD_URL }}
 
       - name: Upload build to server
         uses: appleboy/scp-action@v0.1.7

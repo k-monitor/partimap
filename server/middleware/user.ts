@@ -1,4 +1,3 @@
-import { env } from '~/env';
 import { type User, findById } from '~/server/data/users';
 
 declare module 'h3' {
@@ -8,7 +7,7 @@ declare module 'h3' {
 }
 
 export default defineEventHandler(async (event) => {
-	if (!getCookie(event, env.SESSION_NAME)) return;
+	if (!getCookie(event, process.env.SESSION_NAME || 'partimap-session')) return;
 
 	const { data } = await useAuthSession(event);
 	if (!data.userId) return;

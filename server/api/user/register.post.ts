@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 import * as db from '~/server/data/users';
-import { env } from '~/env';
 
 const bodySchema = z.object({
 	address: z.string().min(1),
@@ -80,7 +79,10 @@ export default defineEventHandler(async (event) => {
 	}
 
 	// self-registered on public page
-	const url = `${env.NUXT_PUBLIC_BASE_URL}/${locale}/login?t=${newUser.token}`;
+	const {
+		public: { baseUrl },
+	} = useRuntimeConfig();
+	const url = `${baseUrl}/${locale}/login?t=${newUser.token}`;
 	const body = m.body.replace(/\{user\}/g, fullName).replace(/\{url\}/g, url);
 	await sendEmail(email, m.subject, body);
 });

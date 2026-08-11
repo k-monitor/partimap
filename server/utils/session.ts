@@ -1,7 +1,6 @@
 import crypto from 'node:crypto';
 import type { H3Event, SessionConfig } from 'h3';
 import { StatusCodes } from 'http-status-codes';
-import { env } from '~/env';
 
 export type AuthSession = {
 	userId: number;
@@ -9,8 +8,8 @@ export type AuthSession = {
 
 const sessionConfig: SessionConfig = {
 	maxAge: 60 * 60 * 24 * 7, // 1 week
-	name: env.SESSION_NAME,
-	password: env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
+	name: process.env.SESSION_NAME || 'partimap-session',
+	password: process.env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
 };
 
 export const useAuthSession = async (event: H3Event) => {

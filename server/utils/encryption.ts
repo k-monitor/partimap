@@ -1,8 +1,7 @@
 import crypto from 'node:crypto';
 import { readFileSync } from 'node:fs';
-import { env } from '~/env';
 
-const PATH = env.ENCRYPTION_KEY_PATH;
+const PATH = process.env.ENCRYPTION_KEY_PATH || './encryption.key';
 
 const ALGO = 'aes-256-gcm';
 const KEY = Buffer.from(readFileSync(PATH, 'utf8').trim(), 'base64');

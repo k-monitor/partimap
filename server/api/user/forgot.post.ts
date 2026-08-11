@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 import * as db from '~/server/data/users';
-import { env } from '~/env';
 
 const bodySchema = z.object({
 	captcha: z.string().min(1),
@@ -27,7 +26,10 @@ export default defineEventHandler(async (event) => {
 	addToken(user);
 	await db.update(user);
 
-	const url = `${env.NUXT_PUBLIC_BASE_URL}/${locale}/pwch?t=${user.token}`;
+	const {
+		public: { baseUrl },
+	} = useRuntimeConfig();
+	const url = `${baseUrl}/${locale}/pwch?t=${user.token}`;
 	const body = m.body.replace(/\{user\}/g, user.name).replace(/\{url\}/g, url);
 	await sendEmail(user.email, m.subject, body);
 });

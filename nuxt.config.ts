@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config'; // Yes, we need explicit import as we use this file outside Nuxt context.
-import { env } from './env';
+
+const BUILD_TIME_BASE_URL = process.env.NUXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 export default defineNuxtConfig({
 	compatibilityDate: '2025-06-17',
@@ -25,26 +26,22 @@ export default defineNuxtConfig({
 	],
 	runtimeConfig: {
 		public: {
-			baseUrl: env.NUXT_PUBLIC_BASE_URL,
-			gdprBlockFrom: new Date(env.NUXT_PUBLIC_GDPR_BLOCK_FROM).toISOString(),
+			baseUrl: BUILD_TIME_BASE_URL,
+			gdprBlockFrom: new Date(
+				process.env.NUXT_PUBLIC_GDPR_BLOCK_FROM || '2027-01-01T00:00:00Z',
+			).toISOString(),
 			gtm: {
-				id: env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || [],
-				enabled: !!env.NUXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
-				loadScript: true,
+				id: process.env.NUXT_PUBLIC_GTM_ID || 'GTM-UNDEFINED',
 			},
 		},
-		turnstile: {
-			secretKey: env.NUXT_TURNSTILE_SECRET_KEY,
-		},
-	},
-	socialShare: {
-		baseUrl: env.NUXT_PUBLIC_BASE_URL,
 	},
 	telemetry: false,
-
 	// module settings
+	socialShare: {
+		baseUrl: BUILD_TIME_BASE_URL,
+	},
 	i18n: {
-		baseUrl: env.NUXT_PUBLIC_BASE_URL,
+		baseUrl: BUILD_TIME_BASE_URL,
 		defaultLocale: 'hu',
 		detectBrowserLanguage: {
 			redirectOn: 'no prefix',
@@ -65,9 +62,6 @@ export default defineNuxtConfig({
 	},
 	tiptap: {
 		prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
-	},
-	turnstile: {
-		siteKey: env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
 	},
 	vite: {
 		optimizeDeps: {

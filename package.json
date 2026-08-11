@@ -23,7 +23,6 @@
 		"@fortawesome/fontawesome-free": "^7.3.0",
 		"@nuxtjs/i18n": "^10.4.0",
 		"@stefanobartoletti/nuxt-social-share": "^1.2.3",
-		"@t3-oss/env-nuxt": "^0.13.11",
 		"@tiptap/extension-image": "^3.27.3",
 		"@tiptap/extension-text-align": "^3.27.3",
 		"@tiptap/extension-youtube": "^3.27.3",

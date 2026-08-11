@@ -6,7 +6,7 @@ const social = [
 ];
 
 const projectUrl = ref<string | null>(null);
-onMounted(() => (projectUrl.value = window.location.href.replace(/\/\d+\/?/, '')));
+onMounted(() => (projectUrl.value = window.location.href.replace(/\/\d+\/?(\?|#|$)/, '$1')));
 </script>
 
 <template>

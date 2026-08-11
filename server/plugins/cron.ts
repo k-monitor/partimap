@@ -1,14 +1,9 @@
 import { useScheduler } from '#scheduler';
 import * as db from '~/server/data/projects';
 import * as udb from '~/server/data/users';
-import { env } from '~~/env';
 
-const {
-	NUXT_PUBLIC_BASE_URL,
-	NUXT_PUBLIC_GDPR_BLOCK_FROM,
-	SUB_DAILY_HOUR,
-	SUB_EVENTS_DEBOUNCE_MINS,
-} = env;
+const SUB_DAILY_HOUR = Number(process.env.SUB_DAILY_HOUR) || 8;
+const SUB_EVENTS_DEBOUNCE_MINS = Number(process.env.SUB_EVENTS_DEBOUNCE_MINS) || 60;
 
 export default defineNitroPlugin(() => {
 	if (process.env.APP_ENV === 'build') return; // skip during build
@@ -20,19 +15,31 @@ export default defineNitroPlugin(() => {
 });
 
 function getProjectUrl(lang: string, id: number) {
-	return `${NUXT_PUBLIC_BASE_URL}/${lang}/admin/project/${id}`;
+	const {
+		public: { baseUrl },
+	} = useRuntimeConfig();
+	return `${baseUrl}/${lang}/admin/project/${id}`;
 }
 
 function getReportUrl(lang: string, id: number) {
-	return `${NUXT_PUBLIC_BASE_URL}/${lang}/admin/projects?dlr=${id}`;
+	const {
+		public: { baseUrl },
+	} = useRuntimeConfig();
+	return `${baseUrl}/${lang}/admin/projects?dlr=${id}`;
 }
 
 function getUnsubscribeUrl(lang: string, id: number, token: string) {
-	return `${NUXT_PUBLIC_BASE_URL}/${lang}/unsubscribe?id=${id}&token=${token}`;
+	const {
+		public: { baseUrl },
+	} = useRuntimeConfig();
+	return `${baseUrl}/${lang}/unsubscribe?id=${id}&token=${token}`;
 }
 
 async function sendGdprBlockNotices() {
-	const blockFrom = new Date(NUXT_PUBLIC_GDPR_BLOCK_FROM);
+	const {
+		public: { gdprBlockFrom },
+	} = useRuntimeConfig();
+	const blockFrom = new Date(gdprBlockFrom as string);
 	if (blockFrom < new Date()) return; // no need for emails, they see it on the UI
 
 	const users = await udb.dataForGdprBlockNotices();
