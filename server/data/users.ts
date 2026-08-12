@@ -23,7 +23,7 @@ export type User = {
 	eBirthDate: string | null;
 };
 
-export type PublicUser = Pick<User, 'id' | 'email' | 'isAdmin'>;
+export type PublicUser = Pick<User, 'id' | 'email' | 'isAdmin'> & { fullName: string };
 
 export function createUser(data: Partial<User>): User {
 	return {

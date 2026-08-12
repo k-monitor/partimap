@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
 		id: event.context.user.id,
 		email: event.context.user.email,
 		isAdmin: event.context.user.isAdmin,
+		fullName: decryptField(event.context.user.eFullName) || event.context.user.name,
 	};
 	return u;
 });

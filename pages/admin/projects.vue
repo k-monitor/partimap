@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import fileSaver from 'file-saver';
 import type { Project } from '~/server/data/projects';
+import type { PublicUser } from '~/server/data/users';
 import { hasTextContent } from '~/utils/hasTextContent';
 
 const { saveAs } = fileSaver;
 
-const { user } = useAuth();
+const { user } = useAuth() as { user: Ref<PublicUser | null> };
 const { locale, locales, t } = useI18n();
 const localePath = useLocalePath();
 const {
@@ -78,9 +79,8 @@ async function add() {
 			body: {
 				lang: locale.value,
 				title: newProjectTitle.value,
-				// FIXME need decrypted fullname with legacy name fallback
 				privacyPolicy: `<p>${t('projects.userName')}: ${
-					user.value?.name
+					user.value?.fullName
 				}</p><p>E-mail: <a href="mailto:${user.value?.email}">${user.value?.email}</a></p>`,
 				thanks: `<h5>${t('projectEditor.thanksDefault')}</h5>`,
 			},
