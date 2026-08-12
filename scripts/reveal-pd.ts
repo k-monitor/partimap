@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
 import readline from 'readline';
 import { findByEmail, findById } from '~/server/data/users';
-import { inTransaction } from '~/server/utils/database';
+import { createQuery, findBySubjectId } from '~/server/data/pdLog';
+import { inTransaction, runQueries } from '~/server/utils/database';
 import { decryptField } from '~/server/utils/encryption';
 
 function ask(question: string, muted = false): Promise<string> {
@@ -46,7 +47,17 @@ async function main() {
 			throw new Error('NOT FOUND');
 		}
 
-		// FIXME add record to audit log about access
+		const fields = ['fullName', 'address', 'birthPlace', 'birthDate'] as const;
+		const queries = fields.map((field) =>
+			createQuery({
+				timestamp: accessTimestamp.getTime(),
+				actorId: actorUser.id,
+				subjectId: subjectUser.id,
+				field,
+				operation: 'reveal',
+			}),
+		);
+		await runQueries(tx, queries);
 
 		const decryptedFullName = decryptField(subjectUser.eFullName);
 		const decryptedAddress = decryptField(subjectUser.eAddress);
@@ -62,8 +73,15 @@ async function main() {
 		console.log('Address:    ', decryptedAddress);
 		console.log('Birth place:', decryptedBirthPlace);
 		console.log('Birth date: ', decryptedBirthDate);
-
-		// FIXME query audit logs about modifications and accesses to this user and list them
+		console.log('Audit log:');
+		const entries = await findBySubjectId(tx, subjectUser.id);
+		if (!entries.length) console.log('  No audit log entries found for this user.');
+		else
+			for (const entry of entries) {
+				console.log(
+					`- ${new Date(entry.timestamp).toISOString()}: ${entry.operation} ${entry.field} by #${entry.actorId}`,
+				);
+			}
 	});
 }
 
