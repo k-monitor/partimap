@@ -76,18 +76,19 @@ async function update() {
 		if (body.address === pd.value?.address) delete body.address;
 		if (body.birthPlace === pd.value?.birthPlace) delete body.birthPlace;
 		if (body.birthDate === pd.value?.birthDate) delete body.birthDate;
-		const user = await $fetch<User>(`/api/user/${u.value?.id}`, {
+		await $fetch<User>(`/api/user/${u.value?.id}`, {
 			method: 'PATCH',
 			body,
 		});
-		await refresh(); // need to update page title
-		await refreshPersonalData();
-		refreshModel();
-		await updateSession();
 		successToast(t('userEditor.changeSuccessful'));
 	} catch (error) {
 		console.error(error);
 		errorToast(t('userEditor.changeFailed'));
+	} finally {
+		await refresh(); // need to update page title
+		await refreshPersonalData();
+		refreshModel();
+		await updateSession();
 	}
 }
 

@@ -15,6 +15,8 @@ export default defineEventHandler(async (event) => {
 	const user = await db.findById(id);
 	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
 
+	// FIXME add audit log entry about access
+
 	return {
 		fullName: decryptField(user.eFullName) || user.name,
 		address: decryptField(user.eAddress),
