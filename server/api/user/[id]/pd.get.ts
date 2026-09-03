@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
-import * as db from '~/server/data/users';
+import * as db from '~/server/utils/database';
+import * as ldb from '~/server/data/pdLog';
+import * as udb from '~/server/data/users';
 
 const paramsSchema = z.object({
 	id: z.coerce.number(),
@@ -9,18 +11,29 @@ const paramsSchema = z.object({
 export default defineEventHandler(async (event) => {
 	const { id } = await getValidatedRouterParams(event, paramsSchema.parse);
 
-	await ensureLoggedIn(event);
+	const actor = await ensureLoggedIn(event);
 	await ensureOwnAccount(event, id);
 
-	const user = await db.findById(id);
-	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
+	const subject = await udb.findById(id);
+	if (!subject) throw createError({ status: StatusCodes.NOT_FOUND });
 
-	// FIXME add audit log entry about access
+	await db.inTransaction(async (tx) => {
+		const queries = ldb.PD_FIELDS.map((field) =>
+			ldb.createQuery({
+				timestamp: Date.now(),
+				actorId: actor.id,
+				subjectId: subject.id,
+				field,
+				operation: 'reveal',
+			}),
+		);
+		await db.runQueries(tx, queries);
+	});
 
 	return {
-		fullName: decryptField(user.eFullName) || user.name,
-		address: decryptField(user.eAddress),
-		birthPlace: decryptField(user.eBirthPlace),
-		birthDate: decryptField(user.eBirthDate),
+		fullName: decryptField(subject.eFullName) || subject.name,
+		address: decryptField(subject.eAddress),
+		birthPlace: decryptField(subject.eBirthPlace),
+		birthDate: decryptField(subject.eBirthDate),
 	};
 });
