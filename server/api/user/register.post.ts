@@ -67,7 +67,7 @@ export default defineEventHandler(async (event) => {
 		await udb.create(newUser);
 	} else if (!existingUser.active) {
 		// user already exists, but inactive, let them re-register
-		await udb.update({ ...existingUser, ...newUser });
+		await udb.update({ ...existingUser, ...newUser, id: existingUser.id });
 	} else {
 		throw createError({
 			message: 'EMAIL_ALREADY_EXISTS',
