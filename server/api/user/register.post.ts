@@ -2,7 +2,10 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
-import * as db from '~/server/data/users';
+import * as db from '~/server/utils/database';
+import type { PDField } from '~/server/data/pdLog';
+import * as ldb from '~/server/data/pdLog';
+import * as udb from '~/server/data/users';
 
 const bodySchema = z.object({
 	address: z.string().min(1),
@@ -45,7 +48,7 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const hashedPassword = bcrypt.hashSync(password, 10);
-	const newUser = db.createUser({
+	const newUser = udb.createUser({
 		active: false,
 		email,
 		password: hashedPassword,
@@ -59,12 +62,12 @@ export default defineEventHandler(async (event) => {
 	});
 	addToken(newUser);
 
-	const existingUser = await db.findByEmail(email);
+	const existingUser = await udb.findByEmail(email);
 	if (!existingUser) {
-		await db.create(newUser);
+		await udb.create(newUser);
 	} else if (!existingUser.active) {
 		// user already exists, but inactive, let them re-register
-		await db.update({ ...existingUser, ...newUser });
+		await udb.update({ ...existingUser, ...newUser });
 	} else {
 		throw createError({
 			message: 'EMAIL_ALREADY_EXISTS',
@@ -72,10 +75,24 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
+	const user = await udb.findByEmail(newUser.email);
 	if (event.context.user?.isAdmin) {
 		// admin added a new user
-		const user = await db.findByEmail(newUser.email);
 		return { id: user.id };
+	} else {
+		// new user self-registered
+		await db.inTransaction(async (tx) => {
+			const queries = ldb.PD_FIELDS.map((field) =>
+				ldb.createQuery({
+					timestamp: newUser.registered,
+					actorId: user.id,
+					subjectId: user.id,
+					field,
+					operation: 'first_write',
+				}),
+			);
+			await db.runQueries(tx, queries);
+		});
 	}
 
 	// self-registered on public page

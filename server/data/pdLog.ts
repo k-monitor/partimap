@@ -1,12 +1,16 @@
 import type mysql from 'mysql2/promise';
 import * as db from '~/server/utils/database';
 
+export const PD_FIELDS = ['fullName', 'address', 'birthPlace', 'birthDate'] as const;
+export type PDField = (typeof PD_FIELDS)[number];
+export type PDOperation = 'update' | 'first_write' | 'reveal';
+
 export type PDLogEntry = {
 	timestamp: number;
 	actorId: number;
 	subjectId: number;
-	field: 'fullName' | 'address' | 'birthPlace' | 'birthDate';
-	operation: 'update' | 'first_write' | 'reveal';
+	field: PDField;
+	operation: PDOperation;
 };
 
 export function createQuery(entry: PDLogEntry) {

@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
 		const queries: db.Query[] = [];
 		const timestamp = Date.now();
 
-		function auditLog(field: string, operation: 'update' | 'first_write') {
+		function auditLog(field: ldb.PDField, operation: ldb.PDOperation) {
 			const q = ldb.createQuery({
 				actorId: event.context.user!.id,
 				subjectId: user!.id,
@@ -94,8 +94,7 @@ export default defineEventHandler(async (event) => {
 				auditLog('birthDate', user!.eBirthDate ? 'update' : 'first_write');
 			}
 		}
-		user = udb.createUser({ ...user, ...changes });
-		const q = db.updateQuery('user', user, (data) => ({ ...data }));
+		const q = udb.updateQuery({ ...user, ...changes });
 		queries.push(q);
 		return db.runQueries(tx, queries);
 	});

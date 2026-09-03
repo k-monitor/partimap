@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import readline from 'readline';
 import { findByEmail, findById } from '~/server/data/users';
-import { createQuery, findBySubjectId } from '~/server/data/pdLog';
+import { PD_FIELDS, createQuery, findBySubjectId } from '~/server/data/pdLog';
 import { inTransaction, runQueries } from '~/server/utils/database';
 import { decryptField } from '~/server/utils/encryption';
 
@@ -47,8 +47,7 @@ async function main() {
 			throw new Error('NOT FOUND');
 		}
 
-		const fields = ['fullName', 'address', 'birthPlace', 'birthDate'] as const;
-		const queries = fields.map((field) =>
+		const queries = PD_FIELDS.map((field) =>
 			createQuery({
 				timestamp: accessTimestamp.getTime(),
 				actorId: actorUser.id,

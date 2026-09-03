@@ -49,6 +49,10 @@ export function createUser(data: Partial<User>): User {
 	};
 }
 
+export function createQuery(user: User) {
+	return db.createQuery('user', user, createUser);
+}
+
 export function create(user: User) {
 	return db.create('user', user, createUser);
 }
@@ -87,6 +91,10 @@ export function findById(id: number) {
 
 export function findByToken(token: string) {
 	return db.findBy('user', 'token', token, createUser) as Promise<User>;
+}
+
+export function updateQuery(user: User) {
+	return db.updateQuery('user', user, createUser);
 }
 
 export function update(user: User) {
