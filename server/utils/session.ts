@@ -49,3 +49,10 @@ export const ensureAdminOr = async (event: H3Event, userId: number) => {
 	}
 	return event.context.user;
 };
+
+export const ensureOwnAccount = async (event: H3Event, userId: number) => {
+	if (event.context.user?.id !== userId) {
+		throw createError({ statusCode: StatusCodes.FORBIDDEN });
+	}
+	return event.context.user;
+};

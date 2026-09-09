@@ -26,6 +26,8 @@ Spezifischer Datenverantwortlicher: Der registrierte Benutzer, der ein Projekt e
 
 $_PROJECT_DATA_PROCESSOR_$
 
+$_PROJECT_DATA_PURPOSE_$
+
 ## 3\. Definitionen
 
 Personenbezogene Daten: alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person ("betroffene Person") beziehen; eine identifizierbare natürliche Person ist eine Person, die direkt oder indirekt identifiziert werden kann, insbesondere durch Bezugnahme auf eine Kennung wie einen Namen, eine Nummer, Standortdaten, eine Online-Kennung oder auf einen oder mehrere Faktoren, die für die physische, physiologische, genetische, psychische, wirtschaftliche, kulturelle oder soziale Identität dieser natürlichen Person spezifisch sind.

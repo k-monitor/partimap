@@ -83,11 +83,9 @@ export default {
 	login: {
 		activated: 'Account successfully activated. Welcome to PARTIMAP!',
 		activationFailed: 'Activation failed. Try again or contact the administrator',
-		email: 'Email',
 		forgotPassword: 'I forgot my password',
 		invalidEmail: 'Invalid email address',
 		invalidEmailOrPassword: 'Invalid email or password',
-		password: 'Password',
 		passwordChangeRequested: "We've sent you an email with a link to reset your password",
 		pwchanged: 'Password changed successfully!',
 		pwchangefailed: 'Password change failed. Please try again or contact the administrator',
@@ -139,6 +137,7 @@ export default {
 		privacyPolicyRequired: 'This is a required field!',
 		projectDescription: 'Meta description (Facebook Link Preview)',
 		projectTitle: 'Survey title',
+		purposeOfDataCollection: 'Purpose of data collection',
 		save: 'Save',
 		sheetCreationFailed: 'Failed to create the sheet',
 		sheetDeletionFailed: 'Failed to delete the sheet',
@@ -178,10 +177,9 @@ export default {
 		views: 'views',
 	},
 	register: {
-		email: 'Enter a valid email',
 		login: 'Already have an account?',
-		name: 'Name',
-		password: 'Password',
+		personalData:
+			'The personal data provided during registration is used for the unambiguous identification of users, the management of user accounts and permissions, and ensuring the secure and proper operation of the survey system. The personal data provided is processed solely for these purposes and is not transferred to third parties, except where required by law or where the person concerned has given prior explicit consent.',
 		procedure:
 			'A verification email will be sent to you upon successful registration. Check your inbox and click on the link to complete your registration.',
 		registrationFailed:
@@ -259,6 +257,14 @@ export default {
 		success: "You have successfully unsubscribed from this survey's email notifications.",
 		title: 'Unsubscribe',
 	},
+	user: {
+		address: 'Address',
+		birthDate: 'Date of birth',
+		birthPlace: 'Place of birth',
+		email: 'Email',
+		fullName: 'Full name',
+		password: 'Password',
+	},
 	userEditor: {
 		activated: 'Activated',
 		administrator: 'Administrator',
@@ -280,7 +286,6 @@ export default {
 		enterPassword: 'Please enter your password',
 		logo: 'Logo (supported size: 120x30 px)',
 		logoDescription: 'This logo will be displayed in the header of all your surveys.',
-		name: 'Name',
 		newPassword: 'New password',
 		oldPassword: 'Current password (only required for email or password changes)',
 		save: 'Save',
@@ -565,6 +570,8 @@ export default {
 		remove: 'Remove image',
 	},
 	legal: {
+		missingAlert: 'Please fill {0} and {1} fields, otherwise this survey won\'t collect data starting from {2}.',
+		missingLabel: 'Missing information!',
 		changedTitle: 'Terms of Use and Privacy Policy',
 		changedNotice: 'Our Privacy Policy and Terms of Use have changed.',
 		privacyPolicy: 'Privacy policy',

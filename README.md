@@ -17,23 +17,25 @@
     GRANT ALL PRIVILEGES ON partimap.* TO 'partimap_user'@'localhost';
     ```
 
-5. Copy `.env.example` to `.env` and edit the app's configuration. At a minimum, you need to set these:
+5. Create an encryption key using this command: `openssl rand -base64 32 > /path/to/new/keyfile`, then secure that file so that only your user can read it (e.g. `chmod 600 /path/to/new/keyfile`).
+6. Copy `.env.example` to `.env` and edit the app's configuration. At a minimum, you need to set these:
     ```ini
     DB_USER=partimap_user
     DB_PASS=your strong password here
     DB_NAME=partimap
     NUXT_PUBLIC_TURNSTILE_SITE_KEY=...
     NUXT_TURNSTILE_SECRET_KEY=...
+    ENCRYPTION_KEY_PATH=/path/to/new/keyfile
     ```
-6. Open a terminal in the project directory and install dependencies with `pnpm i`.
-7. Run database migrations with `npx db-migrate up`, this will create the tables of the project.
-8. In MySQL add an admin user for the project:
+7. Open a terminal in the project directory and install dependencies with `pnpm i`.
+8. Run database migrations with `npx db-migrate up`, this will create the tables of the project.
+9. In MySQL add an admin user for the project:
     ```sql
     INSERT INTO user (email, password, name, registered, isAdmin, active)
     VALUES ("admin@partimap.eu", "$2a$12$TwohCgZc1t7.pwX84CXZ..R9a3vIM5qWb5RaqcJZokUCNEjmLxXBq", "Admin", 0, 1, 1);
     ```
-9. Run dev server with `pnpm run dev`.
-10. Login (`/login`) with username "admin@partimap.eu" and password "123", then change admin password. :)
+10. Run dev server with `pnpm run dev`.
+11. Login (`/login`) with username "admin@partimap.eu" and password "123", then change admin password. :)
 
 ## Setup production
 

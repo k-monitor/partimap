@@ -9,15 +9,12 @@ defineProps<{
 }>();
 
 defineEmits<{
-	(e: 'clone'): void;
-	(e: 'del'): void;
-	(e: 'download'): void;
-	(e: 'transfer'): void;
+	(e: 'clone' | 'del' | 'download' | 'transfer'): void;
 }>();
 
 const { user } = useAuth();
 
-const { locales } = useI18n();
+const { locales, t } = useI18n();
 function resolveLocaleName(code: string) {
 	return locales.value.find((l) => l.code === code)?.name;
 }
@@ -40,15 +37,15 @@ function resolveLocaleName(code: string) {
 			</span>
 			<span
 				v-if="userId != user?.id"
-				class="badge text-bg-warning"
+				class="badge text-bg-warning me-2"
 			>
-				{{ $t('ListItem.owner') }}: #{{ userId }}
+				{{ t('ListItem.owner') }}: #{{ userId }}
 			</span>
 			<span
 				v-else-if="user?.isAdmin"
-				class="badge text-bg-info"
+				class="badge text-bg-info me-2"
 			>
-				{{ $t('ListItem.own') }}
+				{{ t('ListItem.own') }}
 			</span>
 			<slot />
 		</div>
@@ -66,7 +63,7 @@ function resolveLocaleName(code: string) {
 				@click.prevent="$emit('clone')"
 			>
 				<i class="fas fa-clone fa-fw me-1" />
-				{{ $t('ListItem.clone') }}
+				{{ t('ListItem.clone') }}
 			</b-dropdown-item>
 			<b-dropdown-item
 				v-if="showTransferOption"
@@ -74,7 +71,7 @@ function resolveLocaleName(code: string) {
 				@click.prevent="$emit('transfer')"
 			>
 				<i class="fas fa-user fa-fw me-1" />
-				{{ $t('ListItem.transfer') }}
+				{{ t('ListItem.transfer') }}
 			</b-dropdown-item>
 			<b-dropdown-item
 				v-if="!!showExportOption"
@@ -82,14 +79,14 @@ function resolveLocaleName(code: string) {
 				@click.prevent="$emit('download')"
 			>
 				<i class="fas fa-code fa-fw me-1" />
-				{{ $t('ListItem.downloadDefinition') }}
+				{{ t('ListItem.downloadDefinition') }}
 			</b-dropdown-item>
 			<b-dropdown-item
 				variant="danger"
 				@click.prevent="$emit('del')"
 			>
 				<i class="fas fa-trash fa-fw me-1" />
-				{{ $t('ListItem.delete') }}
+				{{ t('ListItem.delete') }}
 			</b-dropdown-item>
 		</b-dropdown>
 	</div>

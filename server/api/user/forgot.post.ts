@@ -30,6 +30,8 @@ export default defineEventHandler(async (event) => {
 		public: { baseUrl },
 	} = useRuntimeConfig();
 	const url = `${baseUrl}/${locale}/pwch?t=${user.token}`;
-	const body = m.body.replace(/\{user\}/g, user.name).replace(/\{url\}/g, url);
+	const body = m.body
+		.replace(/\{user\}/g, decryptField(user.eFullName) || user.name)
+		.replace(/\{url\}/g, url);
 	await sendEmail(user.email, m.subject, body);
 });

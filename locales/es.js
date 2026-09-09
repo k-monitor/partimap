@@ -85,11 +85,9 @@ export default {
 	login: {
 		activated: 'Cuenta activada con éxito. ¡Bienvenido a PARTIMAP!',
 		activationFailed: 'La activación falló. Inténtalo de nuevo o contacta al administrador',
-		email: 'Correo electrónico',
 		forgotPassword: 'Olvidé mi contraseña',
 		invalidEmail: 'Dirección de correo electrónico no válida',
 		invalidEmailOrPassword: 'Correo electrónico o contraseña no válidos',
-		password: 'Contraseña',
 		passwordChangeRequested:
 			'Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña',
 		pwchanged: 'Contraseña cambiada exitosamente',
@@ -144,6 +142,7 @@ export default {
 		privacyPolicyRequired: '¡Este es un campo obligatorio!',
 		projectDescription: 'Descripción meta (Vista previa del enlace de Facebook)',
 		projectTitle: 'Título de la encuesta',
+		purposeOfDataCollection: 'Finalidad del tratamiento de datos',
 		save: 'Guardar',
 		sheetCreationFailed: 'Error al crear la hoja de trabajo',
 		sheetDeletionFailed: 'Error al eliminar la hoja de trabajo',
@@ -186,10 +185,9 @@ export default {
 		views: 'vistas',
 	},
 	register: {
-		email: 'Ingresa un correo válido',
 		login: '¿Ya tienes una cuenta?',
-		name: 'Nombre',
-		password: 'Contraseña',
+		personalData:
+			'Los datos personales proporcionados durante el registro se utilizan para la identificación inequívoca de los usuarios, la gestión de cuentas de usuario y permisos, y para garantizar el funcionamiento seguro y adecuado del sistema de encuestas. Los datos personales proporcionados se procesan únicamente para estos fines y no se transfieren a terceros, excepto cuando lo exija la ley o cuando el interesado haya dado su consentimiento previo y explícito.',
 		procedure:
 			'Una vez que se haya registrado correctamente, recibirá un mensaje de verificación. Para completar su registro, revise su bandeja de entrada y haga clic en el enlace.',
 		registrationFailed:
@@ -269,6 +267,14 @@ export default {
 			'Te has dado de baja con éxito de las notificaciones por correo electrónico de esta encuesta.',
 		title: 'Desactivar la notificación',
 	},
+	user: {
+		address: 'Dirección',
+		birthDate: 'Fecha de nacimiento',
+		birthPlace: 'Lugar de nacimiento',
+		email: 'Correo electrónico',
+		fullName: 'Nombre completo',
+		password: 'Contraseña',
+	},
 	userEditor: {
 		activated: 'Activado',
 		administrator: 'Administrador',
@@ -290,7 +296,6 @@ export default {
 		enterPassword: 'Por favor, ingresa tu contraseña',
 		logo: 'Logotipo (tamaño admitido: 120x30 px)',
 		logoDescription: 'Este logotipo se mostrará en el encabezado de todos tus encuestas.',
-		name: 'Nombre',
 		newPassword: 'Nueva contraseña',
 		oldPassword:
 			'Contraseña actual (solo necesaria para cambios de correo electrónico o contraseña)',
@@ -578,6 +583,8 @@ export default {
 		remove: 'Eliminar imagen',
 	},
 	legal: {
+		missingAlert: 'Por favor rellena los campos {0} y {1}, de lo contrario esta encuesta no recopilará datos a partir del {2}.',
+		missingLabel: '¡Información faltante!',
 		changedTitle: 'Términos de Uso y Política de Privacidad',
 		changedNotice: 'Nuestra Política de Privacidad y los Términos de Uso han cambiado.',
 		privacyPolicy: 'Política de privacidad',

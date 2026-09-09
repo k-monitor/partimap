@@ -8,6 +8,7 @@ export type ExportableProjectDefinition = {
 	title: string;
 	description: string | null;
 	privacyPolicy: string;
+	purposeOfDataCollection: string | null;
 	thanks: string | null;
 	thanksUrl: string | null;
 	thanksSocial: string | null;
@@ -43,6 +44,7 @@ export function createProject(data: any): Project {
 		description: data.description,
 		image: data.image,
 		privacyPolicy: data.privacyPolicy,
+		purposeOfDataCollection: data.purposeOfDataCollection,
 		thanks: data.thanks,
 		thanksUrl: data.thanksUrl,
 		thanksSocial: data.thanksSocial,
@@ -173,6 +175,7 @@ export type NotificationData = {
 	unsubscribeToken: string;
 	email: string;
 	name: string;
+	eFullName: string | null;
 	submissions: number;
 	newSubmissions: number;
 };
@@ -191,7 +194,8 @@ export function dataForDailyNotifications() {
 				ELSE 0
 			END) newSubmissions,
 			u.email,
-			u.name
+			u.name,
+			u.eFullName
 		FROM project p
 		INNER JOIN submission s ON s.projectId = p.id
 		INNER JOIN user u ON u.id = p.userId
@@ -210,6 +214,7 @@ export function dataForEventBasedNotifications(debounceMins: number) {
 		SELECT
 			u.email,
 			u.name,
+			u.eFullName,
 			p.id,
 			p.lang,
 			p.lastSent,

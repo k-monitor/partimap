@@ -53,7 +53,7 @@ async function submit() {
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
 				<form @submit.prevent="submit">
-					<div class="card shadow-sm">
+					<div class="card shadow-sm my-5">
 						<CardHeader :text="$t('passwordChange.title')" />
 						<div class="card-body">
 							<form-group :label="$t('passwordChange.newPassword')">

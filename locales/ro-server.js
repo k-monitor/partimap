@@ -7,6 +7,10 @@ export default {
 		subject: 'Parolă uitată',
 		body: '<p>Salutare, {user}!</p><p>Poți seta o nouă parolă pentru contul PARTIMAP făcând click pe linkul de mai jos:<br><a href="{url}">{url}</a></p><p>Acest link este valabil pentru 24 de ore. Dacă a expirat, te rugăm să soliciți din nou schimbarea parolei.</p>',
 	},
+	gdprBlockNotice: {
+		subject: 'Colectarea datelor chestionarului suspendată',
+		body: `<p>Salutare, {user}!</p><p>Te rugăm să completezi câmpurile lipsă din setările chestionarului tău, altfel chestionarul nu va colecta date începând cu {blockFrom}. Chestionare afectate:</p>`,
+	},
 	newProject: {
 		newSheetTitle: 'Obiectivele chestionarului',
 	},

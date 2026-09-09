@@ -26,6 +26,8 @@ Responsable de Datos Específico: el Usuario Registrado que crea y opera un Proy
 
 $_PROJECT_DATA_PROCESSOR_$
 
+$_PROJECT_DATA_PURPOSE_$
+
 ## 3\. Definiciones
 
 Datos personales: cualquier información relativa a una persona natural identificada o identificable ('sujeto de datos'); una persona natural identificable es aquella que puede ser identificada, directa o indirectamente, en particular mediante un identificador como un nombre, número, datos de ubicación, identificador en línea o uno o más factores específicos de la identidad física, fisiológica, genética, mental, económica, cultural o social de esa persona natural.

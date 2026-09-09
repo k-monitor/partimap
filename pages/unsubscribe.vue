@@ -16,7 +16,7 @@ const successful = computed(() => response.value?.success);
 	<div class="container d-flex flex-column flex-grow-1">
 		<div class="row flex-grow-1">
 			<div class="col col-sm-10 col-md-8 col-lg-6 m-auto">
-				<div class="card shadow-sm">
+				<div class="card shadow-sm my-5">
 					<CardHeader :text="$t('unsubscribe.title')" />
 					<div class="card-body">
 						<div

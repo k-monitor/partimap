@@ -84,11 +84,9 @@ export default {
 	login: {
 		activated: 'Sikeres aktiválás, most már bejelentkezhetsz!',
 		activationFailed: 'Sikertelen aktiválás, próbálj újra regisztrálni!',
-		email: 'Email cím',
 		forgotPassword: 'Elfelejtettem a jelszavam',
 		invalidEmail: 'Érvénytelen email cím',
 		invalidEmailOrPassword: 'Érvénytelen email vagy jelszó',
-		password: 'Jelszó',
 		passwordChangeRequested: 'Jelszócseréhez szükséges email kiküldve',
 		pwchanged: 'Jelszó sikeresen cserélve!',
 		pwchangefailed: 'Jelszócsere sikertelen, próbáld újra!',
@@ -140,6 +138,7 @@ export default {
 		privacyPolicyRequired: 'Kötelező megadni!',
 		projectDescription: 'Meta leírás (Facebook előnézeti szöveg)',
 		projectTitle: 'Kérdőív címe',
+		purposeOfDataCollection: 'Adatkezelés célja',
 		save: 'Mentés',
 		sheetCreationFailed: 'Munkalap hozzáadása sikertelen',
 		sheetDeletionFailed: 'Munkalap törlése sikertelen',
@@ -180,10 +179,9 @@ export default {
 		views: 'megtekintések',
 	},
 	register: {
-		email: 'Email cím',
 		login: 'Már van fiókom',
-		name: 'Név',
-		password: 'Jelszó',
+		personalData:
+			'A regisztráció során megadott személyes adatok kezelésének célja a felhasználók egyértelmű azonosítása, a felhasználói fiókok és jogosultságok kezelése, valamint a kérdőívező rendszer biztonságos és rendeltetésszerű működésének biztosítása. A megadott személyes adatokat kizárólag ezen célokból kezeljük, azokat harmadik személy részére nem adjuk át, kivéve, ha azt jogszabály írja elő vagy ahhoz az érintett előzetesen, kifejezetten hozzájárult.',
 		procedure:
 			'A fiók aktiválásához a Regisztráció gomb megnyomása után a megadott e-mail címére küldünk egy levelet, amellyel aktiválhatja a regisztrációját.',
 		registrationFailed: 'Regisztráció sikertelen',
@@ -260,6 +258,14 @@ export default {
 		success: 'Sikeresen leiratkoztál a kérdőív email értesítéseiről.',
 		title: 'Leiratkozás',
 	},
+	user: {
+		address: 'Lakcím',
+		birthDate: 'Születési dátum',
+		birthPlace: 'Születési hely',
+		email: 'Email cím',
+		fullName: 'Teljes név',
+		password: 'Jelszó',
+	},
 	userEditor: {
 		activated: 'Aktiválva',
 		administrator: 'Adminisztrátor',
@@ -281,7 +287,6 @@ export default {
 		enterPassword: 'Kérlek add meg a jelszavad',
 		logo: 'Logó (ajánlott méret: 120x30 pixel)',
 		logoDescription: 'Ez a logó minden kérdőívedben meg fog jelenni.',
-		name: 'Név',
 		newPassword: 'Új jelszó',
 		oldPassword: 'Jelenlegi jelszó (csak email vagy jelszó változtatás esetén szükséges)',
 		save: 'Mentés',
@@ -568,6 +573,8 @@ export default {
 		remove: 'Kép törlése',
 	},
 	legal: {
+		missingAlert: 'Kérlek töltsd ki a(z) {0} és {1} mezőket, ellenkező esetben a kérdőív nem fog adatot gyűjteni {2} időponttól.',
+		missingLabel: 'Hiányzó információk!',
 		changedTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
 		changedNotice: 'Változtak az adatkezelési irányelveink és felhasználási feltételeink.',
 		privacyPolicy: 'Adatkezelési tájékoztató',

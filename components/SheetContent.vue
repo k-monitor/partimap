@@ -169,6 +169,7 @@ const { t } = useI18n();
 			<Privacy
 				hide-title
 				:project-data-processor="project.privacyPolicy"
+				:project-data-purpose="project.purposeOfDataCollection || ''"
 			/>
 		</b-modal>
 	</div>
