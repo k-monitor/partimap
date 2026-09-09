@@ -18,15 +18,21 @@ export default defineEventHandler(async (event) => {
 	if (!subject) throw createError({ status: StatusCodes.NOT_FOUND });
 
 	await db.inTransaction(async (tx) => {
-		const queries = ldb.PD_FIELDS.map((field) =>
-			ldb.createQuery({
-				timestamp: Date.now(),
+		const queries: db.Query[] = [];
+		function auditLog(field: ldb.PDField) {
+			const q = ldb.createQuery({
 				actorId: actor.id,
-				subjectId: subject.id,
+				subjectId: subject!.id,
 				field,
 				operation: 'reveal',
-			}),
-		);
+				timestamp: Date.now(),
+			});
+			queries.push(q);
+		}
+		if (subject.eFullName) auditLog('fullName');
+		if (subject.eAddress) auditLog('address');
+		if (subject.eBirthPlace) auditLog('birthPlace');
+		if (subject.eBirthDate) auditLog('birthDate');
 		await db.runQueries(tx, queries);
 	});
 
