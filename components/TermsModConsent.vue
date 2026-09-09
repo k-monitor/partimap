@@ -7,8 +7,11 @@ const { t } = useI18n();
 
 const modalVisible = ref(false);
 
+const {
+	public: { termsModAt },
+} = useRuntimeConfig();
 onMounted(async () => {
-	if (!u.value?.consent25Aug) {
+	if ((u.value?.consent25Aug ?? 0) < new Date(termsModAt).getTime()) {
 		modalVisible.value = true;
 	}
 });
@@ -19,7 +22,7 @@ async function handleOk() {
 	try {
 		await $fetch<User>(`/api/user/${user.value?.id}`, {
 			method: 'PATCH',
-			body: { consent25Aug: 1 },
+			body: { consent25Aug: 1 }, // server will store timestamp into db
 		});
 		modalVisible.value = false;
 	} catch (_error: unknown) {

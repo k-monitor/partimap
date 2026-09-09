@@ -173,7 +173,7 @@ const { user } = useAuth();
 					t('legal.missingAlert', [
 						t('projectEditor.privacyPolicy'),
 						t('projectEditor.purposeOfDataCollection'),
-						gdprBlockFrom.toLocaleString(locale),
+						new Date(gdprBlockFrom).toLocaleString(locale),
 					])
 				}}
 			</div>

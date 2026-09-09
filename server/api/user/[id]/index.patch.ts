@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
 		delete changes.logo;
 	}
 
-	if (changes.consent25Aug && !user.consent25Aug) {
+	if (changes.consent25Aug) {
 		changes.consent25Aug = Date.now();
 	}
 
