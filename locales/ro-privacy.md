@@ -26,6 +26,8 @@ Operator de date specific: utilizatorul înregistrat care creează și gestionea
 
 $_PROJECT_DATA_PROCESSOR_$
 
+$_PROJECT_DATA_PURPOSE_$
+
 ## 3\. Definiții
 
 Date cu caracter personal: orice informație referitoare la o persoană fizică identificată sau identificabilă („persoana vizată"); o persoană fizică identificabilă este o persoană care poate fi identificată, direct sau indirect, în special prin referire la un identificator, cum ar fi un nume, un număr, date de localizare, un identificator online sau la unul sau mai mulți factori specifici identității fizice, fiziologice, genetice, mentale, economice, culturale sau sociale ale respectivei persoane fizice.

@@ -193,12 +193,15 @@ fieldset,
 }
 
 .terms h2 {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 	font-weight: bold;
+	margin-top: 2rem;
 }
 
-.terms h2 {
-	margin-top: 2rem;
+.terms h3 {
+	font-size: 1rem;
+	font-weight: bold;
+	margin-top: 1.5rem;
 }
 
 .toast,
