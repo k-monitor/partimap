@@ -128,6 +128,7 @@ export default {
 			card2Badge: 'Transportas',
 			card2Desc: 'Ši demonstracinė apklausa parodo, kaip įvertinti vietos gyventojų važiavimo dviračiu įpročius, patirtį ir nuomonę apie dviračių eismą. Respondentai gali žemėlapyje pažymėti pavojingas ar sunkiai pravažiuojamas atkarpas ir pateikti pasiūlymų, kaip gerinti dviračių infrastruktūrą.',
 			card2Link: 'https://www.partimap.eu/p/Demo/0',
+			moreSoon: 'Netrukus pristatysime daugiau demonstracinių apklausų!',
 		},
 		why: {
 			title: 'Kodėl verta naudoti?',

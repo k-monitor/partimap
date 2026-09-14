@@ -130,6 +130,7 @@ export default {
 			card2Badge: 'Transporte',
 			card2Desc: 'Esta encuesta demo muestra cómo evaluar los hábitos, las experiencias y las opiniones de la población local sobre la movilidad en bicicleta. Las personas participantes pueden marcar en el mapa los tramos peligrosos o difíciles de utilizar y proponer mejoras para la infraestructura ciclista.',
 			card2Link: 'https://www.partimap.eu/p/Demo/0',
+			moreSoon: '¡Pronto publicaremos más cuestionarios de demostración!',
 		},
 		why: {
 			title: '¿Por qué usarlo?',

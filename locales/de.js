@@ -130,6 +130,7 @@ export default {
 			card2Badge: 'Verkehr',
 			card2Desc: 'Diese Demo-Umfrage zeigt, wie sich die Radfahrgewohnheiten, Erfahrungen und Meinungen der Menschen vor Ort zum Radverkehr erheben lassen. Die Teilnehmenden können gefährliche oder schwer befahrbare Streckenabschnitte auf der Karte markieren und Vorschläge zur Verbesserung der Radinfrastruktur machen.',
 			card2Link: 'https://www.partimap.eu/p/Demo/0',
+			moreSoon: 'Weitere Demo-Umfragen folgen in Kürze!',
 		},
 		why: {
 			title: 'Warum sollte man es nutzen?',

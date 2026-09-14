@@ -129,6 +129,7 @@ export default {
 			card2Badge: 'Közlekedés',
 			card2Desc: 'Ez a demo kérdőív azt mutatja be, hogyan mérhetjük fel a helyiek kerékpározási szokásait, tapasztalatait és véleményét a kerékpáros közlekedésről. A válaszadók térképen jelölhetik meg a veszélyes vagy nehezen használható útszakaszokat, valamint javaslatokat tehetnek a kerékpáros infrastruktúra fejlesztésére.',
 			card2Link: 'https://www.partimap.eu/hu/p/PARTIMAP-DEMO-kekekparos-fejlesztes/0',
+			moreSoon: 'Nemsokára további bemutató kérdőívvel jelentkezünk!',
 		},
 		why: {
 			title: 'Miért érdemes használni?',

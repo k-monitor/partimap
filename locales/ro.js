@@ -129,6 +129,7 @@ export default {
 			card2Badge: 'Transport',
 			card2Desc: 'Acest chestionar demo arată cum pot fi evaluate obiceiurile, experiențele și opiniile localnicilor legate de deplasarea cu bicicleta. Respondenții pot marca pe hartă tronsoanele periculoase sau greu de utilizat și pot face propuneri pentru dezvoltarea infrastructurii pentru biciclete.',
 			card2Link: 'https://www.partimap.eu/p/Demo/0',
+			moreSoon: 'În curând vom publica noi chestionare demonstrative!',
 		},
 		why: {
 			title: 'De ce merită să îl folosești?',

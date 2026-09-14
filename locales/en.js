@@ -128,6 +128,7 @@ export default {
 			card2Badge: 'Transport',
 			card2Desc: 'This demo survey shows how to assess the cycling habits, experiences and opinions of local people about cycling. Respondents can mark dangerous or hard-to-use road sections on the map and make suggestions for improving cycling infrastructure.',
 			card2Link: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
+			moreSoon: 'More demo surveys are coming soon!',
 		},
 		why: {
 			title: 'Why use it?',

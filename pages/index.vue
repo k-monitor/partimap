@@ -261,6 +261,7 @@ onBeforeUnmount(() => {
 						</div>
 					</div>
 				</div>
+				<p class="examples-note">{{ t('landing.examples.moreSoon') }}</p>
 			</div>
 			<div class="sec-arrow">
 				<button type="button" class="sec-arrow-glyph" aria-label="Scroll down" @click="scrollToNextSection">↓</button>
@@ -1163,6 +1164,13 @@ onBeforeUnmount(() => {
 	grid-template-columns: 1fr;
 	gap: 2rem;
 	margin-top: 2.5rem;
+}
+.examples-note {
+	margin: 2rem 0 0;
+	text-align: center;
+	font-size: 1.05rem;
+	font-weight: 500;
+	opacity: 0.7;
 }
 .example-card {
 	border: 1.5px solid var(--l-blue);
