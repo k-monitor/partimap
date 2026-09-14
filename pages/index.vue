@@ -242,19 +242,18 @@ onBeforeUnmount(() => {
 					</div>
 				</div>
 				<div class="examples-grid">
-					<div v-for="n in 4" :key="n" class="example-card">
+					<div v-for="n in 2" :key="n" class="example-card">
 						<img
-							src="/map-bp.webp"
+							:src="['/demo-general.webp', '/demo-cycling.webp'][n-1]"
 							alt=""
 							class="example-map-img"
 							aria-hidden="true"
 						/>
 						<div class="example-card-content">
 							<div class="example-icon">
-								<i :class="`fas fa-${['city','bus','tree','users'][n-1]}`" />
+								<i :class="`fas fa-${['map-marked-alt','bicycle'][n-1]}`" />
 							</div>
 							<span class="example-badge">{{ t(`landing.examples.card${n}Badge`) }}</span>
-							<h4>{{ t(`landing.examples.card${n}Title`) }}</h4>
 							<p>{{ t(`landing.examples.card${n}Desc`) }}</p>
 							<a :href="t(`landing.examples.card${n}Link`)" target="_blank" class="btn-landing-outline btn-sm">
 								{{ t('landing.examples.viewBtn') }}
@@ -1187,8 +1186,8 @@ onBeforeUnmount(() => {
 }
 .example-map-img {
 	width: 100%;
-	height: 320px;
-	object-fit: cover;
+	height: auto;
+	object-fit: contain;
 	border-radius: 8px;
 	border: 1.5px solid var(--l-blue);
 	opacity: 0.85;
@@ -1214,13 +1213,6 @@ onBeforeUnmount(() => {
 	text-transform: uppercase;
 	opacity: 0.7;
 }
-.example-card h4 {
-	color: var(--l-blue);
-	font-size: 1.15rem;
-	font-weight: 500;
-	margin: 0;
-	line-height: 1.3;
-}
 .example-card p {
 	font-size: 0.95rem;
 	line-height: 1.6;
@@ -1242,7 +1234,6 @@ onBeforeUnmount(() => {
 		gap: 1.5rem;
 		padding: 1.5rem;
 	}
-	.example-map-img { height: 220px; }
 }
 
 /* ── Statistics Section ───────────────────────────────── */
