@@ -1,6 +1,6 @@
-# **PARTIMAP FELHASZNÁLÁSI SZABÁLYZAT**
+# PARTIMAP FELHASZNÁLÁSI SZABÁLYZAT
 
-## **1\. A Szabályzat célja és hatálya**
+## 1\. A Szabályzat célja és hatálya
 
 Jelen Felhasználási Szabályzat (a továbbiakban: „Szabályzat") meghatározza a <https://www.partimap.eu/> weboldal (a továbbiakban: „PARTIMAP") használatának feltételeit, a platform rendeltetészszerű használatának kereteit, a platformon közzétehető tartalmakra vonatkozó alapvető szabályokat, valamint a felhasználók és a platform üzemeltetője közötti jogviszony főbb rendelkezéseit.
 
@@ -10,7 +10,7 @@ A személyes adatok kezelésére vonatkozó részletes szabályokat a PARTIMAP k
 
 A PARTIMAP platform üzemeltetője a K-Monitor Közhasznú Egyesület K-Monitor Közhasznú Egyesület (székhely: 1077 Budapest, Rózsa u. 8.; Levelezési cím érintetti jogérvényesítéshez: 1077 Budapest, Jósika utca 25. Tel.: +36 1 789 5005) (a továbbiakban: „K-Monitor").
 
-## **2\. A PARTIMAP rendeltetése és célja**
+## 2\. A PARTIMAP rendeltetése és célja
 
 A PARTIMAP célja, hogy a területi és közösségi szempontból releváns tudást, problémákat, igényeket, preferenciákat és helyi tapasztalatokat strukturált módon összegyűjtse, és azokat kutatási, tervezési, döntés-előkészítési vagy egyéb elemzési célokra felhasználható formában rendszerezze. A platform lehetővé teszi különféle kérdőíves és térképalapú adatgyűjtések lebonyolítását, valamint a közösségi bevonást, a részvételi tervezést és a lakossági visszajelzések strukturált gyűjtését. A PARTIMAP alkalmazható tudományos és alkalmazott kutatásokban, társadalomtudományi, környezetvédelmi és turisztikai felmérésekben, közpolitikai és önkormányzati döntés-előkészítési folyamatokban, előzetes hatásvizsgálatokban, igényfelmérésekben, valamint közösségi tervezési és társadalmi egyeztetési eljárásokban. A rendszer különösen alkalmas fejlesztési koncepciók, közlekedési és mobilitási kérdések, városrehabilitációs projektek, környezeti problémák és más, helyi közösségeket érintő ügyek vizsgálatára, továbbá elégedettségmérések, preferenciavizsgálatok, közösségi problématérképezések, környezeti állapotfelmérések és részvételi konzultációk lebonyolítására. Nyílt forráskódú működése átlátható, rugalmas és testreszabható felhasználást biztosít kutatók, felsőoktatási intézmények, civil szervezetek, önkormányzatok és más szervezetek számára.
 
@@ -18,7 +18,7 @@ A platform nem használható olyan célokra, amelyek nyilvánvalóan ellentétes
 
 A K-Monitor jogosult saját mérlegelése alapján megítélni, hogy valamely kérdőív, projekt vagy adatkezelési cél összeegyeztethető-e a PARTIMAP rendeltetésével és a jelen Szabályzat rendelkezéseivel.
 
-## **3\. A K-Monitor szerepe**
+## 3\. A K-Monitor szerepe
 
 A K-Monitor a PARTIMAP platform üzemeltetője. A K-Monitor a platform működtetésével összefüggésben technikai infrastruktúrát biztosít, továbbá az Adatkezelési Tájékoztatóban meghatározott körben önálló vagy közös adatkezelőként jár el.
 
@@ -35,13 +35,13 @@ A platformon közzétett kérdőívek vagy tartalmak megjelenése nem jelenti az
 
 A K-Monitor jogosult fellépni minden olyan tartalommal vagy platformhasználattal szemben, amely a platform biztonságos, jogszerű vagy rendeltetészszerű működését veszélyezteti.
 
-## **4\. A platform használata**
+## 4\. A platform használata
 
 A PARTIMAP platform egyes funkciói – különösen kérdőívek létrehozása, szerkesztése, kezelése és közzététele – kizárólag regisztrációt követően vehetők igénybe.
 
 A jelen Szabályzat alkalmazásában kérdőívkészítő az a személy, aki a PARTIMAP platformon felhasználói fiókot hoz létre.
 
-### _4.1. A regisztráció_
+### 4.1. A regisztráció
 
 A regisztráció során a kérdőívkészítő köteles valós és pontos adatokat megadni, ideértve különösen:
 
@@ -73,7 +73,7 @@ A K-Monitor - a 10. pontban rögzítettek szerint - jogosult a regisztráció me
 - visszaélés gyanúja merül fel;
 - a platform használata jogi vagy compliance kockázatot jelent.
 
-### _4.2. A kérdőív létrehozása és közzététele_
+### 4.2. A kérdőív létrehozása és közzététele
 
 A kérdőív létrehozása az adminisztrációs felületen történik.
 
@@ -111,7 +111,7 @@ A platform lehetővé teheti feltételes kérdések alkalmazását is, amelyek k
 
 Az exportált vagy külső rendszerbe továbbított adatok további kezeléséért kizárólag a kérdőívkészítő felel.
 
-### _4.3. A kérdőív terjesztése_
+### 4.3. A kérdőív terjesztése
 
 A kérdőív közzététele és terjesztése a kérdőívkészítő feladata.
 
@@ -130,7 +130,7 @@ A kérdőívkészítő dönt arról, hogy a kérdőív:
 
 A K-Monitor a kérdőívek terjesztésében vagy népszerűsítésében főszabály szerint nem vesz részt.
 
-## **5\. Kiskorúakra vonatkozó szabályok**
+## 5\. Kiskorúakra vonatkozó szabályok
 
 Tizenhat év alatti személy nem hozhat létre kérdőívet a platformon. Tizennyolc év alatti, de tizenhatodik életévét betöltött személy kizárólag törvényes képviselője előzetes hozzájárulásával hozhat létre kérdőívet, és a kérdőív létrehozásával szavatolja, hogy ezzel a hozzájárulással rendelkezik.
 
@@ -143,7 +143,7 @@ A kérdőívkészítő köteles fokozott körültekintéssel eljárni, ha a kér
 - közvetlen üzletszerzésére irányuló adatkezeléstől.
 - reklámcélú vagy marketingcélú adatgyűjtés.
 
-## **6\. A részvételi folyamatok alapelvei**
+## 6\. A részvételi folyamatok alapelvei
 
 A PARTIMAP platform célja olyan közösségi és részvételi folyamatok technikai támogatása, amelyek lehetővé teszik az érintettek véleményének megismerését és strukturált összegyűjtését.
 
@@ -163,7 +163,7 @@ A K-Monitor nem ellenőrzi és nem garantálja, hogy a kérdőívkészítő adat
 
 A platform használata nem helyettesíti a személyes részvételi folyamatokat, fórumokat vagy más deliberatív döntéshozatali mechanizmusokat.
 
-## **7\. Tiltott felhasználás**
+## 7\. Tiltott felhasználás
 
 A PARTIMAP platform kizárólag jogszerű célokra, a jelen Szabályzatban meghatározott rendeltetésének megfelelően használható. A platform használata során a kérdőívkészítő köteles a vonatkozó jogszabályokat, valamint más személyek jogait és jogos érdekeit tiszteletben tartani.
 
@@ -191,7 +191,7 @@ Tilos különösen:
 
 A K-Monitor jogosult saját mérlegelése alapján megállapítani, hogy valamely tartalom, kérdőív vagy platformhasználat sérti-e a jelen Szabályzatot vagy a platform rendeltetését.
 
-## **8\. A kérdőívkészítő felelőssége**
+## 8\. A kérdőívkészítő felelőssége
 
 A kérdőívkészítő teljes és kizárólagos felelősséggel tartozik:
 
@@ -229,7 +229,7 @@ A kérdőívkészítő jelen Szabályzat elfogadásával mentesíti a K-Monitort
 
 összefüggésben merül fel.
 
-## **9\. Hozzáférési jogosultságok**
+## 9\. Hozzáférési jogosultságok
 
 A platformon kezelt adatokhoz – feladataik ellátásához, illetve a vonatkozó jogszabályokban és a jelen Szabályzatban meghatározott célokból – különösen az alábbi személyek, illetve szervezetek férhetnek hozzá:
 
@@ -258,7 +258,7 @@ A K-Monitor jogosult a platformon tárolt adatokhoz hozzáférni a platform üze
 
 A K-Monitor az Adatkezelési Tájékoztatóban meghatározott feltételek szerint jogosult a PARTIMAP platformon keresztül gyűjtött válaszokat, kérdőíves adatokat és egyéb kutatási adatokat saját kutatási, statisztikai, módszertani és platformfejlesztési célból felhasználni, ideértve különösen az adatok belső elemzését, rendszerezését, összesítését, összehasonlítását, statisztikai feldolgozását és kutatási célú értékelését.
 
-## **10\. Moderáció és compliance intézkedések**
+## 10\. Moderáció és compliance intézkedések
 
 A K-Monitor jogosult bármely kérdőív, tartalom vagy felhasználói tevékenység vizsgálatára egyebek mellett, ha:
 
@@ -280,7 +280,7 @@ A K-Monitor különösen jogosult:
 
 A K-Monitor a jelen pont szerinti intézkedések alkalmazását megelőzően – amennyiben ezt az eset körülményei lehetővé teszik – minden észszerű intézkedést megtesz annak érdekében, hogy a kérdőívkészítő a K-Monitor által jelzett hiányosságot, jogsértést vagy egyéb, a jelen Szabályzatba vagy az Adatkezelési Tájékoztató rendelkezéseibe ütköző körülményt megfelelő határidőn belül megszüntesse, illetve orvosolja. Amennyiben a kérdőívkészítő a K-Monitor felhívásának észszerű határidőn belül nem tesz eleget, vagy az együttműködést megtagadja, a K-Monitor jogosult a jelen pontban meghatározott intézkedéseket egyoldalúan alkalmazni. A K-Monitor előzetes felhívás nélkül is jogosult haladéktalanul intézkedni, ha a jogsértés vagy a jelen Szabályzat, illetve az Adatkezelési Tájékoztató rendelkezéseinek megsértése súlyos vagy nyilvánvaló, illetve ha az az érintettek jogait és szabadságait, a PARTIMAP platform biztonságát vagy a K-Monitor jogi vagy compliance kötelezettségeinek teljesítését közvetlenül veszélyezteti.
 
-## **11\. Panaszkezelés, jogsértő tartalmakkal kapcsolatos bejelentések intézése**
+## 11\. Panaszkezelés, jogsértő tartalmakkal kapcsolatos bejelentések intézése
 
 A platform működésével vagy valamely kérdőívvel kapcsolatos panasz a K-Monitor részére elektronikus úton jelenthető be a <lovasz.dorottya@k-monitor.hu> e-mail címen.
 
@@ -302,7 +302,7 @@ A K-Monitor jogosult:
 
 A K-Monitor jogosult a nyilvánvalóan alaptalan, rosszhiszemű vagy ismétlődő panaszok elutasítására.
 
-## **12\. Külső szolgáltatások és integrációk**
+## 12\. Külső szolgáltatások és integrációk
 
 A platform egyes funkciói külső szolgáltatások vagy harmadik fél rendszereinek használatát tehetik lehetővé.
 
@@ -315,7 +315,7 @@ A K-Monitor nem vállal felelősséget:
 
 A kérdőívkészítő kizárólag saját felelősségére jogosult külső szolgáltatásokat integrálni vagy használni a platformmal összefüggésben.
 
-## **13\. Felelősségkorlátozás**
+## 13\. Felelősségkorlátozás
 
 A K-Monitor nem garantálja:
 
@@ -346,7 +346,7 @@ A K-Monitor nem felel:
 
 A platform használata kizárólag a felhasználó saját felelősségére történik.
 
-## **14\. Hatósági együttműködés**
+## 14\. Hatósági együttműködés
 
 A K-Monitor jogosult és köteles együttműködni bíróságokkal, hatóságokkal és más jogszabály alapján eljáró szervekkel.
 
@@ -357,11 +357,11 @@ Jogszabályon alapuló megkeresés esetén a K-Monitor jogosult:
 - hozzáférést korlátozni;
 - egyéb compliance intézkedéseket alkalmazni.
 
-## **15\. A Szabályzat módosítása**
+## 15\. A Szabályzat módosítása
 
 A K-Monitor jogosult a jelen Szabályzatot egyoldalúan módosítani. A módosított Szabályzat a platformon történő közzétételével lép hatályba. A K-Monitor a Szabályzat módosításáról a platformon regisztrált felhasználókat, illetve a kérdőívkészítőket a regisztráció során megadott e-mail-címükre küldött elektronikus levél útján is tájékoztatja. Az e-mailes értesítés elmaradása a módosítás hatálybalépését nem érinti. A platform további használata a módosított Szabályzat elfogadásának minősül.
 
-## **16\. Irányadó jog és jogviták**
+## 16\. Irányadó jog és jogviták
 
 Jelen Szabályzatra a magyar jog rendelkezései irányadók.
 
