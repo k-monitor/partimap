@@ -532,8 +532,8 @@ onBeforeUnmount(() => {
 					<div class="footer-col">
 						<h5 class="footer-col-spacer" aria-hidden="true">&nbsp;</h5>
 						<ul>
-							<li><a href="#">{{ t('landing.footer.privacy') }}</a></li>
-							<li><a href="#">{{ t('landing.footer.terms') }}</a></li>
+							<li><NuxtLink :to="localePath('/privacy')">{{ t('landing.footer.privacy') }}</NuxtLink></li>
+							<li><NuxtLink :to="localePath('/terms')">{{ t('landing.footer.terms') }}</NuxtLink></li>
 						</ul>
 					</div>
 					<div class="footer-col">
