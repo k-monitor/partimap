@@ -73,7 +73,7 @@ function sqlize(obj: object) {
 export async function create(table: string, record: object, Model: (data: object) => object) {
 	const q = createQuery(table, record, Model);
 	const res = await query(q.statement, q.args);
-	const insertId: number = (res[0] as any).insertId;
+	const insertId: number = (res as any).insertId;
 	return insertId > 0 ? insertId : false;
 }
 
