@@ -108,11 +108,11 @@ function pinStyle(_f: OlFeature) {
 					max-zoom="19"
 					:projection="PARTIMAP_PROJECTION"
 				/>
-				<ol-tile-layer>
-					<ol-source-xyz
-						url="https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-						attributions="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>"
-					/>
+				<!-- Plain OSM tiles: free, no API key. The custom class-name gives this
+				     layer its own canvas, so the filter that fades it to the pale
+				     landing-page palette leaves the pin layer above it untouched. -->
+				<ol-tile-layer class-name="ol-layer hm-basemap">
+					<ol-source-osm />
 				</ol-tile-layer>
 				<ol-vector-layer v-if="pinnedCoord" :z-index="500">
 					<ol-source-vector>
@@ -127,6 +127,15 @@ function pinStyle(_f: OlFeature) {
 				<div class="hm-center-pin-head" />
 				<!-- <div class="hm-center-pin-tail" /> -->
 			</div>
+			<!-- OSM requires visible credit on the map itself; the circular mask
+			     clips anything outside it, so it sits inside the circle. -->
+			<p class="hm-attrib">
+				&copy;
+				<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">
+					OpenStreetMap
+				</a>
+				contributors
+			</p>
 		</div>
 
 		<!-- Zoom controls, outside the circle -->
@@ -173,6 +182,41 @@ function pinStyle(_f: OlFeature) {
 	transform: translate(-50%, -50%);
 	border-radius: 50%;
 	overflow: hidden;
+}
+
+/* OSM's own tiles are far more saturated than the landing-page palette, so the
+   basemap canvas is desaturated and lightened towards the pale look of the
+   surrounding section. Scoped to the basemap layer's own container, so the
+   blue pin drawn in the vector layer keeps its full colour. */
+.hm-circle :deep(.hm-basemap) {
+	filter: saturate(0.22) brightness(1.08) contrast(0.92);
+}
+
+/* OSM attribution, pinned inside the circle. Kept on one line and away from
+   the very bottom of the circle, where the mask leaves too little width. */
+.hm-attrib {
+	position: absolute;
+	bottom: 7%;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1200;
+	margin: 0;
+	padding: 2px 6px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.78);
+	color: #333;
+	font-size: clamp(0.5rem, 1.4vw, 0.62rem);
+	line-height: 1.3;
+	white-space: nowrap;
+}
+
+.hm-attrib a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.hm-attrib a:hover {
+	color: #0055ff;
 }
 
 /* Fixed center pin for selecting location while dragging map */
