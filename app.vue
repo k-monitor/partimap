@@ -57,6 +57,15 @@ body,
 	min-height: 100%;
 }
 
+// The shell above gives #app a definite viewport height, so its flex children
+// shrink to fit it and a long page ends up scrolling inside the page root
+// instead of in the document. iOS Safari only collapses its URL bar while the
+// document itself scrolls, so plain document-flow pages opt out of the shrink
+// and let their content overflow the shell.
+.doc-scroll {
+	flex-shrink: 0;
+}
+
 .alert p:last-child,
 .popover p:last-child {
 	margin-bottom: 0;
@@ -195,10 +204,39 @@ fieldset,
 .terms h2 {
 	font-size: 1.1rem;
 	font-weight: bold;
+	margin-top: 2rem;
 }
 
-.terms h2 {
-	margin-top: 2rem;
+.terms h3 {
+	font-size: 1rem;
+	font-weight: bold;
+	margin-top: 1.5rem;
+}
+
+.terms h4 {
+	font-size: 1rem;
+	font-style: italic;
+	font-weight: normal;
+	margin-top: 1.25rem;
+}
+
+.terms table {
+	border-collapse: collapse;
+	margin: 1rem 0;
+	width: 100%;
+
+	th,
+	td {
+		border: $border-width solid $border-color;
+		padding: 0.5rem;
+		text-align: left;
+		vertical-align: top;
+	}
+}
+
+// the cookie table is too wide for phones, let it scroll on its own
+.terms .table-wrapper {
+	overflow-x: auto;
 }
 
 .toast,

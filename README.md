@@ -2,7 +2,7 @@
 
 ## Setup
 
-1. Install MySQL and Node v18+.
+1. Install MySQL and Node v22+.
 2. Install PNPM.
 3. Create a new Cloudflare Turnstile (captcha) widget.
 4. Create a MySQL database and a user for it:
