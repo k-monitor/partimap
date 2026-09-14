@@ -2,7 +2,9 @@
 import markdownIt from 'markdown-it';
 import markdownItAttrs from 'markdown-it-attrs';
 
-const markdownItInstance = markdownIt({ html: true });
+// single newlines in the legal notices and help texts separate definitions,
+// address lines and enumerations, so they must render as line breaks
+const markdownItInstance = markdownIt({ breaks: true, html: true });
 markdownItInstance.use(markdownItAttrs);
 
 // wide tables (e.g. the cookie table in the privacy notice) must scroll
