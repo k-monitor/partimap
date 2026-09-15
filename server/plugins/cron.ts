@@ -11,7 +11,7 @@ export default defineNitroPlugin(() => {
 	const scheduler = useScheduler();
 	scheduler.run(sendDailyNotifications).dailyAt(SUB_DAILY_HOUR, 0);
 	scheduler.run(sendEventBasedNotifications).everyFiveMinutes();
-	// FIXME uncomment: scheduler.run(sendGdprBlockNotices).hourly();
+	scheduler.run(sendGdprBlockNotices).hourly();
 });
 
 function getProjectUrl(lang: string, id: number) {
