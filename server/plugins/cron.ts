@@ -61,6 +61,7 @@ async function sendGdprBlockNotices() {
 					blockFrom.toLocaleString(u.lang, {
 						dateStyle: 'long',
 						timeStyle: 'short',
+						timeZone: 'Europe/Budapest',
 					}),
 				) + projectListHtml;
 
