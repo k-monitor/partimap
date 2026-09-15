@@ -281,7 +281,7 @@ function uploadDefinition() {
 						t('legal.missingAlert', [
 							t('projectEditor.privacyPolicy'),
 							t('projectEditor.purposeOfDataCollection'),
-							gdprBlockFrom.toLocaleString(locale),
+							new Date(gdprBlockFrom).toLocaleString(locale),
 						])
 					"
 					>{{ t('legal.missingLabel') }}</span
