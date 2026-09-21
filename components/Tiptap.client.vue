@@ -5,6 +5,10 @@ import { Youtube } from '@tiptap/extension-youtube';
 
 const html = defineModel<string>();
 
+const { required } = defineProps<{
+	required?: boolean;
+}>();
+
 const editor = useEditor({
 	content: html.value || '',
 	extensions: [
@@ -53,10 +57,18 @@ function setLink() {
 	}
 	editor.value.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
 }
+
+const textOnly = computed(() => {
+	if (!editor.value) return '';
+	return editor.value.getText().trim();
+});
 </script>
 
 <template>
-	<div v-if="editor">
+	<div
+		v-if="editor"
+		class="position-relative"
+	>
 		<div class="bg-light border border-bottom-0 d-flex flex-wrap tiptap-toolbar">
 			<div class="border-bottom border-end px-1">
 				<b-button
@@ -190,6 +202,24 @@ function setLink() {
 		<div class="border-top-0 form-control tiptap-editor">
 			<TiptapEditorContent :editor="editor" />
 		</div>
+		<input
+			v-if="required"
+			tabindex="-1"
+			type="text"
+			required
+			:value="textOnly"
+			style="
+				background: transparent;
+				border: none;
+				bottom: 0;
+				color: transparent;
+				height: 1px;
+				outline: none;
+				pointer-events: none;
+				position: absolute;
+				width: 100%;
+			"
+		/>
 	</div>
 </template>
 

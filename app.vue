@@ -202,7 +202,7 @@ fieldset,
 }
 
 .terms h2 {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 	margin-top: 2rem;
 }
@@ -211,32 +211,6 @@ fieldset,
 	font-size: 1rem;
 	font-weight: bold;
 	margin-top: 1.5rem;
-}
-
-.terms h4 {
-	font-size: 1rem;
-	font-style: italic;
-	font-weight: normal;
-	margin-top: 1.25rem;
-}
-
-.terms table {
-	border-collapse: collapse;
-	margin: 1rem 0;
-	width: 100%;
-
-	th,
-	td {
-		border: $border-width solid $border-color;
-		padding: 0.5rem;
-		text-align: left;
-		vertical-align: top;
-	}
-}
-
-// the cookie table is too wide for phones, let it scroll on its own
-.terms .table-wrapper {
-	overflow-x: auto;
 }
 
 .toast,

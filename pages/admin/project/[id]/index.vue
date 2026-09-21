@@ -2,6 +2,7 @@
 import copy from 'copy-to-clipboard';
 import slugify from 'slugify';
 import type { Project } from '~/server/data/projects';
+import { hasTextContent } from '~/utils/hasTextContent';
 
 const route = useRoute();
 const { id } = route.params;
@@ -57,7 +58,7 @@ function resetPassword() {
 	passwordModified.value = true;
 }
 
-const { locales, t } = useI18n();
+const { locale, locales, t } = useI18n();
 
 const subscribeOptions = [
 	{ value: 'N', text: t('projectEditor.subscribeN') },
@@ -65,18 +66,13 @@ const subscribeOptions = [
 	{ value: 'D', text: t('projectEditor.subscribeD') },
 ];
 
-const isPrivacyPolicyValid = computed(() => {
-	const len = (project.value?.privacyPolicy || '').replace(/(<[^>]*>|\s+)/g, '').length;
-	return len > 10;
-});
-
 const localePath = useLocalePath();
 const projectPath = computed(
 	() => `/${project.value?.lang}/p/${project.value?.slug || project.value?.id}/0`,
 );
 
 const {
-	public: { baseUrl },
+	public: { baseUrl, gdprBlockFrom },
 } = useRuntimeConfig();
 const fullProjectPath = computed(() => baseUrl + projectPath.value);
 const projectBaseURL = computed(() => `${baseUrl}/${project.value?.lang}/p/`);
@@ -90,8 +86,12 @@ async function copyURL() {
 	successToast(t('projectEditor.copiedURL'));
 }
 
+const projectFormRef = useTemplateRef('projectFormRef');
+
 async function update() {
 	try {
+		if (!projectFormRef.value?.reportValidity()) return;
+
 		if (image.value) await uploadImage();
 
 		const p: Record<string, any> = { ...project.value };
@@ -138,7 +138,7 @@ const { user } = useAuth();
 				<div class="d-flex flex-wrap align-items-center">
 					<div>
 						<NuxtLink :to="localePath('/admin/projects')">
-							{{ $t('projectEditor.back') }}
+							{{ t('projectEditor.back') }}
 						</NuxtLink>
 						<span class="text-muted mx-2">&raquo;</span>
 						<span>{{ project.title }}</span>
@@ -149,7 +149,7 @@ const { user } = useAuth();
 							:to="localePath(`/admin/project/${project.id}/embed`)"
 							role="button"
 						>
-							{{ $t('projectEditor.embed') }}
+							{{ t('projectEditor.embed') }}
 						</NuxtLink>
 						<a
 							class="btn btn-primary m-2"
@@ -157,192 +157,230 @@ const { user } = useAuth();
 							role="button"
 							target="_blank"
 						>
-							{{ $t('projectEditor.view') }}
+							{{ t('projectEditor.view') }}
 						</a>
 					</div>
 				</div>
 			</template>
+			<div
+				v-if="
+					!hasTextContent(project.privacyPolicy) ||
+					!hasTextContent(project.purposeOfDataCollection)
+				"
+				class="alert alert-danger mb-5"
+			>
+				{{
+					t('legal.missingAlert', [
+						t('projectEditor.privacyPolicy'),
+						t('projectEditor.purposeOfDataCollection'),
+						new Date(gdprBlockFrom).toLocaleString(locale),
+					])
+				}}
+			</div>
 			<form
 				id="projectForm"
+				ref="projectFormRef"
 				@submit.prevent="update"
 			>
-				<div class="row">
-					<div class="col-12 col-md-8">
-						<form-group :label="$t('projectEditor.projectTitle')">
-							<input
-								v-model="project.title"
-								class="form-control"
-								required
-							/>
-						</form-group>
+				<section class="mb-5">
+					<div class="row">
+						<div class="col-12 col-md-8">
+							<form-group :label="t('projectEditor.projectTitle')">
+								<input
+									v-model="project.title"
+									class="form-control"
+									required
+								/>
+							</form-group>
+						</div>
+						<div class="col">
+							<form-group :label="t('projectEditor.language')">
+								<select
+									v-model="project.lang"
+									class="form-select"
+								>
+									<option
+										v-for="l in locales"
+										:key="l.code"
+										:value="l.code"
+									>
+										{{ l.name }}
+									</option>
+								</select>
+							</form-group>
+						</div>
 					</div>
-					<div class="col">
-						<form-group :label="$t('projectEditor.language')">
-							<select
-								v-model="project.lang"
-								class="form-select"
+					<form-group
+						:label="t('projectEditor.slug')"
+						:description="t('projectEditor.slugDescription')"
+					>
+						<p class="d-md-none fw-bold mb-1 small text-muted">
+							{{ projectBaseURL }}
+						</p>
+						<div class="flex-nowrap input-group">
+							<button
+								class="btn btn-primary"
+								type="button"
+								@click="copyURL"
 							>
-								<option
-									v-for="l in locales"
-									:key="l.code"
-									:value="l.code"
-								>
-									{{ l.name }}
-								</option>
-							</select>
-						</form-group>
-					</div>
-				</div>
-				<form-group
-					:label="$t('projectEditor.slug')"
-					:description="$t('projectEditor.slugDescription')"
-				>
-					<p class="d-md-none fw-bold mb-1 small text-muted">
-						{{ projectBaseURL }}
-					</p>
-					<div class="flex-nowrap input-group">
-						<button
-							class="btn btn-primary"
-							type="button"
-							@click="copyURL"
-						>
-							<i class="fas fa-copy fa-fw" />
-						</button>
-						<span class="d-none d-md-inline input-group-text">{{
-							projectBaseURL
-						}}</span>
-						<input
-							v-model="project.slug"
-							class="form-control"
-							:placeholder="generateSlug()"
-						/>
-						<button
-							v-b-tooltip.hover
-							class="btn btn-secondary"
-							:title="$t('projectEditor.generateSlug')"
-							type="button"
-							@click="project.slug = generateSlug()"
-						>
-							<i class="fas fa-magic fa-fw" />
-						</button>
-					</div>
-				</form-group>
-				<form-group
-					:label="$t('projectEditor.password')"
-					:description="$t('projectEditor.passwordDescription')"
-				>
-					<div class="flex-nowrap input-group">
-						<input
-							v-model="newPassword"
-							class="form-control"
-							:placeholder="
-								project.password
-									? $t('projectEditor.passwordSet')
-									: $t('projectEditor.newPassword')
-							"
-							:readonly="!!project.password"
-							type="password"
-							@change="passwordModified = true"
-						/>
-						<button
-							v-if="project.password"
-							class="btn btn-danger"
-							type="button"
-							@click="resetPassword"
-						>
-							<i class="fas fa-backspace" />
-						</button>
-					</div>
-				</form-group>
-				<form-group
-					:label="$t('projectEditor.projectDescription')"
-					:description="(project.description || '').length + '/200'"
-				>
-					<textarea
-						v-model="project.description"
-						class="form-control"
-						maxlength="200"
-					/>
-				</form-group>
-
-				<b-form-group
-					:invalid-feedback="$t('imageUpload.maxFileSize')"
-					:label="$t('projectEditor.thumbnail')"
-					:state="imageState"
-				>
-					<div
-						v-if="!project.image"
-						class="input-group"
-					>
-						<ImageFileInput
-							v-model="image"
-							:state="imageState"
-						/>
-						<button
-							class="btn btn-outline-danger"
-							:disabled="!image"
-							type="button"
-							@click="removeImage"
-						>
-							<i class="fas fa-backspace" />
-						</button>
-					</div>
-					<div v-else>
-						<figure class="figure">
-							<img
-								:src="project.image"
-								:alt="$t('projectEditor.altThumbnail')"
-								class="figure-img rounded"
-								height="120"
+								<i class="fas fa-copy fa-fw" />
+							</button>
+							<span class="d-none d-md-inline input-group-text">{{
+								projectBaseURL
+							}}</span>
+							<input
+								v-model="project.slug"
+								class="form-control"
+								:placeholder="generateSlug()"
 							/>
-							<figcaption class="figure-caption">
-								<a
-									class="text-danger"
-									href="javascript:void(0)"
-									@click="removeImage"
-									>{{ $t('imageUpload.remove') }}</a
-								>
-							</figcaption>
-						</figure>
-					</div>
-				</b-form-group>
+							<button
+								v-b-tooltip.hover
+								class="btn btn-secondary"
+								:title="t('projectEditor.generateSlug')"
+								type="button"
+								@click="project.slug = generateSlug()"
+							>
+								<i class="fas fa-magic fa-fw" />
+							</button>
+						</div>
+					</form-group>
+					<form-group
+						:label="t('projectEditor.password')"
+						:description="t('projectEditor.passwordDescription')"
+					>
+						<div class="flex-nowrap input-group">
+							<input
+								v-model="newPassword"
+								class="form-control"
+								:placeholder="
+									project.password
+										? t('projectEditor.passwordSet')
+										: t('projectEditor.newPassword')
+								"
+								:readonly="!!project.password"
+								type="password"
+								@change="passwordModified = true"
+							/>
+							<button
+								v-if="project.password"
+								class="btn btn-danger"
+								type="button"
+								@click="resetPassword"
+							>
+								<i class="fas fa-backspace" />
+							</button>
+						</div>
+					</form-group>
+				</section>
+
+				<section class="mb-5">
+					<form-group
+						:label="t('projectEditor.projectDescription')"
+						:description="(project.description || '').length + '/200'"
+					>
+						<textarea
+							v-model="project.description"
+							class="form-control"
+							maxlength="200"
+						/>
+					</form-group>
+					<b-form-group
+						:invalid-feedback="t('imageUpload.maxFileSize')"
+						:label="t('projectEditor.thumbnail')"
+						:state="imageState"
+					>
+						<div
+							v-if="!project.image"
+							class="input-group"
+						>
+							<ImageFileInput
+								v-model="image"
+								:state="imageState"
+							/>
+							<button
+								class="btn btn-outline-danger"
+								:disabled="!image"
+								type="button"
+								@click="removeImage"
+							>
+								<i class="fas fa-backspace" />
+							</button>
+						</div>
+						<div v-else>
+							<figure class="figure">
+								<img
+									:src="project.image"
+									:alt="t('projectEditor.altThumbnail')"
+									class="figure-img rounded"
+									height="120"
+								/>
+								<figcaption class="figure-caption">
+									<a
+										class="text-danger"
+										href="javascript:void(0)"
+										@click="removeImage"
+										>{{ t('imageUpload.remove') }}</a
+									>
+								</figcaption>
+							</figure>
+						</div>
+					</b-form-group>
+				</section>
+
+				<section class="mb-5">
+					<form-group
+						class="rich"
+						:label="t('projectEditor.privacyPolicy')"
+						:description="t('projectEditor.privacyPolicyDescription')"
+						:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
+					>
+						<tiptap
+							v-model="project.privacyPolicy"
+							required
+						/>
+					</form-group>
+					<form-group
+						class="rich"
+						:label="t('projectEditor.purposeOfDataCollection')"
+						:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
+					>
+						<tiptap
+							v-model="project.purposeOfDataCollection"
+							required
+						/>
+					</form-group>
+				</section>
+
+				<section class="mb-5">
+					<form-group
+						class="rich"
+						:label="t('projectEditor.thanks')"
+						:description="t('projectEditor.thanksDescription')"
+					>
+						<tiptap v-model="project.thanks" />
+					</form-group>
+					<form-group
+						:label="t('projectEditor.thanksUrl')"
+						:description="t('projectEditor.thanksUrlDescription')"
+					>
+						<input
+							v-model="project.thanksUrl"
+							class="form-control"
+						/>
+					</form-group>
+					<form-group>
+						<b-form-checkbox
+							v-model="project.thanksSocial"
+							value="1"
+						>
+							{{ t('projectEditor.thanksSocial') }}
+						</b-form-checkbox>
+					</form-group>
+				</section>
 
 				<form-group
-					class="rich"
-					:label="$t('projectEditor.privacyPolicy')"
-					:description="$t('projectEditor.privacyPolicyDescription')"
-					:invalid-feedback="$t('projectEditor.privacyPolicyRequired')"
-					:state="isPrivacyPolicyValid"
-				>
-					<tiptap v-model="project.privacyPolicy" />
-				</form-group>
-				<form-group
-					class="rich"
-					:label="$t('projectEditor.thanks')"
-					:description="$t('projectEditor.thanksDescription')"
-				>
-					<tiptap v-model="project.thanks" />
-				</form-group>
-				<form-group
-					:label="$t('projectEditor.thanksUrl')"
-					:description="$t('projectEditor.thanksUrlDescription')"
-				>
-					<input
-						v-model="project.thanksUrl"
-						class="form-control"
-					/>
-				</form-group>
-				<form-group>
-					<b-form-checkbox
-						v-model="project.thanksSocial"
-						value="1"
-					>
-						{{ $t('projectEditor.thanksSocial') }}
-					</b-form-checkbox>
-				</form-group>
-				<form-group
-					:label="$t('projectEditor.subscribe')"
-					:description="$t('projectEditor.subscribeDescription')"
+					:label="t('projectEditor.subscribe')"
+					:description="t('projectEditor.subscribeDescription')"
 				>
 					<b-form-radio-group
 						id="radio-group-1"
@@ -359,15 +397,14 @@ const { user } = useAuth();
 						type="button"
 						@click="deleteProject"
 					>
-						{{ $t('ListItem.delete') }}
+						{{ t('ListItem.delete') }}
 					</button>
 					<button
 						class="btn btn-success"
-						:disabled="!isPrivacyPolicyValid"
 						form="projectForm"
 						type="submit"
 					>
-						{{ $t('projectEditor.save') }}
+						{{ t('projectEditor.save') }}
 					</button>
 				</div>
 			</template>

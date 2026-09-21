@@ -27,9 +27,11 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			baseUrl: BUILD_TIME_BASE_URL,
+			gdprBlockFrom: process.env.NUXT_PUBLIC_GDPR_BLOCK_FROM || '2026-10-31T00:00:00+01:00',
 			gtm: {
 				id: process.env.NUXT_PUBLIC_GTM_ID || 'GTM-UNDEFINED',
 			},
+			termsModAt: process.env.NUXT_PUBLIC_TERMS_MOD_AT || '2026-09-15T13:15:00+02:00',
 		},
 	},
 	telemetry: false,

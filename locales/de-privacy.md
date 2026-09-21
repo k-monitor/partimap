@@ -4,7 +4,7 @@
 
 Zweck dieser Datenschutzerklärung ist es, betroffene Personen transparent, verständlich und in Übereinstimmung mit den geltenden Rechtsvorschriften über die Verarbeitung personenbezogener Daten im Zusammenhang mit dem Betrieb der PARTIMAP-Plattform zu informieren. Diese Datenschutzerklärung legt die bei der Nutzung der PARTIMAP-Plattform geltenden Regeln für die Verarbeitung personenbezogener Daten, die Rechtsstellung der an der Datenverarbeitung beteiligten Akteure, die Zwecke, Rechtsgrundlagen und Dauer der einzelnen Verarbeitungsvorgänge sowie die Rechte der betroffenen Personen und die Modalitäten ihrer Ausübung fest.
 
-Die Datenschutzerklärung basiert in erster Linie auf der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (Datenschutz-Grundverordnung, DSGVO) sowie auf dem ungarischen Gesetz CXII von 2011 über das Recht auf informationelle Selbstbestimmung und die Informationsfreiheit (ungarisches Datenschutzgesetz, „Infotv.“). Dabei werden auch sonstige anwendbare ungarische und unionsrechtliche Vorschriften über die Verarbeitung personenbezogener Daten sowie die einschlägige Praxis der Aufsichtsbehörden und Gerichte berücksichtigt.
+Die Datenschutzerklärung basiert in erster Linie auf der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (Datenschutz-Grundverordnung, DSGVO) sowie auf dem ungarischen Gesetz CXII von 2011 über das Recht auf informationelle Selbstbestimmung und die Informationsfreiheit (ungarisches Datenschutzgesetz, „Infotv."). Dabei werden auch sonstige anwendbare ungarische und unionsrechtliche Vorschriften über die Verarbeitung personenbezogener Daten sowie die einschlägige Praxis der Aufsichtsbehörden und Gerichte berücksichtigt.
 
 Die Datenschutzerklärung dient zugleich dazu, klarzustellen, dass die Verantwortlichkeit für bestimmte Verarbeitungsvorgänge im Rahmen des Betriebs der PARTIMAP-Plattform je nach konkreter Art der Verarbeitung und der tatsächlichen Rolle der an der Verarbeitung beteiligten Akteure unterschiedlich ausgestaltet sein kann.
 
@@ -16,7 +16,7 @@ Die Plattform ermöglicht die Durchführung verschiedener fragebogenbasierter un
 
 PARTIMAP kann in der wissenschaftlichen und angewandten Forschung, bei sozialwissenschaftlichen, umweltbezogenen und tourismusbezogenen Erhebungen, bei der Vorbereitung politischer Entscheidungen und kommunaler Entscheidungsprozesse, bei vorläufigen Folgenabschätzungen, Bedarfserhebungen sowie bei partizipativen Planungs- und gesellschaftlichen Konsultationsverfahren eingesetzt werden.
 
-Das System eignet sich insbesondere für die Untersuchung von Entwicklungskonzepten, Fragen des Verkehrs und der Mobilität, Stadterneuerungsprojekten, Umweltproblemen und anderen Angelegenheiten, die lokale Gemeinschaften betreffen, sowie für die Durchführung von Zufriedenheitsmessungen, Präferenzuntersuchungen, gemeinschaftlichen Problemerkundungen und \-kartierungen, Erhebungen zum Umweltzustand und partizipativen Konsultationen.
+Das System eignet sich insbesondere für die Untersuchung von Entwicklungskonzepten, Fragen des Verkehrs und der Mobilität, Stadterneuerungsprojekten, Umweltproblemen und anderen Angelegenheiten, die lokale Gemeinschaften betreffen, sowie für die Durchführung von Zufriedenheitsmessungen, Präferenzuntersuchungen, gemeinschaftlichen Problemerkundungen und -kartierungen, Erhebungen zum Umweltzustand und partizipativen Konsultationen.
 
 Der Open-Source-Betrieb ermöglicht eine transparente, flexible und anpassbare Nutzung für Forschende, Hochschulen, zivilgesellschaftliche Organisationen, Kommunen und andere Organisationen.
 
@@ -24,7 +24,7 @@ Der Open-Source-Betrieb ermöglicht eine transparente, flexible und anpassbare N
 
 **Datenschutzerklärung:** bezeichnet diese Datenschutzerklärung.
 
-**PARTIMAP oder Plattform:** bezeichnet die unter https://www.partimap.eu/hu betriebene Plattform.
+**PARTIMAP oder Plattform:** bezeichnet die unter <https://www.partimap.eu/> betriebene Plattform.
 
 **Personenbezogene Daten:** sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen. Als identifizierbar wird eine natürliche Person angesehen, die direkt oder indirekt, insbesondere mittels Zuordnung zu einer Kennung wie einem Namen, einer Kennnummer, Standortdaten, einer Online-Kennung oder zu einem oder mehreren besonderen Merkmalen, die Ausdruck der physischen, physiologischen, genetischen, psychischen, wirtschaftlichen, kulturellen oder sozialen Identität dieser natürlichen Person sind, identifiziert werden kann.
 
@@ -102,13 +102,13 @@ Diese Datenschutzerklärung beschreibt dementsprechend die mit dem Betrieb der P
 
 **K-Monitor Közhasznú Egyesület**
 
-Sitz: 1077 Budapest, Rózsa u. 8\.
+Sitz: 1077 Budapest, Rózsa u. 8.
 
-Postanschrift zur Ausübung von Betroffenenrechten: 1077 Budapest, Jósika utca 25\.
+Postanschrift zur Ausübung von Betroffenenrechten: 1077 Budapest, Jósika utca 25.
 
-Tel.: \+36 1 789 5005
+Tel.: +36 1 789 5005
 
-E-Mail zur Ausübung von Betroffenenrechten: <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#105;&#110;&#x66;&#x6f;&#64;&#107;&#45;&#109;&#111;&#110;&#x69;&#116;&#111;&#x72;&#46;&#x68;&#x75;">&#105;&#110;&#x66;&#x6f;&#64;&#107;&#45;&#109;&#x6f;&#110;&#x69;&#x74;&#x6f;&#114;&#x2e;&#104;&#x75;</a>
+E-Mail zur Ausübung von Betroffenenrechten: <info@k-monitor.hu>
 
 ## 2\. K-Monitor als Betreiber von PARTIMAP
 
@@ -120,13 +120,13 @@ Im Zusammenhang mit dem Betrieb der Plattform verarbeitet K-Monitor folgende per
 
 ### 2.2. Umfang der verarbeiteten Daten, Zweck und Rechtsgrundlage der Verarbeitung
 
-#### a) Name, E-Mail-Adresse, Authentifizierungs- und Zugriffsverwaltungsdaten im Zusammenhang mit dem Nutzerkonto
+**a) Name, E-Mail-Adresse, Authentifizierungs- und Zugriffsverwaltungsdaten im Zusammenhang mit dem Nutzerkonto**
 
 K-Monitor verarbeitet diese Daten zur Erstellung des Nutzerkontos, zur Identifizierung des registrierten Nutzers, zur Gewährleistung des Zugangs zur Plattform, zur Authentifizierung der Anmeldung, zur Ermöglichung der Nutzung der PARTIMAP-Plattform sowie zur Kommunikation mit dem Fragebogenersteller.
 
 Rechtsgrundlage der Verarbeitung ist Artikel 6 Absatz 1 Buchstabe b DSGVO, da die Verarbeitung dieser Daten objektiv erforderlich ist, um den zwischen dem Nutzer und K-Monitor bestehenden Dienst zur Nutzung der Plattform bereitzustellen und die Dienstleistung zu erbringen.
 
-#### b) Wohnanschrift, Geburtsort und Geburtsdatum
+**b) Wohnanschrift, Geburtsort und Geburtsdatum**
 
 K-Monitor verarbeitet Angaben zum Geburtsort und Geburtsdatum sowie zur Wohnanschrift, um den Fragebogenersteller eindeutig zu identifizieren, eine Verwechslung mit anderen Personen auszuschließen, die rechtliche Verantwortlichkeit im Zusammenhang mit den auf der Plattform durchgeführten Datenverarbeitungen durchsetzen zu können, auf Verstöße gegen die Nutzungsbedingungen reagieren zu können, Rechtsansprüche geltend zu machen, behördliche Anfragen zu erfüllen sowie Missbrauch im Zusammenhang mit der Nutzung der Plattform zu verhindern und zu untersuchen.
 
@@ -138,7 +138,7 @@ Auf Grundlage der Interessenabwägung von K-Monitor überwiegt dieses berechtigt
 
 Da der Zweck der Verarbeitung darin besteht, die Ausübung der Datenschutzrechte der Personen zu gewährleisten, die Fragebögen ausfüllen, ist die Verarbeitung auch mit den Datenschutzinteressen Dritter vereinbar.
 
-#### c) Metadaten und Protokolldaten
+**c) Metadaten und Protokolldaten**
 
 K-Monitor verarbeitet Metadaten und Protokolldaten zur Gewährleistung des sicheren Betriebs der Plattform, zur Behebung von Systemfehlern, zur Verhinderung unbefugter Zugriffe, zur Behandlung von Sicherheitsereignissen, zur Aufdeckung von Missbrauch sowie zur Gewährleistung der IT-Sicherheit und des kontinuierlichen Betriebs der Plattform.
 
@@ -146,7 +146,7 @@ Rechtsgrundlage der Verarbeitung ist das berechtigte Interesse gemäß Artikel 6
 
 Das berechtigte Interesse von K-Monitor besteht in der Gewährleistung der Sicherheit, Integrität und des kontinuierlichen Betriebs der Plattform sowie in der Verhinderung und Untersuchung von Missbrauch.
 
-#### d) Im Rahmen von Kundendienst- und technischen Supportanfragen bereitgestellte Daten
+**d) Im Rahmen von Kundendienst- und technischen Supportanfragen bereitgestellte Daten**
 
 K-Monitor verarbeitet die von registrierten Nutzern im Rahmen von Kundendienst- oder technischen Supportanfragen bereitgestellten Kontaktdaten, Kommunikationsinhalte und damit verbundenen technischen Daten zur Bearbeitung der Anfrage, zur Untersuchung von Fehlern, zur Bereitstellung technischen Supports sowie zur Kommunikation mit dem Nutzer.
 
@@ -154,7 +154,7 @@ Rechtsgrundlage der Verarbeitung ist grundsätzlich Artikel 6 Absatz 1 Buchstabe
 
 Sofern die Anfrage nicht mehr mit der Erbringung der Dienstleistung zusammenhängt, ist Rechtsgrundlage der Verarbeitung das berechtigte Interesse gemäß Artikel 6 Absatz 1 Buchstabe f DSGVO, das in der Bearbeitung von Nutzeranfragen und dem ordnungsgemäßen Betrieb der Plattform besteht.
 
-#### e) Im Zusammenhang mit Compliance-Maßnahmen und der Untersuchung von Verstößen entstehende Daten
+**e) Im Zusammenhang mit Compliance-Maßnahmen und der Untersuchung von Verstößen entstehende Daten**
 
 K-Monitor verarbeitet diese Daten zur Überwachung der Einhaltung der Nutzungsbedingungen, zur Untersuchung von Verstößen, zur Ergreifung notwendiger Einschränkungs-, Aussetzungs- oder Löschungsmaßnahmen, zur Gewährleistung des sicheren und rechtmäßigen Betriebs der Plattform sowie zur Geltendmachung, Durchsetzung oder Verteidigung etwaiger Rechtsansprüche.
 
@@ -184,10 +184,10 @@ Da diese Cookies für die Erbringung der Dienstleistung unbedingt erforderlich s
 
 Auf der Website werden folgende Cookies verwendet:
 
-| Cookie-Name | Zweck | Ablauf |
-| :---- | :---- | :---- |
+| Cookie-Name          | Zweck                                                                                                                                                                                                                                                       | Ablauf  |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | **partimap-session** | Gewährleistet die Identifizierung des angemeldeten Nutzers bei der Navigation innerhalb der Administrationsoberfläche und ermöglicht es dem Nutzer, bei einer späteren Rückkehr zur Website seine Arbeit fortzusetzen, ohne sich erneut anmelden zu müssen. | 1 Woche |
-| **i18n\_redirected** | Speichert die vom Nutzer ausgewählte bzw. vom System erkannte Anzeigesprache, damit die Website bei späteren Besuchen weiterhin in der entsprechenden Sprache angezeigt wird. | 1 Jahr |
+| **i18n_redirected**  | Speichert die vom Nutzer ausgewählte bzw. vom System erkannte Anzeigesprache, damit die Website bei späteren Besuchen weiterhin in der entsprechenden Sprache angezeigt wird.                                                                               | 1 Jahr  |
 
 PARTIMAP verwendet keine Cookies zu Analyse-, Statistik-, Marketing- oder Werbezwecken und setzt auch keine von Dritten gesetzten Cookies ein, die dazu dienen, das Surfverhalten der Nutzer zu verfolgen oder Nutzerprofile zu erstellen.
 
@@ -210,6 +210,10 @@ Die Stellung des Fragebogenerstellers als eigenständiger Verantwortlicher erstr
 Hinsichtlich der innerhalb der PARTIMAP-Plattform durchgeführten Datenerhebung, der technischen Verarbeitung der Antworten innerhalb der Plattform, der Verwaltung der Einwilligungen, der technischen Maßnahmen im Zusammenhang mit der Ausübung der Rechte betroffener Personen sowie der Löschungs- und Zugriffsvorgänge innerhalb der Plattform handelt der Fragebogenersteller als gemeinsam Verantwortlicher mit K-Monitor.
 
 Die Stellung des Fragebogenerstellers als eigenständiger Verantwortlicher erstreckt sich insbesondere auf die Festlegung des konkreten Verarbeitungszwecks des jeweiligen Fragebogens, den Inhalt der Fragen, die inhaltliche Nutzung der Antworten sowie auf weitere Verarbeitungen außerhalb der PARTIMAP-Plattform.
+
+**PARTIMAP oder Plattform:** bezeichnet die unter https://www.partimap.eu/hu betriebene Plattform.
+
+$_PROJECT_DATA_PURPOSE_$
 
 ### 3.2. Zweck und Rechtsgrundlage der eigenständigen Verarbeitung durch den Fragebogenersteller
 
@@ -271,7 +275,7 @@ Die Eigenschaft als gemeinsam Verantwortliche ist nicht allgemein, sondern besch
 
 Die gemeinsame Verarbeitung durch K-Monitor und den Nutzer umfasst folgende Verarbeitungsvorgänge.
 
-#### a) Rahmen der fragebogenbezogenen Datenerhebung innerhalb der PARTIMAP-Plattform
+**a) Rahmen der fragebogenbezogenen Datenerhebung innerhalb der PARTIMAP-Plattform**
 
 K-Monitor und der Fragebogenersteller gelten hinsichtlich der Durchführung der über die PARTIMAP-Plattform erfolgenden fragebogenbezogenen Datenerhebung auf Plattformebene als gemeinsam Verantwortliche.
 
@@ -283,7 +287,7 @@ Der Fragebogenersteller bestimmt innerhalb dieses Rahmens eigenständig den Zwec
 
 Jede weitere Verarbeitung personenbezogener Daten, die von der PARTIMAP-Plattform exportiert oder außerhalb der Plattform verarbeitet werden, gilt in jedem Fall ausschließlich als eigenständige Verarbeitung durch den Fragebogenersteller.
 
-#### b) Zusammenarbeit bei der Gewährleistung der Ausübung der Rechte betroffener Personen
+**b) Zusammenarbeit bei der Gewährleistung der Ausübung der Rechte betroffener Personen**
 
 K-Monitor und der Fragebogenersteller arbeiten zusammen, um sicherzustellen, dass betroffene Personen ihre Rechte im Zusammenhang mit der Verarbeitung ihrer personenbezogenen Daten bei der Nutzung der PARTIMAP-Plattform wirksam ausüben können.
 
@@ -407,19 +411,19 @@ Der Verantwortliche bearbeitet den Antrag auf Ausübung der Rechte betroffener P
 
 Den von dieser Datenschutzerklärung erfassten Personen stehen folgende Rechte zu:
 
-1) Recht auf Auskunft;
+a) Recht auf Auskunft;
 
-2) Recht auf Berichtigung;
+b) Recht auf Berichtigung;
 
-3) Recht auf Löschung (Recht auf Vergessenwerden);
+c) Recht auf Löschung (Recht auf Vergessenwerden);
 
-4) Recht auf Einschränkung der Verarbeitung;
+d) Recht auf Einschränkung der Verarbeitung;
 
-5) Recht auf Datenübertragbarkeit;
+e) Recht auf Datenübertragbarkeit;
 
-6) Recht auf Widerspruch.
+f) Recht auf Widerspruch.
 
-#### a) Recht auf Auskunft
+### a) Recht auf Auskunft
 
 Die betroffene Person hat das Recht, von dem für die betreffende Verarbeitung zuständigen Verantwortlichen eine Bestätigung darüber zu erhalten, ob sie betreffende personenbezogene Daten verarbeitet werden.
 
@@ -427,25 +431,25 @@ Ist dies der Fall, hat die betroffene Person das Recht auf Auskunft über diese 
 
 Die betroffene Person hat außerdem das Recht, vom Verantwortlichen eine Kopie der personenbezogenen Daten zu erhalten, die Gegenstand der Verarbeitung sind.
 
-#### b) Recht auf Berichtigung
+### b) Recht auf Berichtigung
 
 Die betroffene Person hat das Recht, von dem für die betreffende Verarbeitung verantwortlichen Verantwortlichen die unverzügliche Berichtigung sie betreffender unrichtiger personenbezogener Daten zu verlangen. Sie hat außerdem das Recht, die Vervollständigung unvollständiger personenbezogener Daten zu verlangen.
 
 Der Verantwortliche kann, soweit dies zur Bearbeitung des Antrags erforderlich ist, zusätzliche Informationen oder Nachweise verlangen, wenn dies zur Überprüfung der Begründetheit des Berichtigungsantrags erforderlich ist.
 
-#### c) Recht auf Löschung (Recht auf Vergessenwerden)
+### c) Recht auf Löschung (Recht auf Vergessenwerden)
 
 Die betroffene Person hat das Recht, die Löschung der sie betreffenden personenbezogenen Daten zu verlangen, wenn eine der in Artikel 17 DSGVO genannten Voraussetzungen erfüllt ist, insbesondere wenn die personenbezogenen Daten für die Zwecke, für die sie erhoben oder anderweitig verarbeitet wurden, nicht mehr notwendig sind, die betroffene Person ihre Einwilligung widerruft und es keine andere Rechtsgrundlage für die Verarbeitung gibt, die betroffene Person Widerspruch gegen die Verarbeitung einlegt und keine vorrangigen berechtigten Gründe für die Verarbeitung bestehen, die personenbezogenen Daten unrechtmäßig verarbeitet wurden oder die Löschung zur Erfüllung einer rechtlichen Verpflichtung des Verantwortlichen erforderlich ist.
 
 Der Verantwortliche prüft den Löschungsantrag gemäß den Vorschriften der DSGVO und kann die Löschung verweigern, wenn eine der in Artikel 17 Absatz 3 DSGVO vorgesehenen Ausnahmen vorliegt.
 
-#### d) Recht auf Einschränkung der Verarbeitung
+### d) Recht auf Einschränkung der Verarbeitung
 
 Die betroffene Person hat das Recht, die Einschränkung der Verarbeitung ihrer personenbezogenen Daten in den in Artikel 18 DSGVO genannten Fällen zu verlangen, insbesondere wenn sie die Richtigkeit der personenbezogenen Daten bestreitet, wenn die Verarbeitung unrechtmäßig ist und die betroffene Person statt der Löschung die Einschränkung der Nutzung verlangt, wenn der Verantwortliche die personenbezogenen Daten nicht mehr benötigt, die betroffene Person sie jedoch zur Geltendmachung, Durchsetzung oder Verteidigung von Rechtsansprüchen benötigt, oder wenn die betroffene Person Widerspruch gegen die Verarbeitung eingelegt hat und noch nicht feststeht, ob die berechtigten Gründe des Verantwortlichen gegenüber denen der betroffenen Person überwiegen.
 
 Im Falle einer Einschränkung darf der Verantwortliche die personenbezogenen Daten – abgesehen von ihrer Speicherung – nur in den in der DSGVO vorgesehenen Fällen weiterverarbeiten.
 
-#### e) Recht auf Datenübertragbarkeit
+### e) Recht auf Datenübertragbarkeit
 
 Die betroffene Person hat das Recht, die sie betreffenden personenbezogenen Daten, die sie einem Verantwortlichen bereitgestellt hat, in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten und diese Daten einem anderen Verantwortlichen zu übermitteln, sofern die Verarbeitung auf einer Einwilligung oder einem Vertrag beruht und mithilfe automatisierter Verfahren erfolgt.
 
@@ -453,7 +457,7 @@ Die betroffene Person hat außerdem das Recht, sofern dies technisch machbar ist
 
 Dieses Recht kann ausschließlich hinsichtlich solcher Verarbeitungsvorgänge ausgeübt werden, bei denen die in Artikel 20 DSGVO festgelegten Voraussetzungen erfüllt sind.
 
-#### f) Recht auf Widerspruch
+### f) Recht auf Widerspruch
 
 Die betroffene Person hat das Recht, aus Gründen, die sich aus ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung sie betreffender personenbezogener Daten Widerspruch einzulegen, wenn die Verarbeitung auf dem berechtigten Interesse des Verantwortlichen oder eines Dritten beruht, einschließlich eines auf dieser Rechtsgrundlage beruhenden Profilings.
 
@@ -515,15 +519,15 @@ Im Falle einer gemeinsamen Verantwortlichkeit kann die betroffene Person gemäß
 
 Sitz: 1055 Budapest, Falk Miksa utca 9–11.
 
-Telefon: \+36 (1) 391-1400
+Telefon: +36 (1) 391-1400
 
-E-Mail: <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#x73;&#x7a;&#111;&#x6c;&#103;&#97;&#x6c;&#x61;&#x74;&#64;&#x6e;&#97;&#105;&#x68;&#46;&#104;&#x75;">&#x75;&#x67;&#x79;&#102;&#101;&#108;&#115;&#x7a;&#111;&#x6c;&#103;&#97;&#108;&#x61;&#x74;&#x40;&#110;&#x61;&#105;&#x68;&#46;&#x68;&#x75;</a>
+E-Mail: <ugyfelszolgalat@naih.hu>
 
 Behördliches Gateway – Kurzname: NAIH
 
 KR-ID: 429616918
 
-Website: https://www.naih.hu
+Website: <https://www.naih.hu>
 
 ## 10\. Schlussbestimmungen
 

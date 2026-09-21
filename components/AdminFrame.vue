@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { user } = useAuth();
+const { t } = useI18n();
 const localePath = useLocalePath();
 
 const visible = ref(false);
@@ -37,42 +38,42 @@ function toggle() {
 			>
 				<b-navbar-nav>
 					<b-nav-item :to="localePath('/admin/projects')">
-						{{ $t('AdminFrame.projects') }}
+						{{ t('AdminFrame.projects') }}
 					</b-nav-item>
 					<b-nav-item :to="localePath('/admin/maps')">
-						{{ $t('AdminFrame.maps') }}
+						{{ t('AdminFrame.maps') }}
 					</b-nav-item>
 					<b-nav-item
 						v-if="user?.isAdmin"
 						:to="localePath('/admin/users')"
 					>
-						{{ $t('AdminFrame.users') }}
+						{{ t('AdminFrame.users') }}
 					</b-nav-item>
 					<b-nav-item-dropdown
 						v-if="user?.isAdmin"
-						:text="$t('AdminFrame.editHelp')"
+						:text="t('AdminFrame.editHelp')"
 					>
 						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
-							{{ $t('AdminFrame.editEditorsHelp') }}
+							{{ t('AdminFrame.editEditorsHelp') }}
 						</b-dropdown-item>
 						<b-dropdown-item :to="localePath('/admin/i18n/visitors-help/')">
-							{{ $t('AdminFrame.editVisitorsHelp') }}
+							{{ t('AdminFrame.editVisitorsHelp') }}
 						</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
 				<b-navbar-nav class="ms-auto">
 					<b-nav-item :to="localePath('/admin/help')">
-						{{ $t('AdminFrame.help') }}
+						{{ t('AdminFrame.help') }}
 					</b-nav-item>
-					<b-nav-item-dropdown
-						:text="user?.name"
-						right
-					>
+					<b-nav-item-dropdown right>
+						<template #button-content>
+							<i class="fas fa-user-circle me-1" />
+						</template>
 						<b-dropdown-item :to="localePath('/admin/user/' + user?.id)">
-							{{ $t('AdminFrame.profile') }}
+							{{ t('AdminFrame.profile') }}
 						</b-dropdown-item>
 						<b-dropdown-item @click="authLogout()">
-							{{ $t('AdminFrame.logout') }}
+							{{ t('AdminFrame.logout') }}
 						</b-dropdown-item>
 					</b-nav-item-dropdown>
 					<LangSwitcher />

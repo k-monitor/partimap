@@ -4,7 +4,7 @@
 
 Šios Privatumo politikos tikslas – pateikti suinteresuotiems asmenims skaidrią, suprantamą ir galiojančius teisės aktus atitinkančią informaciją apie asmens duomenų tvarkymą, atliekamą vykdant PARTIMAP platformos veiklą. Privatumo politikoje nustatomos asmens duomenų tvarkymo taisyklės, taikomos naudojantis PARTIMAP platforma, duomenų tvarkyme dalyvaujančių subjektų statusas, atskirų duomenų tvarkymo operacijų tikslai, teisiniai pagrindai ir trukmė, taip pat duomenų subjektams priklausančios teisės ir jų įgyvendinimo tvarka.
 
-Ši Privatumo politika visų pirma grindžiama 2016 m. balandžio 27 d. Europos Parlamento ir Tarybos reglamentu (ES) 2016/679 dėl fizinių asmenų apsaugos tvarkant asmens duomenis ir dėl laisvo tokių duomenų judėjimo, kuriuo panaikinama Direktyva 95/46/EB (Bendrasis duomenų apsaugos reglamentas, BDAR), taip pat 2011 m. Įstatymu CXII dėl informacinio apsisprendimo teisės ir informacijos laisvės (Infotv.), atsižvelgiant į kitus taikomus Vengrijos ir Europos Sąjungos teisės aktus, reglamentuojančius asmens duomenų tvarkymą, taip pat priežiūros institucijų ir teismų praktiką.
+Ši Privatumo politika visų pirma grindžiama 2016 m. balandžio 27 d. Europos Parlamento ir Tarybos reglamentu (ES) 2016/679 dėl fizinių asmenų apsaugos tvarkant asmens duomenis ir dėl laisvo tokių duomenų judėjimo, kuriuo panaikinama Direktyva 95/46/EB (Bendrasis duomenų apsaugos reglamentas, BDAR), taip pat 2011 m. Įstatymu CXII dėl informacinio apsisprendimo teisės ir informacijos laisvės (Infotv.), atsižvelgiant į kitus taikomus Vengrijos ir Europos Sąjungos teisės aktus, reglamentuojančius asmens duomenų tvarkymą, taip pat priežiūros institucijų ir teismų praktiką.
 
 Šios Privatumo politikos tikslas taip pat yra aiškiai nustatyti, kad atsakomybė už duomenų valdytojo funkcijų vykdymą atliekant atskiras duomenų tvarkymo operacijas gali skirtis priklausomai nuo konkretaus duomenų tvarkymo pobūdžio ir faktinio jame dalyvaujančių subjektų vaidmens.
 
@@ -24,7 +24,7 @@ Atvirojo kodo veikimas užtikrina skaidrų, lankstų ir pritaikomą naudojimą t
 
 **Privatumo politika:** ši privatumo politika.
 
-**PARTIMAP arba platforma:** platforma, veikianti adresu https://www.partimap.eu/hu.
+**PARTIMAP arba platforma:** platforma, veikianti adresu <https://www.partimap.eu/>.
 
 **Asmens duomenys:** bet kokia informacija, susijusi su nustatytu arba nustatomu fiziniu asmeniu. Nustatomas fizinis asmuo yra visų pirma asmuo, kurį galima tiesiogiai arba netiesiogiai nustatyti pagal identifikatorių, pavyzdžiui, vardą, pavardę, identifikavimo numerį, vietos nustatymo duomenis, interneto identifikatorių arba vieną ar daugiau fizinio, fiziologinio, genetinio, psichinio, ekonominio, kultūrinio ar socialinio tapatumo požymių.
 
@@ -102,13 +102,13 @@ Atitinkamai šioje Privatumo politikoje aprašomi su platformos veikimu susiję 
 
 **K-Monitor Közhasznú Egyesület**
 
-Buveinės adresas: 1077 Budapest, Rózsa u. 8\.
+Buveinės adresas: 1077 Budapest, Rózsa u. 8.
 
-Pašto adresas duomenų subjektų teisių įgyvendinimo klausimais: 1077 Budapest, Jósika utca 25\.
+Pašto adresas duomenų subjektų teisių įgyvendinimo klausimais: 1077 Budapest, Jósika utca 25.
 
-Tel.: \+36 1 789 5005
+Tel.: +36 1 789 5005
 
-El. paštas duomenų subjektų teisių įgyvendinimo klausimais: <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#105;&#x6e;&#102;&#x6f;&#64;&#x6b;&#x2d;&#x6d;&#x6f;&#x6e;&#x69;&#116;&#x6f;&#114;&#x2e;&#x68;&#x75;">&#x69;&#x6e;&#102;&#x6f;&#64;&#x6b;&#45;&#109;&#x6f;&#110;&#x69;&#x74;&#111;&#114;&#46;&#104;&#117;</a>
+El. paštas duomenų subjektų teisių įgyvendinimo klausimais: <info@k-monitor.hu>
 
 ## 2\. K-Monitor kaip PARTIMAP operatorius
 
@@ -116,31 +116,24 @@ El. paštas duomenų subjektų teisių įgyvendinimo klausimais: <a href="&#x6d;
 
 Norint naudotis PARTIMAP platforma, būtina registracija. Vykdydama platformos veiklą, K-Monitor tvarko šiuos asmens duomenis:
 
-* registruoto naudotojo identifikavimui reikalingus vardo ir pavardės duomenis;
-
-* elektroninio pašto adresą;
-
-* gyvenamosios vietos adresą;
-
-* gimimo vietą ir datą;
-
-* su naudotojo paskyra susijusius autentifikavimo ir prieigos valdymo duomenis, visų pirma slaptažodį ar kitus identifikavimo duomenis;
-
-* su platformos naudojimu susijusius metaduomenis ir žurnalo duomenis, visų pirma duomenis apie prisijungimus, prieigas, IP adresą, įrenginio naudojimą, sistemos įvykius, klaidas ir saugumo įvykius;
-
-* kontaktinius duomenis, komunikacijos turinį ir susijusius techninius duomenis, kuriuos naudotojas pateikia klientų aptarnavimo ar techninės pagalbos užklausose;
-
-* registrus, kuriuose yra asmens duomenų, atitikties priemonių, taisyklių pažeidimų tyrimo ir teisėto platformos naudojimo kontrolės duomenis bei susijusius žurnalo duomenis.
+- registruoto naudotojo identifikavimui reikalingus vardo ir pavardės duomenis;
+- elektroninio pašto adresą;
+- gyvenamosios vietos adresą;
+- gimimo vietą ir datą;
+- su naudotojo paskyra susijusius autentifikavimo ir prieigos valdymo duomenis, visų pirma slaptažodį ar kitus identifikavimo duomenis;
+- su platformos naudojimu susijusius metaduomenis ir žurnalo duomenis, visų pirma duomenis apie prisijungimus, prieigas, IP adresą, įrenginio naudojimą, sistemos įvykius, klaidas ir saugumo įvykius;
+- kontaktinius duomenis, komunikacijos turinį ir susijusius techninius duomenis, kuriuos naudotojas pateikia klientų aptarnavimo ar techninės pagalbos užklausose;
+- registrus, kuriuose yra asmens duomenų, atitikties priemonių, taisyklių pažeidimų tyrimo ir teisėto platformos naudojimo kontrolės duomenis bei susijusius žurnalo duomenis.
 
 ### 2.2. Tvarkomų duomenų kategorijos, tvarkymo tikslas ir teisinis pagrindas
 
-#### a) Vardas ir pavardė, el. pašto adresas, su naudotojo paskyra susiję autentifikavimo ir prieigos valdymo duomenys
+**a) Vardas ir pavardė, el. pašto adresas, su naudotojo paskyra susiję autentifikavimo ir prieigos valdymo duomenys**
 
 K-Monitor šiuos duomenis tvarko naudotojo paskyrai sukurti, registruotam naudotojui identifikuoti, prieigai prie platformos suteikti, prisijungimui autentifikuoti, naudojimuisi PARTIMAP platforma užtikrinti ir ryšiui su apklausos kūrėju palaikyti.
 
 Duomenų tvarkymo teisinis pagrindas yra BDAR 6 straipsnio 1 dalies b punktas, nes šių duomenų tvarkymas yra objektyviai būtinas tarp naudotojo ir K-Monitor sudarytai platformos naudojimo paslaugų sutarčiai vykdyti ir paslaugai teikti.
 
-#### b) Gyvenamosios vietos adresas, gimimo vieta ir data
+**b) Gyvenamosios vietos adresas, gimimo vieta ir data**
 
 K-Monitor tvarko duomenis apie gimimo vietą ir datą bei gyvenamosios vietos adresą siekdama vienareikšmiškai identifikuoti apklausos kūrėją, išvengti jo supainiojimo su kitais asmenimis, užtikrinti su platformoje vykdoma duomenų tvarkymo veikla susijusios teisinės atsakomybės taikymą, imtis veiksmų pažeidus naudojimo sąlygas, įgyvendinti teisinius reikalavimus, vykdyti institucijų užklausas, taip pat užkirsti kelią piktnaudžiavimui platforma ir jį tirti.
 
@@ -152,7 +145,7 @@ Remiantis K-Monitor interesų pusiausvyros vertinimu, šis teisėtas interesas t
 
 Atsižvelgiant į tai, kad duomenų tvarkymo tikslas yra užtikrinti apklausą pildančių asmenų duomenų apsaugos teisių įgyvendinimą, toks duomenų tvarkymas taip pat yra suderinamas su trečiųjų asmenų duomenų apsaugos lūkesčiais.
 
-#### c) Metaduomenys ir žurnalo duomenys
+**c) Metaduomenys ir žurnalo duomenys**
 
 K-Monitor tvarko metaduomenis ir žurnalo duomenis siekdama užtikrinti saugų platformos veikimą, pašalinti sistemos klaidas, užkirsti kelią neteisėtai prieigai, valdyti saugumo įvykius, nustatyti piktnaudžiavimą, taip pat užtikrinti platformos informacinį saugumą ir nuolatinį veikimą.
 
@@ -160,7 +153,7 @@ Duomenų tvarkymo teisinis pagrindas yra BDAR 6 straipsnio 1 dalies f punkte num
 
 K-Monitor teisėtas interesas yra užtikrinti platformos saugumą, vientisumą ir nepertraukiamą veikimą, taip pat užkirsti kelią piktnaudžiavimui ir jį tirti.
 
-#### d) Duomenys, pateikti klientų aptarnavimo ir techninės pagalbos užklausų metu
+**d) Duomenys, pateikti klientų aptarnavimo ir techninės pagalbos užklausų metu**
 
 K-Monitor tvarko registruoto naudotojo pateiktus kontaktinius duomenis, komunikacijos turinį ir susijusius techninius duomenis, siekdama nagrinėti užklausą, tirti klaidas, teikti techninę pagalbą ir palaikyti ryšį su naudotoju.
 
@@ -168,7 +161,7 @@ Duomenų tvarkymo teisinis pagrindas paprastai yra BDAR 6 straipsnio 1 dalies b 
 
 Jeigu užklausa nebėra susijusi su paslaugos teikimu, duomenų tvarkymo teisinis pagrindas yra BDAR 6 straipsnio 1 dalies f punkte numatytas teisėtas interesas, susijęs su naudotojų užklausų tvarkymu ir tinkamu platformos veikimu.
 
-#### e) Duomenys, susiję su atitikties priemonėmis ir taisyklių pažeidimų tyrimu
+**e) Duomenys, susiję su atitikties priemonėmis ir taisyklių pažeidimų tyrimu**
 
 K-Monitor šiuos duomenis tvarko siekdama kontroliuoti naudojimo sąlygų laikymąsi, tirti taisyklių pažeidimus, imtis būtinų ribojimo, sustabdymo ar ištrynimo priemonių, užtikrinti platformos saugumą ir teisėtą veikimą, taip pat pareikšti, įgyvendinti ar apginti galimus teisinius reikalavimus.
 
@@ -196,10 +189,10 @@ Kadangi šie slapukai yra būtini paslaugai teikti, naudotojo sutikimas jų naud
 
 Svetainėje naudojami šie slapukai:
 
-| Slapuko pavadinimas | Tikslas | Galiojimo laikas |
-| :---- | :---- | :---- |
-| **partimap-session** | Užtikrina prisijungusio naudotojo identifikavimą naršant administravimo sąsajoje ir leidžia naudotojui vėliau grįžus tęsti darbą neprisijungiant iš naujo. | 1 savaitė |
-| **i18n\_redirected** | Išsaugo naudotojo pasirinktą arba sistemos nustatytą rodymo kalbą, kad vėlesnių apsilankymų metu svetainė būtų rodoma atitinkama kalba. | 1 metai |
+| Slapuko pavadinimas  | Tikslas                                                                                                                                                    | Galiojimo laikas |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| **partimap-session** | Užtikrina prisijungusio naudotojo identifikavimą naršant administravimo sąsajoje ir leidžia naudotojui vėliau grįžus tęsti darbą neprisijungiant iš naujo. | 1 savaitė        |
+| **i18n_redirected**  | Išsaugo naudotojo pasirinktą arba sistemos nustatytą rodymo kalbą, kad vėlesnių apsilankymų metu svetainė būtų rodoma atitinkama kalba.                    | 1 metai          |
 
 PARTIMAP nenaudoja analitinių, statistinių, rinkodaros ar reklamos slapukų ir nenaudoja trečiųjų šalių slapukų, skirtų naudotojų naršymo įpročiams sekti ar profiliuoti.
 
@@ -222,6 +215,10 @@ Apklausos kūrėjo, kaip savarankiško duomenų valdytojo, statusas netaikomas t
 Duomenų rinkimo PARTIMAP platformoje, atsakymų techninio tvarkymo platformoje, sutikimo valdymo, techninių priemonių, susijusių su duomenų subjektų teisių įgyvendinimu, taip pat ištrynimo ir prieigos operacijų platformoje atžvilgiu apklausos kūrėjas veikia kaip bendras duomenų valdytojas kartu su K-Monitor.
 
 Apklausos kūrėjo, kaip savarankiško duomenų valdytojo, statusas visų pirma apima konkrečios apklausos duomenų tvarkymo tikslo, klausimų turinio, esminio atsakymų naudojimo ir tolesnio duomenų tvarkymo už PARTIMAP platformos ribų nustatymą.
+
+$_PROJECT_DATA_PROCESSOR_$
+
+$_PROJECT_DATA_PURPOSE_$
 
 ### 3.2. Apklausos kūrėjo savarankiško duomenų tvarkymo tikslas ir teisinis pagrindas
 
@@ -283,7 +280,7 @@ Bendro duomenų valdytojo statusas nėra bendras ir taikomas tik konkrečioms du
 
 Bendras K-Monitor ir Naudotojo duomenų tvarkymas apima šias duomenų tvarkymo operacijas.
 
-#### a) Apklausų duomenų rinkimo PARTIMAP platformoje sistema
+**a) Apklausų duomenų rinkimo PARTIMAP platformoje sistema**
 
 K-Monitor ir apklausos kūrėjas laikomi bendrais duomenų valdytojais dėl apklausų duomenų rinkimo, vykdomo per PARTIMAP platformą, organizavimo platformos lygmeniu.
 
@@ -295,7 +292,7 @@ Apklausos kūrėjas šiose ribose savarankiškai nustato konkrečios apklausos t
 
 Visas tolesnis asmens duomenų, eksportuotų iš PARTIMAP platformos arba tvarkomų už jos ribų, tvarkymas laikomas išimtinai savarankišku apklausos kūrėjo duomenų tvarkymu.
 
-#### b) Bendradarbiavimas užtikrinant duomenų subjektų teisių įgyvendinimą
+**b) Bendradarbiavimas užtikrinant duomenų subjektų teisių įgyvendinimą**
 
 K-Monitor ir apklausos kūrėjas bendradarbiauja siekdami užtikrinti, kad duomenų subjektai galėtų veiksmingai įgyvendinti savo teises, susijusias su asmens duomenų tvarkymu naudojantis PARTIMAP platforma.
 
@@ -353,13 +350,10 @@ K-Monitor savarankiškas tyrimų tikslais vykdomas duomenų tvarkymas nedaro įt
 
 Naudodama per PARTIMAP platformą surinktus duomenis ir atsakymus, K-Monitor gali vykdyti duomenų tvarkymą šiais savarankiškais tyrimų ir analizės tikslais:
 
-1) vertinti, plėtoti ir tobulinti PARTIMAP platformos veikimą, naudojimo patogumą, dalyvavimo mechanizmus, apklausų duomenų rinkimo metodus, techninį veikimą ir paslaugas;
-
-2) vykdyti bendruosius tyrimus, analizes ir statistinius tyrimus, susijusius su visuomenės dalyvavimu naudojant apklausas, socialiniu įsitraukimu, bendruomenės konsultacijomis, dalyvaujamuoju planavimu ir panašiais visuomenės dalyvavimo procesais; rengti statistines, socialinių mokslų ar metodologines analizes, susijusias su PARTIMAP platformos veikimu ir naudojimu, apklausų dalyvavimo ypatumais, dalyvavimo aktyvumu, atsakymų modeliais ir dalyvavimo procesais;
-
-3) vykdyti savarankiškus tyrimus, analizes ir metodologinius tyrimus, susijusius su tam tikromis viešojo gyvenimo, socialinėmis ar bendruomenės dalyvavimo temomis, susijusiomis su apklausų tema ar objektu, taip pat analizuoti bendras socialines tendencijas;
-
-4) rengti profesines, mokslines, metodologines ar viešosios politikos analizes, tyrimų ataskaitas, statistines suvestines ar publikacijas, susijusias su pirmiau nurodytais tyrimų tikslais.
+1. vertinti, plėtoti ir tobulinti PARTIMAP platformos veikimą, naudojimo patogumą, dalyvavimo mechanizmus, apklausų duomenų rinkimo metodus, techninį veikimą ir paslaugas;
+2. vykdyti bendruosius tyrimus, analizes ir statistinius tyrimus, susijusius su visuomenės dalyvavimu naudojant apklausas, socialiniu įsitraukimu, bendruomenės konsultacijomis, dalyvaujamuoju planavimu ir panašiais visuomenės dalyvavimo procesais; rengti statistines, socialinių mokslų ar metodologines analizes, susijusias su PARTIMAP platformos veikimu ir naudojimu, apklausų dalyvavimo ypatumais, dalyvavimo aktyvumu, atsakymų modeliais ir dalyvavimo procesais;
+3. vykdyti savarankiškus tyrimus, analizes ir metodologinius tyrimus, susijusius su tam tikromis viešojo gyvenimo, socialinėmis ar bendruomenės dalyvavimo temomis, susijusiomis su apklausų tema ar objektu, taip pat analizuoti bendras socialines tendencijas;
+4. rengti profesines, mokslines, metodologines ar viešosios politikos analizes, tyrimų ataskaitas, statistines suvestines ar publikacijas, susijusias su pirmiau nurodytais tyrimų tikslais.
 
 ### 5.3. Savarankiško duomenų tvarkymo tyrimų tikslais teisinis pagrindas
 
@@ -421,43 +415,43 @@ Duomenų valdytojas prašymą dėl duomenų subjekto teisių įgyvendinimo išna
 
 Šios Privatumo politikos taikymo srityje duomenų subjektams suteikiamos šios teisės:
 
-1) teisė susipažinti su duomenimis;
+a) teisė susipažinti su duomenimis;
 
-2) teisė ištaisyti duomenis;
+b) teisė ištaisyti duomenis;
 
-3) teisė ištrinti duomenis (teisė būti pamirštam);
+c) teisė ištrinti duomenis (teisė būti pamirštam);
 
-4) teisė apriboti duomenų tvarkymą;
+d) teisė apriboti duomenų tvarkymą;
 
-5) teisė į duomenų perkeliamumą;
+e) teisė į duomenų perkeliamumą;
 
-6) teisė nesutikti su duomenų tvarkymu.
+f) teisė nesutikti su duomenų tvarkymu.
 
-#### a) Teisė susipažinti su duomenimis
+### a) Teisė susipažinti su duomenimis
 
 Duomenų subjektas turi teisę gauti iš už konkretų duomenų tvarkymą atsakingo duomenų valdytojo patvirtinimą, ar su juo susiję asmens duomenys yra tvarkomi, ir, jeigu tokie duomenys tvarkomi, turi teisę susipažinti su savo asmens duomenimis bei gauti informaciją visų pirma apie duomenų tvarkymo tikslus, atitinkamų asmens duomenų kategorijas, gavėjus arba gavėjų kategorijas, numatomą asmens duomenų saugojimo laikotarpį arba tokio laikotarpio nustatymo kriterijus, duomenų subjekto teises, galimybę kreiptis į priežiūros instituciją, duomenų šaltinį, jeigu duomenys buvo gauti ne iš paties duomenų subjekto, taip pat, automatizuoto sprendimų priėmimo ar profiliavimo atveju, informaciją apie esmines tokio duomenų tvarkymo aplinkybes.
 
 Duomenų subjektas taip pat turi teisę gauti duomenų valdytojo tvarkomų savo asmens duomenų kopiją.
 
-#### b) Teisė ištaisyti duomenis
+### b) Teisė ištaisyti duomenis
 
 Duomenų subjektas turi teisę reikalauti, kad už konkretų duomenų tvarkymą atsakingas duomenų valdytojas nepagrįstai nedelsdamas ištaisytų netikslius su juo susijusius asmens duomenis, taip pat turi teisę reikalauti papildyti neišsamius asmens duomenis.
 
 Duomenų valdytojas gali paprašyti papildomos informacijos ar patvirtinančių duomenų tiek, kiek būtina prašymo įvykdymui, jeigu tai reikalinga ištaisymo pagrįstumui patikrinti.
 
-#### c) Teisė ištrinti duomenis (teisė būti pamirštam)
+### c) Teisė ištrinti duomenis (teisė būti pamirštam)
 
 Duomenų subjektas turi teisę reikalauti ištrinti su juo susijusius asmens duomenis, jeigu egzistuoja viena iš BDAR 17 straipsnyje nustatytų sąlygų, visų pirma jeigu asmens duomenys nebėra reikalingi tais tikslais, kuriais jie buvo surinkti ar kitaip tvarkomi, duomenų subjektas atšaukia savo sutikimą ir nėra kito teisinio pagrindo tvarkyti duomenis, duomenų subjektas nesutinka su duomenų tvarkymu ir nėra viršesnių teisėtų priežasčių tvarkyti duomenis, asmens duomenys buvo tvarkomi neteisėtai arba asmens duomenys turi būti ištrinti vykdant teisinę duomenų valdytojo pareigą.
 
 Duomenų valdytojas prašymą ištrinti duomenis nagrinėja pagal BDAR taisykles ir gali atsisakyti juos ištrinti, jeigu taikoma viena iš BDAR 17 straipsnio 3 dalyje nustatytų išimčių.
 
-#### d) Teisė apriboti duomenų tvarkymą
+### d) Teisė apriboti duomenų tvarkymą
 
 Duomenų subjektas turi teisę reikalauti apriboti jo asmens duomenų tvarkymą BDAR 18 straipsnyje nustatytais atvejais, visų pirma jeigu jis ginčija asmens duomenų tikslumą, jeigu duomenų tvarkymas yra neteisėtas ir duomenų subjektas vietoj duomenų ištrynimo prašo apriboti jų naudojimą, jeigu duomenų valdytojui asmens duomenys nebereikalingi, tačiau duomenų subjektui jie reikalingi siekiant pareikšti, įgyvendinti ar apginti teisinius reikalavimus, arba jeigu duomenų subjektas nesutiko su duomenų tvarkymu ir dar nėra nustatyta, ar duomenų valdytojo teisėtos priežastys yra viršesnės.
 
 Apribojus duomenų tvarkymą, duomenų valdytojas asmens duomenis, išskyrus jų saugojimą, gali toliau tvarkyti tik BDAR nustatytais atvejais.
 
-#### e) Teisė į duomenų perkeliamumą
+### e) Teisė į duomenų perkeliamumą
 
 Duomenų subjektas turi teisę gauti su juo susijusius asmens duomenis, kuriuos jis pateikė duomenų valdytojui, susistemintu, įprastai naudojamu ir kompiuterio skaitomu formatu, ir turi teisę perduoti šiuos duomenis kitam duomenų valdytojui, jeigu duomenų tvarkymas grindžiamas sutikimu arba sutartimi ir atliekamas automatizuotomis priemonėmis.
 
@@ -465,7 +459,7 @@ Duomenų subjektas taip pat turi teisę prašyti, kad, kai tai techniškai įman
 
 Šia teise galima pasinaudoti tik tų duomenų tvarkymo operacijų atžvilgiu, kurioms taikomos BDAR 20 straipsnyje nustatytos sąlygos.
 
-#### f) Teisė nesutikti su duomenų tvarkymu
+### f) Teisė nesutikti su duomenų tvarkymu
 
 Duomenų subjektas turi teisę dėl su jo konkrečia situacija susijusių priežasčių bet kuriuo metu nesutikti, kad būtų tvarkomi jo asmens duomenys, kai duomenų tvarkymas grindžiamas duomenų valdytojo arba trečiosios šalies teisėtu interesu, įskaitant profiliavimą remiantis tokiu teisiniu pagrindu.
 
@@ -523,15 +517,15 @@ Bendro duomenų tvarkymo atveju duomenų subjektas turi teisę pagal BDAR ir tai
 
 Buveinės adresas: 1055 Budapest, Falk Miksa utca 9–11.
 
-Telefonas: \+36 (1) 391-1400
+Telefonas: +36 (1) 391-1400
 
-El. paštas: <a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#117;&#103;&#x79;&#102;&#x65;&#108;&#x73;&#x7a;&#111;&#x6c;&#x67;&#x61;&#108;&#97;&#x74;&#64;&#110;&#97;&#x69;&#x68;&#x2e;&#104;&#x75;">&#x75;&#103;&#121;&#102;&#101;&#x6c;&#115;&#x7a;&#x6f;&#108;&#103;&#x61;&#108;&#97;&#x74;&#64;&#110;&#x61;&#105;&#104;&#46;&#104;&#x75;</a>
+El. paštas: <ugyfelszolgalat@naih.hu>
 
 Oficialios elektroninės valdžios sistemos trumpasis pavadinimas: NAIH
 
 KR ID: 429616918
 
-Interneto svetainė: https://www.naih.hu
+Interneto svetainė: <https://www.naih.hu>
 
 ## 10\. Baigiamosios nuostatos
 
@@ -541,6 +535,6 @@ K-Monitor padaro šią Privatumo politiką prieinamą PARTIMAP platformoje ir u�
 
 Apklausos kūrėjas arba kitas naudotojas, veikiantis kaip savarankiškas duomenų valdytojas konkrečios duomenų tvarkymo operacijos atžvilgiu, yra atsakingas už tai, kad duomenų subjektai būtų tinkamai informuoti apie bet kokią papildomą informaciją apie duomenų tvarkymą, kurią pagal teisės aktus būtina pateikti dėl jo vykdomo duomenų tvarkymo.
 
-**Budapest, 2026.09.03.**
+Budapest, 2026.09.03.
 
 **Šis vertimas parengtas naudojant dirbtinį intelektą.**

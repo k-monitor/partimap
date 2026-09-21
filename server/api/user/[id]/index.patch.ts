@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
-import * as db from '~/server/data/users';
+import * as db from '~/server/utils/database';
+import * as ldb from '~/server/data/pdLog';
+import * as udb from '~/server/data/users';
 import { deleteImageFile } from '~/server/utils/uploads';
 
 const paramsSchema = z.object({
@@ -15,7 +17,7 @@ export default defineEventHandler(async (event) => {
 	await ensureLoggedIn(event);
 	await ensureAdminOr(event, id);
 
-	let user = await db.findById(id);
+	let user = await udb.findById(id);
 	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
 
 	const changes = await readBody<any>(event);
@@ -24,6 +26,11 @@ export default defineEventHandler(async (event) => {
 	delete changes.registered;
 	delete changes.token;
 	delete changes.tokenExpires;
+	delete changes.gdprBlockNoticeSent;
+	delete changes.eFullName;
+	delete changes.eAddress;
+	delete changes.eBirthPlace;
+	delete changes.eBirthDate;
 
 	if (!event.context.user?.isAdmin) {
 		delete changes.active;
@@ -49,14 +56,50 @@ export default defineEventHandler(async (event) => {
 		delete changes.logo;
 	}
 
-	if (changes.consent25Aug && !user.consent25Aug) {
+	if (changes.consent25Aug) {
 		changes.consent25Aug = Date.now();
 	}
 
-	user = db.createUser({ ...user, ...changes });
-	await db.update(user);
+	await db.inTransaction(async (tx) => {
+		const queries: db.Query[] = [];
+		const timestamp = Date.now();
 
-	user = await db.findById(user.id);
+		function auditLog(field: ldb.PDField, operation: ldb.PDOperation) {
+			const q = ldb.createQuery({
+				actorId: event.context.user!.id,
+				subjectId: user!.id,
+				field,
+				operation,
+				timestamp,
+			});
+			queries.push(q);
+		}
+
+		if (user!.id === event.context.user?.id) {
+			if (changes.fullName) {
+				changes.eFullName = encryptField(changes.fullName);
+				changes.name = '';
+				auditLog('fullName', user!.eFullName ? 'update' : 'first_write');
+			}
+			if (changes.address) {
+				changes.eAddress = encryptField(changes.address);
+				auditLog('address', user!.eAddress ? 'update' : 'first_write');
+			}
+			if (changes.birthPlace) {
+				changes.eBirthPlace = encryptField(changes.birthPlace);
+				auditLog('birthPlace', user!.eBirthPlace ? 'update' : 'first_write');
+			}
+			if (changes.birthDate) {
+				changes.eBirthDate = encryptField(changes.birthDate);
+				auditLog('birthDate', user!.eBirthDate ? 'update' : 'first_write');
+			}
+		}
+		const q = udb.updateQuery({ ...user, ...changes });
+		queries.push(q);
+		return db.runQueries(tx, queries);
+	});
+
+	user = await udb.findById(user.id);
 	if (!user) throw createError({ status: StatusCodes.NOT_FOUND });
 	return hideSecrets(user);
 });

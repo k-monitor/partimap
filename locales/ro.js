@@ -393,11 +393,9 @@ export default {
 	login: {
 		activated: 'Cont activat cu succes. PARTIMAP îți urează bine ai venit!',
 		activationFailed: 'Activarea a eșuat. Încearcă din nou sau contactează administratorul',
-		email: 'Email',
 		forgotPassword: 'Parolă uitată',
 		invalidEmail: 'Adresă email greșită',
 		invalidEmailOrPassword: 'Email sau parolă greșită',
-		password: 'Parola',
 		passwordChangeRequested: 'Am trimis un email care conține linkul pentru resetarea parolei',
 		pwchanged: 'Schimbarea parolei a avut loc cu succes!',
 		pwchangefailed:
@@ -450,6 +448,7 @@ export default {
 		privacyPolicyRequired: 'Acest cămp este obligatoriu!',
 		projectDescription: 'Descriere Meta (Facebook Link Preview)',
 		projectTitle: 'Titlu chestionar',
+		purposeOfDataCollection: 'Scopul colectării datelor',
 		save: 'Salvează',
 		sheetCreationFailed: 'Crearea paginii nu a reușit',
 		sheetDeletionFailed: 'Ștergerea paginii a eșuat',
@@ -489,10 +488,9 @@ export default {
 		views: 'Vizualizări',
 	},
 	register: {
-		email: 'Introdu o adresă de email validă',
 		login: 'Ai deja cont?',
-		name: 'Nume',
-		password: 'Parola',
+		personalData:
+			'Datele personale furnizate în timpul înregistrării sunt utilizate pentru identificarea neechivocă a utilizatorilor, gestionarea conturilor și permisiunilor utilizatorilor și asigurarea funcționării sigure și corespunzătoare a sistemului de sondaje. Datele personale furnizate sunt procesate exclusiv în aceste scopuri și nu sunt transferate către terți, cu excepția cazurilor în care legea o impune sau în care persoana vizată și-a dat consimțământul prealabil explicit.',
 		procedure:
 			'După finalizarea cu succes a înregistrării, veți primi un e-mail de confirmare. Verificați-vă căsuța de e-mail și dați clic pe link pentru a finaliza înregistrarea.',
 		registrationFailed:
@@ -570,6 +568,14 @@ export default {
 		success: 'V-ați dezabonat cu succes de la notificările prin email ale acestui chestionar.',
 		title: 'Dezabonare',
 	},
+	user: {
+		address: 'Adresă',
+		birthDate: 'Data nașterii',
+		birthPlace: 'Locul nașterii',
+		email: 'Email',
+		fullName: 'Nume complet',
+		password: 'Parola',
+	},
 	userEditor: {
 		activated: 'Activat',
 		administrator: 'Administrator',
@@ -592,7 +598,6 @@ export default {
 		logo: 'Logo (supported size: 120x30 px)',
 		logoDescription:
 			'Acest(ă) logo/siglă va fi afișat(ă) în antetul tuturor chestionarelor create.',
-		name: 'Nume',
 		newPassword: 'Parolă nouă',
 		oldPassword: 'Parolă curentă (necesară doar pentru modificarea emailului sau a parolei)',
 		save: 'Salvează',
@@ -878,6 +883,8 @@ export default {
 		remove: 'Eliminați imaginea',
 	},
 	legal: {
+		missingAlert: 'Vă rugăm să completați câmpurile {0} și {1}, altfel acest sondaj nu va colecta date începând cu {2}.',
+		missingLabel: 'Informații lipsă!',
 		changedTitle: 'Condiții de Utilizare și Politica de Confidențialitate',
 		changedNotice: 'Politica noastră de Confidențialitate și Termenii de Utilizare s-au modificat.',
 		privacyPolicy: 'Politica de confidențialitate',

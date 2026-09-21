@@ -7,6 +7,10 @@ export default {
 		subject: 'Elfelejtett jelszó',
 		body: '<p><b>Kedves {user}!</b></p><p>A PARTIMAP fiókodhoz tartozó jelszavadat az alábbi hivatkozás megnyitásával cserélheted:<br><a href="{url}">{url}</a></p><p>Ez a link 24 óráig érvényes, utána újra kell kérvényezned a jelszócserét az "Elfelejtettem a jelszavam" opcióval.</p>',
 	},
+	gdprBlockNotice: {
+		subject: 'Kérdőív adatgyűjtésének felfüggesztése',
+		body: `<p><b>Kedves {user}!</b></p><p>Kérjük, hogy a kérdőíved beállításaiban töltsd ki a hiányzó mezőket, ellenkező esetben a kérdőív nem fog adatot gyűjteni {blockFrom} időponttól. Érintett kérdőívek:</p>`,
+	},
 	newProject: {
 		newSheetTitle: 'A felmérés célja',
 	},

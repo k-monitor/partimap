@@ -169,7 +169,7 @@ const needToShowResults = computed(() => {
 });
 
 const passwordInput = ref<HTMLInputElement>();
-const resultsShown = ref(false);
+const resultsShown = ref(showOnlyResults.value && !!project.value);
 onMounted(() => {
 	registerHit(); // no need to wait for it
 	passwordInput.value?.focus();

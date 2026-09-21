@@ -1,4 +1,5 @@
-import mysql, { type RowDataPacket } from 'mysql2/promise';
+import type { ExecuteValues, RowDataPacket } from 'mysql2/promise';
+import mysql from 'mysql2/promise';
 
 let pool: mysql.Pool | null = null;
 
@@ -15,23 +16,23 @@ async function getPool(): Promise<mysql.Pool> {
 	return pool;
 }
 
-export async function query(statement: string, args?: any[]) {
+export async function query(statement: string, args?: ExecuteValues[]) {
 	const pool = await getPool();
 	const [rows] = await pool.execute<RowDataPacket[]>(statement, args);
 	return rows;
 }
 
-type Query = {
+export type Query = {
 	statement: string;
-	args: any[];
+	args: ExecuteValues[];
 };
 export function transaction(queries: Query[]) {
 	return inTransaction((connection: mysql.Connection) => runQueries(connection, queries));
 }
 
-type inTransactionCallback = (pool: mysql.Connection) => Promise<any>;
+type inTransactionCallback = (connection: mysql.Connection) => Promise<void>;
 export async function inTransaction(callback: inTransactionCallback) {
-	let error: any = false;
+	let error: unknown = null;
 	const pool = await getPool();
 	let connection: mysql.Connection | null = null;
 	try {
@@ -51,15 +52,15 @@ export async function inTransaction(callback: inTransactionCallback) {
 
 export async function runQueries(connection: mysql.Connection, queries: Query[]) {
 	for (let i = 0; i < queries.length; i++) {
-		const q = queries[i];
+		const q = queries[i]!;
 		await connection.execute(q.statement, q.args || []);
 	}
 }
 
-function sqlize(obj: any) {
+function sqlize(obj: object) {
 	const entries = Object.entries(obj).filter((e) => e[1] !== undefined);
 	const fields = entries.map((e) => e[0]);
-	const values = entries.map((e) => e[1]);
+	const values = entries.map((e) => e[1]) as ExecuteValues[];
 	return {
 		fields,
 		values,
@@ -69,14 +70,14 @@ function sqlize(obj: any) {
 	};
 }
 
-export async function create(table: string, record: any, Model: (data: any) => any) {
+export async function create(table: string, record: object, Model: (data: object) => object) {
 	const q = createQuery(table, record, Model);
 	const res = await query(q.statement, q.args);
 	const insertId: number = (res as any).insertId;
 	return insertId > 0 ? insertId : false;
 }
 
-export function createQuery(table: string, record: any, Model: (data: any) => any) {
+export function createQuery(table: string, record: object, Model: (data: object) => object) {
 	const model = Model(record);
 	delete model.id;
 	const i = sqlize(model);
@@ -91,7 +92,7 @@ export async function del(table: string, id: number) {
 	return (res as any).affectedRows === 1;
 }
 
-export async function findAll(table: string, Model: (data: any) => any) {
+export async function findAll(table: string, Model: (data: object) => object) {
 	const rows = await query(`SELECT * FROM ${table}`);
 	return rows.map((r) => Model(r));
 }
@@ -99,22 +100,35 @@ export async function findAll(table: string, Model: (data: any) => any) {
 export async function findAllBy(
 	table: string,
 	field: string,
-	value: any,
-	Model: (data: any) => any,
+	value: ExecuteValues,
+	Model: (data: object) => object,
 ) {
 	const rows = await query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value]);
 	return rows.map((r) => Model(r));
 }
 
-export async function findBy(table: string, field: string, value: any, Model: (data: any) => any) {
+export async function findBy(
+	table: string,
+	field: string,
+	value: ExecuteValues,
+	Model: (data: object) => object,
+) {
 	const rows = await query(`SELECT * FROM ${table} WHERE ${field} = ?`, [value]);
 	return rows.map((r) => Model(r))[0];
 }
 
-export function update(table: string, record: any, Model: (data: any) => any) {
+export function updateQuery(table: string, record: object, Model: (data: object) => object) {
 	const model = Model(record);
 	const { id } = model;
 	delete model.id;
 	const m = sqlize(model);
-	return query(`UPDATE ${table} SET ${m.sets} WHERE id = ?`, [...m.values, id]);
+	return {
+		statement: `UPDATE ${table} SET ${m.sets} WHERE id = ?`,
+		args: [...m.values, id],
+	};
+}
+
+export async function update(table: string, record: object, Model: (data: object) => object) {
+	const q = updateQuery(table, record, Model);
+	return query(q.statement, q.args);
 }

@@ -22,7 +22,7 @@ Funcționarea sa open-source asigură cercetătorilor, instituțiilor de învă�
 
 **Informarea:** prezenta informare privind protecția datelor cu caracter personal.
 
-**PARTIMAP sau platforma:** platforma disponibilă la https://www.partimap.eu/hu.
+**PARTIMAP sau platforma:** platforma disponibilă la <https://www.partimap.eu/>.
 
 **Date cu caracter personal:** orice informație referitoare la o persoană fizică identificată sau identificabilă. O persoană fizică identificabilă este, în special, o persoană care poate fi identificată, direct sau indirect, printr-un identificator, precum numele, numărul de identificare, datele de localizare, un identificator online sau unul ori mai multe elemente specifice identității sale fizice, fiziologice, genetice, mentale, economice, culturale sau sociale.
 
@@ -99,10 +99,14 @@ Pentru asigurarea transparenței, platforma pune la dispoziție, în legătură 
 ### 1.4. Datele de contact ale K-Monitor
 
 **K-Monitor Közhasznú Egyesület**
-Sediu: 1077 Budapest, Rózsa u. 8\.
-Adresă poștală pentru exercitarea drepturilor persoanelor vizate: 1077 Budapest, Jósika utca 25\.
-Tel.: \+36 1 789 5005
-E-mail pentru exercitarea drepturilor persoanelor vizate: <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#x69;&#x6e;&#102;&#x6f;&#x40;&#x6b;&#x2d;&#109;&#111;&#110;&#x69;&#116;&#111;&#114;&#46;&#104;&#117;">&#x69;&#110;&#102;&#x6f;&#x40;&#107;&#45;&#109;&#x6f;&#110;&#x69;&#x74;&#111;&#x72;&#x2e;&#104;&#x75;</a>
+
+Sediu: 1077 Budapest, Rózsa u. 8.
+
+Adresă poștală pentru exercitarea drepturilor persoanelor vizate: 1077 Budapest, Jósika utca 25.
+
+Tel.: +36 1 789 5005
+
+E-mail pentru exercitarea drepturilor persoanelor vizate: <info@k-monitor.hu>
 
 ## 2\. K-Monitor în calitate de operator al PARTIMAP
 
@@ -112,13 +116,13 @@ Utilizarea platformei PARTIMAP necesită înregistrarea. În legătură cu opera
 
 ### 2.2. Categoriile de date prelucrate, scopul și temeiul juridic al prelucrării
 
-#### a) Numele, adresa de e-mail, datele de autentificare și de gestionare a accesului asociate contului de utilizator
+**a) Numele, adresa de e-mail, datele de autentificare și de gestionare a accesului asociate contului de utilizator**
 
 K-Monitor prelucrează aceste date pentru crearea contului de utilizator, identificarea utilizatorului înregistrat, asigurarea accesului la platformă, autentificarea la conectare, asigurarea utilizării platformei PARTIMAP, precum și pentru comunicarea cu creatorul chestionarului.
 
 Temeiul juridic al prelucrării este articolul 6 alineatul (1) litera (b) din GDPR, deoarece prelucrarea acestor date este necesară în mod obiectiv pentru furnizarea serviciului de utilizare a platformei încheiat între utilizator și K-Monitor.
 
-#### b) Adresa de domiciliu, locul și data nașterii
+**b) Adresa de domiciliu, locul și data nașterii**
 
 K-Monitor prelucrează datele referitoare la locul și data nașterii, precum și adresa de domiciliu în scopul identificării clare a creatorului chestionarului, al evitării confundării acestuia cu alte persoane, al asigurării posibilității de stabilire a răspunderii juridice asociate activităților de prelucrare a datelor efectuate pe platformă, al luării de măsuri împotriva încălcării condițiilor de utilizare, al exercitării drepturilor și pretențiilor juridice, al îndeplinirii solicitărilor autorităților, precum și al prevenirii și investigării abuzurilor asociate utilizării platformei.
 
@@ -130,13 +134,13 @@ Pe baza evaluării intereselor efectuată de K-Monitor, acest interes legitim pr
 
 Având în vedere că scopul prelucrării este asigurarea exercitării drepturilor privind protecția datelor ale persoanelor care completează chestionarele, prelucrarea este compatibilă și cu așteptările privind protecția datelor ale terțelor persoane.
 
-#### c) Metadate și date de jurnal
+**c) Metadate și date de jurnal**
 
 K-Monitor prelucrează metadatele și datele de jurnal în scopul operării în condiții de securitate a platformei, remedierii erorilor de sistem, prevenirii accesului neautorizat, gestionării evenimentelor de securitate, detectării abuzurilor, precum și asigurării securității informatice și funcționării continue a platformei.
 
 Temeiul juridic al prelucrării este interesul legitim prevăzut la articolul 6 alineatul (1) litera (f) din GDPR. Interesul legitim al K-Monitor constă în asigurarea securității, integrității și funcționării continue a platformei, precum și în prevenirea și investigarea abuzurilor.
 
-#### d) Datele furnizate în cadrul solicitărilor de asistență pentru clienți și suport tehnic
+**d) Datele furnizate în cadrul solicitărilor de asistență pentru clienți și suport tehnic**
 
 K-Monitor prelucrează datele de contact, conținutul comunicărilor și datele tehnice asociate furnizate de utilizatorul înregistrat în cadrul solicitărilor de asistență pentru clienți sau de suport tehnic în scopul gestionării solicitării, investigării erorilor, furnizării suportului tehnic și comunicării cu utilizatorul.
 
@@ -144,7 +148,7 @@ Temeiul juridic al prelucrării este, de regulă, articolul 6 alineatul (1) lite
 
 În cazul în care solicitarea nu mai este legată de executarea serviciului, temeiul juridic al prelucrării este interesul legitim prevăzut la articolul 6 alineatul (1) litera (f) din GDPR, constând în gestionarea solicitărilor utilizatorilor și operarea corespunzătoare a platformei.
 
-#### e) Datele generate în legătură cu măsurile de conformitate și investigarea încălcărilor regulilor
+**e) Datele generate în legătură cu măsurile de conformitate și investigarea încălcărilor regulilor**
 
 K-Monitor prelucrează aceste date în scopul verificării respectării condițiilor de utilizare, investigării încălcărilor regulilor, luării măsurilor necesare de restricționare, suspendare sau ștergere, asigurării securității și funcționării legale a platformei, precum și formulării, exercitării sau apărării eventualelor pretenții juridice.
 
@@ -170,10 +174,10 @@ Deoarece aceste cookie-uri sunt indispensabile pentru furnizarea serviciului, ut
 
 Pe site sunt utilizate următoarele cookie-uri:
 
-| Numele cookie-ului | Scop | Perioada de expirare |
-| :---- | :---- | :---- |
-| **partimap-session** | Asigură identificarea utilizatorului conectat în timpul navigării în interfața de administrare și permite utilizatorului să continue activitatea la o vizită ulterioară fără a fi necesară o nouă autentificare. | 1 săptămână |
-| **i18n\_redirected** | Stochează limba de afișare selectată de utilizator sau identificată de sistem, astfel încât site-ul să fie afișat în limba corespunzătoare și la vizitele ulterioare. | 1 an |
+| Numele cookie-ului   | Scop                                                                                                                                                                                                             | Perioada de expirare |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| **partimap-session** | Asigură identificarea utilizatorului conectat în timpul navigării în interfața de administrare și permite utilizatorului să continue activitatea la o vizită ulterioară fără a fi necesară o nouă autentificare. | 1 săptămână          |
+| **i18n_redirected**  | Stochează limba de afișare selectată de utilizator sau identificată de sistem, astfel încât site-ul să fie afișat în limba corespunzătoare și la vizitele ulterioare.                                            | 1 an                 |
 
 PARTIMAP nu utilizează cookie-uri în scopuri analitice, statistice, de marketing sau publicitare și nici cookie-uri plasate de terți care ar avea ca scop urmărirea obiceiurilor de navigare ale utilizatorilor sau crearea de profiluri.
 
@@ -196,6 +200,10 @@ Calitatea creatorului chestionarului de operator independent nu se extinde la op
 În ceea ce privește colectarea datelor în cadrul platformei PARTIMAP, gestionarea tehnică a răspunsurilor în cadrul platformei, gestionarea consimțământului, măsurile tehnice legate de exercitarea drepturilor persoanelor vizate, precum și operațiunile de ștergere și acces efectuate în cadrul platformei, creatorul chestionarului acționează împreună cu K-Monitor în calitate de operator asociat.
 
 Calitatea creatorului chestionarului de operator independent se referă în special la stabilirea scopului prelucrării datelor în cadrul chestionarului concret, conținutul întrebărilor, utilizarea efectivă a răspunsurilor și prelucrările ulterioare efectuate în afara platformei PARTIMAP.
+
+**Date cu caracter personal:** orice informație referitoare la o persoană fizică identificată sau identificabilă. O persoană fizică identificabilă este, în special, o persoană care poate fi identificată, direct sau indirect, printr-un identificator, precum numele, numărul de identificare, datele de localizare, un identificator online sau unul ori mai multe elemente specifice identității sale fizice, fiziologice, genetice, mentale, economice, culturale sau sociale.
+
+$_PROJECT_DATA_PURPOSE_$
 
 ### 3.2. Scopul și temeiul juridic al prelucrării independente de către creatorul chestionarului
 
@@ -257,7 +265,7 @@ Calitatea de operator asociat nu este generală, ci se limitează exclusiv la op
 
 Prelucrarea în comun de către K-Monitor și utilizator se extinde asupra următoarelor operațiuni de prelucrare.
 
-#### a) Cadrul colectării datelor prin chestionare pe platforma PARTIMAP
+**a) Cadrul colectării datelor prin chestionare pe platforma PARTIMAP**
 
 K-Monitor și creatorul chestionarului sunt considerați operatori asociați în ceea ce privește desfășurarea la nivel de platformă a colectării datelor prin chestionare realizată prin intermediul PARTIMAP.
 
@@ -269,7 +277,7 @@ Prelucrarea în comun se limitează la colectarea, gestionarea tehnică și stoc
 
 Orice prelucrare ulterioară a datelor cu caracter personal exportate de pe platforma PARTIMAP sau prelucrate în afara acesteia este considerată exclusiv o prelucrare independentă efectuată de creatorul chestionarului.
 
-#### b) Cooperarea pentru asigurarea exercitării drepturilor persoanelor vizate
+**b) Cooperarea pentru asigurarea exercitării drepturilor persoanelor vizate**
 
 K-Monitor și creatorul chestionarului cooperează pentru a permite persoanelor vizate să își exercite în mod eficient drepturile privind prelucrarea datelor lor cu caracter personal în timpul utilizării platformei PARTIMAP.
 
@@ -393,38 +401,43 @@ Operatorul soluționează cererea privind exercitarea drepturilor persoanei viza
 
 Persoanele vizate de prezenta Informare beneficiază de următoarele drepturi:
 
-**a.) dreptul de acces**
-**b.) dreptul la rectificare**
-**c.) dreptul la ștergere („dreptul de a fi uitat”)**
-**d.) dreptul la restricționarea prelucrării**
-**e.) dreptul la portabilitatea datelor**
-**f.) dreptul la opoziție**
+a) dreptul de acces
 
-#### a) Dreptul de acces
+b) dreptul la rectificare
+
+c) dreptul la ștergere („dreptul de a fi uitat")
+
+d) dreptul la restricționarea prelucrării
+
+e) dreptul la portabilitatea datelor
+
+f) dreptul la opoziție
+
+### a) Dreptul de acces
 
 Persoana vizată are dreptul de a obține de la operatorul competent în ceea ce privește prelucrarea respectivă confirmarea faptului că datele sale cu caracter personal sunt sau nu prelucrate și, în cazul în care acestea sunt prelucrate, are dreptul de a obține acces la datele sale cu caracter personal și informații, în special, privind scopurile prelucrării, categoriile de date cu caracter personal vizate, destinatarii sau categoriile de destinatari, perioada pentru care se preconizează că vor fi stocate datele cu caracter personal sau criteriile utilizate pentru stabilirea acestei perioade, drepturile persoanei vizate, posibilitatea de a sesiza autoritatea de supraveghere, sursa datelor atunci când acestea nu au fost colectate direct de la persoana vizată și, în cazul luării automate a deciziilor sau al creării de profiluri, informații privind principalele circumstanțe ale unei astfel de prelucrări.
 
 Persoana vizată are, de asemenea, dreptul de a primi o copie a datelor cu caracter personal prelucrate de operator.
 
-#### b) Dreptul la rectificare
+### b) Dreptul la rectificare
 
 Persoana vizată are dreptul de a solicita operatorului responsabil pentru prelucrarea respectivă rectificarea, fără întârzieri nejustificate, a datelor cu caracter personal inexacte care o privesc și are dreptul de a solicita completarea datelor cu caracter personal incomplete.
 
 Operatorul poate solicita informații sau dovezi suplimentare în măsura necesară soluționării cererii, dacă acest lucru este necesar pentru verificarea temeiniciei rectificării solicitate.
 
-#### c) Dreptul la ștergere („dreptul de a fi uitat”)
+### c) Dreptul la ștergere („dreptul de a fi uitat")
 
 Persoana vizată are dreptul de a solicita ștergerea datelor cu caracter personal care o privesc atunci când este îndeplinită una dintre condițiile prevăzute la articolul 17 din GDPR, în special atunci când datele cu caracter personal nu mai sunt necesare pentru scopul pentru care au fost colectate sau prelucrate, persoana vizată își retrage consimțământul și nu există un alt temei juridic pentru prelucrare, persoana vizată se opune prelucrării și nu există motive legitime imperioase care să prevaleze pentru prelucrare, datele cu caracter personal au fost prelucrate ilegal sau datele trebuie șterse pentru îndeplinirea unei obligații legale a operatorului.
 
 Operatorul analizează cererea de ștergere în conformitate cu normele GDPR și poate refuza ștergerea în cazul în care se aplică una dintre excepțiile prevăzute la articolul 17 alineatul (3) din GDPR.
 
-#### d) Dreptul la restricționarea prelucrării
+### d) Dreptul la restricționarea prelucrării
 
 Persoana vizată are dreptul de a solicita restricționarea prelucrării datelor sale cu caracter personal în cazurile prevăzute la articolul 18 din GDPR, în special atunci când contestă exactitatea datelor cu caracter personal, când prelucrarea este ilegală și persoana vizată solicită restricționarea utilizării în locul ștergerii, când operatorul nu mai are nevoie de datele cu caracter personal, dar persoana vizată le solicită pentru formularea, exercitarea sau apărarea unor drepturi și pretenții juridice sau când persoana vizată s-a opus prelucrării și nu s-a stabilit încă dacă motivele legitime ale operatorului prevalează.
 
 În cazul restricționării, operatorul poate prelucra în continuare datele cu caracter personal, cu excepția stocării, numai în cazurile prevăzute de GDPR.
 
-#### e) Dreptul la portabilitatea datelor
+### e) Dreptul la portabilitatea datelor
 
 Persoana vizată are dreptul de a primi datele cu caracter personal care o privesc și pe care le-a furnizat operatorului într-un format structurat, utilizat în mod obișnuit și care poate fi citit automat și are dreptul de a transmite aceste date unui alt operator dacă prelucrarea se bazează pe consimțământ sau pe un contract și este efectuată prin mijloace automatizate.
 
@@ -432,7 +445,7 @@ Persoana vizată are, de asemenea, dreptul de a solicita, în cazul în care ace
 
 Acest drept poate fi exercitat numai în cazul prelucrărilor pentru care sunt îndeplinite condițiile prevăzute la articolul 20 din GDPR.
 
-#### f) Dreptul la opoziție
+### f) Dreptul la opoziție
 
 Persoana vizată are dreptul de a se opune în orice moment, din motive legate de situația sa particulară, prelucrării datelor sale cu caracter personal în cazul în care temeiul juridic al prelucrării este interesul legitim al operatorului sau al unei terțe părți, inclusiv crearea de profiluri bazată pe acest temei juridic.
 
@@ -491,11 +504,16 @@ Persoana vizată poate introduce acțiunea, la alegerea sa, la instanța compete
 **Datele de contact ale Autorității Naționale pentru Protecția Datelor și Libertatea Informației:**
 
 Sediu: 1055 Budapest, Falk Miksa utca 9–11.
-Telefon: \+36 (1) 391-1400
-E-mail: <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x75;&#103;&#x79;&#x66;&#101;&#x6c;&#x73;&#122;&#111;&#108;&#x67;&#x61;&#x6c;&#x61;&#x74;&#x40;&#110;&#97;&#105;&#104;&#46;&#104;&#x75;">&#117;&#x67;&#x79;&#102;&#x65;&#x6c;&#115;&#x7a;&#111;&#108;&#103;&#97;&#108;&#x61;&#x74;&#64;&#x6e;&#x61;&#x69;&#x68;&#x2e;&#x68;&#117;</a>
+
+Telefon: +36 (1) 391-1400
+
+E-mail: <ugyfelszolgalat@naih.hu>
+
 Denumire scurtă a porții oficiale: NAIH
+
 KR ID: 429616918
-Site: https://www.naih.hu
+
+Site: <https://www.naih.hu>
 
 ## 10\. Dispoziții finale
 
@@ -505,6 +523,6 @@ K-Monitor pune prezenta Informare la dispoziție pe platforma PARTIMAP și se as
 
 Creatorul chestionarului sau un alt utilizator care acționează în calitate de operator independent pentru operațiunea de prelucrare respectivă este responsabil să se asigure că persoanele vizate primesc informațiile suplimentare privind prelucrarea datelor care sunt necesare în temeiul legislației aplicabile.
 
-**Budapest, 03.09.2026**
+Budapest, 03.09.2026
 
-*Prezenta traducere a fost realizată cu ajutorul inteligenței artificiale.*
+**Prezenta traducere a fost realizată cu ajutorul inteligenței artificiale.**

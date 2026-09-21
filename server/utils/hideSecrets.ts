@@ -6,6 +6,10 @@ export function hideSecrets(obj: object): object {
 
 	hideField(obj, 'password');
 	hideField(obj, 'token');
+	hideField(obj, 'eFullName');
+	hideField(obj, 'eAddress');
+	hideField(obj, 'eBirthPlace');
+	hideField(obj, 'eBirthDate');
 	return obj;
 }
 

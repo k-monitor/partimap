@@ -4,7 +4,7 @@
 
 The purpose of this Privacy Notice is to provide data subjects with transparent, clear and comprehensible information, in accordance with applicable legislation, regarding the processing of personal data carried out in connection with the operation of the PARTIMAP platform. This Privacy Notice sets out the data processing rules applicable when using the PARTIMAP platform, the legal status of the parties involved in data processing, the purposes, legal bases and retention periods of individual data processing activities, as well as the rights of data subjects and the manner in which such rights may be exercised.
 
-This Privacy Notice is primarily based on Regulation (EU) 2016/679 of the European Parliament and of the Council on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation, GDPR), as well as Act CXII of 2011 on Informational Self-Determination and Freedom of Information (the Hungarian Privacy Act, “Infotv.”), taking into account other applicable Hungarian and European Union legislation concerning the processing of personal data, as well as the relevant practice of supervisory authorities and courts.
+This Privacy Notice is primarily based on Regulation (EU) 2016/679 of the European Parliament and of the Council on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation, GDPR), as well as Act CXII of 2011 on Informational Self-Determination and Freedom of Information (the Hungarian Privacy Act, "Infotv."), taking into account other applicable Hungarian and European Union legislation concerning the processing of personal data, as well as the relevant practice of supervisory authorities and courts.
 
 This Privacy Notice also aims to clarify that, in relation to certain processing operations carried out in the course of operating the PARTIMAP platform, responsibility as a data controller may differ depending on the specific nature of the processing and the actual role of the parties involved in the processing.
 
@@ -24,11 +24,11 @@ Its open-source operation provides transparent, flexible and customisable use fo
 
 **Privacy Notice:** means this Privacy Notice.
 
-**PARTIMAP or platform:** means the platform operated at https://www.partimap.eu/hu.
+**PARTIMAP or platform:** means the platform operated at <https://www.partimap.eu/>.
 
 **Personal data:** means any information relating to an identified or identifiable natural person. An identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, identification number, location data, online identifier, or one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person.
 
-**Special categories of personal data:** means particularly sensitive categories of personal data relating to racial or ethnic origin, political opinions, religious or philosophical beliefs, trade union membership, genetic data, biometric data, health data, or a natural person’s sex life or sexual orientation.
+**Special categories of personal data:** means particularly sensitive categories of personal data relating to racial or ethnic origin, political opinions, religious or philosophical beliefs, trade union membership, genetic data, biometric data, health data, or a natural person's sex life or sexual orientation.
 
 **Minor:** means a natural person under the age of eighteen. Applicable legislation may provide for different age limits in relation to certain consent requirements concerning the processing of personal data.
 
@@ -40,7 +40,7 @@ Its open-source operation provides transparent, flexible and customisable use fo
 
 **Recipient:** means a natural or legal person, public authority, agency or other body to whom or with which the personal data are disclosed, whether or not it is a third party.
 
-**Consent:** means any freely given, specific, informed and unambiguous indication of the data subject’s wishes by which they signify their agreement to the processing of personal data relating to them by means of a statement or by a clear affirmative action.
+**Consent:** means any freely given, specific, informed and unambiguous indication of the data subject's wishes by which they signify their agreement to the processing of personal data relating to them by means of a statement or by a clear affirmative action.
 
 **Profiling:** means any form of automated processing of personal data consisting of the use of personal data to evaluate, analyse or predict certain personal characteristics relating to a natural person.
 
@@ -52,11 +52,11 @@ Its open-source operation provides transparent, flexible and customisable use fo
 
 **Data subject:** means an identified or identifiable natural person to whom the processed personal data relate.
 
-**Registered user:** means a natural person who creates a user account on the platform in their own name or on behalf of an organisation and uses the platform’s services, including in particular the questionnaire creator and the entity or person completing the questionnaire.
+**Registered user:** means a natural person who creates a user account on the platform in their own name or on behalf of an organisation and uses the platform's services, including in particular the questionnaire creator and the entity or person completing the questionnaire.
 
 **Questionnaire respondent/data subject:** means a natural person who completes a questionnaire and whose personal data are processed in connection with the questionnaire.
 
-**User account:** means the individual access authorisation created for the use of PARTIMAP, which enables the identification of the registered user, the management of their authorisations and the use of the platform’s functions.
+**User account:** means the individual access authorisation created for the use of PARTIMAP, which enables the identification of the registered user, the management of their authorisations and the use of the platform's functions.
 
 **Account data:** means the personal data necessary for creating, maintaining and managing a user account, including, in particular, identification, contact, login and access-management data.
 
@@ -88,7 +88,7 @@ Its open-source operation provides transparent, flexible and customisable use fo
 
 Several parties may participate in the processing of personal data during the operation of the platform, and the responsibility of each data controller depends on the content, purpose and actual framework of the individual processing operations.
 
-K-Monitor determines and provides the technical infrastructure and operational framework of the platform and therefore acts as a data controller in relation to all processing operations connected with the operation of the platform, user registration, the secure operation of the platform, customer support and compliance activities, as well as the use of data processed through the platform for K-Monitor’s own research, analytical and institutional purposes.
+K-Monitor determines and provides the technical infrastructure and operational framework of the platform and therefore acts as a data controller in relation to all processing operations connected with the operation of the platform, user registration, the secure operation of the platform, customer support and compliance activities, as well as the use of data processed through the platform for K-Monitor's own research, analytical and institutional purposes.
 
 In connection with the creation of individual questionnaires and the specific data collection carried out within them, the questionnaire creator determines, within the platform framework established by K-Monitor, the specific content and purpose of the data collection and certain conditions thereof. Therefore, depending on the nature of the relevant processing operation, the questionnaire creator may act as an independent data controller or within a framework of joint controllership with K-Monitor.
 
@@ -102,13 +102,13 @@ Accordingly, this Privacy Notice describes the data processing roles associated 
 
 **K-Monitor Közhasznú Egyesület**
 
-Registered office: 1077 Budapest, Rózsa u. 8\.
+Registered office: 1077 Budapest, Rózsa u. 8.
 
-Postal address for exercising data subject rights: 1077 Budapest, Jósika utca 25\.
+Postal address for exercising data subject rights: 1077 Budapest, Jósika utca 25.
 
-Tel.: \+36 1 789 5005
+Tel.: +36 1 789 5005
 
-E-mail for exercising data subject rights: <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#105;&#110;&#102;&#x6f;&#64;&#107;&#x2d;&#x6d;&#x6f;&#110;&#x69;&#x74;&#x6f;&#x72;&#46;&#104;&#x75;">&#x69;&#x6e;&#x66;&#x6f;&#x40;&#107;&#45;&#109;&#x6f;&#x6e;&#x69;&#116;&#x6f;&#114;&#x2e;&#104;&#x75;</a>
+E-mail for exercising data subject rights: <info@k-monitor.hu>
 
 ## 2\. K-Monitor as the Operator of PARTIMAP
 
@@ -120,33 +120,33 @@ In connection with operating the platform, K-Monitor processes the following per
 
 ### 2.2. Categories of Data Processed, Purpose and Legal Basis of Processing
 
-#### a) Name, e-mail address, authentication and access-management data associated with the user account
+**a) Name, e-mail address, authentication and access-management data associated with the user account**
 
 K-Monitor processes these data for the purposes of creating the user account, identifying the registered user, providing access to the platform, authenticating logins, enabling the use of the PARTIMAP platform and maintaining contact with the questionnaire creator.
 
 The legal basis for processing is Article 6(1)(b) GDPR, as the processing of these data is objectively necessary for providing the platform-use service established between the user and K-Monitor.
 
-#### b) Residential address, place and date of birth
+**b) Residential address, place and date of birth**
 
 K-Monitor processes data relating to place and date of birth and residential address for the purposes of clearly identifying the questionnaire creator, preventing confusion with other persons, ensuring that legal responsibility relating to data processing activities carried out on the platform can be enforced, taking action in connection with breaches of the terms of use, enforcing legal claims, complying with official requests, and preventing and investigating misuse related to the use of the platform.
 
 The legal basis for processing is the legitimate interest under Article 6(1)(f) GDPR.
 
-K-Monitor’s legitimate interest is to ensure that questionnaire creators processing data relating to third parties on the platform can, where necessary, be clearly and reliably identified, and that in cases of unlawful processing, misuse, official proceedings or legal disputes, the identity of the actual user can be established, the terms of use can be enforced and potential legal claims can effectively be exercised.
+K-Monitor's legitimate interest is to ensure that questionnaire creators processing data relating to third parties on the platform can, where necessary, be clearly and reliably identified, and that in cases of unlawful processing, misuse, official proceedings or legal disputes, the identity of the actual user can be established, the terms of use can be enforced and potential legal claims can effectively be exercised.
 
-Based on K-Monitor’s balancing of interests, this legitimate interest takes precedence over the data protection interests of the questionnaire creator as a data subject, taking into account that these data are not public, are processed only with restricted access, and are used exclusively for the purposes set out above.
+Based on K-Monitor's balancing of interests, this legitimate interest takes precedence over the data protection interests of the questionnaire creator as a data subject, taking into account that these data are not public, are processed only with restricted access, and are used exclusively for the purposes set out above.
 
 Given that the purpose of the processing is to ensure the exercise of the data protection rights of persons completing questionnaires, such processing is also compatible with the data protection expectations of third parties.
 
-#### c) Metadata and log data
+**c) Metadata and log data**
 
 K-Monitor processes metadata and log data for the purposes of ensuring the secure operation of the platform, resolving system errors, preventing unauthorised access, handling security events, detecting misuse, and ensuring the IT security and continuous operation of the platform.
 
 The legal basis for processing is the legitimate interest under Article 6(1)(f) GDPR.
 
-K-Monitor’s legitimate interest is to ensure the security, integrity and continuous operation of the platform and to prevent and investigate misuse.
+K-Monitor's legitimate interest is to ensure the security, integrity and continuous operation of the platform and to prevent and investigate misuse.
 
-#### d) Data provided in customer service and technical support requests
+**d) Data provided in customer service and technical support requests**
 
 K-Monitor processes contact details, communication content and related technical data provided by registered users when submitting customer service or technical support requests for the purposes of handling the request, investigating errors, providing technical support and maintaining contact with the user.
 
@@ -154,17 +154,17 @@ The legal basis for processing is, as a general rule, Article 6(1)(b) GDPR where
 
 Where the request is no longer related to the performance of the service, the legal basis for processing is the legitimate interest under Article 6(1)(f) GDPR, consisting in handling user requests and ensuring the proper operation of the platform.
 
-#### e) Data generated in connection with compliance measures and investigations of breaches
+**e) Data generated in connection with compliance measures and investigations of breaches**
 
 K-Monitor processes these data for the purposes of monitoring compliance with the terms of use, investigating breaches, taking necessary restrictive, suspensive or deletion measures, ensuring the security and lawful operation of the platform, and bringing, enforcing or defending potential legal claims.
 
 The legal basis for processing is the legitimate interest under Article 6(1)(f) GDPR.
 
-K-Monitor’s legitimate interest is to maintain the intended, lawful and secure operation of the platform, prevent misuse and ensure that legal claims can be enforced.
+K-Monitor's legitimate interest is to maintain the intended, lawful and secure operation of the platform, prevent misuse and ensure that legal claims can be enforced.
 
 ### 2.3. Retention Period
 
-K-Monitor processes personal data in connection with operating the PARTIMAP platform for the duration of the registered user’s account.
+K-Monitor processes personal data in connection with operating the PARTIMAP platform for the duration of the registered user's account.
 
 If the questionnaire creator deletes a questionnaire created by them or the data collected through it, or if K-Monitor decides to delete or terminate the questionnaire, the related data or user access, K-Monitor may retain the relevant personal data for five years from the date of deletion or termination of access.
 
@@ -180,20 +180,20 @@ The PARTIMAP website uses only cookies that are essential for the proper functio
 
 These cookies are not used for statistical, marketing or profiling purposes, but solely to provide the basic functions of the website.
 
-As these cookies are essential for providing the service, the user’s consent is not required for their use.
+As these cookies are essential for providing the service, the user's consent is not required for their use.
 
 The following cookies are used on the website:
 
-| Cookie name | Purpose | Expiry |
-| :---- | :---- | :---- |
+| Cookie name          | Purpose                                                                                                                                                                                               | Expiry |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | **partimap-session** | Ensures the identification of the logged-in user while navigating the administration interface and enables the user to continue working upon returning to the website without having to log in again. | 1 week |
-| **i18n\_redirected** | Stores the display language selected by the user or recognised by the system so that the website can be displayed in the appropriate language during subsequent visits. | 1 year |
+| **i18n_redirected**  | Stores the display language selected by the user or recognised by the system so that the website can be displayed in the appropriate language during subsequent visits.                               | 1 year |
 
-PARTIMAP does not use cookies for analytical, statistical, marketing or advertising purposes and does not use third-party cookies designed to track users’ browsing habits or create profiles.
+PARTIMAP does not use cookies for analytical, statistical, marketing or advertising purposes and does not use third-party cookies designed to track users' browsing habits or create profiles.
 
 The legal basis for the use of cookies necessary for operation is the legitimate interest under Article 6(1)(f) GDPR, consisting in ensuring the secure and intended operation of the website and providing the service requested by the user.
 
-Under electronic communications rules, the user’s prior consent is not required for placing cookies that are strictly necessary for providing the service.
+Under electronic communications rules, the user's prior consent is not required for placing cookies that are strictly necessary for providing the service.
 
 Users may manage, delete or block cookies in their browser at any time. However, if cookies necessary for operation are disabled, certain functions of the website may not work or may not work properly.
 
@@ -209,11 +209,15 @@ The independent data controller status of the questionnaire creator does not ext
 
 In relation to data collection carried out within the PARTIMAP platform, the technical processing of responses within the platform, the management of consent, technical measures related to the exercise of data subject rights, and deletion and access operations within the platform, the questionnaire creator acts as a joint controller with K-Monitor.
 
-The questionnaire creator’s status as an independent data controller applies in particular to determining the specific data processing purpose of the questionnaire, the content of the questions, the substantive use of responses, and any further processing carried out outside the PARTIMAP platform.
+The questionnaire creator's status as an independent data controller applies in particular to determining the specific data processing purpose of the questionnaire, the content of the questions, the substantive use of responses, and any further processing carried out outside the PARTIMAP platform.
 
-### 3.2. Purpose and Legal Basis of the Questionnaire Creator’s Independent Processing
+**PARTIMAP or platform:** means the platform operated at https://www.partimap.eu/hu.
 
-On the PARTIMAP platform, the questionnaire creator may, in accordance with and within the framework of PARTIMAP’s general purposes, independently determine the purpose of specific questionnaire-based processing, including research, public opinion research, social consultation, participatory planning, project preparation, project feedback, community engagement, contacting, applications, recruitment or feedback collection, data collection related to the questionnaire creator’s own organisational operations, as well as viewing, organising, filtering, aggregating, statistically evaluating, analysing, exporting, publishing, disclosing or otherwise using the collected responses.
+$_PROJECT_DATA_PURPOSE_$
+
+### 3.2. Purpose and Legal Basis of the Questionnaire Creator's Independent Processing
+
+On the PARTIMAP platform, the questionnaire creator may, in accordance with and within the framework of PARTIMAP's general purposes, independently determine the purpose of specific questionnaire-based processing, including research, public opinion research, social consultation, participatory planning, project preparation, project feedback, community engagement, contacting, applications, recruitment or feedback collection, data collection related to the questionnaire creator's own organisational operations, as well as viewing, organising, filtering, aggregating, statistically evaluating, analysing, exporting, publishing, disclosing or otherwise using the collected responses.
 
 As a general rule, the legal basis for questionnaire-based processing carried out by the questionnaire creator on the PARTIMAP platform is the consent of the data subject under Article 6(1)(a) GDPR.
 
@@ -271,7 +275,7 @@ The status of joint controller is not general, but applies exclusively to the sp
 
 The joint controllership of K-Monitor and the User covers the following processing operations.
 
-#### a) Framework of questionnaire-based data collection within the PARTIMAP platform
+**a) Framework of questionnaire-based data collection within the PARTIMAP platform**
 
 K-Monitor and the questionnaire creator act as joint controllers in relation to the platform-level implementation of questionnaire-based data collection carried out through the PARTIMAP platform.
 
@@ -283,7 +287,7 @@ Within this framework, the questionnaire creator independently determines the pu
 
 Any further processing of personal data exported from the PARTIMAP platform or processed outside the platform shall in all cases constitute the independent processing of the questionnaire creator.
 
-#### b) Cooperation in ensuring the exercise of data subject rights
+**b) Cooperation in ensuring the exercise of data subject rights**
 
 K-Monitor and the questionnaire creator shall cooperate to ensure that data subjects can effectively exercise their rights relating to the processing of their personal data when using the PARTIMAP platform.
 
@@ -295,15 +299,15 @@ K-Monitor is responsible for fulfilling requests concerning the operation of the
 
 ### 4.3. Purpose and Legal Basis of Joint Controllership
 
-The purpose of joint processing carried out on the PARTIMAP platform is to enable the questionnaire creator to lawfully carry out questionnaire-based data collection and processing for research, community engagement, social consultation, feedback collection or other purposes compatible with the intended use of the platform, as determined within the framework of PARTIMAP’s general purposes, through PARTIMAP’s technical and data protection infrastructure.
+The purpose of joint processing carried out on the PARTIMAP platform is to enable the questionnaire creator to lawfully carry out questionnaire-based data collection and processing for research, community engagement, social consultation, feedback collection or other purposes compatible with the intended use of the platform, as determined within the framework of PARTIMAP's general purposes, through PARTIMAP's technical and data protection infrastructure.
 
 K-Monitor provides the technical platform functions, data protection framework, channels for exercising data subject rights, deletion mechanisms and security mechanisms necessary for conducting questionnaire-based processing.
 
 The legal basis for questionnaire-based data collection carried out by the questionnaire creator within the questionnaire is, as a general rule, the consent of the data subject pursuant to Article 6(1)(a) GDPR.
 
-Where the questionnaire concerns the processing of special categories of personal data, the additional legal basis for the questionnaire creator’s processing is the explicit consent referred to in Article 9(2)(a) GDPR.
+Where the questionnaire concerns the processing of special categories of personal data, the additional legal basis for the questionnaire creator's processing is the explicit consent referred to in Article 9(2)(a) GDPR.
 
-Within the scope of joint controllership, K-Monitor may also carry out separate processing operations necessary to maintain platform security, investigate misuse, receive and facilitate the handling of data subject requests, assist in handling disputes or complaints relating to the processing between the questionnaire creator and the data subject, and bring, enforce or defend specific legal claims, on the basis of K-Monitor’s legitimate interest under Article 6(1)(f) GDPR.
+Within the scope of joint controllership, K-Monitor may also carry out separate processing operations necessary to maintain platform security, investigate misuse, receive and facilitate the handling of data subject requests, assist in handling disputes or complaints relating to the processing between the questionnaire creator and the data subject, and bring, enforce or defend specific legal claims, on the basis of K-Monitor's legitimate interest under Article 6(1)(f) GDPR.
 
 K-Monitor shall carry out processing based on Article 6(1)(f) GDPR only where it has a real and lawful legitimate interest and the processing is necessary to achieve the purpose, with due regard to the rights, freedoms and legitimate interests of data subjects and with the application of appropriate safeguards.
 
@@ -319,17 +323,17 @@ Where a data subject contacts either joint controller, the joint controllers sha
 
 Personal data and response content processed within the scope of joint controllership on the PARTIMAP platform shall be processed by the joint controllers until the specific data processing purpose of the questionnaire has been achieved.
 
-Processing shall cease upon termination of the purpose of the questionnaire, deletion of the questionnaire by the questionnaire creator, platform-level deletion by K-Monitor or withdrawal of the data subject’s consent, unless further processing of certain data is necessary for the establishment, exercise or defence of legal claims.
+Processing shall cease upon termination of the purpose of the questionnaire, deletion of the questionnaire by the questionnaire creator, platform-level deletion by K-Monitor or withdrawal of the data subject's consent, unless further processing of certain data is necessary for the establishment, exercise or defence of legal claims.
 
 Personal data collected through the questionnaire may be processed for a maximum of two years from the creation of the questionnaire, after which the personal data shall be deleted or anonymised by the system.
 
 ### 4.6. Processing Outside the Scope of Joint Controllership
 
-Joint controllership does not cover K-Monitor’s own processing activities for platform operation, IT security, compliance, moderation, enforcement of legal claims or its own research purposes.
+Joint controllership does not cover K-Monitor's own processing activities for platform operation, IT security, compliance, moderation, enforcement of legal claims or its own research purposes.
 
 Joint controllership does not cover any further processing carried out by the questionnaire creator after exporting personal data from the PARTIMAP platform or processing data outside the platform based on their own decision, including their own analysis, publication, disclosure, research use or other independent purposes.
 
-## 5\. K-Monitor’s Independent Processing for Research Purposes
+## 5\. K-Monitor's Independent Processing for Research Purposes
 
 ### 5.1. Independent Research Processing
 
@@ -337,7 +341,7 @@ In connection with the operation of the PARTIMAP platform, K-Monitor may also ca
 
 In this context, K-Monitor may use data and responses generated through the PARTIMAP platform for its own research and analytical purposes within the framework set out in this section.
 
-K-Monitor’s independent research processing does not affect the processing carried out by the questionnaire creator in their own capacity as a data controller and does not authorise K-Monitor to use personal data collected through PARTIMAP for its own purposes beyond those specified in this section.
+K-Monitor's independent research processing does not affect the processing carried out by the questionnaire creator in their own capacity as a data controller and does not authorise K-Monitor to use personal data collected through PARTIMAP for its own purposes beyond those specified in this section.
 
 ### 5.2. Purpose of Independent Research Processing
 
@@ -353,7 +357,7 @@ K-Monitor may process data and responses collected through the PARTIMAP platform
 
 ### 5.3. Legal Basis for Independent Research Processing
 
-As a general rule, K-Monitor carries out the independent research, analytical, statistical and platform development processing referred to in this section on the basis of the data subject’s consent pursuant to Article 6(1)(a) GDPR.
+As a general rule, K-Monitor carries out the independent research, analytical, statistical and platform development processing referred to in this section on the basis of the data subject's consent pursuant to Article 6(1)(a) GDPR.
 
 Consent covers the research, statistical, methodological and platform development purposes related to the general purposes of the PARTIMAP platform and specified in this Privacy Notice, including in particular evaluating and developing the operation of the PARTIMAP platform, researching the social and methodological characteristics of questionnaire-based public participation, and preparing aggregated research and analyses related to public participation, social engagement and participatory processes.
 
@@ -409,19 +413,19 @@ The data controller shall assess the request concerning the exercise of data sub
 
 The persons covered by this Privacy Notice have the following rights:
 
-1) right of access;
+a) right of access;
 
-2) right to rectification;
+b) right to rectification;
 
-3) right to erasure (right to be forgotten);
+c) right to erasure (right to be forgotten);
 
-4) right to restriction of processing;
+d) right to restriction of processing;
 
-5) right to data portability;
+e) right to data portability;
 
-6) right to object.
+f) right to object.
 
-#### a) Right of Access
+### a) Right of Access
 
 The data subject has the right to obtain confirmation from the data controller competent in relation to the relevant processing as to whether or not personal data concerning them are being processed.
 
@@ -429,13 +433,13 @@ Where such processing is taking place, the data subject has the right to obtain 
 
 The data subject also has the right to obtain a copy of the personal data being processed by the data controller.
 
-#### b) Right to Rectification
+### b) Right to Rectification
 
 The data subject has the right to request from the data controller responsible for the relevant processing the rectification of inaccurate personal data concerning them without undue delay and has the right to request the completion of incomplete personal data.
 
 The data controller may request additional information or supporting evidence to the extent necessary to fulfil the request where this is necessary to verify the validity of the rectification request.
 
-#### c) Right to Erasure (Right to Be Forgotten)
+### c) Right to Erasure (Right to Be Forgotten)
 
 The data subject has the right to request the erasure of personal data concerning them where one of the conditions specified in Article 17 GDPR applies.
 
@@ -443,13 +447,13 @@ This includes, in particular, cases where the personal data are no longer necess
 
 The data controller shall assess the erasure request in accordance with the GDPR and may refuse erasure where one of the exceptions specified in Article 17(3) GDPR applies.
 
-#### d) Right to Restriction of Processing
+### d) Right to Restriction of Processing
 
 The data subject has the right to request restriction of the processing of their personal data in the cases specified in Article 18 GDPR, including in particular where the accuracy of the personal data is contested; where the processing is unlawful and the data subject opposes the erasure of the personal data and requests the restriction of their use instead; where the data controller no longer needs the personal data but the data subject requires them for the establishment, exercise or defence of legal claims; or where the data subject has objected to processing and it has not yet been determined whether the legitimate grounds of the data controller override those of the data subject.
 
 Where processing is restricted, the data controller may process the personal data, other than for storage, only in the cases specified by the GDPR.
 
-#### e) Right to Data Portability
+### e) Right to Data Portability
 
 The data subject has the right to receive personal data concerning them which they have provided to a data controller in a structured, commonly used and machine-readable format and has the right to transmit those data to another data controller where the processing is based on consent or on a contract and is carried out by automated means.
 
@@ -457,7 +461,7 @@ The data subject also has the right, where technically feasible, to request that
 
 This right may be exercised only in relation to processing operations where the conditions set out in Article 20 GDPR are met.
 
-#### f) Right to Object
+### f) Right to Object
 
 The data subject has the right to object, on grounds relating to their particular situation, at any time to the processing of personal data concerning them where the legal basis for processing is the legitimate interest of the data controller or a third party, including profiling based on such legal grounds.
 
@@ -471,11 +475,11 @@ When determining and applying platform-level data security measures, K-Monitor s
 
 In particular, K-Monitor shall implement technical and organisational measures in connection with the operation of the PARTIMAP platform that are appropriate for protecting the platform infrastructure, access to the system, access rights management, and the security of data storage and processing operations within the platform against unauthorised access, disclosure, alteration, loss, damage, destruction or other unauthorised processing.
 
-The questionnaire creator or other user acting as an independent data controller in relation to a specific processing operation shall be responsible for taking data security measures related to their own processing activities, including in particular the appropriate configuration of their organisational access rights, the security of data processed or exported outside the platform, the processing of data in their own IT or organisational environment, and all data security measures that do not fall within K-Monitor’s operational control over the platform.
+The questionnaire creator or other user acting as an independent data controller in relation to a specific processing operation shall be responsible for taking data security measures related to their own processing activities, including in particular the appropriate configuration of their organisational access rights, the security of data processed or exported outside the platform, the processing of data in their own IT or organisational environment, and all data security measures that do not fall within K-Monitor's operational control over the platform.
 
-K-Monitor’s responsibility is limited exclusively to technical and organisational measures related to the operation of the PARTIMAP platform that fall within its own control and operational scope.
+K-Monitor's responsibility is limited exclusively to technical and organisational measures related to the operation of the PARTIMAP platform that fall within its own control and operational scope.
 
-K-Monitor shall not be responsible for breaches of data security obligations relating to the questionnaire creator’s or other user’s own processing activities, including in particular inadequate access-rights management, improper handling of data exported from the platform, data security deficiencies occurring in their own IT or organisational environment, or other failures outside K-Monitor’s control.
+K-Monitor shall not be responsible for breaches of data security obligations relating to the questionnaire creator's or other user's own processing activities, including in particular inadequate access-rights management, improper handling of data exported from the platform, data security deficiencies occurring in their own IT or organisational environment, or other failures outside K-Monitor's control.
 
 Where K-Monitor and the questionnaire creator qualify as joint controllers in relation to a specific processing operation, the internal division of data security obligations shall be governed by the agreement between the joint controllers, taking into account that responsibility shall correspond to the actual control over the relevant processing operation and the authority to determine the relevant technical or organisational measures.
 
@@ -485,13 +489,13 @@ A personal data breach means a breach of security leading to the accidental or u
 
 In connection with operating the PARTIMAP platform, K-Monitor is required to maintain appropriate procedures for detecting, investigating, documenting and handling personal data breaches falling within its own control and operational scope and, where required by the GDPR and applicable legislation, to take the necessary notification and communication measures.
 
-Where a personal data breach affects the infrastructure of the PARTIMAP platform, technical or organisational measures related to operating the platform, or another processing operation falling within K-Monitor’s control, K-Monitor shall be responsible for investigating and handling the incident.
+Where a personal data breach affects the infrastructure of the PARTIMAP platform, technical or organisational measures related to operating the platform, or another processing operation falling within K-Monitor's control, K-Monitor shall be responsible for investigating and handling the incident.
 
 The questionnaire creator or other user acting as an independent data controller in relation to a specific processing operation shall be responsible for detecting, investigating and documenting personal data breaches occurring within their own control and relating to their own processing activities, as well as for fulfilling the necessary statutory notification and communication obligations.
 
-This applies in particular where the incident relates to the user’s own access management, data exported from the platform, processing carried out outside the platform or other circumstances outside K-Monitor’s control.
+This applies in particular where the incident relates to the user's own access management, data exported from the platform, processing carried out outside the platform or other circumstances outside K-Monitor's control.
 
-K-Monitor shall not be responsible for personal data breaches relating to the questionnaire creator’s or other user’s own processing activities occurring within the user’s own control, including in particular incidents resulting from inadequate access-rights management, improper handling of data exported from the platform, data security deficiencies occurring in the user’s own IT or organisational environment, or other failures outside K-Monitor’s control.
+K-Monitor shall not be responsible for personal data breaches relating to the questionnaire creator's or other user's own processing activities occurring within the user's own control, including in particular incidents resulting from inadequate access-rights management, improper handling of data exported from the platform, data security deficiencies occurring in the user's own IT or organisational environment, or other failures outside K-Monitor's control.
 
 Where a data subject or any user becomes aware of circumstances indicating the possibility of a personal data breach related to the operation of the PARTIMAP platform, they may notify K-Monitor without undue delay.
 
@@ -519,15 +523,15 @@ In cases of joint controllership, the data subject may seek legal remedy against
 
 Registered office: 1055 Budapest, Falk Miksa utca 9–11.
 
-Telephone: \+36 (1) 391-1400
+Telephone: +36 (1) 391-1400
 
-E-mail: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#117;&#x67;&#121;&#x66;&#101;&#108;&#115;&#x7a;&#111;&#x6c;&#103;&#x61;&#x6c;&#x61;&#116;&#64;&#x6e;&#x61;&#105;&#x68;&#46;&#104;&#117;">&#x75;&#x67;&#121;&#102;&#101;&#x6c;&#x73;&#x7a;&#x6f;&#x6c;&#103;&#x61;&#108;&#x61;&#116;&#64;&#x6e;&#97;&#x69;&#x68;&#46;&#x68;&#x75;</a>
+E-mail: <ugyfelszolgalat@naih.hu>
 
 Official Gateway short name: NAIH
 
 KR ID: 429616918
 
-Website: https://www.naih.hu
+Website: <https://www.naih.hu>
 
 ## 10\. Final Provisions
 

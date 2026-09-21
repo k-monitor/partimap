@@ -393,11 +393,9 @@ export default {
 		activated: 'Paskyra aktyvuota sėkmingai. Sveiki atvykę į PARTIMAP!',
 		activationFailed:
 			'Paskyros aktyvuoti nepavyko. Pabandykite dar kartą arba susisiekite su administratoriumi',
-		email: 'El.paštas',
 		forgotPassword: 'Pamiršau slaptažodį',
 		invalidEmail: 'Neteisingas el.pašto adresas',
 		invalidEmailOrPassword: 'Neteisingas slaptažodis arba el.paštas',
-		password: 'Slaptažodis',
 		passwordChangeRequested: 'Į jūsų paštą atsiuntėme slaptažodžio pakeitimo nuorodą',
 		pwchanged: 'Slaptažodis pakeistas sėkmingai!',
 		pwchangefailed:
@@ -450,6 +448,7 @@ export default {
 		privacyPolicyRequired: 'Šis laukas privalomas!',
 		projectDescription: 'Meta aprašymas (Facebook nuorodos peržiūra)',
 		projectTitle: 'Apklausos pavadinimas',
+		purposeOfDataCollection: 'Duomenų rinkimo tikslas',
 		save: 'Išsaugoti',
 		sheetCreationFailed: 'Sukurti darbalapio nepavyko',
 		sheetDeletionFailed: 'Ištrinti darbalapio nepavyko',
@@ -490,10 +489,9 @@ export default {
 		views: 'peržiūros',
 	},
 	register: {
-		email: 'Įveskite galiojantį el.pašto adresą',
 		login: 'Jau turite paskyrą?',
-		name: 'Paskyros vardas',
-		password: 'Slaptažodis',
+		personalData:
+			'Registracijos metu pateikti asmens duomenys naudojami vartotojų vienareikšmiam identifikavimui, vartotojų paskyrų ir teisių valdymui, taip pat siekiant užtikrinti saugų ir tinkamą apklausų sistemos veikimą. Pateikti asmens duomenys tvarkomi tik šiais tikslais ir nėra perduodami trečiosioms šalims, išskyrus atvejus, kai to reikalauja įstatymai arba kai duomenų subjektas iš anksto aiškiai sutiko.',
 		procedure:
 			'Kai užsiregistruosite, gausite el. laišką, kad įsitikintumėte, jog tai tikrai jūs. Ieškokite jo el. laiške ir spustelėkite viduje esančią nuorodą, kad užbaigtumėte registraciją.',
 		registrationFailed:
@@ -572,6 +570,14 @@ export default {
 		success: 'Naujienlaiškio atsisakyta sėkmingai.',
 		title: 'Atsisakyti naujienlaiškio',
 	},
+	user: {
+		address: 'Adresas',
+		birthDate: 'Gimimo data',
+		birthPlace: 'Gimimo vieta',
+		email: 'El.paštas',
+		fullName: 'Vardas ir pavardė',
+		password: 'Slaptažodis',
+	},
 	userEditor: {
 		activated: 'Aktyvuota',
 		administrator: 'Administratorius',
@@ -593,7 +599,6 @@ export default {
 		enterPassword: 'Įveskite slaptažodį',
 		logo: 'Logo (galimas dydis: 120x30 px)',
 		logoDescription: 'Šis logo bus vaizduojamas visų projektų antraštėje .',
-		name: 'Paskyros vardas',
 		newPassword: 'Naujas slaptažodis',
 		oldPassword: 'Dabartinis slaptažodis (reikalauja tik keičiant el.paštą arba slaptažodį',
 		save: 'Išsaugoti',
@@ -878,6 +883,8 @@ export default {
 		remove: 'Pašalinti nuotrauką',
 	},
 	legal: {
+		missingAlert: 'Prašome užpildyti {0} ir {1} laukus, kitaip ši apklausa nerinks duomenų nuo {2}.',
+		missingLabel: 'Trūksta informacijos!',
 		changedTitle: 'Naudojimo ir privatumo taisyklės',
 		changedNotice: 'Mūsų privatumo politika ir naudojimosi sąlygos pasikeitė.',
 		privacyPolicy: 'Privatumo politika',

@@ -25,9 +25,7 @@ const filteredUsers = computed(() => {
 	if (id) userById = users.value.find((u) => u.id === id);
 	if (userById) return [userById];
 
-	return users.value.filter((u) =>
-		`${u.name}|${u.email}`.toLowerCase().includes(term.toLowerCase()),
-	);
+	return users.value.filter((u) => u.email.toLowerCase().includes(term.toLowerCase()));
 });
 
 const newUserEmail = ref('');
@@ -94,7 +92,7 @@ async function add() {
 				class="align-items-center list-group-item list-group-item-action"
 			>
 				<small class="me-2 text-muted"> #{{ u.id }} </small>
-				<strong>{{ u.name }} &lt;{{ u.email }}&gt;</strong>
+				<strong>{{ u.email }}</strong>
 				<span
 					v-if="u.isAdmin"
 					class="badge text-bg-danger ms-2"

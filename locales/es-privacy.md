@@ -24,7 +24,7 @@ Su funcionamiento de código abierto proporciona un uso transparente, flexible y
 
 **Política:** significa la presente política de privacidad.
 
-**PARTIMAP o plataforma:** significa la plataforma disponible en https://www.partimap.eu/hu.
+**PARTIMAP o plataforma:** significa la plataforma disponible en <https://www.partimap.eu/>.
 
 **Datos personales:** cualquier información relativa a una persona física identificada o identificable. Se considera persona física identificable, en particular, aquella cuya identidad puede determinarse, directa o indirectamente, mediante un identificador, como un nombre, un número de identificación, datos de localización, un identificador en línea o uno o varios elementos propios de su identidad física, fisiológica, genética, psíquica, económica, cultural o social.
 
@@ -101,10 +101,14 @@ En consecuencia, la presente Política describe las funciones de los distintos r
 ### 1.4. Datos de contacto de K-Monitor
 
 **K-Monitor Közhasznú Egyesület**
-Domicilio social: 1077 Budapest, Rózsa u. 8\.
-Dirección postal para el ejercicio de los derechos de los interesados: 1077 Budapest, Jósika utca 25\.
-Tel.: \+36 1 789 5005
-Correo electrónico para el ejercicio de los derechos de los interesados: <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x69;&#x6e;&#102;&#111;&#x40;&#x6b;&#x2d;&#109;&#x6f;&#110;&#105;&#116;&#111;&#114;&#46;&#104;&#117;">&#105;&#x6e;&#102;&#x6f;&#64;&#x6b;&#45;&#109;&#111;&#110;&#x69;&#116;&#x6f;&#x72;&#x2e;&#x68;&#x75;</a>
+
+Domicilio social: 1077 Budapest, Rózsa u. 8.
+
+Dirección postal para el ejercicio de los derechos de los interesados: 1077 Budapest, Jósika utca 25.
+
+Tel.: +36 1 789 5005
+
+Correo electrónico para el ejercicio de los derechos de los interesados: <info@k-monitor.hu>
 
 ## 2\. K-Monitor como operador de PARTIMAP
 
@@ -116,13 +120,13 @@ En relación con el funcionamiento de la plataforma, K-Monitor trata las siguien
 
 ### 2.2. Categorías de datos tratados, finalidad y base jurídica del tratamiento
 
-#### a) Nombre, dirección de correo electrónico y datos de autenticación y gestión de acceso relacionados con la cuenta de usuario
+**a) Nombre, dirección de correo electrónico y datos de autenticación y gestión de acceso relacionados con la cuenta de usuario**
 
 K-Monitor trata estos datos con el fin de crear la cuenta de usuario, identificar al usuario registrado, garantizar el acceso a la plataforma, autenticar el inicio de sesión, permitir el uso de la plataforma PARTIMAP y mantener el contacto con el creador del cuestionario.
 
 La base jurídica del tratamiento es el artículo 6, apartado 1, letra b) del RGPD, ya que el tratamiento de estos datos es objetivamente necesario para proporcionar el servicio de uso de la plataforma celebrado entre el usuario y K-Monitor.
 
-#### b) Dirección postal, lugar y fecha de nacimiento
+**b) Dirección postal, lugar y fecha de nacimiento**
 
 K-Monitor trata los datos relativos al lugar y fecha de nacimiento y a la dirección postal con el fin de identificar claramente al creador del cuestionario, evitar confusiones con otras personas, garantizar la posibilidad de hacer efectiva la responsabilidad jurídica relacionada con las actividades de tratamiento de datos realizadas en la plataforma, actuar frente a infracciones de las condiciones de uso, ejercer derechos legales, atender solicitudes de las autoridades y prevenir e investigar abusos relacionados con el uso de la plataforma.
 
@@ -134,7 +138,7 @@ Sobre la base de la ponderación de intereses realizada por K-Monitor, este inte
 
 Dado que la finalidad del tratamiento es garantizar el ejercicio de los derechos de protección de datos de las personas que completan los cuestionarios, el tratamiento también es compatible con las expectativas de protección de datos de terceros.
 
-#### c) Metadatos y datos de registro
+**c) Metadatos y datos de registro**
 
 K-Monitor trata los metadatos y datos de registro con el fin de garantizar el funcionamiento seguro de la plataforma, solucionar errores del sistema, prevenir accesos no autorizados, gestionar acontecimientos relacionados con la seguridad, detectar abusos y garantizar la seguridad informática y el funcionamiento continuo de la plataforma.
 
@@ -142,7 +146,7 @@ La base jurídica del tratamiento es el interés legítimo previsto en el artíc
 
 El interés legítimo de K-Monitor consiste en garantizar la seguridad, integridad y funcionamiento continuo de la plataforma y prevenir e investigar abusos.
 
-#### d) Datos proporcionados durante solicitudes de atención al cliente y asistencia técnica
+**d) Datos proporcionados durante solicitudes de atención al cliente y asistencia técnica**
 
 K-Monitor trata los datos de contacto, contenidos de comunicaciones y datos técnicos relacionados proporcionados por el usuario registrado durante una solicitud de atención al cliente o asistencia técnica con el fin de gestionar la solicitud, investigar errores, proporcionar asistencia técnica y mantener el contacto con el usuario.
 
@@ -150,7 +154,7 @@ Por regla general, la base jurídica del tratamiento es el artículo 6, apartado
 
 Cuando la solicitud ya no esté relacionada con la prestación del servicio, la base jurídica será el interés legítimo previsto en el artículo 6, apartado 1, letra f) del RGPD, consistente en gestionar las solicitudes de los usuarios y garantizar el funcionamiento adecuado de la plataforma.
 
-#### e) Datos generados en relación con medidas de cumplimiento e investigaciones de infracciones
+**e) Datos generados en relación con medidas de cumplimiento e investigaciones de infracciones**
 
 K-Monitor trata estos datos para supervisar el cumplimiento de las condiciones de uso, investigar infracciones, adoptar las medidas necesarias de restricción, suspensión o eliminación, garantizar el funcionamiento seguro y lícito de la plataforma y presentar, ejercer o defender posibles reclamaciones legales.
 
@@ -178,10 +182,10 @@ Dado que estas cookies son indispensables para la prestación del servicio, no r
 
 En el sitio web funcionan las siguientes cookies:
 
-| Nombre de la cookie | Finalidad | Periodo de conservación |
-| :---- | :---- | :---- |
-| **partimap-session** | Permite identificar al usuario conectado durante la navegación en la interfaz de administración y permite que, al regresar posteriormente, pueda continuar su trabajo sin necesidad de iniciar sesión nuevamente. | 1 semana |
-| **i18n\_redirected** | Almacena el idioma de visualización seleccionado por el usuario o detectado por el sistema para que el sitio web se muestre en el idioma correspondiente durante las visitas posteriores. | 1 año |
+| Nombre de la cookie  | Finalidad                                                                                                                                                                                                         | Periodo de conservación |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| **partimap-session** | Permite identificar al usuario conectado durante la navegación en la interfaz de administración y permite que, al regresar posteriormente, pueda continuar su trabajo sin necesidad de iniciar sesión nuevamente. | 1 semana                |
+| **i18n_redirected**  | Almacena el idioma de visualización seleccionado por el usuario o detectado por el sistema para que el sitio web se muestre en el idioma correspondiente durante las visitas posteriores.                         | 1 año                   |
 
 PARTIMAP no utiliza cookies analíticas, estadísticas, de marketing o publicitarias, ni utiliza cookies instaladas por terceros destinadas a realizar un seguimiento de los hábitos de navegación de los usuarios o a elaborar perfiles.
 
@@ -204,6 +208,10 @@ La condición del creador del cuestionario como responsable independiente no se 
 En lo que respecta a la recopilación de datos realizada dentro de la plataforma PARTIMAP, el tratamiento técnico de las respuestas dentro de la plataforma, la gestión del consentimiento, las medidas técnicas relacionadas con el ejercicio de los derechos de los interesados y las operaciones de eliminación y acceso dentro de la plataforma, el creador del cuestionario actúa como corresponsable del tratamiento junto con K-Monitor.
 
 La condición del creador del cuestionario como responsable independiente se extiende, en particular, a la determinación de la finalidad del tratamiento del cuestionario concreto, al contenido de las preguntas, al uso sustantivo de las respuestas y a los tratamientos posteriores realizados fuera de la plataforma PARTIMAP.
+
+**PARTIMAP o plataforma:** significa la plataforma disponible en https://www.partimap.eu/hu.
+
+$_PROJECT_DATA_PURPOSE_$
 
 ### 3.2. Finalidad y base jurídica del tratamiento independiente por parte del creador del cuestionario
 
@@ -265,7 +273,7 @@ La condición de corresponsable no es general, sino que se limita exclusivamente
 
 El tratamiento conjunto de datos por parte de K-Monitor y el Usuario se extiende a las siguientes operaciones de tratamiento.
 
-#### a) Marco de la recopilación de datos mediante cuestionarios dentro de la plataforma PARTIMAP
+**a) Marco de la recopilación de datos mediante cuestionarios dentro de la plataforma PARTIMAP**
 
 K-Monitor y el creador del cuestionario actúan como corresponsables respecto de la realización a nivel de plataforma de la recopilación de datos mediante cuestionarios realizada a través de PARTIMAP.
 
@@ -277,7 +285,7 @@ Dentro de estos marcos, el creador del cuestionario determina de forma independi
 
 Todo tratamiento posterior de datos personales exportados desde la plataforma PARTIMAP o tratados fuera de ella constituye exclusivamente un tratamiento independiente realizado por el creador del cuestionario.
 
-#### b) Cooperación para garantizar el ejercicio de los derechos de los interesados
+**b) Cooperación para garantizar el ejercicio de los derechos de los interesados**
 
 K-Monitor y el creador del cuestionario cooperarán para garantizar que los interesados puedan ejercer eficazmente sus derechos relacionados con el tratamiento de sus datos personales durante el uso de la plataforma PARTIMAP.
 
@@ -401,43 +409,43 @@ El responsable del tratamiento resolverá la solicitud para el ejercicio de los 
 
 Las personas afectadas por la presente Política tienen los siguientes derechos:
 
-1) derecho de acceso
+a) derecho de acceso
 
-2) derecho de rectificación
+b) derecho de rectificación
 
-3) derecho de supresión («derecho al olvido»)
+c) derecho de supresión («derecho al olvido»)
 
-4) derecho a la limitación del tratamiento
+d) derecho a la limitación del tratamiento
 
-5) derecho a la portabilidad de los datos
+e) derecho a la portabilidad de los datos
 
-6) derecho de oposición
+f) derecho de oposición
 
-#### a) Derecho de acceso
+### a) Derecho de acceso
 
 El interesado tiene derecho a obtener del responsable del tratamiento competente respecto de la operación de tratamiento correspondiente confirmación de si se están tratando o no sus datos personales y, en caso de que se estén tratando, tiene derecho a acceder a sus datos personales y a recibir información, en particular, sobre las finalidades del tratamiento, las categorías de datos personales afectadas, los destinatarios o categorías de destinatarios, el período previsto de conservación de los datos personales o los criterios utilizados para determinarlo, los derechos del interesado, la posibilidad de presentar una reclamación ante una autoridad de control, el origen de los datos cuando estos no se hayan obtenido directamente del interesado y, en caso de decisiones automatizadas o elaboración de perfiles, información sobre los aspectos esenciales de dicho tratamiento.
 
 El interesado también tiene derecho a obtener del responsable del tratamiento una copia de los datos personales objeto de tratamiento.
 
-#### b) Derecho de rectificación
+### b) Derecho de rectificación
 
 El interesado tiene derecho a solicitar al responsable del tratamiento correspondiente la rectificación sin demora injustificada de los datos personales inexactos que le conciernan y tiene derecho a solicitar que se completen los datos personales incompletos.
 
 El responsable del tratamiento podrá solicitar información o documentación adicional en la medida necesaria para resolver la solicitud cuando sea necesario comprobar la fundamentación de la rectificación.
 
-#### c) Derecho de supresión («derecho al olvido»)
+### c) Derecho de supresión («derecho al olvido»)
 
 El interesado tiene derecho a solicitar la supresión de los datos personales que le conciernan cuando se cumpla alguna de las condiciones establecidas en el artículo 17 del RGPD, en particular cuando los datos personales ya no sean necesarios para los fines para los que fueron tratados, cuando el interesado retire su consentimiento y no exista otra base jurídica para el tratamiento, cuando el interesado se oponga al tratamiento y no existan motivos legítimos imperiosos para el tratamiento que prevalezcan, cuando los datos personales hayan sido tratados ilícitamente o cuando los datos personales deban suprimirse para cumplir una obligación legal del responsable del tratamiento.
 
 El responsable del tratamiento examinará la solicitud de supresión de conformidad con las normas del RGPD y podrá denegarla cuando concurra alguna de las excepciones previstas en el artículo 17, apartado 3 del RGPD.
 
-#### d) Derecho a la limitación del tratamiento
+### d) Derecho a la limitación del tratamiento
 
 El interesado tiene derecho a solicitar la limitación del tratamiento de sus datos personales en los casos establecidos en el artículo 18 del RGPD, en particular cuando impugne la exactitud de los datos personales, cuando el tratamiento sea ilícito y el interesado solicite la limitación de su uso en lugar de su supresión, cuando el responsable del tratamiento ya no necesite los datos personales pero el interesado los necesite para la formulación, el ejercicio o la defensa de reclamaciones legales, o cuando el interesado se haya opuesto al tratamiento y aún no se haya determinado si los motivos legítimos del responsable prevalecen sobre los del interesado.
 
 En caso de limitación, el responsable del tratamiento solo podrá seguir tratando los datos personales, aparte de su conservación, en los casos establecidos por el RGPD.
 
-#### e) Derecho a la portabilidad de los datos
+### e) Derecho a la portabilidad de los datos
 
 El interesado tiene derecho a recibir los datos personales que le conciernan y que haya proporcionado al responsable del tratamiento en un formato estructurado, de uso común y lectura mecánica, y tiene derecho a transmitir dichos datos a otro responsable del tratamiento cuando el tratamiento se base en el consentimiento o en un contrato y se efectúe por medios automatizados.
 
@@ -445,7 +453,7 @@ El interesado también tiene derecho a solicitar, cuando sea técnicamente posib
 
 Este derecho solo podrá ejercerse respecto de aquellos tratamientos en los que se cumplan las condiciones establecidas en el artículo 20 del RGPD.
 
-#### f) Derecho de oposición
+### f) Derecho de oposición
 
 El interesado tiene derecho a oponerse en cualquier momento, por motivos relacionados con su situación particular, al tratamiento de datos personales que le conciernan cuando el tratamiento se base en el interés legítimo del responsable del tratamiento o de un tercero, incluida la elaboración de perfiles basada en dicha disposición.
 
@@ -504,11 +512,16 @@ En caso de corresponsabilidad, el interesado podrá ejercer recursos jurídicos 
 **Datos de contacto de la Autoridad Nacional Húngara para la Protección de Datos y la Libertad de Información (NAIH):**
 
 Domicilio social: 1055 Budapest, Falk Miksa utca 9–11.
-Teléfono: \+36 (1) 391-1400
-Correo electrónico: <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x75;&#103;&#121;&#102;&#101;&#108;&#x73;&#x7a;&#x6f;&#x6c;&#x67;&#x61;&#x6c;&#97;&#116;&#64;&#110;&#97;&#105;&#104;&#46;&#104;&#117;">&#x75;&#103;&#x79;&#x66;&#x65;&#108;&#115;&#x7a;&#111;&#x6c;&#x67;&#97;&#x6c;&#97;&#x74;&#x40;&#x6e;&#97;&#105;&#x68;&#x2e;&#104;&#117;</a>
+
+Teléfono: +36 (1) 391-1400
+
+Correo electrónico: <ugyfelszolgalat@naih.hu>
+
 Nombre abreviado de la puerta electrónica oficial: NAIH
+
 KR ID: 429616918
-Sitio web: https://www.naih.hu
+
+Sitio web: <https://www.naih.hu>
 
 ## 10\. Disposiciones finales
 
@@ -518,6 +531,6 @@ K-Monitor pondrá la presente Política a disposición en la plataforma PARTIMAP
 
 El creador del cuestionario u otro usuario que actúe como responsable independiente respecto de una operación concreta será responsable de garantizar que los interesados reciban toda información adicional sobre el tratamiento que sea necesaria conforme a la legislación aplicable en relación con el tratamiento que realiza.
 
-**Budapest, 03.09.2026**
+Budapest, 03.09.2026
 
-La presente traducción se ha realizado con la ayuda de inteligencia artificial.
+**La presente traducción se ha realizado con la ayuda de inteligencia artificial.**

@@ -7,6 +7,10 @@ export default {
 		subject: 'Passwort vergessen',
 		body: '<p><b>Hallo, {user}!</b></p><p>Du kannst ein neues Passwort für dein PARTIMAP-Konto festlegen, indem du auf den folgenden Link klickst:<br><a href="{url}">{url}</a></p><p>Dieser Link ist nur 24 Stunden gültig. Wenn er abläuft, wiederhole den Vorgang.</p>',
 	},
+	gdprBlockNotice: {
+		subject: 'Datenerhebung der Umfrage ausgesetzt',
+		body: `<p><b>Hallo, {user}!</b></p><p>Bitte fülle die fehlenden Felder in den Einstellungen deiner Umfrage aus, andernfalls wird die Umfrage ab {blockFrom} keine Daten mehr erfassen. Betroffene Umfragen:</p>`,
+	},
 	newProject: {
 		newSheetTitle: 'Umfrageziele',
 	},

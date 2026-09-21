@@ -16,7 +16,8 @@
 		"postinstall": "nuxt prepare",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"reveal-pd": "tsx --env-file=.env scripts/reveal-pd.ts"
 	},
 	"dependencies": {
 		"@bootstrap-vue-next/nuxt": "^0.30.5",

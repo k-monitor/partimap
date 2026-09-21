@@ -2,13 +2,13 @@
 
 ## 1\. Scopul și domeniul de aplicare al Regulamentului
 
-Prezentul Regulament de Utilizare (denumit în continuare „Regulamentul”) stabilește condițiile de utilizare a site-ului https://www.partimap.eu/ (denumit în continuare „PARTIMAP”), cadrul utilizării corespunzătoare a platformei, regulile fundamentale privind conținutul care poate fi publicat pe platformă, precum și principalele dispoziții referitoare la raportul juridic dintre utilizatori și operatorul platformei.
+Prezentul Regulament de Utilizare (denumit în continuare „Regulamentul") stabilește condițiile de utilizare a site-ului <https://www.partimap.eu/> (denumit în continuare „PARTIMAP"), cadrul utilizării corespunzătoare a platformei, regulile fundamentale privind conținutul care poate fi publicat pe platformă, precum și principalele dispoziții referitoare la raportul juridic dintre utilizatori și operatorul platformei.
 
 Prin utilizarea platformei PARTIMAP, toți utilizatorii acceptă dispozițiile prezentului Regulament și se angajează să utilizeze platforma exclusiv în mod legal, în conformitate cu scopul platformei și cu respectarea drepturilor altor persoane.
 
 Regulile detaliate privind prelucrarea datelor cu caracter personal sunt prevăzute în Informarea privind prelucrarea datelor cu caracter personal a PARTIMAP. Prezentul Regulament stabilește în principal cadrul utilizării platformei, drepturile și obligațiile utilizatorilor, precum și regulile privind moderarea, conformitatea și răspunderea în legătură cu funcționarea platformei.
 
-Operatorul platformei PARTIMAP este K-Monitor Közhasznú Egyesület (asociație de utilitate publică), cu sediul social la: 1077 Budapest, Rózsa u. 8.; adresă poștală pentru exercitarea drepturilor persoanelor vizate: 1077 Budapest, Jósika utca 25.; tel.: \+36 1 789 5005 (denumit în continuare „K-Monitor”).
+Operatorul platformei PARTIMAP este K-Monitor Közhasznú Egyesület (asociație de utilitate publică), cu sediul social la: 1077 Budapest, Rózsa u. 8.; adresă poștală pentru exercitarea drepturilor persoanelor vizate: 1077 Budapest, Jósika utca 25.; tel.: +36 1 789 5005 (denumit în continuare „K-Monitor").
 
 ## 2\. Scopul și destinația PARTIMAP
 
@@ -32,17 +32,12 @@ K-Monitor este operatorul platformei PARTIMAP. În legătură cu funcționarea p
 
 K-Monitor:
 
-* nu are calitatea de editor al conținutului chestionarelor;
-
-* nu își asumă răspunderea pentru conținutul sau legalitatea chestionarelor;
-
-* nu verifică în prealabil conținutul chestionarelor;
-
-* nu garantează exactitatea sau legalitatea informațiilor conținute în chestionare;
-
-* nu își asumă răspunderea pentru prelucrările de date efectuate de utilizatori;
-
-* nu efectuează validări statistice, metodologice sau științifice cu privire la chestionare, rezultate sau analize.
+- nu are calitatea de editor al conținutului chestionarelor;
+- nu își asumă răspunderea pentru conținutul sau legalitatea chestionarelor;
+- nu verifică în prealabil conținutul chestionarelor;
+- nu garantează exactitatea sau legalitatea informațiilor conținute în chestionare;
+- nu își asumă răspunderea pentru prelucrările de date efectuate de utilizatori;
+- nu efectuează validări statistice, metodologice sau științifice cu privire la chestionare, rezultate sau analize.
 
 Afișarea chestionarelor sau a conținutului publicat pe platformă nu înseamnă aprobarea, susținerea sau validarea acestora de către K-Monitor.
 
@@ -58,23 +53,17 @@ Anumite funcții ale platformei PARTIMAP – în special crearea, editarea, gest
 
 În timpul înregistrării, creatorul chestionarului este obligat să furnizeze date reale și exacte, inclusiv în special:
 
-* numele complet;
-
-* adresa de e-mail;
-
-* domiciliul;
-
-* locul și data nașterii;
-
-* datele de autentificare asociate contului de utilizator.
+- numele complet;
+- adresa de e-mail;
+- domiciliul;
+- locul și data nașterii;
+- datele de autentificare asociate contului de utilizator.
 
 În timpul înregistrării, creatorul chestionarului:
 
-* acceptă prezentul Regulament;
-
-* acceptă Informarea privind prelucrarea datelor cu caracter personal;
-
-* garantează că datele furnizate sunt reale, exacte și actualizate.
+- acceptă prezentul Regulament;
+- acceptă Informarea privind prelucrarea datelor cu caracter personal;
+- garantează că datele furnizate sunt reale, exacte și actualizate.
 
 Platforma trimite, în timpul înregistrării, un e-mail de confirmare la adresa de e-mail furnizată. Activarea contului de utilizator poate avea loc numai după confirmarea adresei de e-mail.
 
@@ -82,19 +71,15 @@ Creatorul chestionarului este obligat să se asigure că datele de acces aferent
 
 Creatorul chestionarului este obligat să informeze fără întârziere K-Monitor în cazul în care:
 
-* constată un acces neautorizat;
-
-* datele sale de acces au fost compromise;
-
-* există suspiciunea unei utilizări abuzive a platformei.
+- constată un acces neautorizat;
+- datele sale de acces au fost compromise;
+- există suspiciunea unei utilizări abuzive a platformei.
 
 K-Monitor – în conformitate cu prevederile punctului 10 – are dreptul să refuze înregistrarea, să restricționeze sau să șteargă contul de utilizator în cazul în care:
 
-* autenticitatea datelor furnizate este îndoielnică;
-
-* există suspiciunea unei utilizări abuzive;
-
-* utilizarea platformei prezintă un risc juridic sau de conformitate.
+- autenticitatea datelor furnizate este îndoielnică;
+- există suspiciunea unei utilizări abuzive;
+- utilizarea platformei prezintă un risc juridic sau de conformitate.
 
 ### 4.2. Crearea și publicarea chestionarului
 
@@ -102,47 +87,31 @@ Crearea chestionarului se realizează prin interfața de administrare.
 
 În timpul creării chestionarului, creatorul chestionarului, în special:
 
-* stabilește titlul chestionarului;
-
-* creează adresa web a chestionarului;
-
-* stabilește scopul chestionarului și al prelucrării datelor;
-
-* stabilește utilizarea planificată a răspunsurilor;
-
-* indică destinatarii eventualelor transferuri de date;
-
-* furnizează informarea relevantă privind prelucrarea datelor cu caracter personal;
-
-* poate seta accesul public sau restricționat la chestionar.
+- stabilește titlul chestionarului;
+- creează adresa web a chestionarului;
+- stabilește scopul chestionarului și al prelucrării datelor;
+- stabilește utilizarea planificată a răspunsurilor;
+- indică destinatarii eventualelor transferuri de date;
+- furnizează informarea relevantă privind prelucrarea datelor cu caracter personal;
+- poate seta accesul public sau restricționat la chestionar.
 
 Chestionarul poate fi alcătuit din mai multe foi de lucru consecutive. Platforma poate permite crearea de:
 
-* întrebări tradiționale;
-
-* sarcini bazate pe hărți;
-
-* pagini cu informații textuale;
-
-* sarcini de evaluare;
-
-* marcaje de puncte, linii sau suprafețe;
-
-* întrebări afișate condiționat.
+- întrebări tradiționale;
+- sarcini bazate pe hărți;
+- pagini cu informații textuale;
+- sarcini de evaluare;
+- marcaje de puncte, linii sau suprafețe;
+- întrebări afișate condiționat.
 
 Platforma poate permite:
 
-* partajarea chestionarelor cu alți utilizatori înregistrați;
-
-* editarea în comun;
-
-* exportarea rapoartelor privind completările în format .xlsx;
-
-* exportarea elementelor cartografice în format .kml;
-
-* încorporarea chestionarelor în site-uri externe;
-
-* integrarea unor servicii cartografice externe sau a altor servicii.
+- partajarea chestionarelor cu alți utilizatori înregistrați;
+- editarea în comun;
+- exportarea rapoartelor privind completările în format .xlsx;
+- exportarea elementelor cartografice în format .kml;
+- încorporarea chestionarelor în site-uri externe;
+- integrarea unor servicii cartografice externe sau a altor servicii.
 
 Platforma poate permite și utilizarea întrebărilor condiționate, care sunt afișate persoanei care completează chestionarul numai în cazul anumitor răspunsuri sau atribute.
 
@@ -154,21 +123,16 @@ Publicarea și distribuirea chestionarului constituie responsabilitatea creatoru
 
 Platforma poate furniza pentru chestionar un link unic, care:
 
-* poate fi distribuit public;
-
-* poate fi transmis prin e-mail;
-
-* poate fi publicat pe rețelele sociale;
-
-* poate fi încorporat într-un site web;
-
-* poate fi distribuit sub forma unui cod QR.
+- poate fi distribuit public;
+- poate fi transmis prin e-mail;
+- poate fi publicat pe rețelele sociale;
+- poate fi încorporat într-un site web;
+- poate fi distribuit sub forma unui cod QR.
 
 Creatorul chestionarului decide dacă chestionarul este:
 
-* accesibil publicului;
-
-* sau accesibil exclusiv unor persoane determinate.
+- accesibil publicului;
+- sau accesibil exclusiv unor persoane determinate.
 
 În principiu, K-Monitor nu participă la distribuirea sau promovarea chestionarelor.
 
@@ -182,17 +146,12 @@ Creatorul chestionarului este obligat să acționeze cu o atenție sporită atun
 
 Creatorul chestionarului este, de asemenea, obligat să se abțină de la orice prelucrare a datelor care ar putea pune în pericol în mod nejustificat drepturile, interesele sau dezvoltarea minorilor, în special:
 
-* colectarea de date cu caracter personal inutile;
-
-* prelucrarea nejustificată a unor categorii speciale de date cu caracter personal;
-
-* realizarea de profiluri psihologice sau comportamentale;
-
-* utilizarea unor întrebări manipulative sau înșelătoare;
-
-* prelucrarea datelor în scopul marketingului direct;
-
-* colectarea de date în scopuri publicitare sau de marketing.
+- colectarea de date cu caracter personal inutile;
+- prelucrarea nejustificată a unor categorii speciale de date cu caracter personal;
+- realizarea de profiluri psihologice sau comportamentale;
+- utilizarea unor întrebări manipulative sau înșelătoare;
+- prelucrarea datelor în scopul marketingului direct;
+- colectarea de date în scopuri publicitare sau de marketing.
 
 ## 6\. Principiile proceselor participative
 
@@ -200,19 +159,13 @@ Scopul platformei PARTIMAP este de a oferi suport tehnic pentru procese comunita
 
 Creatorul chestionarului este obligat:
 
-* să definească în mod clar scopul chestionarului;
-
-* să stabilească scopuri reale și legitime pentru prelucrarea datelor;
-
-* să comunice în mod clar cine organizează chestionarul;
-
-* să informeze persoanele vizate cu privire la utilizarea planificată a rezultatelor;
-
-* să se abțină de la utilizarea unor tehnici de chestionare manipulative sau înșelătoare;
-
-* să acționeze cu bună-credință și în mod echitabil în timpul realizării chestionarului și să respecte dispozițiile prezentului Regulament și ale Informării privind prelucrarea datelor cu caracter personal a PARTIMAP;
-
-* să își îndeplinească obligațiile care decurg din calitatea sa de operator, în special să coopereze cu persoanele vizate sau cu autoritățile competente în cazul exercitării drepturilor persoanelor vizate.
+- să definească în mod clar scopul chestionarului;
+- să stabilească scopuri reale și legitime pentru prelucrarea datelor;
+- să comunice în mod clar cine organizează chestionarul;
+- să informeze persoanele vizate cu privire la utilizarea planificată a rezultatelor;
+- să se abțină de la utilizarea unor tehnici de chestionare manipulative sau înșelătoare;
+- să acționeze cu bună-credință și în mod echitabil în timpul realizării chestionarului și să respecte dispozițiile prezentului Regulament și ale Informării privind prelucrarea datelor cu caracter personal a PARTIMAP;
+- să își îndeplinească obligațiile care decurg din calitatea sa de operator, în special să coopereze cu persoanele vizate sau cu autoritățile competente în cazul exercitării drepturilor persoanelor vizate.
 
 Creatorul chestionarului trebuie să țină seama de faptul că chestionarele online și procesele de participare digitală pot genera distorsiuni, acces inegal sau probleme de reprezentativitate.
 
@@ -230,41 +183,24 @@ Pe platformă pot fi create sau publicate numai chestionare, conținuturi sau al
 
 Sunt interzise în special:
 
-* publicarea de chestionare sau alte conținuturi ilegale ori destinate eludării legislației;
-
-* publicarea de conținut care încalcă drepturile personalității, reputația, onoarea sau viața privată a unei alte persoane;
-
-* încărcarea de conținut care încalcă drepturile de autor, drepturile asupra mărcilor sau alte drepturi de proprietate intelectuală;
-
-* colectarea ilegală de date sau prelucrarea neautorizată a datelor cu caracter personal ale unei alte persoane;
-
-* supravegherea ascunsă;
-
-* realizarea de profiluri politice sau sociale;
-
-* crearea de baze de date privind originea etnică, religia sau convingerile filozofice;
-
-* crearea de baze de date privind sănătatea sau viața sexuală;
-
-* crearea ilegală de baze de date ale alegătorilor;
-
-* publicarea de conținut care incită la ură, violență, hărțuire sau intimidare;
-
-* utilizarea în scopuri de spam sau marketing direct;
-
-* prelucrarea datelor în scopuri biometrice sau de recunoaștere facială;
-
-* crearea de chestionare bazate pe afirmații înșelătoare, manipulative sau false;
-
-* instigarea la săvârșirea unei infracțiuni sau facilitarea săvârșirii acesteia;
-
-* sprijinirea activităților îndreptate împotriva ordinii constituționale;
-
-* eludarea sau ocolirea mecanismelor de securitate ale platformei;
-
-* colectarea automatizată de date (scraping), accesarea neautorizată a sistemului sau desfășurarea altor activități tehnice care pun în pericol funcționarea platformei;
-
-* încărcarea sau distribuirea de cod malițios, viruși sau alte programe informatice dăunătoare.
+- publicarea de chestionare sau alte conținuturi ilegale ori destinate eludării legislației;
+- publicarea de conținut care încalcă drepturile personalității, reputația, onoarea sau viața privată a unei alte persoane;
+- încărcarea de conținut care încalcă drepturile de autor, drepturile asupra mărcilor sau alte drepturi de proprietate intelectuală;
+- colectarea ilegală de date sau prelucrarea neautorizată a datelor cu caracter personal ale unei alte persoane;
+- supravegherea ascunsă;
+- realizarea de profiluri politice sau sociale;
+- crearea de baze de date privind originea etnică, religia sau convingerile filozofice;
+- crearea de baze de date privind sănătatea sau viața sexuală;
+- crearea ilegală de baze de date ale alegătorilor;
+- publicarea de conținut care incită la ură, violență, hărțuire sau intimidare;
+- utilizarea în scopuri de spam sau marketing direct;
+- prelucrarea datelor în scopuri biometrice sau de recunoaștere facială;
+- crearea de chestionare bazate pe afirmații înșelătoare, manipulative sau false;
+- instigarea la săvârșirea unei infracțiuni sau facilitarea săvârșirii acesteia;
+- sprijinirea activităților îndreptate împotriva ordinii constituționale;
+- eludarea sau ocolirea mecanismelor de securitate ale platformei;
+- colectarea automatizată de date (scraping), accesarea neautorizată a sistemului sau desfășurarea altor activități tehnice care pun în pericol funcționarea platformei;
+- încărcarea sau distribuirea de cod malițios, viruși sau alte programe informatice dăunătoare.
 
 K-Monitor are dreptul, la propria discreție, să stabilească dacă un anumit conținut, chestionar sau mod de utilizare a platformei încalcă prezentul Regulament sau destinația platformei.
 
@@ -272,17 +208,12 @@ K-Monitor are dreptul, la propria discreție, să stabilească dacă un anumit c
 
 Creatorul chestionarului poartă răspunderea deplină și exclusivă pentru:
 
-* chestionarele create de acesta;
-
-* conținutul și scopurile prelucrării datelor cuprinse în acestea;
-
-* prelucrările de date efectuate de acesta și stabilirea categoriei datelor cu caracter personal prelucrate;
-
-* temeiul juridic al prelucrării datelor, în special condițiile consimțământului;
-
-* incidentele de securitate a datelor;
-
-* orice prejudiciu sau încălcare a drepturilor care rezultă din chestionar, din conținutul acestuia sau din prelucrarea datelor.
+- chestionarele create de acesta;
+- conținutul și scopurile prelucrării datelor cuprinse în acestea;
+- prelucrările de date efectuate de acesta și stabilirea categoriei datelor cu caracter personal prelucrate;
+- temeiul juridic al prelucrării datelor, în special condițiile consimțământului;
+- incidentele de securitate a datelor;
+- orice prejudiciu sau încălcare a drepturilor care rezultă din chestionar, din conținutul acestuia sau din prelucrarea datelor.
 
 Creatorul chestionarului este obligat să efectueze pe cont propriu copii de siguranță ale datelor stocate pe platformă și să asigure păstrarea acestora.
 
@@ -292,17 +223,12 @@ Prelucrarea în comun se limitează exclusiv la operațiunile de prelucrare a da
 
 K-Monitor nu își asumă răspunderea, printre altele, pentru:
 
-* pierderea datelor;
-
-* distrugerea acestora;
-
-* deteriorarea acestora;
-
-* ștergerea acestora;
-
-* imposibilitatea accesării acestora;
-
-* orice alt prejudiciu rezultat din pierderea datelor.
+- pierderea datelor;
+- distrugerea acestora;
+- deteriorarea acestora;
+- ștergerea acestora;
+- imposibilitatea accesării acestora;
+- orice alt prejudiciu rezultat din pierderea datelor.
 
 În cazul încălcării regulilor de utilizare, K-Monitor are dreptul să șteargă, să restricționeze sau să facă inaccesibile chestionarele, conturile de utilizator sau datele și nu își asumă nicio răspundere față de creatorul chestionarului pentru prejudiciile rezultate în urma acestor măsuri.
 
@@ -310,47 +236,34 @@ K-Monitor nu verifică în prealabil conținutul chestionarelor, însă are drep
 
 Prin acceptarea prezentului Regulament, creatorul chestionarului exonerează K-Monitor de orice pretenție, procedură administrativă, amendă, prejudiciu, cost sau solicitare care apare în legătură cu:
 
-* conținutul chestionarului;
-
-* prelucrarea datelor;
-
-* incidentele de securitate a datelor;
-
-* utilizarea platformei;
-
-* comportamentul ilegal al creatorului chestionarului.
+- conținutul chestionarului;
+- prelucrarea datelor;
+- incidentele de securitate a datelor;
+- utilizarea platformei;
+- comportamentul ilegal al creatorului chestionarului.
 
 ## 9\. Drepturile de acces
 
 La datele prelucrate pe platformă pot avea acces, în special în scopul îndeplinirii atribuțiilor lor și pentru scopurile stabilite de legislația aplicabilă și de prezentul Regulament:
 
-* creatorul chestionarului;
-
-* editorii sau utilizatorii autorizați de acesta;
-
-* angajații și colaboratorii autorizați ai K-Monitor;
-
-* autoritățile, instanțele sau alte organisme ale autorității publice care acționează în baza legii.
+- creatorul chestionarului;
+- editorii sau utilizatorii autorizați de acesta;
+- angajații și colaboratorii autorizați ai K-Monitor;
+- autoritățile, instanțele sau alte organisme ale autorității publice care acționează în baza legii.
 
 Creatorul chestionarului are dreptul:
 
-* să vizualizeze răspunsurile;
-
-* să realizeze agregări statistice;
-
-* să exporte rapoarte;
-
-* să analizeze răspunsurile;
-
-* să coreleze datele cartografice și demografice.
+- să vizualizeze răspunsurile;
+- să realizeze agregări statistice;
+- să exporte rapoarte;
+- să analizeze răspunsurile;
+- să coreleze datele cartografice și demografice.
 
 Platforma poate permite, în anumite cazuri:
 
-* afișarea rezultatelor agregate sau anonimizate;
-
-* crearea de grafice statistice;
-
-* crearea de vizualizări cartografice.
+- afișarea rezultatelor agregate sau anonimizate;
+- crearea de grafice statistice;
+- crearea de vizualizări cartografice.
 
 Creatorul chestionarului poate acorda altor utilizatori înregistrați drepturi de editare sau acces la chestionar și la răspunsurile asociate acestuia.
 
@@ -362,31 +275,21 @@ K-Monitor are dreptul să acceseze datele stocate pe platformă în scopul oper�
 
 K-Monitor are dreptul să investigheze orice chestionar, conținut sau activitate a utilizatorilor, printre altele, în cazul în care există:
 
-* suspiciunea unei încălcări a legii;
-
-* o plângere;
-
-* un risc de conformitate;
-
-* un risc privind securitatea platformei;
-
-* sau o obligație legală.
+- suspiciunea unei încălcări a legii;
+- o plângere;
+- un risc de conformitate;
+- un risc privind securitatea platformei;
+- sau o obligație legală.
 
 K-Monitor are în special dreptul:
 
-* să elimine datele sau conținutul ilegal;
-
-* să restricționeze temporar un chestionar;
-
-* să șteargă un chestionar;
-
-* să restricționeze un cont de utilizator;
-
-* să suspende un cont de utilizator;
-
-* să șteargă definitiv un cont de utilizator;
-
-* să restricționeze accesul tehnic.
+- să elimine datele sau conținutul ilegal;
+- să restricționeze temporar un chestionar;
+- să șteargă un chestionar;
+- să restricționeze un cont de utilizator;
+- să suspende un cont de utilizator;
+- să șteargă definitiv un cont de utilizator;
+- să restricționeze accesul tehnic.
 
 Înainte de aplicarea măsurilor prevăzute în prezentul punct – în măsura în care circumstanțele cazului permit acest lucru – K-Monitor va lua toate măsurile rezonabile pentru ca creatorul chestionarului să elimine sau să remedieze, într-un termen adecvat, deficiența, încălcarea legii sau orice altă situație indicată de K-Monitor care contravine prezentului Regulament sau dispozițiilor Informării privind prelucrarea datelor cu caracter personal.
 
@@ -396,31 +299,23 @@ K-Monitor are dreptul să ia măsuri fără o notificare prealabilă în cazul �
 
 ## 11\. Gestionarea plângerilor și a notificărilor privind conținuturile ilegale
 
-O plângere referitoare la funcționarea platformei sau la un anumit chestionar poate fi transmisă K-Monitor în format electronic, la adresa de e-mail <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x6c;&#x6f;&#118;&#x61;&#115;&#x7a;&#x2e;&#x64;&#111;&#x72;&#111;&#116;&#x74;&#x79;&#x61;&#x40;&#x6b;&#x2d;&#109;&#111;&#x6e;&#x69;&#116;&#111;&#114;&#46;&#104;&#x75;">&#x6c;&#x6f;&#118;&#x61;&#x73;&#122;&#x2e;&#x64;&#111;&#x72;&#111;&#116;&#116;&#121;&#97;&#64;&#107;&#45;&#x6d;&#111;&#110;&#105;&#116;&#x6f;&#x72;&#x2e;&#104;&#x75;</a>.
+O plângere referitoare la funcționarea platformei sau la un anumit chestionar poate fi transmisă K-Monitor în format electronic, la adresa de e-mail <lovasz.dorottya@k-monitor.hu>.
 
 Pe cât posibil, notificarea privind plângerea trebuie să conțină:
 
-* numele și datele de contact ale persoanei care formulează plângerea;
-
-* datele necesare pentru identificarea chestionarului sau utilizatorului vizat;
-
-* descrierea conținutului sau comportamentului contestat;
-
-* dovezile sau referințele disponibile.
+- numele și datele de contact ale persoanei care formulează plângerea;
+- datele necesare pentru identificarea chestionarului sau utilizatorului vizat;
+- descrierea conținutului sau comportamentului contestat;
+- dovezile sau referințele disponibile.
 
 K-Monitor are dreptul:
 
-* să investigheze notificarea;
-
-* să solicite informații sau documente suplimentare;
-
-* să aplice măsuri temporare;
-
-* să restricționeze chestionarul sau conținutul;
-
-* să elimine chestionarul sau conținutul;
-
-* să restricționeze sau să înceteze accesul utilizatorului (contul).
+- să investigheze notificarea;
+- să solicite informații sau documente suplimentare;
+- să aplice măsuri temporare;
+- să restricționeze chestionarul sau conținutul;
+- să elimine chestionarul sau conținutul;
+- să restricționeze sau să înceteze accesul utilizatorului (contul).
 
 K-Monitor are dreptul să respingă plângerile vădit nefondate, formulate cu rea-credință sau repetitive.
 
@@ -430,13 +325,10 @@ Anumite funcții ale platformei pot permite utilizarea unor servicii externe sau
 
 K-Monitor nu își asumă răspunderea pentru:
 
-* funcționarea serviciilor furnizate de terți;
-
-* prelucrarea datelor de către platformele externe;
-
-* disponibilitatea serviciilor externe;
-
-* pierderea datelor sau incidentele de securitate survenite în sistemele unor terți.
+- funcționarea serviciilor furnizate de terți;
+- prelucrarea datelor de către platformele externe;
+- disponibilitatea serviciilor externe;
+- pierderea datelor sau incidentele de securitate survenite în sistemele unor terți.
 
 Creatorul chestionarului are dreptul să integreze sau să utilizeze servicii externe în legătură cu platforma exclusiv pe propria răspundere.
 
@@ -444,49 +336,30 @@ Creatorul chestionarului are dreptul să integreze sau să utilizeze servicii ex
 
 K-Monitor nu garantează:
 
-* funcționarea continuă sau fără erori a platformei;
-
-* reprezentativitatea rezultatelor chestionarelor;
-
-* fundamentarea științifică sau statistică a chestionarelor;
-
-* corectitudinea concluziilor rezultate din răspunsuri;
-
-* exactitatea analizelor sau rapoartelor;
-
-* integritatea datelor;
-
-* păstrarea datelor;
-
-* faptul că platforma va împiedica completările multiple sau repetate;
-
-* faptul că informațiile furnizate de persoanele care completează chestionarele sunt reale sau exacte;
-
-* faptul că completările sunt lipsite de intervenții automatizate sau de rea-credință;
-
-* faptul că rezultatele chestionarelor sunt adecvate pentru formularea unor concluzii științifice, statistice sau juridice.
+- funcționarea continuă sau fără erori a platformei;
+- reprezentativitatea rezultatelor chestionarelor;
+- fundamentarea științifică sau statistică a chestionarelor;
+- corectitudinea concluziilor rezultate din răspunsuri;
+- exactitatea analizelor sau rapoartelor;
+- integritatea datelor;
+- păstrarea datelor;
+- faptul că platforma va împiedica completările multiple sau repetate;
+- faptul că informațiile furnizate de persoanele care completează chestionarele sunt reale sau exacte;
+- faptul că completările sunt lipsite de intervenții automatizate sau de rea-credință;
+- faptul că rezultatele chestionarelor sunt adecvate pentru formularea unor concluzii științifice, statistice sau juridice.
 
 K-Monitor nu răspunde pentru:
 
-* conținutul chestionarelor;
-
-* prelucrarea datelor efectuată de utilizatori;
-
-* prelucrările de date efectuate în afara platformei;
-
-* gestionarea datelor exportate;
-
-* încălcările legii săvârșite de creatorii chestionarelor sau de persoanele care completează chestionarele;
-
-* litigiile dintre utilizatori;
-
-* prejudiciile rezultate din pierderea datelor;
-
-* prejudiciile rezultate din ștergerea sau restricționarea contului;
-
-* prejudiciile rezultate din ștergerea chestionarelor sau a datelor;
-
-* prejudiciile indirecte sau consecințiale rezultate din utilizarea platformei.
+- conținutul chestionarelor;
+- prelucrarea datelor efectuată de utilizatori;
+- prelucrările de date efectuate în afara platformei;
+- gestionarea datelor exportate;
+- încălcările legii săvârșite de creatorii chestionarelor sau de persoanele care completează chestionarele;
+- litigiile dintre utilizatori;
+- prejudiciile rezultate din pierderea datelor;
+- prejudiciile rezultate din ștergerea sau restricționarea contului;
+- prejudiciile rezultate din ștergerea chestionarelor sau a datelor;
+- prejudiciile indirecte sau consecințiale rezultate din utilizarea platformei.
 
 Utilizarea platformei se realizează exclusiv pe răspunderea proprie a utilizatorului.
 
@@ -496,13 +369,10 @@ K-Monitor are dreptul și obligația de a coopera cu instanțele, autoritățile
 
 În cazul unei solicitări întemeiate pe lege, K-Monitor are dreptul:
 
-* să păstreze datele;
-
-* să transmită datele;
-
-* să restricționeze accesul;
-
-* să aplice alte măsuri de conformitate.
+- să păstreze datele;
+- să transmită datele;
+- să restricționeze accesul;
+- să aplice alte măsuri de conformitate.
 
 ## 15\. Modificarea Regulamentului
 
@@ -526,4 +396,4 @@ Părțile vor încerca, în primul rând, să soluționeze pe cale amiabilă ori
 
 Budapesta, 03.09.2026.
 
-Prezenta traducere a fost realizată cu ajutorul inteligenței artificiale.
+**Prezenta traducere a fost realizată cu ajutorul inteligenței artificiale.**

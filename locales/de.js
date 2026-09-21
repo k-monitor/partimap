@@ -395,11 +395,9 @@ export default {
 		activated: 'Konto erfolgreich aktiviert. Willkommen bei PARTIMAP!',
 		activationFailed:
 			'Aktivierung fehlgeschlagen. Bitte erneut versuchen oder Administrator kontaktieren.',
-		email: 'E-Mail',
 		forgotPassword: 'Passwort vergessen?',
 		invalidEmail: 'Ungültige E-Mail-Adresse',
 		invalidEmailOrPassword: 'E-Mail oder Passwort ungültig',
-		password: 'Passwort',
 		passwordChangeRequested:
 			'Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts gesendet',
 		pwchanged: 'Passwort erfolgreich geändert!',
@@ -453,6 +451,7 @@ export default {
 		privacyPolicyRequired: 'Dieses Feld ist erforderlich!',
 		projectDescription: 'Meta-Beschreibung (Facebook-Link-Vorschau)',
 		projectTitle: 'Umfragetitel',
+		purposeOfDataCollection: 'Zweck der Datenerhebung',
 		save: 'Speichern',
 		sheetCreationFailed: 'Erstellen des Arbeitsblatts fehlgeschlagen',
 		sheetDeletionFailed: 'Löschen des Arbeitsblatts fehlgeschlagen',
@@ -495,10 +494,9 @@ export default {
 		views: 'Aufrufe',
 	},
 	register: {
-		email: 'Geben Sie eine gültige E-Mail-Adresse ein',
 		login: 'Haben Sie bereits ein Konto?',
-		name: 'Name',
-		password: 'Passwort',
+		personalData:
+			'Die bei der Registrierung angegebenen personenbezogenen Daten werden zur eindeutigen Identifizierung der Nutzer, zur Verwaltung von Benutzerkonten und Berechtigungen sowie zur Gewährleistung des sicheren und bestimmungsgemäßen Betriebs des Befragungssystems verwendet. Die angegebenen personenbezogenen Daten werden ausschließlich zu diesen Zwecken verarbeitet und nicht an Dritte weitergegeben, es sei denn, dies ist gesetzlich vorgeschrieben oder die betroffene Person hat vorher ausdrücklich zugestimmt.',
 		procedure:
 			'Nach erfolgreicher Registrierung erhalten Sie eine Verifizierungs-E-Mail. Prüfen Sie Ihren Posteingang und klicken Sie auf den Link, um die Registrierung abzuschließen.',
 		registrationFailed:
@@ -579,6 +577,14 @@ export default {
 			'Sie haben die E-Mail-Benachrichtigungen für diese Umfrage erfolgreich abbestellt.',
 		title: 'Abbestellen',
 	},
+	user: {
+		address: 'Adresse',
+		birthDate: 'Geburtsdatum',
+		birthPlace: 'Geburtsort',
+		email: 'E-Mail',
+		fullName: 'Vollständiger Name',
+		password: 'Passwort',
+	},
 	userEditor: {
 		activated: 'Aktiviert',
 		administrator: 'Administrator',
@@ -600,7 +606,6 @@ export default {
 		enterPassword: 'Bitte geben Sie Ihr Passwort ein',
 		logo: 'Logo (empfohlen: 120×30 px)',
 		logoDescription: 'Dieses Logo wird in allen Ihren Umfragen im Header angezeigt.',
-		name: 'Name',
 		newPassword: 'Neues Passwort',
 		oldPassword: 'Aktuelles Passwort (nur erforderlich bei E-Mail- oder Passwortänderung)',
 		save: 'Speichern',
@@ -885,6 +890,8 @@ export default {
 		remove: 'Bild entfernen',
 	},
 	legal: {
+		missingAlert: 'Bitte fülle die Felder {0} und {1} aus, andernfalls wird diese Umfrage ab {2} keine Daten mehr erfassen.',
+		missingLabel: 'Fehlende Informationen!',
 		changedTitle: 'Nutzungsbedingungen und Datenschutzerklärung',
 		changedNotice: 'Unsere Datenschutzerklärung und Nutzungsbedingungen haben sich geändert.',
 		privacyPolicy: 'Datenschutzerklärung',
