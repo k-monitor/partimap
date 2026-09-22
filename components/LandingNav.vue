@@ -9,10 +9,10 @@ withDefaults(
 	{ showSearch: false },
 );
 
-// "HOGYAN MŰKÖDIK" dropdown items. "whatIs" leads the list and points to the
-// PARTIMAP intro page; the rest link to their matching Súgó section.
+// "HOGYAN MŰKÖDIK" dropdown items, each linking to its matching Súgó section.
+// The PARTIMAP intro page is not among them: it already has its own top-level
+// nav item, and listing it twice made the two look like different pages.
 const howItWorksSubmenu = computed(() => [
-	{ key: 'whatIs', to: localePath({ name: 'partimaprol' }) },
 	{ key: 'respondents', to: localePath({ name: 'sugo-kitoltoknek' }) },
 	{ key: 'create', to: localePath({ name: 'sugo-keszites' }) },
 	{ key: 'analyze', to: localePath({ name: 'sugo-elemzes' }) },

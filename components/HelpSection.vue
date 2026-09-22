@@ -58,6 +58,11 @@ useHead({
 <template>
 	<LandingFrame>
 		<section class="help-section">
+			<nav class="help-breadcrumb" :aria-label="t('helpPage.breadcrumb')">
+				<NuxtLink :to="localePath({ name: 'sugo' })">{{ t('helpPage.title') }}</NuxtLink>
+				<span aria-hidden="true">/</span>
+				<span class="help-breadcrumb-current" aria-current="page">{{ section.title }}</span>
+			</nav>
 			<div class="help-inner">
 				<aside class="help-sidebar">
 					<h2 class="help-sidebar-title">{{ t('helpPage.topics') }}</h2>
@@ -154,7 +159,8 @@ useHead({
 
 			<div class="help-home-link">
 				<NuxtLink :to="localePath({ name: 'sugo' })">
-					<i class="fas fa-home" />
+					<i class="fas fa-home" aria-hidden="true" />
+					<span>{{ t('helpPage.home') }}</span>
 				</NuxtLink>
 			</div>
 		</section>
@@ -166,6 +172,30 @@ useHead({
 	position: relative;
 	padding: 3rem 2rem 6rem;
 	font-family: 'Apex New', 'Segoe UI', sans-serif;
+}
+.help-breadcrumb {
+	max-width: 1100px;
+	margin: 0 auto 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+	color: #333;
+}
+.help-breadcrumb a {
+	color: #0055FF;
+	text-decoration: none;
+}
+.help-breadcrumb a:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+.help-breadcrumb span[aria-hidden] {
+	opacity: 0.5;
+}
+.help-breadcrumb-current {
+	opacity: 0.7;
 }
 .help-inner {
 	max-width: 1100px;
@@ -433,15 +463,18 @@ useHead({
 .help-home-link a {
 	align-items: center;
 	border: 1.5px solid #0055FF;
-	border-radius: 50%;
+	/* A labelled pill rather than a bare icon: on a help page the way back to
+	   the Súgó index should say where it leads. */
+	border-radius: 999px;
 	color: #0055FF;
 	display: flex;
 	font-size: 1rem;
-	height: 44px;
+	gap: 0.6rem;
 	justify-content: center;
+	min-height: 44px;
+	padding: 0.5rem 1.4rem;
 	text-decoration: none;
 	transition: background 0.2s, color 0.2s;
-	width: 44px;
 }
 .help-home-link a:hover {
 	background: #0055FF;

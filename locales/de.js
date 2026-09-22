@@ -75,13 +75,12 @@ export default {
 			{
 				title: 'Wie Sie beitragen können',
 				description:
-					'<p>Die PARTIMAP-Software wurde 2021 von K-Monitor mit Unterstützung der Europäischen Kommission (DG Regio) entwickelt. Weitere Entwicklungen erfolgten 2022 in Kooperation mit dem Prager Büro der Heinrich-Böll-Stiftung. Doch mit dem Launch dieser Version ist das Projekt noch lange nicht abgeschlossen! Die freie Plattform wurde für Behörden, Kommunen und NGOs geschaffen, um die Bürgerbeteiligung zu stärken und öffentliche Ressourcen effizienter zu verwalten.</p><p>Wenn Sie sich für das Projekt interessieren und an der Weiterentwicklung mitwirken möchten oder uns einfach Ihr Feedback geben wollen, schreiben Sie uns an <a href="mailto:hello{\'@\'}partimap.eu">hello{\'@\'}partimap.eu</a>. Möchten Sie die Entwicklung finanziell unterstützen, damit die freie Open-Source-Software noch mehr Menschen zur Verfügung steht, besuchen Sie bitte <a href="https://k-monitor.hu/support" target="_blank">die Support-Seite von K-Monitor</a>!</p>',
+					'<p>Die PARTIMAP-Software wurde 2021 von K-Monitor mit Unterstützung der Europäischen Kommission (DG Regio) entwickelt. Weitere Entwicklungen erfolgten 2022 in Kooperation mit dem Prager Büro der Heinrich-Böll-Stiftung. Doch mit dem Launch dieser Version ist das Projekt noch lange nicht abgeschlossen! Die freie Plattform wurde für Behörden, Kommunen und zivilgesellschaftliche Organisationen geschaffen, um die Bürgerbeteiligung zu stärken und öffentliche Ressourcen effizienter zu verwalten.</p><p>Wenn Sie sich für das Projekt interessieren und an der Weiterentwicklung mitwirken möchten oder uns einfach Ihr Feedback geben wollen, schreiben Sie uns an <a href="mailto:hello{\'@\'}partimap.eu">hello{\'@\'}partimap.eu</a>. Möchten Sie die Entwicklung finanziell unterstützen, damit die freie Open-Source-Software noch mehr Menschen zur Verfügung steht, besuchen Sie bitte <a href="https://k-monitor.hu/support" target="_blank">die Support-Seite von K-Monitor</a>!</p>',
 			},
 		],
 		nav: {
 			about: 'ÜBER PARTIMAP',
 			aboutSubmenu: {
-				whatIs: 'Was ist PARTIMAP?',
 				plan: 'Wie man ein PARTIMAP-Projekt plant',
 				questionnaire: 'Wie man einen Fragebogen schreibt',
 				create: 'Wie man eine PARTIMAP erstellt',
@@ -221,7 +220,7 @@ export default {
 		},
 		partners: {
 			title: 'Unsere Kunden',
-			desc: 'PARTIMAP wurde bereits von zahlreichen nationalen und internationalen Organisationen erfolgreich eingesetzt: Neben lokalen Gemeinschaftsakteuren, Kommunen und zivilgesellschaftlichen Organisationen (NGOs) nutzen es auch Unternehmen und Firmen zur Entscheidungsunterstützung, für Forschung und für die strategische Planung.',
+			desc: 'PARTIMAP wurde bereits von zahlreichen nationalen und internationalen Organisationen erfolgreich eingesetzt: Neben lokalen Gemeinschaftsakteuren, Kommunen und zivilgesellschaftlichen Organisationen nutzen es auch Unternehmen und Firmen zur Entscheidungsunterstützung, für Forschung und für die strategische Planung.',
 		},
 		funding: {
 			text: 'Die Entwicklung erfolgt im Rahmen des von der Europäischen Kommission (GD Regio) geförderten Projekts Participatory Mapping in Cohesion Policy in Hungary (PARTIMAP). Die Weiterentwicklung des Tools wurde vom Prager Büro der Heinrich-Böll-Stiftung unterstützt.',
@@ -286,7 +285,7 @@ export default {
 		beliefP1: '<a href="https://k-monitor.hu/" target="_blank" rel="noopener">K-Monitor</a> setzt sich seit 2007 für einen transparenten Umgang mit öffentlichen Geldern und für die Eindämmung der Korruption ein. Unsere zivilgesellschaftliche Organisation arbeitet an einem politischen, wirtschaftlichen und gesellschaftlichen Umfeld, in dem die Bürgerinnen und Bürger Korruption ablehnen und die Behörden sie wirksam aufdecken und ahnden. Wir sind überzeugt, dass Transparenz erst dann zu einer echten Kraft wird, wenn sich die Bürgerinnen und Bürger aktiv an gemeinschaftlichen Entscheidungen beteiligen – deshalb haben wir PARTIMAP entwickelt, um partizipative Prozesse für alle zugänglicher zu machen.',
 		beliefP2: 'Bei unserer Arbeit legen wir besonderen Wert darauf, Werkzeuge zur Förderung der gesellschaftlichen Beteiligung bereitzustellen, und haben so umfangreiches Wissen sowohl im Bereich der Transparenz als auch der Partizipation gesammelt. In diesem Sinne haben wir Projekte wie die K-Monitor-Datenbank, den Verständlichen Haushalt, Ez a Minimum und Voksmonitor ins Leben gerufen, die alle dazu dienen, die Verwendung öffentlicher Gelder transparenter und die gemeinschaftliche Entscheidungsfindung offener zu machen.',
 		contactNote: 'Haben Sie eine Frage oder eine Idee? Schreiben Sie uns an <a href="mailto:info{\'@\'}k-monitor.hu">info{\'@\'}k-monitor.hu</a>!',
-		stat1: 'Wir sind seit 18 Jahren eine aktive NGO in Budapest!',
+		stat1: 'Wir sind seit 18 Jahren eine aktive zivilgesellschaftliche Organisation in Budapest!',
 		hl1Title: 'Mit Anfragen nach Informationsfreiheit arbeiten wir für eine transparentere Verwendung öffentlicher Gelder.',
 		hl2Title: 'Mit Daten, digitalen Werkzeugen und partizipativen Methoden unterstützen wir die bürgerschaftliche Kontrolle und lokale Gemeinschaften.',
 		supportEyebrow: 'Gefällt Ihnen unsere App?',
@@ -333,16 +332,21 @@ export default {
 		q2: 'Wie kann es genutzt werden?',
 		q3: 'Wie schreibt man eine Umfrage?',
 		shortTitle: 'Kurz gesagt',
-		shortDesc: 'PARTIMAP ist eine kostenlose, einfach zu bedienende und flexibel anpassbare kartenbasierte Umfrageplattform, die gleichermaßen von Forschenden, NGOs, Kommunen und lokalen Gemeinschaften genutzt werden kann. Sie ermöglicht es, die Datenerhebung per Umfrage mit einer kartenbasierten Darstellung zu verbinden und so Rückmeldungen, Meinungen und lokale Erfahrungen zu sammeln. Besonders nützlich ist PARTIMAP bei aus öffentlichen Mitteln finanzierten Entwicklungsprojekten, bei zentralen politischen Fragen oder bei kommunalen Planungsprozessen, bei denen es darauf ankommt, dass auch die Stimme der Betroffenen gehört wird und die Ergebnisse in einer klaren, visuellen und leicht interpretierbaren Form vorliegen.',
+		shortDesc: 'PARTIMAP ist eine kostenlose, einfach zu bedienende und flexibel anpassbare kartenbasierte Umfrageplattform, die gleichermaßen von Forschenden, zivilgesellschaftlichen Organisationen, Kommunen und lokalen Gemeinschaften genutzt werden kann. Sie ermöglicht es, die Datenerhebung per Umfrage mit einer kartenbasierten Darstellung zu verbinden und so Rückmeldungen, Meinungen und lokale Erfahrungen zu sammeln. Besonders nützlich ist PARTIMAP bei aus öffentlichen Mitteln finanzierten Entwicklungsprojekten, bei zentralen politischen Fragen oder bei kommunalen Planungsprozessen, bei denen es darauf ankommt, dass auch die Stimme der Betroffenen gehört wird und die Ergebnisse in einer klaren, visuellen und leicht interpretierbaren Form vorliegen.',
 		longTitle: 'Im Detail',
 		longDesc: 'Partizipative Kartierung: So nennt man den Prozess, durch den das unersetzliche Wissen der Betroffenen in die für sie bestimmten kommunalen Entwicklungsprojekte einfließt. Die kartenbasierte Umfrageoberfläche von PARTIMAP hilft dabei, den Kontakt mit den Bürgerinnen und Bürgern schneller, effizienter und einfacher zu gestalten. Das Programm ist nach der Registrierung kostenlos nutzbar, lässt sich mit einem eigenen Erscheinungsbild versehen und kann dank seines offenen Quellcodes frei weiterentwickelt werden. Ob staatliche Stelle, Kommune oder lokale Interessengruppe – wenn du nach einer klugen und transparenten Möglichkeit suchst, die Meinung deines Umfelds kennenzulernen, probiere PARTIMAP aus und beteilige dich an der Weiterentwicklung!',
 		longDescExtra: 'Wann wurden Sie zuletzt nach Ihrer Meinung zu einem Entwicklungsprojekt gefragt, das Ihr tägliches Leben beeinflusst? Milliarden Euro werden in die Renovierung unserer städtischen Räume, öffentlichen Gebäude und Verkehrsanlagen investiert. Doch öffentliche Beteiligung und Einbeziehung der Interessengruppen wird oft zur bloßen Formalität. Klar ist jedoch: Damit ein Projekt erfolgreich ist, müssen die Bedürfnisse und Bedenken derjenigen, die die neue Infrastruktur täglich nutzen, neben fachlichen Überlegungen berücksichtigt werden. Die Modernisierung eines Bahnhofs ist nicht Selbstzweck, sondern soll die Zahl der Zugreisenden erhöhen. Intelligente Bänke machen einen Platz nicht automatisch zu einem Gemeinschaftsort – das tun nur die Einheimischen, wenn sie ihn lieben lernen.',
+		developerTitle: 'Wer steckt hinter PARTIMAP?',
+		developerDesc: 'PARTIMAP wird von <a href="https://k-monitor.hu/" target="_blank" rel="noopener">K-Monitor</a> entwickelt, einer zivilgesellschaftlichen Organisation aus Budapest, die sich seit 2007 für die transparente Verwendung öffentlicher Gelder und gegen Korruption einsetzt. Wir sind überzeugt, dass Transparenz erst dann zu einer echten Kraft wird, wenn Bürgerinnen und Bürger aktiv an gemeinschaftlichen Entscheidungen mitwirken. Deshalb haben wir PARTIMAP entwickelt: um partizipative Prozesse für alle zugänglicher zu machen.',
+		developerLink: 'Mehr über uns',
 		interested: 'INTERESSIERT?',
 		registerCta: 'REGISTRIEREN',
 	},
 	helpPage: {
 		title: 'Hilfe',
 		topics: 'Themen',
+		home: 'Hilfe-Startseite',
+		breadcrumb: 'Navigationspfad',
 		search: 'Hilfe durchsuchen',
 		clearSearch: 'Suche löschen',
 		noResults: 'Keine Ergebnisse für „{query}“',

@@ -416,7 +416,7 @@ onBeforeUnmount(() => {
 		</section>
 
 		<!-- Showcase -->
-		<section class="showcase-section">
+		<section id="showcase" class="showcase-section">
 			<div class="section-blob blob-show" aria-hidden="true" />
 
 			<div class="showcase-inner">
@@ -484,7 +484,7 @@ onBeforeUnmount(() => {
 		</section>
 
 		<!-- Partners -->
-		<section class="partners-section">
+		<section id="partners" class="partners-section">
 			<div class="section-blob blob-part" aria-hidden="true" />
 			<div class="partners-inner">
 				<h2 class="sec-title">{{ t('landing.partners.title') }}</h2>
@@ -1344,12 +1344,12 @@ onBeforeUnmount(() => {
 .map-dot:hover::after {
 	opacity: 0;
 }
-.map-dot-1 { width: 130px; height: 130px; top: 8%; left: 12%; background-image: url('/buszkeseg1.png'); }
-.map-dot-2 { width: 130px; height: 130px; top: 15%; left: 55%; background-image: url('/buszkeseg2.png'); }
-.map-dot-3 { width: 130px; height: 130px; top: 40%; right: 15%; background-image: url('/buszkeseg3.png'); }
-.map-dot-4 { width: 130px; height: 130px; top: 65%; left: 15%; background-image: url('/buszkeseg4.png'); }
-.map-dot-5 { width: 130px; height: 130px; bottom: 10%; right: 30%; background-image: url('/buszkeseg5.png'); }
-.map-dot-6 { width: 130px; height: 130px; top: 42%; left: 35%; background-image: url('/buszkeseg6.png'); }
+.map-dot-1 { width: 130px; height: 130px; top: 8%; left: 12%; background-image: url('/buszkeseg1.webp'); }
+.map-dot-2 { width: 130px; height: 130px; top: 15%; left: 55%; background-image: url('/buszkeseg2.webp'); }
+.map-dot-3 { width: 130px; height: 130px; top: 40%; right: 15%; background-image: url('/buszkeseg3.webp'); }
+.map-dot-4 { width: 130px; height: 130px; top: 65%; left: 15%; background-image: url('/buszkeseg4.webp'); }
+.map-dot-5 { width: 130px; height: 130px; bottom: 10%; right: 30%; background-image: url('/buszkeseg5.webp'); }
+.map-dot-6 { width: 130px; height: 130px; top: 42%; left: 35%; background-image: url('/buszkeseg6.webp'); }
 
 /* ── Map Popups ───────────────────────────────────────── */
 .map-popup {
@@ -1613,6 +1613,8 @@ onBeforeUnmount(() => {
 .partners-section {
 	position: relative;
 	padding: 5rem 2rem 2rem;
+	/* Keeps the title clear of the fixed nav when the page is opened at #partners. */
+	scroll-margin-top: 2rem;
 }
 .partners-inner {
 	max-width: 1000px;

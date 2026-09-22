@@ -17,6 +17,7 @@ useHead({
 </script>
 
 <template>
+	<!-- eslint-disable vue/no-v-html -->
 	<LandingFrame>
 		<section class="ap-hero">
 			<!-- <div class="ap-blob ap-blob-hero-tr" aria-hidden="true" /> -->
@@ -65,6 +66,17 @@ useHead({
 					<div class="ap-block-text">
 						<h2>{{ t('aboutPartimap.longTitle') }}</h2>
 						<p>{{ t('aboutPartimap.longDesc') }}</p>
+					</div>
+				</div>
+
+				<div id="developer" class="ap-block">
+					<div class="ap-block-text ap-block-text-left">
+						<h2>{{ t('aboutPartimap.developerTitle') }}</h2>
+						<p v-html="t('aboutPartimap.developerDesc')" />
+						<NuxtLink :to="localePath({ name: 'rolunk' })" class="ap-more-link">{{ t('aboutPartimap.developerLink') }}</NuxtLink>
+					</div>
+					<div class="ap-block-deco">
+						<div class="ap-disc ap-disc-team" />
 					</div>
 				</div>
 
@@ -207,6 +219,36 @@ useHead({
 	background: #0055FF40;
 	pointer-events: none;
 }
+.ap-disc-team {
+	background-image: url('/rolunk.jpg');
+	background-position: 20% center;
+}
+
+/* The K-Monitor link comes from the translation via v-html, so it needs :deep() */
+.ap-block p :deep(a) {
+	color: #0055FF;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+.ap-block p :deep(a:hover) {
+	text-decoration: none;
+}
+.ap-more-link {
+	display: inline-block;
+	margin-top: 1.2rem;
+	color: #0055FF;
+	font-size: 1.1rem;
+	font-weight: 500;
+	text-decoration: none;
+}
+.ap-more-link::after {
+	content: ' →';
+}
+.ap-more-link:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
 .ap-arrow {
 	position: absolute;
 	top: 232px;
@@ -282,7 +324,7 @@ useHead({
 .agc-6 { width: 126px; height: 126px; background-image: url('/whatis/markus-spiske-3IEOdMrSfU8-unsplash.jpg'); }
 .agc-3 { width: 240px; height: 240px; background-image: url('/whatis/nhi-d-hfhra5dsnXg-unsplash.jpg'); }
 .agc-4 { width: 184px; height: 184px; background-image: url('/whatis/patrick-perkins-ETRPjvb0KM0-unsplash.jpg'); }
-.agc-5 { width: 300px; height: 300px; background-image: url('/whatis/30f6fc00-bf37-40e2-8b20-4c2c74e027dd.png'); }
+.agc-5 { width: 300px; height: 300px; background-image: url('/whatis/30f6fc00-bf37-40e2-8b20-4c2c74e027dd.webp'); }
 
 /* Desktop: scatter the photo circles like the rólunk page */
 @media (min-width: 1500px) {

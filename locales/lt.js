@@ -79,7 +79,6 @@ export default {
 		nav: {
 			about: 'APIE PARTIMAP',
 			aboutSubmenu: {
-				whatIs: 'Kas yra PARTIMAP?',
 				plan: 'Kaip suplanuoti PARTIMAP projektą',
 				questionnaire: 'Kaip parašyti klausimyną',
 				create: 'Kaip sukurti PARTIMAP',
@@ -335,12 +334,17 @@ export default {
 		longTitle: 'Išsamiau',
 		longDesc: 'Dalyvaujamasis kartografavimas – taip vadinamas procesas, kurio metu nepakeičiamos suinteresuotų asmenų žinios įtraukiamos į jiems skirtus bendruomenės plėtros projektus. PARTIMAP žemėlapiais grįsta apklausų aplinka padeda, kad ryšys su gyventojais taptų greitesnis, veiksmingesnis ir paprastesnis. Programa po registracijos naudojama nemokamai, gali būti pritaikyta prie savo prekės ženklo ir, atvirojo kodo dėka, laisvai tobulinama. Nesvarbu, ar esate valstybės institucija, savivaldybė, ar vietos interesų grupė, – jei ieškote išmanaus ir skaidraus būdo sužinoti aplinkinių nuomonę, išbandykite PARTIMAP ir prisidėkite prie jos tobulinimo!',
 		longDescExtra: 'Kada paskutinį kartą buvo klausiama jūsų nuomonės apie plėtros projektą, kuris turės įtakos jūsų kasdieniniam gyvenimui? Miestų atnaujinimui skiriami milijardai eurų, tačiau gyventojų nuomonės išklausymas ir projektų viešinimas dažnai lieka tik formalumu. Norint, kad projektas būtų sėkmingas, svarbu atsižvelgti ne tik į ekspertų, bet ir į žmonių, kurie kasdien naudosis nauja infrastruktūra, poreikius. Juk stotelių modernizavimo tikslas nėra pats atnaujinimas, bet žmonių, kurie dažniau keliautų viešuoju transportu, pritraukimas.Nauji modernūs suoliukai aikštėse nepaverčia viešosios erdvės bendruomenės vieta, tokia ji tampa, jei taip nusprendžia patys gyventojai.',
+		developerTitle: 'Kas kuria PARTIMAP?',
+		developerDesc: 'PARTIMAP kuria <a href="https://k-monitor.hu/" target="_blank" rel="noopener">K-Monitor</a> – Budapešte veikianti nevyriausybinė organizacija, nuo 2007 m. siekianti skaidraus viešųjų lėšų naudojimo ir kovojanti su korupcija. Esame įsitikinę, kad skaidrumas tampa tikra jėga tik tada, kai gyventojai aktyviai dalyvauja bendruomenės sprendimuose, todėl ir sukūrėme PARTIMAP – kad dalyvaujamieji procesai taptų prieinamesni visiems.',
+		developerLink: 'Sužinokite apie mus daugiau',
 		interested: 'AR ĮDOMU?',
 		registerCta: 'REGISTRUOTIS',
 	},
 	helpPage: {
 		title: 'Pagalba',
 		topics: 'Temos',
+		home: 'Pagalbos pradžia',
+		breadcrumb: 'Naršymo kelias',
 		search: 'Ieškoti pagalboje',
 		clearSearch: 'Išvalyti paiešką',
 		noResults: 'Nėra rezultatų pagal „{query}“',
