@@ -9,7 +9,7 @@ export default {
 	},
 	gdprBlockNotice: {
 		subject: 'Kérdőív adatgyűjtésének felfüggesztése',
-		body: `<p><b>Kedves {user}!</b></p><p>Kérjük, hogy a kérdőíved beállításaiban töltsd ki a hiányzó mezőket, ellenkező esetben a kérdőív nem fog adatot gyűjteni {blockFrom} időponttól. Érintett kérdőívek:</p>`,
+		body: `<p><b>Kedves {user}!</b></p><p>Kérjük, hogy a kérdőíved beállításaiban add meg az adatkezelő elérhetőségét és hogy milyen célból gyűjtöd és kezeled a személyes adatokat. Ellenkező esetben a kérdőív nem fog adatot gyűjteni {blockFrom} időponttól. Érintett kérdőívek:</p>`,
 	},
 	newProject: {
 		newSheetTitle: 'A felmérés célja',

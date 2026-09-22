@@ -9,7 +9,7 @@
 	},
 	gdprBlockNotice: {
 		subject: 'Apklausos duomenų rinkimas sustabdytas',
-		body: `<p><b>Sveiki, {user}!</b></p><p>Prašome užpildyti trūkstamus laukus savo apklausos nustatymuose, kitaip apklausa nerinks duomenų nuo {blockFrom}. Paveiktos apklausos:</p>`,
+		body: `<p><b>Sveiki, {user}!</b></p><p>Prašome nurodyti duomenų valdytojo kontaktinius duomenis ir asmens duomenų rinkimo bei tvarkymo tikslą savo apklausos nustatymuose. Priešingu atveju apklausa nerinks duomenų nuo {blockFrom}. Paveiktos apklausos:</p>`,
 	},
 	newProject: {
 		newSheetTitle: 'Apklausos tikslas',

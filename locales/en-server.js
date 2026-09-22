@@ -9,7 +9,7 @@ export default {
 	},
 	gdprBlockNotice: {
 		subject: 'Survey data collection suspended',
-		body: `<p><b>Dear {user}!</b></p><p>Please fill in the missing fields in your survey settings, otherwise the survey will not collect data from {blockFrom}. Affected surveys:</p>`,
+		body: `<p><b>Dear {user}!</b></p><p>Please provide the data controller's contact details and the purpose of collecting and processing personal data in your survey settings. Otherwise the survey will not collect data from {blockFrom}. Affected surveys:</p>`,
 	},
 	newProject: {
 		newSheetTitle: 'Survey objectives',

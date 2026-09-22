@@ -9,7 +9,7 @@ export default {
 	},
 	gdprBlockNotice: {
 		subject: 'Datenerhebung der Umfrage ausgesetzt',
-		body: `<p><b>Hallo, {user}!</b></p><p>Bitte fülle die fehlenden Felder in den Einstellungen deiner Umfrage aus, andernfalls wird die Umfrage ab {blockFrom} keine Daten mehr erfassen. Betroffene Umfragen:</p>`,
+		body: `<p><b>Hallo, {user}!</b></p><p>Bitte gib in den Einstellungen deiner Umfrage die Kontaktdaten des Verantwortlichen sowie den Zweck der Erhebung und Verarbeitung personenbezogener Daten an. Andernfalls wird die Umfrage ab {blockFrom} keine Daten mehr erfassen. Betroffene Umfragen:</p>`,
 	},
 	newProject: {
 		newSheetTitle: 'Umfrageziele',

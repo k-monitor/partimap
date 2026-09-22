@@ -9,7 +9,7 @@ export default {
 	},
 	gdprBlockNotice: {
 		subject: 'Colectarea datelor chestionarului suspendată',
-		body: `<p>Salutare, {user}!</p><p>Te rugăm să completezi câmpurile lipsă din setările chestionarului tău, altfel chestionarul nu va colecta date începând cu {blockFrom}. Chestionare afectate:</p>`,
+		body: `<p>Salutare, {user}!</p><p>Te rugăm să furnizezi datele de contact ale responsabilului cu prelucrarea datelor și scopul colectării și prelucrării datelor personale în setările chestionarului tău. În caz contrar, chestionarul nu va colecta date începând cu {blockFrom}. Chestionare afectate:</p>`,
 	},
 	newProject: {
 		newSheetTitle: 'Obiectivele chestionarului',

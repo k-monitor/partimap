@@ -9,7 +9,7 @@ export default {
 	},
 	gdprBlockNotice: {
 		subject: 'Recopilación de datos de encuesta suspendida',
-		body: `<p><b>Hola, {user}!</b></p><p>Por favor, rellena los campos que faltan en la configuración de tu encuesta; de lo contrario, la encuesta no recopilará datos a partir del {blockFrom}. Encuestas afectadas:</p>`,
+		body: `<p><b>Hola, {user}!</b></p><p>Por favor, indica los datos de contacto del responsable del tratamiento y el propósito de la recopilación y el tratamiento de datos personales en la configuración de tu encuesta. De lo contrario, la encuesta no recopilará datos a partir del {blockFrom}. Encuestas afectadas:</p>`,
 	},
 	newProject: {
 		newSheetTitle: 'Objetivos de la encuesta',
