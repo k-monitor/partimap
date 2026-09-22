@@ -143,6 +143,8 @@ export default {
 		projectDescription: 'Descripción meta (Vista previa del enlace de Facebook)',
 		projectTitle: 'Título de la encuesta',
 		purposeOfDataCollection: 'Finalidad del tratamiento de datos',
+		purposeOfDataCollectionDescription:
+			'Por favor, describe con qué finalidad recopilas y tratas los datos personales proporcionados durante la encuesta.',
 		save: 'Guardar',
 		sheetCreationFailed: 'Error al crear la hoja de trabajo',
 		sheetDeletionFailed: 'Error al eliminar la hoja de trabajo',
@@ -430,7 +432,7 @@ export default {
 	Map: {
 		changeBaseMap: 'Cambiar mapa base',
 		search: 'Buscar ubicación',
-			geolocationTracking: 'Seguir mi ubicación',
+		geolocationTracking: 'Seguir mi ubicación',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},
@@ -583,7 +585,8 @@ export default {
 		remove: 'Eliminar imagen',
 	},
 	legal: {
-		missingAlert: 'Por favor rellena los campos {0} y {1}, de lo contrario esta encuesta no recopilará datos a partir del {2}.',
+		missingAlert:
+			'Por favor rellena los campos {0} y {1}, de lo contrario esta encuesta no recopilará datos a partir del {2}.',
 		missingLabel: '¡Información faltante!',
 		changedTitle: 'Términos de Uso y Política de Privacidad',
 		changedNotice: 'Nuestra Política de Privacidad y los Términos de Uso han cambiado.',

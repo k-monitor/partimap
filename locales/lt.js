@@ -140,6 +140,8 @@ export default {
 		projectDescription: 'Meta aprašymas (Facebook nuorodos peržiūra)',
 		projectTitle: 'Apklausos pavadinimas',
 		purposeOfDataCollection: 'Duomenų rinkimo tikslas',
+		purposeOfDataCollectionDescription:
+			'Prašome aprašyti, kokiu tikslu renki ir tvarkai anketoje pateiktus asmens duomenis.',
 		save: 'Išsaugoti',
 		sheetCreationFailed: 'Sukurti darbalapio nepavyko',
 		sheetDeletionFailed: 'Ištrinti darbalapio nepavyko',
@@ -423,7 +425,7 @@ export default {
 	Map: {
 		changeBaseMap: 'Pakeisti pagrindo žemėlapį',
 		search: 'Ieškoti vietos',
-			geolocationTracking: 'Sekti savo buvimo vietą',
+		geolocationTracking: 'Sekti savo buvimo vietą',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},
@@ -574,7 +576,8 @@ export default {
 		remove: 'Pašalinti nuotrauką',
 	},
 	legal: {
-		missingAlert: 'Prašome užpildyti {0} ir {1} laukus, kitaip ši apklausa nerinks duomenų nuo {2}.',
+		missingAlert:
+			'Prašome užpildyti {0} ir {1} laukus, kitaip ši apklausa nerinks duomenų nuo {2}.',
 		missingLabel: 'Trūksta informacijos!',
 		changedTitle: 'Naudojimo ir privatumo taisyklės',
 		changedNotice: 'Mūsų privatumo politika ir naudojimosi sąlygos pasikeitė.',

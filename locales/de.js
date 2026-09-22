@@ -143,6 +143,8 @@ export default {
 		projectDescription: 'Meta-Beschreibung (Facebook-Link-Vorschau)',
 		projectTitle: 'Umfragetitel',
 		purposeOfDataCollection: 'Zweck der Datenerhebung',
+		purposeOfDataCollectionDescription:
+			'Bitte beschreibe, zu welchem Zweck du die im Rahmen der Umfrage angegebenen personenbezogenen Daten erhebst und verarbeitest.',
 		save: 'Speichern',
 		sheetCreationFailed: 'Erstellen des Arbeitsblatts fehlgeschlagen',
 		sheetDeletionFailed: 'Löschen des Arbeitsblatts fehlgeschlagen',
@@ -430,7 +432,7 @@ export default {
 	Map: {
 		changeBaseMap: 'Basiskarte wechseln',
 		search: 'Ort suchen',
-			geolocationTracking: 'Eigenen Standort verfolgen',
+		geolocationTracking: 'Eigenen Standort verfolgen',
 		initialCenter: '48.1036533,4.1777465', // Europa
 		initialZoom: '4',
 	},
@@ -581,7 +583,8 @@ export default {
 		remove: 'Bild entfernen',
 	},
 	legal: {
-		missingAlert: 'Bitte fülle die Felder {0} und {1} aus, andernfalls wird diese Umfrage ab {2} keine Daten mehr erfassen.',
+		missingAlert:
+			'Bitte fülle die Felder {0} und {1} aus, andernfalls wird diese Umfrage ab {2} keine Daten mehr erfassen.',
 		missingLabel: 'Fehlende Informationen!',
 		changedTitle: 'Nutzungsbedingungen und Datenschutzerklärung',
 		changedNotice: 'Unsere Datenschutzerklärung und Nutzungsbedingungen haben sich geändert.',

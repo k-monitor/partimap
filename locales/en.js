@@ -138,6 +138,8 @@ export default {
 		projectDescription: 'Meta description (Facebook Link Preview)',
 		projectTitle: 'Survey title',
 		purposeOfDataCollection: 'Purpose of data collection',
+		purposeOfDataCollectionDescription:
+			'Please describe the purpose for which you collect and process the personal data provided during the survey.',
 		save: 'Save',
 		sheetCreationFailed: 'Failed to create the sheet',
 		sheetDeletionFailed: 'Failed to delete the sheet',
@@ -419,7 +421,7 @@ export default {
 	Map: {
 		changeBaseMap: 'Change base map',
 		search: 'Search location',
-			geolocationTracking: 'Track my location',
+		geolocationTracking: 'Track my location',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},
@@ -570,7 +572,8 @@ export default {
 		remove: 'Remove image',
 	},
 	legal: {
-		missingAlert: 'Please fill {0} and {1} fields, otherwise this survey won\'t collect data starting from {2}.',
+		missingAlert:
+			"Please fill {0} and {1} fields, otherwise this survey won't collect data starting from {2}.",
 		missingLabel: 'Missing information!',
 		changedTitle: 'Terms of Use and Privacy Policy',
 		changedNotice: 'Our Privacy Policy and Terms of Use have changed.',

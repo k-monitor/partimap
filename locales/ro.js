@@ -140,6 +140,8 @@ export default {
 		projectDescription: 'Descriere Meta (Facebook Link Preview)',
 		projectTitle: 'Titlu chestionar',
 		purposeOfDataCollection: 'Scopul colectării datelor',
+		purposeOfDataCollectionDescription:
+			'Te rugăm să descrii în ce scop colectezi și prelucrezi datele cu caracter personal furnizate în cadrul chestionarului.',
 		save: 'Salvează',
 		sheetCreationFailed: 'Crearea paginii nu a reușit',
 		sheetDeletionFailed: 'Ștergerea paginii a eșuat',
@@ -422,7 +424,7 @@ export default {
 	Map: {
 		changeBaseMap: 'Schimbă harta de bază',
 		search: 'Caută locație',
-			geolocationTracking: 'Urmărește locația mea',
+		geolocationTracking: 'Urmărește locația mea',
 		initialCenter: '48.1036533,4.1777465', // Europe
 		initialZoom: '4',
 	},
@@ -574,10 +576,12 @@ export default {
 		remove: 'Eliminați imaginea',
 	},
 	legal: {
-		missingAlert: 'Vă rugăm să completați câmpurile {0} și {1}, altfel acest sondaj nu va colecta date începând cu {2}.',
+		missingAlert:
+			'Vă rugăm să completați câmpurile {0} și {1}, altfel acest sondaj nu va colecta date începând cu {2}.',
 		missingLabel: 'Informații lipsă!',
 		changedTitle: 'Condiții de Utilizare și Politica de Confidențialitate',
-		changedNotice: 'Politica noastră de Confidențialitate și Termenii de Utilizare s-au modificat.',
+		changedNotice:
+			'Politica noastră de Confidențialitate și Termenii de Utilizare s-au modificat.',
 		privacyPolicy: 'Politica de confidențialitate',
 		termsOfUse: 'Condiții de Utilizare',
 		consentTerms1: 'Am citit și accept',

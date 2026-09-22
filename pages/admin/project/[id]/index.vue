@@ -342,6 +342,7 @@ const { user } = useAuth();
 					<form-group
 						class="rich"
 						:label="t('projectEditor.purposeOfDataCollection')"
+						:description="t('projectEditor.purposeOfDataCollectionDescription')"
 						:invalid-feedback="t('projectEditor.privacyPolicyRequired')"
 					>
 						<tiptap

@@ -139,6 +139,8 @@ export default {
 		projectDescription: 'Meta leírás (Facebook előnézeti szöveg)',
 		projectTitle: 'Kérdőív címe',
 		purposeOfDataCollection: 'Adatkezelés célja',
+		purposeOfDataCollectionDescription:
+			'Kérjük, írd le, milyen célból gyűjtöd és kezeled a kérdőív során megadott személyes adatokat.',
 		save: 'Mentés',
 		sheetCreationFailed: 'Munkalap hozzáadása sikertelen',
 		sheetDeletionFailed: 'Munkalap törlése sikertelen',
@@ -573,7 +575,8 @@ export default {
 		remove: 'Kép törlése',
 	},
 	legal: {
-		missingAlert: 'Kérlek töltsd ki a(z) {0} és {1} mezőket, ellenkező esetben a kérdőív nem fog adatot gyűjteni {2} időponttól.',
+		missingAlert:
+			'Kérlek töltsd ki a(z) {0} és {1} mezőket, ellenkező esetben a kérdőív nem fog adatot gyűjteni {2} időponttól.',
 		missingLabel: 'Hiányzó információk!',
 		changedTitle: 'Felhasználási feltételek és adatvédelmi nyilatkozat',
 		changedNotice: 'Változtak az adatkezelési irányelveink és felhasználási feltételeink.',
