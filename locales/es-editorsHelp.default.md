@@ -245,7 +245,7 @@ Antes de empezar a compilar el cuestionario, debemos tener claro la decisión o 
 **¡Planifica a quién quieres llegar con tu cuestionario y cómo!**
 Un cuestionario sobre parques infantiles, por ejemplo, debería enviarse a un grupo de Facebook de madres locales, pero si quieres preguntar a jóvenes locales sobre un tema que les concierne, debes llegar a ellos a través de las plataformas o instituciones que utilizan a diario.
 
-Enfócate en los grupos sociales más difíciles de alcanzar. Los cuestionarios en línea tienden a llegar a encuestados jóvenes o de mediana edad con ingresos y educación más altos. Sin embargo, con un diseño adecuado y diferentes herramientas (incluso fuera de línea), podemos asegurarnos de que todos tengan la oportunidad de expresar sus opiniones. Coloca el cuestionario en papel en la biblioteca, coloca un código QR que apunte al cuestionario en espacios comunitarios, ¡anima a las organizaciones civiles a compartir el cuestionario con sus clientes y seguidores!
+Enfócate en los grupos sociales más difíciles de alcanzar. Los cuestionarios en línea tienden a llegar a encuestados jóvenes o de mediana edad con ingresos y educación más altos. Sin embargo, con un diseño adecuado y diferentes herramientas (incluso fuera de línea), podemos asegurarnos de que todos tengan la oportunidad de expresar sus opiniones. Coloca el cuestionario en papel en la biblioteca, coloca un código QR que apunte al cuestionario en espacios comunitarios, ¡anima a las ONG a compartir el cuestionario con sus clientes y seguidores!
 
 También vale la pena saber qué datos ya están disponibles sobre el tema que quieres mapear. ¡No hagas preguntas cuyas respuestas ya conocemos o que se pueden averiguar fácilmente sin preguntar!
 

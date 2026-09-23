@@ -284,7 +284,7 @@ Before we start to compile the questionnaire, we need to be clear about the deci
 
 A questionnaire about playgrounds, for example, should be sent to a Facebook group for local mums, but if you want to ask local young people about an issue that concerns them, you should reach them through platforms or institutions they use on a daily basis.
 
-Focus on the more hard-to-reach social groups. Online questionnaires tend to reach young or middle-aged respondents with higher incomes and education. However, with proper design and different (even offline) tools, we can ensure that everyone has the opportunity to express their views. Let's put the paper questionnaire in the library, put a QR code pointing to the questionnaire in community spaces, encourage civil society organisations to share the questionnaire with their clients and followers!
+Focus on the more hard-to-reach social groups. Online questionnaires tend to reach young or middle-aged respondents with higher incomes and education. However, with proper design and different (even offline) tools, we can ensure that everyone has the opportunity to express their views. Let's put the paper questionnaire in the library, put a QR code pointing to the questionnaire in community spaces, encourage NGOs to share the questionnaire with their clients and followers!
 
 It is also worth being aware of what data is already available on the topic you want to map. Don't ask questions that we already know the answer to or can easily find out without asking!
 

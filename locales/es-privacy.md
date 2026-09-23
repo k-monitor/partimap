@@ -209,7 +209,7 @@ En lo que respecta a la recopilación de datos realizada dentro de la plataforma
 
 La condición del creador del cuestionario como responsable independiente se extiende, en particular, a la determinación de la finalidad del tratamiento del cuestionario concreto, al contenido de las preguntas, al uso sustantivo de las respuestas y a los tratamientos posteriores realizados fuera de la plataforma PARTIMAP.
 
-**PARTIMAP o plataforma:** significa la plataforma disponible en https://www.partimap.eu/hu.
+$_PROJECT_DATA_PROCESSOR_$
 
 $_PROJECT_DATA_PURPOSE_$
 

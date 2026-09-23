@@ -211,7 +211,7 @@ Hinsichtlich der innerhalb der PARTIMAP-Plattform durchgeführten Datenerhebung,
 
 Die Stellung des Fragebogenerstellers als eigenständiger Verantwortlicher erstreckt sich insbesondere auf die Festlegung des konkreten Verarbeitungszwecks des jeweiligen Fragebogens, den Inhalt der Fragen, die inhaltliche Nutzung der Antworten sowie auf weitere Verarbeitungen außerhalb der PARTIMAP-Plattform.
 
-**PARTIMAP oder Plattform:** bezeichnet die unter https://www.partimap.eu/hu betriebene Plattform.
+$_PROJECT_DATA_PROCESSOR_$
 
 $_PROJECT_DATA_PURPOSE_$
 

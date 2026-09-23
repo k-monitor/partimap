@@ -211,7 +211,7 @@ In relation to data collection carried out within the PARTIMAP platform, the tec
 
 The questionnaire creator's status as an independent data controller applies in particular to determining the specific data processing purpose of the questionnaire, the content of the questions, the substantive use of responses, and any further processing carried out outside the PARTIMAP platform.
 
-**PARTIMAP or platform:** means the platform operated at https://www.partimap.eu/hu.
+$_PROJECT_DATA_PROCESSOR_$
 
 $_PROJECT_DATA_PURPOSE_$
 

@@ -201,7 +201,7 @@ Calitatea creatorului chestionarului de operator independent nu se extinde la op
 
 Calitatea creatorului chestionarului de operator independent se referă în special la stabilirea scopului prelucrării datelor în cadrul chestionarului concret, conținutul întrebărilor, utilizarea efectivă a răspunsurilor și prelucrările ulterioare efectuate în afara platformei PARTIMAP.
 
-**Date cu caracter personal:** orice informație referitoare la o persoană fizică identificată sau identificabilă. O persoană fizică identificabilă este, în special, o persoană care poate fi identificată, direct sau indirect, printr-un identificator, precum numele, numărul de identificare, datele de localizare, un identificator online sau unul ori mai multe elemente specifice identității sale fizice, fiziologice, genetice, mentale, economice, culturale sau sociale.
+$_PROJECT_DATA_PROCESSOR_$
 
 $_PROJECT_DATA_PURPOSE_$
 

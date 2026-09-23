@@ -82,41 +82,11 @@ Az egyes kérdőívek létrehozásával és az azok keretében megvalósuló kon
 
 K-Monitor Közhasznú Egyesület
 
-**Tájékoztató:** a jelen adatvédelmi tájékoztatót jelenti.
-**PARTIMAP** vagy **platform**: a [https://www.partimap.eu/hu](https://www.partimap.eu/hu) oldalon működő platformot jelenti.
-**személyes adat:** azonosított vagy azonosítható természetes személyre vonatkozó bármely információ. Azonosítható természetes személynek minősül különösen az a személy, aki közvetlen vagy közvetett módon valamely azonosító – így különösen név, azonosító szám, helymeghatározó adat, online azonosító vagy a természetes személy testi, fiziológiai, genetikai, szellemi, gazdasági, kulturális vagy szociális azonosságára vonatkozó egy vagy több tényező – alapján azonosítható.
-**különleges személyes adat:** a személyes adatok olyan különösen érzékeny kategóriája, amely faji vagy etnikai származásra, politikai véleményre, vallási vagy világnézeti meggyőződésre, szakszervezeti tagságra, genetikai adatokra, biometrikus adatokra, egészségügyi adatokra, illetve a természetes személy szexuális életére vagy szexuális irányultságára vonatkozik.
-**kiskorú:** tizennyolcadik életévét be nem töltött természetes személy. A személyes adatok kezelésével összefüggő egyes hozzájárulási kérdésekben a vonatkozó jogszabályok ettől eltérő életkori szabályokat is meghatározhatnak.
-**adatkezelés:** a személyes adatokon vagy adatállományokon automatizált vagy nem automatizált módon végzett bármely művelet vagy műveletek összessége, így különösen a gyűjtés, rögzítés, rendszerezés, tárolás, módosítás, lekérdezés, betekintés, felhasználás, továbbítás, összehangolás, korlátozás, törlés vagy megsemmisítés.
-**adatkezelő:** az a természetes vagy jogi személy, szervezet vagy egyéb szerv, amely a személyes adatok kezelésének céljait és eszközeit önállóan vagy másokkal együtt meghatározza.
-**adatfeldolgozó:** az a természetes vagy jogi személy, szervezet vagy egyéb szerv, amely az adatkezelő nevében személyes adatokat kezel.
-**címzett:** az a természetes vagy jogi személy, szervezet vagy egyéb szerv, akivel vagy amellyel a személyes adatot közlik, függetlenül attól, hogy harmadik félnek minősül-e.
-**hozzájárulás:** az érintett akaratának önkéntes, konkrét, megfelelő tájékoztatáson alapuló és egyértelmű kinyilvánítása, amellyel nyilatkozat vagy félreérthetetlen megerősítő cselekedet útján jelzi, hogy beleegyezését adja személyes adatainak kezeléséhez.
-**profilalkotás:** személyes adatok automatizált kezelésének bármely formája, amely során a személyes adatokat valamely természetes személyhez kapcsolódó személyes jellemzők értékelésére, elemzésére vagy előrejelzésére használják fel.
-**K-Monitor adatkezelő:** a platform technikai infrastruktúráját biztosító és a platform működési, compliance, kutatási, elemzési és intézményi adatkezelési kereteit meghatározó adatkezelő, amely az egyes adatkezelési műveletek jellegétől függően önállóan vagy más szereplőkkel együtt járhat el.
-**kérdőívkészítő:** a Felhasználási Szabályzat alapján a PARTIMAP platformon kérdőív létrehozására jogosultsággal rendelkező regisztrált felhasználó, aki a K-Monitor által meghatározott platformkereteken belül az adott kérdőív konkrét célját, adattartalmát és felhasználási paramétereit meghatározza, és az adott adatkezelési művelet jellegétől függően önálló vagy a K-Monitorral közösen gyakorolt adatkezelői felelősséggel járhat el.
-**közös adatkezelés:** olyan adatkezelési helyzet, amelyben a személyes adatok kezelésének céljait és eszközeit a K-Monitor és a Felhasználó adatkezelő közösen határozzák meg.
-**érintett:** azonosított vagy azonosítható természetes személy, akire a kezelt személyes adatok vonatkoznak.
-**regisztrált felhasználó:** az a természetes személy, aki a platformon saját nevében vagy valamely szervezet képviseletében felhasználói fiókot hoz létre és a platform szolgáltatásait használja, így különösen a kérdőívkészítő és a kérdőívet kitöltő szerv vagy személy
-**kérdőív kitöltő érintett:** az a természetes személy, aki valamely kérdőívet kitölt, és akinek személyes adatait a kérdőívhez kapcsolódó adatkezelés során kezelik
-**felhasználói fiók:** a PARTIMAP használatához létrehozott egyedi hozzáférési jogosultság, amely a regisztrált felhasználó azonosítását, jogosultságainak kezelését és a platform funkcióinak igénybevételét teszi lehetővé.
-**fiókadatok:** a felhasználói fiók létrehozásához, fenntartásához és kezeléséhez szükséges személyes adatok, így különösen az azonosítási, kapcsolattartási, belépési és jogosultságkezelési adatok.
-**kérdőív:** a PARTIMAP platformon létrehozott adatgyűjtési egység, amely meghatározott célból személyes adatok vagy egyéb információk gyűjtésére szolgál.
-**válaszadatok:** a kérdőív kitöltő érintett által a kérdőív kitöltése során megadott adatok, válaszok, szabad szöveges tartalmak, feltöltött információk, valamint az ezekhez kapcsolódó technikai vagy metaadatok összessége.
-**platformadatok:** a platform használatához, regisztrációhoz, jogosultságkezeléshez, biztonsági működtetéshez, ügyfélszolgálathoz, compliance feladatok ellátásához és rendszerüzemeltetéshez kapcsolódó személyes adatok.
-**metaadat:** a PARTIMAP használata vagy a kérdőív kitöltése során keletkező, az elsődleges tartalmi adatokhoz kapcsolódó technikai vagy kísérő információ, így különösen időbélyeg, eszközadat, naplóadat, IP-cím vagy egyéb rendszerinformáció.
-**naplóadat:** a PARTIMAP működésével, használatával, hozzáférésekkel, technikai eseményekkel vagy biztonsági incidensekkel összefüggésben automatikusan rögzített technikai adat.
-**tartalom:** a kérdőívkészítő vagy a kérdőív kitöltő érintett által a platformon létrehozott, megadott, feltöltött vagy közzétett adat, információ, szöveges válasz, dokumentum vagy egyéb digitális tartalom.
-**kutatási és elemzési célú felhasználás:** a K-Monitor által a platformon keletkezett adatok felhasználásával végzett kutatási, elemzési, statisztikai vagy egyéb intézményi célú adatkezelés.
-**felhasználási szabályzat:** a platform használatának kötelező szabályrendszere, amely meghatározza a platform használatának feltételeit, a megengedett és tiltott adatkezelési kereteket, valamint a szabályszegés esetén alkalmazható intézkedéseket.
-**compliance intézkedés:** a K-Monitor által a felhasználási szabályzat megsértése esetén alkalmazható intézkedés, ideértve különösen a kérdőív felfüggesztését, korlátozását, törlését vagy a kérdőívkészítői vagy kitöltői hozzáférés megszüntetését.
-**tiltott adatkezelési cél:** a felhasználási szabályzat vagy jogszabály által kizárt olyan adatkezelési cél, amelyre a platform nem használható.
-**hatósági megkeresés:** bíróság, hatóság vagy egyéb jogszabály alapján eljáró szerv által a személyes adatok kiadására, megőrzésére vagy kezelésére vonatkozó, jogszabályon alapuló megkeresés vagy kötelezés.
-**incidens:** a személyes adatok biztonságát, integritását, rendelkezésre állását vagy jogszerű kezelését érintő olyan esemény, amely a platform működésével vagy használatával összefüggésben következik be.
+Székhely: 1077 Budapest, Rózsa u. 8.
 
 Levelezési cím érintetti jogérvényesítéshez: 1077 Budapest, Jósika utca 25.
 
-A platform működtetése során a személyes adatok kezelésében több szereplő is részt vesz, és az adatkezelői felelősség az egyes adatkezelési műveletek tartalmától, céljától és tényleges kereteitől függően alakul. A platform technikai infrastruktúráját és működési kereteit a K-Monitor határozza meg és biztosítja, ezért a K-Monitor adatkezelőként jár el mindazon adatkezelési műveletek tekintetében, amelyek a platform üzemeltetéséhez, a felhasználói regisztrációhoz, a platform biztonságos működtetéséhez, az ügyfélszolgálati és compliance feladatok ellátásához, valamint a platformon keresztül kezelt adatoknak a K-Monitor saját kutatási, elemzési és intézményi célú felhasználásához kapcsolódnak.
+Tel.: +36 1 789 5005
 
 E-mail érintetti jogérvényesítéshez: [info@k-monitor.hu](mailto:info@k-monitor.hu)
 
@@ -177,7 +147,7 @@ A felhasználó böngészőjében a sütik kezelésére, törlésére vagy blokk
 
 A PARTIMAP lehetőséget biztosít arra, hogy a Kérdőívkészítő saját célból kérdőívet hozzon létre, személyes adatokat gyűjtsön, valamint a beérkezett válaszokat saját döntése alapján felhasználja. A kérdőív tartalmának, az adatgyűjtés céljának, a feltett kérdések körének, az érintettek körének, a begyűjtött adatok további felhasználásának, rendszerezésének, szűrésének, összesítésének, elemzésének, exportálásának, közzétételének, továbbításának vagy más módon történő felhasználásának meghatározása körében – a jelen Tájékoztatóban és a PARTIMAP Felhasználási Szabályzatában meghatározott keretek között – a Kérdőívkészítő önálló adatkezelőnek minősül. A Kérdőívkészítő önálló adatkezelői minősége nem terjed ki azon adatkezelési műveletekre, amelyek tekintetében a Kérdőívkészítő és a K-Monitor a jelen Tájékoztató 4. pontja szerint közösen határozzák meg az adatkezelés céljait és alapvető eszközeit. A PARTIMAP platformon belül végzett adatgyűjtés, a válaszok platformon belüli technikai kezelése, a hozzájárulás kezelése, az érintetti jogok gyakorlásával összefüggő technikai intézkedések, valamint a platformon belüli törlési és hozzáférési műveletek tekintetében a Kérdőívkészítő a K-Monitorral közös adatkezelőként jár el. A Kérdőívkészítő önálló adatkezelői minősége különösen a konkrét kérdőív adatkezelési céljának meghatározására, a kérdések tartalmára, a válaszok érdemi felhasználására, valamint a PARTIMAP platformon kívül végzett további adatkezelésekre terjed ki.
 
-### 2.2. A kezelt adatok köre, az adatkezelés célja és jogalapja
+$_PROJECT_DATA_PROCESSOR_$
 
 $_PROJECT_DATA_PURPOSE_$
 
