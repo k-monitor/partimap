@@ -140,11 +140,11 @@ function pinStyle(_f: OlFeature) {
 
 		<!-- Zoom controls, outside the circle -->
 		<button class="hm-btn hm-btn-in" :aria-label="t('landing.hero.btnZoomIn')" @click.stop="zoomIn">
-			<span class="hm-btn-glyph">+</span>
+			<span class="hm-btn-glyph"><i class="fas fa-plus" /></span>
 			<span class="hm-btn-label">{{ t('landing.hero.btnZoomIn') }}</span>
 		</button>
 		<button class="hm-btn hm-btn-out" :aria-label="t('landing.hero.btnZoomOut')" @click.stop="zoomOut">
-			<span class="hm-btn-glyph">−</span>
+			<span class="hm-btn-glyph"><i class="fas fa-minus" /></span>
 			<span class="hm-btn-label">{{ t('landing.hero.btnZoomOut') }}</span>
 		</button>
 
@@ -158,7 +158,7 @@ function pinStyle(_f: OlFeature) {
 
 		<!-- Select location button -->
 		<button class="hm-btn hm-btn-select" :aria-label="t('landing.hero.btnPin')" @click.stop="selectLocation">
-			<span class="hm-btn-glyph">→</span>
+			<span class="hm-btn-glyph"><i class="fas fa-arrow-right" /></span>
 			<span class="hm-btn-label">{{ t('landing.hero.btnPin') }}</span>
 		</button>
 	</div>
@@ -300,7 +300,7 @@ function pinStyle(_f: OlFeature) {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	font-size: 1.2rem;
+	font-size: 0.9rem;
 	font-weight: 400;
 	line-height: 1;
 	z-index: 2;
@@ -315,9 +315,11 @@ function pinStyle(_f: OlFeature) {
 	color: #fff;
 }
 
-/* Glyph keeps the +/−/→ centered in the round button */
+/* Glyph keeps the icon centered in the round button */
 .hm-btn-glyph {
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	line-height: 1;
 }
 
@@ -385,7 +387,6 @@ function pinStyle(_f: OlFeature) {
 .hm-btn-locate {
 	left: 2%;
 	bottom: 0px;
-	font-size: 0.9rem;
 }
 
 /* → select location button: below container, left corner */
