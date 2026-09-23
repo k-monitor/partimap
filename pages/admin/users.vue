@@ -13,23 +13,21 @@ useHead({
 	title: `Admin: ${t('users.title')}`,
 });
 
-const { data: users } = await useFetch<User[]>('/api/user/all');
-
 const filter = ref('');
-const filteredUsers = computed(() => {
-	if (!users.value) return [];
-	const term = filter.value || '';
+const page = ref(1);
 
-	const usersByEmailPart = users.value.filter((u) =>
-		u.email.toLowerCase().includes(term.toLowerCase()),
-	);
+const { data } = await useFetch<{ users: User[]; total: number; pageSize: number }>(
+	'/api/user/all',
+	{ query: { filter, page } },
+);
 
-	const id = parseInt(term, 10);
-	if (id) {
-		const userById = users.value.find((u) => u.id === id);
-		if (userById) return [userById, ...usersByEmailPart.filter((u) => u.id !== id)];
-	}
-	return usersByEmailPart;
+const users = computed(() => data.value?.users ?? []);
+const total = computed(() => data.value?.total ?? 0);
+const pageSize = computed(() => data.value?.pageSize ?? 1);
+const pageCount = computed(() => Math.ceil(total.value / pageSize.value));
+
+watch(filter, () => {
+	page.value = 1;
 });
 
 const newUserEmail = ref('');
@@ -54,7 +52,7 @@ async function add() {
 <template>
 	<AdminFrame>
 		<template #header>
-			{{ $t('users.title') }}
+			{{ t('users.title') }}
 		</template>
 
 		<div class="row">
@@ -64,7 +62,7 @@ async function add() {
 						<input
 							v-model="newUserEmail"
 							class="form-control"
-							:placeholder="$t('users.newUsersEmail')"
+							:placeholder="t('users.newUsersEmail')"
 							required
 							type="email"
 						/>
@@ -72,7 +70,7 @@ async function add() {
 							class="btn btn-success"
 							type="submit"
 						>
-							{{ $t('users.add') }}
+							{{ t('users.add') }}
 						</button>
 					</div>
 				</form>
@@ -82,7 +80,7 @@ async function add() {
 					<input
 						v-model="filter"
 						class="form-control"
-						:placeholder="$t('users.filter')"
+						:placeholder="t('users.filter')"
 						type="text"
 					/>
 				</div>
@@ -90,7 +88,7 @@ async function add() {
 		</div>
 		<div class="list-group">
 			<NuxtLink
-				v-for="u in filteredUsers"
+				v-for="u in users"
 				:key="u.id"
 				:to="localePath('/admin/user/' + u.id)"
 				class="align-items-center list-group-item list-group-item-action"
@@ -101,26 +99,68 @@ async function add() {
 					v-if="u.isAdmin"
 					class="badge text-bg-danger ms-2"
 				>
-					{{ $t('users.admin') }}
+					{{ t('users.admin') }}
 				</span>
 				<span
 					v-if="!u.active"
 					class="badge text-bg-warning ms-2"
 				>
-					{{ $t('users.inactive') }}
+					{{ t('users.inactive') }}
 				</span>
 				<br />
 
 				<small class="text-muted">
-					{{ $t('users.registered') }}:
+					{{ t('users.registered') }}:
 					{{ new Date(u.registered).toLocaleString() }}
 				</small>
 				<br />
 				<small class="text-muted">
-					{{ $t('users.lastLogin') }}:
+					{{ t('users.lastLogin') }}:
 					{{ u.lastLogin ? new Date(u.lastLogin).toLocaleString() : '?' }}
 				</small>
 			</NuxtLink>
 		</div>
+		<nav
+			v-if="pageCount > 1"
+			class="mt-3"
+		>
+			<ul class="pagination justify-content-center">
+				<li
+					class="page-item"
+					:class="{ disabled: page <= 1 }"
+				>
+					<button
+						class="page-link"
+						@click="page--"
+					>
+						&laquo;
+					</button>
+				</li>
+				<li
+					v-for="p in pageCount"
+					:key="p"
+					class="page-item"
+					:class="{ active: p === page }"
+				>
+					<button
+						class="page-link"
+						@click="page = p"
+					>
+						{{ p }}
+					</button>
+				</li>
+				<li
+					class="page-item"
+					:class="{ disabled: page >= pageCount }"
+				>
+					<button
+						class="page-link"
+						@click="page++"
+					>
+						&raquo;
+					</button>
+				</li>
+			</ul>
+		</nav>
 	</AdminFrame>
 </template>
