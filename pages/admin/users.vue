@@ -20,12 +20,16 @@ const filteredUsers = computed(() => {
 	if (!users.value) return [];
 	const term = filter.value || '';
 
-	let userById = null;
-	const id = parseInt(term, 10);
-	if (id) userById = users.value.find((u) => u.id === id);
-	if (userById) return [userById];
+	const usersByEmailPart = users.value.filter((u) =>
+		u.email.toLowerCase().includes(term.toLowerCase()),
+	);
 
-	return users.value.filter((u) => u.email.toLowerCase().includes(term.toLowerCase()));
+	const id = parseInt(term, 10);
+	if (id) {
+		const userById = users.value.find((u) => u.id === id);
+		if (userById) return [userById, ...usersByEmailPart.filter((u) => u.id !== id)];
+	}
+	return usersByEmailPart;
 });
 
 const newUserEmail = ref('');
