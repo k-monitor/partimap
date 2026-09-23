@@ -218,7 +218,7 @@ export default {
 			readMore: 'OLVASS TOVÁBB!',
 		},
 		partners: {
-			title: 'Partnereink',
+			title: 'Ők is a PARTIMAP-ot választották',
 			desc: 'A PARTIMAP-ot már számos hazai és nemzetközi szervezet sikerrel alkalmazta: helyi közösségi szereplők, önkormányzatok és civil szervezetek mellett vállalkozások és cégek is használják döntéstámogatásra, kutatásra és stratégiai tervezésre.',
 		},
 		funding: {
