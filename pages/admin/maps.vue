@@ -87,7 +87,7 @@ async function del(map: Map) {
 		</template>
 
 		<div class="row">
-			<div class="col-12 col-md-7">
+			<div class="col-12 col-md-6">
 				<form @submit.prevent="add">
 					<div class="input-group mb-3">
 						<input
@@ -118,15 +118,15 @@ async function del(map: Map) {
 			</div>
 			<div
 				v-if="user?.isAdmin"
-				class="col"
+				class="col d-flex align-items-center mb-3"
 			>
-				<input
-					class="btn btn-outline-primary form-control"
-					:class="{ active: filterOwn }"
-					type="button"
-					:value="t('maps.ownMaps')"
-					@click="filterOwn = !filterOwn"
-				/>
+				<BFormCheckbox
+					v-model="filterOwn"
+					class="text-nowrap"
+					switch
+				>
+					{{ t('maps.ownMaps') }}
+				</BFormCheckbox>
 			</div>
 		</div>
 		<div class="list-group">
