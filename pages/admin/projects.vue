@@ -244,15 +244,15 @@ function uploadDefinition() {
 			</div>
 			<div
 				v-if="user?.isAdmin"
-				class="col-6 col-lg-3"
+				class="col-6 col-lg-3 d-flex align-items-center mb-3"
 			>
-				<input
-					class="btn btn-outline-primary form-control mb-3"
-					:class="{ active: filterOwn }"
-					type="button"
-					:value="t('projects.ownProjects')"
-					@click="filterOwn = !filterOwn"
-				/>
+				<BFormCheckbox
+					v-model="filterOwn"
+					class="text-nowrap"
+					switch
+				>
+					{{ t('projects.ownProjects') }}
+				</BFormCheckbox>
 			</div>
 		</div>
 		<div class="list-group">
