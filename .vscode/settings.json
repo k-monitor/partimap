@@ -4,7 +4,6 @@
 	},
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnPaste": true,
-	"editor.formatOnSave": false,
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"vue3snippets.enable-compile-vue-file-on-did-save-code": false
+	"editor.formatOnSave": true,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
