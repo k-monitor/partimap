@@ -11,6 +11,7 @@ useHead({
 const { user } = useAuth();
 
 const filter = ref('');
+const debouncedFilter = refDebounced(filter, 150);
 const page = ref(1);
 const filterOwn = ref(true);
 const loading = ref(false);
@@ -21,7 +22,7 @@ const {
 	pending: listPending,
 	refresh,
 } = await useFetch<{ maps: Map[]; total: number; pageSize: number }>('/api/map/all', {
-	query: { filter, page, filterOwn },
+	query: { filter: debouncedFilter, page, filterOwn },
 });
 
 const maps = computed(() => data.value?.maps ?? []);
@@ -29,7 +30,7 @@ const total = computed(() => data.value?.total ?? 0);
 const pageSize = computed(() => data.value?.pageSize ?? 1);
 const pageCount = computed(() => Math.ceil(total.value / pageSize.value));
 
-watch([filter, filterOwn], () => {
+watch([debouncedFilter, filterOwn], () => {
 	page.value = 1;
 });
 

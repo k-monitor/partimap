@@ -20,22 +20,26 @@ useHead({
 const { loading, loadingText } = useStore();
 
 const filter = ref('');
+const debouncedFilter = refDebounced(filter, 150);
 const page = ref(1);
 const filterOwn = ref(true);
 const langFilter = ref(locale.value);
 watch(locale, (l) => (langFilter.value = l));
 
-const { data, pending: listPending, refresh } = await useFetch<{ projects: Project[]; total: number; pageSize: number }>(
-	'/api/project/all',
-	{ query: { filter, page, filterOwn, lang: langFilter } },
-);
+const {
+	data,
+	pending: listPending,
+	refresh,
+} = await useFetch<{ projects: Project[]; total: number; pageSize: number }>('/api/project/all', {
+	query: { filter: debouncedFilter, page, filterOwn, lang: langFilter },
+});
 
 const filteredProjects = computed(() => data.value?.projects ?? []);
 const total = computed(() => data.value?.total ?? 0);
 const pageSize = computed(() => data.value?.pageSize ?? 1);
 const pageCount = computed(() => Math.ceil(total.value / pageSize.value));
 
-watch([filter, filterOwn, langFilter], () => {
+watch([debouncedFilter, filterOwn, langFilter], () => {
 	page.value = 1;
 });
 

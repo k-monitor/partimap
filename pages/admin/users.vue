@@ -14,20 +14,21 @@ useHead({
 });
 
 const filter = ref('');
+const debouncedFilter = refDebounced(filter, 150);
 const page = ref(1);
 
 const { data, pending: listPending } = await useFetch<{
 	users: User[];
 	total: number;
 	pageSize: number;
-}>('/api/user/all', { query: { filter, page } });
+}>('/api/user/all', { query: { filter: debouncedFilter, page } });
 
 const users = computed(() => data.value?.users ?? []);
 const total = computed(() => data.value?.total ?? 0);
 const pageSize = computed(() => data.value?.pageSize ?? 1);
 const pageCount = computed(() => Math.ceil(total.value / pageSize.value));
 
-watch(filter, () => {
+watch(debouncedFilter, () => {
 	page.value = 1;
 });
 
