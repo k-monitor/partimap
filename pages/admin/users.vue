@@ -16,10 +16,11 @@ useHead({
 const filter = ref('');
 const page = ref(1);
 
-const { data } = await useFetch<{ users: User[]; total: number; pageSize: number }>(
-	'/api/user/all',
-	{ query: { filter, page } },
-);
+const { data, pending: listPending } = await useFetch<{
+	users: User[];
+	total: number;
+	pageSize: number;
+}>('/api/user/all', { query: { filter, page } });
 
 const users = computed(() => data.value?.users ?? []);
 const total = computed(() => data.value?.total ?? 0);
@@ -162,5 +163,6 @@ async function add() {
 				</li>
 			</ul>
 		</nav>
+		<LoadingOverlay :show="listPending" />
 	</AdminFrame>
 </template>

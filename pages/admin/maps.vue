@@ -16,10 +16,13 @@ const filterOwn = ref(true);
 const loading = ref(false);
 const newMapTitle = ref(null);
 
-const { data, refresh } = await useFetch<{ maps: Map[]; total: number; pageSize: number }>(
-	'/api/map/all',
-	{ query: { filter, page, filterOwn } },
-);
+const {
+	data,
+	pending: listPending,
+	refresh,
+} = await useFetch<{ maps: Map[]; total: number; pageSize: number }>('/api/map/all', {
+	query: { filter, page, filterOwn },
+});
 
 const maps = computed(() => data.value?.maps ?? []);
 const total = computed(() => data.value?.total ?? 0);
@@ -182,6 +185,6 @@ async function del(map: Map) {
 				</li>
 			</ul>
 		</nav>
-		<LoadingOverlay :show="loading" />
+		<LoadingOverlay :show="loading || listPending" />
 	</AdminFrame>
 </template>
