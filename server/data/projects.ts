@@ -142,6 +142,65 @@ export function findBySlug(slug: string) {
 	return db.findBy('project', 'slug', slug, createProject) as Promise<Project>;
 }
 
+export async function findFiltered(
+	filter: string,
+	userId: number | undefined,
+	lang: string | undefined,
+	page: number,
+	pageSize: number,
+): Promise<Project[]> {
+	const offset = (page - 1) * pageSize;
+	const like = `%${filter}%`;
+	const id = parseInt(filter, 10) || 0;
+	const langClause = lang ? 'AND p.lang = ?' : '';
+	const userClause = userId !== undefined ? 'AND p.userId = ?' : '';
+	const args: (string | number)[] = [
+		like,
+		like,
+		id,
+		...(lang ? [lang] : []),
+		...(userId !== undefined ? [userId] : []),
+		id,
+	];
+	const rows = await db.query(
+		`SELECT p.*, COUNT(s.id) submissions
+		FROM project p
+		LEFT JOIN submission s ON s.projectId = p.id
+		WHERE (p.title LIKE ? OR p.description LIKE ? OR p.id = ?)
+		${langClause} ${userClause}
+		GROUP BY p.id
+		ORDER BY (p.id = ?) DESC, p.id DESC
+		LIMIT ${pageSize} OFFSET ${offset}`,
+		args,
+	);
+	return rows.map((r) => createProject(r));
+}
+
+export async function countFiltered(
+	filter: string,
+	userId: number | undefined,
+	lang: string | undefined,
+): Promise<number> {
+	const like = `%${filter}%`;
+	const id = parseInt(filter, 10) || 0;
+	const langClause = lang ? 'AND lang = ?' : '';
+	const userClause = userId !== undefined ? 'AND userId = ?' : '';
+	const args: (string | number)[] = [
+		like,
+		like,
+		id,
+		...(lang ? [lang] : []),
+		...(userId !== undefined ? [userId] : []),
+	];
+	const rows = await db.query(
+		`SELECT COUNT(*) AS cnt FROM project
+		WHERE (title LIKE ? OR description LIKE ? OR id = ?)
+		${langClause} ${userClause}`,
+		args,
+	);
+	return (rows[0] as any).cnt as number;
+}
+
 export function incrementViewsById(id: number) {
 	return db.query('UPDATE project SET views = views + 1 WHERE id = ?', [id]);
 }
