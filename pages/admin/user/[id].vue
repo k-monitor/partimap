@@ -96,10 +96,10 @@ const delModal = ref(false);
 const delConfirm = ref(false);
 const delPassword = ref('');
 const delPasswordInput = ref<HTMLInputElement>();
-const loading = ref(false);
+const delLoading = ref(false);
 async function deleteAccount(e: any) {
 	e.preventDefault(); // do not close modal automatically, user must wait
-	loading.value = true;
+	delLoading.value = true;
 	try {
 		await $fetch('/api/user/delete', {
 			method: 'POST',
@@ -118,7 +118,7 @@ async function deleteAccount(e: any) {
 	} finally {
 		delConfirm.value = false;
 		delPassword.value = '';
-		loading.value = false;
+		delLoading.value = false;
 		delModal.value = false;
 	}
 }
@@ -126,257 +126,271 @@ async function deleteAccount(e: any) {
 
 <template>
 	<!-- eslint-disable vue/no-v-html -->
-	<AdminFrame>
-		<template #header>
-			<span v-if="user?.isAdmin">
-				<NuxtLink :to="localePath('/admin/users')">{{ t('userEditor.back') }}</NuxtLink>
-				<span class="ms-2 text-muted">&raquo;</span>
-			</span>
-			{{ u?.email }}
-		</template>
+	<div>
+		<AdminFrame>
+			<template #header>
+				<span v-if="user?.isAdmin">
+					<NuxtLink :to="localePath('/admin/users')">{{ t('userEditor.back') }}</NuxtLink>
+					<span class="ms-2 text-muted">&raquo;</span>
+				</span>
+				{{ u?.email }}
+			</template>
 
-		<form
-			id="userForm"
-			@submit.prevent="update"
-		>
-			<section class="mb-5">
-				<form-group label="Email">
-					<input
-						v-model="m.email"
-						class="form-control"
-						required
-						type="email"
-					/>
-				</form-group>
-				<form-group :label="t('userEditor.newPassword')">
-					<input
-						v-model="m.newPassword"
-						class="form-control"
-						type="password"
-					/>
-				</form-group>
-				<form-group
-					v-if="!user?.isAdmin"
-					:label="t('userEditor.oldPassword')"
-				>
-					<input
-						v-model="m.oldPassword"
-						class="form-control"
-						:required="!!m.newPassword || m.email !== u?.email"
-						type="password"
-					/>
-				</form-group>
-			</section>
-
-			<section
-				v-if="pd"
-				class="mb-5"
+			<form
+				id="userForm"
+				@submit.prevent="update"
 			>
-				<form-group :label="t('user.fullName')">
-					<input
-						v-model="m.fullName"
-						class="form-control"
-						required
-					/>
-				</form-group>
-				<form-group :label="t('user.address')">
-					<input
-						v-model="m.address"
-						class="form-control"
-						required
-					/>
-				</form-group>
-				<form-group :label="t('user.birthPlace')">
-					<input
-						v-model="m.birthPlace"
-						class="form-control"
-						required
-					/>
-				</form-group>
-				<form-group :label="t('user.birthDate')">
-					<input
-						v-model="m.birthDate"
-						class="form-control"
-						required
-						type="date"
-					/>
-				</form-group>
-			</section>
-
-			<section class="mb-5">
-				<b-form-group
-					:invalid-feedback="t('imageUpload.maxFileSize')"
-					:label="t('userEditor.logo')"
-					:description="t('userEditor.logoDescription')"
-					:state="imageState"
-				>
-					<b-input-group v-if="!m.logo">
-						<ImageFileInput
-							v-model="image"
-							:state="imageState"
+				<section class="mb-5">
+					<form-group label="Email">
+						<input
+							v-model="m.email"
+							class="form-control"
+							required
+							type="email"
 						/>
-						<template #append>
-							<b-button
-								:disabled="!image"
-								variant="outline-danger"
-								@click="removeImage"
-							>
-								<i class="fas fa-backspace" />
-							</b-button>
-						</template>
-					</b-input-group>
-					<div v-else>
-						<figure class="figure">
-							<img
-								:src="m.logo"
-								:alt="t('userEditor.altLogo')"
-								class="figure-img rounded"
-								height="30"
-							/>
-							<figcaption class="figure-caption">
-								<a
-									class="text-danger"
-									href="javascript:void(0)"
-									@click="removeImage"
-									>{{ t('imageUpload.remove') }}</a
-								>
-							</figcaption>
-						</figure>
-					</div>
-				</b-form-group>
-				<form-group
-					:label="t('userEditor.color')"
-					:description="t('userEditor.colorDescription')"
+					</form-group>
+					<form-group :label="t('userEditor.newPassword')">
+						<input
+							v-model="m.newPassword"
+							class="form-control"
+							type="password"
+						/>
+					</form-group>
+					<form-group
+						v-if="!user?.isAdmin"
+						:label="t('userEditor.oldPassword')"
+					>
+						<input
+							v-model="m.oldPassword"
+							class="form-control"
+							:required="!!m.newPassword || m.email !== u?.email"
+							type="password"
+						/>
+					</form-group>
+				</section>
+
+				<section
+					v-if="pd"
+					class="mb-5"
 				>
-					<div v-if="!m.color">
-						<button
-							class="btn btn-outline-primary"
-							type="button"
-							@click="m.color = '#000000'"
-						>
-							{{ t('userEditor.colorAdd') }}
-						</button>
-					</div>
-					<div v-else>
-						<div class="d-flex align-items-center">
-							<input
-								v-model="m.color"
-								class="form-control"
-								style="height: 2.5rem; width: 100px; min-width: 100px"
-								type="color"
+					<form-group :label="t('user.fullName')">
+						<input
+							v-model="m.fullName"
+							class="form-control"
+							required
+						/>
+					</form-group>
+					<form-group :label="t('user.address')">
+						<input
+							v-model="m.address"
+							class="form-control"
+							required
+						/>
+					</form-group>
+					<form-group :label="t('user.birthPlace')">
+						<input
+							v-model="m.birthPlace"
+							class="form-control"
+							required
+						/>
+					</form-group>
+					<form-group :label="t('user.birthDate')">
+						<input
+							v-model="m.birthDate"
+							class="form-control"
+							required
+							type="date"
+						/>
+					</form-group>
+				</section>
+
+				<section class="mb-5">
+					<b-form-group
+						:invalid-feedback="t('imageUpload.maxFileSize')"
+						:label="t('userEditor.logo')"
+						:description="t('userEditor.logoDescription')"
+						:state="imageState"
+					>
+						<b-input-group v-if="!m.logo">
+							<ImageFileInput
+								v-model="image"
+								:state="imageState"
 							/>
-							<span
-								v-if="isTooBright"
-								class="fw-bold text-danger ms-3"
-								>{{ t('userEditor.colorTooBright') }}</span
+							<template #append>
+								<b-button
+									:disabled="!image"
+									variant="outline-danger"
+									@click="removeImage"
+								>
+									<i class="fas fa-backspace" />
+								</b-button>
+							</template>
+						</b-input-group>
+						<div v-else>
+							<figure class="figure">
+								<img
+									:src="m.logo"
+									:alt="t('userEditor.altLogo')"
+									class="figure-img rounded"
+									height="30"
+								/>
+								<figcaption class="figure-caption">
+									<a
+										class="text-danger"
+										href="javascript:void(0)"
+										@click="removeImage"
+										>{{ t('imageUpload.remove') }}</a
+									>
+								</figcaption>
+							</figure>
+						</div>
+					</b-form-group>
+					<form-group
+						:label="t('userEditor.color')"
+						:description="t('userEditor.colorDescription')"
+					>
+						<div v-if="!m.color">
+							<button
+								class="btn btn-outline-primary"
+								type="button"
+								@click="m.color = '#000000'"
+							>
+								{{ t('userEditor.colorAdd') }}
+							</button>
+						</div>
+						<div v-else>
+							<div class="d-flex align-items-center">
+								<input
+									v-model="m.color"
+									class="form-control"
+									style="height: 2.5rem; width: 100px; min-width: 100px"
+									type="color"
+								/>
+								<span
+									v-if="isTooBright"
+									class="fw-bold text-danger ms-3"
+									>{{ t('userEditor.colorTooBright') }}</span
+								>
+							</div>
+							<a
+								class="small text-danger"
+								href="javascript:void(0)"
+								@click="m.color = null"
+								>{{ t('userEditor.colorDel') }}</a
 							>
 						</div>
-						<a
-							class="small text-danger"
-							href="javascript:void(0)"
-							@click="m.color = null"
-							>{{ t('userEditor.colorDel') }}</a
+					</form-group>
+					<form-group
+						:label="t('userEditor.website')"
+						:description="t('userEditor.websiteDescription')"
+					>
+						<input
+							v-model="m.website"
+							class="form-control"
+						/>
+					</form-group>
+				</section>
+
+				<section v-if="user?.isAdmin">
+					<form-group>
+						<b-form-checkbox
+							v-model="m.active"
+							class="text-danger"
+							:disabled="m.id === user?.id"
+							:value="1"
+							:unchecked-value="0"
 						>
-					</div>
-				</form-group>
-				<form-group
-					:label="t('userEditor.website')"
-					:description="t('userEditor.websiteDescription')"
-				>
+							{{ t('userEditor.activated') }}
+						</b-form-checkbox>
+					</form-group>
+					<form-group>
+						<b-form-checkbox
+							v-model="m.isAdmin"
+							class="text-danger"
+							:disabled="m.id === user?.id"
+							:value="1"
+							:unchecked-value="0"
+						>
+							{{ t('userEditor.administrator') }}
+						</b-form-checkbox>
+					</form-group>
+				</section>
+			</form>
+
+			<template #footer>
+				<div class="d-flex justify-content-between">
+					<button
+						class="btn btn-outline-danger"
+						type="button"
+						@click="delModal = true"
+					>
+						{{ t('userEditor.deleteUser') }}
+					</button>
+					<button
+						class="btn btn-primary"
+						form="userForm"
+						type="submit"
+					>
+						{{ t('userEditor.save') }}
+					</button>
+				</div>
+			</template>
+
+			<b-modal
+				v-model="delModal"
+				:busy="delLoading"
+				:cancel-title="t('modals.cancel')"
+				cancel-variant="success"
+				centered
+				footer-class="d-flex justify-content-between"
+				hide-header
+				no-close-on-backdrop
+				no-close-on-esc
+				no-enforce-focus
+				:ok-disabled="!delConfirm || !delPassword"
+				:ok-title="t('userEditor.confirmDeleteUser')"
+				ok-variant="danger"
+				@ok="deleteAccount"
+				@shown="delPasswordInput?.focus()"
+			>
+				<form-group :label="t('userEditor.enterPassword')">
 					<input
-						v-model="m.website"
+						ref="delPasswordInput"
+						v-model="delPassword"
 						class="form-control"
+						:disabled="delLoading"
+						type="password"
+						@update="delConfirm = false"
 					/>
 				</form-group>
-			</section>
-
-			<section v-if="user?.isAdmin">
-				<form-group>
+				<div class="alert alert-danger">
 					<b-form-checkbox
-						v-model="m.active"
-						class="text-danger"
-						:disabled="m.id === user?.id"
-						:value="1"
-						:unchecked-value="0"
+						v-model="delConfirm"
+						:disabled="delLoading || !delPassword"
+						name="confirm"
 					>
-						{{ t('userEditor.activated') }}
+						<span
+							v-html="
+								t('userEditor.deleteConfirmation', {
+									email: u?.email,
+								})
+							"
+						/>
 					</b-form-checkbox>
-				</form-group>
-				<form-group>
-					<b-form-checkbox
-						v-model="m.isAdmin"
-						class="text-danger"
-						:disabled="m.id === user?.id"
-						:value="1"
-						:unchecked-value="0"
-					>
-						{{ t('userEditor.administrator') }}
-					</b-form-checkbox>
-				</form-group>
-			</section>
-		</form>
+				</div>
+			</b-modal>
+		</AdminFrame>
 
-		<template #footer>
-			<div class="d-flex justify-content-between">
-				<button
-					class="btn btn-outline-danger"
-					type="button"
-					@click="delModal = true"
-				>
-					{{ t('userEditor.deleteUser') }}
-				</button>
-				<button
-					class="btn btn-primary"
-					form="userForm"
-					type="submit"
-				>
-					{{ t('userEditor.save') }}
-				</button>
-			</div>
-		</template>
-
-		<b-modal
-			v-model="delModal"
-			:busy="loading"
-			:cancel-title="t('modals.cancel')"
-			cancel-variant="success"
-			centered
-			footer-class="d-flex justify-content-between"
-			hide-header
-			no-close-on-backdrop
-			no-close-on-esc
-			no-enforce-focus
-			:ok-disabled="!delConfirm || !delPassword"
-			:ok-title="t('userEditor.confirmDeleteUser')"
-			ok-variant="danger"
-			@ok="deleteAccount"
-			@shown="delPasswordInput?.focus()"
+		<div
+			v-if="user?.isAdmin"
+			class="container mb-5"
 		>
-			<form-group :label="t('userEditor.enterPassword')">
-				<input
-					ref="delPasswordInput"
-					v-model="delPassword"
-					class="form-control"
-					:disabled="loading"
-					type="password"
-					@update="delConfirm = false"
-				/>
-			</form-group>
-			<div class="alert alert-danger">
-				<b-form-checkbox
-					v-model="delConfirm"
-					:disabled="loading || !delPassword"
-					name="confirm"
-				>
-					<span
-						v-html="
-							t('userEditor.deleteConfirmation', {
-								email: u?.email,
-							})
-						"
-					/>
-				</b-form-checkbox>
+			<div class="card shadow-sm">
+				<h4 class="card-header">{{ t('projects.title') }}</h4>
+				<div class="card-body">
+					<ProjectList :user-id="Number(route.params.id)" />
+				</div>
 			</div>
-		</b-modal>
-	</AdminFrame>
+		</div>
+	</div>
 </template>

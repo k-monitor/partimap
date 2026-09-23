@@ -12,6 +12,7 @@ const querySchema = z.object({
 		.optional()
 		.transform((v) => v === 'true'),
 	lang: z.string().optional(),
+	userId: z.coerce.number().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -21,13 +22,19 @@ export default defineEventHandler(async (event) => {
 		page,
 		filterOwn,
 		lang,
+		userId: targetUserId,
 	} = await getValidatedQuery(event, querySchema.parse);
 
 	const user = await ensureLoggedIn(event);
 
 	if (page !== undefined) {
 		const pageNum = Math.max(1, page || 1);
-		const userId = !user.isAdmin || filterOwn ? user.id : undefined;
+		let userId: number | undefined;
+		if (user.isAdmin && targetUserId !== undefined) {
+			userId = targetUserId;
+		} else if (!user.isAdmin || filterOwn) {
+			userId = user.id;
+		}
 		const langFilter = lang || undefined;
 		const [projects, total] = await Promise.all([
 			db.findFiltered(filter, userId, langFilter, pageNum, PAGE_SIZE),

@@ -1,78 +1,19 @@
 <script setup lang="ts">
-import fileSaver from 'file-saver';
-import type { Project } from '~/server/data/projects';
 import type { PublicUser } from '~/server/data/users';
-import { hasTextContent } from '~/utils/hasTextContent';
-
-const { saveAs } = fileSaver;
 
 const { user } = useAuth() as { user: Ref<PublicUser | null> };
 const { locale, locales, t } = useI18n();
 const localePath = useLocalePath();
-const {
-	public: { gdprBlockFrom },
-} = useRuntimeConfig();
 
 useHead({
 	title: `Admin: ${t('projects.title')}`,
 });
 
-const { loading, loadingText } = useStore();
-
 const filter = ref('');
 const debouncedFilter = refDebounced(filter, 150);
-const page = ref(1);
 const filterOwn = ref(true);
 const langFilter = ref(locale.value);
 watch(locale, (l) => (langFilter.value = l));
-
-const {
-	data,
-	pending: listPending,
-	refresh,
-} = await useFetch<{ projects: Project[]; total: number; pageSize: number }>('/api/project/all', {
-	query: { filter: debouncedFilter, page, filterOwn, lang: langFilter },
-});
-
-const filteredProjects = computed(() => data.value?.projects ?? []);
-const total = computed(() => data.value?.total ?? 0);
-const pageSize = computed(() => data.value?.pageSize ?? 1);
-const pageCount = computed(() => Math.ceil(total.value / pageSize.value));
-
-watch([debouncedFilter, filterOwn, langFilter], () => {
-	page.value = 1;
-});
-
-const route = useRoute();
-const router = useRouter();
-
-function reportUrl(id: number) {
-	return `/api/project/${id}/report/${locale.value}`;
-}
-
-async function downloadReport(id: number) {
-	loading.value = true;
-	loadingText.value = t('projects.exporting');
-
-	const res = await fetch(reportUrl(id));
-	const blob = await res.blob();
-	const filename = res.headers.get('Content-Disposition')!.split(';')[1].split('=')[1];
-	saveAs(blob, filename);
-
-	loading.value = false;
-	loadingText.value = '';
-}
-
-onMounted(async () => {
-	const pid = route.query.dlr;
-	if (pid) {
-		// start downloading project report
-		await downloadReport(Number(pid));
-
-		// remove query param
-		router.replace({ path: route.path });
-	}
-});
 
 const { errorToast } = useToasts();
 const newProjectTitle = ref(null);
@@ -96,57 +37,7 @@ async function add() {
 	}
 }
 
-async function clone(project: Project) {
-	try {
-		loading.value = true;
-		await $fetch('/api/project/clone', {
-			method: 'PUT',
-			body: {
-				id: project.id,
-				title: `${project.title} ${new Date().toLocaleString()}`,
-			},
-		});
-		await refresh();
-	} catch (error) {
-		errorToast(t('projects.creationFailed'));
-	} finally {
-		loading.value = false;
-	}
-}
-
-const { confirmDeletion } = useConfirmation();
-async function del(project: Project) {
-	const confirmed = await confirmDeletion(project.title);
-	if (!confirmed) return;
-	try {
-		loading.value = true;
-		await $fetch(`/api/project/${project.id}`, { method: 'DELETE' });
-		await refresh();
-	} catch (error) {
-		errorToast(t('projects.deletionFailed'));
-	} finally {
-		loading.value = false;
-	}
-}
-
-const projectToTransfer = ref<Project | null>(null);
-const transferModalVisible = ref(false);
-function initiateTransfer(p: Project) {
-	projectToTransfer.value = p;
-	transferModalVisible.value = true;
-}
-function handleTransferred() {
-	transferModalVisible.value = false;
-	projectToTransfer.value = null;
-	refresh();
-}
-
-async function downloadDefinition(project: Project) {
-	const object = await $fetch(`/api/project/${project.id}/export`);
-	const json = JSON.stringify(object, null, 2);
-	const blob = new Blob([json], { type: 'application/json' });
-	saveAs(blob, `${project.slug}.json`);
-}
+const projectList = ref<{ refresh: () => void } | null>(null);
 
 function uploadDefinition() {
 	const input = document.createElement('input');
@@ -164,7 +55,7 @@ function uploadDefinition() {
 				method: 'PUT',
 				body: json,
 			});
-			refresh();
+			projectList.value?.refresh();
 		};
 		fileReader.readAsText(file);
 	});
@@ -260,101 +151,13 @@ function uploadDefinition() {
 				</BFormCheckbox>
 			</div>
 		</div>
-		<div class="list-group">
-			<ListItem
-				v-for="p in filteredProjects"
-				:key="p.id"
-				:lang="p.lang"
-				:link="localePath('/admin/project/' + p.id)"
-				:show-export-option="!!user.isAdmin"
-				show-transfer-option
-				:title="p.title"
-				:user-id="p.userId"
-				@clone="clone(p)"
-				@del="del(p)"
-				@download="downloadDefinition(p)"
-				@transfer="initiateTransfer(p)"
-			>
-				<span
-					v-if="
-						!hasTextContent(p.privacyPolicy) ||
-						!hasTextContent(p.purposeOfDataCollection)
-					"
-					v-b-tooltip.hover.bottom
-					class="badge text-bg-danger me-2"
-					:title="
-						t('legal.missingAlert', [
-							t('projectEditor.privacyPolicy'),
-							t('projectEditor.purposeOfDataCollection'),
-							new Date(gdprBlockFrom).toLocaleString(locale),
-						])
-					"
-					>{{ t('legal.missingLabel') }}</span
-				>
-				<br />
-				<template v-if="p.created">
-					{{ t('projects.created') }}: {{ new Date(p.created).toLocaleDateString() }},
-				</template>
-				{{ t('projects.views') }}: {{ p.views }}, {{ t('projects.submissions') }}:
-				{{ p.submissions }}
-				<a
-					v-if="p.submissions"
-					href="javascript:void(0)"
-					@click="downloadReport(p.id)"
-					>{{ t('projects.export') }}</a
-				>
-			</ListItem>
-		</div>
-		<nav
-			v-if="pageCount > 1"
-			class="mt-3"
-		>
-			<ul class="pagination justify-content-center">
-				<li
-					class="page-item"
-					:class="{ disabled: page <= 1 }"
-				>
-					<button
-						class="page-link"
-						@click="page--"
-					>
-						&laquo;
-					</button>
-				</li>
-				<li
-					v-for="p in pageCount"
-					:key="p"
-					class="page-item"
-					:class="{ active: p === page }"
-				>
-					<button
-						class="page-link"
-						@click="page = p"
-					>
-						{{ p }}
-					</button>
-				</li>
-				<li
-					class="page-item"
-					:class="{ disabled: page >= pageCount }"
-				>
-					<button
-						class="page-link"
-						@click="page++"
-					>
-						&raquo;
-					</button>
-				</li>
-			</ul>
-		</nav>
-		<LoadingOverlay
-			:show="loading || listPending"
-			:text="loadingText"
-		/>
-		<ProjectTransferModal
-			v-model="transferModalVisible"
-			:project="projectToTransfer"
-			@transferred="handleTransferred"
+
+		<ProjectList
+			ref="projectList"
+			:filter="debouncedFilter"
+			:filter-own="filterOwn"
+			:lang="langFilter"
+			:show-export-option="!!user?.isAdmin"
 		/>
 	</AdminFrame>
 </template>
