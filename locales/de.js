@@ -14,70 +14,7 @@ export default {
 	},
 	landing: {
 		title: 'EINE KARTEN-BASIERTE UMFRAGE',
-		tagline1:
-			'PARTIMAP ist eine kostenlose, einfach zu bedienende und anpassbare karten-basierte Umfrage für diejenigen,',
-		tagline2:
-			'die glauben, dass betroffene Bürger bei öffentlichen Entwicklungsprojekten mitreden sollten.',
-		column1:
-			'Wann wurden Sie zuletzt nach Ihrer Meinung zu einem Entwicklungsprojekt gefragt, das Ihr tägliches Leben beeinflusst? Milliarden Euro werden in die Renovierung unserer städtischen Räume, öffentlichen Gebäude und Verkehrsanlagen investiert. Doch öffentliche Beteiligung und Einbeziehung der Interessengruppen wird oft zur bloßen Formalität. Klar ist jedoch: Damit ein Projekt erfolgreich ist, müssen die Bedürfnisse und Bedenken derjenigen, die die neue Infrastruktur täglich nutzen, neben fachlichen Überlegungen berücksichtigt werden. Die Modernisierung eines Bahnhofs ist nicht Selbstzweck, sondern soll die Zahl der Zugreisenden erhöhen. Intelligente Bänke machen einen Platz nicht automatisch zu einem Gemeinschaftsort – das tun nur die Einheimischen, wenn sie ihn lieben lernen.',
-		column2:
-			'Partizipatives Mapping ist ein Prozess, bei dem das unschätzbare Wissen der Stakeholder in Gemeinschaftsprojekte eingebracht wird, die zu ihrem Nutzen gestaltet sind. Die karten-basierte Umfrageanwendung von PARTIMAP macht das Einbinden lokaler Interessengruppen schneller, einfacher und effizienter. Sie ist nach Registrierung kostenlos nutzbar, bietet anpassbare Designfunktionen und kann dank Open Source frei weiterentwickelt werden. Ob öffentliche Institution, Kommune oder lokale Bürgerinitiative – wenn Sie Ihre Gemeinde smart und transparent befragen wollen, testen Sie PARTIMAP und werden Sie Teil der Entwicklung!',
-		tryButton: 'PARTIMAP ausprobieren',
 		tryLink: 'https://www.partimap.eu/de/p/DEMO-in-German/0',
-		methodTitle: 'PARTIMAP Toolkit für partizipative Methoden',
-		methodDesc:
-			'Was macht einen erfolgreichen partizipativen Mapping-Prozess aus? Wie bereite ich den Fragebogen vor, worauf achte ich bei der Verbreitung und wie nutze ich die gesammelten Daten optimal? K-Monitor fasst die wichtigsten methodischen Know-hows zusammen, denn Umfragen sind nur ein Element partizipativer Prozesse. Das PARTIMAP-Toolkit wird gemeinsam mit der wachsenden Nutzerzahl kontinuierlich erweitert!',
-		methodButton: 'Mehr erfahren',
-		methodLink:
-			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
-		featuresTitle: 'Funktionen der Anwendung',
-		features: [
-			{
-				title: 'Einfach zu bearbeiten',
-				description:
-					'<p>Mit PARTIMAP lassen sich Umfragen mit verschiedenen karten-basierten und klassischen Fragebogenfunktionen leicht erstellen. Die Benutzeroberfläche ist so konzipiert, dass auch Laien Fragen eingeben, Arbeitsblätter erstellen, in den sozialen Medien teilen und eine neue Umfrage publizieren können.</p><p>Nach der Registrierung und beim Anlegen einer neuen Umfrage müssen zunächst Basisinformationen wie Umfragetitel, Datenverantwortlicher und Text der Willkommensseite eingegeben werden. Anschließend lassen sich die relevanten Arbeitsblätter anlegen: Textseiten (zur Präsentation von Plänen und Ideen), Fragebögen (für Multiple-Choice-, Dropdown-, Freitext- und Skalenfragen), statische Karten (zur Darstellung und Bewertung vordefinierter Kartenelemente – Punkte, Linien, Polygone) und interaktive Karten (wo Teilnehmende eigene Kartenelemente zeichnen und hinzufügen können). Es ist einfach, zwischen Arbeitsblättern zu navigieren, sie zu löschen oder ihren Inhalt beziehungsweise ihre Reihenfolge zu bearbeiten.</p>',
-			},
-			{
-				title: 'Anpassbares Design',
-				description:
-					'<p>Fragebogenoberflächen sind darauf ausgelegt, die Zielgruppe effektiv zu erreichen. Deshalb haben wir bei der Entwicklung besonderen Wert auf Teilbarkeit und Anpassbarkeit gelegt. Auf den Landing- und Abschlussseiten stehen Teilen-Buttons für die gängigen sozialen Netzwerke bereit. Umfragen lassen sich zudem mit einem eigenen Facebook-Vorschaubild und Vorschautext ausstatten. Neben dem Hochladen eigener Bilder können Sie Text formatieren, Links einfügen und Hintergrundgrafiken hochladen. Außerdem erhält jede Umfrage eine individuelle URL (partimap.eu/de/p/NAME) in der Anwendung.</p>',
-			},
-			{
-				title: 'Vielseitige Umfrage',
-				description:
-					'<p>Das Fragebogen-Arbeitsblatt der Seite kann auch für Umfragen ohne Kartenbezug genutzt werden. Fragen können als Multiple-Choice, Dropdown, Skalenbewertungen oder Freitext gestaltet werden – frei anpassbar mit eigenen Bildern und zusätzlichen Optionen. Die Zusammenfassung (Ergebnisse) der Antworten lässt sich mit einem Klick in Diagrammen am Ende des Arbeitsblatts publizieren, und es gibt eine Option, die Ergebnisse direkt nach Ablauf der Umfrage anzuzeigen. Auch dieses Arbeitsblatt lässt sich mit Hintergrundbildern, Illustrationen und Links benutzerfreundlich gestalten.</p>',
-			},
-			{
-				title: 'Bestehende Pläne kartieren',
-				description:
-					'<p>Ein „Fragen und Karte“-Arbeitsblatt kann dem Fragebogen hinzugefügt werden, um eine bestimmte Verkehrs-, Infrastruktur- oder andere Entwicklungs­idee, die auf einer Karte dargestellt werden kann, zu veranschaulichen und Feedback dazu zu sammeln. Es ist möglich, Elemente aus anderen Kartendiensten (z. B. Google Maps) zu importieren, die dann in PARTIMAP einzeln visualisiert und bewertet werden können. Darüber hinaus kann das kartenbasierte Arbeitsblatt die bereits aus dem Fragebogen bekannten Fragetypen sowie zusätzliche Erklärungen, Beschreibungen und Links enthalten. Die bearbeitete Karte kann als eigene Karte gespeichert und auch in einer zukünftigen Umfrage verwendet werden.</p><p>Das „Fragen und Karte“-Arbeitsblatt ist ein ideales Werkzeug, um die Bewohner zu bitten, verschiedene Infrastrukturen einer Gemeinde zu bewerten, z. B. die generelle Zugänglichkeit und Barrierefreiheit für Menschen mit eingeschränkter Mobilität, ob sie fahrradfreundlich ist usw. Sobald die Ergebnisse vorliegen, kann eine komplexe Auswertung erfolgen. Dieser Arbeitsblatt-Typ kann auch genutzt werden, um spezifische Entwicklungsdilemmata zu lösen, z. B. indem die A- und B-Versionen einer geplanten Entwicklung für ein Gebiet verglichen werden und die Teilnehmenden entscheiden können, welche sie bevorzugen.</p>',
-			},
-			{
-				title: 'Jetzt sind Sie dran – tragen Sie sich auf der Karte ein!',
-				description:
-					'<p>Das Besondere an PARTIMAP gegenüber anderen Online-Umfragetools ist, dass Teilnehmende ihre Meinung mit Standortangabe äußern, Vorschläge grafisch darstellen oder zum Beispiel ihre täglichen Wege teilen können. Öffentliche Räume in Kommune, Stadtteil oder Nachbarschaft werden von verschiedenen Menschen genutzt. Ihre unterschiedlichen Bedürfnisse und Meinungen zur Nutzung des Raums lassen sich mit dem Kartenaufgaben-Arbeitsblatt erfassen. Die Befragten können Punkte, Linien und Polygone nutzen, um grafische Antworten auf die gestellten Fragen zu geben. Die eingehenden Antworten können entweder als Heatmap ausgewertet oder die eingereichten Vorschläge in einem „Fragen und Karte“-Arbeitsblatt in einer nachfolgenden Umfrage zur Abstimmung gestellt werden.</p>',
-			},
-			{
-				title: 'Interoperabilität mit anderen Plattformen',
-				description:
-					'<p>Beide Karten-Arbeitsblätter verwenden openstreetmap.org als Hintergrundkarte, aus der eine eigene Basiskarte mit Fokusbereichen erstellt werden kann. In früheren Umfragen gezeichnete Elemente lassen sich in der eigenen Kartenbibliothek speichern. Pro Arbeitsblatt kann die Basiskarte nicht nur aus diesem Repository, sondern auch als externe .KML-Datei importiert werden: Eine Import/Export-Funktion ermöglicht den schnellen Austausch mit Kartensoftware wie Google MyMaps oder komplexeren GIS-Anwendungen.</p><p>Die einfache Bearbeitungsoberfläche erlaubt das Zeichnen farbiger Punkte, Linien und Polygone. Mit einem Klick kann aus Nutzereingaben eine Basiskarte erstellt und als .KML exportiert werden – so sind die Daten in anderen Karten-Editoren nutzbar. Zukünftig planen wir weitere Raster-Basiskarten und neue grafische Darstellungen für gezeichnete Elemente (z. B. eigene Icons).</p>',
-			},
-			{
-				title: 'Ergebnisse kommunizieren',
-				description:
-					'<p>Nach Abschluss einer Umfrage beginnt die Auswertungsphase. Die erhaltenen Antworten lassen sich schnell in Grafiken aufbereiten und mit einer einzigen Einstellung so präsentieren, dass Teilnehmende direkt die aktuellen Ergebnisse einsehen können. Zusätzlich ist eine detaillierte Analyse möglich, indem der vollständige Antwortdatensatz im Excel-Format heruntergeladen wird. Dieser kann mit Datenmanagement-Tools weiterverarbeitet werden, sodass Komplexität und visuelle Darstellung der finalen Ergebnisse allein von unseren Analyse- und Visualisierungsfähigkeiten abhängen.</p>',
-			},
-			{
-				title: 'Kostenlos und Open Source',
-				description:
-					'<p>Die App ist kostenlos nutzbar. Nach einer kurzen Registrierung können Sie Ihre eigene PARTIMAP-Umfrage erstellen. Entwickelt von K-Monitor und Partnern, ist das Tool Open Source – frei zur Weiterentwicklung, Anpassung und Nutzung. Unser Ziel ist es, weitere Projekte zu fördern, die Bürgerbeteiligung an öffentlichen Entscheidungen stärken. Wir freuen uns daher über kreative Nutzung und Weiterentwicklung dieses Werkzeugs.</p>',
-			},
-			{
-				title: 'Wie Sie beitragen können',
-				description:
-					'<p>Die PARTIMAP-Software wurde 2021 von K-Monitor mit Unterstützung der Europäischen Kommission (DG Regio) entwickelt. Weitere Entwicklungen erfolgten 2022 in Kooperation mit dem Prager Büro der Heinrich-Böll-Stiftung. Doch mit dem Launch dieser Version ist das Projekt noch lange nicht abgeschlossen! Die freie Plattform wurde für Behörden, Kommunen und zivilgesellschaftliche Organisationen geschaffen, um die Bürgerbeteiligung zu stärken und öffentliche Ressourcen effizienter zu verwalten.</p><p>Wenn Sie sich für das Projekt interessieren und an der Weiterentwicklung mitwirken möchten oder uns einfach Ihr Feedback geben wollen, schreiben Sie uns an <a href="mailto:hello{\'@\'}partimap.eu">hello{\'@\'}partimap.eu</a>. Möchten Sie die Entwicklung finanziell unterstützen, damit die freie Open-Source-Software noch mehr Menschen zur Verfügung steht, besuchen Sie bitte <a href="https://k-monitor.hu/support" target="_blank">die Support-Seite von K-Monitor</a>!</p>',
-			},
-		],
 		nav: {
 			about: 'ÜBER PARTIMAP',
 			aboutSubmenu: {
@@ -88,7 +25,6 @@ export default {
 				respondents: 'Hilfe zum Ausfüllen des Fragebogens',
 				methodology: 'Partizipative Methodik von PARTIMAP',
 			},
-			rolunk: 'ÜBER UNS',
 			aboutUs: 'WIE ES FUNKTIONIERT',
 			pricing: 'PREISE',
 			contact: 'KONTAKT',
@@ -97,9 +33,7 @@ export default {
 				impresszum: 'Impressum',
 			},
 			tryIt: 'AUSPROBIEREN!',
-			langSwitch: 'SPRACHE',
 			login: 'ANMELDEN / REGISTRIEREN',
-			help: 'HILFE',
 			search: 'Suche',
 			menu: 'Menü',
 		},
@@ -158,13 +92,10 @@ export default {
 		stats: {
 			title: 'Einige Statistiken',
 			desc: 'Immer mehr Menschen nutzen PARTIMAP als Werkzeug für die Bürgerbeteiligung, in der Forschung, für Abschlussarbeiten oder in der kommunalen Arbeit: Die Anwendung ist inzwischen zu einem maßgeblichen Werkzeug der partizipativen Datenerhebung geworden.',
-			stat1Value: '250',
 			stat1Title: 'ANZAHL DER UMFRAGEN',
 			stat1Desc: 'So viele einzelne Fragebögen wurden von registrierten Nutzern auf der PARTIMAP-Oberfläche erstellt.',
-			stat2Value: '105',
 			stat2Title: 'EINGEREICHTE KARTENELEMENTE',
 			stat2Desc: 'So viele Orte, Punkte oder Gebiete haben die Teilnehmenden bei der Beantwortung der kartenbasierten Fragen markiert.',
-			stat3Value: '282',
 			stat3Title: 'ANZAHL DER ANTWORTEN',
 			stat3Desc: 'So oft wurden mit PARTIMAP erstellte Fragebögen ausgefüllt.',
 		},
@@ -208,7 +139,6 @@ export default {
 		help: {
 			title: 'Nicht weiter?<br>Wir helfen!',
 			desc: 'Für die Nutzung von PARTIMAP stellen wir eine ausführliche Hilfe bereit, die dich Schritt für Schritt vom Ausfüllen des Fragebogens über das Erstellen deines eigenen Fragebogens bis hin zur Analyse der Daten begleitet – egal, ob es um technische Einstellungen oder methodische Fragen geht.',
-			circleText: "Fragen? Kontaktieren Sie uns unter hello{'@'}partimap.eu! ",
 			contactPrefix: 'Fragen? Kontaktieren Sie uns:',
 			card1Title: 'Wie erstellt man eine PARTIMAP?',
 			card1Desc: 'Wir zeigen dir Schritt für Schritt, wie du die Daten sammelst und wie du sie in einen verständlichen, ansprechenden kartenbasierten Fragebogen verwandelst, der ein echtes Bild der Teilnehmenden liefert.',
@@ -235,7 +165,6 @@ export default {
 			privacy: 'Datenschutzrichtlinie',
 			terms: 'Nutzungsbedingungen',
 			imprint: 'Impressum',
-			placeholder: 'Text',
 			copyright: '© Copyright K-Monitor Közhasznú Egyesület All Rights Reserved',
 		},
 	},
@@ -350,50 +279,6 @@ export default {
 		search: 'Hilfe durchsuchen',
 		clearSearch: 'Suche löschen',
 		noResults: 'Keine Ergebnisse für „{query}“',
-		topic: {
-			registration: 'Registrierung',
-			newQuestionnaire: 'Eine neue Umfrage erstellen und bestehende verwalten',
-			questionnaireDatasheet: 'Umfrage-Datenblatt',
-			sheetList: 'Liste der Arbeitsblätter',
-			sheetTypes: 'Arten von Arbeitsblättern',
-			maps: 'Karten erstellen und bestehende verwalten',
-			reports: 'Berichte und Ergebnisse',
-			tips: 'Tipps für die Gestaltung einer guten Umfrage',
-		},
-		content: {
-			registration: {
-				p1: 'Um PARTIMAP zu nutzen, musst du dich zunächst mit einer E-Mail-Adresse registrieren. Klicke nach der Registrierung auf den an deine E-Mail-Adresse gesendeten Aktivierungslink, um dein Konto zu aktivieren.',
-				p2: 'Anschließend kannst du in deinem Administrationsbereich sofort deine erste Umfrage erstellen.',
-			},
-			newQuestionnaire: {
-				p1: 'Um eine neue Umfrage zu erstellen, klicke in der Umfragen-Liste auf die Schaltfläche „Hinzufügen" und gib den Namen der Umfrage ein. Danach erscheint sie in deiner eigenen Umfragenliste und du kannst sie jederzeit bearbeiten.',
-				p2: 'Du kannst deine früheren Umfragen jederzeit ansehen, bearbeiten oder löschen – auch dann, wenn du noch auf neue Antworten wartest.',
-			},
-			questionnaireDatasheet: {
-				p1: 'Im Datenblatt der Umfrage kannst du den Titel, die Beschreibung, das Bild für das Teilen in sozialen Netzwerken, die zugehörigen Datenschutzinformationen und die Benachrichtigungseinstellungen festlegen.',
-				p2: 'Hier legst du auch den benutzerdefinierten URL-Pfad (Slug) sowie den Dankestext fest, der nach dem Absenden angezeigt wird.',
-			},
-			sheetList: {
-				p1: 'Arbeitsblätter bilden das Rückgrat der Umfrage. Hier kannst du die Arbeitsblätter (Seiten) innerhalb deiner Umfrage hinzufügen, löschen, umbenennen und neu anordnen.',
-				p2: 'Die Reihenfolge der Arbeitsblätter ist die Reihenfolge, in der die Teilnehmenden ihnen begegnen.',
-			},
-			sheetTypes: {
-				p1: 'Es gibt vier Arten von Arbeitsblättern: Textseite, Fragensatz, statische Karte und interaktive Karte. Jede dient einem anderen Zweck.',
-				p2: 'Den Typ wählst du beim Erstellen des Arbeitsblatts und kannst sie in der gesamten Umfrage frei kombinieren.',
-			},
-			maps: {
-				p1: 'In deiner eigenen Kartenbibliothek kannst du Kartenelemente speichern, die du einmal gezeichnet hast und in künftigen Umfragen wiederverwenden möchtest.',
-				p2: 'Hier kannst du außerdem KML-Dateien importieren und exportieren, wodurch PARTIMAP problemlos mit anderen Kartenbearbeitungs-Tools zusammenarbeitet.',
-			},
-			reports: {
-				p1: 'Die Antworten einer Umfrage kannst du in der Listenansicht der Umfragen im .xlsx-Format herunterladen. Der Bericht enthält die Ergebnisse in dem zuvor beschriebenen Format. Kartenelemente können über Kennungen auch mit den Antworten auf die Fragen verknüpft werden, zum Beispiel mit den demografischen Daten der Teilnehmenden. Sind die Daten verknüpft, lassen sich die räumlichen Markierungen tiefer analysieren und nach Teilnehmergruppen filtern. Der Bericht enthält außerdem den verwendeten Gerätetyp (PC/Mobil) und die IP-Adresse der befragten Person.',
-				p2: 'Die Website erlaubt keine automatisierten Masseneinsendungen, es ist jedoch möglich, manuell mehrere Antworten von derselben IP-Adresse abzusenden. Diese lassen sich anhand der IP-Adresse aus dem Bericht herausfiltern.',
-			},
-			tips: {
-				p1: 'Eine gute Umfrage ist kurz, fokussiert und stellt eindeutige Fragen. Versuche, so wenige Fragen wie möglich zu stellen, und begleite Kartenaufgaben mit einfachen, bebilderten Anweisungen.',
-				p2: 'Die Abschlussquote ist deutlich besser, wenn die Umfrage in 5–7 Minuten ausgefüllt werden kann und jede Frage einen echten inhaltlichen Grund hat.',
-			},
-		},
 	},
 	login: {
 		activated: 'Konto erfolgreich aktiviert. Willkommen bei PARTIMAP!',

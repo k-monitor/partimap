@@ -13,70 +13,7 @@ export default {
 	},
 	landing: {
 		title: 'CHESTIONAR CARTOGRAFIC',
-		tagline1:
-			'PARTIMAP este un serviciu gratuit de colectare date prin integrarea hărților ușor de utilizat în chestionare, pentru cei',
-		tagline2:
-			'care cred că toți cetățenii care sunt afectați de proiectele publice de dezvoltare.',
-		column1:
-			'Când a fost ultima dată când ți s-a cerut părerea cu privire la un proiect de dezvoltare care ți-ar afecta viața de zi cu zi? Miliarde de euro sunt alocate pentru renovarea spațiilor noastre urbane, a clădirilor publice și a infrastructurii de transport. Însă consultarea publică și implicarea părților interesate se reduc adesea la o simplă formalitate. Este însă evident că, pentru ca un proiect să aibă succes, nevoile și preocupările celor care utilizează zilnic noua infrastructură trebuie luate în considerare alături de aspectele tehnice. Modernizarea unei gări nu este un scop în sine, ci mai degrabă o modalitate de a crește numărul persoanelor care călătoresc cu trenul. Băncile inteligente nu transformă o piață publică într-un loc al comunității; doar localnicii o pot face, dacă ajung să o îndrăgească.',
-		column2:
-			'Cartografierea participativă este un proces prin care cunoștințele neprețuite ale părților interesate sunt integrate în proiectele comunitare concepute în beneficiul acestora. Aplicația PARTIMAP pentru chestionare bazate pe hărți face ca interacțiunea cu actorii locali interesați să fie mai rapidă, mai simplă și mai eficientă. Utilizarea acesteia este gratuită după înregistrare, oferă opțiuni de personalizare a aspectului și poate fi dezvoltată liber, fiind o platformă open source. Indiferent dacă reprezentați un organism public, o municipalitate sau un grup local de advocacy, dacă sunteți în căutarea unei modalități inteligente și transparente de a afla opiniile comunității dumneavoastră, încercați PARTIMAP și alăturați-vă dezvoltării sale!',
-		tryButton: "Let's try it out",
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
-		methodTitle: 'PARTIMAP Participatory Methods Toolkit',
-		methodDesc:
-			'Ce face ca un proces de cartografiere participativă să aibă succes? Cum se pregătește chestionarul, la ce trebuie să se acorde atenție în timpul diseminării și cum se pot valorifica la maximum datele colectate? K-Monitor a sintetizat cele mai importante cunoștințe metodologice, întrucât sondajele reprezintă doar un element al proceselor participative. Setul de instrumente participative PARTIMAP va continua să se extindă în viitor, odată cu creșterea numărului de utilizatori ai aplicației',
-		methodButton: 'I want to know more',
-		methodLink:
-			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
-		featuresTitle: 'Caracteristicile aplicației',
-		features: [
-			{
-				title: 'Ușor de editat',
-				description:
-					'<p>Cu PARTIMAP este ușor să creați sondaje cu diverse funcții bazate pe hărți și chestionare tradiționale. Interfața sa este concepută pentru a permite utilizatorilor obișnuiți de computer să introducă întrebări, să creeze fișe de lucru, să partajeze pe rețelele de socializare și să publice un nou sondaj. </p><p>Atunci când se creează un nou sondaj după înregistrarea în aplicație, este necesar mai întâi să se introducă informații de bază, cum ar fi titlul sondajului, deținătorul datelor și textul paginii de bun venit. Ulterior, este posibil să se creeze foile de lucru relevante. Acestea pot fi pagini de text (pentru a prezenta planuri și idei), chestionare (pentru a colecta răspunsuri din întrebări cu răspunsuri multiple, meniuri derulante, text liber și întrebări cu scală), hărți statice (Întrebări și foaie de lucru cu hărți - pentru a prezenta și a colecta feedback cu privire la elemente de hartă predefinite - puncte, linii și poligoane) și hărți interactive (Foaie de lucru cu sarcini de hartă - unde respondenții pot desena și adăuga propriile elemente de hartă ca răspuns la o întrebare). Este ușor să navigați între fișele de lucru, să le ștergeți sau să le editați conținutul și ordinea în orice moment.</p>',
-			},
-			{
-				title: 'Design adaptabil',
-				description:
-					'<p>Interfețele chestionarelor sunt concepute pentru a ajunge în mod eficient la publicul țintă. Din acest motiv, în timpul dezvoltării am acordat o atenție deosebită posibilității de partajare și personalizare a sondajelor. Pe paginile de pornire și de final sunt disponibile butoane de partajare pentru cele mai populare platforme de socializare. Sondajele pot fi configurate și cu o imagine miniatură personalizată pentru Facebook și un text de previzualizare, permițând utilizatorilor să-și adapteze sondajul la propriile designuri. Pe lângă încărcarea fotografiilor în interfața de editare a fișei, puteți formata textul, adăuga linkuri și încărca imagini de fundal. În plus, sondajelor li se poate atribui o adresă URL unică (partimap.eu/en/p/NAME) în aplicație.</p>',
-			},
-			{
-				title: 'Un sondaj complex',
-				description:
-					'<p>Pagina de lucru a chestionarului poate fi utilizată pentru a crea sondaje care nu au legătură cu funcția de cartare. Întrebările pot lua forma unor opțiuni cu răspunsuri multiple, meniuri derulante, scale de evaluare sau răspunsuri text – acestea putând fi personalizate în mod liber prin adăugarea propriilor imagini și a unor opțiuni suplimentare. Rezumatul (rezultatele) răspunsurilor date de respondenți poate fi publicat sub formă de grafic la sfârșitul fișei cu un singur clic, iar opțiunea de a afișa rezultatele pe pagină după încheierea perioadei de sondaj este, de asemenea, disponibilă. Fișa poate fi personalizată în același mod ca și celelalte fișe: imagini de fundal, ilustrații și linkuri pot fi utilizate pentru a o face mai ușor de utilizat.</p>',
-			},
-			{
-				title: 'Prezentarea planurilor existente',
-				description:
-					'<p>Întrebările și pagina de lucru cu harta pot fi adăugate la chestionar pentru a ilustra un anumit proiect de transport, de infrastructură sau altă inițiativă de dezvoltare care poate fi reprezentată pe o hartă și pentru a colecta opinii cu privire la acesta. Este posibilă importarea de elemente din alte interfețe de cartografiere (de exemplu, Google Maps), care pot fi apoi vizualizate și evaluate individual în PARTIMAP. În plus, pagina de lucru bazată pe hartă poate include tipurile de întrebări deja cunoscute din chestionar, precum și explicații suplimentare, descrieri și linkuri. Harta editată poate fi salvată ca hartă proprie și utilizată și într-un sondaj viitor. </p><p>Întrebările și harta reprezită un instrument ideal pentru a solicita locuitorilor să evalueze diferitele propuneri ale unei municipalități (de exemplu accesibilitatea în general și pentru persoanele cu mobilitate redusă, dacă este prietenoasă cu bicicletele etc.). Odată ce rezultatele sunt disponibile, se poate realiza o evaluare complexă. Acest tip de fișă de lucru poate fi utilizat și pentru a rezolva dileme specifice de dezvoltare; de exemplu, prin analizarea versiunilor A și B ale unui proiect de dezvoltare planificat pentru o zonă, respondenții pot decide care dintre acestea o preferă.</p>',
-			},
-			{
-				title: 'Acum e rândul tău să contribui!',
-				description:
-					'<p>Ceea ce face ca PARTIMAP să fie unic în comparație cu alte instrumente de sondaj online este faptul că utilizatorii își pot exprima opinia asociând-o cu o locație, își pot ilustra sugestiile sau pot pur și simplu să împărtășească traseele pe care le parcurg zilnic. Spațiile publice dintr-o municipalitate sau un cartier sunt utilizate de o gamă largă de persoane, ale căror nevoi și opinii diverse cu privire la utilizarea spațiului pot fi evaluate folosind pagina de lucru Activități hartă. Respondenții pot folosi puncte, linii și forme poligonale pentru a oferi răspunsuri grafice la întrebările puse. Răspunsurile primite pot fi procesate cu ușurință fie sub forma unei hărți termice, fie sugestiile primite pot fi supuse la vot într-o foaie de lucru pentru Întrebări și hartă, într-un chestionar ulterior.</p>',
-			},
-			{
-				title: 'Integrarea cu alte platforme',
-				description:
-					'<p>Ambele pagini de lucru utilizează openstreetmap.org ca hartă de bază, peste care se poate suprapune o hartă de personalizată, evidențiind punctele cheie ale sondajului. Elementele adăugate în chestionarele anterioare pot fi salvate și stocate în colecția de hărți a utilizatorului. Pentru fiecare pagină de lucru, harta de bază poate fi importată nu numai din depozitul de hărți al acesteia, ci și dintr-un fișier .KML extern: o funcție de import/export asigură un schimb rapid cu software de cartografiere precum Google MyMaps sau alte programe geospațiale mai complexe.</p><p>Interfața simplă de editare vă permite să creați hărți adaptate sondajului prin adăugarea de puncte, linii și poligoane colorate. Cu un singur clic, este posibilă și crearea unei hărți de bază din datele trimise de un respondent la sondaj și exportarea în format de fișier .KML - oferind portabilitate către alte aplicații de editare a hărților. În viitor, intenționăm să creăm și alte tipuri de hărți raster de și noi afișări grafice ale elementelor trasate (de exemplu, pictograme personalizate)).</p>',
-			},
-			{
-				title: 'Comunicarea rezultatelor',
-				description:
-					'<p>Odată ce sondajul este finalizat, începe o nouă etapă în ciclul proiectului: evaluarea. Răspunsurile primite prin intermediul interfeței chestionarului pot fi prezentate sub formă de grafice pentru o comunicare rapidă: acestea pot fi configurate să se afișeze printr-o singură setare, astfel încât respondenții să poată consulta direct rezultatele actuale ale sondajului. În plus, se poate efectua o analiză detaliată prin descărcarea setului complet de date cu răspunsuri în format Excel. Raportul poate fi apoi prelucrat cu ajutorul unor programe de gestionare a datelor, utilizând răspunsurile trimise și elementele geografice, astfel încât complexitatea și reprezentarea vizuală a rezultatelor finale să depindă doar de capacitățile noastre de analiză și vizualizare a datelor.</p>',
-			},
-			{
-				title: 'Gratuită și open-source',
-				description:
-					'<p>Aplicația este gratuită, iar după o înregistrare rapidă, puteți crea propriul chestionar PARTIMAP. Dezvoltat de K-Monitor și partenerii noștri, acest instrument este open-source, ceea ce înseamnă că poate fi dezvoltat, personalizat și utilizat gratuit. Obiectivul nostru este să creăm mai multe proiecte care să încurajeze cetățenii să se implice în procesul de luare a deciziilor publice, așa că salutăm cu căldură utilizarea creativă și dezvoltarea acestui instrument.</p>',
-			},
-			{
-				title: 'Cum poți contribui',
-				description:
-					'<p>Software-ul PARTIMAP a fost dezvoltat de K-Monitor cu sprijinul Comisiei Europene (DG Regio) în 2021. În 2022 au fost realizate îmbunătățiri suplimentare, în colaborare cu biroul din Praga al Fundației Heinrich Böll. Însă proiectul este departe de a se fi încheiat odată cu lansarea versiunii actuale! Platforma gratuită și deschisă a fost creată pentru autoritățile publice, municipalități și organizații civice, cu scopul de a le ajuta să sporească participarea la deciziile lor de dezvoltare, astfel încât să putem gestiona mai eficient bunurile noastre publice. </p><p>Dacă sunteți interesați de proiect și doriți să vă implicați în dezvoltarea acestuia sau pur și simplu doriți să ne împărtășiți părerea dumneavoastră despre PARTIMAP, vă rugăm să ne contactați la <a href="mailto:hello@partimap.eu">hello@partimap.eu</a>. Dacă doriți să sprijiniți financiar dezvoltarea proiectului pentru a face software-ul gratuit și open source disponibil pentru cât mai multe persoane, vă rugăm <a href="https://k-monitor.hu/susțineți" target="\_blank">support K-Monitor!</a></p>',
-			},
-		],
 		nav: {
 			about: 'DESPRE PARTIMAP',
 			aboutSubmenu: {
@@ -87,7 +24,6 @@ export default {
 				respondents: 'Ajutor pentru completarea chestionarului',
 				methodology: 'Metodologia participativă PARTIMAP',
 			},
-			rolunk: 'DESPRE NOI',
 			aboutUs: 'CUM FUNCȚIONEAZĂ',
 			pricing: 'PREȚURI',
 			contact: 'CONTACT',
@@ -96,9 +32,7 @@ export default {
 				impresszum: 'Notă legală',
 			},
 			tryIt: 'ÎNCEARCĂ!',
-			langSwitch: 'LIMBĂ',
 			login: 'AUTENTIFICARE / ÎNREGISTRARE',
-			help: 'AJUTOR',
 			search: 'Căutare',
 			menu: 'Meniu',
 		},
@@ -157,13 +91,10 @@ export default {
 		stats: {
 			title: 'Puțină statistică',
 			desc: 'Tot mai mulți folosesc PARTIMAP ca instrument de implicare comunitară, în cercetare, pentru lucrări de licență sau în activitatea administrațiilor locale: aplicația a devenit între timp un instrument definitoriu al colectării participative de date.',
-			stat1Value: '250',
 			stat1Title: 'NUMĂRUL DE CHESTIONARE',
 			stat1Desc: 'Atâtea chestionare unice au fost create pe platforma PARTIMAP de către utilizatorii înregistrați.',
-			stat2Value: '105',
 			stat2Title: 'NUMĂRUL ELEMENTELOR CARTOGRAFICE TRIMISE',
 			stat2Desc: 'Atâtea locuri, puncte sau zone au marcat respondenții răspunzând la întrebările de pe hartă.',
-			stat3Value: '282',
 			stat3Title: 'NUMĂRUL DE COMPLETĂRI',
 			stat3Desc: 'De atâtea ori au fost completate chestionare realizate cu PARTIMAP.',
 		},
@@ -207,7 +138,6 @@ export default {
 		help: {
 			title: 'Te-ai blocat?<br>Te ajutăm!',
 			desc: 'Pentru utilizarea PARTIMAP oferim un ajutor detaliat, care te ghidează pas cu pas de la completarea chestionarului până la realizarea propriului chestionar și analiza datelor: fie că este vorba de setări tehnice sau de întrebări metodologice.',
-			circleText: "Ai o întrebare? Contactează-ne cu încredere la adresa hello{'@'}partimap.eu! ",
 			contactPrefix: 'Ai o întrebare? Contactează-ne cu încredere:',
 			card1Title: 'Cum să creezi un PARTIMAP?',
 			card1Desc: 'Îți arătăm pas cu pas cum să colectezi datele și cum să le transformi într-un chestionar pe hartă clar și atractiv, care oferă o imagine reală despre respondenți.',
@@ -234,7 +164,6 @@ export default {
 			privacy: 'Politica de confidențialitate',
 			terms: 'Termeni de utilizare',
 			imprint: 'Notă legală',
-			placeholder: 'Text',
 			copyright: '© Copyright K-Monitor Közhasznú Egyesület All Rights Reserved',
 		},
 	},
@@ -349,50 +278,6 @@ export default {
 		search: 'Caută în ajutor',
 		clearSearch: 'Șterge căutarea',
 		noResults: 'Niciun rezultat pentru „{query}”',
-		topic: {
-			registration: 'Înregistrare',
-			newQuestionnaire: 'Crearea unui chestionar nou și gestionarea celor existente',
-			questionnaireDatasheet: 'Fișa chestionarului',
-			sheetList: 'Lista foilor de lucru',
-			sheetTypes: 'Tipuri de foi de lucru',
-			maps: 'Crearea hărților și gestionarea celor existente',
-			reports: 'Raport și rezultate',
-			tips: 'Sfaturi pentru realizarea unui chestionar',
-		},
-		content: {
-			registration: {
-				p1: 'Pentru a folosi PARTIMAP, trebuie mai întâi să te înregistrezi cu o adresă de e-mail. După înregistrare, îți poți activa contul dând clic pe linkul de activare trimis la adresa indicată.',
-				p2: 'După aceea, îți poți crea imediat primul chestionar în propria interfață de administrare.',
-			},
-			newQuestionnaire: {
-				p1: 'Pentru a crea un chestionar nou, dă clic pe butonul „Adăugare" din lista de Chestionare, apoi introdu numele chestionarului. După aceea, va apărea în lista chestionarelor tale și îl poți edita oricând.',
-				p2: 'Poți revedea, edita sau șterge oricând chestionarele tale anterioare - chiar și în timp ce încă aștepți completări noi.',
-			},
-			questionnaireDatasheet: {
-				p1: 'Pe fișa chestionarului poți seta titlul, descrierea, imaginea de distribuire, informațiile de prelucrare a datelor aferente și setările de notificare.',
-				p2: 'Tot aici poți seta calea de acces personalizată (slug), precum și textul de mulțumire care apare după completare.',
-			},
-			sheetList: {
-				p1: 'Foile de lucru formează coloana vertebrală a chestionarului. Aici poți adăuga, șterge, redenumi și reordona foile de lucru (paginile) din cadrul chestionarului tău.',
-				p2: 'Ordinea foilor de lucru este cea în care le va întâlni respondentul.',
-			},
-			sheetTypes: {
-				p1: 'Există patru tipuri de foi de lucru: pagină de text, set de întrebări, hartă statică și hartă interactivă. Fiecare servește unui scop diferit.',
-				p2: 'Tipul îl poți alege la crearea foii de lucru și le poți combina liber oricând în timpul realizării chestionarului.',
-			},
-			maps: {
-				p1: 'În propria bibliotecă de hărți poți stoca elementele cartografice pe care le-ai desenat deja o dată și pe care vrei să le refolosești în chestionare ulterioare.',
-				p2: 'Aici poți și importa și exporta fișiere KML, astfel încât interoperabilitatea cu alte aplicații de editare a hărților să fie facilă.',
-			},
-			reports: {
-				p1: 'Completările unui sondaj pot fi descărcate în format .xlsx din pagina de listă a Chestionarelor. Raportul conține rezultatele în formatul detaliat anterior. Elementele cartografice pot fi corelate, pe baza numerelor de identificare, cu răspunsurile la întrebările chestionarului, de exemplu cu datele demografice ale respondenților. După corelarea datelor, marcajele spațiale pot fi analizate mai în profunzime și filtrate pe grupuri de respondenți. Raportul conține și tipul dispozitivului folosit de respondenți (pc/mobil), precum și adresa IP a respondentului.',
-				p2: 'Site-ul nu permite completările automate în masă, dar manual este posibilă trimiterea mai multor răspunsuri de la aceeași adresă IP. Acestea pot fi filtrate din raport pe baza adresei IP.',
-			},
-			tips: {
-				p1: 'Un chestionar bun este scurt, concentrat și are întrebări clare. Încearcă să pui cât mai puține întrebări și însoțește sarcinile pe hartă cu instrucțiuni simple, ilustrate.',
-				p2: 'Rata de completare este semnificativ mai bună dacă chestionarul poate fi completat în 5-7 minute și dacă fiecare întrebare are un motiv real de conținut.',
-			},
-		},
 	},
 	login: {
 		activated: 'Cont activat cu succes. PARTIMAP îți urează bine ai venit!',
