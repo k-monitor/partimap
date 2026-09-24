@@ -112,7 +112,7 @@ function onBrandClick(e: MouseEvent) {
 			</div>
 
 			<b-navbar-nav class="nav-right">
-				<LangSwitcher />
+				<LangSwitcher landing />
 				<li class="nav-item nav-login-item d-none d-lg-block">
 					<NuxtLink :to="localePath('/admin')" class="nav-btn-outline">
 						{{ t('landing.nav.login') }}

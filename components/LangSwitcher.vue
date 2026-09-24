@@ -1,9 +1,13 @@
 <script setup>
+defineProps({
+	landing: { type: Boolean, default: false },
+});
+
 const { locale, locales, setLocale } = useI18n();
 </script>
 
 <template>
-	<b-nav-item-dropdown right>
+	<b-nav-item-dropdown right :class="{ 'lang-switcher-landing': landing }">
 		<template #button-content>
 			<i class="fas fa-globe me-1" />
 		</template>
@@ -25,17 +29,14 @@ const { locale, locales, setLocale } = useI18n();
 </template>
 
 <style scoped>
-.fa-globe {
+/* Landing-only styles, enabled via the `landing` prop. */
+.lang-switcher-landing .fa-globe {
 	color: #0055ff;
 }
-:deep(.nav-link) {
+.lang-switcher-landing :deep(.nav-link) {
 	color: #0055ff;
 }
-/* Mirrors .nav-dropdown-menu / .nav-dropdown-item in LandingNav.vue so the
-   language chooser looks like the nav submenus. Blue is hardcoded because
-   --l-blue only exists inside .landing, and this component is also used by the
-   admin and public frames. */
-:deep(.dropdown-menu) {
+.lang-switcher-landing :deep(.dropdown-menu) {
 	min-width: 220px;
 	background: rgba(255, 255, 255, 0.96);
 	backdrop-filter: blur(8px);
@@ -45,7 +46,7 @@ const { locale, locales, setLocale } = useI18n();
 	margin-top: 0.5rem;
 	box-shadow: 0 8px 24px rgba(0, 85, 255, 0.12);
 }
-:deep(.dropdown-item) {
+.lang-switcher-landing :deep(.dropdown-item) {
 	padding: 0.55rem 1.1rem;
 	color: #0055ff;
 	font-size: 0.8rem;
@@ -53,16 +54,16 @@ const { locale, locales, setLocale } = useI18n();
 	white-space: normal;
 	line-height: 1.35;
 }
-:deep(.dropdown-item:hover),
-:deep(.dropdown-item:focus),
-:deep(.dropdown-item:active) {
+.lang-switcher-landing :deep(.dropdown-item:hover),
+.lang-switcher-landing :deep(.dropdown-item:focus),
+.lang-switcher-landing :deep(.dropdown-item:active) {
 	background: rgba(0, 85, 255, 0.08);
 	color: #0055ff;
 }
-:deep(.nav-link::after) {
+.lang-switcher-landing :deep(.nav-link::after) {
 	transition: transform 0.2s ease;
 }
-:deep(.nav-link[aria-expanded='true']::after) {
+.lang-switcher-landing :deep(.nav-link[aria-expanded='true']::after) {
 	transform: rotate(180deg);
 }
 </style>
