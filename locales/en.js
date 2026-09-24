@@ -13,69 +13,7 @@ export default {
 	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',
-		tagline1: 'PARTIMAP is a free, easy-to-use and customizable map-based survey for those',
-		tagline2:
-			'who believe that affected citizens should have a say in public development projects.',
-		column1:
-			"When was the last time you were asked for your opinion on a development project that would impact your everyday life? Billions of euros are being used to renovate our urban spaces, public buildings and transport facilities. But public consultation and stakeholder involvement is often reduced to a formality. It is clear however that in order for a project to be successful, the needs and concerns of the people who use the new infrastructure on a daily basis must be taken into account alongside professional considerations. The modernization of a station is not the goal in itself, but rather to increase the number of people travelling by train. Smart benches don't make a public square a community place, only locals, if they grow to like it.",
-		column2:
-			"Participatory mapping is a process by which the invaluable knowledge of stakeholders is incorporated into community developments designed for their benefit. PARTIMAP's map-based survey application makes engaging with local stakeholders quicker, simpler and more efficient. It is free to use after registration, has customizable design features, and can also be freely developed as it is an open source platform. Whether you represent a public body, a municipality or a local advocacy group, if you're looking for a smart and transparent way to get to know the views of your community, try PARTIMAP and join its development!",
-		tryButton: "Let's try it out",
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
-		methodTitle: 'PARTIMAP Participatory Methods Toolkit',
-		methodDesc:
-			'What makes a participatory mapping process successful? How to prepare the questionnaire, what to look out for during dissemination and how to get the most out of the data collected? K-Monitor has summarised the most important methodological know-how, as surveys comprise only one element of participatory processes. The PARTIMAP participatory toolkit will continue to expand in the future, together with the number of users of the application!',
-		methodButton: 'I want to know more',
-		methodLink:
-			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
-		featuresTitle: 'Features of the application',
-		features: [
-			{
-				title: 'Easy to edit',
-				description:
-					'<p>With PARTIMAP it is easy to create surveys with various map-based and traditional questionnaire functions. Its interface is designed to allow ordinary computer users to enter questions, create worksheets, share on social media, and publish a new survey.</p><p>When creating a new survey after registering in the application, it is first required to enter basic information such as the survey title, the data holder, and the text of the welcome page. Subsequently, it is possible to create the relevant worksheets. These can be text pages (to present plans and ideas), questionnaires (to collect responses from multiple-choice, drop-down menus, free-text and scale questions), static maps (Questions and map worksheet - to present and collect feedback on pre-defined map elements - points, lines and polygons), and interactive maps (Map tasks worksheet - where respondents can draw and add their own map elements in response to a question). It is easy to navigate among worksheets, delete them or edit their content and their sequence at any time.</p>',
-			},
-			{
-				title: 'Customizable design',
-				description:
-					'<p>Questionnaire interfaces are designed to reach the target audience effectively. For this reason, we paid particular attention to the shareability and customisability of surveys during development. On the landing and closing worksheets, sharing buttons for the most popular social media platforms are available. Surveys can also be set up with a custom Facebook thumbnail image and preview text, allowing users to tailor their survey to their own established designs. In addition to uploading your photos in the worksheet editing interface, you can also format text, add links, and upload background images. In addition, surveys can be given a unique url (partimap.eu/en/p/NAME) in the application.</p>',
-			},
-			{
-				title: 'A multi-faceted survey',
-				description:
-					"<p>The site's questionnaire worksheet can be used to create surveys unrelated to the map feature. The questions can take the form of multiple-choice options, drop-down menus, scaled ratings, or text responses - these can be freely customised by adding your own images and additional options. The summary (results) of the answers given by the respondents can be published in chart form at the end of the worksheet with a single click, and the option to display the results on the page after ending the survey period is also provided. The worksheet can be customised in the same way as the other worksheets: background images, illustrations, and links can be used to make it more user-friendly.</p>",
-			},
-			{
-				title: 'Mapping existing plans',
-				description:
-					'<p>A Questions and map worksheet can be added to the questionnaire to illustrate a particular transport, infrastructure, or other development or development idea that can be depicted on a map and to collect feedback on it. It is possible to import elements from other mapping interfaces (e.g., Google Maps), which can then be visualised and evaluated individually in PARTIMAP. In addition, the map-based worksheet can include the question types already familiar from the questionnaire, as well as additional explanations, descriptions, and links. The edited map can be saved as your map and used in a future survey as well.</p><p>The Questions and map is an ideal tool for asking residents to rate the different infrastructures of a municipality, e.g., accessibility in general and for people with reduced mobility, whether it is bike-friendly, etc. Once the results are in, a complex assessment can be derived. This type of worksheet can also be used to solve specific development dilemmas, e.g. by reviewing the A and B versions of a planned development for an area, respondents can decide which they prefer.</p>',
-			},
-			{
-				title: "Now it's your turn to contribute to the map!",
-				description:
-					'<p>What makes PARTIMAP unique compared to other online survey tools is that people can express their opinion with a location attached, can illustrate their suggestions, or simply share their commuting routes, for example. The public spaces in a municipality, district, or neighbourhood are used by a wide range of people, whose diverse needs and opinions on their use of space can be assessed using the Map tasks worksheet. Respondents can use points, lines, and polygon shapes to provide graphical answers to the questions asked. The incoming responses can be easily processed either in the form of a heat map, or the suggestions received can be voted on in a Questions and map worksheet in a subsequent questionnaire.</p>',
-			},
-			{
-				title: 'Interoperability with other platforms',
-				description:
-					"<p>Both map worksheets use openstreetmap.org as a background map, for which a custom base map can be drawn, highlighting the focal points of the survey. Elements drawn in previous surveys can be saved and stored among the user's maps. For each worksheet, the base map can be imported not only from its map repository, but also from an external .KML file: an import/export function provides a fast interchange with mapping software such as Google MyMaps or other more complex geospatial software.</p><p>The simple editing interface allows you to create maps fitting the survey by drawing coloured points, lines, and polygons. With the click of a button, it is also possible to create a base map from data submitted by a survey respondent and export to.KML file format - providing portability to other map editing applications. In the future, we also intend to create other types of raster background maps and new graphical displays of the plotted elements (e.g. custom icons).</p>",
-			},
-			{
-				title: 'Communicating your results',
-				description:
-					'<p>Once a survey is completed, a new phase in the project cycle begins: evaluation. The responses received through the survey interface can be presented in graphs for quick communication: they can be set to display with a single setting, so that the respondents can directly browse the current results of the survey. Additionally, a detailed analysis can be performed by downloading the complete dataset of responses in Excel format. The report can then be processed with data management softwares using the submitted responses and geographical elements, so that the complexity and visual representation of the final results is dependent only on our data analysis and visualisation capabilities.</p>',
-			},
-			{
-				title: 'Free and open-source',
-				description:
-					'<p>The app is free to use, and after a quick registration, you can create your own PARTIMAP survey. Developed by K-Monitor and our partners, the tool is open-source, so it is free to develop, customise, and use. Our goal is to create more projects that encourage citizens to get involved in public decision-making, so we greatly welcome the creative use and development of this tool.</p>',
-			},
-			{
-				title: 'How to contribute',
-				description:
-					'<p>PARTIMAP software was developed by K-Monitor with the support of the European Commission (DG Regio) in 2021. Further developments were made in 2022, in cooperation with the Prague office of the Heinrich-Böll-Stiftung. But the project is far from over with the launch of the current version! The free and open platform was created for public authorities, municipalities and civil society organisations with the aim of helping them enhance participation in their development decisions, so that we can manage our public assets more efficiently.</p><p>If you\'re interested in the project and would like to get involved in its development, or just want to share your thoughts on PARTIMAP with us, please contact us at <a href="mailto:hello{\'@\'}partimap.eu">hello{\'@\'}partimap.eu</a>. If you would like to support the development financially to make the free, open source software available to as many people as possible, please <a href="https://k-monitor.hu/support" target="_blank">support K-Monitor!</a></p>',
-			},
-		],
 		nav: {
 			about: 'ABOUT PARTIMAP',
 			aboutSubmenu: {
@@ -86,7 +24,6 @@ export default {
 				respondents: 'Help for questionnaire respondents',
 				methodology: 'PARTIMAP participatory methodology',
 			},
-			rolunk: 'ABOUT US',
 			aboutUs: 'HOW IT WORKS',
 			pricing: 'PRICING',
 			contact: 'CONTACT',
@@ -95,9 +32,7 @@ export default {
 				impresszum: 'Imprint',
 			},
 			tryIt: 'TRY IT!',
-			langSwitch: 'LANGUAGE',
 			login: 'LOGIN / REGISTER',
-			help: 'HELP',
 			search: 'Search',
 			menu: 'Menu',
 		},
@@ -156,13 +91,10 @@ export default {
 		stats: {
 			title: 'Some statistics',
 			desc: 'More and more people are using PARTIMAP as a tool for community engagement, in research, for thesis work or in local government work: the application has by now become a defining tool of participatory data collection.',
-			stat1Value: '250',
 			stat1Title: 'NUMBER OF SURVEYS',
 			stat1Desc: 'This many unique surveys have been created on the PARTIMAP platform by registered users.',
-			stat2Value: '105',
 			stat2Title: 'SUBMITTED MAP ELEMENTS',
 			stat2Desc: 'This many locations, points or areas have been marked by respondents answering map-based questions.',
-			stat3Value: '282',
 			stat3Title: 'NUMBER OF RESPONSES',
 			stat3Desc: 'This many times surveys made with PARTIMAP have been completed.',
 		},
@@ -206,7 +138,6 @@ export default {
 		help: {
 			title: 'Stuck?<br>We can help!',
 			desc: 'For using PARTIMAP we provide detailed help that guides you step by step, from filling in a survey all the way through building your own survey and analysing the data — whether it\'s about technical settings or methodological questions.',
-			circleText: "Got questions? Contact us at hello{'@'}partimap.eu! ",
 			contactPrefix: 'Got questions? Reach out to us:',
 			card1Title: 'How to create a PARTIMAP?',
 			card1Desc: 'We show you step by step how to gather your data and turn it into a clear, eye-catching map-based survey that gives a real picture of your respondents.',
@@ -233,7 +164,6 @@ export default {
 			privacy: 'Privacy policy',
 			terms: 'Terms of use',
 			imprint: 'Imprint',
-			placeholder: 'Text',
 			copyright: '© Copyright K-Monitor Közhasznú Egyesület All Rights Reserved',
 		},
 	},
@@ -348,50 +278,6 @@ export default {
 		search: 'Search the help',
 		clearSearch: 'Clear search',
 		noResults: 'No results for “{query}”',
-		topic: {
-			registration: 'Registration',
-			newQuestionnaire: 'Creating a new survey and managing existing ones',
-			questionnaireDatasheet: 'Survey data sheet',
-			sheetList: 'Worksheet list',
-			sheetTypes: 'Worksheet types',
-			maps: 'Creating maps and managing existing ones',
-			reports: 'Reports and results',
-			tips: 'Tips for designing a good survey',
-		},
-		content: {
-			registration: {
-				p1: 'To use PARTIMAP you first need to register with an email address. After registration, click the activation link sent to your email to activate your account.',
-				p2: 'You can then immediately create your first survey on your admin dashboard.',
-			},
-			newQuestionnaire: {
-				p1: 'To create a new survey, click the "Add" button in the Surveys list, then enter the name of the survey. It will then appear in your own list of surveys and you can edit it at any time.',
-				p2: 'You can return to your previous surveys at any time to review, edit or delete them - even while you\'re still receiving responses.',
-			},
-			questionnaireDatasheet: {
-				p1: 'On the survey data sheet you can set the title, description, social-sharing image, related data-protection information and notification preferences.',
-				p2: 'This is also where you set the custom URL slug and the thank-you message shown after submission.',
-			},
-			sheetList: {
-				p1: 'Worksheets form the backbone of the survey. Here you can add, delete, rename and reorder the worksheets (pages) within your survey.',
-				p2: 'The order of the worksheets is the order in which respondents will encounter them.',
-			},
-			sheetTypes: {
-				p1: 'There are four types of worksheets: text page, question set, static map and interactive map. Each serves a different purpose.',
-				p2: 'You choose the type when creating the worksheet and can freely combine them throughout the survey.',
-			},
-			maps: {
-				p1: 'In your own map library you can store map elements that you have drawn once and want to reuse in future surveys.',
-				p2: 'You can also import and export KML files here, making PARTIMAP easily interoperable with other map-editing tools.',
-			},
-			reports: {
-				p1: 'You can download survey responses from the Surveys list view in .xlsx format. The report contains the results in the format detailed earlier. Map elements can also be linked to question responses via identifiers, e.g. with respondents\' demographic data. Once the data is linked, spatial markings can be analysed in more depth and filtered by respondent group. The report also contains the device type used (pc/mobile) and the IP address of the respondent.',
-				p2: 'The site does not allow bulk machine submissions, but it is possible to submit several manual responses from the same IP. These can be filtered out of the report based on the IP address.',
-			},
-			tips: {
-				p1: 'A good survey is short, focused and has unambiguous questions. Try to ask as few questions as possible and accompany map tasks with simple, illustrated instructions.',
-				p2: 'Completion rates are significantly better if the survey can be filled out in 5-7 minutes and every question has a real reason to be there.',
-			},
-		},
 	},
 	login: {
 		activated: 'Account successfully activated. Welcome to PARTIMAP!',

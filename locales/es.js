@@ -14,70 +14,7 @@ export default {
 	},
 	landing: {
 		title: 'ENCUESTA BASADA EN MAPAS',
-		tagline1:
-			'PARTIMAP es una encuesta gratuita, fácil de usar y personalizable basada en mapas para aquellos',
-		tagline2:
-			'que creen que los ciudadanos afectados deberían tener voz en los proyectos de desarrollo territorial.',
-		column1:
-			'¿Cuándo fue la última vez que se le preguntó su opinión sobre un proyecto de desarrollo que afectaría su vida cotidiana? Se están utilizando miles de millones de euros para renovar nuestros espacios urbanos, edificios públicos e instalaciones de transporte. Pero la consulta pública y la participación de las partes interesadas a menudo se reducen a una formalidad. Sin embargo, está claro que, para que un proyecto tenga éxito, las necesidades y preocupaciones de las personas que utilizan la nueva infraestructura a diario deben tenerse en cuenta junto con las consideraciones profesionales. La modernización de una estación no es el objetivo en sí mismo, sino aumentar el número de personas que viajan en tren. Los bancos inteligentes no convierten una plaza pública en un lugar comunitario, solo los lugareños, si les gusta.',
-		column2:
-			'El mapeo participativo es un proceso mediante el cual se incorpora el valioso conocimiento de las partes interesadas en los desarrollos comunitarios diseñados en su beneficio. La aplicación de encuestas basadas en mapas de PARTIMAP facilita la interacción con las partes interesadas locales de manera más rápida, sencilla y eficiente. Es de uso gratuito después de registrarse, tiene funciones de diseño personalizables y también puede desarrollarse libremente, ya que es una plataforma de código abierto. Ya sea que represente a un organismo público, una municipalidad o un grupo comunitario, si está buscando una forma inteligente y transparente de conocer las opiniones de su comunidad, pruebe PARTIMAP y únase a su desarrollo!',
-		tryButton: 'Vamos a probarlo',
 		tryLink: 'https://www.partimap.eu/es/p/DEMO-en-Espanol/0',
-		methodTitle: 'Kit de métodos participativos de PARTIMAP',
-		methodDesc:
-			'¿Qué hace que un proceso de mapeo participativo sea exitoso? ¿Cómo preparar el cuestionario, qué tener en cuenta durante la difusión y cómo aprovechar al máximo los datos recopilados? K-Monitor ha resumido los conocimientos metodológicos más importantes, ya que las encuestas son solo un elemento de los procesos participativos. ¡El conjunto de herramientas participativas de PARTIMAP seguirá creciendo en el futuro, junto con el número de usuarios de la aplicación!',
-		methodButton: 'Quiero saber más',
-		methodLink:
-			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
-		featuresTitle: 'Funciones de la aplicación',
-		features: [
-			{
-				title: 'Fácil de editar',
-				description:
-					'<p>Con PARTIMAP es fácil crear encuestas con diversas funciones de cuestionario basado en mapas y tradicionales. Su interfaz está diseñada para permitir que los usuarios de computadoras ordinarias ingresen preguntas, creen hojas de trabajo, compartan en redes sociales y publiquen una nueva encuesta.</p><p>Al crear una nueva encuesta tras registrarse en la aplicación, primero es necesario ingresar información básica como el título de la encuesta, el titular de los datos y el texto de la página de bienvenida. Posteriormente, es posible crear las hojas de trabajo relevantes. Estas pueden ser páginas de texto (para presentar planes e ideas), cuestionarios (para recopilar respuestas de preguntas de opción múltiple, menús desplegables, texto libre y preguntas de escala), mapas estáticos (hoja de trabajo de Preguntas y mapa - para presentar y recopilar comentarios sobre elementos de mapa predefinidos: puntos, líneas y polígonos) y mapas interactivos (hoja de trabajo de Tareas de mapa - donde los encuestados pueden dibujar y agregar sus propios elementos de mapa en respuesta a una pregunta). Es fácil navegar entre las hojas de trabajo, eliminarlas o editar su contenido y su secuencia en cualquier momento.</p>',
-			},
-			{
-				title: 'Diseño personalizable',
-				description:
-					'<p>Las interfaces de cuestionarios están diseñadas para llegar efectivamente al público objetivo. Por esta razón, prestamos especial atención a la capacidad de compartir y personalizar encuestas durante el desarrollo. En las hojas de trabajo de inicio y cierre, hay botones de uso compartido para las plataformas de redes sociales más populares. Las encuestas también se pueden configurar con una imagen de miniatura personalizada de Facebook y un texto de vista previa, lo que permite a los usuarios adaptar su encuesta a sus propios diseños establecidos. Además de cargar sus propias fotos en la interfaz de edición de hojas de trabajo, también puede formatear texto, agregar enlaces y cargar imágenes de fondo. Además, las encuestas pueden tener una URL única en la aplicación.</p>',
-			},
-			{
-				title: 'Una encuesta multifacética',
-				description:
-					'<p>La hoja de trabajo de tipo cuestionario del sitio se puede utilizar para crear encuestas no relacionadas con la función de mapas. Las preguntas pueden adoptar la forma de opciones de opción múltiple, menús desplegables, calificaciones escalonadas o respuestas de texto; estas se pueden personalizar libremente agregando sus propias imágenes y opciones adicionales. El resumen (resultados) de las respuestas proporcionadas por los encuestados se puede publicar en forma de gráficos al final de la hoja con un solo clic, y también se proporciona la opción de mostrar los resultados en la página después de finalizar el período de encuesta. La hoja de trabajo se puede personalizar de la misma manera que las otras hojas: se pueden usar imágenes de fondo, ilustraciones y enlaces para hacerla más fácil de usar.</p>',
-			},
-			{
-				title: 'Mapeo de planes existentes',
-				description:
-					'<p>Se puede agregar una hoja de trabajo de Preguntas y mapa al cuestionario para ilustrar un transporte particular, infraestructura u otra idea de desarrollo que se pueda representar en un mapa y recopilar comentarios al respecto. Es posible importar elementos de otras interfaces de cartografía (por ejemplo, Google Maps), que luego se pueden visualizar y evaluar individualmente en PARTIMAP. Además, la hoja de trabajo basada en mapas puede incluir los tipos de pregunta ya conocidos del cuestionario, así como explicaciones adicionales, descripciones y enlaces. El mapa editado se puede guardar como tu mapa y usarlo en una encuesta futura también.</p><p>Las Preguntas y mapa es una herramienta ideal para pedir a los residentes que califiquen las diferentes infraestructuras de un municipio, por ejemplo, la accesibilidad en general y para personas con movilidad reducida, si es apto para bicicletas, etc. Una vez que los resultados estén disponibles, se puede derivar una evaluación compleja. Este tipo de hoja de trabajo también se puede utilizar para resolver dilemas específicos de desarrollo, por ejemplo, al revisar las versiones A y B de un desarrollo planificado para un área, los encuestados pueden decidir cuál prefieren.</p>',
-			},
-			{
-				title: '¡Ahora es tu turno de contribuir al mapa!',
-				description:
-					'<p>Lo que hace que PARTIMAP sea único en comparación con otras herramientas de encuesta en línea es que las personas pueden expresar su opinión con una ubicación adjunta, pueden ilustrar sus sugerencias o simplemente compartir sus rutas de viaje, por ejemplo. Los espacios públicos en un municipio, distrito o vecindario son utilizados por una amplia gama de personas, cuyas diversas necesidades y opiniones sobre su uso del espacio pueden evaluarse utilizando la hoja de trabajo de Tareas de mapa. Los encuestados pueden utilizar puntos, líneas y formas de polígono para proporcionar respuestas gráficas a las preguntas realizadas. Las respuestas entrantes se pueden procesar fácilmente en forma de un mapa de calor, o las sugerencias recibidas se pueden votar en una hoja de trabajo de Preguntas y mapa en un cuestionario posterior.</p>',
-			},
-			{
-				title: 'Interoperabilidad con otras plataformas',
-				description:
-					'<p>Ambas hojas de trabajo de tipo mapas utilizan openstreetmap.org como mapa de fondo, para el cual se puede dibujar un mapa base personalizado resaltando los puntos focales de la encuesta. Los elementos dibujados en encuestas anteriores se pueden guardar y almacenar entre los propios mapas del usuario. Para cada hoja de trabajo, el mapa de base se puede importar no solo de este propio repositorio de mapas, sino también de un archivo .KML externo: una función de importación/exportación permite un intercambio rápido con software de cartografía como Google MyMaps u otros software geoespaciales más complejos.</p><p>La interfaz de edición sencilla le permite crear mapas que se ajusten a la encuesta dibujando puntos, líneas y polígonos de colores. Con un clic de botón, también es posible crear un mapa base a partir de los datos enviados por un encuestado, y exportar en formato de archivo .KML, lo que proporciona portabilidad a otras aplicaciones de edición de mapas. En el futuro, también tenemos la intención de crear otros tipos de mapas de fondo rasterizados y nuevas representaciones gráficas de los elementos trazados (por ejemplo, iconos personalizados).</p>',
-			},
-			{
-				title: 'Comunicación de sus resultados',
-				description:
-					'<p>Una vez que se completa una encuesta, comienza una nueva fase en el ciclo del proyecto: la evaluación. Las respuestas recibidas a través de la interfaz de encuesta se pueden presentar en gráficos para una comunicación rápida: se pueden configurar para que se muestren con una sola configuración, para que los encuestados puedan navegar directamente por los resultados actuales de la encuesta. Además, se puede realizar un análisis detallado descargando el conjunto completo de datos de respuestas en formato de Excel. Luego, el informe se puede procesar con software de gestión de datos utilizando las respuestas enviadas y los elementos geográficos, de modo que la complejidad y la representación visual de los resultados finales dependan solo de nuestras capacidades de análisis y visualización de datos.</p>',
-			},
-			{
-				title: 'Gratis y de código abierto',
-				description:
-					'<p>La aplicación es gratuita y después de un registro rápido, puedes crear tu propia encuesta PARTIMAP. Desarrollada por K-Monitor y nuestros socios, la herramienta es de código abierto, por lo que es libre de desarrollar, personalizar y utilizar. Nuestro objetivo es crear más proyectos que fomenten la participación de los ciudadanos en la toma de decisiones públicas, por lo que damos la bienvenida en gran medida al uso creativo y al desarrollo de esta herramienta.</p>',
-			},
-			{
-				title: 'Cómo contribuir',
-				description:
-					'<p>El software PARTIMAP fue desarrollado por K-Monitor con el apoyo de la Comisión Europea (DG Regio) en 2021. Se realizaron más desarrollos en 2022, en cooperación con la oficina de Praga de la Fundación Heinrich-Böll-Stiftung. ¡Pero el proyecto está lejos de terminar con el lanzamiento de la versión actual! La plataforma gratuita y de código abierto fue creada para autoridades públicas, municipios y organizaciones civiles con el objetivo de ayudarles a mejorar la participación en sus decisiones de desarrollo, para que podamos administrar nuestros activos públicos de manera más eficiente.</p><p>Si estás interesado en el proyecto y deseas participar en su desarrollo, o simplemente quieres compartir tus opiniones sobre PARTIMAP con nosotros, contáctanos en <a href="mailto:hello{\'@\'}partimap.eu">hello{\'@\'}partimap.eu</a>. Si deseas apoyar el desarrollo económicamente para poner a disposición el software de código abierto y gratuito para tantas personas como sea posible, por favor <a href="https://k-monitor.hu/support" target="_blank">apoya a K-Monitor</a>.</p>',
-			},
-		],
 		nav: {
 			about: 'SOBRE PARTIMAP',
 			aboutSubmenu: {
@@ -88,7 +25,6 @@ export default {
 				respondents: 'Ayuda para rellenar el cuestionario',
 				methodology: 'Metodología participativa de PARTIMAP',
 			},
-			rolunk: 'SOBRE NOSOTROS',
 			aboutUs: 'CÓMO FUNCIONA',
 			pricing: 'PRECIOS',
 			contact: 'CONTACTO',
@@ -97,9 +33,7 @@ export default {
 				impresszum: 'Aviso legal',
 			},
 			tryIt: '¡PRUÉBALO!',
-			langSwitch: 'IDIOMA',
 			login: 'ENTRAR / REGISTRARSE',
-			help: 'AYUDA',
 			search: 'Buscar',
 			menu: 'Menú',
 		},
@@ -158,13 +92,10 @@ export default {
 		stats: {
 			title: 'Algunas estadísticas',
 			desc: 'Cada vez más personas usan PARTIMAP como herramienta de participación ciudadana, en investigación, para trabajos de fin de carrera o en la labor de las administraciones locales: la aplicación se ha convertido hoy en una herramienta de referencia para la recogida participativa de datos.',
-			stat1Value: '250',
 			stat1Title: 'NÚMERO DE ENCUESTAS',
 			stat1Desc: 'Estos son los cuestionarios únicos que han creado los usuarios registrados en la plataforma PARTIMAP.',
-			stat2Value: '105',
 			stat2Title: 'ELEMENTOS DE MAPA ENVIADOS',
 			stat2Desc: 'Estos son los lugares, puntos o zonas que han marcado quienes responden al contestar las preguntas basadas en mapas.',
-			stat3Value: '282',
 			stat3Title: 'NÚMERO DE RESPUESTAS',
 			stat3Desc: 'Estas son las veces que se han rellenado cuestionarios creados con PARTIMAP.',
 		},
@@ -208,7 +139,6 @@ export default {
 		help: {
 			title: '¿Atascado?<br>¡Te ayudamos!',
 			desc: 'Para usar PARTIMAP ofrecemos una ayuda detallada que te guía paso a paso, desde la cumplimentación de una encuesta hasta la creación de tu propia encuesta y el análisis de los datos: ya se trate de ajustes técnicos o de cuestiones metodológicas.',
-			circleText: "¿Preguntas? ¡Contáctanos en hello{'@'}partimap.eu! ",
 			contactPrefix: '¿Preguntas? Contáctanos:',
 			card1Title: '¿Cómo crear un PARTIMAP?',
 			card1Desc: 'Te mostramos paso a paso cómo reunir tus datos y convertirlos en una encuesta cartográfica clara y atractiva que ofrezca una imagen real de quienes responden.',
@@ -235,7 +165,6 @@ export default {
 			privacy: 'Política de privacidad',
 			terms: 'Condiciones de uso',
 			imprint: 'Aviso legal',
-			placeholder: 'Texto',
 			copyright: '© Copyright K-Monitor Közhasznú Egyesület All Rights Reserved',
 		},
 	},
@@ -350,50 +279,6 @@ export default {
 		search: 'Buscar en la ayuda',
 		clearSearch: 'Borrar la búsqueda',
 		noResults: 'Sin resultados para «{query}»',
-		topic: {
-			registration: 'Registro',
-			newQuestionnaire: 'Crear una nueva encuesta y gestionar las existentes',
-			questionnaireDatasheet: 'Ficha de datos de la encuesta',
-			sheetList: 'Lista de hojas de trabajo',
-			sheetTypes: 'Tipos de hojas de trabajo',
-			maps: 'Crear mapas y gestionar los existentes',
-			reports: 'Informes y resultados',
-			tips: 'Consejos para diseñar una buena encuesta',
-		},
-		content: {
-			registration: {
-				p1: 'Para usar PARTIMAP primero debes registrarte con una dirección de correo electrónico. Tras el registro, haz clic en el enlace de activación enviado a tu correo para activar tu cuenta.',
-				p2: 'Después podrás crear de inmediato tu primera encuesta en tu panel de administración.',
-			},
-			newQuestionnaire: {
-				p1: 'Para crear una nueva encuesta, haz clic en el botón «Agregar» de la lista de Encuestas e introduce el nombre de la encuesta. A continuación aparecerá en tu propia lista de encuestas y podrás editarla en cualquier momento.',
-				p2: 'Puedes volver a tus encuestas anteriores en cualquier momento para revisarlas, editarlas o eliminarlas, incluso mientras sigues recibiendo respuestas.',
-			},
-			questionnaireDatasheet: {
-				p1: 'En la ficha de datos de la encuesta puedes definir el título, la descripción, la imagen para compartir en redes sociales, la información de protección de datos correspondiente y las preferencias de notificación.',
-				p2: 'Aquí también configuras la ruta URL personalizada (slug) y el mensaje de agradecimiento que se muestra tras el envío.',
-			},
-			sheetList: {
-				p1: 'Las hojas de trabajo forman la columna vertebral de la encuesta. Aquí puedes añadir, eliminar, renombrar y reordenar las hojas de trabajo (páginas) dentro de tu encuesta.',
-				p2: 'El orden de las hojas de trabajo es el orden en que las encontrarán las personas que responden.',
-			},
-			sheetTypes: {
-				p1: 'Hay cuatro tipos de hojas de trabajo: página de texto, conjunto de preguntas, mapa estático y mapa interactivo. Cada uno tiene una finalidad diferente.',
-				p2: 'Eliges el tipo al crear la hoja de trabajo y puedes combinarlas libremente a lo largo de la encuesta.',
-			},
-			maps: {
-				p1: 'En tu propia biblioteca de mapas puedes guardar elementos del mapa que ya has dibujado una vez y quieres reutilizar en futuras encuestas.',
-				p2: 'Aquí también puedes importar y exportar archivos KML, lo que hace que PARTIMAP sea fácilmente interoperable con otras herramientas de edición de mapas.',
-			},
-			reports: {
-				p1: 'Puedes descargar las respuestas de la encuesta desde la vista de lista de Encuestas en formato .xlsx. El informe contiene los resultados en el formato detallado anteriormente. Los elementos del mapa también pueden vincularse a las respuestas de las preguntas mediante identificadores, por ejemplo con los datos demográficos de los encuestados. Una vez vinculados los datos, las marcas espaciales pueden analizarse con mayor profundidad y filtrarse por grupo de encuestados. El informe también incluye el tipo de dispositivo utilizado (pc/móvil) y la dirección IP de la persona que responde.',
-				p2: 'El sitio no permite envíos automáticos masivos, pero sí es posible enviar manualmente varias respuestas desde la misma IP. Estas pueden filtrarse del informe según la dirección IP.',
-			},
-			tips: {
-				p1: 'Una buena encuesta es breve, está enfocada y tiene preguntas inequívocas. Intenta hacer las menos preguntas posibles y acompaña las tareas en el mapa con instrucciones sencillas e ilustradas.',
-				p2: 'Las tasas de finalización son mucho mejores si la encuesta se puede completar en 5-7 minutos y cada pregunta tiene una razón real de estar ahí.',
-			},
-		},
 	},
 	login: {
 		activated: 'Cuenta activada con éxito. ¡Bienvenido a PARTIMAP!',

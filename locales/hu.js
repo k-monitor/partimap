@@ -13,70 +13,7 @@ export default {
 	},
 	landing: {
 		title: 'TÉRKÉPES KÉRDŐÍVEZŐ',
-		tagline1:
-			'A PARTIMAP egy ingyenes, könnyen kezelhető és testreszabható térképes kérdőívező felület azoknak,',
-		tagline2:
-			'akik szerint a közpénzből megvalósuló fejlesztésekről meg kell kérdezni az érintetteket is.',
-		column1:
-			'Mikor kérték ki legutóbb a véleményed egy olyan fejlesztésről, amit naponta használsz? Hazai és európai uniós milliárdokból sorra újulnak meg városi tereink, közintézményeink és a közlekedési létesítmények. A társadalmi egyeztetés és az érintettek bevonása azonban sokszor csak formalitás. Pedig könnyen belátható, hogy a lebonyolítás szakmai szempontjai mellett a fejlesztéseket napi szinten használók igényeit, elvárásait is számításba kell venni ahhoz, hogy egy projekt sikeres legyen. A cél nem az, hogy modernebb legyen a vasútállomás, hanem az, hogy többen járjanak vonattal. Nem attól kap közösségi funkciót egy tér, hogy okospadokat szerelünk fel, hanem attól, hogy a környékbeliek megkedvelik.',
-		column2:
-			'Participatory mapping, azaz részvételi térképezés: így nevezik a folyamatot, amelynek révén az érintettek pótolhatatlan tudása beépül a számukra készülő közösségi fejlesztésekbe. A PARTIMAP térképes kérdőívező felülete ahhoz nyújt segítséget, hogy lakosokkal való kapcsolat gyorsabbá, hatékonyabbá és egyszerűbbé váljon. A program regisztráció után ingyenesen használható, saját arculattal látható el és nyílt forráskódjának köszönhetően szabadon továbbfejleszthető. Legyél állami szerv, önkormányzat, vagy helyi érdekérvényesítő csoport - ha egy okos és átlátható megoldást keresel arra, hogyan ismerd meg a környezeted véleményét, próbáld ki a PARTIMAPot és csatlakozz te is a fejlesztéshez!',
-		tryButton: 'Kipróbálom',
 		tryLink: 'https://www.partimap.eu/p/Demo/0',
-		methodTitle: 'PARTIMAP részvételi módszertan',
-		methodDesc:
-			'Mitől lesz sikeres egy részvételi térképezés? Hogyan kell elkészíteni a kérdőívet, mire kell odafigyelni a terjesztés során és hogyan lehet a legtöbbet kihozni az összegyűjtött adatokból? A K-Monitor összefoglalta a legfontosabb tudnivalókat, hiszen a kérdőívezés csak egy eleme a fejlesztések társadalmasításának. A PARTIMAP részvételi módszertana - a program használói körével együtt - a jövőben folyamatosan bővülni fog!',
-		methodButton: 'Elolvasom',
-		methodLink:
-			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
-		featuresTitle: 'Mit tud a program?',
-		features: [
-			{
-				title: 'Egyszerű szerkeszthetőség',
-				description:
-					'<p>A PARTIMAPpal egyszerűen lehet létrehozni többféle térképes és hagyományos kérdőíves funkciókat tartalmazó felméréseket. Munkafelületet úgy alakítottuk ki, hogy hétköznapi számítógépes felhasználói tudás elegendő legyen a kérdések megadáshoz, munkalapok létrehozásához, közösségi médiában való megosztás adatainak megadásához és egy új projekt élesítéséhez.</p><p>Regisztráció után új felmérés létrehozásakor először az olyan alapadatok megadására van szükség, mint a kérdőív címe, az adatkezelő adatai és a köszönőoldal szövege, ezt követően pedig a saját témához kapcsolódó munkalapok létrehozására van lehetőség. Ezek lehetnek szöveges oldalak (a tervek, elképzelések bemutatására), kérdéssorok (feleletválasztó, legördülő menüs, szabadszavas és skálán mérhető válaszok begyűjtésére), statikus térképek (előre meghatározott térképes elemek - pontok, vonalak és poligonok - bemutatása és értékelése), valamint interaktív térképek (itt egy kérdésre válaszolva a kitöltők rajzolhatnak fel saját elemeket). A munkalapok között könnyen lehet törölni, navigálni és a sorrendjük is bármikor tetszőlegesen szerkeszthető.</p>',
-			},
-			{
-				title: 'Testre szabható megjelenés',
-				description:
-					'<p>A kérdőíves felületek feladata, hogy könnyen eljusson a célközönséghez. Ezért külön figyelmet fordítottunk a fejlesztés során a megoszthatóságra és az egyes projektekhez tartozó kérdőívek testreszabhatóságára. A bemutatkozó és záró munkalapokon elérhetők a legnépszerűbb közösségi médiafelületek megosztás gombjai. A kérdőívekhez egyedi Facebook bélyegkép és előnézeti szöveg is beállítható, amivel a felhasználó szervezet saját kreatív képi világához igazíthatja felmérését. A munkalapok szerkesztőfelületén saját fényképek feltöltésén túl lehetőség van a szövegek formázására, linkek megadására, és háttérképek feltöltésére is. A kérdőíveknek ezen felül a felületen egyedi (partimap.eu/p/NÉV) url cím adható.</p>',
-			},
-			{
-				title: 'Sokoldalú kérdőívező alkalmazás',
-				description:
-					'<p>Az oldal kérdőíves munkalapja segítségével a térképes nézethez nem kapcsolódó felméréseket lehet készíteni. A kérdések formája lehet feleletválasztós, legördülő menü, lineáris értékelés vagy szöveges válasz - ezek saját képek hozzáadásával és további beállításokkal szabadon testre szabhatók. A kitöltők által adott válaszok összesítése (eredménye) egy gombnyomással publikálható grafikus formában a munkalap végén, a kitöltés lezárása után pedig lehetőség van csak az eredményeket megmutatni. A munkalap ugyanúgy testre szabható, mint a többi: háttérképet, illusztrációt, linkeket lehet használni rajta, hogy könnyebb legyen a kitöltők dolga.</p>',
-			},
-			{
-				title: 'Fejlesztések bemutatása térképen',
-				description:
-					'<p>Adott közlekedési, infrastrukturális vagy más térképen ábrázolható fejlesztés vagy fejlesztési ötlet bemutatására és visszajelzések gyűjtésére a kérdőívhez statikus térkép munkalap adható. Ehhez más térképes felületekről (pl. Google Maps) könnyen importálhatóak korábban felrajzolt elemek, amelyekhez a PARTIMAPon egyedi megjelenítés és értékelési lehetőség adható. Ezen felül magához a munkalaphoz is hozzáadhatóak a térkép nélküli kérdőív munkalapról már megismert kérdéstípusok, illetve további magyarázat, leírás, linkek. A felrajzolt térképet saját térképként elmentve egy következő projektnél is fel lehet használni.</p><p>A statikus térkép kiválóan alkalmas arra, hogy egy település különböző létesítményeihez értékelést kérjünk a lakosoktól, pl. Mennyire könnyen megközelíthető, mennyire akadálymentes, jól járható-e kerékpárral stb. Ezekből az eredmények letöltése után egy komplex értékelés rajzolódik ki. A munkalaptípus konkrét fejlesztési dilemmák eldöntésére is használható, például egy területre tervezett A és B verziójú fejlesztést megismerve dönthetnek a kitöltők, melyiket kedvelik jobban.</p>',
-			},
-			{
-				title: 'Most te jössz - rajzolj a térképre!',
-				description:
-					'<p>A PARTIMAP egyediségét az adja más térképes felületekhez képest, hogy a kitöltők térképre rajzolva is kifejezhetik a véleményüket, illusztrálhatják a javaslataikat, vagy egyszerűen megoszthatják, merre közlekednek. Egy település, kerület vagy környék köztereit számos ember használja, akiknek szerteágazó térhasználati igényei és véleményei felmérésére alkalmas az interaktív térképes munkalap. A megkérdezett felhasználók pont, vonal és alakzat segítségével adhatnak grafikus választ a feltett kérdésekre. A bejövő eredményeket könnyen fel lehet dolgozni akár egy hőtérkép formájában, vagy akár egy következő kérdőívben a beérkezett javaslatokat lehet egy statikus térképen szavazásra bocsátani.</p>',
-			},
-			{
-				title: 'Átjárhatóság más felületekkel',
-				description:
-					'<p>Mindkét térképes munkalap az openstreetmap.org-ot használja háttértérképként, amelyhez egyedi alaptérkép rajzolható kiemelve a felmérés fókuszpontjait. A korábbi kérdőívekben felrajzolt elemeket a felhasználó saját térképei között lehet elmenteni és tárolni. Az egyes munkalapokhoz az alaptérkép nem csak ebből a saját térképtárból, hanem külső KML fájlból is behúzható: import/export funkcióval gyors átjárást biztosít olyan térképes szoftverekkel, mint például a Google MyMaps vagy más, komplexebb térinformatikai programok.</p><p>Az egyszerű szerkesztőfelületen színezhető pontok, vonalak és poligonok felrajzolásával készíthetők a felméréshez illeszkedő térképek. Egy gombnyomással lehetőség van egy felmérés kitöltői által beküldött adatokból is alaptérképet létrehozni, valamint KML fájlformátumban történő exportra - így biztosított az átjárás más térképszerkesztő alkalmazások felé. A későbbiekben más típusú raszteres háttérképeket, és a felrajzolt elemek újfajta grafikai megjelenítését is meg kívánjuk teremteni (pl. egyedi ikonok).</p>',
-			},
-			{
-				title: 'Az eredmények kommunikálása',
-				description:
-					'<p>Egy felmérés lezárultával új szakasz nyílik egy projekt életében: a kiértékelés. A kérdőívező felületen beérkező válaszokat a gyors kommunikáció érdekében grafikonokon mutathatjuk be: ezek megjelenítése egy gombnyomással beállítható, így a kitöltők közvetlenül is böngészhetik a kérdőívezés aktuális eredményét. További, részletes elemzéseket a beérkezett adatok teljeskörű excel formátumban történő letöltésével lehet megkezdeni. A riportból ezt követően adatkezelő programokkal lehet feldolgozni a beküldött válaszokat, földrajzi elemeket, így a végeredmény összetettsége és látványossága már csak adatelemző és -vizualizáló kapacitásunk határaitól függ.</p>',
-			},
-			{
-				title: 'Ingyenes, szabadon felhasználható',
-				description:
-					'<p>Az alkalmazás használata ingyenes, gyors regisztrációt követően máris létrehozható egy saját PARTIMAP kérdőív. A K-Monitor és partnerei által fejlesztett eszköz nyílt forráskóddal rendelkezik, így szabadon továbbfejleszthető, alakítható és felhasználható. Célunk, hogy minél több olyan projekt szülessen, ami ösztönzi az állampolgárok bevonását a közügyek eldöntésébe, így kifejezetten örülünk, ha az eszköz kreatív alkalmazásának, fejlesztésének. </p>',
-			},
-			{
-				title: 'Szeretném segíteni a projektet!',
-				description:
-					'<p>A PARTIMAP szoftvert a K-Monitor egyesület az Európai Bizottság (DG Regio) támogatásából valósította meg 2021-ben. A jelenlegi verzió publikálásával a projekt azonban korántsem ért véget! Az ingyenes, szabadon felhasználható felületet állami szerveknek, önkormányzatoknak, érdekérvényesítő civil szervezeteknek készítettük azzal a céllal, hogy az eszköz segíti őket a fejlesztésekkel kapcsolatos döntések társadalmasításában, így közös vagyonunkkal takarékosabban gazdálkodhatunk.</p><p>Ha érdekel a projekt, és szeretnél bekapcsolódni a fejlesztésbe, vagy csak megosztanád velünk a gondolataidat a PARTIMAP-ról, írj nekünk a <a href="mailto:hello{\'@\'}partimap.eu-ra.">hello{\'@\'}partimap.eu-ra.</a>-ra. Ha anyagilag támogatnád a fejlesztést, hogy az ingyenes, szabadon felhasználható szoftver minél többek számára legyen elérhető, <a href="https://tamogatas.k-monitor.hu/" target="_blank">támogasd a K-Monitort!</a></p>',
-			},
-		],
 		nav: {
 			about: 'A PARTIMAPRÓL',
 			aboutSubmenu: {
@@ -87,7 +24,6 @@ export default {
 				respondents: 'Segítség kérdőív kitöltőknek',
 				methodology: 'PARTIMAP részvételi módszertana',
 			},
-			rolunk: 'RÓLUNK',
 			aboutUs: 'HOGYAN MŰKÖDIK',
 			pricing: 'ÁRAZÁS',
 			contact: 'KAPCSOLAT',
@@ -96,9 +32,7 @@ export default {
 				impresszum: 'Impresszum',
 			},
 			tryIt: 'PRÓBÁLD KI!',
-			langSwitch: 'NYELVVÁLASZTÁS',
 			login: 'BELÉPÉS / REGISZTRÁCIÓ',
-			help: 'SÚGÓ',
 			search: 'Keresés',
 			menu: 'Menü',
 		},
@@ -157,13 +91,10 @@ export default {
 		stats: {
 			title: 'Egy kis statisztika',
 			desc: 'Egyre többen használják a PARTIMAP-ot közösségi bevonás eszközeként, kutatásban, szakdolgozathoz vagy önkormányzati munkában: az alkalmazás mára a részvételi adatgyűjtés meghatározó eszközévé vált.',
-			stat1Value: '250',
 			stat1Title: 'KÉRDŐÍVEK SZÁMA',
 			stat1Desc: 'Ennyi egyedi kérdőív készült el a PARTIMAP felületén regisztrált felhasználók által.',
-			stat2Value: '105',
 			stat2Title: 'BEKÜLDÖTT TÉRKÉPELEMEK SZÁMA',
 			stat2Desc: 'Ennyi helyszínt, pontot vagy területet jelöltek be a kitöltők a térképes kérdésekre válaszolva.',
-			stat3Value: '282',
 			stat3Title: 'KITÖLTÉSEK SZÁMA',
 			stat3Desc: 'Ennyiszer töltöttek ki PARTIMAP-pal készült kérdőíveket.',
 		},
@@ -207,7 +138,6 @@ export default {
 		help: {
 			title: 'Elakadtál?<br>Segítünk!',
 			desc: 'A PARTIMAP használatához részletes súgót biztosítunk, amely lépésről lépésre végigvezet a kérdőív kitöltésétől egészen a saját kérdőív összeállításán és az adatok elemzésén át: legyen szó technikai beállításokról, vagy módszertani kérdésekről.',
-			circleText: "Kérdésed van? Keress minket bátran a hello{'@'}partimap.eu címen! ",
 			contactPrefix: 'Kérdésed van? Keress minket bátran:',
 			card1Title: 'Hogyan készítsünk PARTIMAP-ot?',
 			card1Desc: 'Lépésről lépésre megmutatjuk, hogyan gyűjtsd össze az adatokat, és hogyan alakítsd át őket érthető, látványos térképes kérdőívvé, amely valódi képet ad a kitöltőkről.',
@@ -234,7 +164,6 @@ export default {
 			privacy: 'Adatkezelési tájékoztató',
 			terms: 'Felhasználási feltételek',
 			imprint: 'Impresszum',
-			placeholder: 'Szöveg',
 			copyright: '© Copyright K-Monitor Közhasznú Egyesület All Rights Reserved',
 		},
 	},
@@ -349,50 +278,6 @@ export default {
 		search: 'Keresés a súgóban',
 		clearSearch: 'Keresés törlése',
 		noResults: 'Nincs találat erre: „{query}”',
-		topic: {
-			registration: 'Regisztráció',
-			newQuestionnaire: 'Új kérdőív létrehozása és korábbiak kezelése',
-			questionnaireDatasheet: 'Kérdőív adatlap',
-			sheetList: 'Munkalapok listája',
-			sheetTypes: 'Munkalapok típusai',
-			maps: 'Térképek létrehozása és korábbiak kezelése',
-			reports: 'Riport és eredmények',
-			tips: 'Tippek egy kérdőív elkészítéséhez',
-		},
-		content: {
-			registration: {
-				p1: 'A PARTIMAP használatához először regisztrálnod kell egy e-mail cím megadásával. A regisztrációt követően a megadott címre küldött aktiváló linkre kattintva tudod aktiválni a fiókodat.',
-				p2: 'Ezt követően azonnal létrehozhatod az első kérdőívedet a saját adminisztrációs felületeden.',
-			},
-			newQuestionnaire: {
-				p1: 'Új kérdőív létrehozásához kattints a Kérdőívek listájában a "Hozzáadás" gombra, majd add meg a kérdőív nevét. Ezt követően a saját kérdőíveid listájában jelenik meg, és bármikor szerkesztheted.',
-				p2: 'A korábbi kérdőíveidet bármikor visszanézheted, szerkesztheted vagy törölheted - egészen addig is, ameddig új kitöltéseket vársz.',
-			},
-			questionnaireDatasheet: {
-				p1: 'A kérdőív adatlapján megadhatod a kérdőív címét, leírását, a megosztáshoz tartozó képet, a kapcsolódó adatkezelési információkat és az értesítési beállításokat.',
-				p2: 'Itt tudod az egyedi elérési útvonalat (slug) is beállítani, valamint a köszönő szöveget, ami a kitöltés után jelenik meg.',
-			},
-			sheetList: {
-				p1: 'A munkalapok adják a kérdőív gerincét. Itt tudod hozzáadni, törölni, átnevezni és átrendezni az egyes munkalapokat (oldalakat) a kérdőíveden belül.',
-				p2: 'A munkalapok sorrendje az, amiben a kitöltő találkozni fog velük.',
-			},
-			sheetTypes: {
-				p1: 'A munkalapoknak négy típusa van: szöveges oldal, kérdéssor, statikus térkép és interaktív térkép. Mindegyik más-más célra való.',
-				p2: 'A típust a munkalap létrehozásakor választhatod ki, és a kérdőív elkészítése során bármikor szabadon kombinálhatod őket.',
-			},
-			maps: {
-				p1: 'A saját térképtáradban tárolhatod azokat a térképes elemeket, amiket egyszer már felrajzoltál és későbbi kérdőívekben szeretnél újra felhasználni.',
-				p2: 'Itt KML fájlokat is importálhatsz és exportálhatsz, így könnyen átjárható más térképszerkesztő alkalmazásokkal.',
-			},
-			reports: {
-				p1: 'Egy felmérés kitöltéseit a Kérdőívek listanézetének oldalán van lehetőség letölteni .xlsx formátumban. A riport az eredményeket a korábban részletezett formátumban tartalmazza. A térképes elemek azonosítószámok mentén is összekapcsolhatók a kérdőívkérdésekre adott válaszokkal, így pl. a kitöltők demográfiai adataival. Az adatok összekapcsolása után a térbeli jelölések is mélyebben elemezhetők, leszűrhetők a kitöltők egyes csoportjai mentén. A riport tartalmazza a kitöltők által használt eszköz típusát (pc/mobil) és a kitöltő IP címét is.',
-				p2: 'A tömeges gépi kitöltéseket nem engedélyezi az oldal, de kézzel lehetőség van azonos IP címről több választ is leadni. Ezeket a riportból az IP cím alapján lehet kiszűrni.',
-			},
-			tips: {
-				p1: 'Egy jó kérdőív rövid, fókuszált és minden kérdése egyértelmű. Próbálj minél kevesebb kérdést feltenni, és a térképes feladatokat egyszerű, képes instrukciókkal kísérd.',
-				p2: 'A kitöltési arány lényegesen jobb, ha a kérdőív 5-7 percen belül kitölthető, és minden kérdéshez van valódi tartalmi indok.',
-			},
-		},
 	},
 	login: {
 		activated: 'Sikeres aktiválás, most már bejelentkezhetsz!',

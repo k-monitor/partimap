@@ -13,69 +13,7 @@ export default {
 	},
 	landing: {
 		title: 'ŽEMĖLAPIŲ APKLAUSOS',
-		tagline1:
-			'PARTIMAP tai nemokama, lengvai redaguojama žemėlapiais paremtų apklausų kūrimo platforma, tiems',
-		tagline2: 'kurie tiki, kad gyventojai turi būti įtraukiami į teritorijų planavimo procesą ',
-		column1:
-			'Kada paskutinį kartą buvo klausiama jūsų nuomonės apie plėtros projektą, kuris turės įtakos jūsų kasdieniniam gyvenimui? Miestų atnaujinimui skiriami milijardai eurų, tačiau gyventojų nuomonės išklausymas ir projektų viešinimas dažnai lieka tik formalumu. Norint, kad projektas būtų sėkmingas, svarbu atsižvelgti ne tik į ekspertų, bet ir į žmonių, kurie kasdien naudosis nauja infrastruktūra, poreikius. Juk stotelių modernizavimo tikslas nėra pats atnaujinimas, bet žmonių, kurie dažniau keliautų viešuoju transportu, pritraukimas.Nauji modernūs suoliukai aikštėse nepaverčia viešosios erdvės bendruomenės vieta, tokia ji tampa, jei taip nusprendžia patys gyventojai.',
-		column2:
-			'Dalyvaujamasis kartografavimas yra procesas, kurio metu suinteresuotųjų šalių žinios naudojamos bendruomenės plėtrai skirtiems projektams. PARTIMAP žemėlapių apklausos paverčia bendravimą su vietos suinteresuotomis šalimis greitesniu, paprastesniu ir efektyvesniu. Šią atviro kodo platformą po registracijos galima naudoti, redaguoti ir plėtoti nemokamai. Nesvarbu, ar atstovaujate viešajai įstaigai, savivaldybei ar vietinei grupei, jei ieškote išmanaus ir skaidraus būdo susipažinti su savo bendruomenės nuomone, išbandykite PARTIMAP ir prisijunkite prie aplikacijos plėtros!',
-		tryButton: 'Išbandykite',
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
-		methodTitle: 'PARTIMAP dalyvavimo metodo įrankiai',
-		methodDesc:
-			'Kas daro dalyvaujamojo kartografavimo procesą sėkmingą? Kaip parengti anketą, į ką atkreipti dėmesį sklaidos metu ir kaip geriausiai išnaudoti surinktus duomenis? „K-Monitor“ apibendrino svarbiausias metodologines žinias, nes apklausos apima tik vieną dalyvaujamųjų procesų elementą. PARTIMAP dalyvavimo priemonių rinkinys ateityje plėsis kartu su programos vartotojų skaičiumi!',
-		methodButton: 'Noriu sužinoti daugiau',
-		methodLink:
-			'https://drive.google.com/file/d/17p1JALO2iNtYNMhMkCvHCllqUTIFYrb2/view?usp=sharing',
-		featuresTitle: 'Kuo ši aplikacija pasižymi ',
-		features: [
-			{
-				title: 'Lengvas redagavimas',
-				description:
-					'<p>Su PARTIMAP lengva kurti apklausas su įvairiomis žemėlapiais paremtomis ir tradicinėmis anketų funkcijomis. Ši aplikacija sukurta taip, kad paprasti kompiuterių vartotojai galėtų įvesti klausimus, kurti darbalapius, dalytis socialiniuose tinkluose ir skelbti naujas apklausas.</p><p>Kuriant naują apklausą užsiregistravus programoje, pirmiausia reikia įvesti pradinę informaciją, pvz., apklausos pavadinimą, duomenų valdytoją ir įžanginio puslapio tekstą. Vėliau galima sukurti aktualius darbalapius. Tai gali būti tekstinės dalys (planams ir idėjoms pateikti), klausimynai (atsakymams rinkti iš kelių atsakymų variantų, išskleidžiamųjų meniu, laisvo teksto ir skalės klausimų), statiški žemėlapiai (Klausimų ir žemėlapio darbalapis - iš anksto nustatytų žemėlapio elementų - taškų, linijų ir daugiakampių pateikimui ir atsiliepimams apie juos rinkti) ir interaktyvūs žemėlapiai (Žemėlapio užduočių darbalapis - kur respondentai gali nupiešti ir pridėti savo žemėlapio elementus atsakydami į klausimą). Bet kuriuo metu lengva naršyti po darbalapius, juos ištrinti arba redaguoti jų turinį ir seką.</p>',
-			},
-			{
-				title: 'Savo dizaino kūrimas',
-				description:
-					'<p>Klausimynų sąsajos sukurtos taip, kad efektyviai pasiektų tikslinę auditoriją. Dėl šios priežasties kūrimo metu ypatingą dėmesį skyrėme apklausų dalijimosi galimybėms ir pritaikymui. Įvadiniuose ir baigiamuosiuose darbalapiuose yra populiariausių socialinių tinklų dalijimosi mygtukai. Apklausas taip pat galima sukurti su individualiu Facebook miniatiūros paveikslėliu ir peržiūros tekstu, leidžiančiu vartotojams pritaikyti apklausą pagal savo dizainą. Be nuotraukų įkėlimo į darbalapio redagavimo sąsają, galima formatuoti tekstą, pridėti nuorodas ir įkelti fono paveikslėlius. Be to, apklausoms programoje galima suteikti unikalų url adresą (partimap.eu/lt/p/PAVADINIMAS).</p>',
-			},
-			{
-				title: 'Įvairios atsakymų formos',
-				description:
-					'<p>Svetainės anketos darbalapį galima naudoti kuriant ir paprastas apklausas, nesusijusias su žemėlapiais. Klausimai gali būti kelių pasirinkimų, išskleidžiamųjų meniu, mastelio įvertinimų arba tekstinių atsakymų forma – juos galima laisvai redaguoti pridedant savo vaizdų ir papildomų parinkčių. Respondentų pateiktų atsakymų suvestinę (rezultatus) vienu paspaudimu galima publikuoti diagramos pavidalu darbalapio pabaigoje, taip pat suteikiama galimybė rezultatus rodyti puslapyje pasibaigus apklausos laikotarpiui. Darbalapį galima tinkinti taip pat, kaip ir kitus darbalapius: galima naudoti fono paveikslėlius, iliustracijas ir nuorodas, kad jis būtų patogesnis vartotojui.</p>',
-			},
-			{
-				title: 'Esamų planų pridėjimas',
-				description:
-					'<p>Prie klausimyno galima pridėti „Klausimų ir žemėlapio“ darbalapį, kuris iliustruoja tam tikrą transporto, infrastruktūros ar kitą plėtros idėją, kurią galima pavaizduoti žemėlapyje ir surinkti atsiliepimus apie ją. Galima importuoti elementus iš kitų žemėlapių sąsajų (pvz., Google Maps), kuriuos vėliau galima vizualizuoti ir atskirai įvertinti PARTIMAP. Be to, žemėlapiu pagrįstame darbalapyje gali būti jau pažįstamų iš anketos klausimų tipų, taip pat papildomų paaiškinimų, aprašymų ir nuorodų. Redaguotą žemėlapį galima išsaugoti kaip savo žemėlapį ir naudoti būsimame tyrime.</p><p>„Klausimų ir žemėlapio“ darbalapis yra ideali priemonė paprašyti gyventojų įvertinti skirtingą savivaldybės infrastruktūrą, pvz., bendrą prieinamumą ir prieinamumą žmonėms su judėjimo negalia, ar ji pritaikyta dviratininkams ir pan. Kai tik gaunami rezultatai, galima atlikti išsamesnį vertinimą. Šio tipo darbalapiai taip pat gali būti naudojami sprendžiant specifines plėtros dilemas, pvz., peržiūrint planuojamos teritorijos plėtros A ir B versijas, respondentai gali nuspręsti, kurią jie renkasi.</p>',
-			},
-			{
-				title: 'Dabar jūsų eilė prisidėti prie žemėlapio!',
-				description:
-					'<p>Palyginti su kitais internetinių apklausų įrankiais, PARTIMAP yra išskirtinis tuo, kad žmonės gali išreikšti savo nuomonę pridėdami vietą, gali iliustruoti savo pasiūlymus arba tiesiog pasidalinti, pavyzdžiui, kelionės į darbą ir atgal maršrutais. Savivaldybės, rajono ar mikrorajono viešosiomis erdvėmis naudojasi labai daug žmonių, kurių skirtingus poreikius ir nuomones apie erdvės panaudojimą galima įvertinti naudojant žemėlapio užduočių darbalapį. Respondentai gali naudoti taškus, linijas ir daugiakampio (poligono) formas, kad pateiktų grafinius atsakymus į užduodamus klausimus. Gautus atsakymus galima lengvai apdoroti tankio žemėlapio (heatmap) pavidalu arba už gautus pasiūlymus galima balsuoti „Klausimų ir žemėlapio“ darbalapyje kitoje anketoje.</p>',
-			},
-			{
-				title: 'Suderinamumas su kitomis platformomis',
-				description:
-					'<p>Abu žemėlapių darbalapiai naudoja openstreetmap.org kaip fono žemėlapį, kuriam galima pasirinkti kitą pagrindo žemėlapį, išryškinantį tyrimo taškus. Ankstesniuose projektuose nupiešti elementai gali būti išsaugoti ir saugomi tarp vartotojo žemėlapių. Kiekviename darbalapyje pagrindo žemėlapį galima importuoti ne tik iš šios žemėlapių saugyklos, bet ir iš išorinio .KML failo: importavimo / eksportavimo funkcija užtikrina greitą pasikeitimą su žemėlapių programine įranga, tokia kaip Google MyMaps ar kita sudėtingesne geoerdvine programine įranga.</p><p>Paprasta redagavimo sąsaja leidžia kurti tyrimui tinkančius žemėlapius braižant spalvotus taškus, linijas ir daugiakampius. Vieno mygtuko paspaudimu taip pat galima sukurti pagrindo žemėlapį iš apklausos respondento pateiktų duomenų ir eksportuoti į .KML failo formatą – suteikdami perkeliamumą kitoms žemėlapių redagavimo programoms. Ateityje taip pat ketiname kurti kitų tipų rastrinius fono žemėlapius ir naujus grafinius nubrėžtų elementų vaizdus (pvz., pasirinktines piktogramas).</p>',
-			},
-			{
-				title: 'Rezultatų viešinimas',
-				description:
-					'<p>Kai apklausa baigta, prasideda naujas projekto ciklo etapas: vertinimas. Per apklausos sąsają gautus atsakymus galima pateikti grafikuose: juos galima pristatyti taip, kad respondentai galėtų tiesiogiai naršyti po esamus apklausos rezultatus. Be to, išsamią analizę galima atlikti atsisiunčiant visą atsakymų duomenų rinkinį „Excel“ formatu. Tada ataskaita gali būti apdorota duomenų valdymo programine įranga, naudojant pateiktus atsakymus ir geografinius elementus, todėl galutinių rezultatų sudėtingumas ir vizualinis vaizdavimas priklauso tik nuo duomenų analizės ir vizualizavimo įgūdžių.</p>',
-			},
-			{
-				title: 'Nemokama ir atviro kodo',
-				description:
-					'<p>Programa yra nemokama, o užsiregistravę galite sukurti savo PARTIMAP apklausą. K-Monitor ir mūsų partnerių sukurtas įrankis yra atvirojo kodo, todėl jį galima nemokamai kurti, pritaikyti ir naudoti. Mūsų tikslas – sukurti daugiau projektų, skatinančių piliečius įsitraukti į viešųjų sprendimų priėmimą, todėl labai džiaugiamės kūrybišku šios priemonės panaudojimu ir plėtojimu.</p>',
-			},
-			{
-				title: 'Kaip prisidėti',
-				description:
-					'<p>2021 m. „PARTIMAP“ programinę įrangą sukūrė „K-Monitor“, remiant Europos Komisijai (DG Regio). 2022 m. bendradarbiaujant su „Heinrich-Böll-Stiftung“ Prahos biuru ji buvo tobulinama. Tačiau projektas toli gražu nesibaigė! Nemokama ir atvira platforma buvo sukurta valdžios institucijoms, savivaldybėms ir nevyriausybinėms organizacijoms, siekiant padėti joms aktyviau dalyvauti priimant sprendimus dėl plėtros, efektyviau valdant savo viešąjį turtą.</p><p> Jei susidomėjote projektu ir norėtumėte prisidėti prie jo kūrimo, arba tiesiog norite pasidalinti mintimis apie PARTIMAP, susisiekite su mumis adresu <a href="mailto:hello{\'@\'}partimap.eu">hello{\'@\'}partimap.eu</a>. Jei norite finansiškai paremti kūrimą, kad nemokama atvirojo kodo programinė įranga būtų prieinama kuo daugiau žmonių, prašome <a href="https://k-monitor.hu/support" target="_blank">palaikyti K-Monitor!</a></p>',
-			},
-		],
 		nav: {
 			about: 'APIE PARTIMAP',
 			aboutSubmenu: {
@@ -86,7 +24,6 @@ export default {
 				respondents: 'Pagalba pildantiems klausimyną',
 				methodology: 'PARTIMAP dalyvaujamoji metodika',
 			},
-			rolunk: 'APIE MUS',
 			aboutUs: 'KAIP VEIKIA',
 			pricing: 'KAINOS',
 			contact: 'KONTAKTAI',
@@ -95,9 +32,7 @@ export default {
 				impresszum: 'Rekvizitai',
 			},
 			tryIt: 'IŠBANDYK!',
-			langSwitch: 'KALBA',
 			login: 'PRISIJUNGTI / REGISTRUOTIS',
-			help: 'PAGALBA',
 			search: 'Paieška',
 			menu: 'Meniu',
 		},
@@ -156,13 +91,10 @@ export default {
 		stats: {
 			title: 'Šiek tiek statistikos',
 			desc: 'Vis daugiau žmonių naudoja PARTIMAP kaip bendruomenės įtraukimo įrankį – tyrimuose, baigiamiesiems darbams ar savivaldybių veikloje: programa jau tapo svarbiu dalyvaujamojo duomenų rinkimo įrankiu.',
-			stat1Value: '250',
 			stat1Title: 'APKLAUSŲ SKAIČIUS',
 			stat1Desc: 'Tiek unikalių apklausų PARTIMAP platformoje sukūrė registruoti naudotojai.',
-			stat2Value: '105',
 			stat2Title: 'PATEIKTI ŽEMĖLAPIO ELEMENTAI',
 			stat2Desc: 'Tiek vietų, taškų ar teritorijų respondentai pažymėjo atsakydami į žemėlapio klausimus.',
-			stat3Value: '282',
 			stat3Title: 'ATSAKYMŲ SKAIČIUS',
 			stat3Desc: 'Tiek kartų buvo užpildytos su PARTIMAP sukurtos apklausos.',
 		},
@@ -206,7 +138,6 @@ export default {
 		help: {
 			title: 'Užstrigote?<br>Padėsime!',
 			desc: 'Naudojantis PARTIMAP teikiame išsamią pagalbą, kuri žingsnis po žingsnio jus lydi nuo apklausos pildymo iki savos apklausos kūrimo ir duomenų analizės – nesvarbu, ar tai techniniai nustatymai, ar metodiniai klausimai.',
-			circleText: "Turite klausimų? Susisiekite hello{'@'}partimap.eu! ",
 			contactPrefix: 'Turite klausimų? Susisiekite su mumis:',
 			card1Title: 'Kaip sukurti PARTIMAP?',
 			card1Desc: 'Žingsnis po žingsnio parodome, kaip surinkti duomenis ir juos paversti aiškia, patrauklia žemėlapiais grįsta apklausa, kuri suteikia tikrą vaizdą apie respondentus.',
@@ -233,7 +164,6 @@ export default {
 			privacy: 'Privatumo politika',
 			terms: 'Naudojimo sąlygos',
 			imprint: 'Leidėjo informacija',
-			placeholder: 'Tekstas',
 			copyright: '© Copyright K-Monitor Közhasznú Egyesület All Rights Reserved',
 		},
 	},
@@ -348,50 +278,6 @@ export default {
 		search: 'Ieškoti pagalboje',
 		clearSearch: 'Išvalyti paiešką',
 		noResults: 'Nėra rezultatų pagal „{query}“',
-		topic: {
-			registration: 'Registracija',
-			newQuestionnaire: 'Naujos apklausos kūrimas ir esamų tvarkymas',
-			questionnaireDatasheet: 'Apklausos duomenų lapas',
-			sheetList: 'Darbalapių sąrašas',
-			sheetTypes: 'Darbalapių tipai',
-			maps: 'Žemėlapių kūrimas ir esamų tvarkymas',
-			reports: 'Ataskaitos ir rezultatai',
-			tips: 'Patarimai, kaip parengti gerą apklausą',
-		},
-		content: {
-			registration: {
-				p1: 'Norėdami naudotis PARTIMAP, pirmiausia turite užsiregistruoti nurodydami el. pašto adresą. Užsiregistravę spustelėkite į jūsų el. paštą atsiųstą aktyvavimo nuorodą, kad aktyvuotumėte paskyrą.',
-				p2: 'Po to savo administravimo skydelyje galėsite iškart sukurti pirmąją apklausą.',
-			},
-			newQuestionnaire: {
-				p1: 'Norėdami sukurti naują apklausą, apklausų sąraše spustelėkite mygtuką „Pridėti" ir įveskite apklausos pavadinimą. Tada ji atsiras jūsų apklausų sąraše ir galėsite ją bet kada redaguoti.',
-				p2: 'Ankstesnes apklausas galite bet kada peržiūrėti, redaguoti ar ištrinti – net ir tada, kai vis dar laukiate naujų atsakymų.',
-			},
-			questionnaireDatasheet: {
-				p1: 'Apklausos duomenų lape galite nustatyti pavadinimą, aprašymą, dalijimosi socialiniuose tinkluose vaizdą, susijusią duomenų tvarkymo informaciją ir pranešimų nustatymus.',
-				p2: 'Čia taip pat nustatote pasirinktinį URL kelią (slug) ir padėkos tekstą, kuris rodomas užpildžius apklausą.',
-			},
-			sheetList: {
-				p1: 'Darbalapiai yra apklausos pagrindas. Čia galite pridėti, ištrinti, pervadinti ir pertvarkyti apklausos darbalapius (puslapius).',
-				p2: 'Darbalapių eiliškumas nulemia tvarką, kuria juos matys respondentai.',
-			},
-			sheetTypes: {
-				p1: 'Yra keturi darbalapių tipai: teksto puslapis, klausimų rinkinys, statinis žemėlapis ir interaktyvus žemėlapis. Kiekvienas skirtas skirtingam tikslui.',
-				p2: 'Tipą pasirenkate kurdami darbalapį ir galite juos laisvai derinti visoje apklausoje.',
-			},
-			maps: {
-				p1: 'Savo žemėlapių bibliotekoje galite saugoti žemėlapio elementus, kuriuos jau nubraižėte ir norite pakartotinai panaudoti būsimose apklausose.',
-				p2: 'Čia taip pat galite importuoti ir eksportuoti KML failus, todėl PARTIMAP lengvai suderinama su kitomis žemėlapių redagavimo priemonėmis.',
-			},
-			reports: {
-				p1: 'Apklausos atsakymus galite atsisiųsti apklausų sąrašo rodinyje .xlsx formatu. Ataskaitoje pateikiami rezultatai anksčiau aprašytu formatu. Žemėlapio elementai pagal identifikatorius taip pat gali būti susieti su atsakymais į klausimus, pavyzdžiui, su respondentų demografiniais duomenimis. Susiejus duomenis, erdvinius žymėjimus galima analizuoti išsamiau ir filtruoti pagal respondentų grupes. Ataskaitoje taip pat nurodomas naudoto įrenginio tipas (kompiuteris / mobilusis) ir respondento IP adresas.',
-				p2: 'Svetainė neleidžia masinių automatinių pateikimų, tačiau rankiniu būdu galima pateikti kelis atsakymus iš to paties IP adreso. Juos iš ataskaitos galima atfiltruoti pagal IP adresą.',
-			},
-			tips: {
-				p1: 'Gera apklausa yra trumpa, tikslinga, o jos klausimai vienareikšmiai. Stenkitės užduoti kuo mažiau klausimų, o žemėlapio užduotis palydėkite paprastomis, iliustruotomis instrukcijomis.',
-				p2: 'Užpildymo rodiklis gerokai geresnis, jei apklausą galima užpildyti per 5–7 minutes ir kiekvienas klausimas turi realų turinio pagrindą.',
-			},
-		},
 	},
 	login: {
 		activated: 'Paskyra aktyvuota sėkmingai. Sveiki atvykę į PARTIMAP!',
