@@ -4,7 +4,7 @@ const localePath = useLocalePath();
 
 <template>
 	<div
-		class="d-flex flex-column"
+		class="d-flex flex-column doc-scroll"
 		style="min-height: 100vh; padding-top: 3.75rem"
 	>
 		<b-navbar
