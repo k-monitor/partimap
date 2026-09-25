@@ -22,7 +22,7 @@ const localePath = useLocalePath();
 				is-nav
 			>
 				<b-navbar-nav class="ms-auto">
-					<b-nav-item :to="localePath({ name: 'hogyan-mukodik' })">
+					<b-nav-item :to="localePath({ name: 'sugo' })">
 						{{ $t('PublicFrame.help') }}
 					</b-nav-item>
 					<b-nav-item :to="localePath('/admin')">

@@ -7,11 +7,15 @@ const props = defineProps<{
 const localePath = useLocalePath();
 const route = useRoute();
 const router = useRouter();
-const { t } = useI18n();
+const { locale, t } = useI18n();
 
-const section = computed(() => getHelpSection(props.section));
+const sections = await loadHelpSections(locale.value);
+const section = computed(() => {
+	const found = sections.find((s) => s.slug === props.section);
+	if (!found) throw new Error(`Unknown help section: ${props.section}`);
+	return found;
+});
 
-const sections = helpSections;
 // The section we are on starts open, the others can be unfolded in place.
 const expanded = ref<string[]>([props.section]);
 function toggle(slug: string) {

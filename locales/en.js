@@ -5,12 +5,6 @@ export default {
 
 	// pages
 
-	adminHelp: {
-		title: 'How it works?',
-	},
-	help: {
-		title: 'User guide',
-	},
 	landing: {
 		title: 'A MAP-BASED SURVEY',
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
@@ -508,9 +502,6 @@ export default {
 	// components
 
 	AdminFrame: {
-		editEditorsHelp: 'Edit help to create surveys',
-		editHelp: 'Edit help pages',
-		editVisitorsHelp: 'Edit help for filling surveys',
 		help: 'How it works',
 		logout: 'Log Out',
 		maps: 'Maps',
@@ -595,16 +586,6 @@ export default {
 	FooterButtons: {
 		submit: 'Submit',
 		submitted: 'Submitted!',
-	},
-	HelpEditor: {
-		editor: 'Editor',
-		instructions: 'Help texts are stored and editable in Markdown.',
-		preview: 'Preview',
-		saveFailed: 'Save failed',
-		saveSuccess: 'Saved',
-		stackeditButton: 'Edit with StackEdit',
-		stackeditInfo:
-			'Friendlier interface, although its preview cannot display everything. It can be closed with the button in the top left corner.',
 	},
 	InteractionSettingsModal: {
 		maxDraw: 'Expected nr. of markers (max.)',
@@ -731,13 +712,13 @@ export default {
 			checkbox: 'Checkboxes',
 			distributeUnits: 'Allocate units (weighting)',
 			dropdown: 'Drop-down (one answer)',
-			multipleChoiceMatrix: 'Multiple choice grid',
+			multipleChoiceMatrix: 'Checkbox grid',
 			number: 'Numeric text box',
 			ordering: 'Ordering',
 			radiogroup: 'Multiple choice',
 			range: 'Numeric slider',
 			rating: 'Star-rating (1-5)',
-			singleChoiceMatrix: 'Checkbox grid',
+			singleChoiceMatrix: 'Multiple choice grid',
 			static: 'Static text block',
 			text: 'Text box',
 		},

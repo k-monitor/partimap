@@ -5,12 +5,6 @@ export default {
 
 	// pages
 
-	adminHelp: {
-		title: 'Kaip tai veikia?',
-	},
-	help: {
-		title: 'Naudojimosi instrukcija',
-	},
 	landing: {
 		title: 'ŽEMĖLAPIŲ APKLAUSOS',
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
@@ -512,9 +506,6 @@ export default {
 	// components
 
 	AdminFrame: {
-		editEditorsHelp: 'Redaguoti ir padėti sukurti apklausą',
-		editHelp: 'Redaguoti pagalbos puslapius',
-		editVisitorsHelp: 'Redaguoti pagalbos sukuriant apklausą puslapius',
 		help: 'Kaip tai veikia',
 		logout: 'Atsijungti',
 		maps: 'Žemėlapiai',
@@ -587,7 +578,7 @@ export default {
 		},
 		hidden: 'Panaikinti iš elementų sąrašo',
 		jumpToMap: 'Parodyti žemėlapyje',
-		mapLabel: 'Etikėte žemėlapyje',
+		mapLabel: 'Etiketė žemėlapyje',
 		name: 'Pavadinimas',
 		opacity: 'Neskaidrumas',
 		size: 'Dydis',
@@ -600,18 +591,8 @@ export default {
 		submit: 'Pateikti',
 		submitted: 'Pateikta!',
 	},
-	HelpEditor: {
-		editor: 'Redagavimas',
-		instructions: 'Pagalbiniai tekstai saugomi ir gali būti redaguojami',
-		preview: 'Peržiūra',
-		saveFailed: 'Išsaugoti nepavyko',
-		saveSuccess: 'Išsaugota',
-		stackeditButton: 'Redaguoti su StackEdit',
-		stackeditInfo:
-			'Ši sąsaja yra patogesnė, nors negali parodyti visų elementų. Ją galima uždaryti mygtuku viršutiniame kairiajame kampe.',
-	},
 	InteractionSettingsModal: {
-		maxDraw: 'MNumatomas žymeklių skaičius (maks.)',
+		maxDraw: 'Numatomas žymeklių skaičius (maks.)',
 	},
 	ListItem: {
 		clone: 'Duplikuoti',
@@ -726,7 +707,7 @@ export default {
 		minName: 'Etikėtė (mažiausia vertė)',
 		minValue: 'Mažiausia vertė',
 		moveQuestion: 'Perkelti į kitą lapą',
-		multiline: 'Daugiarūšis tekstas',
+		multiline: 'Daugiaeilis tekstas',
 		other: 'Pridėti "Kita..." laukelį',
 		questionPrefix: 'Klausimas',
 		questionText: 'Klausimo tekstas',
@@ -738,7 +719,7 @@ export default {
 			multipleChoiceMatrix: 'Kelių pasirinkimų lentelė',
 			number: 'Skaičiaus įvedimas tekstu',
 			ordering: 'Rikiavimas',
-			radiogroup: '*Vienas pasirinkimas',
+			radiogroup: 'Vienas pasirinkimas',
 			range: 'Skaičiaus įvedimas slankikliu',
 			rating: 'Įvertinimas žvaigždutėmis (1-5)',
 			singleChoiceMatrix: 'Vieno pasirinkimų lentelė',

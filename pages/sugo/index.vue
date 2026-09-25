@@ -9,9 +9,9 @@ defineI18nRoute({
 });
 
 const localePath = useLocalePath();
-const { t } = useI18n();
+const { locale, t } = useI18n();
 
-const sections = helpSections;
+const sections = await loadHelpSections(locale.value);
 
 // Kept in the URL so a search can be linked and survives a reload.
 const route = useRoute();
@@ -20,7 +20,7 @@ const query = ref(typeof route.query.q === 'string' ? route.query.q : '');
 watch(query, (q) => router.replace({ query: q ? { q } : {} }));
 
 const results = computed(() =>
-	searchHelp(query.value).map((hit) => ({
+	searchHelp(sections, query.value).map((hit) => ({
 		key: `${hit.section.slug}/${hit.page.slug}`,
 		section: hit.section.title,
 		to: {

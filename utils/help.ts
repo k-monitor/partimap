@@ -1,11 +1,15 @@
 /**
  * Súgó (help) content.
  *
- * The guide is written in Markdown under `content/sugo/<section>/`. Every major
- * section of the printed guide is a directory: `_intro.md` holds the short
- * introduction that is repeated on top of each of its subpages, and the
- * numbered files are the subpages themselves. A subpage's first line is its
- * `# Title`, which becomes the sidebar label and the page heading.
+ * The guide is written in Markdown under `content/sugo/<locale>/<section>/`.
+ * Every major section of the printed guide is a directory: `_intro.md` holds
+ * the section title (its first line, `# Title`) and a short introduction that
+ * is repeated on top of each of its subpages, and the numbered files are the
+ * subpages themselves. A subpage's first line is its `# Title`, which becomes
+ * the sidebar label and the page heading.
+ *
+ * Hungarian is the original, the other languages are translations that keep
+ * its file names, so a page has the same slug (URL hash) in every language.
  */
 
 export type HelpPage = {
@@ -27,43 +31,26 @@ export type HelpSection = {
 };
 
 const SECTIONS = [
-	{
-		slug: 'kitoltoknek',
-		title: 'Segítség kérdőív kitöltőknek',
-		route: 'sugo-kitoltoknek',
-	},
-	{
-		slug: 'keszites',
-		title: 'Segítség kérdőív készítőknek',
-		route: 'sugo-keszites',
-	},
-	{
-		slug: 'elemzes',
-		title: 'Hogyan elemezd a kapott adatokat?',
-		route: 'sugo-elemzes',
-	},
-	{
-		slug: 'projekt',
-		title: 'Hogyan tervezz meg egy PARTIMAP projektet?',
-		route: 'sugo-projekt',
-	},
-	{
-		slug: 'kerdoiv',
-		title: 'Hogyan írj kérdőívet?',
-		route: 'sugo-kerdoiv',
-	},
-	{
-		slug: 'modszertan',
-		title: 'PARTIMAP részvételi módszertana',
-		route: 'sugo-modszertan',
-	},
+	{ slug: 'kitoltoknek', route: 'sugo-kitoltoknek' },
+	{ slug: 'keszites', route: 'sugo-keszites' },
+	{ slug: 'elemzes', route: 'sugo-elemzes' },
+	{ slug: 'projekt', route: 'sugo-projekt' },
+	{ slug: 'kerdoiv', route: 'sugo-kerdoiv' },
+	{ slug: 'modszertan', route: 'sugo-modszertan' },
 ];
 
-const files = import.meta.glob('../content/sugo/**/*.md', {
-	eager: true,
+/** Used for languages the guide has not been translated to. */
+const FALLBACK_LOCALE = 'en';
+
+// Every language is a separate chunk (see `content/sugo/<locale>/index.ts`), so
+// visitors only download the guide in the language they read it in.
+const bundles = import.meta.glob<Record<string, string>>('../content/sugo/*/index.ts', {
 	import: 'default',
-	query: '?raw',
-}) as Record<string, string>;
+});
+
+function bundleOf(locale: string) {
+	return bundles[`../content/sugo/${locale}/index.ts`];
+}
 
 function splitTitle(raw: string) {
 	const lines = raw.split('\n');
@@ -73,28 +60,38 @@ function splitTitle(raw: string) {
 		: { title: '', body: raw.trim() };
 }
 
-export const helpSections: HelpSection[] = SECTIONS.map((section) => {
-	const dir = `../content/sugo/${section.slug}/`;
-	return {
-		...section,
-		intro: (files[`${dir}_intro.md`] || '').trim(),
-		pages: Object.keys(files)
-			.filter((path) => path.startsWith(dir) && !path.endsWith('_intro.md'))
-			.sort()
-			.map((path) => ({
-				slug: path
-					.slice(dir.length)
-					.replace(/^\d+-/, '')
-					.replace(/\.md$/, ''),
-				...splitTitle(files[path]),
-			})),
-	};
-});
+function buildSections(files: Record<string, string>): HelpSection[] {
+	return SECTIONS.map((section) => {
+		const dir = `./${section.slug}/`;
+		const intro = splitTitle(files[`${dir}_intro.md`] || '');
+		return {
+			...section,
+			title: intro.title,
+			intro: intro.body,
+			pages: Object.keys(files)
+				.filter((path) => path.startsWith(dir) && !path.endsWith('_intro.md'))
+				.sort()
+				.map((path) => ({
+					slug: path
+						.slice(dir.length)
+						.replace(/^\d+-/, '')
+						.replace(/\.md$/, ''),
+					...splitTitle(files[path]),
+				})),
+		};
+	});
+}
 
-export function getHelpSection(slug: string) {
-	const section = helpSections.find((s) => s.slug === slug);
-	if (!section) throw new Error(`Unknown help section: ${slug}`);
-	return section;
+const loaded = new Map<string, Promise<HelpSection[]>>();
+
+export function loadHelpSections(locale: string) {
+	let sections = loaded.get(locale);
+	if (!sections) {
+		const load = bundleOf(locale) || bundleOf(FALLBACK_LOCALE);
+		sections = load().then(buildSections);
+		loaded.set(locale, sections);
+	}
+	return sections;
 }
 
 /**
@@ -107,15 +104,16 @@ export function getHelpSection(slug: string) {
  * excerpting need.
  */
 const ACCENTS: Record<string, string> = {
-	a: 'aáàâãäå',
+	a: 'aáàâãäåąă',
 	c: 'cçč',
-	e: 'eéèêë',
+	e: 'eéèêëęė',
 	g: 'gģ',
-	i: 'iíìîï',
+	i: 'iíìîïį',
 	n: 'nñń',
 	o: 'oóòôöõő',
-	s: 'sśš',
-	u: 'uúùûüű',
+	s: 'sśšșş',
+	t: 'tțţ',
+	u: 'uúùûüűųū',
 	y: 'yý',
 	z: 'zźž',
 };
@@ -175,12 +173,12 @@ function excerptAround(text: string, regexes: RegExp[]) {
 	return (start > 0 ? '…' : '') + text.slice(start, end).trim() + (end < text.length ? '…' : '');
 }
 
-export function searchHelp(query: string): HelpSearchHit[] {
+export function searchHelp(sections: HelpSection[], query: string): HelpSearchHit[] {
 	const regexes = queryRegexes(query);
 	if (!regexes.length) return [];
 
 	const hits: (HelpSearchHit & { score: number })[] = [];
-	for (const section of helpSections) {
+	for (const section of sections) {
 		for (const page of section.pages) {
 			const text = toPlainText(page.body);
 			const haystack = `${section.title} ${page.title} ${text}`;
