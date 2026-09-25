@@ -6,12 +6,6 @@ export default {
 
 	// pages
 
-	adminHelp: {
-		title: 'So funktionierts',
-	},
-	help: {
-		title: 'Benutzerhandbuch',
-	},
 	landing: {
 		title: 'EINE KARTEN-BASIERTE UMFRAGE',
 		tryLink: 'https://www.partimap.eu/de/p/DEMO-in-German/0',
@@ -516,9 +510,6 @@ export default {
 	// components
 
 	AdminFrame: {
-		editEditorsHelp: 'Hilfe zum Erstellen von Umfragen bearbeiten',
-		editHelp: 'Hilfeseiten bearbeiten',
-		editVisitorsHelp: 'Hilfe für Teilnehmende bearbeiten',
 		help: 'Hilfe',
 		logout: 'Abmelden',
 		maps: 'Karten',
@@ -603,16 +594,6 @@ export default {
 	FooterButtons: {
 		submit: 'Absenden',
 		submitted: 'Abgesendet!',
-	},
-	HelpEditor: {
-		editor: 'Editor',
-		instructions: 'Hilfetexte in Markdown bearbeiten',
-		preview: 'Vorschau',
-		saveFailed: 'Speichern fehlgeschlagen',
-		saveSuccess: 'Gespeichert',
-		stackeditButton: 'Mit StackEdit bearbeiten',
-		stackeditInfo:
-			'Benutzerfreundlichere Oberfläche, kann aber nicht alles in der Vorschau zeigen. Oben links schließen.',
 	},
 	InteractionSettingsModal: {
 		maxDraw: 'Erwartete Markierungsanzahl (max.)',
@@ -740,13 +721,13 @@ export default {
 			checkbox: 'Checkboxen',
 			distributeUnits: 'Einheiten zuweisen (Gewichtung)',
 			dropdown: 'Dropdown (eine Antwort)',
-			multipleChoiceMatrix: 'Mehrfachauswahl-Matrix',
+			multipleChoiceMatrix: 'Checkbox-Matrix',
 			number: 'Nummer (Textfeld)',
 			ordering: 'Sortierung',
 			radiogroup: 'Mehrfachauswahl',
 			range: 'Schieberegler',
 			rating: 'Sternebewertung (1–5)',
-			singleChoiceMatrix: 'Checkbox-Matrix',
+			singleChoiceMatrix: 'Mehrfachauswahl-Matrix',
 			static: 'Statischer Textblock',
 			text: 'Textfeld',
 		},

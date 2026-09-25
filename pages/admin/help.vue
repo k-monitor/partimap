@@ -1,22 +1,11 @@
 <script setup lang="ts">
-const { t } = useI18n();
-
-useHead({
-	title: t('adminHelp.title'),
+// The old admin help page, replaced by the Súgó. Kept so that old links still work.
+definePageMeta({
+	middleware: [
+		function () {
+			const localePath = useLocalePath();
+			return navigateTo(localePath({ name: 'sugo-keszites' }), { redirectCode: 301 });
+		},
+	],
 });
-
-const editorsHelp = await useMessageFromDatabase('editorsHelp');
 </script>
-
-<template>
-	<AdminFrame>
-		<template #header>
-			{{ $t('adminHelp.title') }}
-		</template>
-
-		<Markdown
-			class="help mb-5"
-			:md="editorsHelp"
-		/>
-	</AdminFrame>
-</template>

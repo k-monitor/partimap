@@ -64,7 +64,6 @@
 		"sass": "1.77.6",
 		"sharp": "0.33.4",
 		"slugify": "^1.6.9",
-		"stackedit-js": "^1.0.7",
 		"tinycolor2": "^1.6.0",
 		"transform-coordinates": "^1.0.0",
 		"uuid": "^14.0.1",

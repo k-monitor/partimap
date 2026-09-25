@@ -6,12 +6,6 @@ export default {
 
 	// pages
 
-	adminHelp: {
-		title: '¿Cómo funciona?',
-	},
-	help: {
-		title: 'Guía del usuario',
-	},
 	landing: {
 		title: 'ENCUESTA BASADA EN MAPAS',
 		tryLink: 'https://www.partimap.eu/es/p/DEMO-en-Espanol/0',
@@ -516,9 +510,6 @@ export default {
 	// components
 
 	AdminFrame: {
-		editEditorsHelp: 'Editar ayuda para crear encuestas',
-		editHelp: 'Editar páginas de ayuda',
-		editVisitorsHelp: 'Editar ayuda para completar encuestas',
 		help: 'Cómo funciona',
 		logout: 'Cerrar sesión',
 		maps: 'Mapas',
@@ -603,16 +594,6 @@ export default {
 	FooterButtons: {
 		submit: 'Enviar',
 		submitted: '¡Enviado!',
-	},
-	HelpEditor: {
-		editor: 'Editor',
-		instructions: 'Los textos de ayuda se almacenan y se pueden editar en Markdown.',
-		preview: 'Vista previa',
-		saveFailed: 'Error al guardar',
-		saveSuccess: 'Guardado',
-		stackeditButton: 'Editar con StackEdit',
-		stackeditInfo:
-			'Interfaz más amigable, aunque su vista previa no puede mostrar todo. Se puede cerrar con el botón en la esquina superior izquierda.',
 	},
 	InteractionSettingsModal: {
 		maxDraw: 'Nº previsto de marcadores (máx.)',
@@ -740,13 +721,13 @@ export default {
 			checkbox: 'Casillas de verificación',
 			distributeUnits: 'Asignación de unidades (ponderación)',
 			dropdown: 'Desplegable (una respuesta)',
-			multipleChoiceMatrix: 'Matriz de opciones múltiples',
+			multipleChoiceMatrix: 'Matriz de casillas de verificación',
 			number: 'Cuadro de texto numérico',
 			ordering: 'Ordenación',
 			radiogroup: 'Selección múltiple',
 			range: 'Control deslizante numérico',
 			rating: 'Calificación por estrellas (1-5)',
-			singleChoiceMatrix: 'Matriz de casillas de verificación',
+			singleChoiceMatrix: 'Matriz de opciones múltiples',
 			static: 'Bloque de texto estático',
 			text: 'Cuadro de texto',
 		},

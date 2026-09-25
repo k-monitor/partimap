@@ -5,12 +5,6 @@ export default {
 
 	// pages
 
-	adminHelp: {
-		title: 'Cum funcționează?',
-	},
-	help: {
-		title: 'Ghid utilizator',
-	},
 	landing: {
 		title: 'CHESTIONAR CARTOGRAFIC',
 		tryLink: 'https://www.partimap.eu/en/p/DEMO-in-English/0',
@@ -406,7 +400,7 @@ export default {
 		defaultBaseMap: 'Hartă de bază implicită',
 		defaultDescriptionLabel: 'Explicați de ce ați dat acest răspuns.',
 		defaultRatingQuestion: 'Explicați de ce ați acordat această evaluare.',
-		drawExtent: 'Setatare limite hartă',
+		drawExtent: 'Setare limite hartă',
 		featureLabel: 'Denumire unică a sarcinii',
 		featureLabelDescription:
 			'Titlu scurt pentru identificarea sarcinii. Afișat în raport, în interfața de administrator și implicit ca denumire a răspunsurilor trimise de respondenți.',
@@ -441,7 +435,7 @@ export default {
 		},
 		saveFailed: 'Salvarea a eșuat',
 		sheetDescription: 'Descrierea paginii',
-		sheetName: 'Titlul paginiii',
+		sheetName: 'Titlul paginii',
 		showAllResults:
 			'Afișați rezultatele vizitatorilor după trimiterea paginii (modifică fiecare întrebare)',
 		success: 'Pagina a fost modificată cu succes',
@@ -508,9 +502,6 @@ export default {
 	// components
 
 	AdminFrame: {
-		editEditorsHelp: 'Editați ghidul pentru crearea chestionarelor',
-		editHelp: 'Editare pagini de ajutor',
-		editVisitorsHelp: 'Editare ghid pentru completarea chestionarelor',
 		help: 'Cum funcționează?',
 		logout: 'Deconectare',
 		maps: 'Hărți',
@@ -595,16 +586,6 @@ export default {
 	FooterButtons: {
 		submit: 'Trimite',
 		submitted: 'Trimis!',
-	},
-	HelpEditor: {
-		editor: 'Editor',
-		instructions: 'Textele de ajutor sunt stocate și editabile în Markdown.',
-		preview: 'Previzualizare',
-		saveFailed: 'Salvarea a eșuat',
-		saveSuccess: 'Salvat',
-		stackeditButton: 'Editeaza cu StackEdit',
-		stackeditInfo:
-			'Interfață mai prietenoasă, deși previzualizarea nu poate afișa tot. Poate fi închisă cu butonul din colțul din stânga sus.',
 	},
 	InteractionSettingsModal: {
 		maxDraw: 'Total simboluri (max.)',
@@ -732,13 +713,13 @@ export default {
 			checkbox: 'Casete de bifat',
 			distributeUnits: 'Alocare unități (ponderare)',
 			dropdown: 'Meniu derulant (drop-down, selecție unică)',
-			multipleChoiceMatrix: 'Grilă răspunsuri multiple',
+			multipleChoiceMatrix: 'Grilă casete de bifat',
 			number: 'Introducere valori numerice',
 			ordering: 'Ordonare',
 			radiogroup: 'Opțiuni multiple răspuns',
 			range: 'Interval numeric',
 			rating: 'Evaluare alocare stele (1-5)',
-			singleChoiceMatrix: 'Grilă casete de bifat',
+			singleChoiceMatrix: 'Grilă răspunsuri multiple',
 			static: 'Bloc de text static',
 			text: 'Adăugare text',
 		},
