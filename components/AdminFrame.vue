@@ -49,20 +49,9 @@ function toggle() {
 					>
 						{{ t('AdminFrame.users') }}
 					</b-nav-item>
-					<b-nav-item-dropdown
-						v-if="user?.isAdmin"
-						:text="t('AdminFrame.editHelp')"
-					>
-						<b-dropdown-item :to="localePath('/admin/i18n/editors-help/')">
-							{{ t('AdminFrame.editEditorsHelp') }}
-						</b-dropdown-item>
-						<b-dropdown-item :to="localePath('/admin/i18n/visitors-help/')">
-							{{ t('AdminFrame.editVisitorsHelp') }}
-						</b-dropdown-item>
-					</b-nav-item-dropdown>
 				</b-navbar-nav>
 				<b-navbar-nav class="ms-auto">
-					<b-nav-item :to="localePath('/admin/help')">
+					<b-nav-item :to="localePath({ name: 'sugo-keszites' })">
 						{{ t('AdminFrame.help') }}
 					</b-nav-item>
 					<b-nav-item-dropdown right>

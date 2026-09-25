@@ -148,9 +148,6 @@ importers:
       slugify:
         specifier: ^1.6.9
         version: 1.6.9
-      stackedit-js:
-        specifier: ^1.0.7
-        version: 1.0.7
       tinycolor2:
         specifier: ^1.6.0
         version: 1.6.0
@@ -5605,10 +5602,6 @@ packages:
   stackblur-canvas@2.7.0:
     resolution: {integrity: sha512-yf7OENo23AGJhBriGx0QivY5JP6Y1HbrrDI6WLt6C5auYZXlQrheoY8hD4ibekFKz1HOfE48Ww8kMWMnJD/zcQ==}
     engines: {node: '>=0.1.14'}
-
-  stackedit-js@1.0.7:
-    resolution: {integrity: sha512-FG2MNncXlSEscwBa3Ih6Xl1zrbeJ8/vgbrbzwwLvkdgFIMCRZQzpFpqxSW2o/1AvxguhXrt2dml/Z/I1m5eoLg==}
-    engines: {node: '>= 8.0.0', npm: '>= 5.0.0'}
 
   standard-as-callback@2.1.0:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
@@ -12251,8 +12244,6 @@ snapshots:
 
   stackblur-canvas@2.7.0:
     optional: true
-
-  stackedit-js@1.0.7: {}
 
   standard-as-callback@2.1.0: {}
 
