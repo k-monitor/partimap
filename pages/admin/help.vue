@@ -4,7 +4,7 @@ definePageMeta({
 	middleware: [
 		function () {
 			const localePath = useLocalePath();
-			return navigateTo(localePath({ name: 'sugo-keszites' }), { redirectCode: 301 });
+			return navigateTo(localePath({ name: 'sugo-keszites', hash: '#uj-kerdoiv' }), { redirectCode: 301 });
 		},
 	],
 });
