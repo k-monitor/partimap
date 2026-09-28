@@ -51,7 +51,7 @@ function toggle() {
 					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav class="ms-auto">
-					<b-nav-item :to="localePath({ name: 'sugo-keszites' })">
+					<b-nav-item :to="localePath({ name: 'sugo-keszites', hash: '#uj-kerdoiv' })">
 						{{ t('AdminFrame.help') }}
 					</b-nav-item>
 					<b-nav-item-dropdown right>
