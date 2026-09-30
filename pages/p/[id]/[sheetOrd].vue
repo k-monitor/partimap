@@ -406,12 +406,7 @@ const localePath = useLocalePath();
 							<div class="d-flex justify-content-between w-100">
 								<a
 									v-b-tooltip.hover.bottom
-									:href="
-										localePath({
-											name: 'hogyan-mukodik',
-											query: { visitor: 1 },
-										})
-									"
+									:href="localePath({ name: 'sugo-kitoltoknek' })"
 									target="_blank"
 									:title="t('PublicFrame.help')"
 								>

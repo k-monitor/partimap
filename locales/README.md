@@ -4,12 +4,7 @@
 
 - copy `en-*` files prefixed the new language code
 - replace texts with translations
+- copy `/content/sugo/en` (the Súgó) to `/content/sugo/<code>` and translate it, keeping the file names
 - add locale in `/server/utils/i18n.ts`
 - add locale in `/i18n/i18n.config.ts`
 - add localte in `/nuxt.config.ts`
-
-## Notes on .default.md files
-
-`lang-key.default.md` files are only used as a fallback if the `i18n` database table doesn't have a record with matching `lang` and `key` and non-empty `value`.
-
-These files in the repository are updated manually, and may be out of date compared to what is visible on our production site on <https://www.partimap.eu/>.

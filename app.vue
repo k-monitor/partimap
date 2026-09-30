@@ -57,6 +57,15 @@ body,
 	min-height: 100%;
 }
 
+// The shell above gives #app a definite viewport height, so its flex children
+// shrink to fit it and a long page ends up scrolling inside the page root
+// instead of in the document. iOS Safari only collapses its URL bar while the
+// document itself scrolls, so plain document-flow pages opt out of the shrink
+// and let their content overflow the shell.
+.doc-scroll {
+	flex-shrink: 0;
+}
+
 .alert p:last-child,
 .popover p:last-child {
 	margin-bottom: 0;
