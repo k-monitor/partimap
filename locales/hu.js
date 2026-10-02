@@ -777,4 +777,7 @@ export default {
 		warning: '⚠ Figyelmeztetés',
 		yes: 'Igen',
 	},
+	tiptap: {
+		imgSizeLimit: 'Csak 500 KB-nál kisebb GIF, JPG, PNG vagy WEBP képet adhatsz hozzá.',
+	},
 };

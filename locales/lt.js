@@ -780,4 +780,7 @@ export default {
 		warning: '⚠ Įspėjimas',
 		yes: 'Taip',
 	},
+	tiptap: {
+		imgSizeLimit: 'Galima pridėti tik mažesnius nei 500 KB GIF, JPG, PNG ar WEBP paveikslėlius.',
+	},
 };
