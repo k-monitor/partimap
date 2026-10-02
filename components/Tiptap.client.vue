@@ -17,7 +17,7 @@ const editor = useEditor({
 		TiptapStarterKit.configure({
 			link: { openOnClick: false },
 		}),
-		Image,
+		Image.configure({ allowBase64: true }),
 		TextAlign.configure({
 			types: ['heading', 'paragraph'],
 		}),
@@ -38,8 +38,20 @@ watch(html, (v) => {
 
 function addImage() {
 	if (!editor.value) return;
-	const src = window.prompt('URL');
-	if (src) editor.value.chain().focus().setImage({ src }).run();
+	const input = document.createElement('input');
+	input.type = 'file';
+	input.accept = 'image/jpeg,image/gif,image/png,image/webp';
+	input.onchange = () => {
+		const file = input.files?.[0];
+		if (!file) return;
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const src = e.target?.result as string;
+			if (src) editor.value?.chain().focus().setImage({ src }).run();
+		};
+		reader.readAsDataURL(file);
+	};
+	input.click();
 }
 
 function addYoutube() {
