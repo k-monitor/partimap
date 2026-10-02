@@ -1,0 +1,1 @@
+ALTER TABLE sheet MODIFY COLUMN description TEXT, MODIFY COLUMN survey TEXT;
