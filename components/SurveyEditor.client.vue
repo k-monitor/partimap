@@ -155,7 +155,6 @@ function addQuestion() {
 	editQuestion(survey.value.questions.length - 1);
 }
 
-
 function canHaveResults(q: Question) {
 	return !questionTypesWithoutResults.includes(q.type);
 }
@@ -318,7 +317,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 						>
 							<p class="fw-bold mb-1 text-truncate">
 								<span v-if="q.required">*</span>
-								{{ q.label }}
+								{{ q.label.replace(/<[^>]*>/g, '') }}
 							</p>
 							<div class="d-flex align-items-center text-muted">
 								<i

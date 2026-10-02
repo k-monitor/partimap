@@ -26,6 +26,10 @@ import { CAPTURED_PARAMS } from '~/utils/capturedParams';
 // TODO refactor: use xlsx.js instead of excel4node
 // TODO refactor: use Nuxt i18n server side
 
+function stripHtml(html: string) {
+	return html.replace(/<[^>]*>/g, '').trim();
+}
+
 const OL2GM = transformation(PARTIMAP_PROJECTION, GOOGLEMAPS_PROJECTION);
 function ol2gm(coords: number[]) {
 	// TODO can't we use OL's conversion utility here?
@@ -171,14 +175,14 @@ function generateAnswersSheet(
 				// multiple columns, one per option
 				const ans: string | string[] | object = safeParseJSON(a) || a;
 				(q.options || []).forEach((option) => {
-					sas.cell(1, COL).string(`${q.label} [${option}]`);
+					sas.cell(1, COL).string(`${stripHtml(q.label)} [${option}]`);
 					if (Array.isArray(ans) && ans.includes(option)) {
 						writeCell(option);
 					}
 					COL++;
 				});
 				if (q.other) {
-					sas.cell(1, COL).string(`${q.label} [${m.other}]`);
+					sas.cell(1, COL).string(`${stripHtml(q.label)} [${m.other}]`);
 					if (Array.isArray(ans)) {
 						const otherAns = ans.find((o) => o.startsWith?.(OTHER_PREFIX));
 						writeCell(otherAns);
@@ -192,7 +196,7 @@ function generateAnswersSheet(
 				const cols = q.columns || [];
 				rows.forEach((row) => {
 					cols.forEach((col) => {
-						sas.cell(1, COL).string(`${q.label} [${row}] [${col}]`);
+						sas.cell(1, COL).string(`${stripHtml(q.label)} [${row}] [${col}]`);
 						writeCell(a?.[row]?.includes?.(col) ? col : '');
 						COL++;
 					});
@@ -202,7 +206,7 @@ function generateAnswersSheet(
 				a = safeParseJSON(a) || a;
 				const subkeys = q.rows || q.options;
 				(subkeys || []).forEach((subkey) => {
-					sas.cell(1, COL).string(`${q.label} [${subkey}]`);
+					sas.cell(1, COL).string(`${stripHtml(q.label)} [${subkey}]`);
 					writeCell(a[subkey]);
 					COL++;
 				});
@@ -212,14 +216,14 @@ function generateAnswersSheet(
 				a = safeParseJSON(a) || a;
 				const subkeys = q.options || [];
 				(subkeys || []).forEach((subkey) => {
-					sas.cell(1, COL).string(`${q.label} [${subkey}] [1-${N}]`);
+					sas.cell(1, COL).string(`${stripHtml(q.label)} [${subkey}] [1-${N}]`);
 					writeCell(a.indexOf(subkey) + 1);
 					COL++;
 				});
 			} else {
 				// single column
 				const suffix = q.minLabel && q.maxLabel ? ` [${q.minLabel} - ${q.maxLabel}]` : '';
-				sas.cell(1, COL).string(q.label + suffix);
+				sas.cell(1, COL).string(stripHtml(q.label) + suffix);
 				if (a.startsWith?.(OTHER_PREFIX)) {
 					a = `${m.other}: ${a.slice(OTHER_PREFIX.length)}`;
 				}
