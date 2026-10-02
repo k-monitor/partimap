@@ -59,11 +59,15 @@ function addNewCondition() {
 	showIf.value = [...showIf.value, newCondition];
 }
 
+function stripHtml(html: string) {
+	return html.replace(/<[^>]*>/g, '').trim();
+}
+
 const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 	testableQuestions.value.map((q) => {
 		if (q.type.includes('Matrix') || q.type === 'distributeUnits' || q.type === 'ordering') {
 			return {
-				label: q.label,
+				label: stripHtml(q.label),
 				options: (q.rows || q.options || []).map((r) => ({
 					value: [q.id, r],
 					text: r,
@@ -74,7 +78,7 @@ const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 		} else {
 			return {
 				value: [q.id],
-				text: q.label,
+				text: stripHtml(q.label),
 				qid: q.id,
 				type: q.type,
 			};

@@ -155,19 +155,6 @@ function addQuestion() {
 	editQuestion(survey.value.questions.length - 1);
 }
 
-function handleQuestionLabelFocus() {
-	if (!question.value) return;
-	if (question.value.label === defaultQuestionLabel(questionIndex.value)) {
-		question.value.label = '';
-	}
-}
-
-function handleQuestionLabelBlur() {
-	if (!question.value) return;
-	if (!question.value.label) {
-		question.value.label = defaultQuestionLabel(questionIndex.value);
-	}
-}
 
 function canHaveResults(q: Question) {
 	return !questionTypesWithoutResults.includes(q.type);
@@ -282,8 +269,6 @@ function canMoveQuestion(e: { draggedContext: { index: number; futureIndex: numb
 	cancelledDrag.value.splice(0, cancelledDrag.value.length);
 	return true;
 }
-
-const questionLabelInput = ref<HTMLInputElement>();
 
 async function moveQuestion(questionIndex: number, targetSheetId: number) {
 	const question = survey.value.questions[questionIndex];
@@ -425,7 +410,6 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 			ok-variant="success"
 			:title="t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
 			@ok="saveQuestion"
-			@shown="questionLabelInput?.focus()"
 		>
 			<form
 				v-if="question"
@@ -443,17 +427,16 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 				>
 					{{ t('SurveyEditor.warnForReferencedQuestion') }}
 				</div>
-				<b-form-group :label="t('SurveyEditor.questionText')">
-					<b-form-input
-						ref="questionLabelInput"
+				<form-group
+					class="rich"
+					:label="t('SurveyEditor.questionText')"
+				>
+					<tiptap
 						v-model="question.label"
-						:disabled="props.readonly"
 						:readonly="props.readonly"
 						required
-						@focus="handleQuestionLabelFocus"
-						@blur="handleQuestionLabelBlur"
 					/>
-				</b-form-group>
+				</form-group>
 				<b-form-group :label="t('SurveyEditor.questionType')">
 					<b-form-select
 						v-model="question.type"

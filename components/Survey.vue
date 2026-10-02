@@ -84,7 +84,10 @@ const { t } = useI18n();
 					>
 						*
 					</span>
-					<strong class="text-primary">{{ q.label }}</strong>
+					<div
+						class="fw-bold text-primary tiptap-display"
+						v-html="q.label"
+					/>
 				</div>
 				<b-button
 					v-if="canRemoveAnswer(q)"

@@ -5,12 +5,14 @@ import { Youtube } from '@tiptap/extension-youtube';
 
 const html = defineModel<string>();
 
-const { required } = defineProps<{
+const { required, readonly } = defineProps<{
+	readonly?: boolean;
 	required?: boolean;
 }>();
 
 const editor = useEditor({
 	content: html.value || '',
+	editable: !readonly,
 	extensions: [
 		TiptapStarterKit.configure({
 			link: { openOnClick: false },
