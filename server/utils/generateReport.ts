@@ -21,14 +21,11 @@ import {
 	PARTIMAP_PROJECTION,
 } from '~/utils/constants';
 import { CAPTURED_PARAMS } from '~/utils/capturedParams';
+import { stripHtml } from '~/utils/stripHtml';
 // Yes, we need explicit imports for utils as we use this file outside Nuxt context.
 
 // TODO refactor: use xlsx.js instead of excel4node
 // TODO refactor: use Nuxt i18n server side
-
-function stripHtml(html: string) {
-	return html.replace(/<[^>]*>/g, '').trim();
-}
 
 const OL2GM = transformation(PARTIMAP_PROJECTION, GOOGLEMAPS_PROJECTION);
 function ol2gm(coords: number[]) {

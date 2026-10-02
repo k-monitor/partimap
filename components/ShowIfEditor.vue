@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Project } from '~/server/data/projects';
 import type { Condition, QuestionType, Survey } from '~/server/data/surveyAnswers';
+import { stripHtml } from '~/utils/stripHtml';
 
 export type TestableQuestionOption = {
 	label?: string;
@@ -59,9 +60,6 @@ function addNewCondition() {
 	showIf.value = [...showIf.value, newCondition];
 }
 
-function stripHtml(html: string) {
-	return html.replace(/<[^>]*>/g, '').trim();
-}
 
 const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 	testableQuestions.value.map((q) => {

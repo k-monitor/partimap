@@ -2,6 +2,7 @@ import * as db from '~/server/utils/database';
 import * as sdb from '~/server/data/sheets';
 import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
 import { safeParseJSON, safeParseJSONArray } from '~/utils/json';
+import { stripHtml } from '~/utils/stripHtml';
 
 export type SurveyAnswer = {
 	id: number;
@@ -172,7 +173,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 
 			const result: AggregatedAnswers = {
 				questionId: `${q.id}`,
-				question: `${q.label}`,
+				question: stripHtml(q.label),
 				sheetId: q.sheetId,
 				type: q.type,
 				count: answers.length,
@@ -208,7 +209,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 
 			const result: AggregatedAnswers = {
 				questionId: `${q.id}`,
-				question: `${q.label}`,
+				question: stripHtml(q.label),
 				sheetId: q.sheetId,
 				type: q.type,
 				count: answers.length,
@@ -251,7 +252,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 
 				const result: AggregatedAnswers = {
 					questionId: `${q.id}/${i}`,
-					question: `${q.label} [${row}]`,
+					question: `${stripHtml(q.label)} [${row}]`,
 					sheetId: q.sheetId,
 					type: q.type,
 					count,
@@ -292,7 +293,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 
 		const result: AggregatedAnswers = {
 			questionId: String(q.id),
-			question: q.label,
+			question: stripHtml(q.label),
 			sheetId: q.sheetId,
 			type: q.type,
 			average,
