@@ -12,7 +12,7 @@ export type TestableQuestionOption = {
 	value?: (string | number)[];
 };
 
-const showIf = defineModel<Condition[]>({ default: [] });
+const showIf = defineModel<Condition[]>({ default: () => [] });
 
 const project = inject<Ref<Project | null>>('project');
 
@@ -59,7 +59,6 @@ function addNewCondition() {
 	const newCondition: Condition = [[NaN], ''];
 	showIf.value = [...showIf.value, newCondition];
 }
-
 
 const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 	testableQuestions.value.map((q) => {

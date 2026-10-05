@@ -2,7 +2,7 @@
 import { VueDraggableNext as draggable } from 'vue-draggable-next';
 import type { Question } from '~/server/data/surveyAnswers';
 
-const value = defineModel<string[] | undefined>({ default: () => undefined });
+const value = defineModel<string[] | undefined>({ default: undefined });
 
 const { question } = defineProps<{
 	question: Question;

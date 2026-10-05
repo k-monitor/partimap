@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Question } from '~/server/data/surveyAnswers';
 
-const value = defineModel<string[]>({ default: [] });
+const value = defineModel<string[]>({ default: () => [] });
 /*
    ['Option X', 'Option Y', 'Option Z','OTHER_PREFIX user input']
 */

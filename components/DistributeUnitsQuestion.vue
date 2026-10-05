@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Question } from '~/server/data/surveyAnswers';
 
-const value = defineModel<Record<string, number | null>>({ default: {} });
+const value = defineModel<Record<string, number | null>>({ default: () => ({}) });
 
 const { question } = defineProps<{
 	question: Question;
