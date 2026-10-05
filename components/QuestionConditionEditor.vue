@@ -4,7 +4,7 @@ import type { TestableQuestionOption } from './ShowIfEditor.vue';
 import type { CheckboxOptionRaw } from 'bootstrap-vue-next';
 
 const value = defineModel<Condition>({
-	default: [[NaN], ''],
+	default: () => [[NaN], ''],
 });
 
 const props = defineProps<{
@@ -67,7 +67,7 @@ const answerOptions = computed(() => {
 		(question.value.type.includes('Matrix')
 			? question.value.columns
 			: question.value.options) || [];
-	const options: CheckboxOptionRaw[] = [...qo]; // need copying
+	const options: CheckboxOptionRaw[] = qo.map(optionLabel);
 	if (question.value.other) {
 		options.push({
 			value: OTHER_ANSWER,
