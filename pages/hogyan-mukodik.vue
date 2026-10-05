@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// The old help page, replaced by the Súgó. Kept so that old links still work.
 defineI18nRoute({
 	paths: {
 		en: '/how-it-works',
@@ -7,36 +8,14 @@ defineI18nRoute({
 	},
 });
 
-const { currentRoute } = useRouter();
-const params = Object.keys(currentRoute.value.query);
-
-const { t } = useI18n();
-
-useHead({
-	title: t('help.title'),
+definePageMeta({
+	middleware: [
+		function (to) {
+			const localePath = useLocalePath();
+			// `?visitor` showed only the part of the old page meant for respondents
+			const name = 'visitor' in to.query ? 'sugo-kitoltoknek' : 'sugo';
+			return navigateTo(localePath({ name }), { redirectCode: 301 });
+		},
+	],
 });
-
-const editorsHelp = await useMessageFromDatabase('editorsHelp');
-const visitorsHelp = await useMessageFromDatabase('visitorsHelp');
 </script>
-
-<template>
-	<PublicFrame>
-		<div class="container my-5 help">
-			<header class="my-5">
-				<h1 class="border-bottom">{{ $t('help.title') }}</h1>
-			</header>
-
-			<Markdown
-				class="help mb-5"
-				:md="visitorsHelp || ''"
-			/>
-
-			<Markdown
-				v-if="!params.includes('visitor')"
-				class="help mb-5"
-				:md="editorsHelp || ''"
-			/>
-		</div>
-	</PublicFrame>
-</template>

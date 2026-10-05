@@ -4,7 +4,12 @@ import { readFileSync } from 'node:fs';
 const PATH = process.env.ENCRYPTION_KEY_PATH || './encryption.key';
 
 const ALGO = 'aes-256-gcm';
-const KEY = Buffer.from(readFileSync(PATH, 'utf8').trim(), 'base64');
+const KEY = Buffer.from(readKey(), 'base64');
+
+function readKey() {
+	// Deployments without a persistent filesystem (eg. Vercel) can pass the key directly.
+	return (process.env.ENCRYPTION_KEY || readFileSync(PATH, 'utf8')).trim();
+}
 
 export function encryptField(plaintext: string) {
 	if (!plaintext.trim()) return '';

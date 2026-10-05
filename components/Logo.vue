@@ -1,7 +1,7 @@
 <template>
 	<div class="logo overflow-hidden">
 		<img
-			src="/logo.svg"
+			src="/logo_kek.png"
 			alt="PARTIMAP"
 			height="30"
 		/>
