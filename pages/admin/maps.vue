@@ -8,25 +8,30 @@ useHead({
 	title: `Admin: ${t('maps.title')}`,
 });
 
-const { data: maps, refresh } = await useFetch<Map[]>('/api/map/all');
-
-const filter = ref('');
-const loading = ref(false);
-const newMapTitle = ref(null);
-const filterOwn = ref(true);
-
 const { user } = useAuth();
 
-const filteredMaps = computed(() => {
-	const f = filter.value.toLowerCase();
-	return (maps.value || [])
-		.filter((m) => {
-			if (filterOwn.value && user.value?.id !== m.userId) {
-				return false;
-			}
-			return m.title.toLowerCase().includes(f);
-		})
-		.sort((a, b) => b.id - a.id);
+const filter = ref('');
+const debouncedFilter = refDebounced(filter, 150);
+const page = ref(1);
+const filterOwn = ref(true);
+const loading = ref(false);
+const newMapTitle = ref(null);
+
+const {
+	data,
+	pending: listPending,
+	refresh,
+} = await useFetch<{ maps: Map[]; total: number; pageSize: number }>('/api/map/all', {
+	query: { filter: debouncedFilter, page, filterOwn },
+});
+
+const maps = computed(() => data.value?.maps ?? []);
+const total = computed(() => data.value?.total ?? 0);
+const pageSize = computed(() => data.value?.pageSize ?? 1);
+const pageCount = computed(() => Math.ceil(total.value / pageSize.value));
+
+watch([debouncedFilter, filterOwn], () => {
+	page.value = 1;
 });
 
 const { errorToast } = useToasts();
@@ -82,17 +87,17 @@ async function del(map: Map) {
 <template>
 	<AdminFrame>
 		<template #header>
-			{{ $t('maps.title') }}
+			{{ t('maps.title') }}
 		</template>
 
 		<div class="row">
-			<div class="col-12 col-md-7">
+			<div class="col-12 col-md-6">
 				<form @submit.prevent="add">
 					<div class="input-group mb-3">
 						<input
 							v-model="newMapTitle"
 							class="form-control"
-							:placeholder="$t('maps.newMapsName')"
+							:placeholder="t('maps.newMapsName')"
 							required
 							type="text"
 						/>
@@ -100,7 +105,7 @@ async function del(map: Map) {
 							class="btn btn-success"
 							type="submit"
 						>
-							{{ $t('maps.add') }}
+							{{ t('maps.add') }}
 						</button>
 					</div>
 				</form>
@@ -110,27 +115,27 @@ async function del(map: Map) {
 					<input
 						v-model="filter"
 						class="form-control"
-						:placeholder="$t('maps.filter')"
+						:placeholder="t('maps.filter')"
 						type="text"
 					/>
 				</div>
 			</div>
 			<div
 				v-if="user?.isAdmin"
-				class="col"
+				class="col d-flex align-items-center mb-3"
 			>
-				<input
-					class="btn btn-outline-primary form-control"
-					:class="{ active: filterOwn }"
-					type="button"
-					:value="$t('maps.ownMaps')"
-					@click="filterOwn = !filterOwn"
-				/>
+				<BFormCheckbox
+					v-model="filterOwn"
+					class="text-nowrap"
+					switch
+				>
+					{{ t('maps.ownMaps') }}
+				</BFormCheckbox>
 			</div>
 		</div>
 		<div class="list-group">
 			<ListItem
-				v-for="m in filteredMaps"
+				v-for="m in maps"
 				:key="m.id"
 				:link="localePath('/admin/map/' + m.id)"
 				:title="m.title"
@@ -139,6 +144,48 @@ async function del(map: Map) {
 				@del="del(m)"
 			/>
 		</div>
-		<LoadingOverlay :show="loading" />
+		<nav
+			v-if="pageCount > 1"
+			class="mt-3"
+		>
+			<ul class="pagination justify-content-center">
+				<li
+					class="page-item"
+					:class="{ disabled: page <= 1 }"
+				>
+					<button
+						class="page-link"
+						@click="page--"
+					>
+						&laquo;
+					</button>
+				</li>
+				<li
+					v-for="p in pageCount"
+					:key="p"
+					class="page-item"
+					:class="{ active: p === page }"
+				>
+					<button
+						class="page-link"
+						@click="page = p"
+					>
+						{{ p }}
+					</button>
+				</li>
+				<li
+					class="page-item"
+					:class="{ disabled: page >= pageCount }"
+				>
+					<button
+						class="page-link"
+						@click="page++"
+					>
+						&raquo;
+					</button>
+				</li>
+			</ul>
+		</nav>
+		<LoadingOverlay :show="loading || listPending" />
 	</AdminFrame>
 </template>

@@ -1,14 +1,49 @@
 import { z } from 'zod';
 import * as db from '~/server/data/projects';
 
+const PAGE_SIZE = 10;
+
 const querySchema = z.object({
 	onlyOwn: z.coerce.boolean().optional(),
+	filter: z.string().optional(),
+	page: z.coerce.number().optional(),
+	filterOwn: z
+		.string()
+		.optional()
+		.transform((v) => v === 'true'),
+	lang: z.string().optional(),
+	userId: z.coerce.number().optional(),
 });
 
 export default defineEventHandler(async (event) => {
-	const { onlyOwn } = await getValidatedQuery(event, querySchema.parse);
+	const {
+		onlyOwn,
+		filter = '',
+		page,
+		filterOwn,
+		lang,
+		userId: targetUserId,
+	} = await getValidatedQuery(event, querySchema.parse);
 
 	const user = await ensureLoggedIn(event);
+
+	if (page !== undefined) {
+		const pageNum = Math.max(1, page || 1);
+		let userId: number | undefined;
+		if (user.isAdmin && targetUserId !== undefined) {
+			userId = targetUserId;
+		} else if (!user.isAdmin || filterOwn) {
+			userId = user.id;
+		}
+		const langFilter = lang || undefined;
+		const [projects, total] = await Promise.all([
+			db.findFiltered(filter, userId, langFilter, pageNum, PAGE_SIZE),
+			db.countFiltered(filter, userId, langFilter),
+		]);
+		return { projects: projects.map(hideSecrets), total, pageSize: PAGE_SIZE };
+	}
+
+	// Legacy: used by FeatureImportModal and others
 	const projects =
 		user.isAdmin && !onlyOwn ? await db.findAll() : await db.findAllByUserId(user!.id);
 	return projects.map(hideSecrets);

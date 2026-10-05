@@ -77,6 +77,27 @@ export async function del(id: number) {
 	]);
 }
 
+export async function findFiltered(filter: string, page: number, pageSize: number): Promise<User[]> {
+	const offset = (page - 1) * pageSize;
+	const like = `%${filter}%`;
+	const id = parseInt(filter, 10) || 0;
+	const rows = await db.query(
+		`SELECT * FROM user WHERE email LIKE ? OR id = ? ORDER BY (id = ?) DESC, id LIMIT ${pageSize} OFFSET ${offset}`,
+		[like, id, id],
+	);
+	return rows.map((r) => createUser(r));
+}
+
+export async function countFiltered(filter: string): Promise<number> {
+	const like = `%${filter}%`;
+	const id = parseInt(filter, 10) || 0;
+	const rows = await db.query(
+		`SELECT COUNT(*) AS cnt FROM user WHERE email LIKE ? OR id = ?`,
+		[like, id],
+	);
+	return (rows[0] as any).cnt as number;
+}
+
 export function findAll() {
 	return db.findAll('user', createUser) as Promise<User[]>;
 }
