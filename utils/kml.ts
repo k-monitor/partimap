@@ -181,8 +181,18 @@ function prepareKmlForImport(kmlString: string) {
 		// ensure ID
 		const idValueEl = ed.querySelector(`Data[name="${EXPORTED_ID_NAME}"] value`);
 		let pId = (idValueEl?.innerHTML || p.getAttribute('id') || '').trim();
-		if (!pId || pId.length > 255) pId = String(idBase + i);
+		if (!pId || pId.length > 255 || isNaN(Number(pId))) pId = String(idBase + i);
 		p.setAttribute('id', String(pId));
+
+		// unwrap MultiGeometry with a single child into its direct geometry type,
+		// so OL produces a typed feature (Polygon, LineString, etc.) instead of GeometryCollection
+		const multiGeom = p.querySelector('MultiGeometry');
+		if (multiGeom) {
+			const children = Array.from(multiGeom.children);
+			if (children.length === 1) {
+				multiGeom.parentElement?.replaceChild(children[0], multiGeom);
+			}
+		}
 
 		// rename back data entries
 		renameData(ed, EXPORTED_CATEGORY_NAME, 'category');
