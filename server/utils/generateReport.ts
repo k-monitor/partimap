@@ -21,6 +21,7 @@ import {
 	PARTIMAP_PROJECTION,
 } from '~/utils/constants';
 import { CAPTURED_PARAMS } from '~/utils/capturedParams';
+import { optionLabel } from '~/utils/optionLabel';
 import { stripHtml } from '~/utils/stripHtml';
 // Yes, we need explicit imports for utils as we use this file outside Nuxt context.
 
@@ -172,9 +173,10 @@ function generateAnswersSheet(
 				// multiple columns, one per option
 				const ans: string | string[] | object = safeParseJSON(a) || a;
 				(q.options || []).forEach((option) => {
-					sas.cell(1, COL).string(`${stripHtml(q.label)} [${option}]`);
-					if (Array.isArray(ans) && ans.includes(option)) {
-						writeCell(option);
+					const lbl = optionLabel(option);
+					sas.cell(1, COL).string(`${stripHtml(q.label)} [${lbl}]`);
+					if (Array.isArray(ans) && ans.includes(lbl)) {
+						writeCell(lbl);
 					}
 					COL++;
 				});
@@ -201,7 +203,7 @@ function generateAnswersSheet(
 			} else if (['distributeUnits', 'singleChoiceMatrix'].includes(q.type)) {
 				// multiple columns, one per row
 				a = safeParseJSON(a) || a;
-				const subkeys = q.rows || q.options;
+				const subkeys: string[] = q.rows || (q.options || []).map(optionLabel);
 				(subkeys || []).forEach((subkey) => {
 					sas.cell(1, COL).string(`${stripHtml(q.label)} [${subkey}]`);
 					writeCell(a[subkey]);
@@ -211,7 +213,7 @@ function generateAnswersSheet(
 				const N = (q.options || []).length;
 				// multiple columns, one per row
 				a = safeParseJSON(a) || a;
-				const subkeys = q.options || [];
+				const subkeys: string[] = (q.options || []).map(optionLabel);
 				(subkeys || []).forEach((subkey) => {
 					sas.cell(1, COL).string(`${stripHtml(q.label)} [${subkey}] [1-${N}]`);
 					writeCell(a.indexOf(subkey) + 1);

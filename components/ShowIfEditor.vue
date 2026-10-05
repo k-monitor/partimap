@@ -67,8 +67,8 @@ const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 			return {
 				label: stripHtml(q.label),
 				options: (q.rows || q.options || []).map((r) => ({
-					value: [q.id, r],
-					text: r,
+					value: [q.id, optionLabel(r)],
+					text: optionLabel(r),
 				})),
 				qid: q.id,
 				type: q.type,

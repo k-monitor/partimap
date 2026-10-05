@@ -2,6 +2,7 @@ import * as db from '~/server/utils/database';
 import * as sdb from '~/server/data/sheets';
 import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
 import { safeParseJSON, safeParseJSONArray } from '~/utils/json';
+import { optionLabel } from '~/utils/optionLabel';
 import { stripHtml } from '~/utils/stripHtml';
 
 export type SurveyAnswer = {
@@ -49,7 +50,7 @@ export type Question = {
 	min?: number;
 	minLabel?: string;
 	multiline?: boolean;
-	options?: string[];
+	options?: (string | { label: string; image: string })[];
 	other?: boolean;
 	required?: boolean;
 	rows?: string[];
@@ -163,10 +164,10 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 			const counts: Map<string, number> = new Map();
 			answers.forEach((a) => {
 				a.forEach((o, index) => {
-					if (q.options?.includes(o)) {
+					if (q.options?.some((opt) => optionLabel(opt) === o)) {
 						const position = index + 1;
-						sums.set(o, (sums.get(o) || 0) + position);
-						counts.set(o, (counts.get(o) || 0) + 1);
+						sums.set(optionLabel(o), (sums.get(optionLabel(o)) || 0) + position);
+						counts.set(optionLabel(o), (counts.get(optionLabel(o)) || 0) + 1);
 					}
 				});
 			});
@@ -179,11 +180,11 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 				count: answers.length,
 			};
 			result.options = (q.options || [])
-				.filter((o) => sums.get(o))
+				.filter((o) => sums.get(optionLabel(o)))
 				.map((o) => ({
-					answer: o,
-					average: Math.round((10 * (sums.get(o) || 0)) / counts!.get(o)!) / 10,
-					count: counts.get(o) || 0,
+					answer: optionLabel(o),
+					average: Math.round((10 * (sums.get(optionLabel(o)) || 0)) / counts!.get(optionLabel(o))!) / 10,
+					count: counts.get(optionLabel(o)) || 0,
 				}))
 				.sort((a, b) => (a.average || 0) - (b.average || 0));
 			results.push(result);
@@ -201,9 +202,9 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 
 			answers.forEach((a) => {
 				Object.entries(a).forEach(([key, value]) => {
-					if (!(q.options || []).includes(key)) return;
-					sums.set(key, (sums.get(key) || 0) + value); // value is number in this question type
-					counts.set(key, (counts.get(key) || 0) + 1);
+					if (!(q.options || []).some((opt) => optionLabel(opt) === key)) return;
+					sums.set(optionLabel(key), (sums.get(optionLabel(key)) || 0) + value); // value is number in this question type
+					counts.set(optionLabel(key), (counts.get(optionLabel(key)) || 0) + 1);
 				});
 			});
 
@@ -215,10 +216,10 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 				count: answers.length,
 			};
 			result.options = (q.options || [])
-				.filter((o) => counts.get(o))
+				.filter((o) => counts.get(optionLabel(o)))
 				.map((o) => ({
-					answer: o,
-					average: Math.round((10 * (sums.get(o) || 0)) / counts!.get(o)!) / 10,
+					answer: optionLabel(o),
+					average: Math.round((10 * (sums.get(optionLabel(o)) || 0)) / counts!.get(optionLabel(o))!) / 10,
 				}));
 			results.push(result);
 			continue;

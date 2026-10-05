@@ -9,7 +9,7 @@ const { question } = defineProps<{
 }>();
 
 const shuffledOptions = computed(() => {
-	const opts = question.options || [];
+	const opts: string[] = (question.options || []).map(optionLabel);
 	return question.shuffleOptions ? shuffle(opts) : opts;
 });
 
