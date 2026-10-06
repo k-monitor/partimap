@@ -407,6 +407,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 			:ok-disabled="props.readonly"
 			:ok-title="t('SaveButton.save')"
 			ok-variant="success"
+			size="lg"
 			:title="t('SurveyEditor.questionPrefix') + ` #${questionIndex + 1}`"
 			@ok="saveQuestion"
 		>
