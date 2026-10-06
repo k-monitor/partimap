@@ -2,6 +2,7 @@ import * as db from '~/server/utils/database';
 import * as sdb from '~/server/data/sheets';
 import { OTHER_ANSWER, OTHER_PREFIX } from '~/utils/constants';
 import { safeParseJSON, safeParseJSONArray } from '~/utils/json';
+import type { QuestionOption } from '~/utils/optionLabel';
 import { optionLabel } from '~/utils/optionLabel';
 import { stripHtml } from '~/utils/stripHtml';
 
@@ -42,7 +43,7 @@ export type QuestionType =
 export type Question = {
 	id: number;
 	addToFeatures?: boolean;
-	columns?: string[];
+	columns?: QuestionOption[];
 	label: string;
 	html?: string;
 	max?: number;
@@ -50,10 +51,10 @@ export type Question = {
 	min?: number;
 	minLabel?: string;
 	multiline?: boolean;
-	options?: (string | { label: string; image: string })[];
+	options?: QuestionOption[];
 	other?: boolean;
 	required?: boolean;
-	rows?: string[];
+	rows?: QuestionOption[];
 	showIf?: Condition[];
 	showResult: boolean;
 	shuffleOptions?: boolean;
@@ -183,7 +184,10 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 				.filter((o) => sums.get(optionLabel(o)))
 				.map((o) => ({
 					answer: optionLabel(o),
-					average: Math.round((10 * (sums.get(optionLabel(o)) || 0)) / counts!.get(optionLabel(o))!) / 10,
+					average:
+						Math.round(
+							(10 * (sums.get(optionLabel(o)) || 0)) / counts!.get(optionLabel(o))!,
+						) / 10,
 					count: counts.get(optionLabel(o)) || 0,
 				}))
 				.sort((a, b) => (a.average || 0) - (b.average || 0));
@@ -219,7 +223,10 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 				.filter((o) => counts.get(optionLabel(o)))
 				.map((o) => ({
 					answer: optionLabel(o),
-					average: Math.round((10 * (sums.get(optionLabel(o)) || 0)) / counts!.get(optionLabel(o))!) / 10,
+					average:
+						Math.round(
+							(10 * (sums.get(optionLabel(o)) || 0)) / counts!.get(optionLabel(o))!,
+						) / 10,
 				}));
 			results.push(result);
 			continue;

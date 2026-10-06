@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const options = defineModel<string[]>({ default: () => [] });
+const options = defineModel<QuestionOption[]>({ default: () => [] });
 
 const props = withDefaults(
 	defineProps<{
