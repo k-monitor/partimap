@@ -512,21 +512,24 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					v-model="question.options"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
-					label-state="option"
+					:label="t('OptionsEditor.options')"
+					:add-button-label="t('OptionsEditor.addOption')"
 				/>
 				<OptionsEditor
 					v-if="questionTypesWithRowsAndColumns.includes(question.type)"
 					v-model="question.rows"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
-					label-state="row"
+					:label="t('OptionsEditor.rows')"
+					:add-button-label="t('OptionsEditor.addRow')"
 				/>
 				<OptionsEditor
 					v-if="questionTypesWithRowsAndColumns.includes(question.type)"
 					v-model="question.columns"
 					class="mb-3"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
-					label-state="column"
+					:label="t('OptionsEditor.columns')"
+					:add-button-label="t('OptionsEditor.addColumn')"
 				/>
 				<b-form-group v-if="questionTypesWithOptions.includes(question.type)">
 					<b-form-checkbox v-model="question.shuffleOptions">

@@ -1,28 +1,15 @@
 <script setup lang="ts">
 const options = defineModel<QuestionOption[]>({ default: () => [] });
 
-const props = withDefaults(
-	defineProps<{
-		labelState?: 'row' | 'column' | 'option';
-		readonly?: boolean;
-	}>(),
-	{
-		labelState: 'option',
-		readonly: false,
-	},
-);
+const { addButtonLabel, label, readonly = false } = defineProps<{
+	addButtonLabel: string;
+	label: string;
+	readonly?: boolean;
+}>();
 
 const { t } = useI18n();
 
-const label = computed(() => t(`OptionsEditor.${props.labelState}s`));
-
-const labelButton = computed(() => {
-	const str = props.labelState;
-	const cap = str.charAt(0).toUpperCase() + str.slice(1);
-	return t(`OptionsEditor.add${cap}`);
-});
-
-const formGroupRef = templateRef('formGroupRef');
+const formGroupRef = useTemplateRef('formGroupRef');
 
 async function addOption() {
 	options.value = [
@@ -61,10 +48,10 @@ function handleInputBlur(i: number) {
 
 <template>
 	<div>
-		<label>
-			{{ label }}
-		</label>
-		<b-form-group ref="formGroupRef">
+		<b-form-group
+			ref="formGroupRef"
+			:label="label"
+		>
 			<draggable
 				v-model="options"
 				animation="200"
@@ -104,7 +91,7 @@ function handleInputBlur(i: number) {
 				variant="success"
 				@click="addOption"
 			>
-				{{ labelButton }}
+				{{ addButtonLabel }}
 			</b-button>
 		</b-form-group>
 	</div>
