@@ -11,6 +11,15 @@ const { t } = useI18n();
 
 const formGroupRef = useTemplateRef('formGroupRef');
 
+function getLabel(i: number): string {
+	return optionLabel(options.value[i]);
+}
+
+function setLabel(i: number, val: string) {
+	const o = options.value[i];
+	options.value[i] = typeof o === 'string' ? val : { ...o, label: val };
+}
+
 async function addOption() {
 	options.value = [
 		...options.value,
@@ -34,14 +43,14 @@ function defaultOption(i: number) {
 }
 
 function handleInputFocus(i: number) {
-	if (options.value[i] === defaultOption(i)) {
-		options.value[i] = '';
+	if (getLabel(i) === defaultOption(i)) {
+		setLabel(i, '');
 	}
 }
 
 function handleInputBlur(i: number) {
-	if (!options.value[i]) {
-		options.value[i] = defaultOption(i);
+	if (!getLabel(i)) {
+		setLabel(i, defaultOption(i));
 	}
 }
 </script>
@@ -68,9 +77,10 @@ function handleInputBlur(i: number) {
 						</div>
 					</template>
 					<b-form-input
-						v-model="options[i]"
+						:model-value="getLabel(i)"
 						:readonly="readonly"
 						:disabled="readonly"
+						@update:model-value="setLabel(i, $event as string)"
 						@focus="handleInputFocus(i)"
 						@blur="handleInputBlur(i)"
 						@keyup.enter="addOption"
