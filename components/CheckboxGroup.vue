@@ -33,16 +33,19 @@ watch([selected, otherValue], () => {
 const { t } = useI18n();
 
 const shuffledOptions = computed(() => {
-	const opts: string[] = (props.q.options || []).map(optionLabel);
+	const opts = props.q.options || [];
 	return props.q.shuffleOptions ? shuffle(opts) : opts;
 });
 
 const options = computed(() => {
-	const opts = shuffledOptions.value.map((o) => ({
-		text: o,
-		value: o,
-		disabled: false,
-	}));
+	const opts = shuffledOptions.value.map((o) => {
+		const label = optionLabel(o);
+		return {
+			text: label,
+			value: label,
+			disabled: false,
+		};
+	});
 
 	if (props.q.other) {
 		opts.push({
@@ -90,7 +93,7 @@ watch(otherSelected, async (s) => {
 				required
 				tabindex="-1"
 				type="checkbox"
-				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
+				:oninvalid="`this.setCustomValidity('${t('CheckboxGroup.required')}')`"
 				style="bottom: 0; height: 1px; opacity: 0; pointer-events: none; position: absolute"
 			/>
 		</div>
