@@ -1,8 +1,14 @@
 <script setup lang="ts">
 const options = defineModel<QuestionOption[]>({ default: () => [] });
 
-const { addButtonLabel, label, readonly = false } = defineProps<{
+const {
+	addButtonLabel,
+	enableImages = false,
+	label,
+	readonly = false,
+} = defineProps<{
 	addButtonLabel: string;
+	enableImages?: boolean;
 	label: string;
 	readonly?: boolean;
 }>();

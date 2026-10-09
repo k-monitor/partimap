@@ -33,6 +33,8 @@ const questionTypesWithOptions: QuestionType[] = [
 	'radiogroup',
 ];
 
+const questionTypesWithImageOptions: QuestionType[] = ['checkbox', 'radiogroup'];
+
 const questionTypesWithoutResults: QuestionType[] = ['static', 'text'];
 
 const questionTypesWithRowsAndColumns: QuestionType[] = [
@@ -512,6 +514,7 @@ async function moveQuestion(questionIndex: number, targetSheetId: number) {
 					v-if="questionTypesWithOptions.includes(question.type)"
 					v-model="question.options"
 					class="mb-3"
+					:enable-images="questionTypesWithImageOptions.includes(question.type)"
 					:readonly="!!(props.readonly || isQuestionReferenced(question))"
 					:label="t('OptionsEditor.options')"
 					:add-button-label="t('OptionsEditor.addOption')"
