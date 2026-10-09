@@ -22,10 +22,49 @@ const options = computed(() =>
 		};
 	}),
 );
+
+const hasImages = computed(() => options.value.some((o) => o.image));
 </script>
 
 <template>
+	<div
+		v-if="hasImages"
+		class="row"
+	>
+		<div
+			v-for="o in options"
+			:key="o.value"
+			class="col-12 col-sm-6 mb-2"
+		>
+			<label
+				class="w-100"
+				style="cursor: pointer"
+			>
+				<div
+					class="ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
+					:class="{ 'border-primary': value === o.value }"
+				>
+					<img
+						v-if="o.image"
+						:src="o.image"
+						:alt="o.text"
+						class="img-fluid"
+						style="object-fit: contain"
+					/>
+				</div>
+				<b-form-radio
+					v-model="value"
+					:name="`q${q.id}`"
+					:required="q.required"
+					:value="o.value"
+				>
+					{{ o.text }}
+				</b-form-radio>
+			</label>
+		</div>
+	</div>
 	<b-form-radio-group
+		v-else
 		v-model="value"
 		:name="`q${q.id}`"
 		:options="options"

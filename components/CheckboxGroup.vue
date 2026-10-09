@@ -97,7 +97,7 @@ const hasImages = computed(() => options.value.some((o) => o.image));
 					v-for="o in options"
 					:key="o.value"
 					class="mb-2"
-					:class="[o.other ? 'col-12' : 'col-6']"
+					:class="[o.other ? 'col-12' : 'col-12 col-sm-6']"
 				>
 					<label
 						class="w-100"
@@ -112,14 +112,13 @@ const hasImages = computed(() => options.value.some((o) => o.image));
 							<img
 								v-if="o.image"
 								:src="o.image"
-								alt=""
+								:alt="o.text"
 								class="img-fluid"
 								style="object-fit: contain"
 							/>
 						</div>
 						<b-form-checkbox
 							v-model="selected"
-							type="checkbox"
 							:disabled="o.disabled"
 							:value="o.value"
 						>
