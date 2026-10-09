@@ -59,6 +59,41 @@ function handleInputBlur(i: number) {
 		setLabel(i, defaultOption(i));
 	}
 }
+
+const { errorToast } = useToasts();
+
+function addImageToOption(i: number) {
+	const o = options.value[i];
+	const input = document.createElement('input');
+	input.type = 'file';
+	input.accept = 'image/jpeg,image/gif,image/png,image/webp';
+	input.onchange = () => {
+		const file = input.files?.[0];
+		if (!file) return;
+		if (file.size > 500 * 1024) {
+			errorToast(t('tiptap.imgSizeLimit'));
+			return;
+		}
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const src = e.target?.result as string;
+			if (typeof o === 'string') {
+				options.value[i] = { label: o, image: src };
+			} else {
+				options.value[i] = { ...o, image: src };
+			}
+		};
+		reader.readAsDataURL(file);
+	};
+	input.click();
+}
+
+function removeImageFromOption(i: number) {
+	const o = options.value[i];
+	if (typeof o !== 'string' && o.image) {
+		options.value[i] = { ...o, image: '' };
+	}
+}
 </script>
 
 <template>
@@ -81,6 +116,38 @@ function handleInputBlur(i: number) {
 						<div class="handle d-flex flex-shrink-0 align-items-center px-2 bg-light">
 							<i class="fas fa-grip-vertical" />
 						</div>
+						<template v-if="enableImages">
+							<b-button
+								:class="{ 'p-0': typeof o !== 'string' && o.image }"
+								:disabled="readonly"
+								variant="outline-primary"
+								@click="addImageToOption(i)"
+							>
+								<i
+									v-if="typeof o === 'string' || !o.image"
+									class="fas fa-fw fa-image"
+								/>
+								<img
+									v-else
+									:src="o.image"
+									style="
+										--size: 48px;
+										height: var(--size);
+										width: var(--size);
+										object-fit: contain;
+									"
+								/>
+							</b-button>
+							<b-button
+								v-if="typeof o !== 'string' && o.image"
+								:disabled="readonly"
+								size="sm"
+								variant="outline-danger"
+								@click="removeImageFromOption(i)"
+							>
+								<i class="fas fa-fw fa-xmark" />
+							</b-button>
+						</template>
 					</template>
 					<b-form-input
 						:model-value="getLabel(i)"
