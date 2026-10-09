@@ -8,16 +8,27 @@ const props = defineProps<{
 }>();
 
 const shuffledOptions = computed(() => {
-	const opts: string[] = (props.q.options || []).map(optionLabel);
+	const opts = props.q.options || [];
 	return props.q.shuffleOptions ? shuffle(opts) : opts;
 });
+
+const options = computed(() =>
+	shuffledOptions.value.map((o) => {
+		const label = optionLabel(o);
+		return {
+			text: label,
+			value: label,
+			image: typeof o === 'object' && o.image ? o.image : undefined,
+		};
+	}),
+);
 </script>
 
 <template>
 	<b-form-radio-group
 		v-model="value"
 		:name="`q${q.id}`"
-		:options="shuffledOptions"
+		:options="options"
 		:required="q.required"
 		stacked
 	/>
