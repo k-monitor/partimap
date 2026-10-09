@@ -36,29 +36,11 @@ watch(html, (v) => {
 	editor.value.commands.setContent(v || '', false);
 });
 
-const { t } = useI18n();
-const { errorToast } = useToasts();
+const { pickImage } = useImageUpload();
 
 function addImage() {
 	if (!editor.value) return;
-	const input = document.createElement('input');
-	input.type = 'file';
-	input.accept = 'image/jpeg,image/gif,image/png,image/webp';
-	input.onchange = () => {
-		const file = input.files?.[0];
-		if (!file) return;
-		if (file.size > 500 * 1024) {
-			errorToast(t('tiptap.imgSizeLimit'));
-			return;
-		}
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			const src = e.target?.result as string;
-			if (src) editor.value?.chain().focus().setImage({ src }).run();
-		};
-		reader.readAsDataURL(file);
-	};
-	input.click();
+	pickImage((src) => editor.value?.chain().focus().setImage({ src }).run());
 }
 
 function addYoutube() {

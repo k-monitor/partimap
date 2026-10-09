@@ -60,32 +60,17 @@ function handleInputBlur(i: number) {
 	}
 }
 
-const { errorToast } = useToasts();
+const { pickImage } = useImageUpload();
 
 function addImageToOption(i: number) {
 	const o = options.value[i];
-	const input = document.createElement('input');
-	input.type = 'file';
-	input.accept = 'image/jpeg,image/gif,image/png,image/webp';
-	input.onchange = () => {
-		const file = input.files?.[0];
-		if (!file) return;
-		if (file.size > 500 * 1024) {
-			errorToast(t('tiptap.imgSizeLimit'));
-			return;
+	pickImage((src) => {
+		if (typeof o === 'string') {
+			options.value[i] = { label: o, image: src };
+		} else {
+			options.value[i] = { ...o, image: src };
 		}
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			const src = e.target?.result as string;
-			if (typeof o === 'string') {
-				options.value[i] = { label: o, image: src };
-			} else {
-				options.value[i] = { ...o, image: src };
-			}
-		};
-		reader.readAsDataURL(file);
-	};
-	input.click();
+	});
 }
 
 function removeImageFromOption(i: number) {
