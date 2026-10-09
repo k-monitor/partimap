@@ -44,6 +44,8 @@ const options = computed(() => {
 			text: label,
 			value: label,
 			disabled: false,
+			image: typeof o === 'object' && o.image ? o.image : undefined,
+			other: false,
 		};
 	});
 
@@ -52,6 +54,8 @@ const options = computed(() => {
 			text: t('CheckboxGroup.other'),
 			value: OTHER_PREFIX,
 			disabled: false,
+			image: undefined,
+			other: true,
 		});
 	}
 
@@ -78,12 +82,54 @@ watch(otherSelected, async (s) => {
 		otherInput.value?.focus();
 	}
 });
+
+const hasImages = computed(() => options.value.some((o) => o.image));
 </script>
 
 <template>
 	<div>
 		<div class="position-relative">
+			<div
+				v-if="hasImages"
+				class="row"
+			>
+				<div
+					v-for="o in options"
+					:key="o.value"
+					class="mb-2"
+					:class="[o.other ? 'col-12' : 'col-6']"
+				>
+					<label
+						class="w-100"
+						style="cursor: pointer"
+					>
+						<div
+							v-if="!o.other"
+							class="ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
+							:class="{ 'border-primary': selected.includes(o.value) }"
+							:style="{ opacity: o.disabled ? 0.5 : 1 }"
+						>
+							<img
+								v-if="o.image"
+								:src="o.image"
+								alt=""
+								class="img-fluid"
+								style="object-fit: contain"
+							/>
+						</div>
+						<b-form-checkbox
+							v-model="selected"
+							type="checkbox"
+							:disabled="o.disabled"
+							:value="o.value"
+						>
+							{{ o.text }}
+						</b-form-checkbox>
+					</label>
+				</div>
+			</div>
 			<b-form-checkbox-group
+				v-else
 				v-model="selected"
 				:options="options"
 				stacked
