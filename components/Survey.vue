@@ -77,13 +77,13 @@ const { t } = useI18n();
 	>
 		<template #label>
 			<div class="position-relative pr-5 mb-3">
-				<div>
-					<span
+				<div class="d-flex">
+					<div
 						v-if="q.required"
-						class="text-danger"
+						class="text-danger me-1"
 					>
 						*
-					</span>
+					</div>
 					<div
 						class="fw-bold text-primary tiptap-display"
 						v-html="q.label"
