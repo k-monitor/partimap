@@ -346,16 +346,10 @@ fieldset,
 		outline: var(--brand) solid 2px;
 	}
 
-	input,
-	select {
-		box-shadow: none !important;
-
-		&:active,
-		&.active,
-		&:focus,
-		&.focus &:hover {
-			border-color: unset;
-		}
+	.form-control:focus,
+	.form-select:focus {
+		border-color: var(--brand);
+		box-shadow: none;
 	}
 
 	input[type='range']::-moz-range-thumb {
