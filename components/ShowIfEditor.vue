@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Project } from '~/server/data/projects';
 import type { Condition, QuestionType, Survey } from '~/server/data/surveyAnswers';
+import { stripHtml } from '~/utils/stripHtml';
 
 export type TestableQuestionOption = {
 	label?: string;
@@ -11,7 +12,7 @@ export type TestableQuestionOption = {
 	value?: (string | number)[];
 };
 
-const showIf = defineModel<Condition[]>({ default: [] });
+const showIf = defineModel<Condition[]>({ default: () => [] });
 
 const project = inject<Ref<Project | null>>('project');
 
@@ -63,10 +64,10 @@ const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 	testableQuestions.value.map((q) => {
 		if (q.type.includes('Matrix') || q.type === 'distributeUnits' || q.type === 'ordering') {
 			return {
-				label: q.label,
+				label: stripHtml(q.label),
 				options: (q.rows || q.options || []).map((r) => ({
-					value: [q.id, r],
-					text: r,
+					value: [q.id, optionLabel(r)],
+					text: optionLabel(r),
 				})),
 				qid: q.id,
 				type: q.type,
@@ -74,7 +75,7 @@ const testableQuestionOptions = computed<TestableQuestionOption[]>(() =>
 		} else {
 			return {
 				value: [q.id],
-				text: q.label,
+				text: stripHtml(q.label),
 				qid: q.id,
 				type: q.type,
 			};

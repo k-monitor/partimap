@@ -5,17 +5,19 @@ import { Youtube } from '@tiptap/extension-youtube';
 
 const html = defineModel<string>();
 
-const { required } = defineProps<{
+const { required, readonly } = defineProps<{
+	readonly?: boolean;
 	required?: boolean;
 }>();
 
 const editor = useEditor({
 	content: html.value || '',
+	editable: !readonly,
 	extensions: [
 		TiptapStarterKit.configure({
 			link: { openOnClick: false },
 		}),
-		Image,
+		Image.configure({ allowBase64: true }),
 		TextAlign.configure({
 			types: ['heading', 'paragraph'],
 		}),
@@ -34,10 +36,11 @@ watch(html, (v) => {
 	editor.value.commands.setContent(v || '', false);
 });
 
+const { pickImage } = useImageUpload();
+
 function addImage() {
 	if (!editor.value) return;
-	const src = window.prompt('URL');
-	if (src) editor.value.chain().focus().setImage({ src }).run();
+	pickImage((src) => editor.value?.chain().focus().setImage({ src }).run());
 }
 
 function addYoutube() {

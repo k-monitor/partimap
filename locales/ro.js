@@ -782,4 +782,7 @@ export default {
 		warning: '⚠ Atenție',
 		yes: 'Da',
 	},
+	tiptap: {
+		imgSizeLimit: 'Se pot adăuga doar imagini GIF, JPG, PNG sau WEBP mai mici de 500 KB.',
+	},
 };

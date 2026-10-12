@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Question } from '~/server/data/surveyAnswers';
 
-const value = defineModel<string[]>({ default: [] });
+const value = defineModel<string[]>({ default: () => [] });
 /*
    ['Option X', 'Option Y', 'Option Z','OTHER_PREFIX user input']
 */
@@ -38,17 +38,24 @@ const shuffledOptions = computed(() => {
 });
 
 const options = computed(() => {
-	const opts = shuffledOptions.value.map((o) => ({
-		text: o,
-		value: o,
-		disabled: false,
-	}));
+	const opts = shuffledOptions.value.map((o) => {
+		const label = optionLabel(o);
+		return {
+			text: label,
+			value: label,
+			disabled: false,
+			image: typeof o === 'object' && o.image ? o.image : undefined,
+			other: false,
+		};
+	});
 
 	if (props.q.other) {
 		opts.push({
 			text: t('CheckboxGroup.other'),
 			value: OTHER_PREFIX,
 			disabled: false,
+			image: undefined,
+			other: true,
 		});
 	}
 
@@ -75,12 +82,53 @@ watch(otherSelected, async (s) => {
 		otherInput.value?.focus();
 	}
 });
+
+const hasImages = computed(() => options.value.some((o) => o.image));
 </script>
 
 <template>
 	<div>
 		<div class="position-relative">
+			<div
+				v-if="hasImages"
+				class="row"
+			>
+				<div
+					v-for="o in options"
+					:key="o.value"
+					class="mb-2"
+					:class="[o.other ? 'col-12' : 'col-12 col-sm-6']"
+				>
+					<label
+						class="w-100"
+						style="cursor: pointer"
+					>
+						<div
+							v-if="!o.other"
+							class="survey-image-box ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
+							:class="{ 'border-primary': selected.includes(o.value) }"
+							:style="{ opacity: o.disabled ? 0.5 : 1 }"
+						>
+							<img
+								v-if="o.image"
+								:src="o.image"
+								:alt="o.text"
+								class="img-fluid"
+								style="object-fit: contain"
+							/>
+						</div>
+						<b-form-checkbox
+							v-model="selected"
+							:disabled="o.disabled"
+							:value="o.value"
+						>
+							{{ o.text }}
+						</b-form-checkbox>
+					</label>
+				</div>
+			</div>
 			<b-form-checkbox-group
+				v-else
 				v-model="selected"
 				:options="options"
 				stacked
@@ -90,7 +138,7 @@ watch(otherSelected, async (s) => {
 				required
 				tabindex="-1"
 				type="checkbox"
-				:oninvalid="`this.setCustomValidity('${$t('CheckboxGroup.required')}')`"
+				:oninvalid="`this.setCustomValidity('${t('CheckboxGroup.required')}')`"
 				style="bottom: 0; height: 1px; opacity: 0; pointer-events: none; position: absolute"
 			/>
 		</div>

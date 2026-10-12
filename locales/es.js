@@ -789,4 +789,7 @@ export default {
 		warning: '⚠ ¡Atención!',
 		yes: 'Sí',
 	},
+	tiptap: {
+		imgSizeLimit: 'Solo se pueden añadir imágenes GIF, JPG, PNG o WEBP de menos de 500 KB.',
+	},
 };

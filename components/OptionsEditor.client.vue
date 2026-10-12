@@ -1,28 +1,30 @@
 <script setup lang="ts">
-const options = defineModel<string[]>({ default: [] });
+const options = defineModel<QuestionOption[]>({ default: () => [] });
 
-const props = withDefaults(
-	defineProps<{
-		labelState?: 'row' | 'column' | 'option';
-		readonly?: boolean;
-	}>(),
-	{
-		labelState: 'option',
-		readonly: false,
-	},
-);
+const {
+	addButtonLabel,
+	enableImages = false,
+	label,
+	readonly = false,
+} = defineProps<{
+	addButtonLabel: string;
+	enableImages?: boolean;
+	label: string;
+	readonly?: boolean;
+}>();
 
 const { t } = useI18n();
 
-const label = computed(() => t(`OptionsEditor.${props.labelState}s`));
+const formGroupRef = useTemplateRef('formGroupRef');
 
-const labelButton = computed(() => {
-	const str = props.labelState;
-	const cap = str.charAt(0).toUpperCase() + str.slice(1);
-	return t(`OptionsEditor.add${cap}`);
-});
+function getLabel(i: number): string {
+	return optionLabel(options.value[i]);
+}
 
-const formGroupRef = templateRef('formGroupRef');
+function setLabel(i: number, val: string) {
+	const o = options.value[i];
+	options.value[i] = typeof o === 'string' ? val : { ...o, label: val };
+}
 
 async function addOption() {
 	options.value = [
@@ -47,24 +49,44 @@ function defaultOption(i: number) {
 }
 
 function handleInputFocus(i: number) {
-	if (options.value[i] === defaultOption(i)) {
-		options.value[i] = '';
+	if (getLabel(i) === defaultOption(i)) {
+		setLabel(i, '');
 	}
 }
 
 function handleInputBlur(i: number) {
-	if (!options.value[i]) {
-		options.value[i] = defaultOption(i);
+	if (!getLabel(i)) {
+		setLabel(i, defaultOption(i));
+	}
+}
+
+const { pickImage } = useImageUpload();
+
+function addImageToOption(i: number) {
+	const o = options.value[i];
+	pickImage((src) => {
+		if (typeof o === 'string') {
+			options.value[i] = { label: o, image: src };
+		} else {
+			options.value[i] = { ...o, image: src };
+		}
+	});
+}
+
+function removeImageFromOption(i: number) {
+	const o = options.value[i];
+	if (typeof o !== 'string' && o.image) {
+		options.value[i] = { ...o, image: '' };
 	}
 }
 </script>
 
 <template>
 	<div>
-		<label>
-			{{ label }}
-		</label>
-		<b-form-group ref="formGroupRef">
+		<b-form-group
+			ref="formGroupRef"
+			:label="label"
+		>
 			<draggable
 				v-model="options"
 				animation="200"
@@ -79,11 +101,44 @@ function handleInputBlur(i: number) {
 						<div class="handle d-flex flex-shrink-0 align-items-center px-2 bg-light">
 							<i class="fas fa-grip-vertical" />
 						</div>
+						<template v-if="enableImages">
+							<b-button
+								:class="{ 'p-0': typeof o !== 'string' && o.image }"
+								:disabled="readonly"
+								variant="outline-primary"
+								@click="addImageToOption(i)"
+							>
+								<i
+									v-if="typeof o === 'string' || !o.image"
+									class="fas fa-fw fa-image"
+								/>
+								<img
+									v-else
+									:src="o.image"
+									style="
+										--size: 48px;
+										height: var(--size);
+										width: var(--size);
+										object-fit: contain;
+									"
+								/>
+							</b-button>
+							<b-button
+								v-if="typeof o !== 'string' && o.image"
+								:disabled="readonly"
+								size="sm"
+								variant="outline-danger"
+								@click="removeImageFromOption(i)"
+							>
+								<i class="fas fa-fw fa-xmark" />
+							</b-button>
+						</template>
 					</template>
 					<b-form-input
-						v-model="options[i]"
+						:model-value="getLabel(i)"
 						:readonly="readonly"
 						:disabled="readonly"
+						@update:model-value="setLabel(i, $event as string)"
 						@focus="handleInputFocus(i)"
 						@blur="handleInputBlur(i)"
 						@keyup.enter="addOption"
@@ -104,7 +159,7 @@ function handleInputBlur(i: number) {
 				variant="success"
 				@click="addOption"
 			>
-				{{ labelButton }}
+				{{ addButtonLabel }}
 			</b-button>
 		</b-form-group>
 	</div>
