@@ -341,24 +341,9 @@ fieldset,
 		border-color: var(--brand);
 	}
 
-	.custom-control-input:focus ~ .custom-control-label::before {
-		box-shadow: none !important;
-		border-color: var(--brand);
-	}
-
-	.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-		border-color: var(--brand);
-	}
-
-	.custom-control-input:checked ~ .custom-control-label::before {
-		background-color: var(--brand);
-		border-color: var(--brand);
-	}
-
-	.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-		background-color: var(--brand);
-		border-color: var(--brand);
-		opacity: 0.5;
+	.form-check-input:focus,
+	.form-radio-input:focus {
+		outline: var(--brand) solid 2px;
 	}
 
 	input,
@@ -379,6 +364,14 @@ fieldset,
 
 	input[type='range']::-webkit-slider-thumb {
 		background-color: var(--brand);
+	}
+
+	.list-group-item-action {
+		&:focus {
+			box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand) 50%, transparent);
+			outline: none;
+			z-index: 10;
+		}
 	}
 
 	.logo img:first-of-type {
