@@ -41,7 +41,7 @@ const hasImages = computed(() => options.value.some((o) => o.image));
 				style="cursor: pointer"
 			>
 				<div
-					class="ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
+					class="survey-image-box radio-image ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
 					:class="{ 'border-primary': value === o.value }"
 				>
 					<img

@@ -335,6 +335,12 @@ fieldset,
 		}
 	}
 
+	.form-check-input:checked,
+	.form-radio-input:checked {
+		background-color: var(--brand);
+		border-color: var(--brand);
+	}
+
 	.custom-control-input:focus ~ .custom-control-label::before {
 		box-shadow: none !important;
 		border-color: var(--brand);
@@ -387,6 +393,10 @@ fieldset,
 	.rich a,
 	.text-primary {
 		color: var(--brand) !important;
+	}
+
+	.survey-image-box.border-primary {
+		border-color: var(--brand) !important;
 	}
 }
 

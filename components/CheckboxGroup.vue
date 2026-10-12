@@ -105,7 +105,7 @@ const hasImages = computed(() => options.value.some((o) => o.image));
 					>
 						<div
 							v-if="!o.other"
-							class="ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
+							class="survey-image-box ratio ratio-4x3 mb-1 border rounded-1 shadow-sm"
 							:class="{ 'border-primary': selected.includes(o.value) }"
 							:style="{ opacity: o.disabled ? 0.5 : 1 }"
 						>
