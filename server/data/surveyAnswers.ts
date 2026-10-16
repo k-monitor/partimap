@@ -160,6 +160,7 @@ export async function aggregateByProjectId(projectId: number, force = false) {
 			const answers = (orderingAnswersByQuestion.get(q.id) || [])
 				.map((a) => safeParseJSONArray(a))
 				.filter((a) => !!a && Array.isArray(a) && a.length);
+			if (!answers.length) continue;
 
 			const sums: Map<string, number> = new Map();
 			const counts: Map<string, number> = new Map();
