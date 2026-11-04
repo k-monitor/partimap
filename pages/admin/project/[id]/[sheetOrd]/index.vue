@@ -150,6 +150,9 @@ function showAllResultsClicked() {
 	if (!sheet.value) return;
 	const showResults = showAllResults.value;
 	toggleInteraction('RatingResults', showResults);
+	if (!showResults) {
+		toggleInteraction('ShowResultsOnly', false);
+	}
 	const survey: Survey = safeParseJSON(sheet.value?.survey) || {};
 	(survey.questions || []).forEach((q: Question) => (q.showResult = showResults));
 	sheet.value.survey = JSON.stringify(survey);
@@ -381,8 +384,8 @@ function handleExtentDrawn(extent: Extent) {
 					{{ t('sheetEditor.showAllResults') }}
 				</b-form-checkbox>
 				<b-form-checkbox
-					v-if="someResultsEnabled"
 					v-model="interactions.enabled"
+					:disabled="!someResultsEnabled"
 					value="ShowResultsOnly"
 				>
 					{{ t('sheetEditor.interactions.ShowResultsOnly') }}
