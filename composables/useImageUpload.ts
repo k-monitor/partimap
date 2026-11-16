@@ -6,7 +6,11 @@ export function useImageUpload() {
 		const input = document.createElement('input');
 		input.type = 'file';
 		input.accept = 'image/jpeg,image/gif,image/png,image/webp';
+		input.style.display = 'none';
+		document.body.appendChild(input);
+		input.oncancel = () => input.remove();
 		input.onchange = () => {
+			input.remove();
 			const file = input.files?.[0];
 			if (!file) return;
 			if (file.size > 500 * 1024) {
