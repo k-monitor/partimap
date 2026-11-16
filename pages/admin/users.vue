@@ -122,48 +122,10 @@ async function add() {
 				</small>
 			</NuxtLink>
 		</div>
-		<nav
-			v-if="pageCount > 1"
-			class="mt-3"
-		>
-			<ul class="pagination justify-content-center">
-				<li
-					class="page-item"
-					:class="{ disabled: page <= 1 }"
-				>
-					<button
-						class="page-link"
-						@click="page--"
-					>
-						&laquo;
-					</button>
-				</li>
-				<li
-					v-for="p in pageCount"
-					:key="p"
-					class="page-item"
-					:class="{ active: p === page }"
-				>
-					<button
-						class="page-link"
-						@click="page = p"
-					>
-						{{ p }}
-					</button>
-				</li>
-				<li
-					class="page-item"
-					:class="{ disabled: page >= pageCount }"
-				>
-					<button
-						class="page-link"
-						@click="page++"
-					>
-						&raquo;
-					</button>
-				</li>
-			</ul>
-		</nav>
+		<Pagination
+			v-model="page"
+			:page-count="pageCount"
+		/>
 		<LoadingOverlay :show="listPending" />
 	</AdminFrame>
 </template>
